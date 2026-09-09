@@ -1,10 +1,10 @@
 {
   "_note": "Mizaniya fine-tune of the vendored peer-ai copy. Model lines replace peer-ai's default cost-tiering, which told the reader to switch to a cheaper, weaker model at nearly every phase — including code review, on an app that handles the user's money. Project convention: Opus for build, Fable for everything else; if Fable is not offered in the session's model picker, use the most capable model available and never downgrade mid-phase. Skills are the Cowork/Claude Code plugin skills named directly; a skill that is not installed must be reported, never silently skipped. Re-run apply-phase-config.ps1 after any upstream update — it is idempotent.",
-
   "shared/00-setup.md": {
     "model": "> **Model: Fable.** Project convention: **Opus for build, Fable for everything else.** If Fable is not offered in this session, use the most capable model available. This replaces peer-ai's default cost-tiering, which told the reader to downgrade at nearly every phase — including code review, on an app that handles the user's money.",
     "block": [
-      "> **This project's rules are already written.** `docs/standards/frontend-engineering-standards.md`, `docs/standards/backend-engineering-standards.md` and `docs/standards/standards-addendum-mizaniya.md` are the rulebook, and `docs/product-brief.md` is the brief. `CLAUDE.md` must point at them by path — the Peer AI shared rules file is the workflow layer, not the standard."
+      "> **This project's rules are already written.** `docs/standards/frontend-engineering-standards.md`, `docs/standards/backend-engineering-standards.md` and `docs/standards/standards-addendum-mizaniya.md` are the rulebook, and `docs/product-brief.md` is the brief. `CLAUDE.md` must point at them by path — the Peer AI shared rules file is the workflow layer, not the standard.",
+      "> **Record the environment in `CONTEXT.md`, not just the repo rules.** Two lines every later phase depends on: (1) which client this session is running in (Claude Code desktop app / VS Code extension / CLI), and (2) the result of typing `/` — which of the `engineering:*`, `design:*` and `product-management:*` skills the session actually offers. These are `@inline` account bundles, absent from the marketplace catalogue, so the client decides whether they exist; see the box in `peer-ai/AGENTS.md`. A phase that finds its skill missing reports it and works from the phase file — never silently."
     ]
   },
   "shared/01-understand.md": {
@@ -75,7 +75,6 @@
       "> **CI is created here from nothing.** Stages, in order: install with pinned lockfile; lint (every `auto` rule in `docs/standards/` has a lint or tsconfig backing); typecheck; unit tests for `core/` with the coverage gate on money modules (frontend H4, K2); component tests; Playwright core journey (addendum K1); secret scanning; contract-doc regeneration diff (see 04). Nothing merges red."
     ]
   },
-
   "frontend/01-spec-pages.md": {
     "model": "> **Model: Fable.**",
     "block": [
@@ -122,7 +121,6 @@
       "> The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export → import round-trip (M3). Test by role and label, not test id (K3)."
     ]
   },
-
   "backend/01-spec-endpoints.md": {
     "model": "> **Model: Fable.**",
     "block": [
@@ -159,7 +157,6 @@
       "> Dormant until v3."
     ]
   },
-
   "agents/review-prompt.md": {
     "model": "> **Model: Fable.** (Project convention — this replaces peer-ai's downgrade guidance, which is the wrong instruction for a quality gate on an app that handles the user's money.)",
     "block": [
