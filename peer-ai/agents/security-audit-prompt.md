@@ -1,6 +1,8 @@
 # Security Audit Agent Prompt
 
-> **Model: Mid-tier** — security auditing requires deeper reasoning about attack vectors and auth logic. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before I run this agent, switch to your **mid-tier model** (e.g. Sonnet, GPT-4o) in your model selector — security auditing needs deeper reasoning than lightweight models. Let me know when you've switched." **Wait for confirmation before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.** (Project convention — a security audit run on a deliberately weakened model is a false reassurance.)
+
+> **On this project, also work through:** secrets (none in the repo, `.env` ignored, secret scanning in CI); dependency audit against the pinned lockfile; input validation at every boundary with a schema (frontend G4) — imports especially, since an export file is untrusted input; the user's financial data at rest in IndexedDB (what a shared device or a browser extension can read; what the export contains; no telemetry per M2); and that no screenshot, fixture or test carries real figures (M1).
 
 ## Role
 

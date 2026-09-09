@@ -1,6 +1,13 @@
 # Code Review Agent Prompt
 
-> **Model: Auto / fast** — structured findings report, checklist-driven. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before I run this agent, switch to your **fastest model** (e.g. Auto, Gemini Flash) in your model selector — this is structured output work that doesn't need a premium model. Let me know when you've switched." **Wait for confirmation before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.** (Project convention — this replaces the "switch to your fastest model" guidance, which is the wrong instruction for a quality gate on an app that handles the user's money.)
+
+> **Review against, in this order:**
+> - `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist; the `auto` rules should already be green in CI, so a red one is a CI defect too
+> - `docs/standards/standards-addendum-mizaniya.md` — kobo, danger colour meaning, core journey
+> - the repo rules in `CONTEXT.md` — no real figures, no employer or client names, no secrets
+>
+> One finding = one location + one fix. Correctness before style. Findings go to the user as a table before anything is changed.
 
 ## Role
 

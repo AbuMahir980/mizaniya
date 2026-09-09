@@ -1,6 +1,8 @@
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Fast coding model** — code generation is best handled by a fast, coding-optimised model — significantly cheaper than the most capable models with strong benchmark scores. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **fast coding model** (e.g. Composer, Codex, GPT-4o) in your AI tool's model selector. It's built for coding and much more cost-efficient. If we hit a complex architectural decision mid-build, I'll tell you to switch to your most capable model temporarily. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Opus** — implementation.
+
+> **Dormant until v3.**
 
 # 03 — Build (Backend)
 

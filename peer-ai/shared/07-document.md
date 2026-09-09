@@ -2,7 +2,12 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Auto / fast** — documentation is mostly templated and straightforward. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **fastest model** (e.g. Auto, Gemini Flash, GPT-4.1 mini) in your AI tool's model selector. Documentation is templated work — no need for a premium model. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **Skills to use here.** Invoke inside this phase, not alongside it.
+> - `engineering:documentation` — structure and audience for the docs produced here
+>
+> README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/concepts/` is part of the documentation set.
 
 Context: a cycle or milestone is complete. Update living docs, record what shipped, and communicate with stakeholders or handoff recipients.
 

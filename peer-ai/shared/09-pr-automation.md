@@ -2,7 +2,9 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Mid-tier** — CI/CD configuration is structured work with clear patterns. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **mid-tier model** (e.g. Sonnet, GPT-4o) in your AI tool's model selector. CI setup is structured work — a mid-tier model handles it efficiently. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Opus** — CI configuration is build work.
+
+> **CI is created here from nothing.** Stages, in order: install with pinned lockfile; lint (every `auto` rule in `docs/standards/` has a lint or tsconfig backing); typecheck; unit tests for `core/` with the coverage gate on money modules (frontend H4, K2); component tests; Playwright core journey (addendum K1); secret scanning; contract-doc regeneration diff (see 04). Nothing merges red.
 
 Context: your project needs automated checks on pull requests and optionally automated review comments. This workflow sets up GitHub Actions and configures PR automation.
 

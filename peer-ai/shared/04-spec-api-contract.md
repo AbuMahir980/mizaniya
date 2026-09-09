@@ -2,7 +2,9 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Most capable** — API contracts require cross-cutting reasoning across FE, BE, and external APIs. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **most capable model** (e.g. Opus, o3, Claude) in your AI tool's model selector. API contract design needs the deepest reasoning. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **No skill — and there is no server in v1.** The "API" here is (1) the `Repository` interface and (2) the JSON export/import schema. Write both once, as TypeScript types plus a runtime schema (zod) in `core/`, and derive the contract document from them — never hand-write the same shape twice (frontend G2, G4). Add a CI step that regenerates the contract doc and fails on any diff. Mark where a v3 API would slot in behind the same interface.
 
 ---
 

@@ -1,6 +1,8 @@
 # QA Agent Prompt
 
-> **Model: Auto / fast** — test matrix generation is structured output. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before I run this agent, switch to your **fastest model** (e.g. Auto, Gemini Flash) in your model selector — this is structured output work that doesn't need a premium model. Let me know when you've switched." **Wait for confirmation before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.** (Project convention — QA is a gate, not a formality.)
+
+> **The test matrix starts from the core journey in the addendum (K1)** and from the states each page spec declares; a state the spec names but the matrix omits is a QA defect.
 
 ## Role
 

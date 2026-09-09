@@ -1,6 +1,11 @@
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Mid-tier** — code review is systematic and checklist-driven — a mid-tier model handles it well at lower cost. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **mid-tier model** (e.g. Sonnet, GPT-4o) in your AI tool's model selector. It's near-top quality for review work at lower cost. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **Skills to use here.** Invoke inside this phase, not alongside it.
+> - `engineering:code-review` — the review itself
+>
+> Dormant until v3. Then review against `docs/standards/backend-engineering-standards.md` — money in minor units, idempotency, per-resource authorisation, audience axis, migrations only, config that fails closed.
 
 # 04 — Code Review (Backend)
 

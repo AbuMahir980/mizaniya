@@ -1,5 +1,37 @@
 # Peer AI — Agent Instructions
 
+> ## This is Mizaniya's copy. Customise it here.
+>
+> peer-ai is a general-purpose framework with its own upstream repository
+> (github.com/AbuMahir980/peer-ai). This is a **vendored copy**, adapted for
+> Mizaniya — project models, skills named per phase, and every rules and review
+> step pointed at this project's own standards.
+>
+> **Never push these changes upstream.** The framework stays generic so anyone
+> can clone it and adapt it. Mizaniya's adaptations belong in this repo and
+> nowhere else. What *does* travel upstream is a defect in the framework itself
+> — record those in `docs/peer-ai-feedback.md` at the project root and fold them
+> back by hand, as `CONTRIBUTING.md` describes.
+>
+> **Pulling an upstream update?** Re-run `apply-phase-config.ps1` and
+> `strip-model-switching.ps1` afterwards — `phase-config.json` exists for
+> exactly that. Then re-read this box, because an upstream file will have
+> overwritten it.
+>
+> **The standards are not in here.** The rulebook is `docs/standards/` at the
+> project root: `frontend-engineering-standards.md`,
+> `backend-engineering-standards.md` and `standards-addendum-mizaniya.md`. That
+> separation is deliberate: an upstream update must never be able to overwrite
+> the rules the codebase is held to. Peer AI's own `shared/rules/*.md` files are
+> the workflow layer (session continuity, design-vs-contract, driver settings);
+> where they and `docs/standards/` disagree, `docs/standards/` wins.
+>
+> **Repo rules bind every phase.** They are written verbatim in `CONTEXT.md`
+> during SETUP: PolyForm Noncommercial licence and no secrets in the repo; no
+> real financial figures anywhere (only `docs/seed-data.md`); no employer,
+> client or third-party project names; README leads with the problem and the
+> screenshots; commit messages carry no AI attribution lines.
+
 This file is the **agent-agnostic entry point** for the Peer AI development workflow. Most coding agents (Cursor, Claude Code, Codex, and others) read an `AGENTS.md` automatically. If yours reads a different file, mirror this content there (see "Tool-specific config" below).
 
 You are an AI assistant working inside a project that uses the **Peer AI development workflow** — a structured, phase-by-phase process for building software. The full playbook lives in the `peer-ai/` folder (or this repo's root if you are inside Peer AI itself).
@@ -45,13 +77,66 @@ Agent prompts (code review, contract check, security audit, QA) are in `peer-ai/
 
 ---
 
+## Models and skills for this project
+
+**Models: Opus for build. Fable for everything else.** Each phase file states
+which. If Fable is not offered in the session's model picker, use the most
+capable model available and do not downgrade mid-phase. This replaces
+peer-ai's upstream cost-tiering, which asked the reader to switch to a cheaper,
+weaker model at nearly every phase — including code review, on an app that
+handles the user's money.
+
+**Skills are named in each phase file.** Invoke them *inside* the phase, to
+deepen the single artefact it produces — never as a parallel process, which
+yields two documents that disagree and leaves nobody sure which is authoritative.
+
+> **⚠️ Check a skill exists before relying on it.** The `engineering:*`,
+> `design:*` and `product-management:*` skills below are **plugin** skills and
+> may not be installed in this environment. Check the session (`/skills`, or
+> the plugin list) at the start of each phase that names one. Either install
+> the plugin, or do the phase's work directly from its file. **A missing skill
+> must be reported, never silently skipped**, because "the skill covered it" is
+> exactly the assumption that leaves a review half-done and everyone believing
+> it was thorough.
+>
+> Claude Code's own `/code-review` is built in. Do not assume any other slash
+> command exists without checking the session.
+
+| Phase | Skills |
+|-------|--------|
+| 0 · Setup | *none* — `CLAUDE.md` points at `docs/standards/` and `docs/product-brief.md` by path |
+| 1 · Understand | *none* — `docs/product-brief.md` and `docs/seed-data.md` **are** the requirements source |
+| 2 · Architect | `engineering:architecture`, `engineering:system-design` |
+| 3 · System Spec | `product-management:write-spec` |
+| 4 · API Contract | *none* — the `Repository` interface and the export/import schema in `core/` are the contract; derive the document from the types, never hand-write it twice |
+| 5 · Shared Rules | `design:design-system` — and **index** `docs/standards/`, don't compete with it |
+| 6 · Page Specs | `design:accessibility-review`, `design:ux-copy` — the designs are produced *from* these specs at the design stop |
+| 6 · Frontend Rules | `design:design-system`, `design:accessibility-review` |
+| 6 · Backend track | *dormant until v3* (separate private repo) |
+| 7 · Issues | `engineering:tech-debt` |
+| 8 · Build | *none* — implementation, in learning mode (see `CONTEXT.md`) |
+| 9 · Review | `engineering:code-review`, plus Claude Code's `/code-review` — against every `review` rule in `docs/standards/` and the repo rules in `CONTEXT.md` |
+| 10 · Test | `engineering:testing-strategy` — the addendum's core journey (K1) is the acceptance test |
+| 11 · Document | `engineering:documentation` |
+
+### What this project already has — do not reinvent it
+
+- **The brief exists.** `docs/product-brief.md`. Understand it; do not re-derive the product.
+- **The standards exist.** `docs/standards/` — frontend, backend and the addendum, each rule marked `auto` or `review`. The rules phases map them to enforcement; they do not write a second standard.
+- **The seed data exists.** `docs/seed-data.md` is the only source of figures for fixtures, tests, screenshots and examples.
+- **The design arrives from outside.** After PAGE SPECS, `docs/design/` (tokens.md + PNGs) is produced from the specs. SHARED RULES implements it; nothing before that invents a palette or a layout.
+- **The licence exists.** `LICENSE` at the root is authoritative. Never generate, add or alter licence text.
+
+---
+
 ## Core standards (apply in every interaction)
 
 The full standards are in `peer-ai/shared/rules/shared.md`. Key rules:
 
 - **Session context:** maintain `CONTEXT.md` (narrative) and `.peer-ai-state.json` (pointer). The `notes` field is a one-liner pointer only — narrative belongs in `CONTEXT.md`.
 - **Design vs data contract:** when a mockup and an API contract disagree, the contract wins on data shape and field names; the design wins on layout and visual hierarchy. See `peer-ai/shared/design-data-contract.md`.
-- **Type safety, naming, security, error handling, dependencies** — see the shared standards file.
+- **Type safety, naming, security, error handling, dependencies** — `docs/standards/` at the project root is authoritative; the shared rules file covers only what it does not.
+- **Models** — Opus for build, Fable for everything else. Each phase states which. Do not ask the user to downgrade mid-phase to save cost.
 - **Model recommendations** — each phase suggests a cost-appropriate model tier. If the tool has a per-phase model selector (Project settings in the workflow driver), tell the user which to select before starting a phase and wait; if the model is fixed for the session, mention the tier and continue.
 
 ---

@@ -2,7 +2,9 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Auto / fast** — setup is file scaffolding and configuration. It runs before the project's model-selector setting is known, so do not gate on a switch: say once, in one line, that the fastest model (e.g. Auto, Gemini Flash, GPT-4.1 mini) is enough for setup, then continue.
+> **Model: Fable.** Project convention: **Opus for build, Fable for everything else.** If Fable is not offered in this session, use the most capable model available. This replaces peer-ai's default cost-tiering, which told the reader to downgrade at nearly every phase — including code review, on an app that handles the user's money.
+
+> **This project's rules are already written.** `docs/standards/frontend-engineering-standards.md`, `docs/standards/backend-engineering-standards.md` and `docs/standards/standards-addendum-mizaniya.md` are the rulebook, and `docs/product-brief.md` is the brief. `CLAUDE.md` must point at them by path — the Peer AI shared rules file is the workflow layer, not the standard.
 
 **Context:** This file runs **once** at the start of a project that uses the Peer AI workflow. It wires up the three things every later phase depends on: (1) the **tool-specific rules config** with the **workflow driver** appended, so standards and the workflow load automatically, (2) the driver's **Project settings**, and (3) the **session-continuity files** (`CONTEXT.md` + `.peer-ai-state.json`). After this, the AI can resume any session by reading those two files. Setup asks its questions in a single round so the user answers once.
 

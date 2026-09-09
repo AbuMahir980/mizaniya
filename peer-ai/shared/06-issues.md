@@ -2,7 +2,12 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Mid-tier** — extracting issues from specs is structured work. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **mid-tier model** (e.g. Sonnet, GPT-4o) in your AI tool's model selector. Issue extraction is structured work — a mid-tier model handles it efficiently at lower cost. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **Skills to use here.** Invoke inside this phase, not alongside it.
+> - `engineering:tech-debt` — separating what must be fixed now from what is merely untidy
+>
+> Anything not in `docs/product-brief.md` goes to `docs/backlog.md`, not into an issue for this build.
 
 Context: requirements and technical specs are written. Your job is to turn them into trackable issues, dependencies, and a cycle plan, then save a single issue plan document.
 

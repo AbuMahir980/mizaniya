@@ -2,7 +2,14 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Mid-tier** — code review is systematic and checklist-driven — a mid-tier model handles it well at lower cost. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **mid-tier model** (e.g. Sonnet, GPT-4o) in your AI tool's model selector. It's near-top quality for review work at lower cost. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **Skills to use here.** Invoke inside this phase, not alongside it.
+> - `engineering:code-review` — the review itself. **Verify it is installed before relying on it.** If it is missing, review directly from this file and say the skill was unavailable — never skip the step silently.
+>
+> Claude Code ships `/code-review`, which reads the real diff, so prefer it over pasting code into a prompt.
+>
+> Review against `docs/standards/frontend-engineering-standards.md` and the addendum. Every rule there marked `review` is a promise that a human checks it — this is where that promise is kept. Count, don't judge: C1 (prop passes through ≤2 components), D1 (≤150 lines), D2 (≤7 props), E1/E2 (third duplicate extracts; money and validation extract on the first repeat), H3 (no money arithmetic in a component).
 
 **Context:** Implementation exists. This workflow runs a **full review** against specs and quality bars before merge.
 

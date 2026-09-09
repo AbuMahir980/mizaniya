@@ -2,7 +2,12 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Most capable** — project-wide coding standards require careful trade-off reasoning. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **most capable model** (e.g. Opus, o3, Claude) in your AI tool's model selector. Standards need precise reasoning. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **Skills to use here.** Invoke inside this phase, not alongside it.
+> - `design:design-system` — token discipline and component conventions
+>
+> **This project already has its standards in `docs/standards/`.** This phase does not write a competing one. It produces `docs/05-coding-standards.md` as a short index: links to the three standards files; every `auto` rule with the exact ESLint rule, tsconfig option or CI check that enforces it; every `review` rule as the review checklist (also written into `CONTEXT.md`); and the token contract from `docs/design/tokens.md`. Ask the user only about addendum values that are still blank.
 
 Cross-cutting coding standards and conventions for the project. This workflow is **not** a brainstorming session: you are helping the user lock in defaults or customize them, then producing a single project-specific standards document.
 

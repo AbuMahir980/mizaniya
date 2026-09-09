@@ -2,7 +2,7 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Auto / fast** — journal entries are templated writing. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **fastest model** (e.g. Auto, Gemini Flash, GPT-4.1 mini) in your AI tool's model selector. Journal writing is templated work — no need for a premium model. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
 
 **Context:** This file serves two purposes: (1) **initial setup** of your dev journal at the start of a project, and (2) **end-of-cycle retrospective** to review all journal entries and synthesize lessons learned. During normal workflow phases, journal entries are triggered automatically by the AI at key decision moments and phase handoffs — you don't need to come back to this file for individual entries.
 

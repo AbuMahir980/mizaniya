@@ -2,7 +2,13 @@
 
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Most capable** — page specs need full system context across UI states, data flows, and RBAC. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **most capable model** (e.g. Opus, o3, Claude) in your AI tool's model selector. Page specs need deep reasoning. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **Skills to use here.** Invoke these *inside* this phase to deepen the page specs, never as parallel processes producing competing documents.
+> - `design:accessibility-review` — target sizes, contrast, motion, screen-reader paths (frontend J)
+> - `design:ux-copy` — the words on the screen, in British English, in the user's vocabulary (frontend O4)
+>
+> **The designs do not exist yet — they are produced from these specs.** After this phase the workflow stops; the design system and screen designs are made outside this session from the page specs and land in `docs/design/` (`tokens.md` + PNGs). So each spec must be complete enough to design from: every state (loading, empty, error, offline, success), every number shown and where it comes from in `core/`, the primary action, and what the danger colour would mean on that screen (addendum: money going wrong, nothing else). Pages: Onboarding, Home, Plan, Transactions (+ Quick Add sheet), Debts & Goals (+ debt record view), Months, Settings.
 
 **Context:** An API contract already exists (`docs/04-api-contract.md`). The goal is to define every page before any implementation work begins.
 

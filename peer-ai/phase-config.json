@@ -1,0 +1,192 @@
+{
+  "_note": "Mizaniya fine-tune of the vendored peer-ai copy. Model lines replace peer-ai's default cost-tiering, which told the reader to switch to a cheaper, weaker model at nearly every phase — including code review, on an app that handles the user's money. Project convention: Opus for build, Fable for everything else; if Fable is not offered in the session's model picker, use the most capable model available and never downgrade mid-phase. Skills are the Cowork/Claude Code plugin skills named directly; a skill that is not installed must be reported, never silently skipped. Re-run apply-phase-config.ps1 after any upstream update — it is idempotent.",
+
+  "shared/00-setup.md": {
+    "model": "> **Model: Fable.** Project convention: **Opus for build, Fable for everything else.** If Fable is not offered in this session, use the most capable model available. This replaces peer-ai's default cost-tiering, which told the reader to downgrade at nearly every phase — including code review, on an app that handles the user's money.",
+    "block": [
+      "> **This project's rules are already written.** `docs/standards/frontend-engineering-standards.md`, `docs/standards/backend-engineering-standards.md` and `docs/standards/standards-addendum-mizaniya.md` are the rulebook, and `docs/product-brief.md` is the brief. `CLAUDE.md` must point at them by path — the Peer AI shared rules file is the workflow layer, not the standard."
+    ]
+  },
+  "shared/01-understand.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **No skill for this phase.** `docs/product-brief.md` is the requirements source and `docs/seed-data.md` holds the only figures you may use. Read both before asking anything; arrive with a draft understanding to correct, not a blank page. The stakeholder is the user — ask about how the spreadsheet is actually used, not what sounds impressive."
+    ]
+  },
+  "shared/02-architect.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke these *inside* this phase to deepen the single artefact it produces — never as a parallel process. Two overlapping processes yield two architectures that disagree, and then nobody knows which is authoritative.",
+      "> - `engineering:architecture` — structural options and their trade-offs",
+      "> - `engineering:system-design` — how the pieces fit and where the boundaries sit",
+      ">",
+      "> **Constraints already decided** (do not reopen): local-first; IndexedDB via Dexie behind a `Repository` interface; a framework-free `core/` for cycle maths, safe-to-spend, rollover, projected gap, zakat estimate and money in kobo; React 19 + TypeScript + Vite; folder structure per frontend standards A1–A5; v2 is Expo sharing `core/`; v3 is a separate private API repo. One ADR per decision, using `shared/templates/architecture-decision-record.md`."
+    ]
+  },
+  "shared/03-spec-system.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `product-management:write-spec` — turning decisions into a spec someone can build from",
+      ">",
+      "> Every user story names its states (loading, empty, error, offline, success) and the exact numbers the screen shows. Money is always `{ amount, type }` in kobo (frontend H1, H5)."
+    ]
+  },
+  "shared/04-spec-api-contract.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **No skill — and there is no server in v1.** The \"API\" here is (1) the `Repository` interface and (2) the JSON export/import schema. Write both once, as TypeScript types plus a runtime schema (zod) in `core/`, and derive the contract document from them — never hand-write the same shape twice (frontend G2, G4). Add a CI step that regenerates the contract doc and fails on any diff. Mark where a v3 API would slot in behind the same interface."
+    ]
+  },
+  "shared/05-rules-shared.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `design:design-system` — token discipline and component conventions",
+      ">",
+      "> **This project already has its standards in `docs/standards/`.** This phase does not write a competing one. It produces `docs/05-coding-standards.md` as a short index: links to the three standards files; every `auto` rule with the exact ESLint rule, tsconfig option or CI check that enforces it; every `review` rule as the review checklist (also written into `CONTEXT.md`); and the token contract from `docs/design/tokens.md`. Ask the user only about addendum values that are still blank."
+    ]
+  },
+  "shared/06-issues.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `engineering:tech-debt` — separating what must be fixed now from what is merely untidy",
+      ">",
+      "> Anything not in `docs/product-brief.md` goes to `docs/backlog.md`, not into an issue for this build."
+    ]
+  },
+  "shared/07-document.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `engineering:documentation` — structure and audience for the docs produced here",
+      ">",
+      "> README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/concepts/` is part of the documentation set."
+    ]
+  },
+  "shared/08-dev-journal.md": {
+    "model": "> **Model: Fable.**",
+    "block": []
+  },
+  "shared/09-pr-automation.md": {
+    "model": "> **Model: Opus** — CI configuration is build work.",
+    "block": [
+      "> **CI is created here from nothing.** Stages, in order: install with pinned lockfile; lint (every `auto` rule in `docs/standards/` has a lint or tsconfig backing); typecheck; unit tests for `core/` with the coverage gate on money modules (frontend H4, K2); component tests; Playwright core journey (addendum K1); secret scanning; contract-doc regeneration diff (see 04). Nothing merges red."
+    ]
+  },
+
+  "frontend/01-spec-pages.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke these *inside* this phase to deepen the page specs, never as parallel processes producing competing documents.",
+      "> - `design:accessibility-review` — target sizes, contrast, motion, screen-reader paths (frontend J)",
+      "> - `design:ux-copy` — the words on the screen, in British English, in the user's vocabulary (frontend O4)",
+      ">",
+      "> **The designs do not exist yet — they are produced from these specs.** After this phase the workflow stops; the design system and screen designs are made outside this session from the page specs and land in `docs/design/` (`tokens.md` + PNGs). So each spec must be complete enough to design from: every state (loading, empty, error, offline, success), every number shown and where it comes from in `core/`, the primary action, and what the danger colour would mean on that screen (addendum: money going wrong, nothing else). Pages: Onboarding, Home, Plan, Transactions (+ Quick Add sheet), Debts & Goals (+ debt record view), Months, Settings."
+    ]
+  },
+  "frontend/02-rules.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `design:design-system` — component and token conventions",
+      "> - `design:accessibility-review` — the accessibility rules that belong in the standard",
+      ">",
+      "> **The frontend standard already exists** — `docs/standards/frontend-engineering-standards.md` plus the addendum. This phase does not walk through generic defaults; it maps each `auto` rule to its ESLint/tsconfig/CI enforcement and each `review` rule to the checklist, and records the token contract from `docs/design/tokens.md`. Delete nothing from the standard here; propose changes as feedback."
+    ]
+  },
+  "frontend/03-build.md": {
+    "model": "> **Model: Opus** — implementation.",
+    "block": [
+      "> **Learning mode applies while building** (see `CONTEXT.md`): before non-trivial logic, state the reasoning in steps — inputs, rule, edge cases — then write the code; every file carries the three-line header; a new concept gets a file in `docs/concepts/`. Build order and one-commit-per-item are in `CONTEXT.md`."
+    ]
+  },
+  "frontend/04-review.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `engineering:code-review` — the review itself. **Verify it is installed before relying on it.** If it is missing, review directly from this file and say the skill was unavailable — never skip the step silently.",
+      ">",
+      "> Claude Code ships `/code-review`, which reads the real diff, so prefer it over pasting code into a prompt.",
+      ">",
+      "> Review against `docs/standards/frontend-engineering-standards.md` and the addendum. Every rule there marked `review` is a promise that a human checks it — this is where that promise is kept. Count, don't judge: C1 (prop passes through ≤2 components), D1 (≤150 lines), D2 (≤7 props), E1/E2 (third duplicate extracts; money and validation extract on the first repeat), H3 (no money arithmetic in a component)."
+    ]
+  },
+  "frontend/05-test.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `engineering:testing-strategy` — what is tested, at which layer, and why",
+      ">",
+      "> The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export → import round-trip (M3). Test by role and label, not test id (K3)."
+    ]
+  },
+
+  "backend/01-spec-endpoints.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Dormant until v3.** There is no server in v1 or v2; sync, household sharing and payments arrive as a separate private repository. Do not run this phase now. When v3 starts, `docs/standards/backend-engineering-standards.md` governs it, and the `Repository` interface from `core/` is the contract it must honour."
+    ]
+  },
+  "backend/02-rules.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Dormant until v3.** The backend standard already exists in `docs/standards/backend-engineering-standards.md`; when a server is built, this phase maps its `auto` rules to enforcement and its `review` rules to the checklist, exactly as the frontend track does. It does not write a competing standard."
+    ]
+  },
+  "backend/03-build.md": {
+    "model": "> **Model: Opus** — implementation.",
+    "block": [
+      "> **Dormant until v3.**"
+    ]
+  },
+  "backend/04-review.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `engineering:code-review` — the review itself",
+      ">",
+      "> Dormant until v3. Then review against `docs/standards/backend-engineering-standards.md` — money in minor units, idempotency, per-resource authorisation, audience axis, migrations only, config that fails closed."
+    ]
+  },
+  "backend/05-test.md": {
+    "model": "> **Model: Fable.**",
+    "block": [
+      "> **Skills to use here.** Invoke inside this phase, not alongside it.",
+      "> - `engineering:testing-strategy` — what is tested, at which layer, and why",
+      ">",
+      "> Dormant until v3."
+    ]
+  },
+
+  "agents/review-prompt.md": {
+    "model": "> **Model: Fable.** (Project convention — this replaces the \"switch to your fastest model\" guidance, which is the wrong instruction for a quality gate on an app that handles the user's money.)",
+    "block": [
+      "> **Review against, in this order:**",
+      "> - `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist; the `auto` rules should already be green in CI, so a red one is a CI defect too",
+      "> - `docs/standards/standards-addendum-mizaniya.md` — kobo, danger colour meaning, core journey",
+      "> - the repo rules in `CONTEXT.md` — no real figures, no employer or client names, no secrets",
+      ">",
+      "> One finding = one location + one fix. Correctness before style. Findings go to the user as a table before anything is changed."
+    ]
+  },
+  "agents/security-audit-prompt.md": {
+    "model": "> **Model: Fable.** (Project convention — a security audit run on a deliberately weakened model is a false reassurance.)",
+    "block": [
+      "> **On this project, also work through:** secrets (none in the repo, `.env` ignored, secret scanning in CI); dependency audit against the pinned lockfile; input validation at every boundary with a schema (frontend G4) — imports especially, since an export file is untrusted input; the user's financial data at rest in IndexedDB (what a shared device or a browser extension can read; what the export contains; no telemetry per M2); and that no screenshot, fixture or test carries real figures (M1)."
+    ]
+  },
+  "agents/qa-prompt.md": {
+    "model": "> **Model: Fable.** (Project convention — QA is a gate, not a formality.)",
+    "block": [
+      "> **The test matrix starts from the core journey in the addendum (K1)** and from the states each page spec declares; a state the spec names but the matrix omits is a QA defect."
+    ]
+  },
+  "agents/contract-check-prompt.md": {
+    "model": "> **Model: Fable.** (Project convention — contract drift is silent until it is expensive.)",
+    "block": [
+      "> **In v1 the contract is the `Repository` interface and the export/import schema in `core/`.** Check the screens against those, and the generated contract doc against the source types."
+    ]
+  }
+}

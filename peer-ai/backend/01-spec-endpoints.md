@@ -1,6 +1,8 @@
 > **You are an AI assistant.** When a user tells you to follow this file, execute the process below. Do NOT dump all sections at once. Work through each step conversationally — ask the user questions, wait for their answers, then move to the next step.
 
-> **Model: Most capable** — endpoint specs need full API context across validation, auth, and data flows. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **most capable model** (e.g. Opus, o3, Claude) in your AI tool's model selector. Endpoint specs need deep reasoning. Let me know when you've switched and I'll start." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Fable.**
+
+> **Dormant until v3.** There is no server in v1 or v2; sync, household sharing and payments arrive as a separate private repository. Do not run this phase now. When v3 starts, `docs/standards/backend-engineering-standards.md` governs it, and the `Repository` interface from `core/` is the contract it must honour.
 
 # 01 — Endpoint Specs (Backend)
 
