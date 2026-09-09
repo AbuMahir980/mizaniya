@@ -131,13 +131,15 @@ yields two documents that disagree and leaves nobody sure which is authoritative
 
 ## Core standards (apply in every interaction)
 
-The full standards are in `peer-ai/shared/rules/shared.md`. Key rules:
+**The rulebook is `docs/standards/` at the project root** — it wins on any conflict.
+`peer-ai/shared/rules/shared.md` and `peer-ai/frontend/rules/frontend.md` are the
+workflow layer and now open with a section saying so, referencing the standards by
+section number rather than copying them. Key rules:
 
 - **Session context:** maintain `CONTEXT.md` (narrative) and `.peer-ai-state.json` (pointer). The `notes` field is a one-liner pointer only — narrative belongs in `CONTEXT.md`.
 - **Design vs data contract:** when a mockup and an API contract disagree, the contract wins on data shape and field names; the design wins on layout and visual hierarchy. See `peer-ai/shared/design-data-contract.md`.
 - **Type safety, naming, security, error handling, dependencies** — `docs/standards/` at the project root is authoritative; the shared rules file covers only what it does not.
-- **Models** — Opus for build, Fable for everything else. Each phase states which. Do not ask the user to downgrade mid-phase to save cost.
-- **Model recommendations** — each phase suggests a cost-appropriate model tier. If the tool has a per-phase model selector (Project settings in the workflow driver), tell the user which to select before starting a phase and wait; if the model is fixed for the session, mention the tier and continue.
+- **Models** — Opus for build, Fable for everything else. Each phase states which on its `> **Model:` line. Never downgrade mid-phase, and never ask the user to switch models to save cost. There is no tier table and no model-switch gate.
 
 ---
 

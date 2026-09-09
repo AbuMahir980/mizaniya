@@ -47,7 +47,7 @@ Screenshots from a run on a small shared-expenses app using Claude Code, paused 
 
 ## The twelve phases
 
-Phase 0, Setup (`shared/00-setup.md`), runs once per project. It detects the AI tool, writes its rules config, and creates the two continuity files. After that, twelve phases run in order. Every phase file opens with a model-tier recommendation (and, if your tool has a per-phase model selector, waits for you to switch), works step by step with a wait for your input at each step, and ends by handing off to the next file. All but the journal phase also update `.peer-ai-state.json` and `CONTEXT.md` before handing off.
+Phase 0, Setup (`shared/00-setup.md`), runs once per project. It detects the AI tool, writes its rules config, and creates the two continuity files. After that, twelve phases run in order. Every phase file opens with the model it runs on — in this copy, Opus for build and Fable for everything else, never downgraded mid-phase — works step by step with a wait for your input at each step, and ends by handing off to the next file. All but the journal phase also update `.peer-ai-state.json` and `CONTEXT.md` before handing off.
 
 1. **Understand** (`shared/01-understand.md`) produces `docs/01-requirements-summary.md`: what is being built, a scope table (in, out, unclear), dependencies, questions for the stakeholder, and recorded assumptions. Nothing is architected until you have confirmed the summary.
 2. **Architect** (`shared/02-architect.md`) produces `docs/02-architecture.md`: components, end-to-end data flows, the chosen pattern and its trade-offs, API conventions, cross-cutting concerns, and ADRs. The next phase opens by reading it.
@@ -88,7 +88,7 @@ Four prompt files in `agents/`. Each is a role, a checklist and a fixed output f
 
 ### Security audit (`agents/security-audit-prompt.md`)
 
-**When:** offered at the end of Review, before Test. It asks for a mid-tier model rather than the fastest, because it has to reason about attack paths.
+**When:** offered at the end of Review, before Test. It runs on the same model as every other non-build phase — a security audit on a deliberately weakened model is a false reassurance.
 
 **Checks:** authentication (token validation, storage, refresh, expiry, password hashing, login rate limits); authorisation on every protected route, including IDOR; server-side validation and upload limits; output encoding and CSP; HTTPS, HSTS and cookie flags; dependency CVEs and lockfile integrity; secrets, debug mode and source maps in production; stack traces and PII in responses and logs; CORS, rate limiting and security headers.
 
@@ -116,7 +116,7 @@ The workflow files never assume a tool. Setup asks which one you use and writes 
 | **Copilot**, **cloud agents** and other tools with a rules or memory file | Setup asks which file the tool reads and writes the same content there. |
 | **ChatGPT** and other chat tools with no rules file | Nothing is written. Open the phase file, paste it as instructions, and paste `shared/rules/shared.md` as context. |
 
-The ambient workflow driver, `shared/rules/workflow-driver.md`, is what lets the agent continue from the state file without being told which phase to follow. Setup copies it as `.mdc` for Cursor and appends its body to the config file for every other tool, then fills in its project settings table with you: verify command, issue tracker and ticket prefix, remote, design reference, branch naming, and whether the tool has a per-phase model selector. Write `none` for a missing remote or tracker and the driver skips the matching push and tracker steps, so a solo local project works too.
+The ambient workflow driver, `shared/rules/workflow-driver.md`, is what lets the agent continue from the state file without being told which phase to follow. Setup copies it as `.mdc` for Cursor and appends its body to the config file for every other tool, then fills in its project settings table with you: verify command, issue tracker and ticket prefix, remote, design reference, and branch naming. Write `none` for a missing remote or tracker and the driver skips the matching push and tracker steps, so a solo local project works too.
 
 Agent prompts also run outside an editor: attach `agents/review-prompt.md` to an issue for a cloud agent, or pass it with the diff to an AI API from a GitHub Action, which is what the optional review workflow in phase 11 does.
 

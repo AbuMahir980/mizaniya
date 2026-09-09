@@ -38,9 +38,9 @@ If no brand guide exists, use neutral defaults:
 - h1 color: `#1a1a1a` (near-black)
 - h2 border color: `#e5e5e5` (light grey)
 
-## Model recommendation
+## Model
 
-If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user before generating: "Switch to your **fastest model** (e.g. Auto, Gemini Flash) for the HTML export — it's pure templating work and much cheaper than premium models. Let me know when you've switched." **Wait for the user to confirm before generating**, and remind them to switch back afterwards. If the model is fixed for the session, just generate.
+Project convention: Opus for build, Fable for everything else; never downgrade mid-phase. The export is generated on whichever model the phase is already running. There is no model switch here.
 
 ## When to trigger
 

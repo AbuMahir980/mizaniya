@@ -8,6 +8,28 @@ alwaysApply: true
 
 You are working on this project. Follow these standards in every interaction.
 
+## The rulebook is `docs/standards/` — it wins on any conflict
+
+`docs/standards/frontend-engineering-standards.md`,
+`docs/standards/backend-engineering-standards.md` and
+`docs/standards/standards-addendum-mizaniya.md` are authoritative for this
+project. This file is the **workflow layer** — session continuity, git
+conventions, the journal, the PDF export. Where the two disagree,
+`docs/standards/` wins and this file is the one that is wrong.
+
+Rules are referenced here **by section number, never copied in**. A copy
+guarantees the two drift, and then nobody knows which is current.
+
+- Architecture, state, components, types, money, accessibility, testing,
+  errors, data safety, dependencies, naming → frontend standards **A–O**,
+  plus the addendum for every value this project sets (kobo, what the danger
+  colour means, the core journeys, seed data, telemetry).
+- Server-side equivalents → backend standards **A–O**. Dormant until v3.
+- Every rule there is marked `auto` (a linter, the compiler or CI fails the
+  build) or `review` (a human has to look). The rules phases map each `auto`
+  rule to its enforcement and every `review` rule onto the code-review
+  checklist in `CONTEXT.md`.
+
 ## Session context (CONTEXT.md + state file)
 
 If `.peer-ai-state.json` and `CONTEXT.md` exist at the app root, the workflow driver is active. At session start, read **both** files before doing anything else. Narrative context (decisions, emails, daily log) belongs in `CONTEXT.md`; the `notes` field in `.peer-ai-state.json` is a one-liner pointer only — see `peer-ai/shared/workflow-state.md`.
@@ -15,9 +37,11 @@ If `.peer-ai-state.json` and `CONTEXT.md` exist at the app root, the workflow dr
 When design mockups and API contracts disagree, follow `peer-ai/shared/design-data-contract.md`: contract wins on data shape and field names; design wins on layout and visual hierarchy.
 
 ## Git and PR conventions
-- Branch names: `feature/<ticket-id>-<short-description>` (e.g., `feature/PROJ-12-auth-login-screen`)
-- Commit messages: `PROJ-XX: <short description>` — reference the ticket ID in every commit
-- PR title: `[PROJ-XX] Short description of what this does`
+- Branch names: `feature/<short-description>` (e.g. `feature/quick-add-sheet`)
+- Commit messages: **conventional commits** — `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`. One line, plus an optional short body.
+- Phase commits are named for the phase: `peer-ai: setup`, `peer-ai: understand`, `peer-ai: architect`, and so on.
+- No AI attribution lines, no emoji, no tool names in commit messages or PR descriptions.
+- PR title: the same conventional-commit subject line
 - PR checks before review: lint, type check, build must all pass
 - One peer review required before merge; squash and merge preferred
 - Delete feature branches after merging
@@ -30,8 +54,7 @@ When design mockups and API contracts disagree, follow `peer-ai/shared/design-da
 - Use type inference for obvious cases
 
 ## Naming
-- Components: PascalCase files (`CustomerList.tsx`, `CustomerList.vue`)
-- Utilities: camelCase files (`formatDate.ts`) or snake_case for Python/Go projects
+- **File and symbol naming: frontend standards O1–O4.** Files are kebab-case, components PascalCase, hooks `useThing`, booleans read as assertions, names say what they are (`amountMinor`, not `amt`) and use the user's vocabulary. O1 is `auto`. The lines below cover only what O does not.
 - Variables: camelCase (JS/TS), snake_case (Python/Go/Ruby)
 - Constants: SCREAMING_SNAKE_CASE
 - Types/Interfaces: PascalCase
@@ -59,27 +82,13 @@ When design mockups and API contracts disagree, follow `peer-ai/shared/design-da
 - User-facing errors must be safe (no stack traces, no internal details)
 - Log full errors server-side for debugging
 
-## Model recommendations
+## Models
 
-When starting a workflow phase, remind the user which model to select in their AI tool's model selector for cost efficiency:
+**Opus for build. Fable for everything else. Never downgrade mid-phase.**
 
-| Phase | Recommended model | Why |
-|-------|------------------|-----|
-| Understand, Architect, System Spec, API Contract | **Most capable** (e.g. Opus, o3, Claude) | Deep reasoning, architecture, cross-cutting decisions |
-| Shared Rules, Page Specs, Endpoint Specs, Track Rules | **Most capable** (e.g. Opus, o3, Claude) | Needs full system context and precise reasoning |
-| Issues (06) | **Mid-tier** (e.g. Sonnet, GPT-4o) | Structured extraction from existing specs |
-| Build (frontend/backend 03) | **Fast coding model** (e.g. Composer, Codex, GPT-4o) | Best coding benchmark scores, significantly cheaper than most-capable models |
-| Review (frontend/backend 04) | **Mid-tier** (e.g. Sonnet, GPT-4o) | Systematic checklist-driven review |
-| Test (frontend/backend 05) | **Fast coding or mid-tier** | Test writing is well-scoped implementation work |
-| Code Review agent | **Auto / fast** (e.g. Auto, Gemini Flash) | Structured findings report |
-| Contract Check agent | **Auto / fast** (e.g. Auto, Gemini Flash) | Comparison table output |
-| QA agent | **Auto / fast** (e.g. Auto, Gemini Flash) | Test matrix generation |
-| Security Audit agent | **Mid-tier** (e.g. Sonnet, GPT-4o) | Needs deeper reasoning for security edge cases |
-| Document (07) | **Auto / fast** (e.g. Auto, Gemini Flash) | Templated documentation updates |
-| PDF-ready HTML export | **Auto / fast** | Pure templating — convert markdown to styled HTML |
-| UI mockups, dashboard visuals | **Best multimodal** (e.g. Gemini Pro, GPT-4o) | Multimodal reasoning, best for visual/layout work |
+Each phase file states its model on the `> **Model:` line. If Fable is not offered in the session's model picker, use the most capable model available. Do not ask the user to switch models to save cost, and never run a quality gate — code review, security audit, QA, contract check — on a deliberately weakened model: on an app that handles the user's money that is not a saving, it is a false reassurance.
 
-How to apply this depends on the **Model selector** setting in the workflow driver's Project settings, asked once during setup. If the tool has a per-phase model selector, tell the user to switch before you begin and wait for confirmation: "Before we start, switch to **[model]** in your AI tool's model selector. [Brief reason]. Let me know when you've switched and I'll begin." Do NOT proceed until the user confirms. If the model is fixed for the session (Claude Code, Codex, most chat tools), state the recommended tier in one line and continue — never gate on a switch the user cannot make.
+This replaces peer-ai's upstream cost-tiering table.
 
 ## Dev journal
 
@@ -121,7 +130,7 @@ When any markdown file is saved to `docs/`, offer once:
 
 > "Want me to generate a PDF-ready HTML version in `docs-pdf/`? You can open it in a browser and print/save as PDF to share with stakeholders."
 
-**Wait for the user's input.** If yes, generate `docs-pdf/<same-name>.html` following the styling rules in `peer-ai/shared/rules/docs-pdf-export.md` and make sure `docs-pdf/` is in `.gitignore` (generated artifacts, not source of truth). If the tool has a per-phase model selector (Project settings in the workflow driver), ask the user to switch to their fastest model (e.g. Auto, Gemini Flash) before generating and to switch back afterwards — HTML export is pure templating; if the model is fixed for the session, just generate. If no, move on.
+**Wait for the user's input.** If yes, generate `docs-pdf/<same-name>.html` following the styling rules in `peer-ai/shared/rules/docs-pdf-export.md` and make sure `docs-pdf/` is in `.gitignore` (generated artifacts, not source of truth). If no, move on.
 
 This applies at every phase that produces a doc, not just the final documentation step. The phase files point here instead of repeating the offer.
 

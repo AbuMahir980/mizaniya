@@ -159,7 +159,7 @@ Context: a cycle or milestone is complete. Update living docs, record what shipp
 
 ### PDF-ready export
 
-Offer the PDF-ready HTML export for the docs created or updated this cycle exactly as described under "PDF-ready doc export" in `peer-ai/shared/rules/shared.md` (one offer, `docs-pdf/` gitignored, fastest model only if the tool has a model selector). Do not repeat the wording here.
+Offer the PDF-ready HTML export for the docs created or updated this cycle exactly as described under "PDF-ready doc export" in `peer-ai/shared/rules/shared.md` (one offer, `docs-pdf/` gitignored, no model switch). Do not repeat the wording here.
 
 ---
 

@@ -1,6 +1,6 @@
 # Code Review Agent Prompt
 
-> **Model: Fable.** (Project convention — this replaces the "switch to your fastest model" guidance, which is the wrong instruction for a quality gate on an app that handles the user's money.)
+> **Model: Fable.** (Project convention — this replaces peer-ai's downgrade guidance, which is the wrong instruction for a quality gate on an app that handles the user's money.)
 
 > **Review against, in this order:**
 > - `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist; the `auto` rules should already be green in CI, so a red one is a CI defect too

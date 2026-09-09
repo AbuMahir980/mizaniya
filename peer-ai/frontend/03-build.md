@@ -60,26 +60,23 @@ Ask:
 **If A (Figma MCP):**
 - Ask the user for their Figma file URL
 - Confirm the Figma MCP server is configured in their AI tool (if not, guide them: they need a Figma personal access token and the MCP server added in their tool's MCP settings)
-- Tell the user: "Switch to your **best multimodal model** (e.g. Gemini Pro, Claude, GPT-4o with vision) in your model selector — use the one best suited for visual/layout work. Let me know when you've switched."
-- **Wait for confirmation**, then create page mockups one at a time in Figma, following `docs/06-page-specs.md` — frames, component layouts, responsive variants, key states (loading, error, empty)
+- Create page mockups one at a time in Figma, following `docs/06-page-specs.md` — frames, component layouts, responsive variants, key states (loading, error, empty)
 - After each page mockup, ask the user to review it in Figma and confirm or request changes
-- When all mockups are approved, tell the user to switch back to your **fast coding model** for coding
+- When all mockups are approved, continue to the build steps below. No model switch (see `shared/rules/shared.md`, Models).
 
 **If B (Penpot MCP):**
 - Ask the user for their Penpot instance URL and project/file link
 - Confirm the Penpot MCP server is configured in their AI tool (if not, guide them: they need the Penpot MCP server from the penpot/penpot repo and their API credentials)
-- Tell the user: "Switch to your **best multimodal model** (e.g. Gemini Pro, Claude, GPT-4o with vision) in your model selector — use the one best suited for visual/layout work. Let me know when you've switched."
-- **Wait for confirmation**, then create page mockups one at a time in Penpot, following `docs/06-page-specs.md`
+- Create page mockups one at a time in Penpot, following `docs/06-page-specs.md`
 - After each page mockup, ask the user to review and confirm or request changes
-- When all mockups are approved, tell the user to switch back to your **fast coding model** for coding
+- When all mockups are approved, continue to the build steps below. No model switch (see `shared/rules/shared.md`, Models).
 
 **If C (Paper.design MCP):**
 - Ask the user to confirm they have the Paper desktop app installed (paper.design/downloads) and a file open
 - Confirm the Paper MCP server is configured in their AI tool (if not, guide them: the Paper MCP server runs automatically when the desktop app is open with a file — no separate setup needed)
-- Tell the user: "Switch to your **best multimodal model** (e.g. Gemini Pro, Claude, GPT-4o with vision) in your model selector — use the one best suited for visual/layout work. Let me know when you've switched."
-- **Wait for confirmation**, then create page mockups one at a time in Paper, following `docs/06-page-specs.md` — since Paper renders real HTML/CSS/Tailwind, the mockups are production-ready code, not just visual specs
+- Create page mockups one at a time in Paper, following `docs/06-page-specs.md` — since Paper renders real HTML/CSS/Tailwind, the mockups are production-ready code, not just visual specs
 - After each page mockup, ask the user to review it in Paper and confirm or request changes
-- When all mockups are approved, the code from Paper can be pulled directly into the project. Tell the user to switch back to your **fast coding model** for integrating the generated code into the app structure
+- When all mockups are approved, the code from Paper can be pulled directly into the project. No model switch (see `shared/rules/shared.md`, Models).
 
 **If D (another tool):**
 - Ask which tool they use and whether it has an MCP server or API
@@ -89,7 +86,6 @@ Ask:
 
 **If E (skip design tool):**
 - Acknowledge the choice and move on. The UI will be built as live code during the build steps below
-- No model switch needed — stay on your **fast coding model**
 
 ---
 

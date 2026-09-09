@@ -79,10 +79,16 @@ This tells the AI how to behave. **Never remove or reword this.**
 ### 2. Model directive (second blockquote)
 
 ```markdown
-> **Model: [Tier]** -- [reason]. If the project's tool has a per-phase model selector (Project settings in the workflow driver), tell the user: "Before we begin, switch to your **[tier]** ..." **Wait for the user to confirm before proceeding.** If the model is fixed for the session, state the recommended tier in one line and continue.
+> **Model: Opus** -- implementation.
 ```
 
-This controls which AI model tier is recommended for the phase, and makes the switch a gate only where the user can actually switch (the **Model selector** setting is asked once in setup and lives in the workflow driver's Project settings). Refer to the model table in `shared/rules/shared.md` to choose the right tier.
+or
+
+```markdown
+> **Model: Fable.**
+```
+
+This states which model the phase runs on. The project convention is fixed -- **Opus for build, Fable for everything else, never downgrade mid-phase** (`shared/rules/shared.md`, Models). There is no tier to choose and no switch to gate on. The line is generated from `phase-config.json` by `apply-phase-config.ps1`, so change it there, not by hand, or the next run will overwrite you.
 
 ### 3. Numbered steps
 

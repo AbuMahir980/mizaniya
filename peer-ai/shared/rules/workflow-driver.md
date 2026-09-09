@@ -21,8 +21,7 @@ This file is the **ambient workflow driver** — the always-on rule that makes t
 | **Ticket prefix** | `[PLACEHOLDER: e.g. PROJ]` |
 | **Remote** | `[PLACEHOLDER: e.g. origin — or "none" for a local-only repo]` |
 | **Design reference** | `[PLACEHOLDER: e.g. docs/mockup/, a Figma link, an HTML preview — or "none"]` |
-| **Branch naming** | `[PLACEHOLDER: e.g. feature/PROJ-XX-short-description]` |
-| **Model selector** | `[PLACEHOLDER: yes if the tool lets you pick a model per chat or phase (e.g. Cursor); no if the model is fixed for the session (e.g. Claude Code, Codex, most chat tools)]` |
+| **Branch naming** | `[PLACEHOLDER: e.g. feature/short-description]` |
 
 Two variants follow from this table and apply everywhere below:
 
@@ -155,18 +154,11 @@ See `peer-ai/templates/.peer-ai-state.json` for the starter schema and `peer-ai/
 
 ---
 
-## 7. Model recommendations
+## 7. Models
 
-When advancing to a new phase, recommend the model tier (see `shared/rules/shared.md` for the full table). If **Model selector** in §0 is `yes`, ask the user to switch and wait for confirmation; if `no`, state the tier in one line and continue:
+**Opus for build. Fable for everything else. Never downgrade mid-phase.**
 
-| Phase | Model | Reason |
-|-------|-------|--------|
-| Build | Fast coding model (e.g. Composer, Codex, GPT-4o) | Best coding benchmarks, lowest cost |
-| Review | Mid-tier (e.g. Sonnet, GPT-4o) | Systematic, checklist-driven |
-| Test | Fast coding or mid-tier | Test writing is implementation |
-| Document | Auto / fast (e.g. Auto, Gemini Flash) | Templated updates |
-| Agents (review, contract, QA) | Auto / fast (e.g. Auto, Gemini Flash) | Structured output |
-| Security audit agent | Mid-tier (e.g. Sonnet, GPT-4o) | Security edge cases need deeper reasoning |
+Each phase file states its model on the `> **Model:` line. If Fable is not offered in the session's model picker, use the most capable model available. There is no model-switch gate at a phase boundary and no cost tier to announce — see `shared/rules/shared.md` § Models.
 
 ---
 

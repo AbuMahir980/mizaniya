@@ -25,13 +25,14 @@ Ask everything you need in a single message, so the user answers once:
 > "I can see the `peer-ai/` folder at the project root. [If removed: I also deleted a leftover `peer-ai/.git/` so the playbook commits as plain files.] To set up the workflow I need a few answers — reply in one go:
 >
 > 1. **Which AI coding tool** are you using? **A)** Cursor · **B)** Claude Code · **C)** Codex or another agent that reads `AGENTS.md` · **D)** something else (tell me which file it reads for persistent instructions).
-> 2. Does that tool let you **pick a model per chat or per phase** (yes/no)? If yes, I'll suggest a cost-appropriate model at the start of each phase and wait for you to switch; if no, I'll just note the recommendation and carry on.
-> 3. **Project name** and a one-line description?
-> 4. **Issue tracker** (Linear, Jira, GitHub Issues) and its ticket prefix (e.g. `PROJ`), or none?
-> 5. **Git remote** (e.g. `origin`), or local-only for now?
-> 6. **Verify command** I should run before calling any ticket done (e.g. `npm run verify`, `npm test`, `pytest`), or none yet?
-> 7. **Design reference** (mockup folder, Figma link, HTML preview), or none yet?
-> 8. Where are we starting — a brand-new build, or joining existing work?"
+> 2. **Project name** and a one-line description?
+> 3. **Issue tracker** (Linear, Jira, GitHub Issues) and its ticket prefix (e.g. `PROJ`), or none?
+> 4. **Git remote** (e.g. `origin`), or local-only for now?
+> 5. **Verify command** I should run before calling any ticket done (e.g. `npm run verify`, `npm test`, `pytest`), or none yet?
+> 6. **Design reference** (mockup folder, Figma link, HTML preview), or none yet?
+> 7. Where are we starting — a brand-new build, or joining existing work?"
+
+There is no model question. The convention is fixed: Opus for build, Fable for everything else, never downgrade mid-phase (`shared/rules/shared.md` § Models).
 
 **Wait for the user's input.** If an answer is missing, ask only for that one.
 
@@ -53,7 +54,7 @@ Do all of the following, then present the result once.
 - **C (Codex / `AGENTS.md`):** create an `AGENTS.md` at the repo root modeled on `peer-ai/AGENTS.md`, scoped to this project, and **append the body of `peer-ai/shared/rules/workflow-driver.md`** for the same reason.
 - **D (other):** create the equivalent file the tool reads, with the same content **including the body of the workflow driver appended**.
 
-**Project settings.** Fill in the **Project settings** table at the top of the driver you just installed: verify command, issue tracker and prefix, remote, design reference, branch naming (default `feature/<PREFIX>-XX-short-description`), and model selector (yes/no, from question 2). Write `none` where the user has none, so the driver skips the matching push and tracker steps.
+**Project settings.** Fill in the **Project settings** table at the top of the driver you just installed: verify command, issue tracker and prefix, remote, design reference, and branch naming (default `feature/<short-description>`). Write `none` where the user has none, so the driver skips the matching push and tracker steps.
 
 **Continuity files.** These live at the **app root**, not inside `peer-ai/`:
 

@@ -8,6 +8,9 @@ alwaysApply: true
 
 You are working on a backend application. Adapt these standards to the project's framework and language (Node.js/Express/Fastify/NestJS, Python/Django/FastAPI/Flask, Go/Gin/Echo, Ruby/Rails, etc.).
 
+> **Dormant until v3, and `docs/standards/backend-engineering-standards.md` is the rulebook when it wakes.**
+> There is no server in v1 or v2; sync, household sharing and payments arrive as a separate private repository. That standard wins on any conflict with this file, and the `Repository` interface from `core/` is the contract a v3 API must honour.
+
 ## Project structure
 ```
 src/ (or app/, lib/ depending on framework)
