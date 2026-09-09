@@ -37,14 +37,15 @@ If `.peer-ai-state.json` and `CONTEXT.md` exist at the app root, the workflow dr
 When design mockups and API contracts disagree, follow `peer-ai/shared/design-data-contract.md`: contract wins on data shape and field names; design wins on layout and visual hierarchy.
 
 ## Git and PR conventions
-- Branch names: `feature/<short-description>` (e.g. `feature/quick-add-sheet`)
+- **Every piece of work goes on a branch and reaches `main` only through a pull request with CI green. Squash and merge. Delete the branch after.** Nothing is committed to `main` directly — not a phase document, not a one-line typo.
+- Branch names: `feature/<short-description>` for build items (e.g. `feature/quick-add-sheet`); `peer-ai/<phase>` for phase documents (e.g. `peer-ai/understand`)
 - Commit messages: **conventional commits** — `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`. One line, plus an optional short body.
 - Phase commits are named for the phase: `peer-ai: setup`, `peer-ai: understand`, `peer-ai: architect`, and so on.
 - No AI attribution lines, no emoji, no tool names in commit messages or PR descriptions.
-- PR title: the same conventional-commit subject line
-- PR checks before review: lint, type check, build must all pass
-- One peer review required before merge; squash and merge preferred
-- Delete feature branches after merging
+- PR title: the same conventional-commit subject line. The description says **what changed and why** — no AI attribution lines, no emoji, no tool names.
+- PR checks before review: lint, type check, build must all pass. **Red is not done.** Until PR AUTOMATION creates `.github/workflows/`, there are no checks to be green — say so on the PR rather than implying they passed.
+- One peer review required before merge; squash and merge
+- Delete branches after merging, locally and on the remote
 - Issue tracker auto-sync (if integrated with GitHub): branch creation → ticket In Progress; PR merged → ticket Done
 
 ## Type safety
