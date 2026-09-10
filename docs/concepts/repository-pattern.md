@@ -61,6 +61,36 @@ a subscription that quietly never fires. Wrong, and silent.
 
 ---
 
+## Interface honesty — what may go in, and what may not
+
+The app clearly needs to react when data changes. So why is there no
+`watchForChanges()` on `Repository`?
+
+**Because an interface should only promise what every implementer can keep.**
+
+| Implementation | Can it push changes? |
+|---|---|
+| Dexie (v1) | Yes — `liveQuery` |
+| SQLite on React Native (v2) | No |
+| An HTTP API (v3) | No, not without polling or a socket |
+
+Put it in the interface and two of the three must lie: poll quietly and
+wastefully, or hand back a subscription that never fires. The type system would
+endorse both. **A promise the compiler enforces and the implementation cannot
+keep is worse than no promise**, because now everyone believes it.
+
+So the responsibility went elsewhere. The store already knows when data changed
+— it changed it, through one write path ([ADR-001](../adr/ADR-001-reactivity-and-the-data-seam.md)).
+The one case it cannot know about is *another browser tab*, and that is a
+browser fact rather than a storage fact, so it lives in a separate
+`ChangeNotifier` outside the interface entirely.
+
+**The question to ask of any method you want to add:** *could every
+implementation honour this honestly?* If the answer is "the current one can",
+that is a no.
+
+---
+
 ## The interview sentence
 
 "I put data access behind a repository interface so the storage engine is a

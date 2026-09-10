@@ -39,6 +39,35 @@ screen. Those are the exact places where a silently wrong number does its
 damage. The question to ask then, out loud: *if this figure were ₦8,000 wrong,
 what in this codebase would notice?*
 
+### The API-contract five — taught, not tested
+
+**Came up:** 2026-09-10, at the API CONTRACT stop.
+
+Five questions were asked and the stakeholder chose to be **taught the answers
+rather than tested on them**. That is a legitimate choice and not a miss — but
+it means these five have not actually been checked, so they are logged here
+rather than quietly counted as understood.
+
+The five: why the contract document holds no field lists · whether `Debt` having
+no direction and `Goal` having no `savedSoFar` are the same reason · why types
+*and* a runtime schema is not the duplication we argue against · why a newer
+import file is refused outright · where "watch for changes" went instead of onto
+`Repository`.
+
+Written up as [[one-source-of-truth]], [[types-vs-runtime-validation]],
+[[all-or-nothing]], and a new section in [[repository-pattern]].
+
+**One of them found a real defect.** Question 3 exposed that `types.ts` and
+`schema.ts` describe the same shapes with nothing preventing them drifting. The
+fix — annotating each schema with the type it must produce, so `tsc` fails on
+disagreement — is in `docs/backlog.md` as a BUILD task, because proving it works
+needs a compiler and there is no `package.json` yet.
+
+**Revisit when:** BUILD, at the first task, and again at the code review. Ask
+then, without warning: *why does the API contract document contain no field
+lists?* If the answer does not reach "the readable copy is the one that goes
+stale", it has not landed.
+
 ---
 
 ## Closed
