@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | **Proposed** — awaiting the stakeholder |
+| **Status** | **Accepted** — option A, chosen by the stakeholder on 2026-09-10 |
 | **Date** | 2026-09-10 |
 | **Deciders** | Qudus Lawal (stakeholder and owner) |
 
@@ -30,10 +30,16 @@ and for freelance bidding. That pulls against added configuration surface.
 
 ## Decision
 
-**To be chosen by the stakeholder.** Both options are viable; neither is a
-mistake.
+**Option A — `src/core/` as a folder now, extracted to a package when v2
+begins.** Chosen by the stakeholder on 2026-09-10.
 
-**Recommendation: option A — a folder now.**
+`core/` is framework-free from the first commit, enforced by the **A3** lint
+rule rather than by a package boundary. No workspace configuration is added to
+Vite, Vitest, ESLint, tsconfig or CI in v1.
+
+Extraction is recorded in `docs/backlog.md` as the **first task of v2**, before
+any Expo screen is written — so the move happens once, deliberately, rather than
+being discovered halfway through the mobile build.
 
 ---
 
@@ -86,10 +92,10 @@ exactly the moment the repository is being shown to people.
 
 ## Action Items
 
-1. [ ] Stakeholder chooses A or B; record the choice and the reason in `CONTEXT.md`.
-2. [ ] Either way, add the **A3** lint rule in SHARED RULES: no React, no platform, no storage imports inside `core/`.
-3. [ ] If A: add a line to `docs/backlog.md` — *extract `core/` to a package as the first task of v2*.
-4. [ ] If B: set up the workspace before BUILD begins, not during it.
+1. [x] Stakeholder chooses — **option A**, 2026-09-10. Recorded in `CONTEXT.md`.
+2. [ ] Add the **A3** lint rule in SHARED RULES: no React, no platform, no storage imports inside `core/`. **This is now the only thing holding the boundary, so it is not optional and it must fail CI, not warn.**
+3. [x] `docs/backlog.md` records the extraction as the first task of v2.
+4. [ ] Keep `core/` importing nothing throughout BUILD. Every import added to it is a small tax on the v2 move.
 
 ---
 

@@ -186,6 +186,7 @@ where `core/` lives.
 | 2026-09-10 | **ADR-006 · Zustand as the single client store** (B4). Context + `useReducer` rejected: one snapshot in one context re-renders every consumer on every change, which is felt on a phone | ARCHITECT |
 | 2026-09-10 | **ADR-007 · PWA via vite-plugin-pwa**, shell precached only, persistence requested after the first meaningful write | ARCHITECT |
 | 2026-09-10 | Multi-tab drift closed with a `BroadcastChannel` reload after each successful write — two open tabs would otherwise disagree silently | ARCHITECT (ADR-001) |
+| 2026-09-10 | **ADR-002 · `core/` stays a `src/core/` folder in v1**, extracted to a package as the first task of v2. What makes it reusable is that it imports nothing, and the A3 lint rule enforces that from day one — so the boundary is real without workspace configuration in five tools | ARCHITECT, stakeholder's choice |
 
 ---
 
@@ -216,15 +217,15 @@ where `core/` lives.
 - **Rejected Dexie `liveQuery`,** the obvious and least-code option, on cost of ownership: it puts the storage engine inside every component and has no counterpart in SQLite or HTTP, so v2 would be a screen-by-screen rewrite. Also rejected an observable-returning repository, which is the *more* dangerous choice because a v3 HTTP implementation could only honour it by polling or by returning a subscription that never fires — wrong, and silent.
 - **Wrote three concept notes** — [derived state](docs/concepts/derived-state.md), [the repository pattern](docs/concepts/repository-pattern.md), [IndexedDB](docs/concepts/indexeddb.md).
 - **Noted a small inconsistency to fix later:** the addendum says the Expo SDK will be recorded in "ADR-01", but ADR-001 is now taken. It should say *an* ADR.
+- **ADR-002 decided:** `core/` stays a folder in v1. Opened [docs/backlog.md](docs/backlog.md) with the extraction recorded as the first task of v2 — before any Expo screen, so it happens once rather than being discovered mid-build. **The A3 lint rule is now the only thing holding that boundary, so it must fail CI rather than warn.**
 
 ---
 
 ## What's Next
 
-1. **Decide ADR-002** — where `core/` lives. Both sides are in the ADR.
-2. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
-3. Run **SYSTEM SPEC** (`peer-ai/shared/03-spec-system.md`), invoking `product-management:write-spec` inside the phase. Settle the amber threshold there.
-4. Then **API CONTRACT** — the `Repository` interface and the export/import schema are the contract in v1. **Stop after it.**
+1. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
+2. Run **SYSTEM SPEC** (`peer-ai/shared/03-spec-system.md`), invoking `product-management:write-spec` inside the phase. Settle the amber threshold there.
+3. Then **API CONTRACT** — the `Repository` interface and the export/import schema are the contract in v1. **Stop after it.**
 
 ---
 
@@ -240,7 +241,6 @@ What remains open:
 
 | Question | Status |
 |----------|--------|
-| **Where does `core/` live — a `src/core/` folder now, or a `packages/core` workspace now?** Both viable. The lint rule enforcing A3 makes the boundary real either way; this is about build configuration and the size of the move at v2 | **Open — blocks nothing, but decide before BUILD.** [ADR-002](docs/adr/ADR-002-where-core-lives.md) has both sides. Leaning: the folder |
 | What is the amber threshold for safe-to-spend — a fixed naira figure, a proportion of the daily allowance, or a number of days of cover? | **Open** — for SYSTEM SPEC. Leaning: a proportion of the planned daily allowance, editable in Settings |
 
 Everything else raised at SETUP and in UNDERSTAND's clarification round is now
@@ -259,6 +259,7 @@ not whether to.
 | Requirements summary + the settled domain decisions | `docs/01-requirements-summary.md` |
 | System architecture + the ADR index | `docs/02-architecture.md` |
 | Promoted ADRs | `docs/adr/` |
+| Backlog — what is deliberately not built | `docs/backlog.md` |
 | Engineering standards (rulebook) | `docs/standards/` |
 | Seed data — the only source of figures | `docs/seed-data.md` |
 | Peer AI playbook (vendored) | `peer-ai/` |
