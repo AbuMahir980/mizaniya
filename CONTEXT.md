@@ -131,19 +131,24 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: UNDERSTAND, complete.** The repo is still documents only — no
-application code exists yet. Step 0 (verifying the Peer AI customisation) and
-SETUP are done; UNDERSTAND has now settled the seven domain decisions that shape
-`core/` and produced
-[docs/01-requirements-summary.md](docs/01-requirements-summary.md).
+**Phase: ARCHITECT, complete.** The repo is still documents only — no
+application code exists yet. Step 0, SETUP and UNDERSTAND are done. ARCHITECT
+has fixed the shape of the system in
+[docs/02-architecture.md](docs/02-architecture.md), with seven ADRs; two are
+promoted to their own files under `docs/adr/`.
 
-Two pull requests are open and stacked: `peer-ai/setup` → `main`, and
-`peer-ai/understand` → `peer-ai/setup`. Neither has CI, because CI does not
-exist until phase 11b.
+The architecture rests on one idea: **transactions are the only facts, and
+everything else is a calculation.** That is what makes step 9 of the core
+journey — export, import into a clean browser, identical state — a consequence
+rather than a hope.
 
-**Next action:** ARCHITECT — `peer-ai/shared/02-architect.md`. Its first real
-decision is IndexedDB durability (assumption A5), which is the largest
-single risk to the owner's data.
+Three pull requests are open and stacked: `peer-ai/setup` → `main`,
+`peer-ai/understand` → `peer-ai/setup`, `peer-ai/architect` →
+`peer-ai/understand`. None has CI, because CI does not exist until phase 11b.
+
+**Next action:** SYSTEM SPEC — `peer-ai/shared/03-spec-system.md`, invoking
+`product-management:write-spec`. **One decision is waiting first:** ADR-002,
+where `core/` lives.
 
 ---
 
@@ -174,6 +179,13 @@ single risk to the owner's data.
 | 2026-09-10 | **D12 · Storage durability is four layers** — request persistence, report the truth in Settings, nudge on unexported changes rather than a timer, and ship as an installable PWA. **No encryption at rest in v1**, because with no server a forgotten passphrase destroys the history permanently | UNDERSTAND |
 | 2026-09-10 | **D13 · If the schedule slips, Months ships and Zakat waits.** A wrong zakat figure in a Muslim-facing app is worse than no zakat figure | UNDERSTAND |
 | 2026-09-10 | **D14 · iOS Safari is the strict case.** On iOS every browser is WebKit, so Chrome there is Safari — the owner's primary device is governed by the tightest storage rules of the set | UNDERSTAND |
+| 2026-09-10 | **ADR-001 · The whole dataset is held in memory as one snapshot**, every figure derived from it by pure `core/` functions. Writes go to IndexedDB **first**, memory second, so the screen and the database can never disagree. Dexie `liveQuery` rejected: it puts the storage engine in every component (breaks A4) and has no equivalent in SQLite or HTTP, so every screen would be rewritten at v2 | ARCHITECT |
+| 2026-09-10 | **ADR-003 · Time is a parameter.** `core/` never reads the clock; `now` is passed in. Dates are stored as calendar dates (`YYYY-MM-DD`), not instants, so a timezone shift cannot move a transaction to the previous day | ARCHITECT |
+| 2026-09-10 | **ADR-004 · Money is integer kobo with a branded `Kobo` type**, all arithmetic in `core/money`, never in a component (H3), extracted on first repeat (E2) | ARCHITECT |
+| 2026-09-10 | **ADR-005 · Export carries a `schemaVersion`; import is atomic and version-checked.** A newer file is refused with a plain explanation rather than partially loaded, and current data is exported to a file before an import overwrites it | ARCHITECT |
+| 2026-09-10 | **ADR-006 · Zustand as the single client store** (B4). Context + `useReducer` rejected: one snapshot in one context re-renders every consumer on every change, which is felt on a phone | ARCHITECT |
+| 2026-09-10 | **ADR-007 · PWA via vite-plugin-pwa**, shell precached only, persistence requested after the first meaningful write | ARCHITECT |
+| 2026-09-10 | Multi-tab drift closed with a `BroadcastChannel` reload after each successful write — two open tabs would otherwise disagree silently | ARCHITECT (ADR-001) |
 
 ---
 
@@ -199,14 +211,20 @@ single risk to the owner's data.
 - **Surfaced the biggest unflagged risk in the whole design:** IndexedDB is not permanent. Browser eviction or a cleared cache deletes every transaction with no warning to anyone. Logged as assumption A5, to be decided in ARCHITECT.
 - **Answered all eight clarification questions** in the same sitting, adding D8–D14. Two changed the shape of the product: Home became a ranked screen rather than a grid of eight tiles, and rotating ajo turned out to be a debt in both directions rather than savings — which is what it actually is, economically.
 - **Established that on iOS every browser is Safari underneath**, so using Chrome on an iPhone does not escape WebKit's storage eviction. That makes PWA installability a durability requirement, not a nicety.
+- **Ran ARCHITECT** with `engineering:architecture` and `engineering:system-design` invoked inside the phase. Wrote [docs/02-architecture.md](docs/02-architecture.md) with seven ADRs; [ADR-001](docs/adr/ADR-001-reactivity-and-the-data-seam.md) and [ADR-002](docs/adr/ADR-002-where-core-lives.md) promoted to their own files.
+- **The architecture reduced to one idea:** transactions are the only facts, everything else is a calculation. Once nothing derived is stored, the only architectural question left is how a write reaches the screens — which is ADR-001.
+- **Rejected Dexie `liveQuery`,** the obvious and least-code option, on cost of ownership: it puts the storage engine inside every component and has no counterpart in SQLite or HTTP, so v2 would be a screen-by-screen rewrite. Also rejected an observable-returning repository, which is the *more* dangerous choice because a v3 HTTP implementation could only honour it by polling or by returning a subscription that never fires — wrong, and silent.
+- **Wrote three concept notes** — [derived state](docs/concepts/derived-state.md), [the repository pattern](docs/concepts/repository-pattern.md), [IndexedDB](docs/concepts/indexeddb.md).
+- **Noted a small inconsistency to fix later:** the addendum says the Expo SDK will be recorded in "ADR-01", but ADR-001 is now taken. It should say *an* ADR.
 
 ---
 
 ## What's Next
 
-1. Merge [PR #1](https://github.com/AbuMahir980/mizaniya/pull/1) (setup), then the UNDERSTAND PR stacked on it. No CI exists yet — PR AUTOMATION, phase 11b, creates it.
-2. Run **ARCHITECT** (`peer-ai/shared/02-architect.md`), invoking `engineering:architecture` and `engineering:system-design` inside the phase. Decide the IndexedDB durability question with both sides presented.
-3. Then **SYSTEM SPEC** → **API CONTRACT**, stopping after the API contract.
+1. **Decide ADR-002** — where `core/` lives. Both sides are in the ADR.
+2. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
+3. Run **SYSTEM SPEC** (`peer-ai/shared/03-spec-system.md`), invoking `product-management:write-spec` inside the phase. Settle the amber threshold there.
+4. Then **API CONTRACT** — the `Repository` interface and the export/import schema are the contract in v1. **Stop after it.**
 
 ---
 
@@ -222,7 +240,8 @@ What remains open:
 
 | Question | Status |
 |----------|--------|
-| What is the amber threshold for safe-to-spend — a fixed naira figure, a proportion of the daily allowance, or a number of days of cover? | **Open** — for SYSTEM SPEC |
+| **Where does `core/` live — a `src/core/` folder now, or a `packages/core` workspace now?** Both viable. The lint rule enforcing A3 makes the boundary real either way; this is about build configuration and the size of the move at v2 | **Open — blocks nothing, but decide before BUILD.** [ADR-002](docs/adr/ADR-002-where-core-lives.md) has both sides. Leaning: the folder |
+| What is the amber threshold for safe-to-spend — a fixed naira figure, a proportion of the daily allowance, or a number of days of cover? | **Open** — for SYSTEM SPEC. Leaning: a proportion of the planned daily allowance, editable in Settings |
 
 Everything else raised at SETUP and in UNDERSTAND's clarification round is now
 settled as D1–D14. The storage-durability question that ARCHITECT was to decide
@@ -238,6 +257,8 @@ not whether to.
 | Product brief | `docs/product-brief.md` (§1–5 authoritative; §6 superseded) |
 | Kick-off pack — the instructions this build runs on | `docs/Mizaniya_Kickoff_Pack.md` |
 | Requirements summary + the settled domain decisions | `docs/01-requirements-summary.md` |
+| System architecture + the ADR index | `docs/02-architecture.md` |
+| Promoted ADRs | `docs/adr/` |
 | Engineering standards (rulebook) | `docs/standards/` |
 | Seed data — the only source of figures | `docs/seed-data.md` |
 | Peer AI playbook (vendored) | `peer-ai/` |
