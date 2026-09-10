@@ -21,7 +21,8 @@ someone's money is the thing this whole project is arranged to avoid.
 (repo rule 2). The worked day throughout is **5 October, day 11 of a 30-day
 cycle**, so the designer has one consistent screenful of real content.
 
-**Sections 2–6 apply to every page and are not repeated per page.** Nine copies
+**Sections 2 to 6, §3a included, apply to every page and are not repeated per
+page.** Nine copies
 of the accessibility rules would drift within a week — see
 [[one-source-of-truth]].
 
@@ -84,16 +85,21 @@ and the code must keep.
 
 ### Two rules specific to a money app
 
-**How a figure is read aloud.** `₦7,500` must not be announced as "N seven
-thousand five hundred" or as a symbol name. Every money figure carries an
+**How a figure is read aloud.** `₦7,500.00` must not be announced as "N seven
+thousand five hundred point zero zero" or as a symbol name. Every money figure carries an
 accessible label in words:
 
 | Displayed | Announced |
 |---|---|
-| `₦7,500` | "7,500 naira" |
-| `₦8,400` amber | "8,400 naira. Low." |
-| `−₦2,300` red | "2,300 naira over. Overspent." |
-| `₦0` | "Zero naira" |
+| `₦7,500.00` | "7,500 naira" |
+| `₦7,500.50` | "7,500 naira 50 kobo" |
+| `₦8,400.00` amber | "8,400 naira. Low." |
+| `−₦2,300.00` red | "2,300 naira over. Overspent." |
+| `₦0.00` | "Zero naira" |
+
+Zero kobo is never spoken. Only a **non-zero** kobo is announced — the same
+principle as §3a: silence when there is nothing to notice, a clear signal when
+there is.
 
 Never announce a bare minus sign. "Minus 2,300" is ambiguous read aloud; "2,300
 over" is not.
@@ -108,6 +114,74 @@ numbers and tell the owner nothing.
 
 Everything else updates silently and can be read on demand. Failures are
 announced through the same region with `role="alert"`.
+
+---
+
+## 3a · Money on screen
+
+The addendum fixes the formatter: `₦1,250,000.00`. Figures in this document are
+written in whole naira for readability, but **on screen every amount carries its
+kobo.** This section is the rule the design lays out to, and it settles the
+hero's type scale.
+
+### Amounts always show kobo
+
+`MoneyText` renders one format everywhere — the addendum's formatter, and the
+only place money is formatted (**H2**):
+
+`₦7,500.00` · `₦220,000.00` · `₦0.00`
+
+**A non-zero kobo is never hidden or rounded away.** In a naira-only,
+hand-entered app a stray `.50` is almost always a typo or an arithmetic slip.
+Showing it is what makes it findable; rounding it away is exactly the silent
+wrongness this project keeps designing against.
+
+### The hero, and the `.00` problem
+
+`₦7,500.00` in the largest type on a 360px screen spends about a quarter of its
+width on two digits that are nearly always zero.
+
+**The answer is typographic, not numeric.** The string does not change — there
+is one formatter with one output. The **kobo part is set smaller and lighter**,
+so the naira reads at full size and the decimals sit quietly beside it. So
+`MoneyText` emits the two parts as separate spans and lets the design size them:
+
+```html
+<span class="money">
+  <span class="money-naira">₦7,500</span><span class="money-kobo">.00</span>
+</span>
+```
+
+The accessible label is unaffected — "7,500 naira", per §3. A screen reader never
+says "point zero zero".
+
+**Designer: settle this pairing first.** It fixes the hero's type scale, and the
+same relationship is reused at every size down to a table row.
+
+### Rates, and which way to round
+
+Some figures come from division — safe-to-spend **per day**, the planned daily
+allowance, the rate that closes a gap. Division does not land on a whole kobo,
+so rounding is a decision, and the direction is the decision.
+
+> **Money you may spend → round DOWN.**
+> **Money you must find → round UP.**
+> **Never round to the nearest.**
+
+Nearest is wrong in both directions, and half the time it is wrong towards
+spending money that is not there.
+
+| Figure | Working | Shown | Why that direction |
+|---|---|---|---|
+| Safe to spend per day | ₦150,000.00 ÷ 20 | **₦7,500.00** | exact here; floors when it is not |
+| Planned daily allowance | ₦260,000.00 ÷ 30 | **₦8,666.66** | floor — overstating it licenses overspending |
+| Rate to close the rent gap | ₦425,000.00 ÷ 5 | **₦85,000.00** | ceiling — understating it misses the target |
+
+Flooring the per-day figure also keeps a promise worth keeping: twenty days at
+the floored rate can never exceed the money actually there.
+
+`MoneyText` takes an already-rounded value. **It never rounds** — rounding is a
+`core/` decision, tested, and never made in a component (**H3**).
 
 ---
 
@@ -186,6 +260,30 @@ except the first is skippable (story A5).
 | 5 | Who you owe, and who owes you | no |
 | 6 | Rent target and its due date | no |
 
+#### Step 4 — opening balances, per savings category
+
+One row per category of type `Savings`, each with an optional amount. The
+question on screen: *"What have you already put aside for this?"*
+
+| Field | Rule | Message when wrong |
+|---|---|---|
+| Amount, per savings category | optional, ≥ 0 | "Amounts are numbers only." |
+
+**Each non-zero amount becomes a dated opening transaction** of type
+`savings-in`, never a stored total (D3, story A3).
+
+**Dated the day before the current cycle begins** — 24 September in the seeded
+scenario. This matters. Dated *today* they would fall inside the running cycle,
+and Home's "Saved" tile would read ₦490,000.00 instead of ₦90,000.00 —
+overstating this cycle's saving by everything the owner has ever saved. The
+figure would look entirely plausible and nothing would flag it.
+
+#### Step 5 — debts, in both directions
+
+Uses the **Add a debt** form (§7.6), repeated: "Add another" after each, "Done"
+to move on. Both directions sit in the same step, because the app is about both
+and splitting them would imply one matters more.
+
 **Numbers shown.** Only what the owner types, echoed back formatted:
 `450000` → **₦450,000.00** as they type.
 
@@ -233,12 +331,12 @@ other (D8).
 
 ```
 ┌──────────────────────────────────────┐
-│  Sun 5 Oct  ·  4 Rabi' II 1448       │  date row (Hijri, story B7)
+│  Mon 5 Oct  ·  24 Rabiʻ II 1448      │  date row (Hijri, story B7)
 ├──────────────────────────────────────┤
 │                                      │
 │        Safe to spend today           │
-│            ₦7,500                    │  ← hero, largest thing on screen
-│    ₦220,000 left · 20 days to 25 Oct │
+│           ₦7,500.00                  │  ← hero, largest thing on screen
+│  ₦220,000.00 left · 20 days to 25 Oct│
 │                                      │
 ├──────────────────────────────────────┤
 │  [ ₦50,000 unallocated →         ]   │  banner; ABSENT when ₦0
@@ -260,11 +358,19 @@ other (D8).
 └──────────────────────────────────────┘
 ```
 
+**About the figures in this sketch.** The hero carries its kobo, because that
+pairing sets the type scale (§3a). The rest are written short to keep the sketch
+legible — **on screen every amount carries `.00`**, and the tiles must be laid
+out with room for it.
+
 **Every number, and where it comes from.**
+
+Values below are written in whole naira for readability; every one renders with
+its kobo (§3a).
 
 | Shown | Worked value | Source |
 |---|---|---|
-| Safe to spend today | **₦7,500** | `core/budget.safeToSpendPerDay(snapshot, now)` |
+| Safe to spend today | **₦7,500.00** | `core/budget.safeToSpendPerDay(snapshot, now)` |
 | Cash left | ₦220,000 | `core/budget.cashLeft(snapshot)` |
 | Days left | 20 | `core/cycle.daysLeft(settings, now)` — counts today, minimum 1 |
 | Next payday | 25 Oct | `core/cycle.nextSalaryDay(settings, now)` |
@@ -274,7 +380,7 @@ other (D8).
 | Debt paid actual / planned | ₦30,000 / ₦30,000 | same |
 | Category variance | per row | `core/budget.categoryVariance(snapshot, cycle)` |
 | Goal status | ₦50,000 short | `core/goal.projectedGap(goal, snapshot, now)` |
-| Hijri date | 4 Rabi' II 1448 | `Intl.DateTimeFormat` with the `islamic` calendar — **no library** |
+| Hijri date | 24 Rabiʻ II 1448 | `Intl.DateTimeFormat` with **`islamic-umalqura`** — no library. See the pinning note below |
 
 **None of these is stored.** Every one is computed on read (**B3**).
 
@@ -300,9 +406,30 @@ is arithmetic, not advice (system spec §3).
 **Primary action.** The ⊕ Quick Add. **Everything is tappable** — every tile and
 every row opens the records behind it (story B6). No figure is a dead end.
 
+**Where each tile leads.**
+
+| Tile | Opens |
+|---|---|
+| Cash left | Transactions, this cycle, unfiltered |
+| Income | Transactions filtered to `income` |
+| Saved | Transactions filtered to the two savings types, **subtotalled per destination** in the filter bar |
+| Debt paid | Debts & Goals, Debts tab |
+
+No new screen is needed for savings-by-destination — it is the Transactions list
+with a filter and subtotals (§7.4).
+
+**Pin the Hijri calendar.** Use `islamic-umalqura` explicitly, never the bare
+`islamic`, which is an alias each engine resolves for itself. On 5 October 2026
+they agree; on 24 October 2026 `islamic` gives 14 Jumada I and `islamic-umalqura`
+gives 13. **A religious date that differs by device is worse than no date**, and
+nobody would ever notice — it is the same silent-wrongness failure as everywhere
+else. The formatter also appends " AH" and uses U+02BB (ʻ) in "Rabiʻ"; strip the
+suffix, keep the character.
+
 **Accessibility.** The hero is an `<h1>`-level landmark with the spoken label
 from §3. The live region sits directly beneath it. Tiles are buttons, not cards
-with click handlers.
+with click handlers. The Hijri date is supplementary, so it is announced after
+the Gregorian one, not instead of it.
 
 ---
 
@@ -329,8 +456,34 @@ Savings · Debt payment · Expense.
 | Planned daily allowance | ₦8,666.67 | Σ spendable ÷ days in cycle — shown as a footnote so D15 is legible |
 
 **Actions.** `Copy last cycle's plan` (top right; disabled with a reason when
-there is no previous cycle — never silently inert). Per-row: mark rolls-over,
-protection override, archive.
+there is no previous cycle — never silently inert). Per-row menu: rolls over,
+protect from safe to spend, archive.
+
+#### What "protected" means — defined once, used here and in Settings
+
+> A category is **protected** when the money planned into it is **not counted as
+> spendable**. Safe-to-spend subtracts it, because it is already promised to
+> something — rent, savings, a debt payment.
+
+Protection is derived from the category's type: anything that is not an
+`Expense` is protected (D1). The **override** flips that decision for one
+category, and does nothing else.
+
+It exists for one case: an `Expense` category that is not really discretionary —
+₦40,000.00 set aside for a hospital visit, or family support that is not
+optional. Left unprotected, safe-to-spend counts that money as available and
+reads **too high**, which is the direction that hurts.
+
+**The control** — a switch, identical on the Plan row menu and in Settings →
+Categories, editing the same field:
+
+> **Protect from safe to spend**
+> *Money planned here will not count as spendable.*
+> Default: on for Savings and Debt payment, off for Expense.
+
+**On the Plan row**, a protected category carries a small lock mark beside its
+name, so protection is visible without opening a menu. Otherwise it is invisible
+state that changes the app's headline figure.
 
 **Autosave per row on blur.** No Save button — a plan half-typed and abandoned
 should still be there tomorrow.
@@ -372,7 +525,21 @@ subtotal on each header; the filtered total in the filter bar.
 `I repaid` · `I lent` · `They repaid me`
 
 **Actions.** Tap a row to edit; swipe or row menu to delete (confirm: *"Delete
-this ₦3,500 expense? This can't be undone."* — neutral, not danger).
+this ₦3,500.00 expense? This can't be undone."* — neutral, not danger).
+
+**Editing opens the Quick Add sheet, pre-filled** — not a separate page. Same
+component, same fields, same validation, titled **"Edit"**, with a Delete action
+added and Save reading "Save changes". One form, not two: a second edit form
+would be the same rules written out again, and the two would drift (**E2**).
+
+Changing an amount or a date recalculates everything, including a past cycle if
+the date moves into one. Nothing was stored, so nothing needs correcting
+separately.
+
+**Savings subtotals.** When the filter is set to the two savings types — which
+is where Home's "Saved" tile lands — the filter bar carries a subtotal **per
+destination**: *"Bank vault ₦75,000.00 · Cowrywise ₦15,000.00"*. That is the
+whole of "savings by destination". It needs no screen of its own.
 
 **States.**
 
@@ -453,7 +620,22 @@ group, not buttons — the owner is choosing one of a set.
 (D9).
 
 **Debt card:** counterparty · balance · schedule if any · last movement ·
-progress bar · actions (Record payment, Open record).
+progress bar · actions (Record a payment, Open record).
+
+**"Record a payment" opens the Quick Add sheet, pre-set** — counterparty fixed
+and not editable in that context, amount pre-filled with the schedule amount
+where there is one, date today. One tap confirms the usual case.
+
+**The type follows the balance**, because an ajo card sits on both sides of the
+relationship at different times (D9):
+
+| Balance | Action reads | Type pre-set |
+|---|---|---|
+| Positive — you owe | "Record a payment" | `I repaid` |
+| Negative — owed to you | "Record a repayment" | `They repaid me` |
+
+The card's overflow menu always offers the other three debt types too, so a
+counterparty can move either way without the card fighting the owner.
 
 **Goal card:** name · saved of target · bar · due date · status badge · the gap.
 
@@ -491,6 +673,51 @@ to spend until it arrives."*
 
 **Danger colour.** Amber: a goal projected short. Red: a due date passed unmet,
 or a debt schedule missed. Nothing else.
+
+#### Form — Add a debt
+
+Reached from the Debts empty state, the Debts tab, and Onboarding step 5.
+
+| Field | Required | Rule | Message when wrong |
+|---|:-:|---|---|
+| Direction — *I owe them* / *They owe me* | yes | one of two, **no default**, so it is a decision rather than an accident | "Which way does this go?" |
+| Counterparty name | yes | 1–120 characters | "Who is this with?" |
+| Amount | yes | > 0 | "How much?" |
+| Date it began | yes | a real date, **not in the future** | "Pick a date that has already happened." |
+| Agreed repayment per cycle | no | > 0 if given | "Amounts are numbers only." |
+| Terms | no | up to 500 characters | — |
+| Witnesses | no | a list of names, added one at a time (D10) | — |
+
+**Direction sets the opening movement, not a stored field.** *I owe them* writes
+an opening `borrowed`; *They owe me* writes an opening `lent`. The `Debt` record
+has no direction of its own — its balance is derived and may later cross zero
+(D9).
+
+**On save:** the card appears in the correct group with the opening movement as
+its only history entry.
+
+#### Form — Add a goal
+
+Reached from the Goals empty state, the Goals tab, and Onboarding step 6 (where
+it arrives pre-titled "Rent").
+
+| Field | Required | Rule | Message when wrong |
+|---|:-:|---|---|
+| Name | yes | 1–60 characters | "What are you saving for?" |
+| Target | yes | > 0 | "How much do you need?" |
+| Due date | no | a real date, **in the future** | "Pick a date that has not passed yet." |
+| Funded by | yes | a category of type `Savings` | "Pick where this money is saved." |
+| Already saved | no | ≥ 0 | "Amounts are numbers only." |
+
+**If no savings category exists yet**, *Funded by* offers to create one inline
+rather than sending the owner to Plan and losing everything they have typed.
+
+**Already saved** becomes an opening `savings-in` transaction dated the day
+before the current cycle — same rule, same reason, as Onboarding step 4.
+
+**No due date means no projected gap.** The card shows progress towards the
+target and carries no status badge, because there is nothing to be on track
+*for*.
 
 ---
 
@@ -571,9 +798,23 @@ warns: *"This affects future cycles. Past cycles keep their dates."*
 **3 · Categories** — add, rename, archive, reorder, rolls-over, protection
 override.
 
-**4 · Zakat** — link to `/zakat`.
+**4 · Savings destinations** — a **read-only list** in v1: Bank vault ·
+Cowrywise · PiggyVest · Cash at home · Ajo.
 
-**5 · About** — version, licence (PolyForm Noncommercial, linked), and a plain
+They are a fixed set (`04-api-contract` §3), attached to a savings movement in
+Quick Add, shown on the Transactions row, and subtotalled in the Transactions
+filter bar. Settings lists them so the owner can see what is available without
+opening Quick Add to find out.
+
+They are **not editable in v1.** Adding one means a new entity, a management
+screen and a migration, and the named five cover the brief. User-defined
+destinations are in `docs/backlog.md`; until then the note field carries
+anywhere else. **That limitation is stated on this screen** rather than left to
+be discovered by someone hunting for a button that does not exist.
+
+**5 · Zakat** — link to `/zakat`.
+
+**6 · About** — version, licence (PolyForm Noncommercial, linked), and a plain
 statement that data is unencrypted on this device.
 
 **Import flow — the most dangerous action in the app.**
@@ -623,17 +864,21 @@ do with their money.
 
 | State | Copy |
 |---|---|
-| Normal | **Safe to spend today** · `₦7,500` · "₦220,000 left · 20 days to 25 Oct" |
+| Normal | **Safe to spend today** · `₦7,500.00` · "₦220,000.00 left · 20 days to 25 Oct" |
 | Amber | same, plus badge **"Low"** |
-| Red | **"₦2,300 over"** plus badge **"Overspent"** · "You've spent more than you have left for this cycle." |
-| No plan | **Safe to spend today** · `₦8,666` · "Based on your take-home. Set a plan to make this exact." |
+| Red | **"₦2,300.00 over"** plus badge **"Overspent"** · "You've spent more than you have left for this cycle." |
+| No plan | **Safe to spend today** · `₦8,666.66` · "Based on your take-home. Set a plan to make this exact." |
+
+Every amount above is rendered by `MoneyText` per §3a — naira at full size, kobo
+smaller and lighter. The word "over" carries the direction; a bare minus sign is
+never shown and never spoken.
 
 ### Banners and notes
 
 | Where | Copy |
 |---|---|
-| Unallocated | "₦50,000 unallocated — finish your plan →" *(absent at ₦0)* |
-| Over-allocated | "₦20,000 over your take-home." |
+| Unallocated | "₦50,000.00 unallocated — finish your plan →" *(absent at ₦0.00)* |
+| Over-allocated | "₦20,000.00 over your take-home." |
 | Offline | "You're offline. Mizaniya works the same — your data is on this device." |
 | Owed to you | "Not counted in safe to spend until it arrives." |
 
@@ -694,7 +939,7 @@ Everything else here is settled. These are genuinely open.
 | # | Question | Note |
 |:-:|---|---|
 | 1 | The full token set — palette, type scale, spacing, radius, elevation, light **and** dark | The whole point of the design stop. §4 fixes what danger *means*; the design fixes what it looks like |
-| 2 | Hero treatment — how a single number carries a whole screen at 360px without shouting | The one thing that decides whether the app feels trustworthy |
+| 2 | Hero treatment — how a single number carries a whole screen at 360px without shouting, **and the naira/kobo type pairing from §3a** | The one thing that decides whether the app feels trustworthy. §3a fixes the markup and the rule; the sizes and weights are yours |
 | 3 | Amber and red styling that survives §3's "colour is never alone" | Both need a text form as well |
 | 4 | Icon set, or none | Five bottom-bar items need distinguishing without labels being lost |
 | 5 | Whether the printed debt record prompts for the owner's name when absent | See §7.7 |

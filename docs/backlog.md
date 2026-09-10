@@ -38,6 +38,7 @@ waits.
 | **Optional app lock** (PIN or biometric) | There is no encryption at rest in v1: the realistic threat is someone holding the unlocked phone, and with no server a forgotten passphrase would destroy the history permanently. A lock that guards the screen without holding a key is the right shape, later (**D12**) |
 | **Automated enforcement of repo rule 3** (no employer, client or third-party project names) | The only repo rule with nothing behind it but careful reading. Secret scanning finds keys, not project names — and a denylist committed to a public repo publishes the very names it hides, so the list must live outside the repo as a CI variable. To be raised at PR AUTOMATION |
 | **Transaction pagination in the repository** | The whole dataset is held in memory as one snapshot, which is right at this size. Revisit if many years of daily records make startup noticeable; the `Repository` interface already allows a ranged `list` ([ADR-001](adr/ADR-001-reactivity-and-the-data-seam.md)) |
+| **User-defined savings destinations** | v1 ships the fixed five — bank vault, Cowrywise, PiggyVest, cash at home, ajo — which cover the brief. Making them editable means a new entity, a management screen and a migration. Until then the note field carries anywhere else, and Settings says so on screen rather than leaving someone hunting for a button that does not exist |
 
 ---
 
