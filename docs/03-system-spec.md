@@ -82,7 +82,7 @@ amber   when  safeToSpendPerDay < amberRatio × plannedDailyAllowance     (defau
 red     when  safeToSpendPerDay < 0
 ```
 
-On the seeded cycle: spendable plan ₦260,000 over 30 days = **₦8,666.67** a day;
+On the seeded cycle: spendable plan ₦260,000.00 over 30 days = **₦8,666.66** a day (floored);
 amber below **₦5,200**. On the worked day the figure is ₦7,500 — green. In the
 amber variant it is ₦5,000 — amber.
 

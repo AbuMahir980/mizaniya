@@ -141,3 +141,8 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Local design-handoff scratch folder. The committed copies live in docs/design/;
+# this holds duplicates and direction explorations. Ignored so a `git add -A`
+# cannot sweep 4MB of working files into a public repo.
+Claude outputs/

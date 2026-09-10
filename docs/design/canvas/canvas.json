@@ -1,0 +1,814 @@
+{
+ "pages": [
+  {
+   "id": "page-brand",
+   "name": "Welcome & mark"
+  },
+  {
+   "id": "page-onb",
+   "name": "Onboarding"
+  },
+  {
+   "id": "page-home",
+   "name": "Home"
+  },
+  {
+   "id": "page-plan",
+   "name": "Plan"
+  },
+  {
+   "id": "page-tx",
+   "name": "Transactions"
+  },
+  {
+   "id": "page-qa",
+   "name": "Quick Add"
+  },
+  {
+   "id": "page-debts",
+   "name": "Debts & Goals"
+  },
+  {
+   "id": "page-months",
+   "name": "Months"
+  },
+  {
+   "id": "page-settings",
+   "name": "Settings"
+  },
+  {
+   "id": "page-zakat",
+   "name": "Zakat"
+  },
+  {
+   "id": "page-found",
+   "name": "Foundations"
+  }
+ ],
+ "artboards": [
+  {
+   "file": "Main.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1072,
+   "h": 1008,
+   "title": "Design stop \u00b7 light",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "CoverDark.dc.html",
+   "x": 1212,
+   "y": 0,
+   "w": 1072,
+   "h": 1008,
+   "title": "Design stop \u00b7 dark",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "WelcomeLight.dc.html",
+   "x": 2424,
+   "y": 0,
+   "w": 886,
+   "h": 1002,
+   "title": "Welcome \u00b7 360 \u00b7 light",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "WelcomeDark.dc.html",
+   "x": 3450,
+   "y": 0,
+   "w": 886,
+   "h": 1002,
+   "title": "Welcome \u00b7 360 \u00b7 dark",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "WelcomeDLight.dc.html",
+   "x": 4476,
+   "y": 0,
+   "w": 1512,
+   "h": 754,
+   "title": "Welcome \u00b7 1440 \u00b7 light",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "WelcomeDDark.dc.html",
+   "x": 6128,
+   "y": 0,
+   "w": 1512,
+   "h": 754,
+   "title": "Welcome \u00b7 1440 \u00b7 dark",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "LogoLight.dc.html",
+   "x": 7780,
+   "y": 0,
+   "w": 1046,
+   "h": 1084,
+   "title": "Mark & wordmark \u00b7 light",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "LogoDark.dc.html",
+   "x": 0,
+   "y": 1274,
+   "w": 1046,
+   "h": 1084,
+   "title": "Mark & wordmark \u00b7 dark",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "OnbLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 2582,
+   "h": 940,
+   "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 light",
+   "page": "page-onb",
+   "print": "fixed"
+  },
+  {
+   "file": "OnbDark.dc.html",
+   "x": 2722,
+   "y": 0,
+   "w": 2582,
+   "h": 940,
+   "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 dark",
+   "page": "page-onb",
+   "print": "fixed"
+  },
+  {
+   "file": "OnbDLight.dc.html",
+   "x": 0,
+   "y": 1130,
+   "w": 4460,
+   "h": 1955,
+   "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 light",
+   "page": "page-onb",
+   "print": "fixed"
+  },
+  {
+   "file": "OnbDDark.dc.html",
+   "x": 4600,
+   "y": 1130,
+   "w": 4460,
+   "h": 1955,
+   "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 dark",
+   "page": "page-onb",
+   "print": "fixed"
+  },
+  {
+   "file": "HomeLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 832,
+   "h": 1461,
+   "title": "Home \u00b7 360 \u00b7 light",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "HomeDark.dc.html",
+   "x": 972,
+   "y": 0,
+   "w": 832,
+   "h": 1461,
+   "title": "Home \u00b7 360 \u00b7 dark",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "HomeCycleLight.dc.html",
+   "x": 1944,
+   "y": 0,
+   "w": 691,
+   "h": 1425,
+   "title": "Home \u00b7 this cycle \u00b7 light",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "HomeCycleDark.dc.html",
+   "x": 2775,
+   "y": 0,
+   "w": 691,
+   "h": 1425,
+   "title": "Home \u00b7 this cycle \u00b7 dark",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "HomeStatesLight.dc.html",
+   "x": 3606,
+   "y": 0,
+   "w": 2158,
+   "h": 1515,
+   "title": "Home \u00b7 every state \u00b7 360 \u00b7 light",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "HomeStatesDark.dc.html",
+   "x": 5904,
+   "y": 0,
+   "w": 2158,
+   "h": 1515,
+   "title": "Home \u00b7 every state \u00b7 360 \u00b7 dark",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MoreLight.dc.html",
+   "x": 8202,
+   "y": 0,
+   "w": 832,
+   "h": 887,
+   "title": "More sheet \u00b7 360 \u00b7 light",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MoreDark.dc.html",
+   "x": 0,
+   "y": 1705,
+   "w": 832,
+   "h": 887,
+   "title": "More sheet \u00b7 360 \u00b7 dark",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "DHomeLight.dc.html",
+   "x": 972,
+   "y": 1705,
+   "w": 1512,
+   "h": 1293,
+   "title": "Home \u00b7 1440 \u00b7 light",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "DHomeDark.dc.html",
+   "x": 2624,
+   "y": 1705,
+   "w": 1512,
+   "h": 1293,
+   "title": "Home \u00b7 1440 \u00b7 dark",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "DHomeStatesLight.dc.html",
+   "x": 0,
+   "y": 3188,
+   "w": 7514,
+   "h": 1407,
+   "title": "Home \u00b7 every state \u00b7 1440 \u00b7 light",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "DHomeStatesDark.dc.html",
+   "x": 0,
+   "y": 4785,
+   "w": 7514,
+   "h": 1407,
+   "title": "Home \u00b7 every state \u00b7 1440 \u00b7 dark",
+   "page": "page-home",
+   "print": "fixed"
+  },
+  {
+   "file": "PlanLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 886,
+   "h": 1520,
+   "title": "Plan \u00b7 360 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "PlanDark.dc.html",
+   "x": 1026,
+   "y": 0,
+   "w": 886,
+   "h": 1520,
+   "title": "Plan \u00b7 360 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "DPlanLight.dc.html",
+   "x": 2052,
+   "y": 0,
+   "w": 1512,
+   "h": 1615,
+   "title": "Plan \u00b7 1440 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "DPlanDark.dc.html",
+   "x": 3704,
+   "y": 0,
+   "w": 1512,
+   "h": 1615,
+   "title": "Plan \u00b7 1440 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "TransactionsLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1310,
+   "h": 1460,
+   "title": "Transactions \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "TransactionsDark.dc.html",
+   "x": 1450,
+   "y": 0,
+   "w": 1310,
+   "h": 1460,
+   "title": "Transactions \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "DTransactionsLight.dc.html",
+   "x": 2900,
+   "y": 0,
+   "w": 4460,
+   "h": 882,
+   "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "DTransactionsDark.dc.html",
+   "x": 0,
+   "y": 1650,
+   "w": 4460,
+   "h": 882,
+   "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "QALight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1310,
+   "h": 1040,
+   "title": "Quick Add \u00b7 every mode \u00b7 360 \u00b7 light",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "QADark.dc.html",
+   "x": 1450,
+   "y": 0,
+   "w": 1310,
+   "h": 1040,
+   "title": "Quick Add \u00b7 every mode \u00b7 360 \u00b7 dark",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "QADLight.dc.html",
+   "x": 2900,
+   "y": 0,
+   "w": 1512,
+   "h": 1275,
+   "title": "Quick Add \u00b7 1440 \u00b7 light",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "QADDark.dc.html",
+   "x": 4552,
+   "y": 0,
+   "w": 1512,
+   "h": 1275,
+   "title": "Quick Add \u00b7 1440 \u00b7 dark",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "DebtsLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 886,
+   "h": 1065,
+   "title": "Debts & Goals \u00b7 360 \u00b7 light",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "DebtsDark.dc.html",
+   "x": 1026,
+   "y": 0,
+   "w": 886,
+   "h": 1065,
+   "title": "Debts & Goals \u00b7 360 \u00b7 dark",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "RecordLight.dc.html",
+   "x": 2052,
+   "y": 0,
+   "w": 727,
+   "h": 1017,
+   "title": "Debt record \u00b7 360 \u00b7 light",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "RecordDark.dc.html",
+   "x": 2919,
+   "y": 0,
+   "w": 727,
+   "h": 1017,
+   "title": "Debt record \u00b7 360 \u00b7 dark",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "FormsLight.dc.html",
+   "x": 3786,
+   "y": 0,
+   "w": 886,
+   "h": 1357,
+   "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 light",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "FormsDark.dc.html",
+   "x": 4812,
+   "y": 0,
+   "w": 886,
+   "h": 1357,
+   "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 dark",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "RecordDLight.dc.html",
+   "x": 5838,
+   "y": 0,
+   "w": 1512,
+   "h": 833,
+   "title": "Debt record \u00b7 1440 \u00b7 light",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "RecordDDark.dc.html",
+   "x": 7490,
+   "y": 0,
+   "w": 1512,
+   "h": 833,
+   "title": "Debt record \u00b7 1440 \u00b7 dark",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "FormsDLight.dc.html",
+   "x": 0,
+   "y": 1547,
+   "w": 2986,
+   "h": 1166,
+   "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 light",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "FormsDDark.dc.html",
+   "x": 3126,
+   "y": 1547,
+   "w": 2986,
+   "h": 1166,
+   "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "DDebtsLight.dc.html",
+   "x": 0,
+   "y": 2903,
+   "w": 2986,
+   "h": 865,
+   "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 light",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "DDebtsDark.dc.html",
+   "x": 3126,
+   "y": 2903,
+   "w": 2986,
+   "h": 865,
+   "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 dark",
+   "page": "page-debts",
+   "print": "fixed"
+  },
+  {
+   "file": "MonthsLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 886,
+   "h": 516,
+   "title": "Months \u00b7 360 \u00b7 light",
+   "page": "page-months",
+   "print": "fixed"
+  },
+  {
+   "file": "MonthsDark.dc.html",
+   "x": 1026,
+   "y": 0,
+   "w": 886,
+   "h": 516,
+   "title": "Months \u00b7 360 \u00b7 dark",
+   "page": "page-months",
+   "print": "fixed"
+  },
+  {
+   "file": "DMonthsLight.dc.html",
+   "x": 2052,
+   "y": 0,
+   "w": 2986,
+   "h": 645,
+   "title": "Months \u00b7 1440 \u00b7 light",
+   "page": "page-months",
+   "print": "fixed"
+  },
+  {
+   "file": "DMonthsDark.dc.html",
+   "x": 5178,
+   "y": 0,
+   "w": 2986,
+   "h": 645,
+   "title": "Months \u00b7 1440 \u00b7 dark",
+   "page": "page-months",
+   "print": "fixed"
+  },
+  {
+   "file": "SettingsLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 551,
+   "h": 1739,
+   "title": "Settings \u00b7 360 \u00b7 light",
+   "page": "page-settings",
+   "print": "fixed"
+  },
+  {
+   "file": "SettingsDark.dc.html",
+   "x": 691,
+   "y": 0,
+   "w": 551,
+   "h": 1739,
+   "title": "Settings \u00b7 360 \u00b7 dark",
+   "page": "page-settings",
+   "print": "fixed"
+  },
+  {
+   "file": "ImportLight.dc.html",
+   "x": 1382,
+   "y": 0,
+   "w": 1310,
+   "h": 781,
+   "title": "Import flow \u00b7 360 \u00b7 light",
+   "page": "page-settings",
+   "print": "fixed"
+  },
+  {
+   "file": "ImportDark.dc.html",
+   "x": 2832,
+   "y": 0,
+   "w": 1310,
+   "h": 781,
+   "title": "Import flow \u00b7 360 \u00b7 dark",
+   "page": "page-settings",
+   "print": "fixed"
+  },
+  {
+   "file": "DSettingsLight.dc.html",
+   "x": 4282,
+   "y": 0,
+   "w": 1512,
+   "h": 1202,
+   "title": "Settings \u00b7 1440 \u00b7 light",
+   "page": "page-settings",
+   "print": "fixed"
+  },
+  {
+   "file": "DSettingsDark.dc.html",
+   "x": 5934,
+   "y": 0,
+   "w": 1512,
+   "h": 1202,
+   "title": "Settings \u00b7 1440 \u00b7 dark",
+   "page": "page-settings",
+   "print": "fixed"
+  },
+  {
+   "file": "ZakatLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 832,
+   "h": 1085,
+   "title": "Zakat \u00b7 360 \u00b7 light",
+   "page": "page-zakat",
+   "print": "fixed"
+  },
+  {
+   "file": "ZakatDark.dc.html",
+   "x": 972,
+   "y": 0,
+   "w": 832,
+   "h": 1085,
+   "title": "Zakat \u00b7 360 \u00b7 dark",
+   "page": "page-zakat",
+   "print": "fixed"
+  },
+  {
+   "file": "DZakatLight.dc.html",
+   "x": 1944,
+   "y": 0,
+   "w": 1512,
+   "h": 792,
+   "title": "Zakat \u00b7 1440 \u00b7 light",
+   "page": "page-zakat",
+   "print": "fixed"
+  },
+  {
+   "file": "DZakatDark.dc.html",
+   "x": 3596,
+   "y": 0,
+   "w": 1512,
+   "h": 792,
+   "title": "Zakat \u00b7 1440 \u00b7 dark",
+   "page": "page-zakat",
+   "print": "fixed"
+  },
+  {
+   "file": "PrimLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1804,
+   "h": 2348,
+   "title": "Primitives \u00b7 light",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "PrimDark.dc.html",
+   "x": 1944,
+   "y": 0,
+   "w": 1804,
+   "h": 2348,
+   "title": "Primitives \u00b7 dark",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "StyleLight.dc.html",
+   "x": 3888,
+   "y": 0,
+   "w": 462,
+   "h": 640,
+   "title": "Style \u00b7 light",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "StyleDark.dc.html",
+   "x": 4490,
+   "y": 0,
+   "w": 462,
+   "h": 640,
+   "title": "Style \u00b7 dark",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "Print.dc.html",
+   "x": 5092,
+   "y": 0,
+   "w": 866,
+   "h": 1227,
+   "title": "Debt record \u2014 print, A4",
+   "page": "page-found",
+   "print": "fixed"
+  }
+ ],
+ "annotations": [
+  {
+   "id": "n-brand",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-brand",
+   "text": "The mark is the mizan beam \u2014 a set of scales, tipped, because the app exists to say whether today is in balance. Locked; the meem monogram and the balance bar are retired. It is the app icon, the favicon, the sidebar lockup and the letterhead on the printed debt record. Launch, then the welcome screen that sits before onboarding step 1."
+  },
+  {
+   "id": "n-onb",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-onb",
+   "text": "All six steps, mobile and desktop. Step 2 is the only required one. Opening balances and debts are dated 24 September \u2014 the day before the cycle \u2014 so they never count as this cycle's saving."
+  },
+  {
+   "id": "n-home",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-home",
+   "text": "Default, mid-cycle, the More sheet, and every state \u2014 amber, red, no plan, empty and offline \u2014 drawn at 360 and again at 1440. Nothing about a state is left for the implementer to infer from the other width."
+  },
+  {
+   "id": "n-plan",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-plan",
+   "text": "Envelopes at 360 and 1440, plus the row menu. Money moves between envelopes; it is never created."
+  },
+  {
+   "id": "n-tx",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-tx",
+   "text": "The ledger, grouped by day, at both widths. Every row carries its kobo."
+  },
+  {
+   "id": "n-qa",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-qa",
+   "text": "The sheet and the full screen at 360, record and edit, and the dialog at 1440."
+  },
+  {
+   "id": "n-debts",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-debts",
+   "text": "Debts both ways and goals, the on-screen debt record, the add forms, and 1440. The printed record is on Foundations."
+  },
+  {
+   "id": "n-months",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-months",
+   "text": "Closed cycles and what carried over, at both widths."
+  },
+  {
+   "id": "n-settings",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-settings",
+   "text": "Settings, the three-stage import flow, and 1440."
+  },
+  {
+   "id": "n-zakat",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-zakat",
+   "text": "An estimate with its workings shown, and the caveat attached to it."
+  },
+  {
+   "id": "n-found",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-found",
+   "text": "The primitives sheet \u2014 every component in every state, both themes \u2014 then the palette and type tile, and the printed debt record: A4, black and white, no app chrome."
+  }
+ ],
+ "launch": {
+  "view": "canvas",
+  "page": "page-brand"
+ }
+}

@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+.mz{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);
+    background:var(--bg);-webkit-font-smoothing:antialiased}
+.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:500;letter-spacing:-.004em}
+.mz .disp{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-.035em;
+     font-variant-numeric:tabular-nums lining-nums}
+.mz .lab{font-size:10.5px;letter-spacing:.115em;text-transform:uppercase;font-weight:600;
+     color:var(--soft)}
+.mz .num{font-variant-numeric:tabular-nums lining-nums}
+.mz .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;
+     font-variant-numeric:tabular-nums}
+.mz .mlab{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+     letter-spacing:.12em;text-transform:uppercase;color:var(--soft);font-weight:400}
+.mz .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+     box-shadow:var(--shadow)}
+.mz .pill{display:inline-flex;align-items:center;height:25px;padding:0 10px;
+     border-radius:8px;font-size:10.5px;font-weight:700;letter-spacing:.07em;
+     text-transform:uppercase;white-space:nowrap}
+.mz .tile{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;
+     justify-content:center;flex:0 0 auto}
+.mz .seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;
+     background:var(--card);padding:3px;box-shadow:var(--shadow)}
+.mz .seg>span{padding:8px 20px;border-radius:9px;font-size:13px;font-weight:600;
+     color:var(--soft);white-space:nowrap}
+.mz .seg>span.on{background:var(--ink);color:var(--bg)}
+.mz .link{display:inline-flex;align-items:center;gap:7px;min-height:44px;
+     color:var(--emerald);font-size:13.5px;font-weight:600}
+.mz .rail{height:6px;border-radius:4px;background:var(--track);overflow:hidden}
+.mz .rail>i{display:block;height:100%;border-radius:4px}
+.mz .nav{display:flex;align-items:center;background:var(--card);
+     border-top:1px solid var(--line);padding:6px 10px 10px}
+.mz .nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+     padding:8px 0;color:var(--faint);font-size:10px;font-weight:600;letter-spacing:.02em}
+.mz .nav-i.on{color:var(--emerald)}
+
+.mz .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+     min-height:48px;padding:0 20px;border-radius:13px;font-size:14.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .btn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .btn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .btn-q{background:transparent;color:var(--soft)}
+.mz .fld{min-height:50px;background:var(--card);border:1px solid var(--line);
+     border-radius:13px;padding:12px 15px;font-size:15px;display:flex;align-items:center;
+     gap:10px;color:var(--ink)}
+.mz .fld.on{border-color:var(--emerald);box-shadow:0 0 0 3px var(--em2)}
+.mz .fld .ph{color:var(--faint)}
+.mz .chip{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 15px;
+     border-radius:12px;border:1px solid var(--line);background:var(--card);
+     font-size:13.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+.mz .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mz .row{display:flex;align-items:center;gap:13px;min-height:56px;padding:11px 0;
+     border-bottom:1px solid var(--hair)}
+.mz .row:last-child{border-bottom:0}
+.mz .tabs{display:flex;gap:26px;border-bottom:1px solid var(--line)}
+.mz .tabs>span{min-height:46px;display:flex;align-items:center;font-size:15px;
+     font-weight:600;color:var(--soft);border-bottom:2px solid transparent}
+.mz .tabs>span.on{color:var(--ink);border-bottom-color:var(--emerald)}
+.mz .sw{width:46px;height:27px;border-radius:14px;background:var(--track);
+     border:1px solid var(--line);position:relative;flex:0 0 auto}
+.mz .sw>i{position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:11px;
+     background:var(--card);border:1px solid var(--line);display:block}
+.mz .sw.on{background:var(--emerald);border-color:var(--emerald)}
+.mz .sw.on>i{left:auto;right:2px;background:var(--onEmerald);border-color:transparent}
+.mz .sk{background:var(--track);border-radius:6px;height:12px;display:block}
+
+.mz .ar{font-family:Amiri,"Noto Naskh Arabic",serif;direction:rtl}
+.mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
+</style>
+</helmet>
+<div style="background:#EDE7DA;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#5A564A;margin:0 0 18px 2px">Mark &amp; wordmark · light</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);"><div style="display:flex;flex-direction:column;gap:20px;width:470px"><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">The mark</div><div style="display:flex;align-items:baseline;gap:10px"><span class="ser" style="font-size:23px;flex:1">The mizan beam</span><span class="lab" style="color:var(--emerald)">Locked</span></div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin-top:8px">Mizaniya (ميزانية) comes from <em>mizan</em> (ميزان) — a set of scales. The beam is drawn one notch off level, because the app exists to tell you whether today is in balance, and most days it is not quite.</div><div style="display:flex;gap:24px;align-items:center;margin-top:20px"><div style="position:relative;width:178px;height:178px;flex:0 0 auto"><svg width="178" height="178" style="position:absolute;inset:0" stroke="var(--line)" stroke-width="1" fill="none"><line x1="0" y1="0.0" x2="178" y2="0.0"/><line x1="0.0" y1="0" x2="0.0" y2="178"/><line x1="0" y1="22.2" x2="178" y2="22.2"/><line x1="22.2" y1="0" x2="22.2" y2="178"/><line x1="0" y1="44.5" x2="178" y2="44.5"/><line x1="44.5" y1="0" x2="44.5" y2="178"/><line x1="0" y1="66.8" x2="178" y2="66.8"/><line x1="66.8" y1="0" x2="66.8" y2="178"/><line x1="0" y1="89.0" x2="178" y2="89.0"/><line x1="89.0" y1="0" x2="89.0" y2="178"/><line x1="0" y1="111.2" x2="178" y2="111.2"/><line x1="111.2" y1="0" x2="111.2" y2="178"/><line x1="0" y1="133.5" x2="178" y2="133.5"/><line x1="133.5" y1="0" x2="133.5" y2="178"/><line x1="0" y1="155.8" x2="178" y2="155.8"/><line x1="155.8" y1="0" x2="155.8" y2="178"/><line x1="0" y1="178.0" x2="178" y2="178.0"/><line x1="178.0" y1="0" x2="178.0" y2="178"/><line x1="0" y1="89.0" x2="178" y2="89.0" stroke="var(--rose)" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/><line x1="89.0" y1="0" x2="89.0" y2="178" stroke="var(--rose)" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/></svg><div style="position:absolute;inset:0;color:var(--emerald)"><svg width="178" height="178" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div></div><div style="flex:1;min-width:0;font-size:12px;line-height:19px;color:var(--soft)">Drawn on a 48-unit grid. Keep clear space of one pan-height all round.<br>Beam tips <strong>9°</strong> — enough to read as motion, not as an error.<br>Stroke <strong>3.8</strong> at 48, scaled with the mark.<br>One colour. Never two, never filled.</div></div></div><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">Sizes</div><div style="display:flex;align-items:flex-end;gap:26px;margin-top:14px"><div><div style="color:var(--emerald);display:flex;height:48px;align-items:flex-end"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">48px</div></div><div><div style="color:var(--emerald);display:flex;height:48px;align-items:flex-end"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">32px</div></div><div><div style="color:var(--emerald);display:flex;height:48px;align-items:flex-end"><svg width="24" height="24" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">24px</div></div><div><div style="color:var(--emerald);display:flex;height:48px;align-items:flex-end"><svg width="20" height="20" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">20px</div></div><div><div style="color:var(--emerald);display:flex;height:48px;align-items:flex-end"><svg width="16" height="16" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">16px</div></div></div><div style="font-size:11.5px;line-height:17px;color:var(--soft);margin-top:16px">Below 16px the pans close up — use the beam alone or the app icon instead.</div></div><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">App icon</div><div style="display:flex;align-items:flex-end;gap:26px;margin-top:14px;flex-wrap:wrap"><div><div style="width:84px;height:84px;border-radius:22px;background:var(--emerald);color:var(--onEmerald);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:var(--lift)"><svg width="49" height="49" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">Home screen</div></div><div><div style="width:56px;height:56px;border-radius:15px;background:var(--emerald);color:var(--onEmerald);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:var(--lift)"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">Toolbar</div></div><div><div style="width:40px;height:40px;border-radius:11px;background:var(--emerald);color:var(--onEmerald);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:var(--lift)"><svg width="23" height="23" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">Tile</div></div></div></div><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">Favicon</div><div style="display:flex;align-items:flex-end;gap:22px;margin-top:14px"><div style="display:flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--line);border-top-left-radius:9px;border-top-right-radius:9px;padding:9px 14px;width:210px"><span style="color:var(--emerald);display:flex;flex:0 0 auto"><svg width="16" height="16" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></span><span style="font-size:12px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Mizaniya — today</span><span style="color:var(--faint);flex:0 0 auto;display:flex"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span></div><div><div style="width:32px;height:32px;border-radius:8px;background:var(--emerald);color:var(--onEmerald);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:var(--lift)"><svg width="19" height="19" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">32px</div></div><div><div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--emerald)"><svg width="16" height="16" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></div><div style="font-size:11px;color:var(--faint);margin-top:8px;text-align:center">16px</div></div></div></div></div></div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);width:470px;display:flex;flex-direction:column;gap:20px"><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">The wordmark</div><div style="margin-top:16px"><div style="display:flex;align-items:center;gap:17px"><span style="color:var(--emerald);display:flex"><svg width="54" height="54" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></span><div style=""><div class="ser" style="font-size:40px;line-height:46px;font-weight:600;letter-spacing:-.01em">Mizaniya</div><div class="ar" style="font-size:25px;color:var(--soft);margin-top:2px;line-height:1.5">ميزانية</div></div></div></div><div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--hair)"><div style="display:flex;align-items:center;gap:9px"><span style="color:var(--emerald);display:flex"><svg width="30" height="30" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></span><div style=""><div class="ser" style="font-size:22px;line-height:25px;font-weight:600;letter-spacing:-.01em">Mizaniya</div></div></div></div><div style="font-size:11.5px;color:var(--faint);margin-top:10px">Stacked when there is room; single-line in bars and on the sidebar, where the Arabic is dropped rather than shrunk.</div></div><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">Set on its own</div><div class="ser" style="font-size:40px;font-weight:600;letter-spacing:-.01em;margin-top:12px">Mizaniya</div><div class="ar" style="font-size:30px;color:var(--soft);margin-top:2px;line-height:1.6">ميزانية</div><div style="font-size:12.5px;color:var(--soft);margin-top:16px;line-height:20px">Latin: <strong>EB Garamond 600</strong> — the voice already used for screen titles.<br>Arabic: <strong>Amiri</strong>, a classical Naskh that carries Garamond's bookish weight.<br>The Arabic is always secondary and never carries a figure.</div></div><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">One colour, and reversed</div><div style="display:flex;align-items:center;gap:18px;margin-top:14px;flex-wrap:wrap"><div><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--ink);display:flex"><svg width="26" height="26" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></span><div style="color:var(--ink);"><div class="ser" style="font-size:19px;line-height:22px;font-weight:600;letter-spacing:-.01em">Mizaniya</div></div></div></div><div style="background:var(--emerald);border-radius:12px;padding:11px 15px"><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--onEmerald);display:flex"><svg width="26" height="26" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></span><div style="color:var(--onEmerald);"><div class="ser" style="font-size:19px;line-height:22px;font-weight:600;letter-spacing:-.01em">Mizaniya</div></div></div></div></div></div><div style="border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--card);box-shadow:var(--shadow)"><div class="lab">Never</div><div style="display:flex;gap:14px;margin-top:14px"><div style="flex:1;min-width:0"><div style="border:1px solid var(--line);border-radius:12px;height:86px;display:flex;align-items:center;justify-content:center;background:var(--card2);position:relative;overflow:hidden"><span style="color:var(--emerald);display:flex"><svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M24 9v30"/><path d="M15 39h18"/><circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/><path d="M9 15h30"/><path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/><path d="M38.4 16.4 34.6 26a4.6 4.6 0 0 0 9.2 0z"/></svg></span><svg width="100%" height="100%" style="position:absolute;inset:0" stroke="var(--rose)" stroke-width="1.5" opacity=".45"><line x1="0" y1="0" x2="100%" y2="100%"/></svg></div><div style="font-size:11.5px;line-height:16px;color:var(--soft);margin-top:7px">Never level the beam. The tilt is the idea.</div></div><div style="flex:1;min-width:0"><div style="border:1px solid var(--line);border-radius:12px;height:86px;display:flex;align-items:center;justify-content:center;background:var(--card2);position:relative;overflow:hidden"><span style="color:var(--emerald)"><svg width="46" height="46" viewBox="0 0 48 48" fill="none"
+     style="display:block">
+  <rect x="6" y="12" width="36" height="7" rx="3.5" fill="currentColor"/>
+  <rect x="6" y="23" width="22" height="7" rx="3.5" fill="currentColor" opacity=".55"/>
+  <rect x="6" y="34" width="12" height="7" rx="3.5" fill="currentColor" opacity=".28"/>
+</svg></span><svg width="100%" height="100%" style="position:absolute;inset:0" stroke="var(--rose)" stroke-width="1.5" opacity=".45"><line x1="0" y1="0" x2="100%" y2="100%"/></svg></div><div style="font-size:11.5px;line-height:16px;color:var(--soft);margin-top:7px">Never swap in another mark for a screen.</div></div><div style="flex:1;min-width:0"><div style="border:1px solid var(--line);border-radius:12px;height:86px;display:flex;align-items:center;justify-content:center;background:var(--card2);position:relative;overflow:hidden"><div style="text-align:center"><div class="ar" style="font-size:24px;color:var(--ink);line-height:1.4">ميزانية</div><div class="ser" style="font-size:12px;color:var(--soft)">Mizaniya</div></div><svg width="100%" height="100%" style="position:absolute;inset:0" stroke="var(--rose)" stroke-width="1.5" opacity=".45"><line x1="0" y1="0" x2="100%" y2="100%"/></svg></div><div style="font-size:11.5px;line-height:16px;color:var(--soft);margin-top:7px">Never set the Arabic above the Latin.</div></div></div></div></div></div><div style="font-size:12.5px;line-height:18px;color:#5A564A;margin-top:16px;max-width:760px">Mizaniya (ميزانية, “budget”) comes from mizan (ميزان) — a set of scales, and the mark is one, tipped. Locked at the owner’s pick from three candidates; the meem monogram and the balance bar are retired. This mark is the app icon, the favicon, the sidebar lockup and the letterhead on the printed debt record.</div></div>
+</x-dc>
+</body>
+</html>

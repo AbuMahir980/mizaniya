@@ -94,7 +94,7 @@ accessible label in words:
 | `₦7,500.00` | "7,500 naira" |
 | `₦7,500.50` | "7,500 naira 50 kobo" |
 | `₦8,400.00` amber | "8,400 naira. Low." |
-| `−₦2,300.00` red | "2,300 naira over. Overspent." |
+| `₦2,300.00 over` red | "2,300 naira over. Overspent." |
 | `₦0.00` | "Zero naira" |
 
 Zero kobo is never spoken. Only a **non-zero** kobo is announced — the same
@@ -183,6 +183,30 @@ the floored rate can never exceed the money actually there.
 `MoneyText` takes an already-rounded value. **It never rounds** — rounding is a
 `core/` decision, tested, and never made in a component (**H3**).
 
+### Round once, and divide last
+
+Two rules that sound pedantic and are not. Both are about money arithmetic
+(**H1**), and getting either wrong produces figures that look right.
+
+**1 · Never round a rounded number.** Each rounding loses a little, and chaining
+them compounds the loss silently.
+
+**2 · Stay in integer kobo, multiply before you divide, and round only at the
+point of display.**
+
+The amber threshold shows why both matter. It is 60% of the planned daily
+allowance, and there are three ways to compute it:
+
+| How | Result |
+|---|---|
+| From the **displayed** allowance: 0.6 × ₦8,666.66 | ₦5,199.99 — wrong, a rounded number rounded again |
+| In floating point: 0.6 × (26,000,000 ÷ 30) | ₦5,199.999… — wrong, and wrong in a way that varies |
+| **In integer kobo, dividing last:** (6 × 26,000,000) ÷ 300 | **₦5,200.00 exactly** — right |
+
+So ₦8,666.66 and ₦5,200.00 are both correct, and neither is derived from the
+other's displayed form. A figure is rounded when it is shown, never before, and
+never twice.
+
 ---
 
 ## 4 · What the danger colour means
@@ -222,8 +246,34 @@ space, not features. Nothing is available only on desktop.
 
 ## 6 · Shared components
 
-Drawn from `src/ui/` (built in SHARED RULES from `docs/design/tokens.md`).
-Screens may use **only** these primitives.
+**`docs/design/tokens.md` §7 and `docs/design/canvas/PrimLight.dc.html` are now
+authoritative** for component names, tokens and states. The design arrived on
+10 September and named things its own way; this table is kept for the
+*requirements*, which the design does not change.
+
+| This spec called it | The design calls it |
+|---|---|
+| Badge | **Pill** |
+| ProgressBar | **Rail** |
+| Tabs | **Segmented** |
+| Input | **Field** |
+| StatTile | **superseded** — three diagrams do that work (tokens §6) |
+
+New in the design and not anticipated here: Chip, Icon tile, ListRow, Switch,
+Slider, BottomBar, Sidebar.
+
+**Four requirements must survive whatever the component ends up being called:**
+
+1. **One money formatter.** Whatever renders an amount is the *only* thing that
+   formats one (**H2**), and it emits the naira and kobo parts separately (§3a).
+2. **Every empty state names the next action** — and two situations with
+   different next actions are two states (§7.4).
+3. **The offline note is never danger-coloured** (§4).
+4. **Every save confirms.** §7.5 specifies a toast; the design has no toast
+   component. Either is fine, but **something visible must confirm a save** and
+   it must reach the live region in §3. *Open — see §9.*
+
+Screens may use only the primitives in the design's set.
 
 | Component | Used by | Notes |
 |---|---|---|
@@ -329,6 +379,15 @@ other (D8).
 
 **Layout, top to bottom.**
 
+> **Superseded by the design.** The four stat tiles below are replaced by three
+> diagrams — an arc gauge for safe-to-spend, a daily-spend chart against the
+> allowance line, and a segmented breakdown of the cycle's money
+> (`docs/design/tokens.md` §6). The design wins on layout and visual hierarchy;
+> this spec still wins on behaviour and on which figures appear
+> (`peer-ai/shared/design-data-contract.md`). **The numbers table below is
+> unchanged and still authoritative** — the same figures, presented differently.
+> Build from `docs/design/canvas/HomeLight.dc.html`.
+
 ```
 ┌──────────────────────────────────────┐
 │  Mon 5 Oct  ·  24 Rabiʻ II 1448      │  date row (Hijri, story B7)
@@ -408,12 +467,16 @@ every row opens the records behind it (story B6). No figure is a dead end.
 
 **Where each tile leads.**
 
-| Tile | Opens |
+| Figure | Opens |
 |---|---|
 | Cash left | Transactions, this cycle, unfiltered |
 | Income | Transactions filtered to `income` |
 | Saved | Transactions filtered to the two savings types, **subtotalled per destination** in the filter bar |
 | Debt paid | Debts & Goals, Debts tab |
+
+These four figures now live in the money-breakdown diagram rather than in tiles.
+**Each segment and each key row is still a target that opens its records** — the
+presentation changed, the rule that no figure is a dead end did not.
 
 No new screen is needed for savings-by-destination — it is the Transactions list
 with a filter and subtotals (§7.4).
@@ -453,7 +516,7 @@ Savings · Debt payment · Expense.
 | Allocated | ₦450,000 | Σ `PlanEntry.planned` for the cycle |
 | **Unallocated** | ₦0 → banner hidden | `core/budget.unallocated` |
 | Carried in | + ₦12,000 on food | `core/budget.carriedIn(category, previousCycle)` |
-| Planned daily allowance | ₦8,666.67 | Σ spendable ÷ days in cycle — shown as a footnote so D15 is legible |
+| Planned daily allowance | ₦8,666.66 | Σ spendable ÷ days in cycle, floored — shown as a footnote so D15 is legible |
 
 **Actions.** `Copy last cycle's plan` (top right; disabled with a reason when
 there is no previous cycle — never silently inert). Per-row menu: rolls over,
@@ -943,7 +1006,14 @@ Everything else here is settled. These are genuinely open.
 | 3 | Amber and red styling that survives §3's "colour is never alone" | Both need a text form as well |
 | 4 | Icon set, or none | Five bottom-bar items need distinguishing without labels being lost |
 | 5 | Whether the printed debt record prompts for the owner's name when absent | See §7.7 |
-| 6 | Empty-state illustration or type-only | Type-only is faster and ages better; the designer's call |
+| 6 | Empty-state illustration or type-only | **Answered:** type-only |
+
+### Still open after the design
+
+| # | Question | Note |
+|:-:|---|---|
+| 1 | **How does a save confirm?** §7.5 specifies a toast; the design has no toast component. Something visible must confirm, and it must reach the live region in §3 | For the owner — blocks nothing until Quick Add is built |
+| 2 | A **second completed cycle** and a **zakat scenario** are still missing from `docs/seed-data.md` | Needed before Months and Zakat can be built with real content |
 
 ---
 
