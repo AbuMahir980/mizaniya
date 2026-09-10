@@ -168,6 +168,13 @@ by deferring to `docs/standards/`. SETUP added `CLAUDE.md`, this file,
 - **Recorded the git convention** in the driver's Project settings and applied it to the driver's build and gate sections, which had described local ticket→milestone merges with no PR.
 - **Logged a fourth framework defect** in `docs/peer-ai-feedback.md`: the workflow driver mandates local merges while `shared.md` requires a PR with review, and PR automation is phase 11b — so by the time CI and branch protection exist, the whole build has already merged without them.
 
+### 2026-09-10 (Thursday)
+
+- **First learning-mode stop.** Worked through the review questions from SETUP. Two answers landed on the symptom but stopped short of the mechanism: the stored safe-to-spend field would be too high (B3), and copying rules means editing five places instead of one (E1/E2). Both missed the same half — that nothing would report the fault.
+- **Named the pattern and gave it a method.** *What breaks — and who finds out?* Loud problems are cheap; silent ones are expensive. Written up as [docs/concepts/what-breaks-who-finds-out.md](docs/concepts/what-breaks-who-finds-out.md), the first concept note. It reframes B3, E2 and K4 as one rule about detectability wearing three hats.
+- **Opened [docs/concepts/revisit.md](docs/concepts/revisit.md)** with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
+- **Recorded a standing writing preference:** intelligent but plain — the test is whether the least technical reader could understand and remember it. Applies to docs, file headers, commit messages and the app's own copy.
+
 ---
 
 ## What's Next
@@ -204,7 +211,7 @@ by deferring to `docs/standards/`. SETUP added `CLAUDE.md`, this file,
 | Agent prompts (review, security, QA, contract) | `peer-ai/agents/` |
 | Framework defects to send upstream | `docs/peer-ai-feedback.md` |
 | Design system and screen designs | `docs/design/` — **empty until the design stop after PAGE SPECS** |
-| Concept notes (learning mode) | `docs/concepts/` — created when the first concept appears |
+| Concept notes (learning mode) | `docs/concepts/` — one file per concept, plus `revisit.md` for threads to pull later |
 | Licence | `LICENSE` (PolyForm Noncommercial 1.0.0) — authoritative, never regenerated |
 
 ---
