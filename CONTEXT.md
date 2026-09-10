@@ -131,9 +131,9 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: SYSTEM SPEC, complete.** The repo is still documents only — no
-application code exists yet. Step 0, SETUP, UNDERSTAND, ARCHITECT and SYSTEM
-SPEC are done. What exists is a full paper trail: fifteen numbered decisions,
+**Phase: API CONTRACT, complete — this is the stakeholder stop.** The repo is still documents only — no
+application code exists yet. Step 0, SETUP, UNDERSTAND, ARCHITECT, SYSTEM SPEC
+and API CONTRACT are done. What exists is a full paper trail: fifteen numbered decisions,
 seven ADRs, forty user stories with acceptance criteria, and a seeded scenario
 with every figure worked through.
 
@@ -141,13 +141,15 @@ Everything rests on one idea: **transactions are the only facts, and everything
 else is a calculation.** That is what makes step 9 of the core journey — export,
 import into a clean browser, identical state — a consequence rather than a hope.
 
-Four pull requests are open and stacked, each on the one before:
-`peer-ai/setup` → `main` → `peer-ai/understand` → `peer-ai/architect` →
-`peer-ai/spec-system`. None has CI, because CI does not exist until phase 11b.
-**They should be merged bottom-up in order.**
+**Five pull requests are open and stacked**, each based on the one before:
+setup → understand → architect → spec-system → spec-api-contract. None has CI,
+because CI does not exist until phase 11b. **Merge them bottom-up, in order.**
 
-**Next action:** API CONTRACT — `peer-ai/shared/04-spec-api-contract.md`, the
-last phase before the stop.
+The repo now contains its first three source files. They do not compile yet —
+there is no `package.json`, and creating one is BUILD's first task.
+
+**Next action: none until the stakeholder resumes.** The prompt says stop after
+API CONTRACT. After that comes PAGE SPECS, then the design stop.
 
 ---
 
@@ -187,7 +189,11 @@ last phase before the stop.
 | 2026-09-10 | Multi-tab drift closed with a `BroadcastChannel` reload after each successful write — two open tabs would otherwise disagree silently | ARCHITECT (ADR-001) |
 | 2026-09-10 | **ADR-002 · `core/` stays a `src/core/` folder in v1**, extracted to a package as the first task of v2. What makes it reusable is that it imports nothing, and the A3 lint rule enforces that from day one — so the boundary is real without workspace configuration in five tools | ARCHITECT, stakeholder's choice |
 | 2026-09-10 | **D15 · Amber when safe-to-spend per day falls below 60% of the planned daily allowance**, editable in Settings; red only when negative. A proportion stays meaningful after a pay rise, where a fixed naira threshold quietly goes wrong and nobody re-tunes it | SYSTEM SPEC |
-
+| 2026-09-10 | **The contract is the code.** `src/core/types.ts`, `schema.ts` and `repository.ts` are the source of record; `docs/04-api-contract.md` explains and indexes them rather than restating shapes that would then drift | API CONTRACT |
+| 2026-09-10 | **Eight transaction types, not seven.** *Move to savings* and *Take from savings* are two types, not one type with a direction field — H5 says direction comes from the type. This corrects an earlier draft of D9 | API CONTRACT |
+| 2026-09-10 | **A `Debt` has no direction field.** The balance derives from transactions and may cross zero, which is what a rotating ajo does. A stored direction would need correcting at the crossing and nothing would notice if it were not (D9) | API CONTRACT |
+| 2026-09-10 | **The `Repository` interface lives in `core/`, its implementations in `data/`** — correcting the first draft of the architecture. The interface is shared domain contract that Expo must implement; the implementation is a platform detail | API CONTRACT |
+| 2026-09-10 | **`zod` for runtime validation at the import boundary.** TypeScript vanishes at compile time, and a file the owner picks from disk is untrusted input (N1: ~14 KB, no platform equivalent) | API CONTRACT |
 ---
 
 ## What Was Done — By Day
@@ -222,12 +228,16 @@ last phase before the stop.
 - **Settled the amber threshold as D15** — a proportion of the planned daily allowance rather than a fixed figure, with the divide-by-zero and no-plan cases written down rather than discovered later.
 - **Extended `docs/seed-data.md` with a full worked cycle**, because the spec needed real figures and repo rule 2 says figures live only there. The rent fund is seeded **behind schedule on purpose**: a demo where everything is fine demonstrates nothing, and the projected gap exists to warn early.
 - **Wrote the states per screen rather than per story** — five states repeated across forty stories would have been unreadable, and unreadable criteria are criteria nobody checks.
----
+- **Ran API CONTRACT.** In v1 the contract is the `Repository` interface plus the export/import file, so it was written as **real source files** — `src/core/types.ts`, `schema.ts`, `repository.ts` — with [docs/04-api-contract.md](docs/04-api-contract.md) indexing them rather than restating shapes that would drift. First code in the repo.
+- **Corrected myself on the transaction types.** I had proposed savings as one type with a direction field; H5 is explicit that direction comes from the type, so there are **eight** types. Fixed in the requirements summary and the spec.
+- **Moved the `Repository` interface from `data/` to `core/`**, correcting the architecture's first draft — the Expo app must implement the interface, so it is shared contract, not a platform detail.
+- **Recorded what API CONTRACT could not finish:** the phase requires a CI step that regenerates the contract doc from the source and fails on any diff. That needs `package.json`, which BUILD creates first, so it is written up as a BUILD task and the tables are marked hand-checked rather than passed off as generated.---
 
 ## What's Next
 
 1. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
-2. Run **API CONTRACT** (`peer-ai/shared/04-spec-api-contract.md`) — the `Repository` interface and the JSON export/import schema are the contract in v1, derived from the types rather than hand-written twice. Note where a v3 API would slot in. **Stop after it.**
+2. Run **PAGE SPECS** (`peer-ai/frontend/01-spec-pages.md`) for Onboarding, Home, Plan, Transactions + Quick Add, Debts & Goals + debt record, Months and Settings — each with its loading, empty, error, offline and success states and the exact numbers it shows. Skills: `design:accessibility-review`, `design:ux-copy`.
+3. **Then stop again** — the design stop. `docs/design/` (tokens.md + PNGs) is produced outside the session from those specs.
 
 ---
 
@@ -263,6 +273,8 @@ UNDERSTAND's clarification round is now closed.
 | Promoted ADRs | `docs/adr/` |
 | Backlog — what is deliberately not built | `docs/backlog.md` |
 | System spec — stories, criteria, screen states | `docs/03-system-spec.md` |
+| API contract — indexes the source of record | `docs/04-api-contract.md` |
+| **The contract itself** | `src/core/types.ts` · `schema.ts` · `repository.ts` |
 | Engineering standards (rulebook) | `docs/standards/` |
 | Seed data — the only source of figures | `docs/seed-data.md` |
 | Peer AI playbook (vendored) | `peer-ai/` |

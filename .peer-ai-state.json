@@ -1,7 +1,7 @@
 {
-  "currentPhase": "spec-api-contract",
+  "currentPhase": "spec-pages",
   "currentStep": 1,
-  "phaseFile": "peer-ai/shared/04-spec-api-contract.md",
+  "phaseFile": "peer-ai/frontend/01-spec-pages.md",
   "cycle": "M1 — Project kickoff",
   "milestoneBranch": "",
   "ticket": "",
@@ -14,5 +14,5 @@
   "lastVerifyResult": "",
   "lastVerifyTimestamp": "",
   "lastUpdated": "2026-09-10",
-  "notes": "READ CONTEXT.md at app root for the full narrative. Next action: API CONTRACT, then STOP for stakeholder review."
+  "notes": "READ CONTEXT.md at app root. STOPPED after API CONTRACT for stakeholder review. Next: PAGE SPECS, then the design stop."
 }
