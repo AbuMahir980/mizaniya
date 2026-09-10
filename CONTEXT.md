@@ -131,24 +131,23 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: ARCHITECT, complete.** The repo is still documents only — no
-application code exists yet. Step 0, SETUP and UNDERSTAND are done. ARCHITECT
-has fixed the shape of the system in
-[docs/02-architecture.md](docs/02-architecture.md), with seven ADRs; two are
-promoted to their own files under `docs/adr/`.
+**Phase: SYSTEM SPEC, complete.** The repo is still documents only — no
+application code exists yet. Step 0, SETUP, UNDERSTAND, ARCHITECT and SYSTEM
+SPEC are done. What exists is a full paper trail: fifteen numbered decisions,
+seven ADRs, forty user stories with acceptance criteria, and a seeded scenario
+with every figure worked through.
 
-The architecture rests on one idea: **transactions are the only facts, and
-everything else is a calculation.** That is what makes step 9 of the core
-journey — export, import into a clean browser, identical state — a consequence
-rather than a hope.
+Everything rests on one idea: **transactions are the only facts, and everything
+else is a calculation.** That is what makes step 9 of the core journey — export,
+import into a clean browser, identical state — a consequence rather than a hope.
 
-Three pull requests are open and stacked: `peer-ai/setup` → `main`,
-`peer-ai/understand` → `peer-ai/setup`, `peer-ai/architect` →
-`peer-ai/understand`. None has CI, because CI does not exist until phase 11b.
+Four pull requests are open and stacked, each on the one before:
+`peer-ai/setup` → `main` → `peer-ai/understand` → `peer-ai/architect` →
+`peer-ai/spec-system`. None has CI, because CI does not exist until phase 11b.
+**They should be merged bottom-up in order.**
 
-**Next action:** SYSTEM SPEC — `peer-ai/shared/03-spec-system.md`, invoking
-`product-management:write-spec`. **One decision is waiting first:** ADR-002,
-where `core/` lives.
+**Next action:** API CONTRACT — `peer-ai/shared/04-spec-api-contract.md`, the
+last phase before the stop.
 
 ---
 
@@ -187,6 +186,7 @@ where `core/` lives.
 | 2026-09-10 | **ADR-007 · PWA via vite-plugin-pwa**, shell precached only, persistence requested after the first meaningful write | ARCHITECT |
 | 2026-09-10 | Multi-tab drift closed with a `BroadcastChannel` reload after each successful write — two open tabs would otherwise disagree silently | ARCHITECT (ADR-001) |
 | 2026-09-10 | **ADR-002 · `core/` stays a `src/core/` folder in v1**, extracted to a package as the first task of v2. What makes it reusable is that it imports nothing, and the A3 lint rule enforces that from day one — so the boundary is real without workspace configuration in five tools | ARCHITECT, stakeholder's choice |
+| 2026-09-10 | **D15 · Amber when safe-to-spend per day falls below 60% of the planned daily allowance**, editable in Settings; red only when negative. A proportion stays meaningful after a pay rise, where a fixed naira threshold quietly goes wrong and nobody re-tunes it | SYSTEM SPEC |
 
 ---
 
@@ -218,14 +218,16 @@ where `core/` lives.
 - **Wrote three concept notes** — [derived state](docs/concepts/derived-state.md), [the repository pattern](docs/concepts/repository-pattern.md), [IndexedDB](docs/concepts/indexeddb.md).
 - **Noted a small inconsistency to fix later:** the addendum says the Expo SDK will be recorded in "ADR-01", but ADR-001 is now taken. It should say *an* ADR.
 - **ADR-002 decided:** `core/` stays a folder in v1. Opened [docs/backlog.md](docs/backlog.md) with the extraction recorded as the first task of v2 — before any Expo screen, so it happens once rather than being discovered mid-build. **The A3 lint rule is now the only thing holding that boundary, so it must fail CI rather than warn.**
-
+- **Ran SYSTEM SPEC** with `product-management:write-spec` invoked inside the phase. Wrote [docs/03-system-spec.md](docs/03-system-spec.md): overview, goals and non-goals, roles, 40 stories with MoSCoW, Given/When/Then criteria for every Must, a per-screen state table, data requirements, and non-functional requirements.
+- **Settled the amber threshold as D15** — a proportion of the planned daily allowance rather than a fixed figure, with the divide-by-zero and no-plan cases written down rather than discovered later.
+- **Extended `docs/seed-data.md` with a full worked cycle**, because the spec needed real figures and repo rule 2 says figures live only there. The rent fund is seeded **behind schedule on purpose**: a demo where everything is fine demonstrates nothing, and the projected gap exists to warn early.
+- **Wrote the states per screen rather than per story** — five states repeated across forty stories would have been unreadable, and unreadable criteria are criteria nobody checks.
 ---
 
 ## What's Next
 
 1. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
-2. Run **SYSTEM SPEC** (`peer-ai/shared/03-spec-system.md`), invoking `product-management:write-spec` inside the phase. Settle the amber threshold there.
-3. Then **API CONTRACT** — the `Repository` interface and the export/import schema are the contract in v1. **Stop after it.**
+2. Run **API CONTRACT** (`peer-ai/shared/04-spec-api-contract.md`) — the `Repository` interface and the JSON export/import schema are the contract in v1, derived from the types rather than hand-written twice. Note where a v3 API would slot in. **Stop after it.**
 
 ---
 
@@ -241,12 +243,12 @@ What remains open:
 
 | Question | Status |
 |----------|--------|
-| What is the amber threshold for safe-to-spend — a fixed naira figure, a proportion of the daily allowance, or a number of days of cover? | **Open** — for SYSTEM SPEC. Leaning: a proportion of the planned daily allowance, editable in Settings |
+| Exact copy for the offline and storage-status lines — they must inform without alarming | Open — PAGE SPECS, with `design:ux-copy` |
+| Should archiving a category hide it from past cycles, or only from new plans? | Open — leaning *new plans only*, so history stays truthful. Needed before story C7 |
+| Does the printable debt record carry the owner's own name, and does onboarding collect it? | Open — needed before story E5 |
 
-Everything else raised at SETUP and in UNDERSTAND's clarification round is now
-settled as D1–D14. The storage-durability question that ARCHITECT was to decide
-was answered early as **D12**; what remains for ARCHITECT is how to implement it,
-not whether to.
+The amber threshold is settled as **D15**. Every question raised at SETUP and in
+UNDERSTAND's clarification round is now closed.
 
 ---
 
@@ -260,6 +262,7 @@ not whether to.
 | System architecture + the ADR index | `docs/02-architecture.md` |
 | Promoted ADRs | `docs/adr/` |
 | Backlog — what is deliberately not built | `docs/backlog.md` |
+| System spec — stories, criteria, screen states | `docs/03-system-spec.md` |
 | Engineering standards (rulebook) | `docs/standards/` |
 | Seed data — the only source of figures | `docs/seed-data.md` |
 | Peer AI playbook (vendored) | `peer-ai/` |
