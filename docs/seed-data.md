@@ -210,6 +210,31 @@ The rent fund is deliberately seeded **behind schedule**. A demo where
 everything is fine demonstrates nothing; the projected gap exists to say so
 early, and this is the figure that proves it works.
 
+### The zakat scenario
+
+**The nisab figure below is invented, like every other figure here.** It is not a
+reference value and must never be used as one — the app requires the owner to
+enter their own and says where to check it.
+
+| Item | Value |
+|---|---|
+| Hawl start | **16 June 2026** — 1 Muharram 1448 |
+| Nisab, as entered by the owner | **₦2,450,000.00** *(invented)* |
+| Zakatable savings on 5 October | rent fund ₦475,000.00 + emergency fund ₦15,000.00 + personal savings ₦0.00 = **₦490,000.00** |
+| Money owed to the owner | ₦40,000.00 — **excluded**, because `includeReceivables` has not been answered (D3) |
+| Result | **Below the nisab. No zakat estimated.** |
+
+This is deliberately the *below-nisab* case, because it is the state the owner
+will actually be in and the one most likely to be got wrong — an app that always
+shows a figure will happily show one when none is due.
+
+**An above-nisab variant, for the calculation's tests:** identical except
+personal savings has reached ₦2,000,000.00, so zakatable savings are
+₦2,490,000.00. Above the nisab, and 2.5% of that is **₦62,250.00**.
+
+**With receivables included**, the same variant is ₦2,530,000.00 and 2.5% is
+**₦63,250.00** — the two figures the switch in D3 moves between.
+
 ---
 
 ## Adding to this file
@@ -218,9 +243,14 @@ The individual movements arrived on 10 September, worked out for the design stop
 and merged here from `docs/design/PROPOSED-seed-additions.md`, which is kept as
 the record of *why* those figures are what they are.
 
-Still missing, and needed later: a **second completed salary cycle**, so rollover
-can be demonstrated rather than described and the Months view has a real row; and
-a **zakat scenario** with a hawl start date and a nisab.
+The zakat scenario arrived on 10 September and is above.
+
+Still missing: a **second completed salary cycle**, so rollover has a provenance
+and the Months view has a real row. It is **not** invented here yet, because
+adding one exposed a question nobody has answered — *does cash left carry over
+between cycles?* Every worked figure above assumes it does not. Inventing a prior
+cycle would quietly settle that question in the seed data, where nobody would
+ever see the decision being made. Page specs §9, item 3.
 
 Three rules for adding them:
 

@@ -269,9 +269,24 @@ Slider, BottomBar, Sidebar.
 2. **Every empty state names the next action** — and two situations with
    different next actions are two states (§7.4).
 3. **The offline note is never danger-coloured** (§4).
-4. **Every save confirms.** §7.5 specifies a toast; the design has no toast
-   component. Either is fine, but **something visible must confirm a save** and
-   it must reach the live region in §3. *Open — see §9.*
+4. **Every save confirms, twice, for two different people.** Settled on
+   10 September:
+
+   | | What | Who it is for |
+   |---|---|---|
+   | **Toast** | A brief visible confirmation — "Saved." — bottom of the screen, above the bottom bar, dismissing itself after about four seconds | Someone looking at the screen |
+   | **Live region** | The same outcome announced politely, with the figure they came for: *"Saved. Safe to spend today, 7,500 naira."* (§3) | Someone who cannot see it |
+
+   **Both, not either.** A toast alone is silent to a screen reader; a live
+   region alone leaves a sighted owner unsure the save landed. They are not
+   redundant — they are the same fact delivered down two channels, and each
+   channel has someone who only has that one.
+
+   `tokens.md` §7 has no Toast component, so **SHARED RULES adds one** from the
+   Card tokens: `card` fill, `line` border, `radius.md`, `elevation.card`,
+   dismissing on a timer and on tap. It is never danger-coloured — a save
+   succeeding is not money going wrong (§4). A *failed* save is not a toast at
+   all: it keeps the sheet open with the values intact (§7.5).
 
 Screens may use only the primitives in the design's set.
 
@@ -1012,8 +1027,9 @@ Everything else here is settled. These are genuinely open.
 
 | # | Question | Note |
 |:-:|---|---|
-| 1 | **How does a save confirm?** §7.5 specifies a toast; the design has no toast component. Something visible must confirm, and it must reach the live region in §3 | For the owner — blocks nothing until Quick Add is built |
-| 2 | A **second completed cycle** and a **zakat scenario** are still missing from `docs/seed-data.md` | Needed before Months and Zakat can be built with real content |
+| 1 | ~~How does a save confirm?~~ | **Settled 10 September: both a toast and the live region.** See §6 |
+| 2 | A **zakat scenario** is now in `docs/seed-data.md`. A **second completed cycle** is not — adding one exposed an unsettled question (below) | Months has no populated row until this is answered |
+| 3 | **Does cash left carry over between cycles?** The worked figures assume it does **not** — cash left is this cycle's income minus this cycle's movements. A real leftover would then be invisible, which is a detectability problem | **For the owner. It changes `core/budget.cashLeft` and therefore the hero, so it must be settled before BUILD** |
 
 ---
 
