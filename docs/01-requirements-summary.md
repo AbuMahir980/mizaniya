@@ -9,7 +9,7 @@
 | **Date** | 2026-09-10 |
 | **Author** | Qudus Lawal, with Peer AI (UNDERSTAND phase) |
 | **Phase** | 1 · Understand |
-| **Status** | Agreed. Six domain decisions settled with the stakeholder on 2026-09-10. |
+| **Status** | Agreed. Fourteen domain decisions (D1–D14) settled with the stakeholder on 2026-09-10. |
 
 ---
 
@@ -63,7 +63,12 @@ Success is the owner opening the app daily, trusting the safe-to-spend figure en
 
 ## Settled domain decisions
 
-Six questions the brief left open, decided with the stakeholder on 2026-09-10. Each shapes `core/`, so each is recorded with its reasoning and the option rejected.
+Fourteen decisions, settled with the stakeholder on 2026-09-10. **D1–D7** answer what
+the brief left open; **D8–D14** answer the clarification questions this phase
+raised. Each shapes `core/` or the screens, so each is recorded with its
+reasoning and the option rejected — a decision without its rejected alternative
+is just an assertion, and the next person cannot tell whether it was considered
+or stumbled into.
 
 ### D1 · "Protected" allocations are derived from category type, with a per-category override
 
@@ -164,18 +169,143 @@ The Zakat panel asks once: *when did you last pay zakat, or when did your saving
 
 With `income`, `expense` and `savings transfer`, that is seven transaction types, all positive-amount.
 
+### D8 · Home is ranked, not a grid of eight tiles
+
+The spreadsheet's eight dashboard figures do not become eight equal tiles. On a
+360px screen that is the spreadsheet rendered smaller. They become a hierarchy:
+
+| Level | Element | Content |
+|---|---|---|
+| 1 | **Hero** | *Safe to spend today* — the largest figure on the screen, with cash left and days remaining beneath it. Amber below the threshold, red when negative |
+| 2 | **Four tiles** (2×2 mobile, one row at 1440px) | **Cash left**, **Income** (actual vs planned — did the salary land?), **Saved**, **Debt paid**. Each carries a progress bar against plan and taps through to its detail |
+| 3 | **Conditional banner** | *Unallocated* — a call to action, not a metric. Hidden entirely when it is ₦0 |
+| 4 | **Two tables** | Category variance (envelopes), and goals with projected gap |
+
+**Food rollover is not a tile.** It is a property of one category and belongs on
+that category's row.
+
+*Why:* the screen must answer one question before it answers any other. A tile
+that permanently reads ₦0 teaches the owner to stop looking at that part of the
+screen, so the unallocated figure appears only when it needs action. Tapping
+through is the thing a spreadsheet cannot do, so every tile is a route into its
+own detail rather than a dead end.
+
+*Rejected:* eight equal tiles, which preserves the spreadsheet's flatness and
+gives the most important number in the app no more weight than the least.
+
+### D9 · Ajo is two different things, and the rotating kind is a debt
+
+**Personal target ajo** — saving alone towards a target, then withdrawing — is a
+savings goal. The withdrawal is a savings transfer in the opposite direction.
+This makes **direction** a field on `savings transfer`, shown to the owner as
+*Move to savings* and *Take from savings*: one type, one form, one destination
+field, with only the effect flipping.
+
+**Rotating ajo / esusu** — a group where each member contributes monthly and one
+member collects the whole pot in turn — **is not savings at all.** In the months
+before your turn, your contribution goes to another member and comes back only
+when your turn arrives; that is lending. On your payout month you receive far
+more than you have contributed, because the members who have not yet collected
+are effectively lending to you.
+
+It is therefore **a debt record that crosses zero**, with one counterparty named
+*Ajo — [group]*:
+
+| Stage | Transaction type | Balance with the group |
+|---|---|---|
+| Before your turn | **I lent** | owed to you, growing |
+| Your payout month | **They repaid me** (clears the receivable) + **I borrowed** (the remainder) | swings to owed by you |
+| After your turn | **I repaid** | owed by you, shrinking |
+
+*Why:* it uses D7's existing four types with no new concept, and it is honest
+about the money. During the early months that cash is neither spendable nor
+saved — calling it savings would inflate the savings figure and understate what
+the owner is owed.
+
+*Requirement this adds:* a debt record must support a balance that crosses zero,
+from owed-to-you to owed-by-you, without becoming a second record.
+
+### D10 · Witnesses are an optional list of names
+
+A repeatable name field, empty by default, behind one *Add witness* button.
+Nothing else — no phone, no address, no signature.
+
+*Why:* skipping it costs nothing, and using it yields a countable list the record
+can lay out and print. Free text can neither be counted nor formatted. A full
+contact form would make this a contract application rather than a budget one;
+2:282's intent is met by recording *who*.
+
+### D11 · The shareable debt record is a print stylesheet
+
+`window.print()` against a dedicated stylesheet — no dependency, satisfying
+standard **N1**, and no network. The browser's own *Save as PDF* produces a real
+file on both platforms; on iOS it lands in the share sheet, which is how these
+records are actually passed between people.
+
+*Rejected:* generating a PDF in the app, which means a library, a bundle-size
+cost and a second layout to maintain.
+
+### D12 · Storage durability is four layers, and there is no encryption in v1
+
+IndexedDB is not permanent (assumption A5). The response is layered:
+
+1. **Request persistence.** `navigator.storage.persist()`, asked *after* real
+   data exists rather than on first load, because browsers weigh genuine
+   engagement.
+2. **Report the truth in Settings.** `navigator.storage.persisted()` and
+   `estimate()`, shown in plain words — whether protection was granted and how
+   much space is in use. Not a green tick that means nothing.
+3. **Nudge on risk, not on a timer.** Nudge by *unexported changes* ("47
+   transactions since your last export"), and harder when persistence was
+   refused. A nag that arrives on a schedule is a nag the owner learns to
+   dismiss.
+4. **Make it installable (PWA).** Installing to the home screen is the single
+   largest factor in whether a browser evicts the data, and it is how a daily
+   app should be opened anyway.
+
+**No encryption at rest in v1.** The realistic threat is someone holding the
+unlocked phone, and they could simply open the app. With no server there is no
+password reset, so a forgotten passphrase would destroy the history permanently.
+An optional app lock goes to `docs/backlog.md`. This is documented in the README
+rather than left implicit.
+
+### D13 · If the schedule slips, Months ships and Zakat waits
+
+Neither is in the core journey (addendum K1). Months is a read of data that
+already exists — cheap to build, and it is the "am I improving?" view that keeps
+someone using the app.
+
+Zakat needs the hawl date, an editable nisab, Hijri dates and a careful caveat.
+It is the most conceptually loaded feature in v1 and the easiest to get subtly
+wrong, and **a wrong zakat figure in a Muslim-facing app is worse than no zakat
+figure at all.** It ships when it can ship correctly.
+
+### D14 · Browser support, with iOS as the strict case
+
+Last two versions of Chrome, Edge and Firefox on desktop and Android; **Safari
+on iOS 16.4+**.
+
+**On iOS every browser is Safari underneath** — Apple requires WebKit, so Chrome
+on an iPhone is Safari with a different badge. The owner's primary device is
+therefore governed by Safari's storage rules, which are the strictest of the set.
+That is what makes the PWA install in D12 matter more here than it would for an
+Android-first user.
+
+Platform requirements, all met by that set with no polyfill: IndexedDB, ES2022,
+and `Intl.DateTimeFormat` with the `islamic` calendar for the Hijri date.
+
 ---
 
 ## Scope table
 
 | In scope (v1) | Out of scope (v2/v3 or never) | Unclear — needs a decision |
 |---|---|---|
-| Onboarding: name, ₦ only, salary day, take-home, optional rent target and due date, optional emergency-fund target, seeded categories | Bank or wallet sync (Mono / Okra) — v3, and needs the private server repo | The amber threshold for safe-to-spend — what value, and is it a fixed naira figure or a proportion? |
-| Salary-day cycles; days left; safe-to-spend per day with amber and red states | Household sharing and a spouse view — v3 | The exact eight KPI tiles on Home. The brief's §3 list mixes tile-shaped figures with a table (variance) and a category-specific one (food rollover) |
-| Zero-based Plan: per-category allocations, unallocated-income banner, copy last cycle | Multi-currency and parallel-rate tracking — v3 | Ajo payout: when the pot is received, is it income, or a transfer back from a savings destination? |
-| Transactions: add, edit, delete; seven types (D7); category; payment method; note. Quick Add in three taps | Zakat report as PDF — v3 | The debt record's witnesses field: free text, or structured name entries? |
-| Envelopes with rollover on any category (D2) | Ajo group management with reminders — v3 | The shareable debt record: browser print stylesheet, or a generated file? |
-| Debts in both directions with counterpart, opening amount, optional schedule, payment history, and a shareable one-page record | CSV / Excel export — v3 | Whether IndexedDB eviction needs an active mitigation (see assumption A5) |
+| Onboarding: name, ₦ only, salary day, take-home, optional rent target and due date, optional emergency-fund target, seeded categories | Bank or wallet sync (Mono / Okra) — v3, and needs the private server repo | **Still open** — the amber threshold for safe-to-spend |
+| Salary-day cycles; days left; safe-to-spend per day with amber and red states | Household sharing and a spouse view — v3 | Resolved — **D8** |
+| Zero-based Plan: per-category allocations, unallocated-income banner, copy last cycle | Multi-currency and parallel-rate tracking — v3 | Resolved — **D9** |
+| Transactions: add, edit, delete; seven types (D7); category; payment method; note. Quick Add in three taps | Zakat report as PDF — v3 | Resolved — **D10** |
+| Envelopes with rollover on any category (D2) | Ajo group management with reminders — v3 | Resolved — **D11** |
+| Debts in both directions with counterpart, opening amount, optional schedule, payment history, and a shareable one-page record | CSV / Excel export — v3 | Resolved — **D12** |
 | Savings goals with target, due date, projected gap (D5), status | Push notifications or reminders of any kind — not in v1 | |
 | Home: KPI tiles, category variance table, goals table | Any server, account, login or sync — v3 | |
 | Zakat panel: nisab (editable), hawl tracking (D6), 2.5% estimate; Sadaqah and Family support categories; Hijri date shown beside Gregorian | Telemetry or analytics of any kind — none in v1; anything later is opt-in and documented | |
@@ -184,6 +314,14 @@ With `income`, `expense` and `savings transfer`, that is seven transaction types
 | IndexedDB via Dexie behind `Repository`; JSON export/import; seed script | | |
 | Vitest on cycle maths, safe-to-spend, rollover, projected gap; RTL on Quick Add; Playwright on the addendum's core journey K1 | | |
 | Design tokens and `src/ui/` primitives, built from `docs/design/` before any screen | | |
+
+**Added to scope by decisions D8–D14**, each small but none of them free:
+
+- A **direction** field on `savings transfer` — *Move to savings* / *Take from savings* (D9).
+- A debt record whose balance may **cross zero**, from owed-to-you to owed-by-you, without splitting into two records (D9).
+- A **print stylesheet** for the debt record (D11).
+- **Persistent-storage request, honest status in Settings, and an export nudge driven by unexported changes** (D12).
+- **PWA installability** — manifest, icons, service worker for the app shell. Not for offline sync, which does not exist; for storage durability, and for opening the app the way a daily app is opened (D12).
 
 ---
 
@@ -205,27 +343,37 @@ Everything this build needs from outside itself.
 
 ## Clarification questions
 
-Open questions, grouped. None of these block ARCHITECT.
+All eight were answered by the stakeholder on 2026-09-10.
 
-### Scope
+| # | Question | Resolved by |
+|:-:|---|---|
+| 1 | Which eight figures are the Home KPI tiles? | **D8** — ranked, not a grid |
+| 2 | Is an ajo payout income, or a transfer back from savings? | **D9** — neither; rotating ajo is a debt that crosses zero |
+| 3 | Witnesses — free text or structured? | **D10** — an optional list of names |
+| 4 | Shareable debt record — print stylesheet or generated file? | **D11** — print stylesheet |
+| 5 | Persistent storage and export nudging? | **D12** — four layers, no encryption in v1 |
+| 6 | Months view or Zakat panel first if the schedule slips? | **D13** — Months ships, Zakat waits |
+| 7 | Is there a delivery date? | See constraints below |
+| 8 | Which browsers? | **D14** — iOS Safari is the strict case |
 
-1. Which eight figures are the Home KPI tiles, exactly? The brief's §3 list mixes tile-shaped figures with a table and a category-specific one.
-2. When an ajo pot pays out, is it income, or a transfer back from a savings destination? The two produce different figures on the dashboard.
-3. Is the debt record's witnesses field free text or structured entries? Structured is more useful for the 2:282 intent but heavier to enter.
+### Constraints (answer to question 7)
 
-### Technical
+No fixed date. The constraint is *as soon as realistic*, because the app is
+intended for the stakeholder's portfolio and for freelance bidding.
 
-4. Is the shareable debt record a browser print stylesheet, or a generated file? Print is far cheaper and needs no dependency.
-5. Should the app request persistent storage (`navigator.storage.persist()`), and should it nag for an export after N cycles? See assumption A5 — this is the largest single risk to the owner's data.
+That has a design consequence worth stating rather than assuming: **a small,
+complete, polished app is worth more than a large half-finished one.** A reviewer
+spends about ninety seconds on a repository, and what carries weight is the
+README, the screenshots and a core journey that works end to end — not the
+feature count. Therefore: protect the core journey (K1), keep v1 lean, send
+anything not in the brief to `docs/backlog.md`, and capture screenshots as soon
+as the design lands rather than at the end.
 
-### Priority
+### Still open
 
-6. If the schedule slips, which goes first — the Months view, or the Zakat panel? Both are v1 in the brief; only one is load-bearing for the daily journey.
-
-### Constraints
-
-7. Is there a date the first version needs to be usable by, or is the constraint only "weeks, not months"?
-8. Which browsers, precisely? "My phone's browser" is likely Chrome on Android; Safari on iOS has stricter storage eviction, which changes the answer to question 5.
+| Question | Owner | When |
+|---|---|---|
+| What is the amber threshold for safe-to-spend — a fixed naira figure, a proportion of the daily allowance, or a number of days of cover? | Stakeholder | SYSTEM SPEC |
 
 ---
 
@@ -245,8 +393,8 @@ Recorded so that a wrong one is traceable rather than silently load-bearing.
 4. **Assumption:** Naira only, stored and calculated in **kobo** as integers with a branded `Kobo` type, formatted `₦1,250,000.00`.
    **Impact if wrong:** every figure in `core/` changes type, and multi-currency brings rate handling that the addendum currently defers to v3.
 
-5. **Assumption:** JSON export is the only backup, and the owner will use it.
-   **Impact if wrong — and this is the serious one:** IndexedDB is not permanent. A browser clearing site data, a storage-pressure eviction, or Safari's seven-day cap on unused sites deletes every transaction, and **nothing warns anyone**. The owner discovers it by opening an empty app. Mitigation options are question 5 above; the decision belongs in ARCHITECT.
+5. **Assumption:** the four layers in **D12** reduce the risk of data loss to something the owner can live with. They do not remove it.
+   **Impact if wrong — and this is still the serious one:** IndexedDB is not permanent. A browser clearing site data, a storage-pressure eviction, or Safari's cap on unused sites deletes every transaction, and **nothing warns anyone**. The owner discovers it by opening an empty app. Persistence can be *requested* but never guaranteed; the export nudge only works if it is acted on. Until v3 sync exists, an exported file the owner has actually saved somewhere is the only real backup, and the README must say so plainly rather than implying the app is safe.
 
 6. **Assumption:** All copy and documentation is British English.
    **Impact if wrong:** cosmetic, but it runs through every string and every doc.

@@ -167,6 +167,13 @@ single risk to the owner's data.
 | 2026-09-10 | **D6 · The zakat lunar year is asked for**, with a labelled fallback to the first record. Never assumed silently | UNDERSTAND |
 | 2026-09-10 | **D7 · Debt transaction types renamed** to plain speech — *I borrowed · I repaid · I lent · They repaid me* — per frontend standard O4 | UNDERSTAND |
 | 2026-09-10 | Every cycle is labelled by its **start date**, never a bare month name, because an early salary day makes a cycle span two calendar months | UNDERSTAND (D4) |
+| 2026-09-10 | **D8 · Home is ranked, not a grid.** One hero (safe to spend today), four tappable tiles with progress, unallocated as a banner that hides at ₦0, then two tables. Eight equal tiles is the spreadsheet rendered smaller | UNDERSTAND |
+| 2026-09-10 | **D9 · Rotating ajo is a debt that crosses zero**, not savings — you lend before your turn and borrow after it. Personal target ajo is a savings goal, so `savings transfer` gains a direction | UNDERSTAND |
+| 2026-09-10 | **D10 · Witnesses are an optional list of names** — structured enough to count and print, light enough to skip | UNDERSTAND |
+| 2026-09-10 | **D11 · The shareable debt record is a print stylesheet**, not a generated PDF. No dependency, and the browser's Save as PDF gives a real file | UNDERSTAND |
+| 2026-09-10 | **D12 · Storage durability is four layers** — request persistence, report the truth in Settings, nudge on unexported changes rather than a timer, and ship as an installable PWA. **No encryption at rest in v1**, because with no server a forgotten passphrase destroys the history permanently | UNDERSTAND |
+| 2026-09-10 | **D13 · If the schedule slips, Months ships and Zakat waits.** A wrong zakat figure in a Muslim-facing app is worse than no zakat figure | UNDERSTAND |
+| 2026-09-10 | **D14 · iOS Safari is the strict case.** On iOS every browser is WebKit, so Chrome there is Safari — the owner's primary device is governed by the tightest storage rules of the set | UNDERSTAND |
 
 ---
 
@@ -190,6 +197,8 @@ single risk to the owner's data.
 - **Caught a repo-rule-3 breach before it was committed.** The kick-off pack named another project four times. Redacted, along with local folder paths and a stale filename. Worth noting: **rule 3 is the only repo rule with no automated enforcement** — secret scanning finds keys, not project names, and a denylist committed to a public repo publishes the very names it hides. Raised properly at PR AUTOMATION.
 - **Ran UNDERSTAND.** Settled the six open domain questions as D1–D6 plus the D7 rename, each with the rejected option recorded. Wrote [docs/01-requirements-summary.md](docs/01-requirements-summary.md).
 - **Surfaced the biggest unflagged risk in the whole design:** IndexedDB is not permanent. Browser eviction or a cleared cache deletes every transaction with no warning to anyone. Logged as assumption A5, to be decided in ARCHITECT.
+- **Answered all eight clarification questions** in the same sitting, adding D8–D14. Two changed the shape of the product: Home became a ranked screen rather than a grid of eight tiles, and rotating ajo turned out to be a debt in both directions rather than savings — which is what it actually is, economically.
+- **Established that on iOS every browser is Safari underneath**, so using Chrome on an iPhone does not escape WebKit's storage eviction. That makes PWA installability a durability requirement, not a nicety.
 
 ---
 
@@ -213,14 +222,12 @@ What remains open:
 
 | Question | Status |
 |----------|--------|
-| **Does IndexedDB need an active durability mitigation?** A browser clearing site data or evicting under storage pressure deletes every transaction, and nothing warns anyone. Options: `navigator.storage.persist()`, an export nag after N cycles, or accept the risk and document it | **Open — decide in ARCHITECT.** The largest single risk to the owner's data |
-| Which eight figures are the Home KPI tiles, exactly? The brief's list mixes tile-shaped figures with a table and a category-specific one | Open — for SYSTEM SPEC or PAGE SPECS |
-| When an ajo pot pays out, is it income or a transfer back from a savings destination? | Open — for SYSTEM SPEC |
-| Is the debt record's witnesses field free text or structured name entries? | Open — for PAGE SPECS |
-| Is the shareable debt record a print stylesheet or a generated file? Print needs no dependency | Leaning print — confirm at PAGE SPECS |
-| What is the amber threshold for safe-to-spend — a fixed naira figure or a proportion? | Open — for SYSTEM SPEC |
-| Which browsers, precisely? Safari on iOS evicts storage far more aggressively, which changes the durability answer | Open — affects the ARCHITECT decision above |
-| If the schedule slips, which goes first — Months view or Zakat panel? | Open — not blocking |
+| What is the amber threshold for safe-to-spend — a fixed naira figure, a proportion of the daily allowance, or a number of days of cover? | **Open** — for SYSTEM SPEC |
+
+Everything else raised at SETUP and in UNDERSTAND's clarification round is now
+settled as D1–D14. The storage-durability question that ARCHITECT was to decide
+was answered early as **D12**; what remains for ARCHITECT is how to implement it,
+not whether to.
 
 ---
 
