@@ -18,11 +18,16 @@
 | `docs/06-page-specs.md` | The source of truth: every screen, region, number, state, copy line and the danger-colour table (§4 there). Read it twice. |
 | `docs/standards/frontend-engineering-standards.md` — sections **F** (styling and design system), **J** (accessibility), **O** (naming) | The rules the tokens and primitives are held to. F3/F4 name the token shape; F5/F6 list the primitives and require every state; J4 requires AA contrast in both themes; O4 requires user vocabulary. |
 | `docs/standards/standards-addendum-mizaniya.md` | Kobo; **danger means money going wrong and nothing else**; single audience. |
-| `docs/seed-data.md` | The only figures that may appear in any design. The worked day is **Sunday 5 October, day 11 of 30**. |
+| `docs/seed-data.md` | The only figures that may appear in any design. The worked day is **Monday 5 October, day 11 of 30**. |
 | `docs/product-brief.md` §1–2 | Who the owner is and why the app exists. Read for tone, not for requirements. |
 | `docs/04-api-contract.md` §3 | The eight movement types and their labels, for Quick Add and Transactions. |
 
-If `docs/06-page-specs.md` does not yet contain the six review corrections (money display rule, savings destinations, add-debt/add-goal/onboarding forms, edit and record-payment flows, protection override, Hijri date), stop and say so — the design cannot be right without them.
+All six review corrections are **present** in `docs/06-page-specs.md` as of
+commit `6bd2291` — money display (§3a), savings destinations (§7.9), the
+add-debt / add-goal / onboarding forms (§7.6, §7.1), the edit and
+record-a-payment flows (§7.4, §7.6), the protection override (§7.3) and the
+corrected Hijri date (§7.2). Verify they are there before drawing; if any is
+missing, the checkout is stale — stop and say so.
 
 ---
 
@@ -51,7 +56,7 @@ All from `docs/seed-data.md` and the spec's tables. Do not change these figures;
 
 | Where | Figures |
 |---|---|
-| Date row | Sun 5 Oct · Hijri date **as corrected in the spec** (compute with `Intl`, `islamic-umalqura`; do not hand-type) |
+| Date row | **Mon 5 Oct · 24 Rabiʻ II 1448** — computed with `Intl` pinned to `islamic-umalqura`. Do not hand-type it, and do not use the bare `islamic` alias: engines resolve it differently and disagree by a day on 24 October |
 | Home hero | **Safe to spend today ₦7,500** · "₦220,000 left · 20 days to 25 Oct" |
 | Unallocated banner | "₦50,000 unallocated — finish your plan →" (also design the state where it is absent) |
 | Tiles | Cash left ₦220,000 (of ₦450,000) · Income ₦450,000 / ₦450,000 · Saved ₦90,000 of ₦160,000 · Debt paid ₦30,000 of ₦30,000 |
@@ -63,9 +68,24 @@ All from `docs/seed-data.md` and the spec's tables. Do not change these figures;
 | Plan | Sticky header "Unallocated ₦0" (and the ₦50,000 state), rows grouped Savings · Debt payment · Expense, footnote "Planned daily allowance ₦8,666.67" |
 | Months | One row: "25 Sep – 24 Oct" style label — but the worked owner has no completed cycle yet, so design the **empty state** ("Your first cycle is still running. It ends on 24 October.") and one populated row for the primitives sheet |
 | Settings | "Protected." storage line, "47 changes since your last export." nudge, amber-threshold slider "Amber below ₦5,200 a day" |
-| Hero states | Normal ₦7,500 · Amber ₦4,800 **Low** · Red "₦2,300 over" **Overspent** with the sentence from spec §8 · No-plan ₦8,666 with its sentence |
+| Hero states | Normal **₦7,500.00** · Amber **₦4,800.00 Low** (the threshold is ₦5,200.00) · Red **"₦2,300.00 over" Overspent** with the sentence from spec §8 · No-plan **₦8,666.66** with its sentence |
 
-Money format follows the rule the spec now states (correction 1). Until read, assume: whole naira on summary figures and the hero; kobo shown only in inputs and on a transaction row when non-zero.
+**Money format — settled, and it decides the hero's type scale.** Spec §3a is
+authoritative; the earlier assumption in this brief (whole naira on summary
+figures) was wrong and is withdrawn.
+
+- **Every amount carries its kobo.** `₦7,500.00`, `₦220,000.00`, `₦0.00`. One
+  formatter, one output, everywhere. A non-zero kobo is never rounded away.
+- **The hero solves its width typographically, not numerically.** `MoneyText`
+  emits the naira and kobo as separate spans; the kobo part is set **smaller and
+  lighter**. The string is unchanged — only the type sizes differ.
+  **Design that pairing first: it fixes the top of the type scale**, and the
+  same relationship repeats at every size down to a table row.
+- **Rates are the exception.** Per-day figures round — money you may spend rounds
+  **down**, money you must find rounds **up**, never to the nearest. The planned
+  daily allowance is therefore `₦8,666.66`, not `₦8,666.67`.
+
+Every figure in the table above should be read with its `.00`.
 
 ---
 
@@ -74,7 +94,7 @@ Money format follows the rule the spec now states (correction 1). Until read, as
 | # | Question | Decision |
 |:-:|---|---|
 | 1 | Token set | Produced here, in the §5 schema, light and dark |
-| 2 | Hero treatment | Figure at the top of the type scale, label above in small caps or muted text, sub-line below in muted text; nothing else competes on the first screenful. No card around it. |
+| 2 | Hero treatment | Figure at the top of the type scale, label above in small caps or muted text, sub-line below in muted text; nothing else competes on the first screenful. No card around it. **The naira/kobo size-and-weight pairing from spec §3a is part of this decision** — settle it here and reuse it everywhere. |
 | 3 | Amber/red styling | Badge with text + the figure tinted; never the figure alone |
 | 4 | Icons | Lucide, one weight |
 | 5 | Debt record name prompt | Prompt once, then save to Settings |
