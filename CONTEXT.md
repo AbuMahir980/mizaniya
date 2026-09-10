@@ -131,15 +131,19 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: SETUP, complete.** The repo is scaffolding only — no application code
-exists yet. Step 0 (verifying the Peer AI customisation) finished and merged
-before this phase: the phase files are stamped from `peer-ai/phase-config.json`,
-peer-ai's cost-tiering is gone, and the shared and frontend rules files now open
-by deferring to `docs/standards/`. SETUP added `CLAUDE.md`, this file,
-`.peer-ai-state.json` and `docs/seed-data.md`.
+**Phase: UNDERSTAND, complete.** The repo is still documents only — no
+application code exists yet. Step 0 (verifying the Peer AI customisation) and
+SETUP are done; UNDERSTAND has now settled the seven domain decisions that shape
+`core/` and produced
+[docs/01-requirements-summary.md](docs/01-requirements-summary.md).
 
-**Next action:** UNDERSTAND — `peer-ai/shared/01-understand.md`, against
-`docs/product-brief.md`, starting with the open questions the brief leaves.
+Two pull requests are open and stacked: `peer-ai/setup` → `main`, and
+`peer-ai/understand` → `peer-ai/setup`. Neither has CI, because CI does not
+exist until phase 11b.
+
+**Next action:** ARCHITECT — `peer-ai/shared/02-architect.md`. Its first real
+decision is IndexedDB durability (assumption A5), which is the largest
+single risk to the owner's data.
 
 ---
 
@@ -155,6 +159,14 @@ by deferring to `docs/standards/`. SETUP added `CLAUDE.md`, this file,
 | 2026-09-09 | Skills are invoked *inside* the phase that names them, never as a parallel process | `peer-ai/AGENTS.md` |
 | 2026-09-09 | Git: every piece of work on a branch — `feature/<short-description>` for build items, `peer-ai/<phase>` for phase documents — reaching `main` only through a PR with CI green; squash and merge; delete the branch after | stakeholder, this session |
 | 2026-09-09 | v1 has **no mock-data layer**. The data seam is `Repository`; the local implementation is the real one. Peer AI's build step 4 assumes an HTTP API and is logged as a framework defect | `docs/peer-ai-feedback.md` #1 |
+| 2026-09-10 | **D1 · Protected allocations** are derived from category type (anything not an `Expense`), overridable per category, and measured as `planned − actual` so money already moved is not subtracted twice | UNDERSTAND |
+| 2026-09-10 | **D2 · Rollover carries the allowance, not the money.** Cash left comes from transactions and is never touched by rollover, so nothing is counted twice. No expiry in v1; the carried figure is shown on Plan | UNDERSTAND |
+| 2026-09-10 | **D3 · Money owed to you counts toward nothing** — not safe-to-spend, not a projected gap — except zakat, where it is a separate line the owner switches on or off, asked once, never ruled on by the app | UNDERSTAND |
+| 2026-09-10 | **D4 · Cycle boundaries are nominal.** Salary day clamps to the last day in short months; income arriving up to 3 days early is attributed to the cycle it precedes. The boundary never follows the actual payment, because that would rewrite history silently | UNDERSTAND |
+| 2026-09-10 | **D5 · The projected gap counts paydays**, not whole cycles and not pro-rated part cycles. Money arrives in lumps on payday | UNDERSTAND |
+| 2026-09-10 | **D6 · The zakat lunar year is asked for**, with a labelled fallback to the first record. Never assumed silently | UNDERSTAND |
+| 2026-09-10 | **D7 · Debt transaction types renamed** to plain speech — *I borrowed · I repaid · I lent · They repaid me* — per frontend standard O4 | UNDERSTAND |
+| 2026-09-10 | Every cycle is labelled by its **start date**, never a bare month name, because an early salary day makes a cycle span two calendar months | UNDERSTAND (D4) |
 
 ---
 
@@ -174,28 +186,41 @@ by deferring to `docs/standards/`. SETUP added `CLAUDE.md`, this file,
 - **Named the pattern and gave it a method.** *What breaks — and who finds out?* Loud problems are cheap; silent ones are expensive. Written up as [docs/concepts/what-breaks-who-finds-out.md](docs/concepts/what-breaks-who-finds-out.md), the first concept note. It reframes B3, E2 and K4 as one rule about detectability wearing three hats.
 - **Opened [docs/concepts/revisit.md](docs/concepts/revisit.md)** with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
 - **Recorded a standing writing preference:** intelligent but plain — the test is whether the least technical reader could understand and remember it. Applies to docs, file headers, commit messages and the app's own copy.
+- **Added `docs/Mizaniya_Kickoff_Pack.md`**, the instructions this build actually runs on. The product brief's §6 had declared itself superseded by a file that was not in the repo.
+- **Caught a repo-rule-3 breach before it was committed.** The kick-off pack named another project four times. Redacted, along with local folder paths and a stale filename. Worth noting: **rule 3 is the only repo rule with no automated enforcement** — secret scanning finds keys, not project names, and a denylist committed to a public repo publishes the very names it hides. Raised properly at PR AUTOMATION.
+- **Ran UNDERSTAND.** Settled the six open domain questions as D1–D6 plus the D7 rename, each with the rejected option recorded. Wrote [docs/01-requirements-summary.md](docs/01-requirements-summary.md).
+- **Surfaced the biggest unflagged risk in the whole design:** IndexedDB is not permanent. Browser eviction or a cleared cache deletes every transaction with no warning to anyone. Logged as assumption A5, to be decided in ARCHITECT.
 
 ---
 
 ## What's Next
 
-1. Open the SETUP pull request and merge it once reviewed (no CI exists yet — PR AUTOMATION, phase 11b, creates it).
-2. Run **UNDERSTAND** (`peer-ai/shared/01-understand.md`) against `docs/product-brief.md`. Ask the open questions the brief leaves before writing the understanding document.
-3. Then **ARCHITECT** → **SYSTEM SPEC** → **API CONTRACT**, stopping after the API contract.
+1. Merge [PR #1](https://github.com/AbuMahir980/mizaniya/pull/1) (setup), then the UNDERSTAND PR stacked on it. No CI exists yet — PR AUTOMATION, phase 11b, creates it.
+2. Run **ARCHITECT** (`peer-ai/shared/02-architect.md`), invoking `engineering:architecture` and `engineering:system-design` inside the phase. Decide the IndexedDB durability question with both sides presented.
+3. Then **SYSTEM SPEC** → **API CONTRACT**, stopping after the API contract.
 
 ---
 
 ## Open Questions
 
+The six questions logged at SETUP were settled on 2026-09-10 and are now decisions
+D1–D6 below. Six of the original seven had in fact already been answered in
+`docs/product-brief.md`; they were logged from the stakeholder email before the
+brief was read properly. Full reasoning for each decision, including the option
+rejected, is in [docs/01-requirements-summary.md](docs/01-requirements-summary.md).
+
+What remains open:
+
 | Question | Status |
 |----------|--------|
-| Does the salary cycle run 25th → 24th, or calendar-month with the 25th as the pay date? What happens when the 25th is a weekend or public holiday? | Open — for UNDERSTAND |
-| Which categories roll over unused (food and groceries is named in the brief) and which reset each cycle? Does a rolled-over amount expire? | Open — for UNDERSTAND |
-| Is safe-to-spend computed from *all* remaining cash, or only from the envelopes marked as day-to-day spending? | Open — for UNDERSTAND |
-| Zakat: awareness only (a reminder and an estimate), or a tracked obligation with its own payment records? On which nisab basis and which lunar date? | Open — for UNDERSTAND |
-| Ajo contributions — a savings destination, a debt-like obligation, or their own concept with a payout date? | Open — for UNDERSTAND |
-| Debts in both directions: does money owed *to* the user count towards safe-to-spend or the rent target before it is actually received? | Open — for UNDERSTAND |
-| Multi-currency, or naira only? | Leaning naira only for v1 — confirm in UNDERSTAND |
+| **Does IndexedDB need an active durability mitigation?** A browser clearing site data or evicting under storage pressure deletes every transaction, and nothing warns anyone. Options: `navigator.storage.persist()`, an export nag after N cycles, or accept the risk and document it | **Open — decide in ARCHITECT.** The largest single risk to the owner's data |
+| Which eight figures are the Home KPI tiles, exactly? The brief's list mixes tile-shaped figures with a table and a category-specific one | Open — for SYSTEM SPEC or PAGE SPECS |
+| When an ajo pot pays out, is it income or a transfer back from a savings destination? | Open — for SYSTEM SPEC |
+| Is the debt record's witnesses field free text or structured name entries? | Open — for PAGE SPECS |
+| Is the shareable debt record a print stylesheet or a generated file? Print needs no dependency | Leaning print — confirm at PAGE SPECS |
+| What is the amber threshold for safe-to-spend — a fixed naira figure or a proportion? | Open — for SYSTEM SPEC |
+| Which browsers, precisely? Safari on iOS evicts storage far more aggressively, which changes the durability answer | Open — affects the ARCHITECT decision above |
+| If the schedule slips, which goes first — Months view or Zakat panel? | Open — not blocking |
 
 ---
 
@@ -203,7 +228,9 @@ by deferring to `docs/standards/`. SETUP added `CLAUDE.md`, this file,
 
 | Asset | Path |
 |-------|------|
-| Product brief | `docs/product-brief.md` |
+| Product brief | `docs/product-brief.md` (§1–5 authoritative; §6 superseded) |
+| Kick-off pack — the instructions this build runs on | `docs/Mizaniya_Kickoff_Pack.md` |
+| Requirements summary + the settled domain decisions | `docs/01-requirements-summary.md` |
 | Engineering standards (rulebook) | `docs/standards/` |
 | Seed data — the only source of figures | `docs/seed-data.md` |
 | Peer AI playbook (vendored) | `peer-ai/` |
