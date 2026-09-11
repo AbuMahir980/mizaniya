@@ -11,7 +11,57 @@ here is: *would this bite anyone who cloned Peer AI, on any project?*
 
 ---
 
+## Sent upstream and fixed — 11 September 2026
+
+**All four items below were filed and applied in the Peer AI repo.** They are
+kept here, unedited, because the write-up is the record of why the fix exists —
+but **do not re-report them**, and do not work around them locally: pull the
+update instead.
+
+| This file's item | Upstream item | Status |
+|---|---|---|
+| 1 — build step 4 unusable with no server | **29** | Applied in `790aa8a` |
+| 2 — build step 2 has no "design already exists" branch | **30** | Applied in `790aa8a` |
+| 3 — "offer once" has nothing to remember it by | **31** | Applied in `790aa8a` |
+| 4 — driver and `shared.md` disagree on reaching `main` | **32** | Applied in `790aa8a` |
+
+The note at the bottom (post-pull scripts rotting silently) became the
+"maintainers of vendored copies" warning in upstream `CONTRIBUTING.md`.
+
+**What the fixes actually changed**, since this project will feel them:
+
+- **Item 29** — build step 4 is now conditional. A contract that records *no
+  API* means there is nothing to mock: the data seam is the repository or
+  storage interface the architecture names, and the local implementation is the
+  real one. `frontend/rules/frontend.md` gained a **No-API projects** section
+  saying the same. This is the one that was going to cost Mizaniya a whole
+  invented `services/` layer.
+- **Item 30** — build step 2 gained **option F, "the design already exists"**,
+  which reads the design first and treats it as authoritative on layout.
+  Choply hit this independently, so two of three projects did.
+- **Item 31** — `.peer-ai-state.json` gained a `pdfExportOffered` field and the
+  rule is now *once per phase*. **This project's state file predates the field;
+  add it on the next state update.**
+- **Item 32** — the workflow driver's §0 gained a **Merge policy** setting
+  (`PR only` / `local merge`), §2 branches on it, and the gate table gained
+  **Pull request** and **CI green** rows. `shared.md`'s Git conventions point
+  at it. Mizaniya had already patched its own driver by hand on 9 Sep; **the
+  upstream fix supersedes that patch** — take the upstream wording when pulling
+  so the local edit stops diverging.
+
+---
+
 ## Open
+
+*Nothing open. New framework defects go here, then upstream — an
+[issue](https://github.com/AbuMahir980/peer-ai/issues/new?template=framework-defect.yml)
+for one, a pull request against `docs/peer-ai-feedback.md` for a batch. Upstream
+now ships the route: see "Sending feedback back from a project" in
+`peer-ai/CONTRIBUTING.md`.*
+
+---
+
+## The original write-ups
 
 ### 1. Build step 4 cannot be followed on a project with no server — *(fix)*
 
