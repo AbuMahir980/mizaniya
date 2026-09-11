@@ -4,13 +4,14 @@
   "phaseFile": "peer-ai/frontend/03-build.md",
   "cycle": "Cycle 1 — core/ and the seam beneath it",
   "milestoneBranch": "",
-  "ticket": "#8",
-  "ticketTitle": "T1 · core/cycle — boundaries, days left, paydays",
-  "ticketsCompleted": [],
+  "ticket": "#9",
+  "ticketTitle": "T2 · core/budget — cash left, protected, safe-to-spend",
+  "ticketsCompleted": [
+    "#8"
+  ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
   "ticketsRemaining": [
-    "#8",
     "#9",
     "#10",
     "#11",
@@ -34,9 +35,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "",
-  "lastVerifyTimestamp": "",
+  "lastVerifyResult": "green — naming, lint, typecheck, 65 tests, build",
+  "lastVerifyTimestamp": "2026-09-11",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-11",
-  "notes": "READ CONTEXT.md at app root. BUILD starting at #8 (T1, core/cycle). 22 tickets filed as #8-#29. Build step 4 is conditional: this project has no API, so there is nothing to mock and the local Repository is the real one."
+  "notes": "READ CONTEXT.md at app root. T1 (#8) done, PR #31. Next: #9, core/budget — the headline figure. Protected remaining is planned minus actual; the amber threshold divides last."
 }
