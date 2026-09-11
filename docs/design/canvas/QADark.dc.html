@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+.mz{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);
+    background:var(--bg);-webkit-font-smoothing:antialiased}
+.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:500;letter-spacing:-.004em}
+.mz .disp{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-.035em;
+     font-variant-numeric:tabular-nums lining-nums}
+.mz .lab{font-size:10.5px;letter-spacing:.115em;text-transform:uppercase;font-weight:600;
+     color:var(--soft)}
+.mz .num{font-variant-numeric:tabular-nums lining-nums}
+.mz .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;
+     font-variant-numeric:tabular-nums}
+.mz .mlab{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+     letter-spacing:.12em;text-transform:uppercase;color:var(--soft);font-weight:400}
+.mz .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+     box-shadow:var(--shadow)}
+.mz .pill{display:inline-flex;align-items:center;height:25px;padding:0 10px;
+     border-radius:8px;font-size:10.5px;font-weight:700;letter-spacing:.07em;
+     text-transform:uppercase;white-space:nowrap}
+.mz .tile{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;
+     justify-content:center;flex:0 0 auto}
+.mz .seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;
+     background:var(--card);padding:3px;box-shadow:var(--shadow)}
+.mz .seg>span{padding:8px 20px;border-radius:9px;font-size:13px;font-weight:600;
+     color:var(--soft);white-space:nowrap}
+.mz .seg>span.on{background:var(--ink);color:var(--bg)}
+.mz .link{display:inline-flex;align-items:center;gap:7px;min-height:44px;
+     color:var(--emerald);font-size:13.5px;font-weight:600}
+.mz .rail{height:6px;border-radius:4px;background:var(--track);overflow:hidden}
+.mz .rail>i{display:block;height:100%;border-radius:4px}
+.mz .nav{display:flex;align-items:center;background:var(--card);
+     border-top:1px solid var(--line);padding:6px 10px 10px}
+.mz .nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+     padding:8px 0;color:var(--faint);font-size:10px;font-weight:600;letter-spacing:.02em}
+.mz .nav-i.on{color:var(--emerald)}
+
+.mz .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+     min-height:48px;padding:0 20px;border-radius:13px;font-size:14.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .btn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .btn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .btn-q{background:transparent;color:var(--soft)}
+.mz .fld{min-height:50px;background:var(--card);border:1px solid var(--line);
+     border-radius:13px;padding:12px 15px;font-size:15px;display:flex;align-items:center;
+     gap:10px;color:var(--ink)}
+.mz .fld.on{border-color:var(--emerald);box-shadow:0 0 0 3px var(--em2)}
+.mz .fld .ph{color:var(--faint)}
+.mz .chip{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 15px;
+     border-radius:12px;border:1px solid var(--line);background:var(--card);
+     font-size:13.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+.mz .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mz .row{display:flex;align-items:center;gap:13px;min-height:56px;padding:11px 0;
+     border-bottom:1px solid var(--hair)}
+.mz .row:last-child{border-bottom:0}
+.mz .tabs{display:flex;gap:26px;border-bottom:1px solid var(--line)}
+.mz .tabs>span{min-height:46px;display:flex;align-items:center;font-size:15px;
+     font-weight:600;color:var(--soft);border-bottom:2px solid transparent}
+.mz .tabs>span.on{color:var(--ink);border-bottom-color:var(--emerald)}
+.mz .sw{width:46px;height:27px;border-radius:14px;background:var(--track);
+     border:1px solid var(--line);position:relative;flex:0 0 auto}
+.mz .sw>i{position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:11px;
+     background:var(--card);border:1px solid var(--line);display:block}
+.mz .sw.on{background:var(--emerald);border-color:var(--emerald)}
+.mz .sw.on>i{left:auto;right:2px;background:var(--onEmerald);border-color:transparent}
+.mz .sk{background:var(--track);border-radius:6px;height:12px;display:block}
+
+.mz .dtbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.mz .dtbl th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;
+     text-transform:uppercase;color:var(--soft);font-weight:400;text-align:left;
+     padding:0 22px 11px 0;border-bottom:1px solid var(--line)}
+.mz .dtbl th.r,.mz .dtbl td.r{text-align:right}
+.mz .dtbl th:last-child,.mz .dtbl td:last-child{padding-right:0}
+.mz .dtbl td{padding:15px 22px 15px 0;border-bottom:1px solid var(--hair);
+     vertical-align:middle}
+.mz .dtbl tr:last-child td{border-bottom:0}
+
+.mz .ar{font-family:Amiri,"Noto Naskh Arabic",serif;direction:rtl}
+.mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
+</style>
+</helmet>
+<div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">Quick Add · every mode · 360 · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="position:relative;overflow:hidden"><div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between"><div><div class="lab">Monday</div><div class="ser" style="font-size:20px;line-height:25px;margin-top:2px">5 October <span style="color:var(--soft)">· 24 Rabiʻ II 1448</span></div></div><span class="tile" style="border:1px solid var(--line);color:var(--soft);background:var(--card)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg></span></div><div style="padding:14px 20px 0;text-align:center;position:relative"><div style="display:flex;justify-content:center"><svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
+  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
+        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
+        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
+  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
+        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
+</svg></div><div style="position:absolute;left:0;right:0;top:92px"><div class="lab">Safe to spend today</div><div class="disp" style="font-size:42px;line-height:48px;margin-top:3px">₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div></div></div><div style="padding:26px 20px 30px"><div class="card" style="padding:17px;"><div class="mlab">Where your money is</div><div style="margin-top:15px"><div style="display:flex;gap:3px;height:11px"><span style="width:24.444%;background:var(--emerald);border-radius:3px;display:block"></span><span style="width:20.000%;background:var(--slate);border-radius:3px;display:block"></span><span style="width:6.667%;background:var(--ochre);border-radius:3px;display:block"></span><span style="width:15.556%;background:var(--faint);border-radius:3px;display:block"></span><span style="width:33.333%;background:var(--track);border-radius:3px;display:block;border:1px solid var(--line)"></span></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 14px;margin-top:15px"><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--emerald);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Spent</span><span class="mono" style="font-size:12px;font-weight:600">₦110,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--slate);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Saved</span><span class="mono" style="font-size:12px;font-weight:600">₦90,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--ochre);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Debt paid</span><span class="mono" style="font-size:12px;font-weight:600">₦30,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--faint);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Protected</span><span class="mono" style="font-size:12px;font-weight:600">₦70,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--track);flex:0 0 auto;border:1px solid var(--line)"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Free</span><span class="mono" style="font-size:12px;font-weight:600">₦150,000<span style="font-size:9px;opacity:.55">.00</span></span></div></div></div></div><div style="position:absolute;inset:0;background:var(--scrim)"></div></div><div style="background:var(--card);border:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:var(--shadow);padding:20px 20px 24px;width:100%"><div style="display:flex;align-items:center;justify-content:space-between"><div class="ser" style="font-size:24px">Add a movement</div><span class="tile" style="border:1px solid var(--line);color:var(--soft)">✕</span></div><div class="fld on" style="min-height:66px;justify-content:flex-end;margin-top:18px"><span class="num" style="font-size:27px;font-weight:600;letter-spacing:-.012em">₦12,500<span style="font-size:16px;font-weight:500;opacity:.6">.00</span></span><span style="width:2px;height:30px;background:var(--emerald);margin-left:3px"></span></div><div style="display:flex;gap:10px;margin-top:14px"><div class="fld" style="flex:1;justify-content:space-between">Expense<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div><div class="fld" style="flex:1;justify-content:space-between">Today<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><div class="chip on">Food and groceries</div><div class="chip">Transport</div><div class="chip">More</div></div><div class="row" style="margin-top:4px;border-bottom:0"><span style="flex:1;font-size:14.5px;color:var(--soft)">Add a note</span><span style="color:var(--faint);display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></span></div><div class="btn btn-p" style="width:100%;margin-top:10px">Save</div></div></div><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="position:relative;overflow:hidden"><div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between"><div><div class="lab">Monday</div><div class="ser" style="font-size:20px;line-height:25px;margin-top:2px">5 October <span style="color:var(--soft)">· 24 Rabiʻ II 1448</span></div></div><span class="tile" style="border:1px solid var(--line);color:var(--soft);background:var(--card)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg></span></div><div style="padding:14px 20px 0;text-align:center;position:relative"><div style="display:flex;justify-content:center"><svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
+  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
+        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
+        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
+  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
+        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
+</svg></div><div style="position:absolute;left:0;right:0;top:92px"><div class="lab">Safe to spend today</div><div class="disp" style="font-size:42px;line-height:48px;margin-top:3px">₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div></div></div><div style="height:80px"></div><div style="position:absolute;inset:0;background:var(--scrim)"></div></div><div style="background:var(--card);border:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:var(--shadow);padding:20px 20px 24px;width:100%"><div style="display:flex;align-items:center;justify-content:space-between"><div class="ser" style="font-size:24px">Record a payment</div><span class="tile" style="border:1px solid var(--line);color:var(--soft)">✕</span></div><div style="font-size:12.5px;color:var(--soft);margin-top:4px">Counterparty fixed, amount pre-filled from the schedule, date today. One tap confirms the usual case.</div><div class="fld on" style="min-height:66px;justify-content:flex-end;margin-top:16px"><span class="num" style="font-size:27px;font-weight:600;letter-spacing:-.012em">₦30,000<span style="font-size:16px;font-weight:500;opacity:.6">.00</span></span></div><div style="display:flex;gap:10px;margin-top:14px"><div class="fld" style="flex:1;justify-content:space-between">I repaid<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div><div class="fld" style="flex:1;justify-content:space-between">Today<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><div class="chip on" style="pointer-events:none">A. Friend</div><div class="chip" style="opacity:.45">Spouse</div></div><div class="btn btn-p" style="width:100%;margin-top:18px">Save</div></div></div><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="position:relative;overflow:hidden"><div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between"><div><div class="lab">Monday</div><div class="ser" style="font-size:20px;line-height:25px;margin-top:2px">5 October <span style="color:var(--soft)">· 24 Rabiʻ II 1448</span></div></div><span class="tile" style="border:1px solid var(--line);color:var(--soft);background:var(--card)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg></span></div><div style="padding:14px 20px 0;text-align:center;position:relative"><div style="display:flex;justify-content:center"><svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
+  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
+        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
+        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
+  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
+        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
+</svg></div><div style="position:absolute;left:0;right:0;top:92px"><div class="lab">Safe to spend today</div><div class="disp" style="font-size:42px;line-height:48px;margin-top:3px">₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div></div></div><div style="height:80px"></div><div style="position:absolute;inset:0;background:var(--scrim)"></div></div><div style="background:var(--card);border:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:var(--shadow);padding:20px 20px 24px;width:100%"><div style="display:flex;align-items:center;justify-content:space-between"><div class="ser" style="font-size:24px">Edit</div><span class="tile" style="border:1px solid var(--line);color:var(--soft)">✕</span></div><div style="font-size:12.5px;color:var(--soft);margin-top:4px">The same sheet, pre-filled. One form, not two — a second edit form would drift from this one.</div><div class="fld on" style="min-height:66px;justify-content:flex-end;margin-top:16px"><span class="num" style="font-size:27px;font-weight:600;letter-spacing:-.012em">₦14,000<span style="font-size:16px;font-weight:500;opacity:.6">.00</span></span></div><div style="display:flex;gap:10px;margin-top:14px"><div class="fld" style="flex:1;justify-content:space-between">Expense<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div><div class="fld" style="flex:1;justify-content:space-between">Today<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><div class="chip on">Health</div><div class="chip">Food and groceries</div></div><div class="btn btn-p" style="width:100%;margin-top:18px">Save changes</div><div class="btn btn-s" style="width:100%;margin-top:10px;color:var(--rose);border-color:var(--ro2)">Delete this movement</div></div></div></div><div style="font-size:12.5px;line-height:18px;color:#7C8A95;margin-top:16px;max-width:760px">Add · record a payment (counterparty fixed, amount pre-filled, type follows the balance) · edit (the same sheet pre-filled, titled Edit, with Delete added). One form, not three.</div></div>
+</x-dc>
+</body>
+</html>

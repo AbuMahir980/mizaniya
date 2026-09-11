@@ -82,7 +82,7 @@ amber   when  safeToSpendPerDay < amberRatio × plannedDailyAllowance     (defau
 red     when  safeToSpendPerDay < 0
 ```
 
-On the seeded cycle: spendable plan ₦260,000 over 30 days = **₦8,666.67** a day;
+On the seeded cycle: spendable plan ₦260,000.00 over 30 days = **₦8,666.66** a day (floored);
 amber below **₦5,200**. On the worked day the figure is ₦7,500 — green. In the
 amber variant it is ₦5,000 — amber.
 
@@ -101,6 +101,22 @@ the figure already means and would make the state nearly redundant.
 | Today is the last day of the cycle | `daysLeft` counts today, so its minimum is **1**, never 0 |
 | Safe-to-spend is exactly 0 | Green boundary is `<`, so 0 is amber, not red. Red means **negative** — you have already overspent |
 | Cycle has no spendable categories at all | Same as no plan: no amber state |
+
+---
+
+## 5a · D16 · Cash left is per cycle
+
+**Cash left is this cycle's income minus this cycle's movements**, never a
+running bank balance. A leftover does not raise the next cycle's safe-to-spend;
+it appears on the next Plan as **unallocated**, labelled *"carried from last
+cycle"*, and counts towards the amount to allocate.
+
+*Rejected:* a running balance — last cycle's leftover would quietly raise what
+the hero says is safe, and the owner would spend it without deciding to.
+*Also rejected:* dropping it — the money is real, and an invisible leftover is
+the failure mode this project is built against.
+
+Full reasoning and the Plan line: page specs §7.3.
 
 ---
 

@@ -5,7 +5,7 @@
 **What it produces.** Two things into this folder, `docs/design/`:
 
 1. `tokens.md` — the complete design-token set, light **and** dark, in the schema in §5. SHARED RULES implements it *exactly*; nothing in it is advisory.
-2. Screen designs as PNGs (one per screen at 360px; Home additionally at 1440px), plus one primitives sheet showing every `src/ui/` component in every state. File names in §6.
+2. Every screen at **360 and 1440**, in **light and dark**, plus a primitives sheet showing every `src/ui/` component in every state, a mark-and-wordmark sheet, and the printed debt record. Delivered as editable canvas source, standalone HTML and rendered PNGs. File names in §6.
 
 **What it must not do.** Invent product behaviour, numbers, copy or screens. All of that is decided in `docs/06-page-specs.md`; the design's job is how it looks, not what it does. Where the spec is silent, §4 of this brief decides; where both are silent, ask — do not guess about money.
 
@@ -33,20 +33,66 @@ missing, the checkout is stale — stop and say so.
 
 ## 2 · The look — one paragraph, then the rules
 
-Calm, dense, honest. The app tells someone how much of their own money they can spend today; the design's only job is to make that number trustworthy. It should look like a well-made banking app or a good spreadsheet, not like a startup landing page. If a screen could be mistaken for an AI-generated mockup, it is wrong.
+> **Rewritten 10 September 2026, after the design stop.** The original §2 asked for
+> one accent on a neutral ground and a single typeface. The owner reviewed that and
+> rejected it as flat — "regular AI slop" were the words — and chose a combination of
+> two explored directions instead: an editorial private-bank treatment for type, money
+> and controls, and a dark-terminal treatment for the gauge, the charts and the "where
+> your money is" block. What follows is the direction as built and as recorded in
+> `tokens.md` §0. It supersedes the original text; where this brief and `tokens.md`
+> disagree, `tokens.md` wins.
+
+Calm, dense, honest. The app tells someone how much of their own money they can spend
+today; the design's only job is to make that number trustworthy. It should look like a
+well-made private bank statement or a good spreadsheet, not like a startup landing page.
+If a screen could be mistaken for an AI-generated mockup, it is wrong.
 
 **Rules, binding:**
 
-- **One accent colour.** Used for the primary action, focus rings, links and the progress-bar fill. Nowhere else. A deep, slightly warm green or a deep teal — pick one, justify it in one sentence in `tokens.md`, and never introduce a second brand colour.
-- **No gradients, no glassmorphism, no blurred blobs, no purple, no neon, no drop-shadow cards floating on a white void, no rounded-corner-everything.** Radius is small (4–8px) and consistent. Elevation is one subtle level for sheets and dialogs only.
-- **Typography carries the hierarchy.** One typeface family with a tabular-figure variant for money (Inter with `font-variant-numeric: tabular-nums` is acceptable; a system stack is acceptable). Money never uses a display face. The hero figure is large because it matters, not decorative.
-- **Numbers align.** Money right-aligned in every table and tile; thousands separators always; the naira sign is part of the figure, not a separate icon.
-- **Colour is never alone (spec §3).** Amber and red always carry a word — "Low", "Overspent", "Short", "Overdue". Design the badge first, the colour second.
-- **Danger colour is reserved (addendum, spec §4).** Red appears only where the spec's table puts it. Delete confirmations, validation, offline notices and import refusals are neutral.
-- **Type-only empty states.** No illustrations. One icon from the set is permitted; a paragraph and a button do the work.
-- **Icons: Lucide, one weight, 20px in bars and 16px inline.** Bottom-bar items keep their text labels at 360px.
-- **Dark theme is a first-class deliverable**, not an inversion. Surfaces step by lightness, not by adding shadows; the accent is re-tuned for contrast; amber and red are re-tuned and re-checked.
-- **360px is the design.** 1440px adds space, not features (spec §5).
+- **Two grounds, one language.** Light is warm paper (`#F7F3EA`), dark is near-black
+  (`#0A0D10`). Dark is not an inversion of light: surfaces step by lightness, the hues
+  are re-tuned, and every pair is re-measured.
+- **Four meaning-bearing hues, and nothing else carries meaning.** Emerald — the primary
+  action, and money going right. Ochre — near a limit. Slate — people and neutral data.
+  Rose — money going wrong, and only that. Everything else is the neutral ramp. There is
+  no decorative colour anywhere.
+- **Selection is ink, not accent.** Chosen chips, checked boxes and the segmented thumb
+  fill with `color.text`, never with the accent. Emerald appears on the primary button,
+  the focus ring, the active tab underline and progress fill — nowhere else.
+- **Three typefaces, three jobs.** EB Garamond for titles and voice; Inter for structure,
+  UI and every figure; JetBrains Mono for labels, dates and column headers. Money is
+  always Inter, always tabular and lining, never the serif. The hero figure is large
+  because it matters, not because it is decorative.
+- **Numbers align.** Money right-aligned in every table and tile; thousands separators
+  always; the naira sign part of the figure; kobo at 0.60 of the naira size and one weight
+  lighter. A bare minus sign is never shown — direction is always a word. Spendable
+  figures round down, obligations round up.
+- **Diagrams do the work stat tiles used to.** Three, and only three: an arc gauge for the
+  headline figure, a daily-spend column chart against the planned allowance, and a
+  segmented bar for where the cycle's money is. No pie charts, no sparkline decoration.
+- **No gradients, no glassmorphism, no blurred blobs, no purple, no neon, no drop-shadow
+  cards floating on a white void.** Elevation is one subtle level, for sheets and dialogs
+  only. Radius comes off a fixed scale — 8 · 10 · 12 · 13 · 16 · 22 · 30 — and nothing
+  else is used.
+- **Colour is never alone (spec §3).** Amber and rose always carry a word — "Low",
+  "Overspent", "Short", "Overdue". Design the badge first, the colour second.
+- **Danger colour is reserved (addendum, spec §4).** Rose appears only where the spec's
+  table puts it, plus the single destructive button fill. Delete confirmations,
+  validation on neutral fields, offline notices and import refusals are neutral.
+- **Type-only empty states.** No illustrations. One icon from the set is permitted; a
+  sentence and a button do the work.
+- **Icons: one hand-drawn set on a 24 grid, 1.85 stroke, one weight** — 20px in bars,
+  16–18px inline, 44px targets around them. (The original brief named Lucide; the drawn
+  set replaces it so the stroke weight matches EB Garamond's. If Lucide is preferred at
+  build time, match the stroke and the grid.)
+- **Dark theme is a first-class deliverable.** Every screen exists in both themes; every
+  gated pair is measured in both.
+- **360px is the design.** 1440px adds space and a sidebar, never features (spec §5).
+  Onboarding is the exception in reverse: at 1440 it is the same 620px card centred in an
+  empty frame, so it is one component and one breakpoint, not a second design.
+- **The mark is the mizan beam** — a set of scales, tipped, one colour, never filled,
+  never levelled. The Arabic wordmark (ميزانية, Amiri) is always secondary to the Latin
+  and never carries a figure.
 
 ---
 
@@ -65,7 +111,7 @@ All from `docs/seed-data.md` and the spec's tables. Do not change these figures;
 | Debts | You owe: A. Friend ₦90,000 (₦30,000 a month, clears in 3 paydays); Spouse ₦60,000. Owed to you: B. Colleague ₦40,000 with the note "Not counted in safe to spend until it arrives." |
 | Quick Add | Amount field focused, ₦ prefix, Expense ▾ · Today ▾, chips Food · Transport · Family · ⋯, "+ note" collapsed, Save |
 | Transactions | Day headers, eight labels: Income · Expense · Move to savings · Take from savings · I borrowed · I repaid · I lent · They repaid me |
-| Plan | Sticky header "Unallocated ₦0" (and the ₦50,000 state), rows grouped Savings · Debt payment · Expense, footnote "Planned daily allowance ₦8,666.67" |
+| Plan | Sticky header "Unallocated ₦0" (and the ₦50,000 state), rows grouped Savings · Debt payment · Expense, footnote "Planned daily allowance ₦8,666.66" |
 | Months | One row: "25 Sep – 24 Oct" style label — but the worked owner has no completed cycle yet, so design the **empty state** ("Your first cycle is still running. It ends on 24 October.") and one populated row for the primitives sheet |
 | Settings | "Protected." storage line, "47 changes since your last export." nudge, amber-threshold slider "Amber below ₦5,200 a day" |
 | Hero states | Normal **₦7,500.00** · Amber **₦4,800.00 Low** (the threshold is ₦5,200.00) · Red **"₦2,300.00 over" Overspent** with the sentence from spec §8 · No-plan **₦8,666.66** with its sentence |
@@ -143,41 +189,60 @@ Then, under "Primitives", one line per component naming the tokens it consumes: 
 
 ## 6 · Deliverable file names
 
-```
-docs/design/tokens.md
-docs/design/00-primitives-light.png
-docs/design/00-primitives-dark.png
-docs/design/01-onboarding-360.png        (steps 2 and 5 at least)
-docs/design/02-home-360.png              (normal state)
-docs/design/02-home-360-states.png       (amber, red, no-plan, empty, offline)
-docs/design/02-home-1440.png
-docs/design/03-plan-360.png
-docs/design/04-transactions-360.png      (populated + both empty states)
-docs/design/04a-quick-add-360.png
-docs/design/05-debts-goals-360.png       (both tabs)
-docs/design/05a-debt-record-print.png    (A4, black and white)
-docs/design/06-months-360.png            (empty + populated)
-docs/design/07-settings-360.png
-docs/design/07a-zakat-360.png            (last)
-docs/design/README.md                    (one paragraph: what is here, which spec version it was made from, the date)
-```
+Delivered 10 September 2026. Every screen exists at **360 and 1440**, in **light and
+dark** — 65 artboards over eleven pages.
 
-Dark theme: Home and Quick Add at minimum; the primitives sheet in both.
+```
+docs/design/README.md                    what is here, which spec commit, the date
+docs/design/tokens.md                    the complete token set, both themes
+docs/design/PROPOSED-seed-additions.md   figures the design needed; NOT yet in seed-data
+docs/design/canvas/                      the editable source: one .dc.html per artboard
+                                         plus canvas.json — re-seed a Claude Design canvas
+docs/design/html/                        the same artboards as standalone pages; open any
+                                         one in a browser at full fidelity
+docs/design/*.png                        rendered previews, for reading in a PR
+
+00-cover-{light,dark}                    contents, settled figures, the rules
+00-primitives-{light,dark}               every component in every state
+00-logo-{light,dark}                     the mark, its grid, sizes, icon, favicon, misuse
+00-style-{light,dark}                    palette, type, status pills
+01-welcome-{360,1440}-{light,dark}       launch and welcome, before onboarding step 1
+01-onboarding-{360,1440}-{light,dark}    all six steps
+02-home-{360,1440}-{light,dark}          plus -cycle (mid-cycle) and -states
+02a-more-sheet-360-{light,dark}
+03-plan-{360,1440}-{light,dark}
+04-transactions-{360,1440}-{light,dark}
+04a-quick-add-{360,1440}-{light,dark}
+05-debts-goals-{360,1440}-{light,dark}
+05a-debt-record-{360,1440}-{light,dark} and 05a-debt-record-print (A4, black and white)
+05b-forms-{360,1440}-{light,dark}        add a debt, add a goal
+06-months-{360,1440}-{light,dark}
+07-settings-{360,1440}-{light,dark}
+07a-zakat-{360,1440}-{light,dark}
+07b-import-360-{light,dark}
+```
 
 ---
 
 ## 7 · Acceptance — check before handing over
 
 - Every figure on every screen is in §3 or the spec; nothing invented.
-- Every hero state designed (normal, amber, red, no plan) and each amber/red carries its word.
-- Contrast ratios written into `tokens.md` for both themes; none failing.
-- Red appears only where spec §4's table allows.
-- No gradient, glass, blob, purple, illustration, or second accent anywhere.
+- Every hero state designed (normal, amber, red, no plan, empty, offline) and each
+  amber/red carries its word.
+- Contrast ratios written into `tokens.md` for both themes; none failing. *(54 gated
+  pairs, 0 failures.)*
+- Rose appears only where spec §4's table allows, plus the destructive button fill.
+- No gradient, glass, blob, purple, illustration, or decorative colour anywhere.
+- The accent is confined to the primary button, focus ring, active tab underline and
+  progress fill; selection is carried by ink.
 - Touch targets ≥ 44px at 360px, including table-row actions and the ⊕.
 - Focus ring visible on the primitives sheet for every focusable component.
 - Bottom bar: Home · Plan · ⊕ · Debts · More, labels present.
-- Money right-aligned and tabular in every table and tile.
-- A reviewer who reads only `tokens.md` and `00-primitives-*.png` could build `src/ui/` without opening a screen PNG.
+- Money right-aligned and tabular in every table and tile; kobo always shown; no bare
+  minus sign anywhere.
+- Every navigation destination has a screen, at both widths and in both themes.
+- A reviewer who reads only `tokens.md` and `00-primitives-*.png` could build `src/ui/`
+  without opening a screen PNG.
 
 ---
 

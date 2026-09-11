@@ -131,7 +131,7 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: PAGE SPECS, complete — this is the design stop.** The repo is still documents only — no
+**Phase: the design stop is CLEARED.** SHARED RULES is next. The repo is still documents only — no
 application code exists yet. Step 0, SETUP, UNDERSTAND, ARCHITECT, SYSTEM SPEC,
 API CONTRACT and PAGE SPECS are done. What exists is a full paper trail: fifteen numbered decisions,
 seven ADRs, forty user stories with acceptance criteria, and a seeded scenario
@@ -141,17 +141,21 @@ Everything rests on one idea: **transactions are the only facts, and everything
 else is a calculation.** That is what makes step 9 of the core journey — export,
 import into a clean browser, identical state — a consequence rather than a hope.
 
-**Six pull requests are open and stacked**, each based on the one before:
-setup → understand → architect → spec-system → spec-api-contract → spec-pages. None has CI,
+**Seven pull requests are open and stacked**, each based on the one before:
+setup → understand → architect → spec-system → spec-api-contract → spec-pages → design. None has CI,
 because CI does not exist until phase 11b. **Merge them bottom-up, in order.**
 
 The repo now contains its first three source files. They do not compile yet —
 there is no `package.json`, and creating one is BUILD's first task.
 
-**Next action: the design.** `docs/design/` — `tokens.md` plus screen PNGs — is
-produced outside this session from [docs/06-page-specs.md](docs/06-page-specs.md).
-SHARED RULES cannot start until it arrives, because it *implements* the design
-rather than inventing one. Nothing before that invents a palette or a layout.
+**The design arrived on 10 September** — 67 artboards, `tokens.md` with 54 gated
+contrast pairs and no failures, and the canvas as `.dc.html` so the build agent
+reads markup rather than pixels. It found four stale figures in my documents and
+was right about all four.
+
+**Next action:** SHARED RULES — implement `src/design/tokens.ts` exactly as
+`docs/design/tokens.md` specifies, build `src/ui/` from the primitives canvas,
+and wire ESLint, tsconfig and CI to every `auto` rule in `docs/standards/`.
 
 ---
 
@@ -202,7 +206,9 @@ rather than inventing one. Nothing before that invents a palette or a layout.
 | 2026-09-10 | **Every import refusal ends “Nothing has changed.”** That sentence is all-or-nothing said to the person it protects | PAGE SPECS |
 | 2026-09-10 | **Danger colour is spent only on money going wrong.** Not on deleting a transaction, not on a refused import, not on being offline — spend it on ordinary states and it means nothing by the time it matters (F7) | PAGE SPECS |
 | 2026-09-10 | **Quick Add is the centre of the bottom bar**, the largest target, under the thumb. Transactions is not a bottom-bar item — recording is the common case, browsing is the rare one | PAGE SPECS |---
-
+| 2026-09-10 | **Never round a rounded number; stay in integer kobo and divide last.** The amber threshold is ₦5,200.00 computed as (6 × 26,000,000) ÷ 300, and ₦5,199.99 if taken from the displayed allowance. Both published figures were right; neither derives from the other | design review |
+| 2026-09-10 | **Design supersedes brief §2** at the owner's direction — four meaning-bearing hues, icons, and three diagrams replacing the four stat tiles. Design wins on layout, the spec still wins on behaviour | design stop |
+| 2026-09-10 | **Health, not food, carries the overspent row** in the seed. Food's allowance carries a ₦12,000 rollover, so food overspent plus transport at 85% exceeds the cycle's whole expense spend and would move cash left and the hero | seed merge |
 ## What Was Done — By Day
 
 ### 2026-09-09 (Wednesday)
@@ -243,7 +249,8 @@ rather than inventing one. Nothing before that invents a palette or a layout.
 - **Two accessibility decisions that a checklist would have missed:** how a money figure is read aloud (“2,300 naira over”, never “minus 2,300”), and one live region per screen instead of one per figure — a save changes a dozen numbers and announcing all of them is the same as announcing none.
 - **Wrote the copy in full**, including the sentence every import refusal ends with: *“Nothing has changed.”* And a list of words the app never uses — *you should, we recommend, congratulations, oops* — because the line between reporting and advising is crossed by tone, not just by content.
 - **Left six questions for the designer** and marked everything else settled, so the design can be made without coming back with questions.
-## What's Next
+- **The design landed and reviewed me back.** Four stale figures found and corrected across four files, and the rounding rule that explains them written into §3a. Merged the seed proposal into `docs/seed-data.md`, which resolved a conflict the brief could not satisfy.
+- **Gitignored the local design-handoff folder** after a `git add -A` had already swept a file out of it into a commit — the fix belongs in `.gitignore`, not in remembering to be careful.## What's Next
 
 1. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
 2. **The design.** Produce `docs/design/` — `tokens.md` (light and dark) plus screen PNGs — from [docs/06-page-specs.md](docs/06-page-specs.md). §9 of that document lists the six things the designer decides; everything else is settled.
