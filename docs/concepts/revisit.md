@@ -5,6 +5,9 @@ second pass at the moment they actually matter — not filed away and forgotten.
 
 This is not a list of failures. It is a list of threads worth pulling.
 
+**Every stop's questions and answers are in [[review-questions]].** This file is
+narrower: only the ones that did not land, and where to ask them again.
+
 ---
 
 ## Open
@@ -67,6 +70,19 @@ needs a compiler and there is no `package.json` yet.
 then, without warning: *why does the API contract document contain no field
 lists?* If the answer does not reach "the readable copy is the one that goes
 stale", it has not landed.
+
+### The design-stop five — answered on request, for revision
+
+**Came up:** 2026-09-10, at the design stop. Asked to be written up with their
+answers rather than tested, to revise from later. Recorded in
+[[review-questions]], and one of them produced a new note —
+[[hierarchy-and-attention]], on why a ninth tile is never free and why the
+offline banner must not be red.
+
+**Revisit when:** the design arrives and SHARED RULES starts. That is the first
+moment the hierarchy stops being a paragraph and becomes pixels, and the first
+chance to get the danger colour wrong in code. Ask then: *what does this
+displace?*
 
 ---
 

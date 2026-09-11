@@ -131,9 +131,9 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: API CONTRACT, complete — this is the stakeholder stop.** The repo is still documents only — no
-application code exists yet. Step 0, SETUP, UNDERSTAND, ARCHITECT, SYSTEM SPEC
-and API CONTRACT are done. What exists is a full paper trail: fifteen numbered decisions,
+**Phase: PAGE SPECS, complete — this is the design stop.** The repo is still documents only — no
+application code exists yet. Step 0, SETUP, UNDERSTAND, ARCHITECT, SYSTEM SPEC,
+API CONTRACT and PAGE SPECS are done. What exists is a full paper trail: fifteen numbered decisions,
 seven ADRs, forty user stories with acceptance criteria, and a seeded scenario
 with every figure worked through.
 
@@ -141,15 +141,17 @@ Everything rests on one idea: **transactions are the only facts, and everything
 else is a calculation.** That is what makes step 9 of the core journey — export,
 import into a clean browser, identical state — a consequence rather than a hope.
 
-**Five pull requests are open and stacked**, each based on the one before:
-setup → understand → architect → spec-system → spec-api-contract. None has CI,
+**Six pull requests are open and stacked**, each based on the one before:
+setup → understand → architect → spec-system → spec-api-contract → spec-pages. None has CI,
 because CI does not exist until phase 11b. **Merge them bottom-up, in order.**
 
 The repo now contains its first three source files. They do not compile yet —
 there is no `package.json`, and creating one is BUILD's first task.
 
-**Next action: none until the stakeholder resumes.** The prompt says stop after
-API CONTRACT. After that comes PAGE SPECS, then the design stop.
+**Next action: the design.** `docs/design/` — `tokens.md` plus screen PNGs — is
+produced outside this session from [docs/06-page-specs.md](docs/06-page-specs.md).
+SHARED RULES cannot start until it arrives, because it *implements* the design
+rather than inventing one. Nothing before that invents a palette or a layout.
 
 ---
 
@@ -194,7 +196,12 @@ API CONTRACT. After that comes PAGE SPECS, then the design stop.
 | 2026-09-10 | **A `Debt` has no direction field.** The balance derives from transactions and may cross zero, which is what a rotating ajo does. A stored direction would need correcting at the crossing and nothing would notice if it were not (D9) | API CONTRACT |
 | 2026-09-10 | **The `Repository` interface lives in `core/`, its implementations in `data/`** — correcting the first draft of the architecture. The interface is shared domain contract that Expo must implement; the implementation is a platform detail | API CONTRACT |
 | 2026-09-10 | **`zod` for runtime validation at the import boundary.** TypeScript vanishes at compile time, and a file the owner picks from disk is untrusted input (N1: ~14 KB, no platform equivalent) | API CONTRACT |
----
+| 2026-09-10 | **Accessibility is stated once, not per page.** Nine copies of the same rules would drift within a week; the per-page sections carry only what differs | PAGE SPECS |
+| 2026-09-10 | **One polite live region per screen**, announcing the outcome and only the figure the owner came for. A save changes a dozen numbers; announcing them all would tell a screen-reader user nothing | PAGE SPECS |
+| 2026-09-10 | **Money is never announced with a bare minus sign.** “2,300 naira over”, not “minus 2,300” — ambiguous read aloud is the same failure as ambiguous on screen | PAGE SPECS |
+| 2026-09-10 | **Every import refusal ends “Nothing has changed.”** That sentence is all-or-nothing said to the person it protects | PAGE SPECS |
+| 2026-09-10 | **Danger colour is spent only on money going wrong.** Not on deleting a transaction, not on a refused import, not on being offline — spend it on ordinary states and it means nothing by the time it matters (F7) | PAGE SPECS |
+| 2026-09-10 | **Quick Add is the centre of the bottom bar**, the largest target, under the thumb. Transactions is not a bottom-bar item — recording is the common case, browsing is the rare one | PAGE SPECS |---
 
 ## What Was Done — By Day
 
@@ -232,12 +239,15 @@ API CONTRACT. After that comes PAGE SPECS, then the design stop.
 - **Corrected myself on the transaction types.** I had proposed savings as one type with a direction field; H5 is explicit that direction comes from the type, so there are **eight** types. Fixed in the requirements summary and the spec.
 - **Moved the `Repository` interface from `data/` to `core/`**, correcting the architecture's first draft — the Expo app must implement the interface, so it is shared contract, not a platform detail.
 - **Recorded what API CONTRACT could not finish:** the phase requires a CI step that regenerates the contract doc from the source and fails on any diff. That needs `package.json`, which BUILD creates first, so it is written up as a BUILD task and the tables are marked hand-checked rather than passed off as generated.---
-
+- **Ran PAGE SPECS** with `design:accessibility-review` and `design:ux-copy` invoked inside the phase. Wrote [docs/06-page-specs.md](docs/06-page-specs.md): ten screens with layout, every number and its `core/` source, all five states, primary action, danger-colour meaning, responsive behaviour and the exact on-screen words.
+- **Two accessibility decisions that a checklist would have missed:** how a money figure is read aloud (“2,300 naira over”, never “minus 2,300”), and one live region per screen instead of one per figure — a save changes a dozen numbers and announcing all of them is the same as announcing none.
+- **Wrote the copy in full**, including the sentence every import refusal ends with: *“Nothing has changed.”* And a list of words the app never uses — *you should, we recommend, congratulations, oops* — because the line between reporting and advising is crossed by tone, not just by content.
+- **Left six questions for the designer** and marked everything else settled, so the design can be made without coming back with questions.
 ## What's Next
 
 1. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
-2. Run **PAGE SPECS** (`peer-ai/frontend/01-spec-pages.md`) for Onboarding, Home, Plan, Transactions + Quick Add, Debts & Goals + debt record, Months and Settings — each with its loading, empty, error, offline and success states and the exact numbers it shows. Skills: `design:accessibility-review`, `design:ux-copy`.
-3. **Then stop again** — the design stop. `docs/design/` (tokens.md + PNGs) is produced outside the session from those specs.
+2. **The design.** Produce `docs/design/` — `tokens.md` (light and dark) plus screen PNGs — from [docs/06-page-specs.md](docs/06-page-specs.md). §9 of that document lists the six things the designer decides; everything else is settled.
+3. Then **SHARED RULES**: implement `src/design/tokens.ts` exactly as `tokens.md` says, build the `src/ui/` primitives with all their states, and configure ESLint, tsconfig and CI for every `auto` rule in `docs/standards/`. Skill: `design:design-system`.
 
 ---
 
@@ -275,6 +285,7 @@ UNDERSTAND's clarification round is now closed.
 | System spec — stories, criteria, screen states | `docs/03-system-spec.md` |
 | API contract — indexes the source of record | `docs/04-api-contract.md` |
 | **The contract itself** | `src/core/types.ts` · `schema.ts` · `repository.ts` |
+| Page specs — what the design is made from | `docs/06-page-specs.md` |
 | Engineering standards (rulebook) | `docs/standards/` |
 | Seed data — the only source of figures | `docs/seed-data.md` |
 | Peer AI playbook (vendored) | `peer-ai/` |
