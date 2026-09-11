@@ -11,7 +11,11 @@ Maintainer's fix list for the upstream Peer AI playbook, collected while running
 
 Items are grouped by the file they concern. Each has the observed problem, where it is, and a suggested fix. Severity is a judgement call: **fix** means a user will hit it, **polish** means cosmetic or consistency.
 
-**Status (2026-09-07):** all twenty items are applied in this repo. Item 5 collapsed setup into one question round; item 18 made every model-switch gate conditional on a **Model selector** setting the workflow driver now carries; item 20 moved the PDF offer into `shared/rules/shared.md` with phases pointing there.
+**Status (2026-09-07):** all twenty items are applied in this repo.
+
+**Second run (2026-09-11):** items 21-28 come from a React Native project (Choply) and items 29-32 from Mizaniya's build phase. **All twelve are now applied in this repo.**
+
+Items 21-25, 27, 29 and 30 were one defect in eight places - the playbook described itself as portable and then prescribed a web stack with a backend and no existing design. Each is now conditional on what the project actually is, and every default that named a bundler, a toggle, a styling library or a test runner has been replaced with a pointer to the decision the architecture phase already made. Item 26 made the phase enum checked rather than merely published. Item 31 gave the PDF offer a field to remember itself by. Item 32 gave the workflow driver a **Merge policy** setting, so it no longer tells an agent to merge locally while the shared rules require a reviewed pull request. Item 28's scripts do not live in this repo; its transferable half is the warning in `CONTRIBUTING.md` that a vendored copy's post-pull script must fail loudly. Items 21-27 are live defects at `13b73f9`; item 28 concerns the per-project customisation scripts, which do not live in this repo. Item 5 collapsed setup into one question round; item 18 made every model-switch gate conditional on a **Model selector** setting the workflow driver now carries; item 20 moved the PDF offer into `shared/rules/shared.md` with phases pointing there.
 
 ---
 
@@ -142,6 +146,257 @@ Items are grouped by the file they concern. Each has the observed problem, where
     **Fix:** Keep it in `shared/rules/shared.md` only, and have phases say "offer the PDF export per the shared rules" in one line.
 
 ---
+
+---
+
+# Second run — Choply, 11 September 2026
+
+A second end-to-end run, on a very different project: an existing production
+codebase (211 endpoints, 84 tables, 18 CI stages) whose **three phone apps are
+being rebuilt in React Native**. The first run was a small web app, and that
+difference is what these items are about.
+
+**Every one of items 21–25 is the same defect wearing different clothes: the
+playbook says it is stack-agnostic, and then prescribes a web stack.** Item 14
+found this in the API contract's example domain and fixed it there. It is not
+fixed in the frontend track, where it does more damage — an agent following
+`frontend/03-build.md` literally will run the wrong scaffolder and produce an
+app the project cannot use.
+
+| Field | Value |
+|-------|-------|
+| **Playbook version observed** | commit `13b73f9` (all twenty items above applied) |
+| **Phases run** | 01 Understand, 02 Architect, 03 System Spec, 04 API Contract, 05 Shared Rules, frontend 01 Page Specs, 02 Rules, 03 Build |
+| **Tool** | Claude Code (desktop app), two pinned models |
+| **Project shape** | Existing backend, three React Native apps on Expo, pnpm monorepo |
+
+---
+
+## `frontend/03-build.md`
+
+21. **Step 1 prescribes one bundler.** *(fix)*
+    **Where:** "If **new**: scaffold **Vite + React + TypeScript**".
+    **Problem:** This is the only phase that names a specific stack as an
+    instruction rather than an example, and it contradicts the architecture
+    phase that has just run. Phase 02 exists to *decide* the stack and record
+    it in decision records; step 1 then ignores that output. A React Native,
+    Expo, Next.js, Nuxt or SvelteKit project following this literally scaffolds
+    the wrong thing on top of a correct architecture document.
+    **Fix:** "Scaffold the stack `docs/02-architecture.md` decided — read its
+    decision records before running any generator." Name no default.
+
+22. **Step 4 names a Vite-specific environment variable.** *(fix)*
+    **Where:** "Wire **`VITE_USE_MOCK_DATA`** (or the project's agreed toggle)".
+    **Problem:** The parenthetical hedge is too weak against a bolded literal;
+    the rules phase already settles this variable's name, so the build phase
+    should defer rather than lead. On Expo the prefix is mandatory and
+    different (`EXPO_PUBLIC_`), so the named example is not merely unhelpful,
+    it is invalid.
+    **Fix:** "Wire the project's agreed mock toggle — the environment variable
+    the rules phase settled, whatever its name."
+
+23. **Step 3 assumes a desktop browser.** *(polish)*
+    **Where:** "**sidebar** (or nav)" and "Please run the **dev server** and
+    click through the shell".
+    **Problem:** A phone app has no sidebar and is not exercised through a dev
+    server in a browser. The routing examples list React Router, Vue Router and
+    Next.js App Router, omitting Expo Router — the default for the largest
+    non-web React target.
+    **Fix:** "navigation (a sidebar on desktop, tabs or a stack on mobile —
+    whichever the page specs show)", "run the app", and add Expo Router.
+
+---
+
+## `frontend/02-rules.md`
+
+24. **The styling question offers only web answers.** *(fix)*
+    **Where:** Step 5: "Ask which stack they prefer: **Tailwind**, **CSS
+    Modules**, **styled-components**, or a mix."
+    **Problem:** None of the three exist on React Native, where the choice is
+    between StyleSheet, a theme object, or a styling library. The step asks a
+    question with no correct answer and then locks the rules to it.
+    **Fix:** Ask the question the platform poses, and give the mobile options
+    alongside the web ones.
+
+---
+
+## `shared/09-pr-automation.md`
+
+25. **The sample CI workflow assumes there is no CI yet.** *(fix)*
+    **Where:** The `npm ci` / `npm run lint` / `npm run typecheck` /
+    `npm run build` workflow block.
+    **Problem:** It is offered unconditionally. On a project that already has a
+    pipeline, following it produces a **second, shallower** workflow running
+    beside the real one — and because branch protection keys off a named check,
+    two pipelines with different opinions about "passing" is worse than one.
+    There is no "the project already has CI" branch.
+    **Fix:** Open the section with: "If the project already has a pipeline,
+    extend it. Add a second workflow only when none exists." Keep the sample
+    for the genuinely-new case.
+
+---
+
+## `frontend/05-test.md`
+
+27. **Step 2 installs tooling an accepted decision record has rejected.** *(fix)*
+    **Where:** "If anything is missing, add **Vitest** config, **Playwright**
+    config".
+    **Problem:** The same defect as item 21, and the sharpest instance of it,
+    because here the playbook actively contradicts its own earlier output. On
+    this project ADR-16 rejects Vitest by name — React Native Testing Library
+    does not support it — yet the test phase instructs the agent to install it.
+    An agent that trusts the phase file over the architecture document
+    installs a test runner that cannot run the tests.
+    **Fix:** "Add the unit and end-to-end tooling the architecture chose — read
+    `docs/02-architecture.md` before installing anything, because a decision
+    record may already have rejected the obvious default." Step 1's question
+    should likewise name candidates from the project's platform, not assume web.
+
+---
+
+## The customisation scripts *(Choply-local, but the lesson is general)*
+
+28. **Both helper scripts hardcoded one developer's absolute path.** *(fix)*
+    **Where:** `apply-phase-config.ps1` and `strip-model-switching.ps1`, near
+    the top: `$root = "C:\Users\USER\dev\peer-ai"`.
+    **Problem:** That path is the *standalone clone*, not the vendored copy the
+    script ships inside. Running either from the project therefore edited a
+    different repository and silently left the project's own phase files
+    untouched - and on any other machine it resolves to nothing at all. The
+    failure is invisible, because the script prints its usual summary against
+    whatever it found. This is exactly the hazard `CLAUDE.md` records as the
+    reason peer-ai was vendored into the repo in the first place - "it used to
+    be referenced from a folder on one developer's machine, which meant the
+    path resolved to nothing for anybody else" - reproduced inside the
+    vendored copy.
+    **Fix:** `$root = $PSScriptRoot`. A script that customises the playbook
+    should operate on the playbook it ships with, always.
+    **Scope — checked, not assumed:** this was **Choply's copy only**. Mizaniya
+    and Baytak Clean already use `Split-Path -Parent $MyInvocation.MyCommand.Path`
+    in both scripts, and the scripts do not exist in the peer-ai repository at
+    all — they are a per-project customisation layer. Choply's copy was written
+    first and kept the literal path the other two had already replaced. Nothing
+    to fix in those projects; recorded here so the pattern is on the list, since
+    the next project to copy the scripts will copy them from somewhere.
+
+---
+
+## Still true from the first run
+
+26. **Item 9's enum landed, but nothing enforces it.** *(polish)*
+    The `currentPhase` table is published and is a real improvement. This run
+    still found a state file carrying `frontend-build` and `review-complete`,
+    neither in the enum — invented before the table existed and never
+    reconciled, because no phase re-reads it. A one-line check at the top of
+    each phase ("if `currentPhase` is not in the enum, say so and correct it")
+    would close the loop the table opened.
+
+---
+
+---
+
+# Third source — Mizaniya, build phase
+
+Items 1-20 came from Mizaniya's *specification* phases. These four came later,
+from its **build**, and were logged in the project rather than here. They are
+folded in now. Two of them overlap with the Choply items above from a different
+angle, noted per item.
+
+## `frontend/03-build.md`
+
+29. **Step 4 is unconditional, but the playbook supports projects with no API.** *(fix)*
+    **Where:** step 4 "Mock data layer". Also `frontend/rules/frontend.md`,
+    "API integration" and the whole "Simulation mode" section.
+    **Problem:** step 4 says *"For **every endpoint** described in
+    `docs/04-api-contract.md`, add **mock functions** ... so services switch
+    between mock and real."* But `shared/04-spec-api-contract.md` explicitly
+    allows the contract to record *"an explicit note that this version has
+    none"*, and the README describes that case. A local-first app has no
+    endpoints to mock and no real API to swap to. An agent following the file
+    literally invents a `services/` layer and a mock toggle **the architecture
+    forbids**, then spends the rest of the build reconciling two data seams.
+    **Fix:** make step 4 conditional. *"If the contract defines HTTP endpoints,
+    build the mock layer below. If it records that this version has no API, the
+    data seam is the repository or storage interface named in the architecture
+    — there is nothing to mock, and the local implementation is the real one.
+    Skip to step 5."* Add the same conditional to the two spots in
+    `frontend/rules/frontend.md`.
+    *(Related to item 22, which reaches the same step from the opposite case —
+    a project whose toggle exists but is not Vite's. Both want step 4 to stop
+    assuming one shape of data access.)*
+
+30. **Step 2 has no branch for "the design already exists".** *(fix)*
+    **Where:** step 2 "Design mockups (before writing code)".
+    **Problem:** the options are A-D (*create* mockups in Figma / Penpot /
+    Paper / another tool) and E (*"Skip - build directly in code ... Fastest
+    path"*). There is no option for a project whose design system and screen
+    designs **already exist and are authoritative**. Such a project must answer
+    E, whose wording tells the agent the opposite of the truth: it implies no
+    design exists and invites improvisation, when the design is fixed and must
+    be implemented exactly. Step 9's design-quality pass then has nothing to
+    check against.
+    **Fix:** add **option F - "The design already exists"**: ask where it lives
+    (a tokens file, a folder of exports, a link), read it before any UI code,
+    treat it as authoritative on layout, spacing, type and colour, and point
+    step 9's design-quality pass at it rather than at generic heuristics.
+    *(Confirmed independently on Choply, which has complete design canvases and
+    a rule forbidding invented layouts, and had to answer E for the same wrong
+    reason. Two of three projects hit this; option F should be the default
+    branch, not an afterthought.)*
+
+## `shared/rules/shared.md`
+
+31. **"Offer once" for the PDF export has nothing to remember it by.** *(polish)*
+    **Where:** "PDF-ready doc export": *"When any markdown file is saved to
+    `docs/`, offer once."* Reinforced by `shared/rules/docs-pdf-export.md`.
+    **Problem:** "once" has no scope and no storage. `.peer-ai-state.json` has
+    no field recording that the offer was made, so across sessions an agent
+    either re-offers on every document — the workflow produces a dozen — or
+    drops it silently after the first. Both are wrong and neither is
+    detectable.
+    **Fix:** either add a `pdfExportOffered` boolean to the state schema in
+    `templates/.peer-ai-state.json` and have the rule check it, or reword to a
+    scope that needs no memory: *"offer once per phase, when the phase's
+    documents are saved."*
+
+## `shared/rules/workflow-driver.md` and `shared/09-pr-automation.md`
+
+32. **The driver and `shared.md` disagree about how work reaches `main`.** *(fix)*
+    **Where:** driver §2 ("After code, before saying 'done'") and the §5 gate
+    table, against `shared/rules/shared.md` "Git and PR conventions" and
+    `shared/09-pr-automation.md`.
+    **Problem:** the driver — the always-on file governing every ticket in
+    Build — says *"Merge ticket branch into milestone branch, then push the
+    milestone branch"*, and its gate table has rows for pushing branches but
+    **none for opening a pull request**. Meanwhile `shared.md` states *"One
+    peer review required before merge"* and `09-pr-automation.md` sets up
+    branch protection requiring *"a pull request before merging"*. An agent
+    following the driver literally merges every ticket locally and never opens
+    a PR, so the peer review never happens.
+    Worse, the ordering guarantees it. PR automation is **phase 11b** — after
+    Build, Review, Test and Document. By the time CI and branch protection
+    exist, the entire build has already been merged without them; and on a repo
+    that *does* have protection from day one, the driver's step simply fails.
+    **Fix:** give §0 a **Merge policy** setting, the way it already has variants
+    for `Remote: none` and `Issue tracker: none` — `PR only` versus `local
+    merge` — and branch §2 and the gate table on it. Add `Pull request` and `CI
+    green` rows to the gates. Separately, consider whether
+    `09-pr-automation.md` belongs near the start rather than at 11b: CI that
+    arrives after the code is written cannot have gated any of it.
+
+### Note, not a defect — for `CONTRIBUTING.md`
+
+A vendored copy's post-pull scripts rot silently. Mizaniya keeps
+`apply-phase-config.ps1` and `strip-model-switching.ps1` to re-apply its
+customisations after an upstream pull. The strip script's patterns were written
+against older upstream wording; on one pull they matched nothing, so it
+reported "0 files cleaned" while the tiering it existed to remove was still in
+place. That is local tooling, not a Peer AI defect — but `CONTRIBUTING.md`
+should warn maintainers of vendored copies to make such a script **fail loudly**
+(non-zero exit when residue remains) rather than report success for doing
+nothing. *(Choply hit the sibling of this — item 28 — where the script pointed
+at the wrong directory entirely and still printed a clean summary. The common
+cause is a customisation script with no way to say "I did nothing".)*
 
 ## Things that worked well
 

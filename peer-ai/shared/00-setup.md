@@ -77,6 +77,25 @@ Then present it all in one message, and explain the split and the rhythm:
 
 ---
 
+## 3b. The feedback file
+
+Copy `peer-ai/templates/peer-ai-feedback.md` to `docs/peer-ai-feedback.md` and
+fill in the project name. Create `docs/` if it does not exist.
+
+This is where defects in **the playbook itself** get recorded during the run.
+Peer AI is copied into the project, not linked, so nothing fixed locally reaches
+the next project unless it is sent back — the file explains the route, and
+`shared/rules/shared.md` carries the rule. One line to the user:
+
+> "I've added `docs/peer-ai-feedback.md`. If the workflow itself gets something
+> wrong as we go — a step that can't be followed, two files that disagree — I'll
+> record it there and we can send it back to the Peer AI repo rather than just
+> working around it."
+
+No gate. Continue.
+
+---
+
 ## 4. Optional — dev journal and PDF export
 
 Briefly offer the optional add-ons:

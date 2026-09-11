@@ -25,6 +25,13 @@ must not be paraphrased anywhere else.
 
 5. docs/standards/ is the rulebook: frontend-engineering-standards.md, backend-engineering-standards.md and standards-addendum-mizaniya.md. Every rule marked auto is enforced by ESLint/tsconfig/CI; every rule marked review is listed in CONTEXT.md as the code-review agent's checklist. Token, primitive and file naming follow frontend sections F and O.
 
+**Note on rule 1, 2026-09-11.** Rule 1 says the server lives in a separate
+private repository. That is **unchanged and still binding**, but it is under
+review: [ADR-008](docs/adr/ADR-008-repository-layout.md) defers the server's
+visibility to v3 and writes down the criteria for deciding it. If the answer
+turns out to be public, **rule 1 is amended here, in writing, first.** The rule
+is not contradicted quietly.
+
 ---
 
 ## Environment — checked 9 September 2026
@@ -210,6 +217,34 @@ and wire ESLint, tsconfig and CI to every `auto` rule in `docs/standards/`.
 | 2026-09-10 | **Design supersedes brief §2** at the owner's direction — four meaning-bearing hues, icons, and three diagrams replacing the four stat tiles. Design wins on layout, the spec still wins on behaviour | design stop |
 | 2026-09-10 | **Health, not food, carries the overspent row** in the seed. Food's allowance carries a ₦12,000 rollover, so food overspent plus transport at 85% exceeds the cycle's whole expense spend and would move cash left and the hero | seed merge |
 ## What Was Done — By Day
+
+### 2026-09-11 (Friday) — *recorded from the Choply session; no Mizaniya code touched*
+
+- **All four of this project's framework defects are fixed upstream.** They were
+  logged in `docs/peer-ai-feedback.md` and had never reached the Peer AI repo —
+  the loop only ever closed by hand. They are now items **29–32** there and all
+  four are applied, in `790aa8a`. The doc's "Open" section is empty; the
+  write-ups are kept as the record. **Do not re-report them.**
+- **`peer-ai/` in this repo is now three commits behind upstream** (`13b73f9` →
+  `790aa8a`): twelve fixes and a feedback channel. Worth pulling before SHARED
+  RULES, because two of the twelve change files that phase writes against.
+  After pulling, re-run `apply-phase-config.ps1` **and** `strip-model-switching.ps1`
+  as the AGENTS.md box says, then re-read the box itself — an upstream file
+  overwrites it.
+- **The hand-patched driver is superseded.** On 9 Sep this project patched its
+  own `workflow-driver.md` to replace local ticket→milestone merges with a PR
+  flow. Upstream item **32** now does that properly, with a `Merge policy`
+  setting in §0 and `Pull request` / `CI green` rows in the gate table. **Take
+  the upstream wording on the pull** rather than keeping the local edit, or the
+  two will drift.
+- **One field to add:** `.peer-ai-state.json` here predates `pdfExportOffered`
+  (item 31). Add it at the next state update — without it "offer once" has no
+  memory and the export offer either repeats on every document or vanishes
+  after the first.
+- **Feedback now has a real route back.** Upstream ships a Framework defect
+  issue form, a PR template, a `templates/peer-ai-feedback.md` copied in at
+  setup, and a rule in `shared/rules/shared.md` telling an agent to record a
+  defect and say so out loud rather than silently routing around a phase file.
 
 ### 2026-09-09 (Wednesday)
 

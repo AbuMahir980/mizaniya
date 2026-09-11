@@ -1,0 +1,7 @@
+{
+  "_note": "The upstream commit this vendored copy was taken from. check-upstream.mjs compares against it. Update it whenever you pull, in the same commit as the pull, or the check silently reports staleness that is already fixed.",
+  "repo": "AbuMahir980/peer-ai",
+  "ref": "main",
+  "commit": "790aa8a",
+  "pulledOn": "2026-09-11"
+}

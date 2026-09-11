@@ -34,6 +34,16 @@ $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 $rules = @(
     @{
+        name = "workflow-driver Model selector setting (upstream re-adds it on every pull)"
+        # This project never switches models, so a setting that decides whether to
+        # *ask* the user to switch has nothing to decide. Removing it by hand each
+        # pull is how a post-pull script rots; removing it here is why the script exists.
+        rx   = [regex]'?
+\| \*\*Model selector\*\* \| `\[PLACEHOLDER:[^
+]*?\]` \|'
+        to   = ""
+    },
+    @{
         name = "docs-pdf-export model recommendation section"
         rx   = [regex]'(?s)## Model recommendation\r?\n\r?\nIf the project’?''?s tool has a per-phase model selector.*?just generate\.'
         to   = "## Model" + "`n`n" + "Project convention: Opus for build, Fable for everything else; never downgrade mid-phase. The export is generated on whichever model the phase is already running. There is no model switch here."

@@ -75,6 +75,7 @@ Never update one without the other at session end.
 | `pendingAgents` | string[] | Agent prompts queued to run |
 | `lastVerifyResult` | string | `pass` or `fail` from last verification run |
 | `lastVerifyTimestamp` | string | ISO 8601 timestamp of last verify |
+| `pdfExportOffered` | string | Phase name the PDF-export offer was last made for — empty if never. Stops the offer repeating on every document, or vanishing after the first |
 | `lastUpdated` | string | ISO 8601 timestamp of last state update |
 | `notes` | string | **One-liner pointer only** — see examples above |
 
@@ -102,6 +103,14 @@ Use exactly one of these values, so two sessions or two tools never name the sam
 | `document` | `shared/07-document.md` |
 | `pr-automation` | `shared/09-pr-automation.md` |
 | `done` | Cycle complete. The next cycle starts again at `understand` or `issues`. |
+
+**These values are checked, not merely suggested.** The workflow driver's
+session-start step validates `currentPhase` against this table and corrects it
+when it does not match, because a published list that nothing enforces drifts
+anyway — this run found state files carrying `frontend-build` (the track is
+already in `phaseFile`, so the value is `build`) and `review-complete` (a
+status, not a phase; `phaseFile` said the value should be `test`). Both were
+invented before the table existed and no phase ever re-read them.
 
 The dev journal (`shared/08-dev-journal.md`) has no phase value: it runs alongside the phases and does not move the pointer. `phaseFile` always names the exact file, so the track (frontend or backend) is never ambiguous.
 

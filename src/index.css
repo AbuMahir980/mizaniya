@@ -1,0 +1,29 @@
+@import './design/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--family-structural);
+    font-size: 15px;
+    line-height: 22px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* J5 — a visible focus ring on every focusable element, in both themes. */
+  :focus-visible {
+    outline: 2px solid var(--emerald);
+    outline-offset: 2px;
+  }
+
+  /* The page body never scrolls sideways; wide content scrolls in its own box. */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}

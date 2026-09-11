@@ -19,6 +19,7 @@ $modelChanged = 0
 $blockAdded = 0
 $blockSkipped = 0
 $missing = 0
+$processed = 0
 
 foreach ($prop in $cfg.PSObject.Properties) {
     if ($prop.Name -eq "_note") { continue }
@@ -78,6 +79,7 @@ foreach ($prop in $cfg.PSObject.Properties) {
     }
 
     [System.IO.File]::WriteAllText($path, (($lines -join "`n") + "`n"), $utf8NoBom)
+    $processed++
     Write-Output ("  ok       " + $prop.Name)
 }
 
@@ -86,3 +88,26 @@ Write-Output ("  model lines set : " + $modelChanged)
 Write-Output ("  blocks added    : " + $blockAdded)
 Write-Output ("  blocks already  : " + $blockSkipped)
 Write-Output ("  files missing   : " + $missing)
+
+# A post-pull script that reports success for doing nothing is worse than no
+# script: the customisations are gone and the summary says they are fine. Two
+# projects have already been bitten by exactly that, which is why
+# CONTRIBUTING.md now asks vendored copies to fail loudly.
+$failed = $false
+
+if ($missing -gt 0) {
+    Write-Output ""
+    Write-Output ("  FAIL: " + $missing + " file(s) named in phase-config.json do not exist.")
+    Write-Output "        An upstream rename moves a file out from under this script."
+    $failed = $true
+}
+
+$accounted = $blockAdded + $blockSkipped
+if ($processed -gt 0 -and $accounted -eq 0) {
+    Write-Output ""
+    Write-Output "  FAIL: zero skill blocks were added or found, but blocks were expected."
+    Write-Output "        The stamp did not land. Do not run a phase against this copy."
+    $failed = $true
+}
+
+if ($failed) { exit 1 }

@@ -30,6 +30,49 @@ Changes come from real runs, not from re-reading the files. The route is:
 
 ---
 
+## Sending feedback back from a project
+
+Peer AI is copied into each project, not linked. That is deliberate — a live
+link would turn every project-specific edit into a merge problem — but it means
+**the loop only closes by hand**, and a defect nobody sends back is one every
+future project inherits.
+
+Two routes, depending on how much you have:
+
+| You have | Use | How |
+|---|---|---|
+| One defect, found mid-run | **An issue** | [New issue → Framework defect](https://github.com/AbuMahir980/peer-ai/issues/new?template=framework-defect.yml). The form asks for where, what happened, a suggested fix, severity and project shape. |
+| A batch, at the end of a phase or run | **A pull request** | Add them to `docs/peer-ai-feedback.md`, numbering on from the current highest. The PR template has the checklist. |
+
+Either way, record the item in the project's own `docs/peer-ai-feedback.md`
+first — created at setup from `templates/peer-ai-feedback.md` — and move it to
+that file's "Sent upstream" section with the link once filed, so the next
+session does not file it twice.
+
+**What belongs here, and what does not.** The test is: *would this bite anyone
+who cloned Peer AI, on any project?* A phase that cannot be followed, two files
+that contradict each other, an instruction that assumes a backend or a bundler
+— those travel. Your models, your skills, your standards wiring, your project's
+phase-config — those stay in your repo. They are the reason the copy exists.
+
+**Record the project shape with every item.** Most defects in the current list
+were invisible to the project that introduced them and surfaced only when a
+project of a different shape ran the same file: a local-first app with no API,
+a project whose designs already existed, a non-web stack. The shape is usually
+the explanation, and without it a reviewer cannot tell a real defect from a
+misuse.
+
+### If you maintain a vendored copy with post-pull scripts
+
+A script that re-applies your customisations after an upstream pull must
+**fail loudly**. Two projects have now had one report success while doing
+nothing — one because its patterns were written against older upstream wording
+and matched nothing, one because it pointed at a different directory entirely.
+Both printed a clean summary. Exit non-zero when the thing you were removing is
+still there, or when you matched zero files you expected to match.
+
+---
+
 ## How the workflow is structured
 
 ```

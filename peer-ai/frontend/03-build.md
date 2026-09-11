@@ -26,7 +26,8 @@ Otherwise, ask:
 
 **Wait for the user's input.**
 
-- If **new**: scaffold **Vite + React + TypeScript**, install agreed dependencies, create the folder structure from the rules doc, add **ESLint** and **Prettier**, and align scripts with `docs/07-frontend-coding-rules.md`.
+- If **new**: scaffold **the stack `docs/02-architecture.md` chose**. Read its decision records before running any generator — the architecture phase exists to make this choice, and a starter it did not pick is the wrong starter however popular it is. Install the agreed dependencies, create the folder structure from the rules doc, add the linter and formatter the rules name, and align scripts with `docs/07-frontend-coding-rules.md`.
+  > **Name no default here.** Earlier versions of this file said "scaffold Vite + React + TypeScript", which overrode the architecture on every project that chose anything else, and silently produced the wrong app on a React Native, Expo, Next.js, Nuxt or SvelteKit build. If the architecture genuinely did not settle the stack, that is a gap in phase 02 — go back and close it rather than guessing here.
 - If **existing**: skip scaffolding; briefly confirm stack and folder layout, then move to step 2.
 
 **Wait for the user's input** after presenting what you created or what you'll assume for the existing repo.
@@ -51,9 +52,11 @@ Ask:
 >
 > **D) Another design tool** — If you use a different design tool, tell me which one and I'll adapt.
 >
-> **E) Skip — build directly in code** — No separate design tool. I'll build the UI as live code during the build steps. Fastest path.
+> **E) Skip — build directly in code** — No design exists and none is wanted. I'll build the UI as live code during the build steps, working from the page specs alone. Fastest path.
 >
-> Which do you prefer: A, B, C, D, or E?"
+> **F) The design already exists** — A design system, screen designs or exports are already done and authoritative. I'll read them before writing any UI and implement them as drawn, rather than improvising.
+>
+> Which do you prefer: A, B, C, D, E, or F?"
 
 **Wait for the user's input.**
 
@@ -87,11 +90,19 @@ Ask:
 **If E (skip design tool):**
 - Acknowledge the choice and move on. The UI will be built as live code during the build steps below
 
+**If F (the design already exists):**
+- Ask where it lives: a tokens file, a folder of exports, a design-tool link, a handoff document
+- **Read it before any UI code.** Treat it as authoritative on layout, spacing, type scale and colour; the page specs remain authoritative on behaviour, states and data
+- Where the design and the data contract disagree, follow `shared/design-data-contract.md`
+- Name it in `CONTEXT.md` under the design reference, and set the **Design reference** row in the workflow driver's §0 so every later step points at the same place
+- **Step 9's design-quality pass checks against this design, not against generic heuristics.** Say so when you reach it
+- Do **not** re-draw what is already drawn, and do not "improve" it mid-build. A mismatch is a question for the user, not a licence to redesign
+
 ---
 
 ### 3. Application shell
 
-Plan and build: **root layout**, **sidebar** (or nav), **routing setup** (e.g. React Router, Vue Router, Next.js App Router), **auth guard**, **role-based route protection**. Present the plan, get confirmation, then implement.
+Plan and build: **root layout**, **navigation** (a sidebar on desktop, tabs or a stack on mobile — whichever the page specs show), **routing setup** (e.g. React Router, Vue Router, Next.js App Router, Expo Router), **auth guard**, **role-based route protection**. Present the plan, get confirmation, then implement.
 
 > "Here's the shell I'll build: [routes, guards, layout]. Does this match `docs/06-page-specs.md` and your auth model?"
 
@@ -99,7 +110,9 @@ Plan and build: **root layout**, **sidebar** (or nav), **routing setup** (e.g. R
 
 After implementing, ask the user to run the app and confirm layout and navigation.
 
-> "Please run the dev server and click through the shell. Does navigation and the auth placeholder behave as you expect?"
+> "Please run the app and click through the shell. Does navigation and the auth placeholder behave as you expect?"
+
+*(On a platform without a browser dev server — a mobile or desktop app — say how it is run instead: a simulator, a device client, a development build. If a device build needs an account or approval the project does not yet have, say so now rather than at the end of the phase.)*
 
 **Wait for the user's input.**
 
@@ -107,7 +120,12 @@ After implementing, ask the user to run the app and confirm layout and navigatio
 
 ### 4. Mock data layer
 
-For **every endpoint** described in `docs/04-api-contract.md`, add **mock functions** that return **typed** test data matching the **exact** contract shapes. Wire **`VITE_USE_MOCK_DATA`** (or the project's agreed toggle) so services switch between mock and real.
+**First, check whether this project has an API at all.** `docs/04-api-contract.md` is allowed to record that this version has none — phase 04 says so explicitly, and a local-first, single-device or offline app is a normal case, not an oversight.
+
+- **If the contract defines HTTP endpoints:** for **every endpoint**, add **mock functions** that return **typed** test data matching the **exact** contract shapes. Wire **the project's agreed mock toggle** — the environment variable the rules phase settled, whatever its name and prefix — so services switch between mock and real.
+- **If the contract records that there is no API:** there is nothing to mock and nothing to swap to. The data seam is the repository or storage interface the architecture names, and **the local implementation is the real one**. Do not invent a `services/` layer or a mock toggle to satisfy this step — that builds a second data seam the architecture forbids and the rest of the build spends its time reconciling. Note the decision and **skip to step 5**.
+
+Where mocks do exist, they must stay honest: a mock that drifts from the contract is worse than no mock, because it passes. If the project generates types or validators from the contract, run every mock reply through them.
 
 > "I've added mocks for [list endpoints]. Can you toggle mock mode and confirm the app still loads and types check?"
 
