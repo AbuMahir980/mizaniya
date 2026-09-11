@@ -155,6 +155,20 @@ enforce every gate.
 
 Consequences that apply everywhere below:
 
+- **Merging a stack is not the same as merging a branch.** The convention below
+  is written for one branch off `main`. When PRs are stacked — each based on the
+  one beneath it — three things change, and getting them wrong costs an
+  afternoon:
+  - **Merge with a merge commit, not a squash.** Squashing rewrites the commits
+    beneath, so the next PR up re-applies the same changes against a `main` that
+    already has them, and conflicts on every shared file.
+  - **Retarget each PR to `main` as the one below it merges.** GitHub does not
+    reliably do this for you; set `--base main` explicitly before merging.
+  - **Delete branches only once the whole stack has landed.** Deleting a branch
+    that another PR is *based on* **closes that PR**, and GitHub then refuses to
+    reopen it because its base no longer exists. Recovering means pushing the old
+    tip back to restore the branch first.
+
 - **Merge policy is `PR only`.** A branch reaches `main` **through a pull
   request**, never a local merge — open it, let the checks run, and merge it
   there. Nothing is committed to `main` directly: not a phase document, not a
