@@ -52,8 +52,6 @@ tables below link each one. The issue is the queue BUILD works from — this
 document is the reasoning behind it, and the two are kept in step by the ticket
 number appearing in both.
 
-### The list
-
 ### Cycle 1 — `core/`, and the seam beneath it
 
 Pure functions first, with their tests. Nothing here imports React, touches
