@@ -8,48 +8,20 @@ alwaysApply: true
 
 You are working on a frontend application. Adapt these standards to the project's framework (React, Vue, Svelte, Next.js, Nuxt, SvelteKit, etc.) and toolchain.
 
-## The rulebook is `docs/standards/` — it wins on any conflict
-
-`docs/standards/frontend-engineering-standards.md` and
-`docs/standards/standards-addendum-mizaniya.md` are authoritative for this
-project. This file is a generic starter kept for the ground the standards do
-not cover. Where the two disagree, the standards win and this file is the one
-that is wrong.
-
-Rules are referenced **by section number, never copied in** — a copy drifts,
-and then nobody knows which is current.
-
-| Concern | Standard |
-|---------|----------|
-| Architecture, folder layout, the data seam | **A1–A6** |
-| State, derived values | **B1–B5** |
-| Prop drilling (a counted limit, not a vibe) | **C1–C2** |
-| Component size, props, fetch-or-render | **D1–D4** |
-| Duplication and where it stops | **E1–E2** |
-| Styling, tokens, primitives, the danger colour | **F1–F7** |
-| Types, schemas at every boundary | **G1–G4** |
-| Money — non-negotiable | **H1–H5** + addendum (kobo) |
-| Accessibility | **J1–J5** |
-| Testing | **K1–K4** + addendum (core journeys) |
-| Errors, loading, offline | **L1–L4** |
-| Data safety and privacy | **M1–M3** + addendum (seed data, no telemetry) |
-| Dependencies | **N1–N3** |
-| Naming | **O1–O4** |
-
-**Three stock rules were deleted here rather than left to argue with the
-standards:**
-
-1. The **type-first `pages/components/hooks/services/utils/` layout**. A1 is
-   feature-first (`features/<name>/` holds its own screens, components, hooks
-   and types) and A2 fixes the dependency direction `app/` → `features/` →
-   `ui/` → `core/`. A3 keeps `core/` framework-free; A4 puts data access behind
-   a `Repository` in `data/`; A5 makes `index.ts` the feature's public surface.
-2. **"Build with mock data first"** and the simulation-mode toggle. There is no
-   server in v1 — the `Repository` interface *is* the seam (A4), and the local
-   IndexedDB implementation is the real thing, not a stand-in. Fixtures come
-   from `docs/seed-data.md` (M1).
-3. The **`src/services/` API-client layer**. A4 again: screens call the
-   repository, never a storage engine or `fetch`.
+## Project structure
+```
+src/ (or app/ depending on framework)
+  pages/          -- Route-level components (one folder per page/view)
+  components/     -- Reusable UI components (shared across pages)
+  hooks/          -- Custom hooks/composables (React hooks, Vue composables, etc.)
+  services/       -- API call functions (all backend communication lives here)
+  utils/          -- Pure utility functions
+  types/          -- Type definitions (TypeScript types, interfaces)
+  styles/         -- Global styles, design tokens
+  assets/         -- Static assets (images, icons, fonts)
+  config/         -- App configuration, environment variables
+  mocks/          -- Mock data for simulation mode
+```
 
 ## Component rules
 - Functional components only (or framework-equivalent -- SFCs in Vue, components in Svelte)
@@ -58,10 +30,31 @@ standards:**
 - Components should be purely presentational where possible
 - One component per file (exception: small, tightly coupled sub-components)
 
-## Data access
-- Screens call the `Repository` from `data/`, never a storage engine, `fetch` or `axios` directly — **A4**
-- Every repository method is typed, and data crossing the boundary is parsed with a schema, never asserted with `as` — **G4**
-- Server state, when v3 adds it, lives in the query layer and is never copied into `useState` — **B1**, **B2**
+## API integration
+*Applies when the API contract defines HTTP endpoints. If it records that this version has no API, skip to "No-API projects" below.*
+- ALL API calls go through one service layer -- never call fetch/axios directly in components
+- Every service function is typed (request params and response)
+- Use a central API client with auth token injection and error handling
+- Build with mock data first, swap for real API later
+
+## Simulation mode
+*Same condition as above.*
+- Every service has a mock implementation returning typed test data
+- Toggle via environment variable -- the project's agreed name (e.g. `VITE_USE_MOCK_DATA`, `NEXT_PUBLIC_USE_MOCKS`, `EXPO_PUBLIC_API_MODE`)
+- Mock data matches the exact shape of the API contract; if types or validators are generated from the contract, every mock reply passes through them
+- This lets frontend development proceed independently of backend
+
+## No-API projects
+- A local-first, single-device or offline app has no endpoints to mock and no real API to swap to. This is a supported case, not a gap
+- The data seam is the repository or storage interface the architecture names, and **the local implementation is the real one**
+- Do **not** add a service layer or a mock toggle to satisfy the two sections above. A second data seam the architecture did not ask for costs the whole build
+
+**On this project, concretely.** v1 has no API, so the sections above are
+dormant and this is the live rule:
+
+- Screens call the `Repository` from `core/`, implemented in `data/` — never a storage engine, `fetch` or `axios` directly (**A4**)
+- Every repository method is typed, and data crossing the boundary is parsed with a schema, never asserted with `as` (**G4**)
+- Server state, when v3 adds it, lives in the query layer and is never copied into `useState` (**B1**, **B2**)
 
 ## State management
 - Local state for component-specific UI state

@@ -71,9 +71,15 @@ Present: **service layer** (one place per domain), **typed responses**, **centra
 
 ### 5. Styling approach
 
-Ask which stack they prefer: **Tailwind**, **CSS Modules**, **styled-components**, or a mix.
+Ask which approach they prefer — **from the options that exist on this project's platform**. The web and native answers share almost nothing:
 
-> "For styling, do you want Tailwind, CSS Modules, styled-components, or something else? I'll lock the rules to your choice."
+- **Web:** Tailwind, CSS Modules, styled-components, vanilla CSS, or a mix
+- **React Native / Expo:** StyleSheet with a theme object, or a styling library that targets native — Tailwind, CSS Modules and styled-components' CSS syntax do not apply
+- **Anything else:** ask what the framework actually offers rather than presenting a web menu
+
+> "For styling, do you want [the options that exist on this platform]? I'll lock the rules to your choice."
+
+**If the project already has a design system or a token file, it has largely answered this**: the rule becomes "styling comes from the theme, and a colour or size typed into a screen is a defect". Confirm that rather than re-asking.
 
 **Wait for the user's input.**
 

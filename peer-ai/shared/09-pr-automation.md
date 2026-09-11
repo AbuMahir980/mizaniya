@@ -8,6 +8,23 @@
 
 Context: your project needs automated checks on pull requests and optionally automated review comments. This workflow sets up GitHub Actions and configures PR automation.
 
+> **If the project already has a pipeline, extend it. Do not add a second one.**
+> Step 1 exists to find out, and its answer governs the rest of this file: where
+> CI exists, every step below means *change the existing workflow*, not *create
+> `pr-checks.yml` beside it*. Two pipelines with different opinions about what
+> "passing" means is worse than one, because branch protection keys off a named
+> check and the weaker one can go green while the real one is red. The sample
+> below is for the genuinely-new case only, and its commands assume npm — read
+> them as a shape, not a script.
+
+> **On ordering.** This is phase 11b, which means that on a project following
+> the phases in order, the entire build has already been merged before any of
+> it existed. CI that arrives after the code cannot have gated the code. If you
+> are starting a project and reading ahead, run this early — the rest of the
+> workflow works better with the checks already in place, and the **Merge
+> policy** setting in the workflow driver's §0 depends on knowing whether
+> branch protection is on.
+
 ---
 
 ## Process
@@ -28,7 +45,9 @@ Read the project's `.github/workflows/` directory (if it exists) and `package.js
 
 ### 2. Set up basic PR checks
 
-**Produce:** A GitHub Actions workflow file (`.github/workflows/pr-checks.yml`) that runs on every pull request:
+**If step 1 found an existing pipeline:** extend it instead — add the missing checks to the workflow that is already there, keep its naming, and leave the check that branch protection requires alone. Skip the sample below.
+
+**Otherwise produce:** A GitHub Actions workflow file (`.github/workflows/pr-checks.yml`) that runs on every pull request. Adapt the package manager and script names to the project — the commands below are npm's:
 
 ```yaml
 name: PR Checks

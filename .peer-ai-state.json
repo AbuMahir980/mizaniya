@@ -13,6 +13,7 @@
   "pendingAgents": [],
   "lastVerifyResult": "",
   "lastVerifyTimestamp": "",
+  "pdfExportOffered": "",
   "lastUpdated": "2026-09-11",
-  "notes": "READ CONTEXT.md at app root. SHARED RULES in progress: tokens, money and the primitives are built and verify is green. Next: FRONTEND RULES, then ISSUES, then BUILD starting with core/."
+  "notes": "READ CONTEXT.md at app root. SHARED RULES and FRONTEND RULES done; verify is green. peer-ai pulled to upstream 790aa8a. Next: ISSUES, then BUILD starting with core/."
 }

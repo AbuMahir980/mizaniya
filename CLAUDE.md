@@ -144,20 +144,23 @@ enforce every gate.
 
 | Setting | Value |
 |---------|-------|
-| **Verify command** | `none yet` — establishing one is BUILD's first task, alongside `package.json` |
+| **Verify command** | `npm run verify` — naming, lint, typecheck, tests, build. Established in SHARED RULES |
 | **Issue tracker** | GitHub Issues on `AbuMahir980/mizaniya` |
 | **Ticket prefix** | none — issues are `#N` |
 | **Remote** | `origin` → github.com/AbuMahir980/mizaniya.git |
-| **Design reference** | `docs/design/` — empty until the design stop after PAGE SPECS |
+| **Design reference** | `docs/design/` — landed 10 September. `tokens.md` is authoritative; `canvas/*.dc.html` is the markup to read, not the PNGs |
 | **Branch naming** | `feature/<short-description>` for build items · `peer-ai/<phase>` for phase documents |
 | **Merge policy** | **Every piece of work goes on a branch and reaches `main` only through a pull request with CI green. Squash and merge. Delete the branch after.** |
 | **PR description** | What changed and why. No AI attribution lines, no emoji, no tool names. |
 
 Consequences that apply everywhere below:
 
-- **Nothing is committed directly to `main`.** Not a phase document, not a fix,
-  not a one-line typo. Branch → commit → push → PR → CI green → squash merge →
-  delete branch.
+- **Merge policy is `PR only`.** A branch reaches `main` **through a pull
+  request**, never a local merge — open it, let the checks run, and merge it
+  there. Nothing is committed to `main` directly: not a phase document, not a
+  fix, not a one-line typo. `shared.md` requires one peer review before merge,
+  and that review happens **on the pull request**, so there is nowhere else for
+  it to happen.
 - **CI green is a merge gate, not a suggestion.** Until PR AUTOMATION creates
   `.github/workflows/`, there are no checks to be green and the PR still needs a
   human merge; say so on the PR rather than implying checks passed.
@@ -177,6 +180,12 @@ Consequences that apply everywhere below:
 3. Tell the user where we are:
 
    > "Resuming **[currentPhase]** phase — **[ticket]**: [ticketTitle]. [Brief context from `notes` if present.]"
+
+2b. **Check `currentPhase` is one of the published values** in
+   `peer-ai/shared/workflow-state.md`. If it is not — an invented name, or a
+   status like `review-complete` rather than a phase — say so, work out the right
+   value from `phaseFile`, correct it, and note the correction. A value nobody
+   validates drifts, and then nothing downstream can match on it.
 
 4. Read the phase file (`phaseFile` from state) and pick up from `currentStep`.
 5. If `ticketsInProgress` is empty and `ticketsRemaining` has items, the next action is starting the first remaining ticket (move it to In Progress, create the ticket branch off `main`, push it, read the acceptance criteria).
@@ -206,7 +215,7 @@ For each ticket:
 - Write tests **alongside** the code, not after.
 
 **After code, before saying "done" on any ticket:**
-- Run the **Verify command** from §0. Report the result. If red, fix and re-run. **Never skip this.** While it is `none yet`, establishing it is the first task of BUILD.
+- Run the **Verify command** from §0. Report the result. If red, fix and re-run. **Never skip this.**
 - Push the ticket branch and **open a pull request** whose description says what changed and why. Wait for CI. **Red is not done.**
 - Squash and merge once CI is green, then delete the branch locally and on `origin`.
 - **Commit** `.peer-ai-state.json` and any updated rules/standards files on the same branch when phase/ticket changes — never directly on `main`.
@@ -273,7 +282,7 @@ This is a single atomic action. The `notes` field is a pointer, not a narrative.
 | **Verify** | Before any "done", "complete", "ready for PR" | Run the Verify command from §0. Red = not done. |
 | **Push branch** | After the first commit on a branch | `git push -u origin <branch>`. |
 | **Pull request** | Before anything reaches `main` | Open a PR saying what changed and why. No AI attribution lines. |
-| **CI green** | Before merging | Nothing merges red. Once CI exists it must pass; until then, say on the PR that there are no checks yet. |
+| **CI green** | Before merging any pull request | Every required check passing. **A check that was skipped is not a check that passed.** Until PR AUTOMATION creates the workflows there are no checks — say so on the PR rather than implying they ran. |
 | **Squash and delete** | After merge | Squash and merge; delete the branch locally and on `origin`. |
 | **Issue tracker update** | After each ticket | Done + AC ticked + completion comment + project update. |
 | **State file update** | After each ticket or phase transition | Write and commit `.peer-ai-state.json`. |

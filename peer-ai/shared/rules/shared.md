@@ -46,6 +46,11 @@ When design mockups and API contracts disagree, follow `peer-ai/shared/design-da
 - PR checks before review: lint, type check, build must all pass. **Red is not done.** Until PR AUTOMATION creates `.github/workflows/`, there are no checks to be green — say so on the PR rather than implying they passed.
 - One peer review required before merge; squash and merge
 - Delete branches after merging, locally and on the remote
+- **How a branch reaches the milestone branch is the `Merge policy` setting** in the workflow driver's
+  §0 Project settings — `PR only` (the default) or `local merge`. The peer review above happens **on the
+  pull request**, so under `local merge` it has nowhere to happen; choose that only for a solo project
+  with no protection. Once `09-pr-automation.md` turns branch protection on, `PR only` is the only
+  workable value, and a local merge is refused rather than reviewed
 - Issue tracker auto-sync (if integrated with GitHub): branch creation → ticket In Progress; PR merged → ticket Done
 
 ## Type safety
@@ -127,13 +132,47 @@ If the issue tracker MCP is not connected, draft all three (checkbox list, comme
 
 ## PDF-ready doc export
 
-When any markdown file is saved to `docs/`, offer once:
+**Offer once per phase**, when that phase's documents are saved — not once per file, and not once per project. A phase produces one to three documents; make one offer covering them. `.peer-ai-state.json` carries `pdfExportOffered`: set it to the phase name when you make the offer, and do not offer again while it still names the current phase. Without that, "once" has no scope and no memory, and an agent either offers a dozen times across a run or drops it silently after the first.
+
+The offer:
 
 > "Want me to generate a PDF-ready HTML version in `docs-pdf/`? You can open it in a browser and print/save as PDF to share with stakeholders."
 
 **Wait for the user's input.** If yes, generate `docs-pdf/<same-name>.html` following the styling rules in `peer-ai/shared/rules/docs-pdf-export.md` and make sure `docs-pdf/` is in `.gitignore` (generated artifacts, not source of truth). If no, move on.
 
 This applies at every phase that produces a doc, not just the final documentation step. The phase files point here instead of repeating the offer.
+
+## Framework defects (feedback that travels back)
+
+Peer AI is **copied** into this project, not linked to. A fix made here reaches
+nobody else; the next project starts from the public repo exactly as it is
+today. So a defect noticed and quietly worked around is a defect every future
+project inherits.
+
+When the playbook itself is the problem — a step that cannot be followed, two
+files that contradict each other, an instruction that assumes something this
+project does not have — do three things, in order:
+
+1. **Record it in `docs/peer-ai-feedback.md`** (created at setup from
+   `peer-ai/templates/peer-ai-feedback.md`). Give **where**, **what happened**,
+   **a suggested fix**, and a severity of **fix** or **polish**.
+2. **Say so, out loud, in the session.** Do not silently route around a phase
+   file. If you deviate from a step, name the step and say why.
+3. **Send it back** — an issue on
+   [github.com/AbuMahir980/peer-ai](https://github.com/AbuMahir980/peer-ai/issues/new?template=framework-defect.yml)
+   for a single item, or a pull request against `docs/peer-ai-feedback.md` for
+   a batch at the end of a phase. Move the item to "Sent upstream" with its
+   link so the next session does not file it twice.
+
+**The test for an entry:** *would this bite anyone who cloned Peer AI, on any
+project?* If not, it is a note for this repo, not feedback. This project's own
+customisations — models, skills, standards wiring — are never sent upstream.
+
+> Most items found so far were invisible to the project that introduced them,
+> and surfaced only when a project of a different shape ran the same file: a
+> local-first app with no API, a project whose designs already existed, a
+> non-web stack. Record the **project shape** with the item; it is usually the
+> explanation.
 
 ## Workflow reference
 This project includes the Peer AI Development Workflow in the `peer-ai/` folder. When asked about process, or when following a workflow step, read the relevant file directly:

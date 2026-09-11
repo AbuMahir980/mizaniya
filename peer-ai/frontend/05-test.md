@@ -19,7 +19,9 @@
 
 Ask:
 
-> "What testing tools are **already** set up? Vitest? Playwright? React Testing Library? Vue Test Utils? Or should I set everything up **from scratch**?"
+> "What testing tools are **already** set up? Or should I set everything up **from scratch**?"
+
+*(Name candidates that exist on this project's platform. A web project's list — Vitest, Playwright, Testing Library — is not a native project's, and reading out the wrong list invites the wrong answer.)*
 
 **Wait for the user's input.**
 
@@ -27,7 +29,11 @@ Ask:
 
 ### 2. Infrastructure setup (if needed)
 
-If anything is missing, add **Vitest** config, **Playwright** config, and **test scripts** in `package.json` per project conventions. Document how to run unit vs. E2E locally.
+If anything is missing, add the **unit** and **end-to-end** tooling the architecture chose. **Read `docs/02-architecture.md` before installing anything** — the right answer is platform-specific, and a decision record may already have rejected the obvious default for a reason.
+
+> **This is not a formality.** On one project the architecture rejected Vitest by name, because the testing library it had chosen does not support it on that platform — while this file still said to install Vitest. An agent that trusts the phase file over the architecture installs a runner that cannot run the tests, and the failure looks like a configuration problem rather than a contradiction.
+
+Add the test scripts per project conventions and document how to run unit vs. E2E locally.
 
 > "I'll add [list]. OK to use these defaults, or do you have CI constraints?"
 
