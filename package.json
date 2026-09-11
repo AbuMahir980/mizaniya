@@ -17,7 +17,8 @@
     "format": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "npm run naming && npm run lint && npm run typecheck && npm run test && npm run build",
+    "naming": "node scripts/check-naming.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
@@ -41,6 +42,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.13.0",
+    "eslint-plugin-boundaries": "^7.2.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "globals": "^15.11.0",
     "postcss": "^8.4.47",

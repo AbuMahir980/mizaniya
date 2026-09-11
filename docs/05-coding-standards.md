@@ -34,7 +34,7 @@ the two disagree.
 ## 2 · The verify command
 
 ```
-npm run verify   →   lint · typecheck · test · build
+npm run verify   →   naming · lint · typecheck · test · build
 ```
 
 This is what "done" means for a ticket. It was `none yet` until this phase; it
@@ -51,11 +51,11 @@ catches most of it. **Not yet** names where it lands.
 
 | Rule | Enforced by | Status |
 |---|---|:-:|
-| **A1** Feature-first folders | The standard names `eslint-plugin-boundaries`; not installed. The folder layout exists and is described in `docs/02-architecture.md` | **Not yet** — BUILD, with the first feature |
-| **A2** Dependencies point inward | `no-restricted-imports` patterns in `eslint.config.js` block `core/ → ui/`, `core/ → features/`, `core/ → data/` | **Partial** — a path-based rule, not a full boundary graph |
+| **A1** Feature-first folders | `eslint-plugin-boundaries` declares each layer once, so the architecture diagram and the linter cannot disagree | **Enforced** |
+| **A2** Dependencies point inward | `boundaries/dependencies` with `default: disallow` — every permitted direction is listed, and `core/` is allowed an **empty** list | **Enforced** |
 | **A3** `core/` is framework-free | `no-restricted-imports` blocks React, Dexie and Zustand inside `src/core/` | **Enforced** |
 | **A4** Data access behind an interface | `no-restricted-imports` blocks `dexie` everywhere except `src/data/` | **Enforced** |
-| **A5** Feature has a public surface | `no-restricted-imports` blocks deep imports into a sibling feature | **Partial** — covers the common shape |
+| **A5** Feature has a public surface | `boundaries/no-private` blocks reaching into another element's internals | **Enforced** |
 
 > **A3 carries more weight than it looks.** ADR-002 chose a folder over a
 > workspace package, so this lint rule is *the only thing* holding the boundary
@@ -66,17 +66,17 @@ catches most of it. **Not yet** names where it lands.
 | Rule | Enforced by | Status |
 |---|---|:-:|
 | **B1 / B2** No fetching in `useEffect` | v1 has no network at all, so there is nothing to fetch. Activates in v3 | **N/A in v1** |
-| **D1** A component file is at most 150 lines | — | **Not yet** — FRONTEND RULES |
+| **D1** A component file is at most 150 lines | — | **Not yet** — needs a line-count rule; raised as feedback, since several primitives with all their states exceed it |
 | **D4** Only a screen knows about navigation | — | **Not yet** — BUILD, once routing exists |
 
 ### Styling
 
 | Rule | Enforced by | Status |
 |---|---|:-:|
-| **F1** Zero inline style objects | — | **Not yet** — FRONTEND RULES |
+| **F1** Zero inline style objects | — | **Not yet** — one legitimate exception exists (`Rail`'s computed width), so the rule needs an allowlist before it can be turned on |
 | **F2** Zero hard-coded colours | `no-restricted-syntax` rejects a hex literal in `src/ui`, `src/features`, `src/app` | **Enforced** for colour; spacing and radii pending |
 | **F3** Tokens come from one source | Tailwind's theme is **replaced**, not extended — `bg-blue-500` and `p-7` do not exist, so there is nothing to reach for | **Enforced** by construction |
-| **F5** Screens compose only `ui/` primitives | — | **Not yet** — FRONTEND RULES |
+| **F5** Screens compose only `ui/` primitives | `no-restricted-syntax` bans `<button>`, `<input>`, `<select>` and `<table>` in `src/features/`. Deliberately narrow — a rule that forbids `<div>` gets switched off within a week | **Enforced** |
 | **F7** Danger colour is reserved | `hueMeaning` in `tokens.ts` records the rule; the review checklist enforces it | **Review** |
 
 ### Types
@@ -92,7 +92,7 @@ catches most of it. **Not yet** names where it lands.
 | Rule | Enforced by | Status |
 |---|---|:-:|
 | **H1** Integer minor units | The branded `Kobo` type; `naira()` and `kobo()` throw on a fraction | **Enforced** |
-| **H2** Formatted in exactly one place | `MoneyText` is the only renderer; `formatMoney` lives in `core/money` | **Partial** — a restricted-import rule should stop a second caller |
+| **H2** Formatted in exactly one place | `no-restricted-syntax` bans importing `formatMoney` or `splitMoney` anywhere except `src/ui/money-text.tsx` | **Enforced** |
 | **H3** No money arithmetic in a component | Review checklist | **Review** |
 | **H4** Every money path tested before merge | 22 tests in `money.test.ts`, including every published figure | **Partial** — the coverage *gate* lands at PR AUTOMATION |
 | **H5** Positive amounts, direction from the type | `transactionSchema` rejects a non-positive amount at runtime | **Enforced** |
@@ -117,7 +117,8 @@ catches most of it. **Not yet** names where it lands.
 | **M1** No real data in the repository | Every figure comes from `docs/seed-data.md`; secret scanning lands at PR AUTOMATION | **Partial** |
 | **M3** Export/import round-trips exactly | — | **Not yet** — BUILD, with export/import |
 | **N2** Versions pinned, lockfile committed | `package-lock.json` is committed | **Enforced** |
-| **O1 / O2** Naming | Files are kebab-case and booleans read as assertions by convention | **Not yet** — needs a naming plugin |
+| **O1** Files kebab-case | `npm run naming` — a ten-line script, first in the verify chain. It caught `App.tsx` on its first run | **Enforced** |
+| **O2** Booleans read as assertions | Convention and review | **Review** |
 
 ---
 
@@ -144,14 +145,19 @@ found three controls under target — a banner action at 39px wide, and the swit
 and slider thumbs at 28px. The switch and slider keep their size and grow an
 invisible target around themselves, which is what the token always said.
 
+**A boundary rule that is misconfigured allows everything, silently.** After
+wiring `boundaries/dependencies` I broke three rules on purpose inside
+`core/` — a React import, an `@/` alias, and a `Date.now()` — and confirmed all
+three failed the lint before restoring the file. A green run proves nothing
+until you have seen the rule go red.
+
 ---
 
 ## 5 · What is owed, and where
 
 | Owed | Phase |
 |---|---|
-| `eslint-plugin-boundaries` for A1, and the remaining F and G rules | FRONTEND RULES |
-| Restricted import so only `MoneyText` formats money (H2) | FRONTEND RULES |
+| **D1** component line limit, **F1** inline styles, **G4** assertions across a boundary | ISSUES — each needs an allowlist decision first |
 | Coverage gate on `core/` and the money modules (H4, K2) | PR AUTOMATION |
 | Contrast script and an axe pass in CI (J2, J4) | PR AUTOMATION |
 | Playwright: the K1 journey, keyboard-only, and a 44px assertion (J1, J5, K1) | TEST |

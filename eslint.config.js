@@ -9,6 +9,7 @@
  */
 
 import js from '@eslint/js'
+import boundaries from 'eslint-plugin-boundaries'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import tseslint from 'typescript-eslint'
@@ -21,15 +22,29 @@ export default tseslint.config(
 
   {
     files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      globals: globals.browser,
+    languageOptions: { ecmaVersion: 2022, globals: globals.browser },
+    plugins: { 'react-hooks': reactHooks, boundaries },
+    settings: {
+      /**
+       * A1 — feature-first folders. Each layer is declared once here, and §A2's
+       * allowed directions are declared below, so the architecture diagram in
+       * `docs/02-architecture.md` and the linter cannot disagree.
+       */
+      'boundaries/elements': [
+        { type: 'app', pattern: 'src/app/*' },
+        { type: 'feature', pattern: 'src/features/*', capture: ['name'] },
+        { type: 'ui', pattern: 'src/ui/*' },
+        { type: 'design', pattern: 'src/design/*' },
+        { type: 'store', pattern: 'src/store/*' },
+        { type: 'data', pattern: 'src/data/*' },
+        { type: 'core', pattern: 'src/core/*' },
+      ],
+      'boundaries/ignore': ['**/*.test.{ts,tsx}', 'scripts/**'],
     },
-    plugins: { 'react-hooks': reactHooks },
     rules: {
       ...reactHooks.configs.recommended.rules,
 
-      // G1/G2 — no untyped escape hatches without a stated reason.
+      // G1 — no untyped escape hatches without a stated reason.
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -39,16 +54,64 @@ export default tseslint.config(
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
+
+      /**
+       * A2 — dependencies point inward: app → features → ui → design, with
+       * store, data and core beneath. Never the reverse, and never feature →
+       * feature (A5: a feature is reached through its own index only).
+       */
+      'boundaries/dependencies': [
+        'error',
+        {
+          default: 'disallow',
+          message:
+            'Dependencies point inward (A2): {{from.element.type}} may not import {{to.element.type}}.',
+          policies: [
+            {
+              from: [{ element: { type: 'app' } }],
+              allow: [
+                { to: { element: { type: ['feature', 'ui', 'design', 'store', 'core'] } } },
+              ],
+            },
+            {
+              from: [{ element: { type: 'feature' } }],
+              allow: [{ to: { element: { type: ['ui', 'design', 'store', 'core'] } } }],
+            },
+            {
+              from: [{ element: { type: 'ui' } }],
+              allow: [{ to: { element: { type: ['ui', 'design', 'core'] } } }],
+            },
+            {
+              from: [{ element: { type: 'store' } }],
+              allow: [{ to: { element: { type: ['data', 'core'] } } }],
+            },
+            {
+              from: [{ element: { type: 'data' } }],
+              allow: [{ to: { element: { type: 'core' } } }],
+            },
+            {
+              from: [{ element: { type: 'design' } }],
+              allow: [{ to: { element: { type: 'design' } } }],
+            },
+            // core/ imports nothing. Not a shorter list — an empty one.
+            { from: [{ element: { type: 'core' } }], allow: [] },
+          ],
+        },
+      ],
+
+      // F1 — zero inline style objects. The exception is a computed dimension,
+      // which is why Rail is allowed one below.
+      'react/no-unknown-property': 'off',
     },
   },
 
   /**
-   * A3 — `core/` is framework-free.
+   * A3 — `core/` is framework-free, and ADR-008 — `core/` is leaving this app.
    *
-   * Domain rules, calculations and validation are pure TypeScript: no React, no
-   * platform APIs, no storage, no network. This is the rule that makes `core/`
-   * portable to the Expo app in v2, and since ADR-002 chose a folder rather than
-   * a package, **this lint rule is the only thing holding that boundary.**
+   * The second one is why `@/` is banned here. The alias means "the web app's
+   * src folder", and at v2 `core/` moves out of it; a file inside the package
+   * pointing at the app that used to contain it would break on the move.
+   * Relative imports travel with the folder and need no configuration at all.
    */
   {
     files: ['src/core/**/*.ts'],
@@ -62,12 +125,13 @@ export default tseslint.config(
               message: 'core/ is framework-free (A3). Move this to a feature or a hook.',
             },
             {
-              group: ['dexie', 'zustand', '../data/*', '../../data/*', '@/data/*'],
+              group: ['dexie', 'zustand'],
               message: 'core/ knows nothing about storage or state (A3, A2).',
             },
             {
-              group: ['../ui/*', '../../ui/*', '@/ui/*', '../features/*', '@/features/*'],
-              message: 'Dependencies point inward (A2). core/ imports nothing.',
+              group: ['@/*'],
+              message:
+                'Inside core/, import relatively. The @/ alias points at the app, and core/ leaves it at v2 (ADR-008).',
             },
           ],
         },
@@ -77,8 +141,8 @@ export default tseslint.config(
        *
        * Banning `Date` outright was the first draft and it was wrong: it also
        * banned *parsing* a date, which `schema.ts` legitimately does to check
-       * that `2026-02-30` is not a real day. The two selectors below ban only
-       * the two ways of asking what time it is now.
+       * that `2026-02-30` is not a real day. These two selectors ban only the
+       * two ways of asking what time it is now.
        */
       'no-restricted-syntax': [
         'error',
@@ -95,14 +159,12 @@ export default tseslint.config(
   },
 
   /**
-   * A4 — data access sits behind an interface.
-   *
-   * Only `src/data/` may name Dexie. Screens call the `Repository` interface, so
-   * swapping IndexedDB for SQLite (v2) or an API (v3) touches one folder.
+   * The other half of ADR-008: everything *outside* core reaches it through the
+   * alias, so the v2 move is a prefix swap rather than a per-file rewrite.
    */
   {
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['src/data/**'],
+    ignores: ['src/core/**'],
     rules: {
       'no-restricted-imports': [
         'error',
@@ -110,29 +172,14 @@ export default tseslint.config(
           paths: [
             {
               name: 'dexie',
+              // A4 — only src/data/ may name the storage engine.
               message: 'Only src/data/ may import Dexie (A4). Use the Repository.',
             },
           ],
-        },
-      ],
-    },
-  },
-
-  /**
-   * A2/A5 — dependencies point inward, and a feature has a public surface.
-   * Nothing imports another feature's internal file.
-   */
-  {
-    files: ['src/features/**/*.{ts,tsx}', 'src/ui/**/*.{ts,tsx}'],
-    rules: {
-      'no-restricted-imports': [
-        'error',
-        {
           patterns: [
             {
-              group: ['../*/!(index)', '../../features/*/!(index)'],
-              message:
-                'Import a feature through its index.ts, never an internal file (A5).',
+              group: ['../core/*', '../../core/*', '../../../core/*'],
+              message: 'Reach core/ through the @/ alias, so the v2 move is a prefix swap (ADR-008).',
             },
           ],
         },
@@ -140,19 +187,58 @@ export default tseslint.config(
     },
   },
 
+  { files: ['src/data/**/*.ts'], rules: { 'no-restricted-imports': 'off' } },
+
   /**
-   * F4 — token names are semantic, never literal; and screens never hard-code a
-   * colour. A raw hex outside the design folder is a token that was not created.
+   * F2/F3/F4 — tokens come from one source, and no screen hard-codes a value.
+   * A raw hex outside `src/design/` is a token that was never created.
+   *
+   * H2 — money is formatted in exactly one place. `MoneyText` is that place;
+   * anything else importing the formatter is a second place waiting to disagree.
    */
   {
     files: ['src/ui/**/*.{ts,tsx}', 'src/features/**/*.{ts,tsx}', 'src/app/**/*.{ts,tsx}'],
+    ignores: ['src/ui/money-text.tsx'],
     rules: {
       'no-restricted-syntax': [
         'error',
         {
-          selector: "Literal[value=/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/]",
+          selector: 'Literal[value=/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/]',
+          message: 'No hard-coded colours outside src/design/ (F2, F3). Use a token.',
+        },
+        {
+          selector: "ImportSpecifier[imported.name='formatMoney']",
+          message: 'Money is formatted in exactly one place (H2). Render <MoneyText />.',
+        },
+        {
+          selector: "ImportSpecifier[imported.name='splitMoney']",
+          message: 'Money is formatted in exactly one place (H2). Render <MoneyText />.',
+        },
+      ],
+    },
+  },
+
+  /**
+   * F5 — screens compose `ui/` primitives, not raw elements.
+   *
+   * Deliberately narrow: it bans the elements a primitive already exists for,
+   * rather than all HTML. Layout elements stay available, because a rule that
+   * forbids `<div>` gets switched off within a week.
+   */
+  {
+    files: ['src/features/**/*.tsx'],
+    rules: {
+      'react/forbid-elements': 'off',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "JSXOpeningElement[name.name=/^(button|input|select|table)$/]",
           message:
-            'No hard-coded colours outside src/design/ (F3, F4). Use a token.',
+            'Screens compose ui/ primitives (F5). Use Button, Field, Segmented or Table.',
+        },
+        {
+          selector: 'Literal[value=/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/]',
+          message: 'No hard-coded colours outside src/design/ (F2, F3). Use a token.',
         },
       ],
     },
@@ -162,9 +248,10 @@ export default tseslint.config(
     files: ['**/*.test.{ts,tsx}'],
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
     rules: {
-      // A test may reach for a literal the app may not.
+      // A test may reach for a literal, and may import the formatter to test it.
       'no-restricted-syntax': 'off',
-      'no-restricted-globals': 'off',
+      'no-restricted-imports': 'off',
+      'boundaries/element-types': 'off',
     },
   },
 
