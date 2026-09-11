@@ -70,6 +70,33 @@ silently after the first. Both are wrong, and neither is detectable.
 that needs no memory: *"offer once per phase, when the phase's documents are
 saved."*
 
+### 4. The workflow driver and `shared.md` disagree about how work reaches `main` — *(fix)*
+
+**Where:** `shared/rules/workflow-driver.md` §2 ("After code, before saying
+'done'") and the §5 gate table, against `shared/rules/shared.md` "Git and PR
+conventions" and `shared/09-pr-automation.md`.
+
+**Problem:** the driver — the always-on file that governs every ticket in Build
+— says *"Merge ticket branch into milestone branch, then push the milestone
+branch"*, and its gate table has rows for pushing branches but none for opening
+a pull request. Meanwhile `shared.md` states *"One peer review required before
+merge; squash and merge preferred"*, and `09-pr-automation.md` sets up branch
+protection requiring *"a pull request before merging"*. An agent following the
+driver literally merges every ticket locally and never opens a PR, so the peer
+review `shared.md` requires never happens.
+
+Worse, the ordering guarantees it. PR automation is **phase 11b** — after Build,
+Review, Test and Document. By the time CI and branch protection exist, the
+entire build has already been merged without them, and on a repo that *does*
+have branch protection from day one the driver's step simply fails.
+
+**Fix:** give §0 a **Merge policy** setting, the way it already has variants for
+`Remote: none` and `Issue tracker: none` — `PR only` versus `local merge` — and
+branch §2 and the gate table on it. Add `Pull request` and `CI green` rows to
+the gates. Separately, consider whether `09-pr-automation.md` belongs near the
+start rather than at 11b: CI that arrives after the code is written cannot have
+gated any of it.
+
 ---
 
 ## Notes, not defects

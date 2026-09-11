@@ -21,12 +21,15 @@ This file is the **ambient workflow driver** — the always-on rule that makes t
 | **Ticket prefix** | `[PLACEHOLDER: e.g. PROJ]` |
 | **Remote** | `[PLACEHOLDER: e.g. origin — or "none" for a local-only repo]` |
 | **Design reference** | `[PLACEHOLDER: e.g. docs/mockup/, a Figma link, an HTML preview — or "none"]` |
-| **Branch naming** | `[PLACEHOLDER: e.g. feature/short-description]` |
+| **Branch naming** | `[PLACEHOLDER: e.g. feature/short-description for build items, peer-ai/<phase> for phase documents]` |
+| **Merge policy** | `[PLACEHOLDER: e.g. "PR only — every branch reaches the default branch through a pull request with CI green; squash and merge; delete the branch after", or "local merge" for a solo repo with no branch protection]` |
+| **PR description** | `[PLACEHOLDER: e.g. what changed and why; no AI attribution lines]` |
 
-Two variants follow from this table and apply everywhere below:
+Three variants follow from this table and apply everywhere below:
 
 - **No remote** (`Remote: none`): skip every `git push`. Merge ticket branches into the milestone branch locally and delete them locally. Add the pushes back when a remote is added.
 - **No issue tracker** (`Issue tracker: none`): wherever a step says to move, comment on, or update a ticket, instead tick the acceptance criteria in `docs/08-issue-plan.md` and add a one-line entry under "What Was Done — By Day" in `CONTEXT.md`. Project-level updates are not needed.
+- **PR only** (`Merge policy: PR only`): nothing is committed to the default branch directly — not a phase document, not a one-line typo. Branch off the default branch, push, open a pull request saying what changed and why, wait for CI, squash and merge, delete the branch. Wherever a step below says to merge a ticket branch into a milestone branch locally, open a PR instead. **Red CI is not done.** Where CI does not exist yet, say so on the PR rather than implying checks passed.
 
 Everything else in this file is mandatory as written. `<remote>`, `<ticket-branch>` and `<milestone-branch>` below stand for the values from this table and the current ticket.
 
@@ -72,7 +75,7 @@ For each ticket:
 
 **After code, before saying "done" on any ticket:**
 - Run the **Verify command** from §0. Report the result. If red, fix and re-run. **Never skip this.** If the setting is still `none yet`, establishing one is the first task of Build.
-- Merge ticket branch into milestone branch, then push the milestone branch to `<remote>` if it is ahead (skip if `Remote: none`).
+- Integrate per the **Merge policy** from §0: under `PR only`, push the branch, open a pull request, wait for CI, then squash and merge. Otherwise merge the ticket branch into the milestone branch and push the milestone branch to `<remote>` if it is ahead (skip if `Remote: none`).
 - **Commit** (and push, if there is a remote) `.peer-ai-state.json` and any updated AI rules / standards files when phase/ticket changes.
 - Issue tracker — **all required** (no-tracker variant in §0):
   1. Mark issue **Done** and tick acceptance criteria in the description.
@@ -137,7 +140,9 @@ The `notes` field is a pointer, not a narrative. Full story lives in `CONTEXT.md
 | **Correct branch** | Before commits/pushes | Checkout owning milestone or ticket branch; create/push if missing. |
 | **Verify** | Before any "done", "complete", "ready for PR" | Run the Verify command from §0. Red = not done. |
 | **Push ticket branch** | After creating a ticket branch | `git push -u <remote> <ticket-branch>` before merge. Skipped only when `Remote: none`. |
-| **Push milestone branch** | After merging ticket → milestone | `git push <remote> <milestone-branch>`. Skipped only when `Remote: none`. |
+| **Pull request** | Before anything reaches the default branch | Under `Merge policy: PR only`, open a PR saying what changed and why. Squash and merge; delete the branch after. |
+| **CI green** | Before merging | Nothing merges red. Where CI does not exist yet, say so on the PR. |
+| **Push milestone branch** | After merging ticket → milestone | `git push <remote> <milestone-branch>`. Not applicable under `PR only`; skipped when `Remote: none`. |
 | **Issue tracker update** | After each ticket completes | Done + AC checkboxes + completion comment + project update. No tracker: tick AC in `docs/08-issue-plan.md`, note in `CONTEXT.md`. |
 | **State file update** | After each ticket or phase transition | Write and commit `.peer-ai-state.json`. |
 | **Tests with code** | With every new feature | Co-located test files. Not batched. Not deferred. |
