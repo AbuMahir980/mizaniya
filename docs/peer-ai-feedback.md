@@ -55,6 +55,11 @@ The note at the bottom (post-pull scripts rotting silently) became the
 
 ### 5. A vendored copy cannot tell anyone it is stale — *(feature)*
 
+> **SENT UPSTREAM 11 September 2026 — [peer-ai#1](https://github.com/AbuMahir980/peer-ai/pull/1),
+> filed as upstream item 33.** Do not file it again. When it merges, pull, and
+> update `peer-ai/.upstream` in the same commit.
+
+
 **Where:** the vendoring model itself, and `CONTRIBUTING.md` § "Sending feedback
 back from a project", which now covers the route *out* but not the route *in*.
 
