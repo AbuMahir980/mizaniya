@@ -86,7 +86,7 @@ a dated opening transaction rather than typed into a goal.
 
 | Item | Opening balance |
 |---|---|
-| Rent fund | ₦400,000 |
+| Rent fund | ₦305,000 — dated **24 August**, the day before the *first* cycle |
 | Emergency fund | ₦0 |
 | Personal savings | ₦0 |
 
@@ -210,6 +210,48 @@ The rent fund is deliberately seeded **behind schedule**. A demo where
 everything is fine demonstrates nothing; the projected gap exists to say so
 early, and this is the figure that proves it works.
 
+### The first cycle — 25 August to 24 September, completed
+
+The owner's first cycle, and the one that gives Months a row and the food
+rollover its provenance.
+
+| Figure | Value |
+|---|---:|
+| Income | ₦450,000.00 |
+| Spent | ₦355,000.00 |
+| Saved | ₦95,000.00 — all to the rent fund |
+| Debt paid | ₦0.00 |
+| **Ended with** | **₦0.00** |
+
+Three facts from it carry forward, and every other figure in this file depends
+on them:
+
+- **Food: ₦78,000.00 spent against ₦90,000.00 planned**, and food rolls over —
+  which is where the **₦12,000.00 carried** on the current cycle comes from. It
+  was asserted before; now it has a source.
+- **The rent fund went from ₦305,000.00 to ₦400,000.00** — the ₦75,000.00
+  planned plus the ₦20,000.00 remaining at cycle end, moved rather than left
+  sitting. So on 5 October it is 400,000 + 75,000 = **₦475,000.00**, unchanged.
+- **The debts are not in this cycle.** They were recorded on 24 September, at the
+  cycle boundary, so A. Friend's balance on 5 October is 120,000 − 30,000 =
+  **₦90,000.00**, unchanged.
+
+**It ends at ₦0.00 deliberately.** Under D16 a leftover would arrive on the next
+cycle's Plan as unallocated, which would change the current plan's totals — and
+with them the daily allowance, the amber threshold and every delivered design.
+Ending at zero keeps the whole worked scenario intact, and it is what a
+zero-based budgeter does anyway: the remainder was given a job.
+
+**A carried-leftover variant, for testing D16:** the same cycle ending with
+₦20,000.00 left instead of moving it. The next Plan then opens with
+*"₦20,000.00 carried from last cycle"*, ₦470,000.00 to allocate, and unallocated
+at ₦20,000.00 until it is given a job.
+
+**Its individual movements are deliberately not enumerated.** Nothing in v1 needs
+them — Months shows the summary above, and the rollover needs only the food
+figure. If story **F2** (open a past cycle and see it as it was) is built, they
+will be, and they belong here when that happens.
+
 ### The zakat scenario
 
 **The nisab figure below is invented, like every other figure here.** It is not a
@@ -245,12 +287,12 @@ the record of *why* those figures are what they are.
 
 The zakat scenario arrived on 10 September and is above.
 
-Still missing: a **second completed salary cycle**, so rollover has a provenance
-and the Months view has a real row. It is **not** invented here yet, because
-adding one exposed a question nobody has answered — *does cash left carry over
-between cycles?* Every worked figure above assumes it does not. Inventing a prior
-cycle would quietly settle that question in the seed data, where nobody would
-ever see the decision being made. Page specs §9, item 3.
+The first cycle arrived on 11 September, once **D16** settled the question that
+was blocking it — whether cash left carries between cycles. It does not; the
+leftover arrives on the next Plan as unallocated instead.
+
+Still missing: the **individual movements of the first cycle**, needed only if
+story F2 is built.
 
 Three rules for adding them:
 

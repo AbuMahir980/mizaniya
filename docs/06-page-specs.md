@@ -531,6 +531,7 @@ Savings · Debt payment · Expense.
 | Allocated | ₦450,000 | Σ `PlanEntry.planned` for the cycle |
 | **Unallocated** | ₦0 → banner hidden | `core/budget.unallocated` |
 | Carried in | + ₦12,000 on food | `core/budget.carriedIn(category, previousCycle)` |
+| Carried from last cycle | ₦0.00 in the seeded scenario | `core/budget.leftoverFrom(previousCycle)` — see D16 |
 | Planned daily allowance | ₦8,666.66 | Σ spendable ÷ days in cycle, floored — shown as a footnote so D15 is legible |
 
 **Actions.** `Copy last cycle's plan` (top right; disabled with a reason when
@@ -562,6 +563,33 @@ Categories, editing the same field:
 **On the Plan row**, a protected category carries a small lock mark beside its
 name, so protection is visible without opening a menu. Otherwise it is invisible
 state that changes the app's headline figure.
+
+#### D16 · Cash left is per cycle, and the leftover arrives as unallocated
+
+**Cash left is this cycle's income minus this cycle's movements.** It is not a
+running bank balance, so money left at the end of a cycle does not silently
+raise what the next cycle's hero says is safe to spend.
+
+But it does not vanish either. **At the start of the next cycle it appears on
+Plan as its own line, unallocated:**
+
+> **₦55,000.00 carried from last cycle** — not yet given a job
+
+It counts towards the amount to allocate, so unallocated starts at
+`take-home + carried` and the plan is only finished when it reaches ₦0.00.
+
+*Why not a running balance:* last cycle's leftover would quietly raise
+safe-to-spend, and the owner would spend it without ever deciding to. That is
+the opposite of giving every naira a job, and nothing on screen would show the
+decision being made for them.
+
+*Why not simply drop it:* the money is real. Dropping it makes a genuine
+leftover invisible, and invisible is the failure mode this whole project is
+arranged against.
+
+**So the money moves, and the decision stays with the owner** — which is the
+same shape as rollover (D2): the cash was always there; what changes is whether
+you are allowed to spend it without thinking.
 
 **Autosave per row on blur.** No Save button — a plan half-typed and abandoned
 should still be there tomorrow.
@@ -1029,7 +1057,7 @@ Everything else here is settled. These are genuinely open.
 |:-:|---|---|
 | 1 | ~~How does a save confirm?~~ | **Settled 10 September: both a toast and the live region.** See §6 |
 | 2 | A **zakat scenario** is now in `docs/seed-data.md`. A **second completed cycle** is not — adding one exposed an unsettled question (below) | Months has no populated row until this is answered |
-| 3 | **Does cash left carry over between cycles?** The worked figures assume it does **not** — cash left is this cycle's income minus this cycle's movements. A real leftover would then be invisible, which is a detectability problem | **For the owner. It changes `core/budget.cashLeft` and therefore the hero, so it must be settled before BUILD** |
+| 3 | ~~Does cash left carry over between cycles?~~ | **Settled 11 September as D16.** See §7.3 |
 
 ---
 

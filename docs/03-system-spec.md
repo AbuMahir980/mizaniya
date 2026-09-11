@@ -104,6 +104,22 @@ the figure already means and would make the state nearly redundant.
 
 ---
 
+## 5a · D16 · Cash left is per cycle
+
+**Cash left is this cycle's income minus this cycle's movements**, never a
+running bank balance. A leftover does not raise the next cycle's safe-to-spend;
+it appears on the next Plan as **unallocated**, labelled *"carried from last
+cycle"*, and counts towards the amount to allocate.
+
+*Rejected:* a running balance — last cycle's leftover would quietly raise what
+the hero says is safe, and the owner would spend it without deciding to.
+*Also rejected:* dropping it — the money is real, and an invisible leftover is
+the failure mode this project is built against.
+
+Full reasoning and the Plan line: page specs §7.3.
+
+---
+
 ## 6 · User stories and priorities
 
 MoSCoW. **Must** = v1 cannot ship without it.
