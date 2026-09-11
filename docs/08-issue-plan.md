@@ -6,7 +6,7 @@
 | **Phase** | 7 · Issues |
 | **Inputs** | [03-system-spec.md](03-system-spec.md) · [06-page-specs.md](06-page-specs.md) · [02-architecture.md](02-architecture.md) · [05-coding-standards.md](05-coding-standards.md) · [seed-data.md](seed-data.md) |
 | **Tracker** | GitHub Issues on `AbuMahir980/mizaniya` — no prefix, issues are `#N` |
-| **Status** | 22 tickets across 3 cycles. `T-` ids are plan-local until the issues exist. |
+| **Status** | 22 tickets across 3 cycles, **filed as [#8–#29](https://github.com/AbuMahir980/mizaniya/issues)** on 11 September. |
 
 ---
 
@@ -47,6 +47,13 @@ that pins the figure.
 
 ## 3 · The tickets
 
+**All 22 are on the board.** `T1`–`T22` map to issues **#8–#29** in order; the
+tables below link each one. The issue is the queue BUILD works from — this
+document is the reasoning behind it, and the two are kept in step by the ticket
+number appearing in both.
+
+### The list
+
 ### Cycle 1 — `core/`, and the seam beneath it
 
 Pure functions first, with their tests. Nothing here imports React, touches
@@ -55,15 +62,15 @@ numbers are right; everything after it is presentation.
 
 | # | Ticket | Size | Depends on |
 |---|---|:-:|---|
-| **T1** | `core/cycle` — boundaries, days left, paydays | M | — |
-| **T2** | `core/budget` — cash left, protected, safe-to-spend | M | T1 |
-| **T3** | `core/budget` — rollover and the carried line | S | T2 |
-| **T4** | `core/debt` — balances that cross zero | S | T1 |
-| **T5** | `core/goal` — projected gap and status | S | T1 |
-| **T6** | `core/zakat` — hawl, nisab, the estimate | M | T1 |
-| **T7** | The Dexie `Repository` implementation | M | — |
-| **T8** | The snapshot store and its single write path | M | T7 |
-| **T9** | Export and import | M | T7, T8 |
+| **[T1](https://github.com/AbuMahir980/mizaniya/issues/8)** · #8 | `core/cycle` — boundaries, days left, paydays | M | — |
+| **[T2](https://github.com/AbuMahir980/mizaniya/issues/9)** · #9 | `core/budget` — cash left, protected, safe-to-spend | M | T1 |
+| **[T3](https://github.com/AbuMahir980/mizaniya/issues/10)** · #10 | `core/budget` — rollover and the carried line | S | T2 |
+| **[T4](https://github.com/AbuMahir980/mizaniya/issues/11)** · #11 | `core/debt` — balances that cross zero | S | T1 |
+| **[T5](https://github.com/AbuMahir980/mizaniya/issues/12)** · #12 | `core/goal` — projected gap and status | S | T1 |
+| **[T6](https://github.com/AbuMahir980/mizaniya/issues/13)** · #13 | `core/zakat` — hawl, nisab, the estimate | M | T1 |
+| **[T7](https://github.com/AbuMahir980/mizaniya/issues/14)** · #14 | The Dexie `Repository` implementation | M | — |
+| **[T8](https://github.com/AbuMahir980/mizaniya/issues/15)** · #15 | The snapshot store and its single write path | M | T7 |
+| **[T9](https://github.com/AbuMahir980/mizaniya/issues/16)** · #16 | Export and import | M | T7, T8 |
 
 ---
 
@@ -155,12 +162,12 @@ The cycle is the unit everything else is measured in, so it goes first.
 
 | # | Ticket | Size | Depends on |
 |---|---|:-:|---|
-| **T10** | App shell, routing and navigation | M | T8 |
-| **T11** | PWA — manifest, service worker, persistence | M | T10 |
-| **T12** | Onboarding | L | T10, T7 |
-| **T13** | Home | L | T12, T2–T5 |
-| **T14** | Quick Add | M | T13 |
-| **T15** | Plan | M | T13, T3 |
+| **[T10](https://github.com/AbuMahir980/mizaniya/issues/17)** · #17 | App shell, routing and navigation | M | T8 |
+| **[T11](https://github.com/AbuMahir980/mizaniya/issues/18)** · #18 | PWA — manifest, service worker, persistence | M | T10 |
+| **[T12](https://github.com/AbuMahir980/mizaniya/issues/19)** · #19 | Onboarding | L | T10, T7 |
+| **[T13](https://github.com/AbuMahir980/mizaniya/issues/20)** · #20 | Home | L | T12, T2–T5 |
+| **[T14](https://github.com/AbuMahir980/mizaniya/issues/21)** · #21 | Quick Add | M | T13 |
+| **[T15](https://github.com/AbuMahir980/mizaniya/issues/22)** · #22 | Plan | M | T13, T3 |
 
 **T10 · App shell, routing and navigation**
 - [ ] Routes per page specs §1; bottom bar at 360px, sidebar at 1440 (§2)
@@ -213,13 +220,13 @@ The cycle is the unit everything else is measured in, so it goes first.
 
 | # | Ticket | Size | Depends on |
 |---|---|:-:|---|
-| **T16** | Transactions, and editing | M | T14 |
-| **T17** | Debts & Goals, and the two forms | L | T4, T5 |
-| **T18** | The printable debt record | S | T17 |
-| **T19** | Months | S | T1, T2 |
-| **T20** | Settings, and the import flow | M | T9, T11 |
-| **T21** | The seed script | S | T7 |
-| **T22** | Zakat | M | T6 |
+| **[T16](https://github.com/AbuMahir980/mizaniya/issues/23)** · #23 | Transactions, and editing | M | T14 |
+| **[T17](https://github.com/AbuMahir980/mizaniya/issues/24)** · #24 | Debts & Goals, and the two forms | L | T4, T5 |
+| **[T18](https://github.com/AbuMahir980/mizaniya/issues/25)** · #25 | The printable debt record | S | T17 |
+| **[T19](https://github.com/AbuMahir980/mizaniya/issues/26)** · #26 | Months | S | T1, T2 |
+| **[T20](https://github.com/AbuMahir980/mizaniya/issues/27)** · #27 | Settings, and the import flow | M | T9, T11 |
+| **[T21](https://github.com/AbuMahir980/mizaniya/issues/28)** · #28 | The seed script | S | T7 |
+| **[T22](https://github.com/AbuMahir980/mizaniya/issues/29)** · #29 | Zakat | M | T6 |
 
 **T16 · Transactions, and editing** — grouped by day; **two distinct empty states**, because the next action differs; editing reuses the Quick Add sheet pre-filled, never a second form (**E2**); savings subtotalled per destination.
 
