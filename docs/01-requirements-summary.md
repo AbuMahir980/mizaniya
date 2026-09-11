@@ -167,7 +167,8 @@ The Zakat panel asks once: *when did you last pay zakat, or when did your saving
 | **I lent** | I lent someone money | out | owed to me, more |
 | **They repaid me** | a debtor paid me back | in | owed to me, less |
 
-With `income`, `expense` and `savings transfer`, that is seven transaction types, all positive-amount.
+With `income`, `expense`, `savings-in` and `savings-out`, that is **eight**
+transaction types, every one carrying a positive amount.
 
 ### D8 · Home is ranked, not a grid of eight tiles
 
@@ -197,9 +198,11 @@ gives the most important number in the app no more weight than the least.
 
 **Personal target ajo** — saving alone towards a target, then withdrawing — is a
 savings goal. The withdrawal is a savings transfer in the opposite direction.
-This makes **direction** a field on `savings transfer`, shown to the owner as
-*Move to savings* and *Take from savings*: one type, one form, one destination
-field, with only the effect flipping.
+*Move to savings* and *Take from savings* are therefore **two movement types**,
+not one type with a direction flag. Standard **H5** is explicit that direction
+comes from the type, and to the owner these are two different actions. This
+corrects an earlier draft of this decision, which proposed a direction field —
+see `docs/04-api-contract.md` §3.
 
 **Rotating ajo / esusu** — a group where each member contributes monthly and one
 member collects the whole pot in turn — **is not savings at all.** In the months
@@ -303,7 +306,7 @@ and `Intl.DateTimeFormat` with the `islamic` calendar for the Hijri date.
 | Onboarding: name, ₦ only, salary day, take-home, optional rent target and due date, optional emergency-fund target, seeded categories | Bank or wallet sync (Mono / Okra) — v3, and needs the private server repo | **Still open** — the amber threshold for safe-to-spend |
 | Salary-day cycles; days left; safe-to-spend per day with amber and red states | Household sharing and a spouse view — v3 | Resolved — **D8** |
 | Zero-based Plan: per-category allocations, unallocated-income banner, copy last cycle | Multi-currency and parallel-rate tracking — v3 | Resolved — **D9** |
-| Transactions: add, edit, delete; seven types (D7); category; payment method; note. Quick Add in three taps | Zakat report as PDF — v3 | Resolved — **D10** |
+| Transactions: add, edit, delete; eight types (D7); category; payment method; note. Quick Add in three taps | Zakat report as PDF — v3 | Resolved — **D10** |
 | Envelopes with rollover on any category (D2) | Ajo group management with reminders — v3 | Resolved — **D11** |
 | Debts in both directions with counterpart, opening amount, optional schedule, payment history, and a shareable one-page record | CSV / Excel export — v3 | Resolved — **D12** |
 | Savings goals with target, due date, projected gap (D5), status | Push notifications or reminders of any kind — not in v1 | |

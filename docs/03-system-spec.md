@@ -148,7 +148,7 @@ MoSCoW. **Must** = v1 cannot ship without it.
 | # | Story | Priority |
 |:-:|---|:-:|
 | D1 | As the owner, I want to record a spend in three taps while standing at a counter | **Must** |
-| D2 | As the owner, I want to record all seven movement types | **Must** |
+| D2 | As the owner, I want to record all eight movement types | **Must** |
 | D3 | As the owner, I want to edit or delete a transaction I got wrong | **Must** |
 | D4 | As the owner, I want to record a movement dated earlier, because I forgot | **Must** |
 | D5 | As the owner, I want to see this cycle's transactions, newest first | **Must** |
@@ -293,7 +293,7 @@ Given / When / Then. All **Must** stories; **Should** stories abbreviated.
 - **Given** Home, **when** the owner taps Quick Add, taps a category and enters an amount, **then** the movement saves — **three taps** plus the amount, with type defaulting to `expense` and date to today.
 - **Given** a save, **then** the sheet closes, a toast confirms, and Home's figures behind it are already correct.
 
-### D2 · Seven types
+### D2 · Eight types
 
 - **Given** the type list, **then** it reads: **Income · Expense · Move to savings · Take from savings · I borrowed · I repaid · I lent · They repaid me** — plain speech, not jargon (**D7**, **O4**).
 - **Given** any movement, **then** the amount stored is **positive** and direction comes from the type (**H5**). A negative amount is rejected by schema validation.

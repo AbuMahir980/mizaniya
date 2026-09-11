@@ -5,7 +5,7 @@
 | **Date** | 2026-09-10 |
 | **Phase** | 2 · Architect |
 | **Inputs** | [docs/01-requirements-summary.md](01-requirements-summary.md) (D1–D14), `docs/standards/`, `docs/product-brief.md` |
-| **Status** | Drafted. Two decisions await the stakeholder — see [Open choices](#open-choices). |
+| **Status** | Accepted. ADR-002 chosen (option A) and D15 settled in SYSTEM SPEC; §12's open choices are both closed. |
 
 ---
 
@@ -60,7 +60,7 @@ calculations* — which is section 6.
 | **Design tokens** | Colour, type scale, spacing, radius, elevation; light and dark | `src/design/tokens.ts`, generated from `docs/design/tokens.md` | Same bundle |
 | **Session store** | The single in-memory snapshot of all data, and the actions that change it | Zustand | Runtime |
 | **`core/`** | Every domain calculation and type. No React, no storage, no platform APIs, no `Date.now()` | Pure TypeScript | Shared with v2 |
-| **Data layer** | `Repository` interface + its Dexie implementation + schema migrations + export/import | Dexie 4 | Runtime |
+| **Data layer** | The Dexie implementation of `Repository`, schema migrations, export/import | Dexie 4 | Runtime |
 | **Storage** | The database itself | IndexedDB | The owner's browser |
 | **PWA layer** | Manifest, icons, service worker precaching the app shell; persistence request | vite-plugin-pwa (Workbox) | Static bundle |
 | **v3 API** *(not built)* | Sync, household sharing, payments | TBD | **Separate private repo** |
@@ -74,7 +74,7 @@ app/  ──▶  features/  ──▶  ui/  ──▶  design/
            store (Zustand)
                 │
                 ├──▶  core/       (pure calculations — imports nothing)
-                └──▶  data/       (Repository interface)
+                └──▶  data/       (implements core/'s Repository)
                                         │
                                         ▼
                                   dexie implementation
@@ -98,16 +98,24 @@ src/
   ui/                  design-system primitives
   design/              tokens.ts
   store/               the snapshot store and its actions
-  data/                repository.ts (interface)
-                       dexie-repository.ts (implementation)
+  data/                dexie-repository.ts (implementation)
                        migrations/
                        export-import.ts
   core/                money/  cycle/  budget/  debt/  goal/  zakat/
-                       types.ts
+                       types.ts       (domain types)
+                       schema.ts      (runtime validation)
+                       repository.ts  (the interface — see note below)
 ```
 
 Each feature exposes its public surface through `index.ts`; nothing imports
 another feature's internal file (**A5**).
+
+**The `Repository` interface lives in `core/`, its implementations in `data/`.**
+This corrects the first draft of this document, which placed the interface in
+`data/` alongside the Dexie implementation. The interface is part of the domain
+contract every client shares — the Expo app in v2 must implement it — whereas
+the implementation is a platform detail. `core/` still imports nothing, so
+**A3** holds; `data/` depends on `core/`, which is the direction **A2** requires.
 
 ---
 
