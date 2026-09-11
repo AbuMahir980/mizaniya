@@ -53,7 +53,61 @@ The note at the bottom (post-pull scripts rotting silently) became the
 
 ## Open
 
-*Nothing open. New framework defects go here, then upstream — an
+### 5. A vendored copy cannot tell anyone it is stale — *(feature)*
+
+**Where:** the vendoring model itself, and `CONTRIBUTING.md` § "Sending feedback
+back from a project", which now covers the route *out* but not the route *in*.
+
+**Problem:** Peer AI is copied into a project, not linked. That is the right
+call — a live link makes every project-specific edit a merge problem — but it
+means the copy has **no remote, no branch, and nothing that goes stale
+visibly**. Nobody is told. Nobody can be.
+
+This project proved it. Items 29–32 were fixed upstream on 11 September; this
+copy carried the defects for two days afterwards, hand-working around two of
+them, and only found out because a human happened to mention a commit. One of
+the four — item 29 — was about to cost an invented `services/` layer in BUILD.
+
+Note the shape of the failure: **not a defect, an absence.** Nothing was wrong;
+nothing said anything. The same blindness applies to every vendored copy on
+every project, and it gets worse the longer a project runs, which is exactly
+when the copy matters most.
+
+**Fix — ship a staleness check, and a pin for it to check against.**
+
+Two small pieces, both in the template so every project gets them at setup:
+
+1. **`peer-ai/.upstream`** — a four-line JSON file recording the repo, ref and
+   **commit this copy was taken from**, written at setup and updated with every
+   pull. Without a pin there is nothing to compare against, which is why no
+   check exists today.
+2. **`peer-ai/check-upstream.mjs`** — asks GitHub's compare API how far the pin
+   is behind the ref. No credentials (the repo is public) and no git history for
+   the copy (it has none by design).
+
+The part that makes it act-on-able rather than noise: it reads
+`.peer-ai-state.json`, works out the **active phase file**, and says which of
+the changed files *that phase is about to read*. "Twelve files changed" is a
+number nobody acts on. "Three of them are files your next phase follows" is a
+reason to stop.
+
+It exits **1** when behind and **0** when current — and **0 when it cannot
+reach GitHub**, printing `COULD NOT CHECK` loudly. Being offline is not the same
+as being up to date, and a check that blocks offline work gets deleted rather
+than fixed.
+
+A working implementation is in this repo at `peer-ai/check-upstream.mjs` and
+`peer-ai/.upstream`; it is generic and can be taken as-is. Suggested
+`CONTRIBUTING.md` addition: a **"Staying current"** section facing the
+feedback-out section, saying run it at every phase boundary, and pull before a
+phase whose file changed.
+
+**Project shape:** any vendored copy, any stack. The longer the project, the
+worse it gets.
+
+---
+
+*Nothing else open. New framework defects go here, then upstream — an
 [issue](https://github.com/AbuMahir980/peer-ai/issues/new?template=framework-defect.yml)
 for one, a pull request against `docs/peer-ai-feedback.md` for a batch. Upstream
 now ships the route: see "Sending feedback back from a project" in

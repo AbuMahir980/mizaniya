@@ -18,7 +18,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify": "npm run naming && npm run lint && npm run typecheck && npm run test && npm run build",
-    "naming": "node scripts/check-naming.mjs"
+    "naming": "node scripts/check-naming.mjs",
+    "peer-ai:check": "node peer-ai/check-upstream.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
