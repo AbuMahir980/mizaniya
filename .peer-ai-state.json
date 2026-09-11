@@ -13,6 +13,6 @@
   "pendingAgents": [],
   "lastVerifyResult": "",
   "lastVerifyTimestamp": "",
-  "lastUpdated": "2026-09-10",
-  "notes": "READ CONTEXT.md at app root. Design stop CLEARED 2014 docs/design/ has landed. Next: SHARED RULES, implementing tokens.md exactly. Two open items: how a save confirms, and seed-data still lacks a second cycle and a zakat scenario."
+  "lastUpdated": "2026-09-11",
+  "notes": "READ CONTEXT.md at app root. SHARED RULES in progress: tokens, money and the primitives are built and verify is green. Next: FRONTEND RULES, then ISSUES, then BUILD starting with core/."
 }

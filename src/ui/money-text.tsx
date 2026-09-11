@@ -8,8 +8,8 @@
  *       rule and the spoken rule are defined once and cannot disagree.
  */
 
-import { formatMoney, speakMoney, splitMoney } from '../core/money/money'
-import type { Kobo } from '../core/types'
+import { formatMoney, speakMoney, splitMoney } from '@/core/money/money'
+import type { Kobo } from '@/core/types'
 import { cx } from './cx'
 
 export type MoneyTone = 'default' | 'muted' | 'positive' | 'warning' | 'danger'

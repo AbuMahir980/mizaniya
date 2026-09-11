@@ -25,6 +25,13 @@ must not be paraphrased anywhere else.
 
 5. docs/standards/ is the rulebook: frontend-engineering-standards.md, backend-engineering-standards.md and standards-addendum-mizaniya.md. Every rule marked auto is enforced by ESLint/tsconfig/CI; every rule marked review is listed in CONTEXT.md as the code-review agent's checklist. Token, primitive and file naming follow frontend sections F and O.
 
+**Note on rule 1, 2026-09-11.** Rule 1 says the server lives in a separate
+private repository. That is **unchanged and still binding**, but it is under
+review: [ADR-008](docs/adr/ADR-008-repository-layout.md) defers the server's
+visibility to v3 and writes down the criteria for deciding it. If the answer
+turns out to be public, **rule 1 is amended here, in writing, first.** The rule
+is not contradicted quietly.
+
 ---
 
 ## Environment — checked 9 September 2026

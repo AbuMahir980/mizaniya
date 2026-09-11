@@ -29,7 +29,7 @@ Not reopened in this phase:
 - **A framework-free `core/`** holding cycle maths, safe-to-spend, rollover, projected gap, zakat estimate and money (standard **A3**).
 - **React 19 + TypeScript + Vite**, mobile-first at 360px, correct at 1440px.
 - **Feature-first folders**, dependencies pointing inward (**A1**, **A2**, **A5**).
-- **v2** is Expo/React Native sharing `core/`; **v3** is a separate private API repo.
+- **v2** is Expo/React Native sharing `core/`. **v3** adds a server; whether it is public is decided at v3 against written criteria (**ADR-008**), and repo rule 1 stands until then.
 - Money in **kobo**; `docs/seed-data.md` is the only source of figures.
 
 ---
@@ -63,7 +63,7 @@ calculations* — which is section 6.
 | **Data layer** | The Dexie implementation of `Repository`, schema migrations, export/import | Dexie 4 | Runtime |
 | **Storage** | The database itself | IndexedDB | The owner's browser |
 | **PWA layer** | Manifest, icons, service worker precaching the app shell; persistence request | vite-plugin-pwa (Workbox) | Static bundle |
-| **v3 API** *(not built)* | Sync, household sharing, payments | TBD | **Separate private repo** |
+| **v3 API** *(not built)* | Sync, email auth, household sharing, payments | TBD | Visibility decided at v3 — **[ADR-008](adr/ADR-008-repository-layout.md)** |
 
 ### Dependency direction (A2)
 
@@ -344,5 +344,5 @@ settled in SYSTEM SPEC.
 |---|---|
 | The snapshot stops fitting comfortably in memory (many years of daily records) | Paginate transactions in the repository; keep aggregates in the snapshot. The `Repository` interface already allows a ranged `list` |
 | **v2 (Expo)** | Extract `core/` to a package if Choice A went the other way; add a SQLite `Repository` implementation. No screen logic changes |
-| **v3 (sync and sharing)** | An HTTP `Repository` implementation; **A6** wakes up; the snapshot needs conflict resolution, which is the first genuinely hard problem this project will have |
+| **v3 (sync and sharing)** | An HTTP `Repository` implementation; **A6** wakes up; the snapshot needs conflict resolution, which is the first genuinely hard problem this project will have. Also `apps/admin` as its own deployment, never a route in the web app (**ADR-008**) |
 | A second person uses one device | Audiences, and everything **C5** implies |

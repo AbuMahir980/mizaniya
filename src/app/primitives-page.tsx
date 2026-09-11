@@ -41,9 +41,9 @@ import {
   Switch,
   Table,
   useAnnounce,
-} from '../ui'
-import { naira } from '../core/money/money'
-import type { NavItem } from '../ui'
+} from '@/ui'
+import { naira } from '@/core/money/money'
+import type { NavItem } from '@/ui'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

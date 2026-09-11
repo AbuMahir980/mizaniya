@@ -9,6 +9,8 @@
  *       deliberately between rounding down and rounding up.
  */
 
+// Relative, not aliased, and deliberately so: both files live inside core/
+// and move together, so this relationship never changes (ADR-008).
 import type { Kobo } from '../types'
 
 /** Construct kobo from whole naira. For seed data and tests, never from input. */
