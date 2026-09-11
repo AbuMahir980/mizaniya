@@ -1,7 +1,7 @@
 {
-  "currentPhase": "spec-system",
+  "currentPhase": "spec-api-contract",
   "currentStep": 1,
-  "phaseFile": "peer-ai/shared/03-spec-system.md",
+  "phaseFile": "peer-ai/shared/04-spec-api-contract.md",
   "cycle": "M1 — Project kickoff",
   "milestoneBranch": "",
   "ticket": "",
@@ -14,5 +14,5 @@
   "lastVerifyResult": "",
   "lastVerifyTimestamp": "",
   "lastUpdated": "2026-09-10",
-  "notes": "READ CONTEXT.md at app root for the full narrative. Next action: SYSTEM SPEC. One decision waiting: ADR-002, where core/ lives."
+  "notes": "READ CONTEXT.md at app root for the full narrative. Next action: API CONTRACT, then STOP for stakeholder review."
 }
