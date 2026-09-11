@@ -1,0 +1,151 @@
+/**
+ * WHAT: The design tokens as CSS custom properties, light and dark.
+ * WHY:  Written by hand beside `tokens.ts` rather than generated, and guarded by
+ *       `tokens.test.ts`, which fails if a value here disagrees with the module.
+ *       A build-time generator would have been one more thing to keep working;
+ *       a test that fails loudly does the same job with tooling that already runs.
+ * INTERVIEW: I held design tokens in two places on purpose — typed data and CSS —
+ *       and wrote a test that fails when they disagree, rather than trusting care.
+ */
+
+:root {
+  color-scheme: light;
+
+  --bg: #f7f3ea;
+  --card: #ffffff;
+  --card2: #f7f3ea;
+  --line: #ded8ca;
+  --hair: #ebe5d8;
+  --ink: #171a17;
+  --soft: #5a615b;
+  --faint: #858a85;
+  --emerald: #0f5c3c;
+  --ochre: #8c5c15;
+  --slate: #3c4a5a;
+  --rose: #9e2b2b;
+  --em2: #e4efe7;
+  --oc2: #f6ebd5;
+  --sl2: #e6eaef;
+  --ro2: #f7e2df;
+  --track: #ede7da;
+  --onEmerald: #ffffff;
+  --scrim: rgba(23, 26, 23, 0.46);
+
+  --elevation-card: 0 1px 2px rgba(23, 26, 23, 0.05),
+    0 12px 30px -16px rgba(23, 26, 23, 0.22);
+  --elevation-lift: 0 8px 20px -8px rgba(15, 92, 60, 0.55);
+
+  /* Type — three faces, each with one job. Money never uses the voice face. */
+  --family-voice: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --family-structural: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
+  --family-data: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 30px;
+
+  /* Money never animates. A figure that counts up is unreadable at the moment
+     someone is deciding whether to spend. */
+  --motion-instant: 0ms;
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-sheet-in: 240ms;
+  --motion-sheet-out: 160ms;
+  --easing: cubic-bezier(0.2, 0, 0, 1);
+  --easing-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  --target-min: 44px;
+  --target-gap: 8px;
+}
+
+/* Authored, not inverted. Every hue re-tuned and re-measured. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0a0d10;
+  --card: #12171c;
+  --card2: #1a2129;
+  --line: #2a3440;
+  --hair: #222b35;
+  --ink: #e9eff3;
+  --soft: #93a3af;
+  --faint: #6b7a86;
+  --emerald: #4ecb8b;
+  --ochre: #e5a93f;
+  --slate: #8fa7c0;
+  --rose: #f0736b;
+  --em2: #0f2e22;
+  --oc2: #2e2312;
+  --sl2: #1a2532;
+  --ro2: #2e1614;
+  --track: #1a2129;
+  --onEmerald: #052214;
+  --scrim: rgba(4, 6, 8, 0.62);
+
+  --elevation-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 14px 34px -16px rgba(0, 0, 0, 0.7);
+  --elevation-lift: 0 8px 20px -8px rgba(78, 203, 139, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --bg: #0a0d10;
+    --card: #12171c;
+    --card2: #1a2129;
+    --line: #2a3440;
+    --hair: #222b35;
+    --ink: #e9eff3;
+    --soft: #93a3af;
+    --faint: #6b7a86;
+    --emerald: #4ecb8b;
+    --ochre: #e5a93f;
+    --slate: #8fa7c0;
+    --rose: #f0736b;
+    --em2: #0f2e22;
+    --oc2: #2e2312;
+    --sl2: #1a2532;
+    --ro2: #2e1614;
+    --track: #1a2129;
+    --onEmerald: #052214;
+    --scrim: rgba(4, 6, 8, 0.62);
+
+    --elevation-card: 0 1px 2px rgba(0, 0, 0, 0.5),
+      0 14px 34px -16px rgba(0, 0, 0, 0.7);
+    --elevation-lift: 0 8px 20px -8px rgba(78, 203, 139, 0.4);
+  }
+}
+
+/* Money: the kobo part is 0.60 of the naira size, one weight step lighter, at
+   60% opacity of the current colour. Same baseline, never a superscript. */
+.money {
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.money-kobo {
+  font-size: 0.6em;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+/* J3: nothing conveys meaning through motion alone, and a still spinner conveys
+   nothing — so the spinner keeps turning while everything else stops. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .spinner {
+    animation-duration: 900ms !important;
+    animation-iteration-count: infinite !important;
+  }
+}
