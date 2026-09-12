@@ -18,7 +18,7 @@ export interface ListRowProps {
   sub?: ReactNode
   /** The right-hand side — usually a figure, right-aligned and tabular. */
   trailing?: ReactNode
-  /** Below both, full width — a rail, a variance bar. */
+  /** Below both, full width — a rail, a bar showing what is left. */
   footer?: ReactNode
   onClick?: () => void
   /** What the row is called aloud, when the visible title is not enough alone. */

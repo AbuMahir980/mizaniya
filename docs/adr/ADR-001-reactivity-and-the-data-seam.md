@@ -10,7 +10,7 @@
 
 ## Context
 
-Nothing derived is stored. Cash left, safe-to-spend, category variance, the
+Nothing derived is stored. Cash left, safe-to-spend, what is left in each category, the
 projected gap and the zakat estimate are all recalculated from the transaction
 list, the plan and today's date — standard **B3**, and the reason the app can be
 trusted at all.

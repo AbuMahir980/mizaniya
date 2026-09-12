@@ -40,7 +40,7 @@ export function isProtected(category: Category): boolean {
 }
 
 /** The movements belonging to a cycle, with the early-income window applied. */
-export function transactionsIn(snapshot: Snapshot, cycle: Cycle): Transaction[] {
+export function movementsIn(snapshot: Snapshot, cycle: Cycle): Transaction[] {
   return snapshot.transactions.filter(
     (t) => cycleForTransaction(snapshot.settings, t.date, t.type).start === cycle.start,
   )
@@ -63,19 +63,19 @@ function sumWhere(transactions: Transaction[], predicate: (t: Transaction) => bo
  * rather than spending it without noticing.
  */
 export function cashLeft(snapshot: Snapshot, cycle: Cycle): Kobo {
-  const movements = transactionsIn(snapshot, cycle)
+  const movements = movementsIn(snapshot, cycle)
   const inflow = sumWhere(movements, (t) => INFLOWS.includes(t.type))
   const outflow = sumWhere(movements, (t) => OUTFLOWS.includes(t.type))
   return subtractMoney(inflow, outflow)
 }
 
 /** What has actually been moved into a category this cycle. */
-export function actualFor(
+export function movedInto(
   snapshot: Snapshot,
   cycle: Cycle,
   categoryId: Category['id'],
 ): Kobo {
-  const movements = transactionsIn(snapshot, cycle).filter((t) => t.categoryId === categoryId)
+  const movements = movementsIn(snapshot, cycle).filter((t) => t.categoryId === categoryId)
   const into = sumWhere(movements, (t) => t.type === 'expense' || t.type === 'savings-in')
   const outOf = sumWhere(movements, (t) => t.type === 'savings-out')
   return subtractMoney(into, outOf)
@@ -108,7 +108,7 @@ export function protectedRemaining(snapshot: Snapshot, cycle: Cycle): Kobo {
       clampToZero(
         subtractMoney(
           plannedFor(snapshot.plans, cycle, category.id),
-          actualFor(snapshot, cycle, category.id),
+          movedInto(snapshot, cycle, category.id),
         ),
       ),
     )
@@ -116,7 +116,7 @@ export function protectedRemaining(snapshot: Snapshot, cycle: Cycle): Kobo {
 }
 
 /** Everything planned into categories the owner may actually spend from. */
-export function spendablePlanned(snapshot: Snapshot, cycle: Cycle): Kobo {
+export function plannedForSpending(snapshot: Snapshot, cycle: Cycle): Kobo {
   const amounts = snapshot.categories
     .filter((category) => !isProtected(category) && !category.archivedAt)
     .map((category) => plannedFor(snapshot.plans, cycle, category.id))
@@ -130,13 +130,13 @@ export function spendablePlanned(snapshot: Snapshot, cycle: Cycle): Kobo {
  * overspending.
  */
 export function plannedDailyAllowance(snapshot: Snapshot, cycle: Cycle): Kobo {
-  return perUnitFloor(spendablePlanned(snapshot, cycle), cycle.length)
+  return perUnitFloor(plannedForSpending(snapshot, cycle), cycle.length)
 }
 
 /**
  * The amber threshold, in integer kobo, **dividing last**.
  *
- * `amberRatio` is a proportion like 0.6, and money is integer kobo, so the ratio
+ * `amberRatio` is a proportion like 0.6, and money is integer kobo, so the portionUsed
  * becomes a fraction and `proportionOf` multiplies before it divides:
  *
  *     26,000,000 × 600 ÷ (1000 × 30) = 520,000 kobo = ₦5,200.00
@@ -145,9 +145,9 @@ export function plannedDailyAllowance(snapshot: Snapshot, cycle: Cycle): Kobo {
  * number rounded again. Never round a rounded number (page specs §3a).
  */
 export function amberThreshold(snapshot: Snapshot, cycle: Cycle): Kobo {
-  const ratio = snapshot.settings.amberRatio ?? 0.6
-  const numerator = Math.round(ratio * 1000)
-  return proportionOf(spendablePlanned(snapshot, cycle), numerator, 1000 * cycle.length)
+  const portionUsed = snapshot.settings.amberRatio ?? 0.6
+  const numerator = Math.round(portionUsed * 1000)
+  return proportionOf(plannedForSpending(snapshot, cycle), numerator, 1000 * cycle.length)
 }
 
 /**
@@ -200,30 +200,30 @@ export function unallocated(snapshot: Snapshot, cycle: Cycle, carried: Kobo = 0 
   return subtractMoney(addMoney(snapshot.settings.takeHome, carried), allocated)
 }
 
-export type CategoryStatus = 'under' | 'low' | 'overspent'
+export type CategoryStatus = 'ok' | 'low' | 'overspent'
 
-export interface CategoryVariance {
+export interface CategorySpending {
   categoryId: Category['id']
   name: string
   /** Planned plus anything carried in from last cycle. */
   allowance: Kobo
   spent: Kobo
-  remaining: Kobo
+  left: Kobo
   /** Spent over allowance. Above 1 when overspent; 0 when there is no allowance. */
-  ratio: number
+  portionUsed: number
   status: CategoryStatus
   isProtected: boolean
 }
 
 /**
- * Per-category variance, worst first — the order Home shows it in, because the
+ * What is left in each category, worst first — the order Home shows it in, because the
  * row that needs attention should not be somewhere in the middle.
  */
-export function categoryVariance(
+export function spendingByCategory(
   snapshot: Snapshot,
   cycle: Cycle,
   carriedIn: (categoryId: Category['id']) => Kobo = () => 0 as Kobo,
-): CategoryVariance[] {
+): CategorySpending[] {
   return snapshot.categories
     .filter((category) => !category.archivedAt)
     .map((category) => {
@@ -231,26 +231,26 @@ export function categoryVariance(
         plannedFor(snapshot.plans, cycle, category.id),
         carriedIn(category.id),
       )
-      const spent = actualFor(snapshot, cycle, category.id)
-      const ratio = allowance > 0 ? spent / allowance : 0
+      const spent = movedInto(snapshot, cycle, category.id)
+      const portionUsed = allowance > 0 ? spent / allowance : 0
       const status: CategoryStatus =
-        allowance > 0 && spent > allowance ? 'overspent' : ratio >= 0.8 ? 'low' : 'under'
+        allowance > 0 && spent > allowance ? 'overspent' : portionUsed >= 0.8 ? 'low' : 'ok'
 
       return {
         categoryId: category.id,
         name: category.name,
         allowance,
         spent,
-        remaining: subtractMoney(allowance, spent),
-        ratio,
+        left: subtractMoney(allowance, spent),
+        portionUsed,
         status,
         isProtected: isProtected(category),
       }
     })
-    .sort((a, b) => b.ratio - a.ratio)
+    .sort((a, b) => b.portionUsed - a.portionUsed)
 }
 
 /** Actual movement of one kind this cycle — the figures behind Home's tiles. */
-export function actualByType(snapshot: Snapshot, cycle: Cycle, types: TransactionType[]): Kobo {
-  return sumWhere(transactionsIn(snapshot, cycle), (t) => types.includes(t.type))
+export function totalMoved(snapshot: Snapshot, cycle: Cycle, types: TransactionType[]): Kobo {
+  return sumWhere(movementsIn(snapshot, cycle), (t) => types.includes(t.type))
 }

@@ -426,7 +426,7 @@ other (D8).
 │ │ of ₦160,000│ │ of ₦30,000 │        │
 │ └────────────┘ └────────────┘        │
 ├──────────────────────────────────────┤
-│  Categories            variance      │
+│  Categories          what is left      │
 ├──────────────────────────────────────┤
 │  Goals & debts         status        │
 └──────────────────────────────────────┘
@@ -449,10 +449,10 @@ its kobo (§3a).
 | Days left | 20 | `core/cycle.daysLeft(settings, now)` — counts today, minimum 1 |
 | Next payday | 25 Oct | `core/cycle.nextSalaryDay(settings, now)` |
 | Unallocated | ₦50,000 | `core/budget.unallocated(snapshot, cycle)` |
-| Income actual / planned | ₦450,000 / ₦450,000 | `core/budget.actualByType` / plan total |
+| Income actual / planned | ₦450,000 / ₦450,000 | `core/budget.totalMoved` / plan total |
 | Saved actual / planned | ₦90,000 / ₦160,000 | same |
 | Debt paid actual / planned | ₦30,000 / ₦30,000 | same |
-| Category variance | per row | `core/budget.categoryVariance(snapshot, cycle)` |
+| What is left in each category | per row | `core/budget.spendingByCategory(snapshot, cycle)` |
 | Goal status | ₦50,000 short | `core/goal.projectedGap(goal, snapshot, now)` |
 | Hijri date | 24 Rabiʻ II 1448 | `Intl.DateTimeFormat` with **`islamic-umalqura`** — no library. See the pinning note below |
 
@@ -460,7 +460,7 @@ its kobo (§3a).
 
 **Category table** — one row per non-archived category: name, spent, allowance,
 bar, badge. Rolling categories show *"+ ₦12,000 carried"* beneath the name.
-Sorted by variance, worst first — the row that needs attention is at the top.
+Sorted by what is left, worst first — the row that needs attention is at the top.
 
 **Goals & debts table** — name, current, target, badge, and for a goal with a
 due date the gap: *"₦50,000 short · needs ₦85,000 a payday"*. That second half

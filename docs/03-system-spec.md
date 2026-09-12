@@ -142,7 +142,7 @@ MoSCoW. **Must** = v1 cannot ship without it.
 | B1 | As the owner, I want one clear figure telling me what I can safely spend today | **Must** |
 | B2 | As the owner, I want to see cash left, income, saved and debt paid against plan at a glance | **Must** |
 | B3 | As the owner, I want to be told when my plan is unfinished, and not nagged when it is done | **Must** |
-| B4 | As the owner, I want to see each category's variance so I know where I am overspending | **Must** |
+| B4 | As the owner, I want to see each category's what is left so I know where I am overspending | **Must** |
 | B5 | As the owner, I want to see whether rent and each debt are on track by their dates | **Must** |
 | B6 | As the owner, I want to tap any figure to see the records behind it | Should |
 | B7 | As the owner, I want the Hijri date beside the Gregorian one | Could |
@@ -378,7 +378,7 @@ IndexedDB through the `Repository` (ADR-001). Freshness is therefore always
 | Feature | Entities read | Derived by `core/` | Fallback |
 |---|---|---|---|
 | Onboarding | settings, categories | cycle boundaries from salary day | Fields are the empty state; nothing to load |
-| Home | settings, categories, plans, transactions, debts, goals | safe-to-spend, cash left, income/saved/paid vs plan, unallocated, per-category variance, projected gaps | Skeleton, then figures. Load failure shows a reason and Retry |
+| Home | settings, categories, plans, transactions, debts, goals | safe-to-spend, cash left, income/saved/paid vs plan, unallocated, per-what is left in each category, projected gaps | Skeleton, then figures. Load failure shows a reason and Retry |
 | Plan | categories, plans, transactions | unallocated, carried-in amounts, protected totals | Zeroes with the *finish your plan* banner |
 | Transactions | transactions, categories | cycle attribution, per-category totals | Empty-state copy plus Quick Add |
 | Quick Add | categories | none at entry; everything downstream recalculates | Inline validation only |
