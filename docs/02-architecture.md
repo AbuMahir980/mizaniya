@@ -38,7 +38,7 @@ Not reopened in this phase:
 
 **Transactions are the only facts. Everything else is a calculation.**
 
-Cash left, safe-to-spend, category variance, savings moved, debt paid, the
+Cash left, safe-to-spend, what is left in each category, savings moved, debt paid, the
 projected gap, the zakat estimate — none of these are stored. Each is a pure
 function of the transaction list plus the plan plus today's date. That is
 standard **B3**, and it is what makes the app trustworthy: a figure that is

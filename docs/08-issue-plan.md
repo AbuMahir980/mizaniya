@@ -101,7 +101,7 @@ The cycle is the unit everything else is measured in, so it goes first.
 
 - [ ] `carriedIn(category, previousCycle)` returns unspent allowance for a rolling category
 - [ ] **Cash left is not touched by rollover.** The money was never spent and is already counted — nothing is added twice (**D2**)
-- [ ] Category allowance = planned + carried; variance measured against the allowance
+- [ ] Category allowance = planned + carried; what is left measured against the allowance
 - [ ] `leftoverFrom(previousCycle)` surfaces as unallocated on the next plan, not as spendable (**D16**)
 - [ ] Tests: food at ₦78,000.00 of ₦90,000.00 carries ₦12,000.00 into an allowance of ₦102,000.00 — and cash left is identical with rollover on and off
 

@@ -94,7 +94,7 @@ Unspent money in a rolling category was never spent, so it is already counted in
 |---|---|:-:|
 | Cash left | transactions only | no |
 | Category allowance | planned + carried forward | yes |
-| Category variance | allowance − spent | yes |
+| What is left in each category | allowance − spent | yes |
 | Safe-to-spend | cash left − protected | **no** |
 
 *Why:* the two columns never meet, so nothing is counted twice.
@@ -122,7 +122,7 @@ Unspent money in a rolling category was never spent, so it is already counted in
 
 **Weekends and early payment — the boundary stays on the nominal day.** Income arriving **up to 3 days before** a cycle begins is attributed to that cycle.
 
-*Why:* if the boundary followed the actual payment, logging a salary two days late would silently rewrite the cycle — days left, safe-to-spend and every variance would change, and yesterday's figure would become retroactively wrong with nothing to announce it. A budget that edits its own history cannot be trusted.
+*Why:* if the boundary followed the actual payment, logging a salary two days late would silently rewrite the cycle — days left, safe-to-spend and every what is left would change, and yesterday's figure would become retroactively wrong with nothing to announce it. A budget that edits its own history cannot be trusted.
 
 *Rejected:* a boundary that follows the actual income transaction.
 
@@ -180,7 +180,7 @@ The spreadsheet's eight dashboard figures do not become eight equal tiles. On a
 | 1 | **Hero** | *Safe to spend today* — the largest figure on the screen, with cash left and days remaining beneath it. Amber below the threshold, red when negative |
 | 2 | **Four tiles** (2×2 mobile, one row at 1440px) | **Cash left**, **Income** (actual vs planned — did the salary land?), **Saved**, **Debt paid**. Each carries a progress bar against plan and taps through to its detail |
 | 3 | **Conditional banner** | *Unallocated* — a call to action, not a metric. Hidden entirely when it is ₦0 |
-| 4 | **Two tables** | Category variance (envelopes), and goals with projected gap |
+| 4 | **Two tables** | What is left in each category, and goals with projected gap |
 
 **Food rollover is not a tile.** It is a property of one category and belongs on
 that category's row.
@@ -310,7 +310,7 @@ and `Intl.DateTimeFormat` with the `islamic` calendar for the Hijri date.
 | Envelopes with rollover on any category (D2) | Ajo group management with reminders — v3 | Resolved — **D11** |
 | Debts in both directions with counterpart, opening amount, optional schedule, payment history, and a shareable one-page record | CSV / Excel export — v3 | Resolved — **D12** |
 | Savings goals with target, due date, projected gap (D5), status | Push notifications or reminders of any kind — not in v1 | |
-| Home: KPI tiles, category variance table, goals table | Any server, account, login or sync — v3 | |
+| Home: KPI tiles, table of what is left in each category, goals table | Any server, account, login or sync — v3 | |
 | Zakat panel: nisab (editable), hawl tracking (D6), 2.5% estimate; Sadaqah and Family support categories; Hijri date shown beside Gregorian | Telemetry or analytics of any kind — none in v1; anything later is opt-in and documented | |
 | Nigerian specifics: rent sinking fund, savings destinations, ajo as a savings type with payout date, airtime/data, transport/fuel, generator units, multiple payment methods | Interest-bearing product suggestions — **never** | |
 | Explicit loading, empty, invalid, failed-save and offline states on every screen | | |

@@ -104,7 +104,7 @@ What follows is what a reader needs to know that the types cannot say.
 
 ### The derived-figure rule
 
-No entity above stores cash left, safe-to-spend, a variance, a balance or a
+No entity above stores cash left, safe-to-spend, a what is left, a balance or a
 projected gap. Every one is a pure function of `(Snapshot, now)` (**B3**,
 ADR-001). **A field for any of them would be a bug in the contract**, not a
 convenience — see [docs/concepts/derived-state.md](concepts/derived-state.md).

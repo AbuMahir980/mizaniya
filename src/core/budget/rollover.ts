@@ -12,7 +12,7 @@
 import { addMoney, clampToZero, subtractMoney } from '../money/money'
 import type { Category, Kobo, Snapshot } from '../types'
 import { addDays, cycleFor, type Cycle } from '../cycle/cycle'
-import { actualFor, cashLeft, plannedFor, protectedRemaining } from './budget'
+import { movedInto, cashLeft, plannedFor, protectedRemaining } from './budget'
 
 /**
  * How far back `carriedIn` will walk.
@@ -39,7 +39,7 @@ function hasPlan(snapshot: Snapshot, cycle: Cycle): boolean {
  *
  * `allowance − spent`, floored at zero. **Overspending does not carry a debt
  * forward**: that would be a second, invisible way to punish a bad month, and
- * the variance on the cycle where it happened already showed it.
+ * the cycle where it happened already showed it as overspent.
  *
  * Returns zero for a category that does not roll over, and for the first cycle
  * of all — there is nothing behind it.
@@ -66,7 +66,7 @@ function carriedFrom(
     plannedFor(snapshot.plans, earlier, category.id),
     carriedFrom(snapshot, earlier, category, depth - 1),
   )
-  return clampToZero(subtractMoney(allowance, actualFor(snapshot, earlier, category.id)))
+  return clampToZero(subtractMoney(allowance, movedInto(snapshot, earlier, category.id)))
 }
 
 /** The allowance a category actually has this cycle: planned plus carried. */
@@ -78,7 +78,7 @@ export function allowanceFor(snapshot: Snapshot, cycle: Cycle, category: Categor
 }
 
 /**
- * A lookup shaped for `categoryVariance`, which takes the carried amount as an
+ * A lookup shaped for `spendingByCategory`, which takes the carried amount as an
  * injected function so it need not know rollover exists.
  */
 export function carriedInLookup(

@@ -8,7 +8,7 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import { cashLeft, categoryVariance, cycleAt, plannedFor } from './budget'
+import { cashLeft, spendingByCategory, cycleAt, plannedFor } from './budget'
 import { allowanceFor, carriedIn, carriedInLookup, leftoverFrom, previousCycle } from './rollover'
 import { formatMoney, naira } from '../money/money'
 import type {
@@ -188,13 +188,13 @@ describe('compounding across a frugal run', () => {
   })
 })
 
-describe('the lookup that variance uses', () => {
-  it('feeds the carried amount in without variance knowing rollover exists', () => {
-    const rows = categoryVariance(twoCycles, cycle, carriedInLookup(twoCycles, cycle))
+describe('the lookup the spending table uses', () => {
+  it('feeds the carried amount in without the spending table knowing rollover exists', () => {
+    const rows = spendingByCategory(twoCycles, cycle, carriedInLookup(twoCycles, cycle))
     const foodRow = rows.find((r) => r.name.startsWith('Food'))!
     expect(formatMoney(foodRow.allowance)).toBe('₦102,000.00')
     expect(formatMoney(foodRow.spent)).toBe('₦40,000.00')
-    expect(Math.round(foodRow.ratio * 100)).toBe(39)
+    expect(Math.round(foodRow.portionUsed * 100)).toBe(39)
   })
 
   it('returns zero for a category that no longer exists', () => {

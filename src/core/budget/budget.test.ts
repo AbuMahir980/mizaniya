@@ -9,16 +9,16 @@
 
 import { describe, expect, it } from 'vitest'
 import {
-  actualByType,
+  totalMoved,
   amberThreshold,
   cashLeft,
-  categoryVariance,
+  spendingByCategory,
   cycleAt,
   isProtected,
   plannedDailyAllowance,
   protectedRemaining,
   safeToSpend,
-  spendablePlanned,
+  plannedForSpending,
   unallocated,
 } from './budget'
 import { formatMoney, naira } from '../money/money'
@@ -161,7 +161,7 @@ describe('the worked day, from docs/seed-data.md', () => {
   })
 
   it('the spendable plan is ₦260,000.00 and the daily allowance ₦8,666.66', () => {
-    expect(formatMoney(spendablePlanned(seeded, cycle))).toBe('₦260,000.00')
+    expect(formatMoney(plannedForSpending(seeded, cycle))).toBe('₦260,000.00')
     expect(formatMoney(plannedDailyAllowance(seeded, cycle))).toBe('₦8,666.66')
   })
 
@@ -175,8 +175,8 @@ describe('the worked day, from docs/seed-data.md', () => {
   })
 
   it('the tiles read income ₦450,000.00, saved ₦90,000.00', () => {
-    expect(formatMoney(actualByType(seeded, cycle, ['income']))).toBe('₦450,000.00')
-    expect(formatMoney(actualByType(seeded, cycle, ['savings-in']))).toBe('₦90,000.00')
+    expect(formatMoney(totalMoved(seeded, cycle, ['income']))).toBe('₦450,000.00')
+    expect(formatMoney(totalMoved(seeded, cycle, ['savings-in']))).toBe('₦90,000.00')
   })
 })
 
@@ -266,8 +266,8 @@ describe('protected remaining does not double-count', () => {
   })
 })
 
-describe('category variance', () => {
-  const rows = categoryVariance(seeded, cycle)
+describe('what is left in each category', () => {
+  const rows = spendingByCategory(seeded, cycle)
 
   it('puts the worst row first', () => {
     expect(rows[0]!.name).toBe('Health')
@@ -276,18 +276,18 @@ describe('category variance', () => {
 
   it('marks transport low at 85%', () => {
     const transport = rows.find((r) => r.name.startsWith('Transport'))!
-    expect(Math.round(transport.ratio * 100)).toBe(85)
+    expect(Math.round(transport.portionUsed * 100)).toBe(85)
     expect(transport.status).toBe('low')
   })
 
-  it('leaves an untouched category under', () => {
+  it('leaves an untouched category alone', () => {
     const sadaqah = rows.find((r) => r.name === 'Sadaqah')!
     expect(formatMoney(sadaqah.spent)).toBe('₦0.00')
-    expect(sadaqah.status).toBe('under')
+    expect(sadaqah.status).toBe('ok')
   })
 
   it('adds anything carried in to the allowance', () => {
-    const withCarry = categoryVariance(seeded, cycle, (id) =>
+    const withCarry = spendingByCategory(seeded, cycle, (id) =>
       id === byName('Food') ? naira(12_000) : (0 as never),
     )
     const food = withCarry.find((r) => r.name.startsWith('Food'))!
