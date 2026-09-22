@@ -4,16 +4,16 @@
   "phaseFile": "peer-ai/frontend/03-build.md",
   "cycle": "Cycle 1 — core/ and the seam beneath it",
   "milestoneBranch": "",
-  "ticket": "#10",
-  "ticketTitle": "T3 · core/budget — rollover and the carried line",
+  "ticket": "#11",
+  "ticketTitle": "T4 · core/debt — balances that cross zero",
   "ticketsCompleted": [
     "#8",
-    "#9"
+    "#9",
+    "#10"
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
   "ticketsRemaining": [
-    "#10",
     "#11",
     "#12",
     "#13",
@@ -35,9 +35,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green — naming, lint, typecheck, 89 tests, build",
-  "lastVerifyTimestamp": "2026-09-11",
+  "lastVerifyResult": "green — naming, lint, typecheck, 102 tests, build",
+  "lastVerifyTimestamp": "2026-09-22",
   "pdfExportOffered": "",
-  "lastUpdated": "2026-09-11",
-  "notes": "READ CONTEXT.md at app root. T1 and T2 merged to main. Next: #10, rollover — the allowance carries, the money does not, so cash left is untouched by it."
+  "lastUpdated": "2026-09-22",
+  "notes": "READ CONTEXT.md at app root. Cycle 1: T1-T3 merged. Next action: start #11, T4 core/debt — a balance derives from movements and may cross zero, so nothing stores a direction."
 }

@@ -12,13 +12,17 @@ item below needs is already there — this list is about wiring it up, not makin
 
 ## A · Housekeeping — do these first
 
-- [ ] **1 · Advance `.peer-ai-state.json`.** It still names #10 (T3, rollover) as the next
+- [x] **1 · Advance `.peer-ai-state.json`.** It still names #10 (T3, rollover) as the next
   ticket, but T3 merged in PR #35 on 11 September, followed by PR #36 (a naming
   refactor). Confirm #10 is closed on GitHub, move it to `ticketsCompleted`, set `ticket`
   to **#11 — T4 · `core/debt`**, run `npm run verify` and record the result in
   `lastVerifyResult`, and set `lastUpdated`. If this is not done, the next session starts
   T3 again.
-- [ ] **2 · Bring `CONTEXT.md` up to date.** It stops at 11 September:
+  **Done 22 September.** #10 confirmed closed; `ticket` is now #11. Verify needed an
+  `npm ci` first — `node_modules` was missing on this machine, so the first run failed
+  with `eslint: command not found` rather than anything to do with the code. Green after
+  that: naming, lint, typecheck, **102 tests**, build.
+- [x] **2 · Bring `CONTEXT.md` up to date.** It stops at 11 September:
   - *Current State* still says SHARED RULES is next and "the repo is still documents
     only". Replace it with where the build actually is.
   - *What Was Done — By Day* has no entry for SHARED RULES (PR #30) or for T1–T3 and the
@@ -27,6 +31,12 @@ item below needs is already there — this list is about wiring it up, not makin
   - *Package / Asset Locations* says `docs/design/` is "empty until the design stop";
     *Diagrams / Design files* says "none yet". Both are stale.
   - Add `docs/design/brand/` to the asset table.
+
+  **Done 22 September.** All five points, plus three things worth naming: the day log is
+  now newest-first and the three broken headings in it are repaired; the *Environment*
+  section was also stale, and now records that this client offers none of the ten skills
+  and which three phases still need them; and thirteen decisions from 11-12 September were
+  added to *Key Decisions*, which had stopped at the design stop.
 
 ## B · Design → code — what the design has that the code does not
 
@@ -75,9 +85,14 @@ item below needs is already there — this list is about wiring it up, not makin
   bottom border, `soft` inactive, `ink` active with a 2px `emerald` underline, 46px.
   Radix Tabs is already a dependency.
 
+**Items 3-6 are code, on tickets that have not started.** They were copied into the
+acceptance criteria of #17 (T10), #18 (T11), #19 (T12) and #24 (T17) on 22 September, so
+the build agent meets them on the board rather than only here. The boxes stay unticked
+until those tickets ship, which is also when this file can be deleted.
+
 ## C · Corrections to the design itself — no code change, read so nothing regresses
 
-- [ ] **7 · The primitives sheet was redrawn on 22 September.** The 10 September version
+- [x] **7 · The primitives sheet was redrawn on 22 September.** The 10 September version
   disagreed with `tokens.md` in five places. `src/ui/` already follows `tokens.md`, so the
   code is right and **must not be changed toward the old picture**. The corrections:
 
@@ -92,9 +107,19 @@ item below needs is already there — this list is about wiring it up, not makin
   It also gained the Slider and Tabs, lost a Checkbox no screen uses, and its banners now
   use the three tones in `banner.tsx`.
 
-- [ ] **8 · Quick Add's edit sheet: Delete is neutral** — **T14 / T16**. The 10
+  **Checked against the source, 22 September — all five hold, no code changed.**
+  `button.tsx` has no danger variant and its header says why. `field.tsx` styles an error
+  with a neutral border and an `ink` message. Disabled is a `track` fill with `faint` text
+  in both. The global ring in `index.css` is 2px emerald at 2px offset, and the 3px `em2`
+  halo appears only on the field control. Pressed is `active:opacity-90` on the primary.
+
+- [x] **8 · Quick Add's edit sheet: Delete is neutral** — **T14 / T16**. The 10
   September artboard drew "Delete this movement" in rose. It is now a quiet button, per
   the same rule. `canvas/QALight.dc.html` and `QADark` are corrected.
+
+  **Nothing to regress toward, 22 September.** `Button` has no danger variant at all, so a
+  red Delete is not merely discouraged — it cannot be built without adding one. The
+  corrected artboards are committed.
 
 ---
 
