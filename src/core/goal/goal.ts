@@ -26,7 +26,7 @@ function fundingMovements(snapshot: Snapshot, goal: Goal): Transaction[] {
  * transactions and stored nowhere, so an opening balance has to arrive as a
  * dated opening movement like everything else (B3).
  */
-export function saved(goal: Goal, snapshot: Snapshot): Kobo {
+export function saved(snapshot: Snapshot, goal: Goal): Kobo {
   const movements = fundingMovements(snapshot, goal)
   const inward = movements.filter((t) => t.type === 'savings-in').map((t) => t.amount)
   const outward = movements.filter((t) => t.type === 'savings-out').map((t) => t.amount)
@@ -34,7 +34,7 @@ export function saved(goal: Goal, snapshot: Snapshot): Kobo {
 }
 
 /** What the current plan puts into this goal each cycle. */
-export function plannedContribution(goal: Goal, snapshot: Snapshot, now: IsoDate): Kobo {
+export function plannedContribution(snapshot: Snapshot, goal: Goal, now: IsoDate): Kobo {
   return plannedFor(snapshot.plans, cycleAt(snapshot, now), goal.categoryId)
 }
 
@@ -45,19 +45,12 @@ export function plannedContribution(goal: Goal, snapshot: Snapshot, now: IsoDate
  * before a 1 March deadline, and dropping it would invent a shortfall that is
  * not there. False alarms are cheap once and corrosive twice (D5).
  */
-export function paydaysRemaining(goal: Goal, snapshot: Snapshot, now: IsoDate): number {
+export function paydaysRemaining(snapshot: Snapshot, goal: Goal, now: IsoDate): number {
   if (!goal.dueDate) return 0
   return paydaysBetween(snapshot.settings, now, goal.dueDate)
 }
 
-/**
- * Where a goal stands.
- *
- * Four outcomes, not a figure and a flag. A goal with no due date carries **no
- * badge at all** — there is nothing to be on track *for* — and that is a
- * different thing from being on track, which a nullable number could not say
- * (G3, page specs §7.6).
- */
+/** What every goal card draws, deadline or not. */
 interface GoalProgress {
   saved: Kobo
   target: Kobo
@@ -68,6 +61,14 @@ interface GoalProgress {
   remaining: Kobo
 }
 
+/**
+ * Where a goal stands.
+ *
+ * Four outcomes, not a figure and a flag. A goal with no due date carries **no
+ * badge at all** — there is nothing to be on track *for* — and that is a
+ * different thing from being on track, which a nullable number could not say
+ * (G3, page specs §7.6).
+ */
 export type GoalProjection =
   | ({ kind: 'no-deadline' } & GoalProgress)
   | ({ kind: 'overdue' } & GoalProgress)
@@ -83,8 +84,8 @@ export type GoalProjection =
       rateToClose: Kobo
     } & GoalProgress)
 
-export function projectedGap(goal: Goal, snapshot: Snapshot, now: IsoDate): GoalProjection {
-  const current = saved(goal, snapshot)
+export function projectedGap(snapshot: Snapshot, goal: Goal, now: IsoDate): GoalProjection {
+  const current = saved(snapshot, goal)
   const remaining = clampToZero(subtractMoney(goal.target, current))
 
   // No due date means progress only: no gap, no status badge (page specs §7.6).
@@ -98,8 +99,8 @@ export function projectedGap(goal: Goal, snapshot: Snapshot, now: IsoDate): Goal
     return { kind: 'overdue', saved: current, target: goal.target, remaining }
   }
 
-  const paydays = paydaysRemaining(goal, snapshot, now)
-  const contribution = plannedContribution(goal, snapshot, now)
+  const paydays = paydaysRemaining(snapshot, goal, now)
+  const contribution = plannedContribution(snapshot, goal, now)
   const projected = addMoney(current, (paydays * contribution) as Kobo)
   const gap = clampToZero(subtractMoney(goal.target, projected))
 
@@ -113,7 +114,7 @@ export function projectedGap(goal: Goal, snapshot: Snapshot, now: IsoDate): Goal
     contribution,
     projected,
     gap,
-    rateToClose: rateToClose(goal, snapshot, now),
+    rateToClose: rateToClose(snapshot, goal, now),
   }
 }
 
@@ -127,11 +128,11 @@ export function projectedGap(goal: Goal, snapshot: Snapshot, now: IsoDate): Goal
  * there is no rate that fixes a deadline with nothing left before it, and
  * inventing one would be worse than saying nothing.
  */
-export function rateToClose(goal: Goal, snapshot: Snapshot, now: IsoDate): Kobo {
-  const remaining = clampToZero(subtractMoney(goal.target, saved(goal, snapshot)))
+export function rateToClose(snapshot: Snapshot, goal: Goal, now: IsoDate): Kobo {
+  const remaining = clampToZero(subtractMoney(goal.target, saved(snapshot, goal)))
   if (remaining === 0) return 0 as Kobo
 
-  const paydays = paydaysRemaining(goal, snapshot, now)
+  const paydays = paydaysRemaining(snapshot, goal, now)
   if (paydays <= 0) return 0 as Kobo
 
   return perUnitCeil(remaining, paydays)

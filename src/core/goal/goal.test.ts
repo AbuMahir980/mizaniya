@@ -122,46 +122,46 @@ function seeded(): Snapshot {
 describe('saved — a balance, not a flow', () => {
   it('is ₦475,000.00 on 5 October, across two cycles (seed-data)', () => {
     // 305,000 opening + 95,000 at the first cycle's close + 75,000 this cycle.
-    expect(formatMoney(saved(rent, seeded()))).toBe('₦475,000.00')
+    expect(formatMoney(saved(seeded(), rent))).toBe('₦475,000.00')
   })
 
   it('counts every cycle, not just the current one', () => {
     const snapshot = seeded()
     const thisCycleOnly = naira(75_000)
-    expect(saved(rent, snapshot)).not.toBe(thisCycleOnly)
+    expect(saved(snapshot, rent)).not.toBe(thisCycleOnly)
   })
 
   it('subtracts money taken back out', () => {
     const snapshot = seeded()
     snapshot.transactions.push(move(rentCategory.id, 'savings-out', 25_000, '2026-10-02'))
-    expect(formatMoney(saved(rent, snapshot))).toBe('₦450,000.00')
+    expect(formatMoney(saved(snapshot, rent))).toBe('₦450,000.00')
   })
 
   it('is ₦15,000.00 for the emergency fund, from its own category only', () => {
-    expect(formatMoney(saved(emergency, seeded()))).toBe('₦15,000.00')
+    expect(formatMoney(saved(seeded(), emergency))).toBe('₦15,000.00')
   })
 })
 
 describe('the projection counts paydays (D5)', () => {
   it('counts 5 paydays on or before 1 March — 25 Oct through 25 Feb', () => {
-    expect(paydaysRemaining(rent, seeded(), TODAY)).toBe(5)
+    expect(paydaysRemaining(seeded(), rent, TODAY)).toBe(5)
   })
 
   it('includes 25 February, which really does land before 1 March', () => {
     // Counting whole cycles would discard it and invent a shortfall that is not
     // there. False alarms are cheap once and corrosive twice.
     const wholeCyclesOnly = 4
-    expect(paydaysRemaining(rent, seeded(), TODAY)).toBeGreaterThan(wholeCyclesOnly)
+    expect(paydaysRemaining(seeded(), rent, TODAY)).toBeGreaterThan(wholeCyclesOnly)
   })
 
   it('reads the planned contribution from the current cycle’s plan', () => {
-    expect(formatMoney(plannedContribution(rent, seeded(), TODAY))).toBe('₦75,000.00')
+    expect(formatMoney(plannedContribution(seeded(), rent, TODAY))).toBe('₦75,000.00')
   })
 })
 
 describe('projectedGap — the rent fund is behind on purpose', () => {
   it('projects ₦850,000.00 and reports ₦50,000.00 short (seed-data)', () => {
-    const projection = projectedGap(rent, seeded(), TODAY)
+    const projection = projectedGap(seeded(), rent, TODAY)
 
     expect(projection.kind).toBe('projected')
     if (projection.kind !== 'projected') throw new Error('expected a projection')
@@ -176,9 +176,9 @@ describe('projectedGap — the rent fund is behind on purpose', () => {
 
   it('needs ₦85,000.00 a payday to close it (seed-data)', () => {
     // (900,000 − 475,000) ÷ 5, and the same figure from the projection.
-    expect(formatMoney(rateToClose(rent, seeded(), TODAY))).toBe('₦85,000.00')
+    expect(formatMoney(rateToClose(seeded(), rent, TODAY))).toBe('₦85,000.00')
 
-    const projection = projectedGap(rent, seeded(), TODAY)
+    const projection = projectedGap(seeded(), rent, TODAY)
     if (projection.kind !== 'projected') throw new Error('expected a projection')
     expect(formatMoney(projection.rateToClose)).toBe('₦85,000.00')
   })
@@ -186,7 +186,7 @@ describe('projectedGap — the rent fund is behind on purpose', () => {
   it('is on track, with no gap, once the contribution is enough', () => {
     const snapshot = seeded()
     snapshot.plans = [plan(rentCategory.id, 85_000)]
-    const projection = projectedGap(rent, snapshot, TODAY)
+    const projection = projectedGap(snapshot, rent, TODAY)
 
     if (projection.kind !== 'projected') throw new Error('expected a projection')
     expect(projection.status).toBe('on-track')
@@ -198,7 +198,7 @@ describe('projectedGap — the rent fund is behind on purpose', () => {
   it('never reports a negative gap — a surplus is not a shortfall', () => {
     const snapshot = seeded()
     snapshot.plans = [plan(rentCategory.id, 200_000)]
-    const projection = projectedGap(rent, snapshot, TODAY)
+    const projection = projectedGap(snapshot, rent, TODAY)
 
     if (projection.kind !== 'projected') throw new Error('expected a projection')
     expect(projection.gap).toBe(0)
@@ -213,29 +213,29 @@ describe('rateToClose rounds up', () => {
     const nearDeadline = { ...rent, dueDate: '2027-01-01' as IsoDate }
     snapshot.goals = [nearDeadline]
 
-    expect(paydaysRemaining(nearDeadline, snapshot, TODAY)).toBe(3)
-    expect(formatMoney(rateToClose(nearDeadline, snapshot, TODAY))).toBe('₦141,666.67')
+    expect(paydaysRemaining(snapshot, nearDeadline, TODAY)).toBe(3)
+    expect(formatMoney(rateToClose(snapshot, nearDeadline, TODAY))).toBe('₦141,666.67')
   })
 
   it('is zero when the target is already reached', () => {
     const snapshot = seeded()
     snapshot.transactions.push(move(rentCategory.id, 'savings-in', 425_000, '2026-10-04'))
-    expect(saved(rent, snapshot)).toBe(naira(900_000))
-    expect(rateToClose(rent, snapshot, TODAY)).toBe(0)
+    expect(saved(snapshot, rent)).toBe(naira(900_000))
+    expect(rateToClose(snapshot, rent, TODAY)).toBe(0)
   })
 
   it('is zero rather than infinite when no payday remains before the date', () => {
     // 20 October: the next payday is the 25th, after the deadline.
     const imminent = { ...rent, dueDate: '2026-10-20' as IsoDate }
     const snapshot = seeded()
-    expect(paydaysRemaining(imminent, snapshot, TODAY)).toBe(0)
-    expect(rateToClose(imminent, snapshot, TODAY)).toBe(0)
+    expect(paydaysRemaining(snapshot, imminent, TODAY)).toBe(0)
+    expect(rateToClose(snapshot, imminent, TODAY)).toBe(0)
   })
 })
 
 describe('no due date, and a date gone by', () => {
   it('a goal with no due date gets progress and no badge at all', () => {
-    const projection = projectedGap(emergency, seeded(), TODAY)
+    const projection = projectedGap(seeded(), emergency, TODAY)
 
     expect(projection.kind).toBe('no-deadline')
     expect(formatMoney(projection.saved)).toBe('₦15,000.00')
@@ -247,7 +247,7 @@ describe('no due date, and a date gone by', () => {
 
   it('a passed due date is overdue, and the projection stops', () => {
     const passed = { ...rent, dueDate: '2026-09-01' as IsoDate }
-    const projection = projectedGap(passed, seeded(), TODAY)
+    const projection = projectedGap(seeded(), passed, TODAY)
 
     expect(projection.kind).toBe('overdue')
     // No paydays are counted forward: the date is gone, not approaching.
@@ -257,7 +257,7 @@ describe('no due date, and a date gone by', () => {
 
   it('the due date itself is still in play, not yet overdue', () => {
     const today = { ...rent, dueDate: TODAY }
-    expect(projectedGap(today, seeded(), TODAY).kind).toBe('projected')
+    expect(projectedGap(seeded(), today, TODAY).kind).toBe('projected')
   })
 
   it('an emergency fund at ₦0.00 shows progress, not a failure', () => {
@@ -265,7 +265,7 @@ describe('no due date, and a date gone by', () => {
     snapshot.transactions = snapshot.transactions.filter(
       (t) => t.categoryId !== emergencyCategory.id,
     )
-    const projection = projectedGap(emergency, snapshot, TODAY)
+    const projection = projectedGap(snapshot, emergency, TODAY)
 
     expect(projection.kind).toBe('no-deadline')
     expect(projection.saved).toBe(0)
