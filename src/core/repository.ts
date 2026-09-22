@@ -36,8 +36,17 @@ export interface Repository {
   /**
    * Reads everything, once, at startup. The app then works from that snapshot
    * in memory and never reads again except after an external change (ADR-001).
+   *
+   * **`undefined` means this device holds nothing yet** — a new owner, not an
+   * error. It is the signal that sends them to `/welcome` and onboarding.
+   *
+   * It is deliberately not a snapshot with default settings. The arrays would
+   * be honestly empty, but `salaryDay` and `takeHome` are answers only the
+   * owner can give, and inventing them makes Home render a cycle nobody set up
+   * and divide by a take-home nobody entered. Typing the absence means a caller
+   * cannot forget the new-owner case rather than merely being told not to.
    */
-  load(): Promise<Snapshot>
+  load(): Promise<Snapshot | undefined>
 
   settings: {
     get(): Promise<Settings | undefined>
