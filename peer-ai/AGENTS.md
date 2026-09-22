@@ -97,40 +97,48 @@ yields two documents that disagree and leaves nobody sure which is authoritative
 > covered it" is exactly the assumption that leaves a review half-done and
 > everyone believing it was thorough.
 >
-> ### Where these skills actually live — checked 9 September 2026
+> ### Where these skills actually live — settled 22 September 2026
 >
-> They are first-party **`@inline`** plugins attached to the **account**. They
-> are not marketplace installs, and there is nothing in this repo or on this
-> machine to install. The evidence, all re-checkable:
+> **They are ordinary plugins from a public repo, and you install them.** Two
+> earlier entries here were wrong about this and cost the project two weeks of
+> working around a problem that did not exist.
 >
-> - `~/.claude.json` → `pluginUsage` lists `engineering@inline`,
->   `design@inline`, `product-management@inline` (and 15 more bundles).
-> - `~/.claude.json` → `skillUsage` records real prior use of
->   `engineering:architecture`, `engineering:system-design`,
->   `engineering:code-review` and `product-management:write-spec`.
-> - `~/.claude/plugins/plugin-catalog-cache.json` holds **292** marketplace
->   plugins and **none of these bundles appear in it**.
-> - `~/.claude/plugins/repos/` does not exist — no marketplace was ever added,
->   and none is needed.
+> ```bash
+> claude plugin marketplace add anthropics/knowledge-work-plugins
+> claude plugin install engineering@knowledge-work-plugins
+> claude plugin install design@knowledge-work-plugins
+> claude plugin install product-management@knowledge-work-plugins
+> ```
 >
-> ### Consequence: the client decides, not a setting
+> Restart the session afterwards. That is the whole procedure, in any client, on
+> any machine. `anthropics/knowledge-work-plugins` is public (25k stars) and
+> carries 116 plugins; these three hold all ten skills this project names.
 >
-> The **Claude Code desktop app** surfaces these skills. The **VS Code
-> extension** (v2.1.266, 9 Sep 2026) did not. Since the bundles are absent from
-> the catalogue, **`/plugin` cannot fetch them** and no local setting turns them
-> on. If a phase reports its skills missing, the session is in the wrong client
-> — it is not missing a plugin. **Run every skill-naming phase in the app.**
+> | Plugin | Skills it brings |
+> |---|---|
+> | `engineering` | architecture · code-review · debug · deploy-checklist · documentation · incident-response · standup · system-design · tech-debt · testing-strategy |
+> | `design` | accessibility-review · design-critique · design-handoff · design-system · research-synthesis · user-research · ux-copy |
+> | `product-management` | competitive-brief · metrics-review · product-brainstorming · roadmap-update · sprint-planning · stakeholder-update · synthesize-research · write-spec |
+>
+> ### What the two wrong entries said, and why it matters
+>
+> They said the skills were `@inline` bundles attached to the account, absent
+> from every catalogue, impossible to install, and available only in the desktop
+> app — so a phase that could not see them was "in the wrong client". On that
+> basis this file instructed: **run every skill-naming phase in the app.**
+>
+> All of it was wrong. The toggles on claude.ai govern claude.ai and the desktop
+> app; the terminal installs the same plugins itself with the command above.
+>
+> The error is worth keeping because of *how* it was made. Each check looked in
+> one place, found nothing, and concluded something about the whole system —
+> first `~/.claude/plugins/repos/`, then the wrong marketplace, then a cached
+> feature flag. **Absence in the place you looked is not absence.** The evidence
+> that settled it was a screenshot of the plugin's own README, which had carried
+> the install command all along.
 >
 > Phases naming skills: Architect, System Spec, Shared Rules, Page Specs,
-> Frontend Rules, Issues, Review, Test, Document. Setup and Understand name
-> none and run anywhere.
->
-> ### Correction to the record
->
-> An earlier check in this repo reported all ten skills as "not installed",
-> having looked only in `~/.claude/plugins/repos/`. That was wrong: the skills
-> were installed and in use on this account; the session simply could not see
-> them. Absence from `repos/` proves nothing about `@inline` bundles.
+> Frontend Rules, Issues, Review, Test, Document. Setup and Understand name none.
 >
 > Claude Code's own `/code-review` is built in. Do not assume any other slash
 > command exists without checking the session.

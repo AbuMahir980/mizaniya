@@ -34,55 +34,72 @@ is not contradicted quietly.
 
 ---
 
-## Environment — checked 9 September 2026, re-checked 22 September
+## Environment — settled 22 September 2026
 
-Two lines every later phase depends on.
+**The ten skills are plugins. You install them.** One command each, any client,
+any machine:
 
-**The client decides whether the skills exist.** They are first-party `@inline`
-bundles attached to the *account*, not marketplace installs, so there is nothing
-in this repo or on any machine to install and `/plugin` cannot fetch them.
+```bash
+claude plugin marketplace add anthropics/knowledge-work-plugins
+claude plugin install engineering@knowledge-work-plugins
+claude plugin install design@knowledge-work-plugins
+claude plugin install product-management@knowledge-work-plugins
+```
 
-| Client | Date | The ten skills |
-|---|---|:-:|
-| Claude Code **desktop app** | 9 Sep 2026 | **all ten offered** |
-| VS Code extension v2.1.266 | 9 Sep 2026 | none |
-| Claude Code **terminal** (this machine) | 22 Sep 2026 | **none** |
+Restart the session afterwards. `anthropics/knowledge-work-plugins` is a public
+Anthropic repo carrying 116 plugins; these three hold every skill this project
+names, and a few more besides.
 
-**The 22 September re-check, so nobody repeats it.** The session offered
-`code-review`, `security-review`, `simplify`, `run`, `dataviz` and the artifact
-skills — and none of `engineering:*`, `design:*` or `product-management:*`.
-`~/.claude/plugins/marketplaces/claude-plugins-official/plugins/` carries 39
-plugins and no such bundle. And this machine's `~/.claude.json` has **no
-`pluginUsage` or `skillUsage` keys at all**, so the evidence trail written into
-the `peer-ai/AGENTS.md` box on 9 September — which cites both keys — no longer
-re-checks here. That box needs correcting; it is not wrong about the conclusion,
-only about the proof.
-
-| Skill | Phase that names it | Status |
+| Plugin | Skills this project uses | Phase |
 |---|---|---|
-| `engineering:architecture` | Architect | used, phase done |
-| `engineering:system-design` | Architect | used, phase done |
-| `product-management:write-spec` | System Spec | used, phase done |
-| `design:design-system` | Shared Rules, Frontend Rules | used, phases done |
-| `design:accessibility-review` | Page Specs, Frontend Rules | used, phases done |
-| `design:ux-copy` | Page Specs | used, phase done |
-| `engineering:tech-debt` | Issues | used, phase done |
-| `engineering:code-review` | **Review** | **still needed** |
-| `engineering:testing-strategy` | **Test** | **still needed** |
-| `engineering:documentation` | **Document** | **still needed** |
+| `engineering` | `architecture`, `system-design` | Architect |
+| `engineering` | `tech-debt` | Issues |
+| `engineering` | `code-review` | **Review — still ahead** |
+| `engineering` | `testing-strategy` | **Test — still ahead** |
+| `engineering` | `documentation` | **Document — still ahead** |
+| `design` | `design-system` | Shared Rules, Frontend Rules |
+| `design` | `accessibility-review` | Page Specs, Frontend Rules |
+| `design` | `ux-copy` | Page Specs |
+| `product-management` | `write-spec` | System Spec |
 
-**Seven of the ten have already done their work.** BUILD — the current phase —
-names none, so the terminal is a perfectly good place to be right now. Three are
-still ahead, all at the end of a cycle: REVIEW, TEST and DOCUMENT. Either run
-those three in the desktop app, or vendor project-local equivalents into
-`.claude/skills/` so they travel with the repo and stop depending on which client
-is open. Claude Code's own `/code-review` is built in and is used *alongside*
-`engineering:code-review`, never instead of it.
+They also bring skills no phase names — `debug`, `deploy-checklist`,
+`incident-response`, `standup`, `design-critique`, `design-handoff`,
+`sprint-planning` and others. Use them when they fit; do not invent a phase for
+them.
+
+**Installed on this machine 22 September.** Also installed:
+`pr-review-toolkit@claude-plugins-official`, whose six review agents are useful
+alongside REVIEW — see the note in *What Was Done*.
+
+### The two weeks this cost, and the lesson
+
+Until 22 September this file and `peer-ai/AGENTS.md` both said the skills were
+`@inline` bundles tied to the account, impossible to install, available only in
+the desktop app — and instructed that every skill-naming phase be run there.
+**All of it was wrong**, and the correct install command was printed in the
+plugin's own README the whole time.
+
+Three separate checks made the same mistake: each looked in one place, found
+nothing, and concluded something about the whole system — first
+`~/.claude/plugins/repos/`, then the wrong marketplace, then a cached feature
+flag that seemed to explain everything. **Absence in the place you looked is not
+absence.** This is the same failure the project already has a name for in
+[what-breaks-who-finds-out](docs/concepts/what-breaks-who-finds-out.md): the
+check was silent about its own blind spot, so three wrong answers all looked
+confident.
+
+**There is no general backend or devops plugin** in either marketplace —
+checked, not assumed. Backend and infrastructure coverage is vendor-shaped
+(Prisma, PlanetScale, CockroachDB, Datadog, Buildkite, Grafana, Honeycomb), so
+it becomes relevant at v3 when a real server and its tools are chosen, not
+before. The `engineering` plugin's `deploy-checklist` and `incident-response`
+are the closest generic equivalents and are already installed.
 
 **Re-check at the start of every phase that names a skill.** A missing skill is
 reported and the phase is worked from its file instead — never silently skipped,
 because "the skill covered it" is exactly the assumption that leaves a review
-half-done.
+half-done. If one is missing now, the fix is the install command above, not a
+different client.
 
 ---
 
@@ -294,12 +311,20 @@ Newest first.
   pull and the public history is the owner's call. **This is the second time rule
   3 has been the rule that slipped** — it is still the only repo rule with no
   automated enforcement.
-- **Recorded that the ten `@inline` skills are absent from this client.** The
-  terminal offers none of `engineering:*`, `design:*` or `product-management:*`,
-  the official marketplace carries no such bundle, and this machine's
-  `~/.claude.json` has no `pluginUsage` or `skillUsage` keys at all — so the
-  evidence trail written into `peer-ai/AGENTS.md` on 9 September no longer
-  re-checks here.
+- **Settled the skills question, and it was never what anyone thought.** The ten
+  are ordinary plugins in the public `anthropics/knowledge-work-plugins` repo,
+  installable with one command. All three are now installed, along with
+  `pr-review-toolkit`. See *Environment* above for the command and the lesson.
+- **Three wrong diagnoses in a row before the right one**, each from looking in a
+  single place and concluding something about the whole system. What settled it
+  was the owner's screenshot of the plugin's own README, which carried the
+  install command all along — a reminder that the person with the screen often
+  has better evidence than the agent with the filesystem.
+- **`peer-ai/AGENTS.md` corrected.** Its "run every skill-naming phase in the
+  desktop app" instruction had been steering this project for two weeks on a
+  wrong diagnosis, and is gone.
+- **Checked, not assumed: no general backend or devops plugin exists** in either
+  marketplace. That coverage is vendor-shaped and becomes a question at v3.
 
 ### 2026-09-12 (Saturday)
 
