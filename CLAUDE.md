@@ -145,7 +145,7 @@ enforce every gate.
 | Setting | Value |
 |---------|-------|
 | **Verify command** | `npm run verify` — naming, lint, typecheck, tests, build. Established in SHARED RULES |
-| **Issue tracker** | GitHub Issues on `AbuMahir980/mizaniya` |
+| **Issue tracker** | GitHub Issues on `AbuMahir980/mizaniya`. **No project board and no milestones** — deliberate, see `CONTEXT.md` Key Decisions. Status is carried by labels: Backlog is an open issue with no status label, In Progress adds `status:in-progress`, Done is closed as Completed with that label removed. `cycle-1/2/3` are the phases |
 | **Ticket prefix** | none — issues are `#N` |
 | **Remote** | `origin` → github.com/AbuMahir980/mizaniya.git |
 | **Design reference** | `docs/design/` — landed 10 September. `tokens.md` is authoritative; `canvas/*.dc.html` is the markup to read, not the PNGs |
@@ -234,9 +234,13 @@ For each ticket:
 - Squash and merge once CI is green, then delete the branch locally and on `origin`.
 - **Commit** `.peer-ai-state.json` and any updated rules/standards files on the same branch when phase/ticket changes — never directly on `main`.
 - Issue tracker — all required:
-  1. Mark the issue **Done** and tick the acceptance criteria.
-  2. Add a **completion comment** (3–5 bullets: shipped, deviations, follow-ups).
-  3. Post a **project-level update** — one sentence of progress.
+  1. Tick the acceptance criteria, and **close the issue as Completed**.
+  2. **Remove `status:in-progress`.** Closing does not remove it, and a finished
+     ticket still labelled in progress is a lie the board tells confidently.
+  3. Add a **completion comment** (3–5 bullets: shipped, deviations, follow-ups).
+  4. **There is no project board** — see §0. The project-level record is the
+     dated entry in `CONTEXT.md`, which carries the reasoning a one-line status
+     never could. Write it there, not on a board that does not exist.
 - Update `.peer-ai-state.json`: move the ticket from remaining/in-progress → completed, set the next ticket, update `lastVerifyResult` and `lastUpdated`.
 
 ### Review / Test / Document phases
@@ -253,7 +257,7 @@ When a phase completes, follow the handoff from the phase file **and** advance t
 build → offer code review + contract check agents → advance to review
 review → offer security audit agent → advance to test
 test → offer QA agent → advance to document
-document → open PR, advance to done, post project update
+document → open PR, advance to done, write the dated entry in `CONTEXT.md`
 ```
 
 Each phase's documents land on a `peer-ai/<phase>` branch and reach `main`
@@ -298,7 +302,7 @@ This is a single atomic action. The `notes` field is a pointer, not a narrative.
 | **Pull request** | Before anything reaches `main` | Open a PR saying what changed and why. No AI attribution lines. |
 | **CI green** | Before merging any pull request | Every required check passing. **A check that was skipped is not a check that passed.** Until PR AUTOMATION creates the workflows there are no checks — say so on the PR rather than implying they ran. |
 | **Squash and delete** | After merge | Squash and merge; delete the branch locally and on `origin`. |
-| **Issue tracker update** | After each ticket | Done + AC ticked + completion comment + project update. |
+| **Issue tracker update** | After each ticket | AC ticked + closed as Completed + `status:in-progress` removed + completion comment. The project-level record is `CONTEXT.md`, not a board. |
 | **State file update** | After each ticket or phase transition | Write and commit `.peer-ai-state.json`. |
 | **Tests with code** | With every new feature | Co-located test files. Not batched. Not deferred. |
 | **Design-quality pass** | After each UI page works | Run the pass per `peer-ai/frontend/03-build.md` step 9, against `docs/design/`. |
