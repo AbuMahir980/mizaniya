@@ -4,19 +4,19 @@
   "phaseFile": "peer-ai/frontend/03-build.md",
   "cycle": "Cycle 1 \u2014 core/ and the seam beneath it",
   "milestoneBranch": "",
-  "ticket": "#13",
-  "ticketTitle": "T6 \u00b7 core/zakat \u2014 hawl, nisab, the estimate",
+  "ticket": "#14",
+  "ticketTitle": "T7 \u00b7 The Dexie Repository implementation",
   "ticketsCompleted": [
     "#8",
     "#9",
     "#10",
     "#11",
-    "#12"
+    "#12",
+    "#13"
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
   "ticketsRemaining": [
-    "#13",
     "#14",
     "#15",
     "#16",
@@ -35,9 +35,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 139 tests, build",
+  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 159 tests, build",
   "lastVerifyTimestamp": "2026-09-23",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-23",
-  "notes": "READ CONTEXT.md at app root. Cycle 1: T1-T5 merged. Next action: start #13, T6 core/zakat \u2014 the lunar year is asked for, never assumed (D6)."
+  "notes": "READ CONTEXT.md at app root. Cycle 1: T1-T6 merged \u2014 core/ is complete. Next action: start #14, T7 the Dexie Repository \u2014 the first code outside core/."
 }
