@@ -270,6 +270,8 @@ the ticket that takes it. The file is deleted once every box is ticked.
 | 2026-09-11 | **The safe-to-spend states are a discriminated union**, not a figure and two booleans, so "amber with no plan" cannot be represented at all rather than merely being unlikely. Red is tested first, because overspending without a plan is still overspending; the amber boundary is strictly less-than, so exactly zero is amber — red means *already overspent*, not *nothing left* (G3) | T2 |
 | 2026-09-12 | **Rollover compounds, and walks back a bounded twenty-four cycles**, stopping at the first with no plan; a fresh install terminates immediately. Overspending does **not** carry forward — the variance on the cycle where it happened already showed it, and carrying it would punish the same month twice, invisibly | T3 |
 | 2026-09-12 | **`leftoverFrom` stays a separate function from rollover.** Rollover is per category and carries an allowance; a leftover is whole-cycle cash arriving on the next plan as unallocated. Both carry something forward, which is precisely why someone would merge them later if they shared a home | T3 |
+| 2026-09-23 | **One argument order across `core/`** — the snapshot first, then the subject: `saved(snapshot, goal)`, not `saved(goal, snapshot)`. Fifteen functions did it one way and five the other. Page specs §456 wrote the other order and was corrected, because for `core/` the project already decided which way the arrow points: **the contract is the code**, and a signature in a page spec is illustrative. When they disagree, the spec is wrong | T5 |
+| 2026-09-23 | **No project board and no milestones.** Status is labels: Backlog is an open issue with no status label, In Progress adds `status:in-progress`, Done is closed as Completed with the label removed; `cycle-1/2/3` are the phases. **Why not:** for one person a board carries no information the labels do not, and a board nobody maintains is worse than none — it misleads with authority. The project-level record is this file, which carries the reasoning a one-line status never could. **Revisit when a second person joins**, because then a board is coordination rather than decoration. The peer-ai step that assumed a board is rewritten to point here | process |
 | 2026-09-12 | **Names the owner would say (O4).** `categoryVariance` became `spendingByCategory`, `actualFor` became `movedInto`, `transactionsIn` became `movementsIn`. Four names were deliberately left alone — *protected*, *allowance*, *unallocated*, *safe to spend* — because they are the documented decisions and the words on the switches, and renaming them would cut the thread between the code and the spec for no gain | refactor |
 ## What Was Done — By Day
 
@@ -325,6 +327,39 @@ Newest first.
   wrong diagnosis, and is gone.
 - **Checked, not assumed: no general backend or devops plugin exists** in either
   marketplace. That coverage is vendor-shaped and becomes a question at v3.
+
+### 2026-09-23 (Wednesday)
+
+- **T4 · `core/debt`** ([#11](https://github.com/AbuMahir980/mizaniya/issues/11),
+  PR #38) — balances that cross zero. A debt has no direction field; the balance
+  is a signed sum, so the ajo crossing needs no special case at all. The test
+  walks a whole ajo round rather than asserting two states either side, because
+  the bug being designed against only exists *between* two valid states.
+- **The pairing that explains the architecture:** `lent` and `repaid` both take
+  cash out of the account and mean opposite things for the relationship. That is
+  why cash left and a debt balance are two separate calculations over the same
+  facts, and there is a test holding both ends (D3).
+- **T5 · `core/goal`** ([#12](https://github.com/AbuMahir980/mizaniya/issues/12),
+  PR #39) — the projected gap counts **paydays**, not elapsed time. "On or
+  before" is the whole decision: 25 February really does land before a 1 March
+  deadline, and counting whole cycles would discard it and invent a ₦50,000
+  shortfall that is not there.
+- **The compiler caught what the tests did not.** T5's first run passed vitest
+  and failed `tsc`: `expect(x.kind).toBe(...)` does not narrow a union, so three
+  assertions read a field missing from one variant. The fix was not a cast —
+  `remaining` moved onto all three variants, because every goal card draws a
+  progress bar whether or not it has a deadline. The union was doing its job.
+- **One argument order across `core/`**, and page specs §456 corrected to match
+  the code rather than the other way round.
+- **Settled the project-board question in writing** rather than leaving it an
+  unexamined absence. The peer-ai step that assumed a board now points at this
+  file, and the label lifecycle — including *remove `status:in-progress` on
+  close* — is written down, because closing an issue does not remove it and a
+  finished ticket still labelled in progress misleads with authority.
+- **Merged #37, #38 and #39.** #39 needed three attempts: GitHub reported the
+  head branch out of date while the branch was current, then returned a server
+  error. Both were transient staleness on their side, not a conflict — worth
+  knowing before anyone force-pushes to "fix" it.
 
 ### 2026-09-12 (Saturday)
 
@@ -477,6 +512,9 @@ Newest first.
 4. **PR AUTOMATION (phase 11b) still owes this repo its CI.** Until it runs there
    are no checks to be green, and the merge gate is a human reading a local verify.
    It is also where repo rule 3 could gain the enforcement it has never had.
+5. **The README is the artefact a visitor actually opens** — not the issue list,
+   not a board. Repo rule 4 says it leads with the problem and the screenshots.
+   That is where effort spent on being seen belongs, and it lands at DOCUMENT.
 
 ---
 
