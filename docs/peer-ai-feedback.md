@@ -38,7 +38,7 @@ The note at the bottom (post-pull scripts rotting silently) became the
   invented `services/` layer.
 - **Item 30** — build step 2 gained **option F, "the design already exists"**,
   which reads the design first and treats it as authoritative on layout.
-  Choply hit this independently, so two of three projects did.
+  The React Native project hit this independently, so two of three projects did.
 - **Item 31** — `.peer-ai-state.json` gained a `pdfExportOffered` field and the
   rule is now *once per phase*. **This project's state file predates the field;
   add it on the next state update.**

@@ -34,40 +34,72 @@ is not contradicted quietly.
 
 ---
 
-## Environment — checked 9 September 2026
+## Environment — settled 22 September 2026
 
-Two lines every later phase depends on.
+**The ten skills are plugins. You install them.** One command each, any client,
+any machine:
 
-**Client:** Claude Code **desktop app**. This matters: the skills below are
-first-party `@inline` account bundles, absent from the marketplace catalogue, so
-the client decides whether they exist. The VS Code extension (v2.1.266) did not
-surface them; `/plugin` cannot fetch them and no local setting turns them on.
-**Run every skill-naming phase in the desktop app.** See the box in
-`peer-ai/AGENTS.md`.
+```bash
+claude plugin marketplace add anthropics/knowledge-work-plugins
+claude plugin install engineering@knowledge-work-plugins
+claude plugin install design@knowledge-work-plugins
+claude plugin install product-management@knowledge-work-plugins
+```
 
-**Skills:** all ten named in the `peer-ai/AGENTS.md` table are **present and
-offered in this session**.
+Restart the session afterwards. `anthropics/knowledge-work-plugins` is a public
+Anthropic repo carrying 116 plugins; these three hold every skill this project
+names, and a few more besides.
 
-| Skill | Phase that names it | Present |
-|---|---|:-:|
-| `engineering:architecture` | Architect | yes |
-| `engineering:system-design` | Architect | yes |
-| `product-management:write-spec` | System Spec | yes |
-| `design:design-system` | Shared Rules, Frontend Rules | yes |
-| `design:accessibility-review` | Page Specs, Frontend Rules | yes |
-| `design:ux-copy` | Page Specs | yes |
-| `engineering:tech-debt` | Issues | yes |
-| `engineering:code-review` | Review | yes |
-| `engineering:testing-strategy` | Test | yes |
-| `engineering:documentation` | Document | yes |
+| Plugin | Skills this project uses | Phase |
+|---|---|---|
+| `engineering` | `architecture`, `system-design` | Architect |
+| `engineering` | `tech-debt` | Issues |
+| `engineering` | `code-review` | **Review — still ahead** |
+| `engineering` | `testing-strategy` | **Test — still ahead** |
+| `engineering` | `documentation` | **Document — still ahead** |
+| `design` | `design-system` | Shared Rules, Frontend Rules |
+| `design` | `accessibility-review` | Page Specs, Frontend Rules |
+| `design` | `ux-copy` | Page Specs |
+| `product-management` | `write-spec` | System Spec |
 
-Claude Code's own `/code-review` is built in and is used alongside
-`engineering:code-review` in the Review phase.
+They also bring skills no phase names — `debug`, `deploy-checklist`,
+`incident-response`, `standup`, `design-critique`, `design-handoff`,
+`sprint-planning` and others. Use them when they fit; do not invent a phase for
+them.
+
+**Installed on this machine 22 September.** Also installed:
+`pr-review-toolkit@claude-plugins-official`, whose six review agents are useful
+alongside REVIEW — see the note in *What Was Done*.
+
+### The two weeks this cost, and the lesson
+
+Until 22 September this file and `peer-ai/AGENTS.md` both said the skills were
+`@inline` bundles tied to the account, impossible to install, available only in
+the desktop app — and instructed that every skill-naming phase be run there.
+**All of it was wrong**, and the correct install command was printed in the
+plugin's own README the whole time.
+
+Three separate checks made the same mistake: each looked in one place, found
+nothing, and concluded something about the whole system — first
+`~/.claude/plugins/repos/`, then the wrong marketplace, then a cached feature
+flag that seemed to explain everything. **Absence in the place you looked is not
+absence.** This is the same failure the project already has a name for in
+[what-breaks-who-finds-out](docs/concepts/what-breaks-who-finds-out.md): the
+check was silent about its own blind spot, so three wrong answers all looked
+confident.
+
+**There is no general backend or devops plugin** in either marketplace —
+checked, not assumed. Backend and infrastructure coverage is vendor-shaped
+(Prisma, PlanetScale, CockroachDB, Datadog, Buildkite, Grafana, Honeycomb), so
+it becomes relevant at v3 when a real server and its tools are chosen, not
+before. The `engineering` plugin's `deploy-checklist` and `incident-response`
+are the closest generic equivalents and are already installed.
 
 **Re-check at the start of every phase that names a skill.** A missing skill is
 reported and the phase is worked from its file instead — never silently skipped,
 because "the skill covered it" is exactly the assumption that leaves a review
-half-done.
+half-done. If one is missing now, the fix is the install command above, not a
+different client.
 
 ---
 
@@ -138,31 +170,41 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: the design stop is CLEARED.** SHARED RULES is next. The repo is still documents only — no
-application code exists yet. Step 0, SETUP, UNDERSTAND, ARCHITECT, SYSTEM SPEC,
-API CONTRACT and PAGE SPECS are done. What exists is a full paper trail: fifteen numbered decisions,
-seven ADRs, forty user stories with acceptance criteria, and a seeded scenario
-with every figure worked through.
+**Phase: BUILD, cycle 1 — `core/` and the seam beneath it.** Everything before it
+is finished: Step 0, SETUP, UNDERSTAND, ARCHITECT, SYSTEM SPEC, API CONTRACT,
+PAGE SPECS, the design stop, SHARED RULES, FRONTEND RULES and ISSUES. The
+twenty-two tickets BUILD works from are on the board as issues **#8-#29**.
 
-Everything rests on one idea: **transactions are the only facts, and everything
-else is a calculation.** That is what makes step 9 of the core journey — export,
-import into a clean browser, identical state — a consequence rather than a hope.
+**Three of them are done.** T1 (`core/cycle` — boundaries, days left, paydays),
+T2 (`core/budget` — cash left, protected remaining, safe to spend) and T3
+(rollover) merged as PRs #31, #33 and #35, followed by a naming pass in #36.
+**Next is #11 — T4 · `core/debt`,** balances that cross zero.
 
-**Seven pull requests are open and stacked**, each based on the one before:
-setup → understand → architect → spec-system → spec-api-contract → spec-pages → design. None has CI,
-because CI does not exist until phase 11b. **Merge them bottom-up, in order.**
+**What the repo actually holds now.** A `package.json` and a verify command that
+runs: naming, lint, typecheck, **102 tests**, production build. `src/design/`
+carries the tokens twice — typed data for charts, tests and the contrast audit,
+custom properties for the themes — with a test that fails the build when the two
+disagree. `src/ui/` has about twenty primitives with all their states and a
+gallery page showing every one in both themes. `src/core/` has `money`, `cycle`
+and `budget`. ESLint holds the architecture boundaries that ADR-002 left to it,
+and those rules were verified by breaking them rather than by a green run.
 
-The repo now contains its first three source files. They do not compile yet —
-there is no `package.json`, and creating one is BUILD's first task.
+**There is still no CI.** PR AUTOMATION (phase 11b) creates it, so every merge so
+far has been a human one on a green local verify. Say so on a pull request rather
+than implying checks ran.
 
-**The design arrived on 10 September** — 67 artboards, `tokens.md` with 54 gated
-contrast pairs and no failures, and the canvas as `.dc.html` so the build agent
-reads markup rather than pixels. It found four stale figures in my documents and
-was right about all four.
+**The design is complete and all of its files have landed** — 67 artboards,
+`tokens.md` with 54 gated contrast pairs and no failures, the canvas as `.dc.html`
+so the build agent reads markup rather than pixels, and since 22 September the
+production brand files in `docs/design/brand/`.
 
-**Next action:** SHARED RULES — implement `src/design/tokens.ts` exactly as
-`docs/design/tokens.md` specifies, build `src/ui/` from the primitives canvas,
-and wire ESLint, tsconfig and CI to every `auto` rule in `docs/standards/`.
+**Read [docs/open-items.md](docs/open-items.md) before building a screen.** It is
+the designer's list of what the design has that the code does not — the three
+typefaces nothing loads yet, the brand files, the welcome screen that was drawn
+after PAGE SPECS and so appears in no ticket, and a Tabs primitive — each against
+the ticket that takes it. The file is deleted once every box is ticked.
+
+**Next action:** start **#11 — T4 · `core/debt`**.
 
 ---
 
@@ -212,47 +254,168 @@ and wire ESLint, tsconfig and CI to every `auto` rule in `docs/standards/`.
 | 2026-09-10 | **Money is never announced with a bare minus sign.** “2,300 naira over”, not “minus 2,300” — ambiguous read aloud is the same failure as ambiguous on screen | PAGE SPECS |
 | 2026-09-10 | **Every import refusal ends “Nothing has changed.”** That sentence is all-or-nothing said to the person it protects | PAGE SPECS |
 | 2026-09-10 | **Danger colour is spent only on money going wrong.** Not on deleting a transaction, not on a refused import, not on being offline — spend it on ordinary states and it means nothing by the time it matters (F7) | PAGE SPECS |
-| 2026-09-10 | **Quick Add is the centre of the bottom bar**, the largest target, under the thumb. Transactions is not a bottom-bar item — recording is the common case, browsing is the rare one | PAGE SPECS |---
+| 2026-09-10 | **Quick Add is the centre of the bottom bar**, the largest target, under the thumb. Transactions is not a bottom-bar item — recording is the common case, browsing is the rare one | PAGE SPECS |
 | 2026-09-10 | **Never round a rounded number; stay in integer kobo and divide last.** The amber threshold is ₦5,200.00 computed as (6 × 26,000,000) ÷ 300, and ₦5,199.99 if taken from the displayed allowance. Both published figures were right; neither derives from the other | design review |
 | 2026-09-10 | **Design supersedes brief §2** at the owner's direction — four meaning-bearing hues, icons, and three diagrams replacing the four stat tiles. Design wins on layout, the spec still wins on behaviour | design stop |
 | 2026-09-10 | **Health, not food, carries the overspent row** in the seed. Food's allowance carries a ₦12,000 rollover, so food overspent plus transport at 85% exceeds the cycle's whole expense spend and would move cash left and the hero | seed merge |
+| 2026-09-11 | **Tokens live twice on purpose** — typed data in `tokens.ts`, custom properties in `tokens.css` — because charts, tests and the contrast audit need values, not CSS. `tokens.test.ts` fails the build when the two drift. The same choice as the API contract: where two representations are genuinely needed, something automated must notice when they part company | SHARED RULES |
+| 2026-09-11 | **Tailwind's theme is replaced, not extended.** `bg-blue-500` and `p-7` do not exist, and every colour resolves to a custom property, so light and dark swap with no class changes | SHARED RULES |
+| 2026-09-11 | **Rounding direction lives in the function name** — `perUnitFloor` for money you may spend, `perUnitCeil` for money you must find. `proportionOf` multiplies before dividing, which is what makes the amber threshold ₦5,200.00 rather than ₦5,199.99 | SHARED RULES |
+| 2026-09-11 | **No danger button variant exists**, so a red Delete is not merely discouraged, it is not constructible. Validation styling and the offline note are neutral for the same reason (F7) | SHARED RULES |
+| 2026-09-11 | **The architecture boundaries are a lint rule, not a diagram.** `eslint-plugin-boundaries` declares each layer once and lists every permitted direction, so the diagram and the linter cannot disagree; `core/` gets an empty list rather than a short one. **Verified by injecting three violations and watching each fail** — a misconfigured boundary rule allows everything and says nothing, so a green run proves nothing until the rule has been seen to go red | FRONTEND RULES |
+| 2026-09-11 | **The issue plan is a board, not a document.** Twenty-two tickets filed as #8-#29 with acceptance criteria as tickable boxes. Criteria pin figures, not appearances: no ticket is done because it renders — if it shows a figure, a test holds that figure | ISSUES |
+| 2026-09-11 | **The vendored `peer-ai/` reports its own staleness.** `check-upstream.mjs` says which of the changed files the *active phase* is about to read — twelve files changed is a number nobody acts on. Deliberately **not** in `npm run verify`: being offline is not the same as being up to date, and a check that blocks offline work gets deleted rather than fixed | SHARED RULES |
+| 2026-09-11 | **ADR-008 · The clients share one repository; the server's visibility is deferred to v3** against criteria written down now, because there is no server, no users and no payments. Repo rule 1 stands, noted as under review rather than quietly contradicted. Admin is its own app and its own deployment — never a route inside the web app, because bundling it ships admin code to every owner's browser and turns a routing bug into privilege escalation. `ui/` is not shared between web and mobile; the token source is | SHARED RULES |
+| 2026-09-11 | **Protected remaining is planned minus actual**, not planned. Money already moved to the rent fund has left the account and is gone from cash left, so subtracting the whole plan again would count it twice and report a safe-to-spend that is too low | T2 |
+| 2026-09-11 | **The safe-to-spend states are a discriminated union**, not a figure and two booleans, so "amber with no plan" cannot be represented at all rather than merely being unlikely. Red is tested first, because overspending without a plan is still overspending; the amber boundary is strictly less-than, so exactly zero is amber — red means *already overspent*, not *nothing left* (G3) | T2 |
+| 2026-09-12 | **Rollover compounds, and walks back a bounded twenty-four cycles**, stopping at the first with no plan; a fresh install terminates immediately. Overspending does **not** carry forward — the variance on the cycle where it happened already showed it, and carrying it would punish the same month twice, invisibly | T3 |
+| 2026-09-12 | **`leftoverFrom` stays a separate function from rollover.** Rollover is per category and carries an allowance; a leftover is whole-cycle cash arriving on the next plan as unallocated. Both carry something forward, which is precisely why someone would merge them later if they shared a home | T3 |
+| 2026-09-12 | **Names the owner would say (O4).** `categoryVariance` became `spendingByCategory`, `actualFor` became `movedInto`, `transactionsIn` became `movementsIn`. Four names were deliberately left alone — *protected*, *allowance*, *unallocated*, *safe to spend* — because they are the documented decisions and the words on the switches, and renaming them would cut the thread between the code and the spec for no gain | refactor |
 ## What Was Done — By Day
 
-### 2026-09-11 (Friday) — *recorded from the Choply session; no Mizaniya code touched*
+Newest first.
 
-- **All four of this project's framework defects are fixed upstream.** They were
-  logged in `docs/peer-ai-feedback.md` and had never reached the Peer AI repo —
-  the loop only ever closed by hand. They are now items **29–32** there and all
-  four are applied, in `790aa8a`. The doc's "Open" section is empty; the
-  write-ups are kept as the record. **Do not re-report them.**
-- **`peer-ai/` in this repo is now three commits behind upstream** (`13b73f9` →
-  `790aa8a`): twelve fixes and a feedback channel. Worth pulling before SHARED
-  RULES, because two of the twelve change files that phase writes against.
-  After pulling, re-run `apply-phase-config.ps1` **and** `strip-model-switching.ps1`
-  as the AGENTS.md box says, then re-read the box itself — an upstream file
-  overwrites it.
-- **The hand-patched driver is superseded.** On 9 Sep this project patched its
-  own `workflow-driver.md` to replace local ticket→milestone merges with a PR
-  flow. Upstream item **32** now does that properly, with a `Merge policy`
-  setting in §0 and `Pull request` / `CI green` rows in the gate table. **Take
-  the upstream wording on the pull** rather than keeping the local edit, or the
-  two will drift.
-- **One field to add:** `.peer-ai-state.json` here predates `pdfExportOffered`
-  (item 31). Add it at the next state update — without it "offer once" has no
-  memory and the export offer either repeats on every document or vanishes
-  after the first.
-- **Feedback now has a real route back.** Upstream ships a Framework defect
-  issue form, a PR template, a `templates/peer-ai-feedback.md` copied in at
-  setup, and a rule in `shared/rules/shared.md` telling an agent to record a
-  defect and say so out loud rather than silently routing around a phase file.
+### 2026-09-22 (Tuesday)
 
-### 2026-09-09 (Wednesday)
+- **The design stop came back and checked itself against the code.** It produced
+  the production brand files, a corrected primitives sheet, and
+  [docs/open-items.md](docs/open-items.md) — a worklist of what the design has
+  that the code does not, each item against the ticket that takes it. The design
+  itself needs no regenerating; what is left is wiring.
+- **The primitives sheet was the thing that was wrong, not the code.** The 10
+  September drawing disagreed with `tokens.md` in five places — a rose Delete
+  button, a rose field error, disabled as an opacity, an invented 3px halo on
+  every control, and hover and pressed colours nobody had implemented. `src/ui/`
+  follows `tokens.md`, so the sheet was redrawn to match the code. **The code must
+  not be changed toward the old picture**; the Quick Add artboards lost their red
+  Delete for the same reason.
+- **Checked the five corrections against the source rather than taking them on
+  trust.** All five hold: `button.tsx` has no danger variant and says why in its
+  header, `field.tsx` styles an error with a neutral border and an `ink` message,
+  disabled is a `track` fill with `faint` text throughout, the global focus ring
+  in `index.css` is 2px emerald at 2px offset with the 3px `em2` halo reserved for
+  fields, and pressed is the primary at 90% opacity.
+- **The state file had gone stale and would have cost a session.** It still named
+  #10 as the next ticket, three days after T3 merged — so the next session would
+  have built T3 again. Advanced to #11 with the verify result recorded.
+- **`node_modules` was missing entirely on this machine**, so the first verify run
+  failed with `eslint: command not found` rather than anything to do with the
+  code. After `npm ci`, verify is green: naming, lint, typecheck, **102 tests**,
+  production build. Worth knowing that a fresh checkout needs an install before
+  the gate means anything — an exit code from a missing binary looks nothing like
+  a passing one, but a summary line can flatten the difference.
+- **Found a repo-rule-3 breach already committed.** A third-party project name
+  appears in `CONTEXT.md` and in two `peer-ai-feedback.md` files, one of them the
+  vendored upstream copy. Commit messages are clean. Raised for the owner rather
+  than fixed unilaterally, because the vendored copy would conflict on the next
+  pull and the public history is the owner's call. **This is the second time rule
+  3 has been the rule that slipped** — it is still the only repo rule with no
+  automated enforcement.
+- **Settled the skills question, and it was never what anyone thought.** The ten
+  are ordinary plugins in the public `anthropics/knowledge-work-plugins` repo,
+  installable with one command. All three are now installed, along with
+  `pr-review-toolkit`. See *Environment* above for the command and the lesson.
+- **Three wrong diagnoses in a row before the right one**, each from looking in a
+  single place and concluding something about the whole system. What settled it
+  was the owner's screenshot of the plugin's own README, which carried the
+  install command all along — a reminder that the person with the screen often
+  has better evidence than the agent with the filesystem.
+- **`peer-ai/AGENTS.md` corrected.** Its "run every skill-naming phase in the
+  desktop app" instruction had been steering this project for two weeks on a
+  wrong diagnosis, and is gone.
+- **Checked, not assumed: no general backend or devops plugin exists** in either
+  marketplace. That coverage is vendor-shaped and becomes a question at v3.
 
-- **Step 0 — verified the vendored Peer AI customisation.** Confirmed every phase file carries its `> **Model:` line from `phase-config.json`; confirmed no live cost-tiering wording remains (the only matches are the strip script's own regexes and the feedback doc describing the defect); confirmed `peer-ai/.git` is absent, so the playbook commits as plain files.
-- **Corrected the skills record.** An earlier check reported all ten skills missing, having looked only in `~/.claude/plugins/repos/`. They are `@inline` account bundles and are present: verified directly in this session, in the desktop app.
-- **SETUP.** Wrote `CLAUDE.md` (project instructions + the workflow driver body, Project settings filled in), this `CONTEXT.md` (repo rules verbatim, environment, learning-mode contract, review checklist), `.peer-ai-state.json`, and `docs/seed-data.md`.
-- **Recorded the git convention** in the driver's Project settings and applied it to the driver's build and gate sections, which had described local ticket→milestone merges with no PR.
-- **Logged a fourth framework defect** in `docs/peer-ai-feedback.md`: the workflow driver mandates local merges while `shared.md` requires a PR with review, and PR automation is phase 11b — so by the time CI and branch protection exist, the whole build has already merged without them.
+### 2026-09-12 (Saturday)
+
+- **T3 · rollover** ([#10](https://github.com/AbuMahir980/mizaniya/issues/10), PR
+  #35). The idea that dissolves the trap: **rollover carries permission, not
+  money.** The unspent twelve thousand never left the account, so it is already in
+  cash left this cycle and the next. What rollover changes is whether spending it
+  on food counts as overspending.
+- **The first test is the one that matters:** cash left is identical with rollover
+  on and off. Two columns that never meet — cash comes from transactions, the
+  allowance is planned plus carried. If that test ever fails, the same naira is
+  spendable twice.
+- **A naming pass over `core/`** (PR #36), on O4 — name things as the owner would.
+  "Variance" is an accountant's word; nobody looking at their food budget says *my
+  variance*, they say how much is left. Four names were deliberately left alone,
+  and the brief and the kick-off pack keep their wording: they are the record of
+  what was asked for, and rewriting the request to match the answer would lose the
+  one thing they are for.
+
+### 2026-09-11 (Friday) — the build starts
+
+- **SHARED RULES.** `package.json` exists, so the verify gate stopped being "none
+  yet": lint, typecheck, 33 tests and a production build, 69 kB gzipped against a
+  250 kB budget. Tokens landed in `src/design/` as typed data *and* as custom
+  properties, with a test that fails when they drift.
+- **Twenty primitives built from `tokens.md`,** each with its states, plus a
+  gallery page showing every one in both themes.
+- **Auditing that gallery in a real browser found three touch targets under
+  44px** — a banner action at 39px wide, and the switch and slider thumbs at 28px.
+  The token always said 44px is the *hit area*, not the visual box, so the switch
+  and slider kept their size and grew an invisible target around themselves. All
+  forty interactive elements pass.
+- **`docs/05-coding-standards.md` maps every `auto` rule to the thing that fails
+  the build,** and marks honestly which are enforced, which are partial and which
+  are not yet, naming the phase each lands in. D1, F1 and G4 are still off, with
+  the reason recorded. Claiming a rule is enforced when nothing checks it would be
+  worse than the gap.
+- **FRONTEND RULES — the boundaries became machine-checked.** And they were
+  verified by breaking them: three violations injected into `core/` — a React
+  import, an alias import and a `Date.now()` — each failed the lint before the
+  file was restored. A green run proves nothing until the rule has been seen to go
+  red.
+- **Two lint rules earned their keep immediately.** Banning `Date` outright in
+  `core/` was too blunt and caught `schema.ts` parsing a date to check that
+  2026-02-30 is not real, so it became two precise selectors for reading the
+  clock. And a multi-line CSS comment exposed a parser bug in the token test that
+  would have let a token drift silently.
+- **ISSUES — twenty-two tickets filed as #8-#29,** with acceptance criteria as
+  tickable boxes, labelled by cycle, area and size. The plan had no queue behind
+  it, which is the same failure just fixed upstream: a document in a repo is not a
+  queue anyone works from.
+- **Pulled the vendored `peer-ai/` up to `790aa8a`** as a three-way merge rather
+  than a copy, resolving three conflicts where a local hand-patch met the upstream
+  fix for the same defect. The workflow driver took upstream's wording wholesale —
+  two versions of one fix is how a vendored copy diverges.
+- **The post-pull scripts earned their keep.** `strip-model-switching` caught the
+  model-tier table that taking upstream wholesale had reinstated in the driver,
+  and flagged a new Model selector row, which the script now removes rather than a
+  human doing it every pull — because removing it by hand every time is exactly
+  how a post-pull script rots. `apply-phase-config` was also made to **fail
+  loudly**: it used to print "files missing : 5" and exit 0.
+- **Wrote `check-upstream.mjs`,** so the vendored copy reports its own staleness
+  and names which of the changed files the active phase is about to read.
+- **All four of this project's framework defects are fixed upstream** — items
+  **29-32**, applied in `790aa8a`. They had never reached the Peer AI repo, because
+  the playbook is copied into each project rather than linked, so the loop only
+  ever closed by hand and nobody had closed it. The "Open" section of
+  `docs/peer-ai-feedback.md` is now empty and the write-ups are kept as the record.
+  **Do not re-report them.**
+- **ADR-008** — the clients share one repository; the server's visibility is
+  deferred to v3 against criteria written down now. The monorepo proposal collided
+  with repo rule 1, so the question had to be split before it could be answered:
+  whether the clients share a repository is independent of whether the server is
+  public.
+- **T1 · `core/cycle`** ([#8](https://github.com/AbuMahir980/mizaniya/issues/8),
+  PR #31) — boundaries, days left and paydays.
+- **T2 · `core/budget`** ([#9](https://github.com/AbuMahir980/mizaniya/issues/9),
+  PR #33) — cash left, protected remaining and safe to spend. The headline figure
+  and everything Home is built on, computed on read and stored nowhere. 24 tests
+  pinning every figure the seed data publishes, because those numbers are in the
+  documentation and on 67 artboards.
+- **The first T2 run failed on the fixture rather than the code:** scaling the
+  expense split produced fractional naira and the `naira()` guard rejected it —
+  which is the guard doing its job.
+- **Learned how to merge a stack, the expensive way.** The merge policy was
+  written for a single branch off `main`, and merging nine stacked PRs broke in
+  three ways it did not cover: squashing rewrites the commits beneath so every
+  later PR conflicts; GitHub does not reliably retarget a PR when the one below it
+  merges; and deleting a branch another PR is *based on* closes that PR, after
+  which GitHub refuses to reopen it because its base is gone. All three are now
+  written into the merge policy in `CLAUDE.md`.
 
 ### 2026-09-10 (Thursday)
 
@@ -279,17 +442,41 @@ and wire ESLint, tsconfig and CI to every `auto` rule in `docs/standards/`.
 - **Ran API CONTRACT.** In v1 the contract is the `Repository` interface plus the export/import file, so it was written as **real source files** — `src/core/types.ts`, `schema.ts`, `repository.ts` — with [docs/04-api-contract.md](docs/04-api-contract.md) indexing them rather than restating shapes that would drift. First code in the repo.
 - **Corrected myself on the transaction types.** I had proposed savings as one type with a direction field; H5 is explicit that direction comes from the type, so there are **eight** types. Fixed in the requirements summary and the spec.
 - **Moved the `Repository` interface from `data/` to `core/`**, correcting the architecture's first draft — the Expo app must implement the interface, so it is shared contract, not a platform detail.
-- **Recorded what API CONTRACT could not finish:** the phase requires a CI step that regenerates the contract doc from the source and fails on any diff. That needs `package.json`, which BUILD creates first, so it is written up as a BUILD task and the tables are marked hand-checked rather than passed off as generated.---
+- **Recorded what API CONTRACT could not finish:** the phase requires a CI step that regenerates the contract doc from the source and fails on any diff. That needs `package.json`, which BUILD creates first, so it is written up as a BUILD task and the tables are marked hand-checked rather than passed off as generated.
 - **Ran PAGE SPECS** with `design:accessibility-review` and `design:ux-copy` invoked inside the phase. Wrote [docs/06-page-specs.md](docs/06-page-specs.md): ten screens with layout, every number and its `core/` source, all five states, primary action, danger-colour meaning, responsive behaviour and the exact on-screen words.
 - **Two accessibility decisions that a checklist would have missed:** how a money figure is read aloud (“2,300 naira over”, never “minus 2,300”), and one live region per screen instead of one per figure — a save changes a dozen numbers and announcing all of them is the same as announcing none.
 - **Wrote the copy in full**, including the sentence every import refusal ends with: *“Nothing has changed.”* And a list of words the app never uses — *you should, we recommend, congratulations, oops* — because the line between reporting and advising is crossed by tone, not just by content.
 - **Left six questions for the designer** and marked everything else settled, so the design can be made without coming back with questions.
 - **The design landed and reviewed me back.** Four stale figures found and corrected across four files, and the rounding rule that explains them written into §3a. Merged the seed proposal into `docs/seed-data.md`, which resolved a conflict the brief could not satisfy.
-- **Gitignored the local design-handoff folder** after a `git add -A` had already swept a file out of it into a commit — the fix belongs in `.gitignore`, not in remembering to be careful.## What's Next
+- **Gitignored the local design-handoff folder** after a `git add -A` had already swept a file out of it into a commit — the fix belongs in `.gitignore`, not in remembering to be careful.
 
-1. Merge the three stacked PRs in order: setup → understand → architect. No CI exists yet; PR AUTOMATION (phase 11b) creates it.
-2. **The design.** Produce `docs/design/` — `tokens.md` (light and dark) plus screen PNGs — from [docs/06-page-specs.md](docs/06-page-specs.md). §9 of that document lists the six things the designer decides; everything else is settled.
-3. Then **SHARED RULES**: implement `src/design/tokens.ts` exactly as `tokens.md` says, build the `src/ui/` primitives with all their states, and configure ESLint, tsconfig and CI for every `auto` rule in `docs/standards/`. Skill: `design:design-system`.
+---
+
+### 2026-09-09 (Wednesday)
+
+- **Step 0 — verified the vendored Peer AI customisation.** Confirmed every phase file carries its `> **Model:` line from `phase-config.json`; confirmed no live cost-tiering wording remains (the only matches are the strip script's own regexes and the feedback doc describing the defect); confirmed `peer-ai/.git` is absent, so the playbook commits as plain files.
+- **Corrected the skills record.** An earlier check reported all ten skills missing, having looked only in `~/.claude/plugins/repos/`. They are `@inline` account bundles and are present: verified directly in this session, in the desktop app.
+- **SETUP.** Wrote `CLAUDE.md` (project instructions + the workflow driver body, Project settings filled in), this `CONTEXT.md` (repo rules verbatim, environment, learning-mode contract, review checklist), `.peer-ai-state.json`, and `docs/seed-data.md`.
+- **Recorded the git convention** in the driver's Project settings and applied it to the driver's build and gate sections, which had described local ticket→milestone merges with no PR.
+- **Logged a fourth framework defect** in `docs/peer-ai-feedback.md`: the workflow driver mandates local merges while `shared.md` requires a PR with review, and PR automation is phase 11b — so by the time CI and branch protection exist, the whole build has already merged without them.
+
+## What's Next
+
+1. **#11 — T4 · `core/debt`.** Balances that cross zero. A `Debt` has no direction
+   field: the balance derives from movements and may pass through zero, which is
+   what a rotating ajo does. A stored direction would need correcting at the
+   crossing, and nothing would notice if it were not.
+2. **Finish cycle 1** — T5 `core/goal` (#12), T6 `core/zakat` (#13), T7 the Dexie
+   `Repository` (#14), T8 the snapshot store and its single write path (#15), T9
+   export and import (#16). Cycle 1 decides whether the app's numbers are right;
+   everything after it is presentation.
+3. **Cycle 2 opens at T10** (#17, the app shell), which carries open-items **3 and
+   4**: load the three typefaces, and wire in the favicon and the `Mark`
+   component. Today the app renders in Georgia, SF and Menlo — none of the three
+   designed faces ships with any OS, and nothing loads them.
+4. **PR AUTOMATION (phase 11b) still owes this repo its CI.** Until it runs there
+   are no checks to be green, and the merge gate is a human reading a local verify.
+   It is also where repo rule 3 could gain the enforcement it has never had.
 
 ---
 
@@ -334,7 +521,13 @@ UNDERSTAND's clarification round is now closed.
 | Phase models and skills | `peer-ai/phase-config.json` |
 | Agent prompts (review, security, QA, contract) | `peer-ai/agents/` |
 | Framework defects to send upstream | `docs/peer-ai-feedback.md` |
-| Design system and screen designs | `docs/design/` — **empty until the design stop after PAGE SPECS** |
+| Design system and screen designs | `docs/design/` — **landed 10 September**. `tokens.md` is authoritative; read `canvas/*.dc.html` as markup, not the PNGs |
+| Production brand files | `docs/design/brand/` — favicon, PWA icons, Apple touch icon, the mark as `currentColor` SVG, the wordmarks with letters outlined. `brand/README.md` says where each file goes and which ticket takes it |
+| What the design has that the code does not | `docs/open-items.md` — **read before building a screen.** Deleted once every box is ticked |
+| The tokens in code | `src/design/tokens.ts` (typed data) · `tokens.css` (custom properties) · `tokens.test.ts` fails the build when they drift |
+| The primitives | `src/ui/` — about twenty, with their states; gallery at `src/app/primitives-page.tsx` |
+| Domain logic | `src/core/` — `money`, `cycle`, `budget` so far |
+| Auto rules mapped to what enforces them | `docs/05-coding-standards.md` |
 | Concept notes (learning mode) | `docs/concepts/` — one file per concept, plus `revisit.md` for threads to pull later |
 | Licence | `LICENSE` (PolyForm Noncommercial 1.0.0) — authoritative, never regenerated |
 
@@ -344,4 +537,9 @@ UNDERSTAND's clarification round is now closed.
 
 | Artefact / file | Purpose | Location |
 |----------|---------|----------|
-| *(none yet)* | Architecture diagrams arrive with ARCHITECT; screen designs at the design stop | — |
+| Architecture + seven ADRs | How a write reaches the screens, and why not `liveQuery` | `docs/02-architecture.md`, `docs/adr/` |
+| 67 artboards | Every screen at 360 and 1440, light and dark, every state | `docs/design/*.png` |
+| The canvas | The same artboards as markup — **read these, not the PNGs** | `docs/design/canvas/*.dc.html` |
+| Token set | Complete, light and dark. 54 gated contrast pairs, 0 failures | `docs/design/tokens.md` |
+| The mark, as production files | Favicon, PWA icons, Apple touch icon, wordmarks | `docs/design/brand/` |
+| Primitives gallery | Every primitive in every state, in the running app | `src/app/primitives-page.tsx` |

@@ -4,7 +4,7 @@ The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
 67 artboards over eleven pages — every screen at 360 **and** 1440, light **and**
-dark. Nothing is committed; review and commit yourself.
+dark. Merged 10 September (PR #7); brand files and a corrected primitives sheet added 22 September.
 
 ## If you are the build agent, read this and stop
 
@@ -24,33 +24,15 @@ source does not, and they cost far more to look at than to read.
 Read the markup, do not copy it. These artboards are static: no state, no ARIA, no
 components. They are the reference for values, order, spacing and copy.
 
-### Two things the owner has not settled — do not resolve them yourself
+### Before you build a screen
 
-**1 · The planned daily allowance is ₦8,666.66, not ₦8,666.67.**
-`docs/06-page-specs.md` §3a is authoritative and *floors* spendable figures.
-Two files still carry the old rounded-up value and have **not** been corrected:
+Read **`docs/open-items.md`**. It lists what the design has
+that the code does not yet — fonts, the brand files, the welcome screen, the
+Tabs primitive — and which ticket each belongs to.
 
-| File | Says | Should say |
-|---|---|---|
-| `docs/seed-data.md` | ₦8,666.67 | **₦8,666.66** |
-| `docs/06-page-specs.md` §7.3 | ₦8,666.67 | **₦8,666.66** |
-
-Every design uses ₦8,666.66. If you meet ₦8,666.67 while building, it is the
-stale value — do not propagate it, and do not silently rewrite those two files
-either. Flag it and let the owner decide.
-
-Related: spec §3 shows `−₦2,300.00` in its accessibility table while §8 says a
-bare minus sign is never shown. The designs follow §8 — direction is a word
-("over", "owed to you"), never a sign. §8 wins.
-
-**2 · `PROPOSED-seed-additions.md` is a proposal, not data.**
-The designs needed figures `seed-data.md` does not carry — 23 movements with a
-per-category split. They are written up in that file and are **not** in
-`seed-data.md`. The owner reviews them first. Until he does, treat
-`seed-data.md` as the only seed source and take anything extra from the
-proposal file *by reading it*, never by copying it into seed-data.
-
-Everything else in this folder is settled and safe to build from.
+**The brand files are in `brand/`** and are ready to copy: favicon, PWA icons,
+Apple touch icon, the mark as an SVG, and the wordmarks with their letters
+outlined. `brand/README.md` says where each one goes.
 
 
 ## Two copies, not three
@@ -81,6 +63,7 @@ secondary — under the Latin, never above it, and never carrying a figure.
 | `00-cover-{light,dark}.png` | The contents page — every page, the settled figures, the rules that never bend. |
 | `00-logo-{light,dark}.png` | The mark: construction grid, sizes 48→16, app icon, favicon, wordmark lockups, and the three misuses. |
 | `00-style-{light,dark}.png` | Palette, type and status pills. |
+| `brand/` | **Production files for the mark** — favicon (`.svg` + `.ico`), PWA icons 192/512 in `any` and `maskable`, Apple touch icon, `mark.svg` (currentColor), and the wordmarks with letters outlined so the app never loads Amiri. See `brand/README.md`. |
 | `00-primitives-{light,dark}.png` | **Every component in every state** — default, hover, focus, pressed, disabled, loading, error, empty — plus the focus-ring, touch-target, radius, spacing and type scales. |
 | `01-welcome-{360,1440}-{light,dark}.png` | Launch, then the welcome screen before onboarding step 1. |
 | `01-onboarding-{360,1440}-{light,dark}.png` | All six steps at both widths. Step 2 is the only required one. At 1440 it is the same 620px card centred in an empty frame — one component, one breakpoint. |
@@ -99,7 +82,7 @@ secondary — under the Latin, never above it, and never carrying a figure.
 | `07a-zakat-{360,1440}-{light,dark}.png` | The estimate, its workings, and its caveat. |
 | `07b-import-360-{light,dark}.png` | The three-stage import flow. |
 | `tokens.md` | The complete token set, light and dark. 54 gated contrast pairs, 0 failures. |
-| `PROPOSED-seed-additions.md` | Figures the design needed that `seed-data.md` does not carry. **Not** committed to seed-data; review first. |
+| `PROPOSED-seed-additions.md` | The figures the design needed. **Merged into `docs/seed-data.md` on 10 September** and kept here as the record — `seed-data.md` is the source; do not read figures from this file. |
 
 ## The direction
 
@@ -117,16 +100,11 @@ Every amount carries its kobo. Money is tabular and right-aligned, the naira sig
 is part of the figure, and no bare minus sign is ever shown. Spendable figures
 round down, obligations round up — the planned daily allowance is **₦8,666.66**.
 Red means money going wrong and nothing else. Every figure on every screen comes
-from `seed-data.md`, the spec, or the proposal file above.
+from `seed-data.md` or the spec.
 
-## Three stale figures found while reading
+## Stale figures found while reading — all fixed
 
-| Where | Says | Should say |
-|---|---|---|
-| `seed-data.md` | Planned daily allowance ₦8,666.67 | **₦8,666.66** |
-| `06-page-specs.md` §7.3 | Planned daily allowance ₦8,666.67 | **₦8,666.66** |
-| `DESIGN-BRIEF.md` §3 | footnote ₦8,666.67 | **₦8,666.66** |
-
-Spec §3a is authoritative and floors it. A fourth: spec §3's accessibility table
-displays `−₦2,300.00`, while §8 says a bare minus sign is never shown. The
-designs follow §8.
+The design stop found four stale figures in the specs: the planned daily allowance
+written as ₦8,666.67 in three files, and a bare minus sign in spec §3. All four were
+corrected on 10 September, and spec §3a now carries the rounding rule that explains
+them. The allowance is **₦8,666.66** everywhere.
