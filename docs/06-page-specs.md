@@ -453,7 +453,7 @@ its kobo (§3a).
 | Saved actual / planned | ₦90,000 / ₦160,000 | same |
 | Debt paid actual / planned | ₦30,000 / ₦30,000 | same |
 | What is left in each category | per row | `core/budget.spendingByCategory(snapshot, cycle)` |
-| Goal status | ₦50,000 short | `core/goal.projectedGap(goal, snapshot, now)` |
+| Goal status | ₦50,000 short | `core/goal.projectedGap(snapshot, goal, now)` |
 | Hijri date | 24 Rabiʻ II 1448 | `Intl.DateTimeFormat` with **`islamic-umalqura`** — no library. See the pinning note below |
 
 **None of these is stored.** Every one is computed on read (**B3**).
