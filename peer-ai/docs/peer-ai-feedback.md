@@ -13,7 +13,7 @@ Items are grouped by the file they concern. Each has the observed problem, where
 
 **Status (2026-09-07):** all twenty items are applied in this repo.
 
-**Second run (2026-09-11):** items 21-28 come from a React Native project (Choply) and items 29-32 from Mizaniya's build phase. **All twelve are now applied in this repo.**
+**Second run (2026-09-11):** items 21-28 come from a React Native project and items 29-32 from Mizaniya's build phase. **All twelve are now applied in this repo.**
 
 Items 21-25, 27, 29 and 30 were one defect in eight places - the playbook described itself as portable and then prescribed a web stack with a backend and no existing design. Each is now conditional on what the project actually is, and every default that named a bundler, a toggle, a styling library or a test runner has been replaced with a pointer to the decision the architecture phase already made. Item 26 made the phase enum checked rather than merely published. Item 31 gave the PDF offer a field to remember itself by. Item 32 gave the workflow driver a **Merge policy** setting, so it no longer tells an agent to merge locally while the shared rules require a reviewed pull request. Item 28's scripts do not live in this repo; its transferable half is the warning in `CONTRIBUTING.md` that a vendored copy's post-pull script must fail loudly. Items 21-27 are live defects at `13b73f9`; item 28 concerns the per-project customisation scripts, which do not live in this repo. Item 5 collapsed setup into one question round; item 18 made every model-switch gate conditional on a **Model selector** setting the workflow driver now carries; item 20 moved the PDF offer into `shared/rules/shared.md` with phases pointing there.
 
@@ -149,7 +149,7 @@ Items 21-25, 27, 29 and 30 were one defect in eight places - the playbook descri
 
 ---
 
-# Second run — Choply, 11 September 2026
+# Second run — the React Native project, 11 September 2026
 
 A second end-to-end run, on a very different project: an existing production
 codebase (211 endpoints, 84 tables, 18 CI stages) whose **three phone apps are
@@ -254,7 +254,7 @@ app the project cannot use.
 
 ---
 
-## The customisation scripts *(Choply-local, but the lesson is general)*
+## The customisation scripts *(local to that project, but the lesson is general)*
 
 28. **Both helper scripts hardcoded one developer's absolute path.** *(fix)*
     **Where:** `apply-phase-config.ps1` and `strip-model-switching.ps1`, near
@@ -271,10 +271,10 @@ app the project cannot use.
     vendored copy.
     **Fix:** `$root = $PSScriptRoot`. A script that customises the playbook
     should operate on the playbook it ships with, always.
-    **Scope — checked, not assumed:** this was **Choply's copy only**. Mizaniya
+    **Scope — checked, not assumed:** this was **that project's copy only**. Mizaniya
     and Baytak Clean already use `Split-Path -Parent $MyInvocation.MyCommand.Path`
     in both scripts, and the scripts do not exist in the peer-ai repository at
-    all — they are a per-project customisation layer. Choply's copy was written
+    all — they are a per-project customisation layer. That project's copy was written
     first and kept the literal path the other two had already replaced. Nothing
     to fix in those projects; recorded here so the pattern is on the list, since
     the next project to copy the scripts will copy them from somewhere.
@@ -299,7 +299,7 @@ app the project cannot use.
 
 Items 1-20 came from Mizaniya's *specification* phases. These four came later,
 from its **build**, and were logged in the project rather than here. They are
-folded in now. Two of them overlap with the Choply items above from a different
+folded in now. Two of them overlap with the items above from a different
 angle, noted per item.
 
 ## `frontend/03-build.md`
@@ -339,7 +339,7 @@ angle, noted per item.
     (a tokens file, a folder of exports, a link), read it before any UI code,
     treat it as authoritative on layout, spacing, type and colour, and point
     step 9's design-quality pass at it rather than at generic heuristics.
-    *(Confirmed independently on Choply, which has complete design canvases and
+    *(Confirmed independently on the other project, which has complete design canvases and
     a rule forbidding invented layouts, and had to answer E for the same wrong
     reason. Two of three projects hit this; option F should be the default
     branch, not an afterthought.)*
@@ -394,7 +394,7 @@ reported "0 files cleaned" while the tiering it existed to remove was still in
 place. That is local tooling, not a Peer AI defect — but `CONTRIBUTING.md`
 should warn maintainers of vendored copies to make such a script **fail loudly**
 (non-zero exit when residue remains) rather than report success for doing
-nothing. *(Choply hit the sibling of this — item 28 — where the script pointed
+nothing. *(The other project hit the sibling of this — item 28 — where the script pointed
 at the wrong directory entirely and still printed a clean summary. The common
 cause is a customisation script with no way to say "I did nothing".)*
 
