@@ -201,6 +201,7 @@ Every diagram carries a text key. None of them is the only way to read a figure.
 | **Field / AmountInput** | `card` fill, `line`, `radius.md`, 50px | default · hover · **focused** (`emerald` border + 3px `em2` halo) · disabled · error (neutral border, `ink` message) · loading |
 | **Chip** | `card`, `line`, `radius.md` | default · **selected** (`ink` fill, `bg` text) · focused · disabled |
 | **Segmented** | `card` in a `line` frame, `radius.md` | active segment is `ink` fill with `bg` text |
+| **Tabs** | `line` bottom border, `soft` inactive, `ink` active with a 2px `emerald` underline, 46px | default · active · focused. **Tabs switch a view** (Debts \| Goals); Segmented switches a value (Today \| This cycle) |
 | **Pill** | `*2` tint fill, matching hue text, `radius.sm`, 25px, uppercase | On track · Low · Short · Overdue · Overspent · movement types |
 | **Icon tile** | 38px, `radius.md`, `*2` tint fill, matching hue icon | one per row that needs an identity |
 | **Card** | `card`, `line`, `radius.lg`, `elevation.card` | default · hover · focused · loading · error · empty |
