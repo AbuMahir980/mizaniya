@@ -26,13 +26,20 @@ const changed = execFileSync('git', ['diff', '--name-only', `origin/${base}...HE
   .split('\n')
   .filter(Boolean)
 
-/** The designer's files. Everything else under docs/design/ is ours to edit. */
+/**
+ * The designer's files. Everything else under `docs/design/` is ours to edit.
+ *
+ * **`docs/open-items.md` is deliberately not here.** It is the channel both
+ * sides write in — questions from this side, answers from theirs — so guarding
+ * it would make asking a question require a design pull request. The canvas,
+ * the brand sheet, `tokens.md` and the previews are the real signal that a
+ * drop has been swept up by accident.
+ */
 const theirs = changed.filter(
   (path) =>
     path.startsWith('docs/design/canvas/') ||
     path.startsWith('docs/design/brand/') ||
     path === 'docs/design/tokens.md' ||
-    path === 'docs/open-items.md' ||
     (path.startsWith('docs/design/') && path.endsWith('.png')),
 )
 
