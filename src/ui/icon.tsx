@@ -25,6 +25,8 @@ export type IconName =
   | 'target'
   | 'people'
   | 'shield-check'
+  | 'alert'
+  | 'trend'
 
 /**
  * Every glyph, as the artboard draws it.
@@ -106,6 +108,20 @@ const PATHS: Record<IconName, ReactNode> = {
     <>
       <path d="M12 3.4 20 6.2v5.9c0 4.4-3.2 7.6-8 8.7-4.8-1.1-8-4.3-8-8.7V6.2z" />
       <path d="m9 12 2.2 2.2L15.5 10" />
+    </>
+  ),
+
+  /* The two statuses a ranked row can carry, from HomeLight.dc.html. */
+  alert: (
+    <>
+      <path d="M12 4.6 20.8 20H3.2z" />
+      <path d="M12 10.2v4.1M12 17h.02" />
+    </>
+  ),
+  trend: (
+    <>
+      <path d="M4 15.5 8.5 9l4 4.5L20 5" />
+      <path d="M20 5h-4.5M20 5v4.5" />
     </>
   ),
 }

@@ -184,8 +184,10 @@ describe('the worked day renders every seeded figure', () => {
     // the plan working, so it carries no badge and does not lead the table.
     expect(rows[0]?.textContent).toContain('Health')
     const names = rows.map((r) => r.textContent ?? '')
+    // Anchored on a spending category: protected lines are no longer listed
+    // here at all, because they can never need attention.
     expect(names.findIndex((t) => t.includes('Food'))).toBeLessThan(
-      names.findIndex((t) => t.includes('Rent fund')),
+      names.findIndex((t) => t.includes('Sadaqah')),
     )
   })
 
@@ -277,11 +279,95 @@ describe('no figure is a dead end', () => {
     const user = userEvent.setup()
     const { onOpen } = renderHome()
 
-    const food = screen.getByText('Food and groceries').closest('tr')!
+    // Scoped to the table: Home draws its categories twice, as a full table at
+    // 1440 and a ranked list at 360, and CSS decides which is seen. jsdom
+    // applies no media query, so both are here and an unscoped query is
+    // ambiguous.
+    const table = screen.getByRole('table', { name: /What is left in each category/ })
+    const food = within(table).getByText('Food and groceries').closest('tr')!
     await user.click(food)
     expect(onOpen).toHaveBeenCalledWith(
       `/transactions?category=${byName('Food and groceries').id}`,
     )
+  })
+})
+
+/**
+ * Home draws its categories twice: the full table at 1440, a ranked subset at
+ * 360. Eight rows at 360 push *Safe to spend today* off the screen, and that
+ * figure is the reason Home exists (D8).
+ */
+describe('the ranked section at 360', () => {
+  /**
+   * `useMediaQuery` answers `true` without `matchMedia`, which is jsdom rather
+   * than a browser — so every other test on this screen gets the full table.
+   * These three say they are on a phone.
+   */
+  function atPhoneWidth() {
+    vi.stubGlobal('matchMedia', (query: string) => ({
+      matches: false,
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }))
+  }
+
+  afterEach(() => vi.unstubAllGlobals())
+
+  function ranked() {
+    return screen.getByRole('heading', { name: /Needs attention|^Categories$/ }).closest('section')!
+  }
+
+  it('shows only what needs attention, and says how many of how many', () => {
+    atPhoneWidth()
+    renderHome()
+
+    expect(screen.getByRole('heading', { name: 'Needs attention' })).toBeDefined()
+    // Overspent *and* low — Health is over, Transport is at 85%. Low is a
+    // warning in time to act on, so leaving it out would drop the only row
+    // still worth changing.
+    // Eight spending categories, two of them needing attention. Protected
+    // lines are not among them: money already moved where the plan promised
+    // has nothing left to spend, so it can never need attention.
+    expect(within(ranked()).getByText('2 of 8')).toBeDefined()
+    expect(within(ranked()).getByText('Health')).toBeDefined()
+    expect(within(ranked()).getByText('Food and groceries')).toBeDefined()
+    // Comfortable categories are not in the subset — that is the whole point.
+    expect(within(ranked()).queryByText('Sadaqah')).toBeNull()
+    expect(within(ranked()).queryByText('Transport, data and airtime')).toBeNull()
+    expect(within(ranked()).queryByText('Rent fund')).toBeNull()
+  })
+
+  it('expands to everything, and the heading follows the list', async () => {
+    const user = userEvent.setup()
+    atPhoneWidth()
+    renderHome()
+
+    await user.click(screen.getByRole('button', { name: 'Show all 8 categories' }))
+
+    // The rule that settled the naming question: the heading names what the
+    // list is showing. Once it shows all eight, it is Categories.
+    expect(screen.queryByRole('heading', { name: 'Needs attention' })).toBeNull()
+    const section = screen.getByRole('heading', { name: 'Categories' }).closest('section')!
+    expect(within(section).getByText('Sadaqah')).toBeDefined()
+    expect(within(section).queryByText('2 of 8')).toBeNull()
+  })
+
+  it('is headed Categories with the worst three when nothing needs attention', () => {
+    // Nothing spent, so every category is comfortably inside its allowance.
+    const calm = seeded()
+    calm.transactions = calm.transactions.filter((t) => t.type !== 'expense')
+    atPhoneWidth()
+    renderHome(calm)
+
+    // Never "Needs attention · 0 of 8" — the state nobody specified, settled
+    // by the same rule.
+    expect(screen.queryByRole('heading', { name: 'Needs attention' })).toBeNull()
+
+    const section = ranked()
+    expect(within(section).getAllByRole('listitem')).toHaveLength(3)
+    expect(within(section).queryByText(/of 8/)).toBeNull()
+    expect(within(section).getByRole('button', { name: 'Show all 8 categories' })).toBeDefined()
   })
 })
 

@@ -9,7 +9,7 @@
  *       answer, not eight.
  */
 
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import {
   cashLeft,
   cycleAt,
@@ -33,9 +33,13 @@ import { FigureLink } from '@/ui/figure-link'
 import { Gauge } from '@/ui/gauge'
 import { MoneyBreakdown, type Segment } from '@/ui/money-breakdown'
 import { MoneyText } from '@/ui/money-text'
-import { Pill, StatusPill } from '@/ui/pill'
+import { Button } from '@/ui/button'
+import { Icon } from '@/ui/icon'
+import { IconTile, Pill, StatusPill } from '@/ui/pill'
+import { ListRow } from '@/ui/list-row'
 import { Rail } from '@/ui/rail'
 import { Table } from '@/ui/table'
+import { DESKTOP, useMediaQuery } from '@/ui/use-media-query'
 
 export interface HomeScreenProps {
   snapshot: Snapshot
@@ -58,7 +62,17 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
   const debtPaid = totalMoved(snapshot, cycle, ['repaid'])
   const spent = totalMoved(snapshot, cycle, ['expense'])
 
-  const categories = spendingByCategory(snapshot, cycle)
+  /**
+   * **Spending categories only** — the eight the artboards draw, and the eight
+   * the count badge counts.
+   *
+   * `spendingByCategory` returns every category, which is right for a general
+   * selector and wrong here: a protected line is money that has already gone
+   * where the plan promised, so it has nothing left to spend and `statusOf`
+   * gives it `ok` unconditionally. Listing the four of them padded the table to
+   * twelve rows that could never need attention, and made "of 8" read "of 12".
+   */
+  const categories = spendingByCategory(snapshot, cycle).filter((row) => !row.isProtected)
   const debts = debtsByDirection(snapshot, now)
 
   const tone = safe.level === 'red' ? 'danger' : safe.level === 'amber' ? 'warning' : 'positive'
@@ -250,7 +264,124 @@ function dailyChartLabel(
     : `Spending each day of this cycle. ${over} ${over === 1 ? 'day has' : 'days have'} gone over the allowance.`
 }
 
+/**
+ * Home's categories, which are **two sections rather than one**.
+ *
+ * At 1440 the full table; at 360 a ranked subset. Eight rows at 360 push *Safe
+ * to spend today* off the screen, and that figure is the reason Home exists
+ * (D8). The two were never a naming dispute — **the heading names what the list
+ * is showing**, which is also what settles the state nobody specified.
+ */
 function CategoryTable({
+  rows,
+  onOpen,
+}: {
+  rows: CategorySpending[]
+  onOpen: (destination: string) => void
+}) {
+  // One or the other, never both. The two carry different content, so hiding a
+  // duplicate with CSS would leave two identical headings in the document.
+  return useMediaQuery(DESKTOP) ? (
+    <FullCategoryTable rows={rows} onOpen={onOpen} />
+  ) : (
+    <RankedCategories rows={rows} onOpen={onOpen} />
+  )
+}
+
+/** The worst three, or everything that needs attention. Narrow widths only. */
+function RankedCategories({
+  rows,
+  onOpen,
+}: {
+  rows: CategorySpending[]
+  onOpen: (destination: string) => void
+}) {
+  const [expanded, setExpanded] = useState(false)
+  const needingAttention = rows.filter((row) => row.status !== 'ok')
+
+  // Overspent *and* low, which is what the artboard's "2 of 8" counts: Health
+  // is over, Transport is at 85%. Low is a warning in time to act on it, so
+  // leaving it out would hide the only row still worth changing.
+  const shown = expanded
+    ? rows
+    : needingAttention.length > 0
+      ? needingAttention
+      : rows.slice(0, 3)
+
+  // The heading follows the list, never the width: when nothing needs
+  // attention there is no "Needs attention · 0 of 8", there is just Categories.
+  const heading = !expanded && needingAttention.length > 0 ? 'Needs attention' : 'Categories'
+
+  return (
+    <section className="flex flex-col gap-3">
+      <div className="flex items-center gap-2">
+        <h2 className="font-structural text-lab uppercase text-soft">{heading}</h2>
+        {heading === 'Needs attention' ? (
+          <Pill tone="danger">{`${needingAttention.length} of ${rows.length}`}</Pill>
+        ) : null}
+      </div>
+
+      {rows.length === 0 ? (
+        <EmptyNote>No categories yet. Add them in Plan.</EmptyNote>
+      ) : (
+        <ul className="flex flex-col">
+          {shown.map((row) => (
+            <RankedRow
+              key={row.categoryId}
+              row={row}
+              onOpen={() => onOpen(`/transactions?category=${row.categoryId}`)}
+            />
+          ))}
+        </ul>
+      )}
+
+      {rows.length > shown.length || expanded ? (
+        <Button variant="quiet" onClick={() => setExpanded(!expanded)}>
+          {expanded ? 'Show fewer' : `Show all ${rows.length} categories`}
+        </Button>
+      ) : null}
+    </section>
+  )
+}
+
+function RankedRow({ row, onOpen }: { row: CategorySpending; onOpen: () => void }) {
+  const tone = row.status === 'overspent' ? 'danger' : row.status === 'low' ? 'warning' : 'positive'
+
+  return (
+    <li>
+      {/* `ListRow`, not a hand-rolled button (F5). It already renders a real
+          button — keyboard, focus and announcement from the platform — and
+          already carries this row's borders. */}
+      <ListRow
+        leading={
+          <IconTile tone={tone}>
+            <Icon name={row.status === 'overspent' ? 'alert' : 'trend'} size={18} />
+          </IconTile>
+        }
+        title={<span className="font-semibold">{row.name}</span>}
+        trailing={
+          <span className="flex flex-col items-end gap-1">
+            <MoneyText amount={row.spent} tone={row.status === 'overspent' ? 'danger' : 'default'} />
+            {row.status === 'ok' ? null : (
+              <StatusPill status={row.status === 'overspent' ? 'overspent' : 'low'} />
+            )}
+          </span>
+        }
+        footer={
+          <Rail
+            value={row.portionUsed}
+            tone={tone}
+            label={`${row.name}, ${Math.round(row.portionUsed * 100)}% of its allowance used`}
+          />
+        }
+        onClick={onOpen}
+      />
+    </li>
+  )
+}
+
+/** Every category, with its rail and what is left. Wide widths only. */
+function FullCategoryTable({
   rows,
   onOpen,
 }: {
@@ -263,7 +394,10 @@ function CategoryTable({
           titles, hero statements and the printed record (tokens.md §3). A
           heading *inside* a screen is a label, and the design draws it as
           one. */}
-      <h2 className="font-structural text-lab uppercase text-soft">Categories</h2>
+      <div className="flex items-center gap-2">
+        <h2 className="font-structural text-lab uppercase text-soft">Categories</h2>
+        <Pill tone="quiet">{rows.length}</Pill>
+      </div>
       <Table
         caption="What is left in each category, worst first"
         rows={rows}
