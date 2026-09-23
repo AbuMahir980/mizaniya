@@ -161,7 +161,7 @@ export function PrimitivesPage() {
             <Row>
               <Button disabled>Disabled</Button>
               <Button loading>Saving</Button>
-              <Button lifted>Lifted (Add only)</Button>
+              <Button disabled>Disabled (no lift)</Button>
             </Row>
             <p className="text-small text-faint">
               There is no danger variant. Deleting is an ordinary action; the

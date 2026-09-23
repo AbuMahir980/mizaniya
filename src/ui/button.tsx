@@ -23,9 +23,12 @@ const base = cx(
 
 const variants: Record<ButtonVariant, string> = {
   primary: cx(
-    'bg-emerald text-onEmerald',
+    'bg-emerald text-onEmerald shadow-lift',
     'active:opacity-90',
-    'disabled:bg-track disabled:text-faint',
+    // A disabled button is `track` on `faint` and must not glow: the lift says
+    // "press this", and saying it of something that cannot be pressed is worse
+    // than saying nothing.
+    'disabled:bg-track disabled:text-faint disabled:shadow-none',
   ),
   secondary: cx(
     'bg-card text-ink border border-line',
@@ -37,15 +40,13 @@ const variants: Record<ButtonVariant, string> = {
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
-  /** The Add button, and only it, carries the lift shadow (tokens.md §7). */
-  lifted?: boolean
   /** Keeps the button's width while it works, so the layout does not jump. */
   loading?: boolean
   fullWidth?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = 'primary', lifted, loading, fullWidth, className, children, ...rest },
+  { variant = 'primary', loading, fullWidth, className, children, ...rest },
   ref,
 ) {
   return (
@@ -59,7 +60,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={cx(
         base,
         variants[variant],
-        lifted && 'shadow-lift',
         fullWidth && 'w-full',
         className,
       )}

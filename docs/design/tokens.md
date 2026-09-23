@@ -191,7 +191,7 @@ space  4 · 8 · 12 · 14 · 16 · 20 · 26 · 36 · 44   (4px base)
 
 elevation.card   light  0 1px 2px rgba(23,26,23,.05), 0 12px 30px -16px rgba(23,26,23,.22)
                  dark   0 1px 2px rgba(0,0,0,.5),     0 14px 34px -16px rgba(0,0,0,.7)
-elevation.lift   the Add button only —
+elevation.lift   every primary button, and the Add action —
                  light  0 8px 20px -8px rgba(15,92,60,.55)
                  dark   0 8px 20px -8px rgba(78,203,139,.4)
 
@@ -227,7 +227,7 @@ Every diagram carries a text key. None of them is the only way to read a figure.
 
 | Component | Tokens | States |
 |---|---|---|
-| **Button — primary** | `emerald` fill, `onEmerald`, `radius.md`, `elevation.lift` on the Add button only | default · pressed · focused · disabled (`track` fill, `faint`) · loading |
+| **Button — primary** | `emerald` fill, `onEmerald`, `radius.md`, `elevation.lift` — **every primary button**, not the Add action alone; no lift when disabled | default · pressed · focused · disabled (`track` fill, `faint`) · loading |
 | **Button — secondary** | `card` fill, `ink`, `line` border | as above |
 | **Button — quiet** | transparent, `soft` | as above |
 | **Field / AmountInput** | `card` fill, `line`, `radius.md`, 50px | default · hover · **focused** (`emerald` border + 3px `em2` halo) · disabled · error (neutral border, `ink` message) · loading |
