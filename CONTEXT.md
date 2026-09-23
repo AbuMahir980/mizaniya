@@ -300,6 +300,41 @@ the ticket that takes it. The file is deleted once every box is ticked.
 
 Newest first.
 
+### 2026-09-24 (Thursday) — the seed, and what it refused to invent
+
+- **T21 · the seed script** ([#28](https://github.com/AbuMahir980/mizaniya/issues/28)),
+  brought forward so the remaining screens get a design-quality pass against
+  real figures rather than zeros. **It writes an export file, not a demo mode.**
+  v1 has no server and the repository is IndexedDB, which a Node script cannot
+  reach — and CLAUDE.md forbids a mock-data layer. Generating the documented
+  export format means sample data arrives through the import path T9 already
+  built, nothing ships in the production bundle, and what you look at is the
+  real code running.
+- **Asked for, and answered: seeded data, not a state-switcher panel.** A panel
+  that injects states *is* a mock-data layer — a second account of what the app
+  looks like, maintained by hand, drifting. Seeding writes real rows.
+- **`--current` shifts the scenario by whole months**, so the salary day stays
+  the 25th and today falls inside the seeded cycle. Fixed dates would have made
+  the demo correct only on 5 October.
+- **The test parses `docs/seed-data.md` and compares row for row.** The document
+  asked for this in its own words — *"a future edit to one row cannot quietly
+  break every figure in the documentation and the designs"* — so the document is
+  the source and the code is checked against it, not the reverse. Four tests
+  break a figure on purpose and require the refusal, including one that moves an
+  expense between categories while keeping the total at ₦110,000.00, which is
+  exactly the edit a sum-only check waves through.
+- **A test that passed for the wrong reason, caught immediately.** The first
+  "assertion fires" test edited `transactions.find(t => t.type === 'expense')`
+  — which is the *previous* cycle's food row, correctly ignored. It proved the
+  cycle filter works and nothing else.
+- **Two things it refused to seed** ([#58](https://github.com/AbuMahir980/mizaniya/issues/58)).
+  The first cycle's ₦355,000.00 spend has no documented category split beyond
+  food's ₦78,000.00, and the amber variant's extra ₦50,000.00 has none at all.
+  Both could have been filled with something plausible. **A plausible invented
+  figure is indistinguishable from a documented one six months later, and
+  becomes the reference** — so they are a ticket instead. The visible cost is
+  that Months will show the first cycle at ₦78,000.00 until it is closed.
+
 ### 2026-09-23 (Wednesday, late) — the designer answers, and both questions were better than they looked
 
 *Design drop, produced outside the session. `docs/open-items.md` § D carries the

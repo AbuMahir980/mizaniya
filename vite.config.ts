@@ -74,6 +74,6 @@ export default defineConfig({
      * naming check and the repo-rule guard fail the build, so they need the
      * same proof as anything under `src/`.
      */
-    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.mjs'],
+    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.{mjs,ts}'],
   },
 })
