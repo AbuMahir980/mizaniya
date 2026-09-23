@@ -12,6 +12,7 @@ import type { ReactNode } from 'react'
 import { Route, Routes } from 'react-router'
 import { ShellWithAnnouncer } from './app-shell'
 import { PrimitivesPage } from './primitives-page'
+import { FirstRun } from './first-run'
 
 /**
  * A screen that has not been built.
@@ -57,7 +58,7 @@ export function AppRoutes() {
         path="/welcome"
         element={
           <BareLayout>
-            <NotBuiltYet name="Welcome" ticket="T12" />
+            <FirstRun />
           </BareLayout>
         }
       />

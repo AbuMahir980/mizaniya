@@ -94,7 +94,8 @@ describe('a new owner is sent to onboarding', () => {
     renderApp(repo)
 
     // T7's `undefined` load is a state the shell has to handle, and this is it.
-    expect(await screen.findByRole('heading', { name: 'Welcome' })).toBeDefined()
+    // The welcome screen's own heading is the app's name (T12).
+    expect(await screen.findByRole('button', { name: 'Get started' })).toBeDefined()
   })
 
   it('does not redirect once settings exist', async () => {
@@ -102,7 +103,7 @@ describe('a new owner is sent to onboarding', () => {
     renderApp(repo)
 
     expect(await screen.findByRole('heading', { name: 'Home' })).toBeDefined()
-    expect(screen.queryByRole('heading', { name: 'Welcome' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Get started' })).toBeNull()
   })
 })
 

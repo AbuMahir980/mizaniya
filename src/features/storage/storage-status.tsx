@@ -64,7 +64,7 @@ export function StorageStatus({ read = readStorageReport }: StorageStatusProps) 
 
   return (
     <section className="flex flex-col gap-2">
-      <h2 className="font-structural text-label uppercase tracking-label text-soft">Your data</h2>
+      <h2 className="font-structural text-lab uppercase text-soft">Your data</h2>
 
       {/* Neutral in every state. Unprotected storage is a risk to explain, not
           an error the owner committed (F7). */}
