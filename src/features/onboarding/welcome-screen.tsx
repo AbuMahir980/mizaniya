@@ -122,7 +122,14 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
             <AppMark tile={84} mark={49} />
 
             <h1 className="mt-7 font-voice text-lockup text-ink">Mizaniya</h1>
-            <WordmarkArabic height={30} className="mt-1 text-soft" />
+            {/*
+              Right-aligned in the column, which is where the artboard puts it.
+              `.ar` is `direction: rtl` on a block filling the 520px column, so
+              the word sits against that column's right edge — level with the
+              cards, not under the L of the Latin. An SVG ignores `direction`,
+              so the alignment has to be asked for.
+            */}
+            <WordmarkArabic height={30} className="ml-auto mt-1 block text-soft" />
 
             <p className="mt-6 font-voice text-promise text-ink">{PROMISE}</p>
             <p className="mt-3.5 font-structural text-body text-soft">{BLURB}</p>
