@@ -4,8 +4,8 @@
   "phaseFile": "peer-ai/frontend/03-build.md",
   "cycle": "Cycle 2 \u2014 the shell and the screens the core journey needs",
   "milestoneBranch": "",
-  "ticket": "#21",
-  "ticketTitle": "T14 \u00b7 Quick Add",
+  "ticket": "#22",
+  "ticketTitle": "T15 \u00b7 Plan",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -19,12 +19,12 @@
     "#17",
     "#18",
     "#19",
-    "#20"
+    "#20",
+    "#21"
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
   "ticketsRemaining": [
-    "#21",
     "#22",
     "#23",
     "#24",
@@ -35,9 +35,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 284 tests, build",
+  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 322 tests, build",
   "lastVerifyTimestamp": "2026-09-23",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-23",
-  "notes": "READ CONTEXT.md at app root. Cycle 2: T10-T13 merged. Next action: start #21, T14 Quick Add \u2014 three taps, the centre of the bottom bar. Note T13 changed core/budget: movedInto now counts repaid, and protected categories carry no badge."
+  "notes": "READ CONTEXT.md at app root. Cycle 2: T10-T14 merged. Next action: start #22, T15 Plan \u2014 per-category allocations, the unallocated banner, copy last cycle. Note the theme toggle currently lives in the sidebar and should move to Settings at T20."
 }
