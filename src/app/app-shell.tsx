@@ -14,6 +14,7 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
 import { AnnounceProvider } from '@/ui/announce'
 import { BottomBar, Sidebar, type NavItem } from '@/ui/nav'
 import { OfflineNote } from '@/ui/banner'
+import { Icon, type IconName } from '@/ui/icon'
 import { Spinner } from '@/ui/spinner'
 import { Mark } from '@/ui/mark'
 import { useIsOnline, useSnapshotState } from './store-context'
@@ -25,11 +26,11 @@ import { useIsOnline, useSnapshotState } from './store-context'
  * case, and browsing the list is the rare one. It lives under More.
  */
 const NAV = [
-  { key: 'home', label: 'Home', path: '/' },
-  { key: 'plan', label: 'Plan', path: '/plan' },
-  { key: 'debts', label: 'Debts', path: '/debts' },
-  { key: 'more', label: 'More', path: '/more' },
-] as const
+  { key: 'home', label: 'Home', path: '/', icon: 'home' },
+  { key: 'plan', label: 'Plan', path: '/plan', icon: 'plan' },
+  { key: 'debts', label: 'Debts', path: '/debts', icon: 'debts' },
+  { key: 'more', label: 'More', path: '/more', icon: 'more' },
+] as const satisfies readonly Destination[]
 
 /**
  * The sidebar lists **every destination flat, and no More** (§2).
@@ -40,13 +41,13 @@ const NAV = [
  * that width.
  */
 const SIDEBAR_NAV = [
-  { key: 'home', label: 'Home', path: '/' },
-  { key: 'plan', label: 'Plan', path: '/plan' },
-  { key: 'transactions', label: 'Transactions', path: '/transactions' },
-  { key: 'debts', label: 'Debts & Goals', path: '/debts' },
-  { key: 'months', label: 'Months', path: '/months' },
-  { key: 'zakat', label: 'Zakat', path: '/zakat' },
-] as const
+  { key: 'home', label: 'Home', path: '/', icon: 'home' },
+  { key: 'plan', label: 'Plan', path: '/plan', icon: 'plan' },
+  { key: 'transactions', label: 'Transactions', path: '/transactions', icon: 'transactions' },
+  { key: 'debts', label: 'Debts & Goals', path: '/debts', icon: 'debts' },
+  { key: 'months', label: 'Months', path: '/months', icon: 'months' },
+  { key: 'zakat', label: 'Zakat', path: '/zakat', icon: 'zakat' },
+] as const satisfies readonly Destination[]
 
 /**
  * Settings sits apart, at the foot of the sidebar.
@@ -62,20 +63,17 @@ const SIDEBAR_NAV = [
  * — recorded as a decision in `CONTEXT.md` rather than slipped in.
  */
 const SIDEBAR_FOOTER_NAV = [
-  { key: 'settings', label: 'Settings', path: '/settings' },
-] as const
+  { key: 'settings', label: 'Settings', path: '/settings', icon: 'settings' },
+] as const satisfies readonly Destination[]
 
-/** A dot rather than a drawn icon: the icon set lands with the screens (T13). */
-function NavDot() {
-  return (
-    <span
-      aria-hidden="true"
-      className="block h-5 w-5 rounded-full border border-current"
-    />
-  )
+interface Destination {
+  key: string
+  label: string
+  path: string
+  icon: IconName
 }
 
-function useNavItems(destinations: readonly { key: string; label: string; path: string }[]): {
+function useNavItems(destinations: readonly Destination[]): {
   items: NavItem[]
   activeKey: string
 } {
@@ -85,7 +83,7 @@ function useNavItems(destinations: readonly { key: string; label: string; path: 
   const items = destinations.map((entry) => ({
     key: entry.key,
     label: entry.label,
-    icon: <NavDot />,
+    icon: <Icon name={entry.icon} />,
     onSelect: () => navigate(entry.path),
   }))
 

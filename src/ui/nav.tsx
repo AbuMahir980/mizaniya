@@ -117,10 +117,17 @@ export function Sidebar({
       className={cx(
         'hidden desktop:flex desktop:w-[240px] desktop:shrink-0 desktop:flex-col',
         'desktop:gap-1 desktop:border-r desktop:border-line desktop:bg-card desktop:p-4',
-        // Sticky and full height: the navigation stays put while the page moves
-        // under it. A sidebar that scrolls away leaves a long screen — Home,
-        // with two tables — with no way out but scrolling back up.
-        'desktop:sticky desktop:top-0 desktop:h-screen desktop:overflow-y-auto',
+        /**
+         * Stays put while the main column scrolls under it.
+         *
+         * `self-start` is the part that makes it work, and leaving it out is a
+         * silent failure: a flex row stretches its children to the full height
+         * of the container, so the sidebar became as tall as the *page* rather
+         * than the viewport — and an element already that tall has nowhere to
+         * stick. It scrolled away, and only its footer stayed in view.
+         */
+        'desktop:sticky desktop:top-0 desktop:self-start',
+        'desktop:h-screen desktop:overflow-y-auto',
         className,
       )}
     >

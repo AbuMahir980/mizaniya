@@ -247,6 +247,10 @@ describe('navigation', () => {
     expect(sidebar.textContent).toContain('Mizaniya')
     expect(sidebar.className).toContain('desktop:sticky')
     expect(sidebar.className).toContain('desktop:h-screen')
+    // Without self-start the flex row stretches it to the height of the page,
+    // and a sticky element that tall has nowhere to stick — it scrolls away and
+    // only its footer stays in view.
+    expect(sidebar.className).toContain('desktop:self-start')
   })
 })
 
