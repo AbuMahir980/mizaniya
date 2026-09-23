@@ -54,7 +54,7 @@ export function Sheet({
         >
           <div className="flex items-center justify-between gap-3 px-4 pt-4">
             <Dialog.Title
-              className={cx('font-structural text-h2 text-ink', hideTitle && 'sr-only')}
+              className={cx('font-voice text-title text-ink', hideTitle && 'sr-only')}
             >
               {title}
             </Dialog.Title>

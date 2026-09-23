@@ -41,6 +41,22 @@
     Roboto, sans-serif;
   --family-data: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
+  /**
+   * The voice face's weight is a **theme** token, not a constant.
+   *
+   * EB Garamond's thinnest stroke is 0.034em — 1.02 device pixels at 30px on a
+   * 1x screen, and under one pixel at anything smaller. A stroke with no whole
+   * pixel to land on is drawn by antialiasing alone, and light-on-dark that
+   * reads as washed out. 600 takes the hairline to 0.0385em and clears the
+   * pixel at every title size. It never shows on a 2x screen, which is why it
+   * surfaced in review on a desktop monitor rather than on a phone.
+   */
+  --weight-voice: 500;
+
+  /* The title step, so one utility is responsive rather than eight call sites. */
+  --size-title: 30px;
+  --leading-title: 36px;
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -64,6 +80,8 @@
 /* Authored, not inverted. Every hue re-tuned and re-measured. */
 :root[data-theme='dark'] {
   color-scheme: dark;
+
+  --weight-voice: 600;
 
   --bg: #0a0d10;
   --card: #12171c;
@@ -92,6 +110,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     color-scheme: dark;
+
+    --weight-voice: 600;
 
     --bg: #0a0d10;
     --card: #12171c;
@@ -147,5 +167,14 @@
   .spinner {
     animation-duration: 900ms !important;
     animation-iteration-count: infinite !important;
+  }
+}
+
+/* `title` is 30/36 at 360 and 34/40 at 1440 — tokens.md §3. Declared here so
+   `text-title` is responsive on its own and no call site has to remember. */
+@media (min-width: 1440px) {
+  :root {
+    --size-title: 34px;
+    --leading-title: 40px;
   }
 }

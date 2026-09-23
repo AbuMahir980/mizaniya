@@ -112,6 +112,31 @@ describe('design tokens', () => {
     }
   })
 
+  /**
+   * The voice face's weight is the one type token that differs between themes,
+   * so it is the one that can silently stop differing. EB Garamond's hairline
+   * is 1.02 device pixels at 30px on a 1x screen; at 500 on dark it is drawn by
+   * antialiasing alone and reads washed out.
+   */
+  it('the voice face is 500 on light and 600 on dark', () => {
+    expect(valuesFor(':root').get('weight-voice')).toBe('500')
+    expect(valuesFor(":root[data-theme='dark']").get('weight-voice')).toBe('600')
+    expect(valuesFor(":root:not([data-theme='light'])").get('weight-voice')).toBe('600')
+  })
+
+  it('the title step is a token, so one utility carries both widths', () => {
+    // 30/36 at 360, 34/40 at 1440 (tokens.md section 3). Declared once, so no
+    // call site has to remember a `desktop:` variant — and none can forget.
+    //
+    // Read from the source rather than through `valuesFor`: that parser buckets
+    // by selector and deliberately ignores the `@media` wrapper, so both `:root`
+    // blocks land in one bucket and the step's two values cannot be told apart
+    // there. Asserting the merged value would be asserting a parser detail.
+    expect(css).toMatch(/--size-title: 30px/)
+    expect(css).toMatch(/@media \(min-width: 1440px\)[\s\S]*?--size-title: 34px/)
+    expect(css).toMatch(/@media \(min-width: 1440px\)[\s\S]*?--leading-title: 40px/)
+  })
+
   it('shape, motion and target match tokens.ts', () => {
     const declared = valuesFor(':root')
     for (const [name, value] of Object.entries(radius)) {
