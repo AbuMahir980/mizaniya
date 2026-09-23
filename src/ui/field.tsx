@@ -142,7 +142,7 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
           <div className="relative">
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute left-12 top-4/2 -translate-y-4/2 text-body text-soft"
+              className="pointer-events-none absolute left-12 top-1/2 -translate-y-1/2 text-body text-soft"
             >
               ₦
             </span>
