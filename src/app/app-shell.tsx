@@ -9,7 +9,7 @@
  *           nothing.
  */
 
-import { Suspense, type ReactNode } from 'react'
+import { Suspense, useState, type ReactNode } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
 import { AnnounceProvider } from '@/ui/announce'
 import { BottomBar, Sidebar, type NavItem } from '@/ui/nav'
@@ -19,6 +19,7 @@ import { ThemeChoice } from '@/ui/theme-choice'
 import { Spinner } from '@/ui/spinner'
 import { Mark } from '@/ui/mark'
 import { useIsOnline, useSnapshotState } from './store-context'
+import { QuickAddRoute } from './quick-add-route'
 import { useTheme } from './use-theme'
 
 /**
@@ -109,7 +110,7 @@ export function AppShell() {
   const state = useSnapshotState()
   const online = useIsOnline()
   const theme = useTheme()
-  const navigate = useNavigate()
+  const [quickAddOpen, setQuickAddOpen] = useState(false)
   const bar = useNavItems(NAV)
   // One list for the active key, split for rendering: otherwise being on
   // /settings would light Home, because Settings is not in the main group.
@@ -149,7 +150,7 @@ export function AppShell() {
         footerItems={sidebarFooterItems}
         footerSlot={<ThemeChoice value={theme.choice} onValueChange={theme.setChoice} />}
         activeKey={sidebar.activeKey}
-        onAdd={() => navigate('/transactions')}
+        onAdd={() => setQuickAddOpen(true)}
       />
 
       <div className="flex min-w-0 flex-1 flex-col">
@@ -168,10 +169,12 @@ export function AppShell() {
           </div>
         </main>
 
+        <QuickAddRoute open={quickAddOpen} onOpenChange={setQuickAddOpen} />
+
         <BottomBar
           items={bar.items}
           activeKey={bar.activeKey}
-          onAdd={() => navigate('/transactions')}
+          onAdd={() => setQuickAddOpen(true)}
           className="desktop:hidden"
         />
       </div>
