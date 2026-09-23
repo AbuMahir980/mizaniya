@@ -295,9 +295,39 @@ the ticket that takes it. The file is deleted once every box is ticked.
 | 2026-09-23 | **CI brought forward from phase 11b to now** (#52), because the phase file asks for exactly that: *"if you are starting a project and reading ahead, run this early."* Sixteen pull requests had merged saying no checks ran. **Only the checks** — branch protection, templates and the AI review workflow stay in 11b | #52 |
 | 2026-09-23 | **The verify job runs `npm run verify` and nothing else.** Re-listing lint, typecheck and tests as separate CI steps would create a second opinion about what "passing" means, and the two would drift — the one that is easier to keep green wins, and it is never the real one. **Cost:** no per-step timing in the UI, and one red job rather than a precise one. Worth it for `green here` and `green there` being the same sentence | #52 |
 | 2026-09-23 | **Repo rule 3 is enforced by a guard that cannot contain its own subject.** The forbidden names would breach the rule by being written down, so they arrive from the environment as a secret (rule 1's mechanism), and the guard reports `path:line` and **never the match** — this repository is public and so are its Actions logs. Unconfigured, it exits 0 but prints **NOT ENFORCED**; its own test plants a term and requires a non-zero exit, so the mechanism is proved live even when no terms are loaded | #52 |
+| 2026-09-23 | **A heading inside a screen takes the label step, not the voice face.** EB Garamond is for screen titles, hero statements and the printed record (`tokens.md` §3), and the type table names it on the `title` step only. Home's two section headings were `font-voice text-h2` — Garamond at 22px where the design draws Inter at 10.5px uppercase. **Not a house-style preference:** the design-data contract gives typography to the design, and this was the code disagreeing with it silently | #55 |
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-09-23 (Wednesday, night) — the serif was right, the heading was not
+
+- **Outside feedback said the Quick Add title was wrong to be a serif.** It was
+  aimed at the **artboard**, not the app: `QADark.dc.html` draws that title with
+  `class="ser"`, and the built sheet has rendered it in Inter since T10. The
+  serif itself is the design system — `tokens.md` §3 gives EB Garamond to
+  *"screen titles, hero statements, the printed record"*, and the canvas uses it
+  for exactly that: the wordmark, the Home date, six screen titles, the
+  onboarding questions and the empty-state sentences. Nothing else.
+- **Checking it found a real deviation next door**
+  ([#55](https://github.com/AbuMahir980/mizaniya/issues/55)). Home's two section
+  headings were `font-voice text-h2` — Garamond at 22px — where the design draws
+  `class="lab"`: Inter, 10.5px, uppercase, `+0.115em`, `var(--soft)`. Wrong face
+  and roughly double the size. `plan-screen.tsx:96` had it right all along.
+- **The grain of truth in the feedback was on a screen nobody mentioned.** Home
+  is the screen the app exists for and the first image in the README, and
+  oversized serif headings are most of why it reads "printed document". The
+  complaint was about the wrong screen and the right instinct.
+- **Two conflicts logged rather than decided**, per the design-data contract's
+  *"never silently pick one side"*: whether a bottom-sheet title takes the voice
+  face (the artboard says yes, the code says no, and the type table can be read
+  either way — a sheet is not a screen), and whether Home's first section is
+  *Categories* (page specs §429) or *Needs attention* (the artboards). Both are
+  in Open Questions for the designer.
+- **This is a design-quality-pass miss on T13, not a new class of bug.** The
+  gate exists and is mandatory; it did not catch this because it was not run
+  properly. No test was added — a class-assertion test would be brittle and
+  would not have caught it either. The gate is the fix.
 
 ### 2026-09-23 (Wednesday, evening) — CI, eleven days late
 
@@ -629,6 +659,8 @@ What remains open:
 | Exact copy for the offline and storage-status lines — they must inform without alarming | Open — PAGE SPECS, with `design:ux-copy` |
 | Should archiving a category hide it from past cycles, or only from new plans? | Open — leaning *new plans only*, so history stays truthful. Needed before story C7 |
 | Does the printable debt record carry the owner's own name, and does onboarding collect it? | Open — needed before story E5 |
+| `design:` **Does a bottom-sheet title take the voice face?** The artboards draw it serif (`class="ser"`, 24px, `QADark.dc.html`); the code renders it Inter (`src/ui/sheet.tsx:57`, `font-structural text-h2`). The design system supports both readings and contradicts itself: §3's prose gives voice to *"screen titles"*, but the type table names EB Garamond on the `title` step **only**, and 24px is the `h2` band — and a sheet is not a screen | Open — external design feedback objects to the serif here specifically. **Not silently picked** (design-data-contract). Design wins on typography, so if the artboard stands the code is wrong; needs the designer, and `tokens.md` updated either way. Raised at #55 |
+| `spec:` **Is Home's first section called "Categories" or "Needs attention"?** Page specs §429 writes *Categories*; the artboards label it *Needs attention*. Copy, not type — so neither authority clearly owns it | Open — the design's wording matches what the section actually does (ranked worst-first, D8) and the code's matches the spec. Left as *Categories* rather than changed silently. Raised at #55 |
 
 The amber threshold is settled as **D15**. Every question raised at SETUP and in
 UNDERSTAND's clarification round is now closed.
