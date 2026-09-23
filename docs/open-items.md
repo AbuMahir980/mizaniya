@@ -407,14 +407,14 @@ canvas is re-cut, `tokens.md` gains §10, and there is a new board:
 
 ---
 
-## G · Open — asked 24 September, from the build side
+## G · Asked 24 September from the build side — answered 24 September
 
 *This section is the question channel. **Answer in place**: write under each item,
 change the heading to `answered <date>`, and tick the box if it needs code. Raise
 anything new as a fresh lettered section. From now on questions land here rather
 than in a message, so they sit next to their answers.*
 
-- [ ] **22 · A debt records what is owed, but not what has already been paid** —
+- [x] **22 · A debt records what is owed, but not what has already been paid** —
   **T12 / T17 / T18**, issue
   [#85](https://github.com/AbuMahir980/mizaniya/issues/85).
   A debt is stored as **one** opening movement carrying the outstanding balance,
@@ -455,6 +455,111 @@ than in a message, so they sit next to their answers.*
 
   **Timing:** `DebtsLight` and `FormsLight` are being re-cut right now, so this
   is worth settling before that lands rather than after.
+
+  ---
+
+  **Answered 24 September.** You are right, and the printed record is the right
+  place to have noticed it. It is the only artefact this app produces that
+  someone outside the household reads, and the only one where being wrong has
+  consequences the owner cannot correct by opening the app. A record that is
+  wrong by default is worse than one that asks a further question.
+
+  **1 · Step 5 takes it — as one optional field, not a seventh step.**
+
+  Settings-only loses it. Nobody visits Settings to correct a document they have
+  not printed yet, so most records would stay quietly wrong forever and the error
+  would surface at exactly the wrong moment — in front of the other party. And
+  the information is in the owner's head at that exact moment: an informal debt
+  is remembered as *"I borrowed two hundred from him in March and I've paid back
+  eighty."* Asking six months later is asking someone to reconstruct it.
+
+  The weight is proportionate because the field is **optional and empty by
+  default**. A debt taken out last week — the common case — costs one glance.
+
+  **2 · Do not give it two amount fields. Ask the facts in the order the story
+  happened and derive the rest.**
+
+  The ambiguity you are worried about only exists if the app asks for the
+  outstanding figure at all. It should not. `transactions are the only facts` is
+  already the rule here: **the original amount and the repayment are facts; the
+  outstanding is derived.** So step 5 reads, top to bottom:
+
+  **The post-onboarding debt form takes the same shape.** Step 5 and *Add a
+  debt* ask for one thing, so they ask it one way — leaving the later form on
+  *Amount* would put both meanings of one number in the same app, which is item
+  22 reintroduced one screen along. `FormsLight` / `FormsDark` / `FormsDLight` /
+  `FormsDDark` are re-cut: mobile shows A. Friend, a debt with **no** history, so
+  the two states are drawn side by side with step 5's Spouse; the empty dialog
+  shows every placeholder and an em-dash in the read-out.
+
+  | Field | I owe them | They owe me |
+  |---|---|---|
+  | amount | **How much did you borrow?** | **How much did you lend?** |
+  | date | Date it began | Date it began |
+  | history | **Paid back so far** *(optional)* | **They've paid back so far** *(optional)* |
+  | — | *Outstanding · ₦120,000.00* | *Still owed · ₦120,000.00* |
+  | schedule | How much each payday? *(optional)* | How much each payday? *(optional)* |
+
+  The last-but-one row is **not a field**. It is a derived read-out under the two
+  inputs, and it is what removes the failure you named: nobody can type the
+  outstanding into a field that now means the original, because **there is no
+  field for the outstanding**. It also self-corrects — an owner who ignores the
+  history field and types the outstanding into the first one sees a read-out
+  equal to what they typed, and has simply recorded less history than they could
+  have. Nothing is wrong, only thinner.
+
+  The amount label follows the direction chip, which is `tokens.md` §10 working
+  as intended: a field asks a question, and the question changes with the answer
+  above it.
+
+  **3 · The printed record must separate what Mizaniya witnessed from what it was
+  told.** This is the part that actually matters, and it is mine — the artboards
+  are re-cut. `THE DEBT` becomes:
+
+  ```
+  Borrowed                    ₦200,000.00     12 March 2026
+  Repaid before this record    ₦80,000.00
+  Outstanding                 ₦120,000.00
+  ```
+
+  and `MOVEMENTS` carries one line above the table:
+
+  > *₦80,000.00 was already repaid when this record was opened on 24 September
+  > 2026. That figure was stated by the owner, not witnessed by Mizaniya. Every
+  > movement below was.*
+
+  A record meant to have standing must not present hearsay as its own
+  observation. It can carry the owner's account — it should, or the record is
+  incomplete — but it has to say which is which, or the reader cannot weigh it.
+
+  `Amount at the start` is also gone: it was ambiguous the moment history
+  existed (*the start of what — the debt, or the record?*). It is **Borrowed** or
+  **Lent** now, and the date beside it is `openedOn`, not the movement date.
+
+  **4 · On the cost you flagged — make the meaning change break the build.**
+  Your read is right that this is not purely additive. The mitigation is to not
+  let `amount` quietly change meaning: **rename it.** `DebtAnswer.amount` →
+  `borrowedAmount`, plus `repaidBefore?: Kobo`. A stale call site then fails to
+  compile instead of silently recording an outstanding figure as an original. The
+  rest is as you described — a second opening movement, both dated `openingDate`,
+  `openedOn` untouched as the relationship fact. Your existing comment on
+  `openedOn` already had the hard half of this right.
+
+  **5 · Seed data, so the case is visible.** The feature is untestable and
+  undrawable while all three seeded debts are fresh. **Spouse** is the safe one to
+  give a history: it has no schedule, and D3 keeps owed-to-you out of every
+  figure, so nothing in any cycle changes. Added to `docs/seed-data.md`:
+
+  | | |
+  |---|---:|
+  | Spouse — borrowed | ₦150,000, **8 March 2026** |
+  | Repaid before the record | ₦90,000 |
+  | Outstanding | **₦60,000** — unchanged |
+
+  The pair of opening movements nets to the same ₦60,000, so cycle 2, the Home
+  breakdown, Months and the zakat estimate are all untouched. Verified against
+  the workings in §"Goals and debts on that day".
+
 
 ---
 
