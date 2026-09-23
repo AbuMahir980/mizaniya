@@ -20,6 +20,7 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { AppRoutes } from './routes'
 import { StoreProvider } from './store-context'
+import { TodayProvider } from './today-context'
 import { createSnapshotStore } from '@/store/snapshot-store'
 import { buildSaveable } from '@/store/import-export'
 import { createDexieRepository } from '@/data/dexie-repository'
@@ -56,10 +57,12 @@ function renderApp(repository: Repository = repo) {
   const bundle = createSnapshotStore(repository, silentNotifier())
   const view = render(
     <StoreProvider bundle={bundle}>
-      <MemoryRouter initialEntries={['/welcome']}>
+      <TodayProvider now={TODAY} at={NOW}>
+        <MemoryRouter initialEntries={['/welcome']}>
         <AppRoutes />
       </MemoryRouter>
-    </StoreProvider>,
+    </TodayProvider>
+  </StoreProvider>,
   )
   return { ...view, api: bundle.api }
 }
