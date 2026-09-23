@@ -8,23 +8,51 @@
  *       with real figures.
  */
 
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/ui/button'
 import { Banner } from '@/ui/banner'
-import { Field, AmountInput } from '@/ui/field'
-import { Switch } from '@/ui/controls'
+import { AmountInput, Field, SelectField } from '@/ui/field'
+import { ChipGroup } from '@/ui/controls'
+import { Card } from '@/ui/card'
+import { Icon } from '@/ui/icon'
+import { IconTile, Pill, type PillTone } from '@/ui/pill'
+import { Sheet } from '@/ui/sheet'
+import { paydaysBetween } from '@/core/cycle/cycle'
+import type { CategoryType, Settings } from '@/core/types'
 import { formatMoney } from '@/core/money/money'
 import type { Id, Instant, IsoDate, Kobo } from '@/core/types'
 import { emptyAnswers, type DebtAnswer, type OnboardingAnswers } from './answers'
 
+/**
+ * **The questions, not labels for them.** The artboards ask *"What should we
+ * call you?"*, and the screen had been titling that step `Your name` — which
+ * names the field rather than asking anything.
+ */
 const STEPS = [
-  'Your name',
-  'Your salary',
-  'Your categories',
-  'What you have saved',
-  'Debts',
-  'Rent',
+  'What should we call you?',
+  'When are you paid, and how much?',
+  'These are your categories.',
+  'What have you already saved?',
+  'Who do you owe, and who owes you?',
+  'Saving towards rent?',
 ] as const
+
+/** The tints the artboards give each category type on step 3. */
+const CATEGORY_TONE: Record<CategoryType, PillTone> = {
+  savings: 'positive',
+  'debt-payment': 'warning',
+  expense: 'neutral',
+  income: 'quiet',
+}
+
+const CATEGORY_LABEL: Record<CategoryType, string> = {
+  savings: 'Savings',
+  'debt-payment': 'Debt payment',
+  expense: 'Expense',
+  income: 'Income',
+}
+
+const ADDABLE: CategoryType[] = ['expense', 'savings', 'debt-payment']
 
 /** Naira typed as digits, echoed back formatted as they type (§7.1). */
 function toKobo(typed: string): Kobo {
@@ -50,6 +78,9 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
   const [showErrors, setShowErrors] = useState(false)
   const [saveProblem, setSaveProblem] = useState<string | undefined>()
   const [saving, setSaving] = useState(false)
+  const [dayPickerOpen, setDayPickerOpen] = useState(false)
+  const [addingCategory, setAddingCategory] = useState(false)
+  const [debtDraft, setDebtDraft] = useState(emptyDraft)
   const heading = useRef<HTMLHeadingElement>(null)
 
   // The step change moves focus to the heading, so a screen-reader user is told
@@ -67,6 +98,52 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
 
   const stepIsValid = step !== 1 || (answers.takeHome > 0 && answers.salaryDay >= 1 && answers.salaryDay <= 31)
   const isLast = step === STEPS.length - 1
+  /**
+   * Step 5's primary reads **Add another** while a counterparty is half-typed,
+   * which is the state the artboard draws. With nothing typed there is nothing
+   * to add, so it goes back to carrying the owner forward.
+   */
+  const draftIsFillable =
+    step === 4 && debtDraft.name.trim() !== '' && toKobo(debtDraft.amount) > 0 && !!debtDraft.direction
+
+  function addDebt() {
+    setAnswers({
+      ...answers,
+      debts: [
+        ...answers.debts,
+        {
+          counterpartyName: debtDraft.name.trim(),
+          direction: debtDraft.direction ?? 'i-owe',
+          amount: toKobo(debtDraft.amount),
+        },
+      ],
+    })
+    setDebtDraft(emptyDraft())
+  }
+
+  const savingsCategories = answers.categories.filter((c) => c.type === 'savings')
+  // What step 4 recorded against the rent fund, which is what step 6 is
+  // closing the gap from.
+  const rentCategory = savingsCategories.find((c) => /rent/i.test(c.name))
+  const rentOpeningBalance = ((rentCategory && answers.openingBalances[rentCategory.id]) ??
+    0) as Kobo
+
+  function addCategory(name: string, type: CategoryType) {
+    setAnswers({
+      ...answers,
+      categories: [
+        ...answers.categories,
+        {
+          id: makeId() as Id,
+          name,
+          type,
+          rollsOver: false,
+          sortOrder: answers.categories.length,
+        },
+      ],
+    })
+    setAddingCategory(false)
+  }
 
   function goNext() {
     if (!stepIsValid) {
@@ -93,56 +170,68 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-[520px] flex-col gap-6 py-8">
-      <ProgressDots current={step} total={STEPS.length} />
+    <div className="flex min-h-screen justify-center desktop:items-center desktop:py-[70px]">
+      {/* Full-bleed on a phone; a 620px card at 1440, which is what OnbDLight
+          draws — the same content, given an edge rather than a new layout. */}
+      <div className="flex w-full max-w-[420px] flex-col desktop:max-w-[620px] desktop:rounded-xl desktop:border desktop:border-line desktop:bg-card desktop:shadow-card">
+        <header className="px-5 pt-6">
+          <ProgressDots current={step} total={STEPS.length} />
 
-      <div className="flex flex-1 flex-col gap-5">
-        <h1
-          ref={heading}
-          tabIndex={-1}
-          className="font-voice text-title text-ink outline-none"
-        >
-          {STEPS[step]}
-        </h1>
+          <p className="mt-4 font-structural text-lab uppercase text-soft">
+            Step {step + 1} of {STEPS.length}
+          </p>
+
+          <h1
+            ref={heading}
+            tabIndex={-1}
+            className="mt-2 font-voice text-question text-ink outline-none"
+          >
+            {STEPS[step]}
+          </h1>
+        </header>
+
+      <div className="flex flex-1 flex-col gap-5 px-5 pt-6">
 
         {step === 0 ? (
-          <StepBody hint="Only used on a debt record you print. You can skip this.">
+          <>
             <Field
               label="Your name"
+              helper="Optional. It appears on the printed debt record, and nowhere else."
               value={answers.ownerName ?? ''}
               onChange={(e) => setAnswers({ ...answers, ownerName: e.target.value || undefined })}
             />
-            <p className="font-structural text-small text-soft">
+            {/* Set apart by a rule, because it is a promise about all six steps
+                rather than a note about this field. */}
+            <p className="mt-[14px] border-t border-hair pt-[18px] font-structural text-small text-soft">
               Everything you enter stays on this device.
             </p>
-          </StepBody>
+          </>
         ) : null}
 
         {step === 1 ? (
-          <StepBody hint="The only step we really need.">
-            <Field
+          <div className="flex flex-col gap-[22px]">
+            <SelectField
               label="Salary day"
-              type="number"
-              inputMode="numeric"
-              min={1}
-              max={31}
-              required
+              helper="Short months will use the last day."
               value={String(answers.salaryDay)}
               error={salaryDayError}
-              onChange={(e) =>
-                setAnswers({ ...answers, salaryDay: Number.parseInt(e.target.value, 10) || 0 })
-              }
+              trailing={<Icon name="chevron" size={18} />}
+              onClick={() => setDayPickerOpen(true)}
             />
 
-            {/* A note, not a warning: nothing is wrong (D4). */}
-            {answers.salaryDay >= 29 && answers.salaryDay <= 31 ? (
-              <Banner tone="neutral">
-                <span className="text-small">Short months will use the last day.</span>
-              </Banner>
-            ) : null}
-
             <AmountInput
-              label="Take-home each month"
+              label="Take-home pay"
+              /**
+               * The echo page specs §7.1 asks for, in the slot the artboard
+               * gives to guidance — rather than the extra line the screen had,
+               * which the design has no room for. Once there is a figure to
+               * read back, reading it back is the more useful sentence.
+               */
+              helper={
+                answers.takeHome > 0
+                  ? `${formatMoney(answers.takeHome)} a month.`
+                  : 'What actually reaches you each month, after deductions.'
+              }
               required
               value={takeHomeText}
               error={takeHomeError}
@@ -151,86 +240,113 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
                 setAnswers({ ...answers, takeHome: toKobo(next) })
               }}
             />
-            {answers.takeHome > 0 ? (
-              <p className="font-structural text-small text-soft">
-                {formatMoney(answers.takeHome)} a month.
-              </p>
-            ) : null}
-          </StepBody>
+          </div>
         ) : null}
 
         {step === 2 ? (
-          <StepBody hint="A starter list. Turn off anything you do not use — you can change these later.">
-            <ul className="flex flex-col gap-1">
-              {emptyAnswers(() => '').categories.map((starter, index) => {
-                const kept = answers.categories.some((c) => c.name === starter.name)
-                return (
-                  <li key={starter.name}>
-                    <Switch
-                      checked={kept}
-                      label={starter.name}
-                      onCheckedChange={(on) =>
-                        setAnswers({
-                          ...answers,
-                          categories: on
-                            ? [
-                                ...answers.categories,
-                                { ...starter, id: makeId() as Id, sortOrder: index },
-                              ].sort((a, b) => a.sortOrder - b.sortOrder)
-                            : answers.categories.filter((c) => c.name !== starter.name),
-                        })
-                      }
-                    />
+          <>
+            <Card className="p-4">
+              <ul>
+                {answers.categories.map((category) => (
+                  <li
+                    key={category.id}
+                    className="flex min-h-[52px] items-center gap-3 border-b border-hair last:border-b-0"
+                  >
+                    <span className="flex-1 font-structural text-body text-ink">
+                      {category.name}
+                    </span>
+                    <Pill tone={CATEGORY_TONE[category.type]}>{CATEGORY_LABEL[category.type]}</Pill>
                   </li>
-                )
-              })}
-            </ul>
-          </StepBody>
+                ))}
+              </ul>
+            </Card>
+
+            <Button
+              variant="quiet"
+              className="self-start px-0 font-semibold text-emerald"
+              onClick={() => setAddingCategory(true)}
+            >
+              + Add a category
+            </Button>
+
+            <p className="font-structural text-small text-soft">
+              Twelve to start with. Rename, remove or add any of them — you can change them
+              later in Settings.
+            </p>
+          </>
         ) : null}
 
         {step === 3 ? (
-          <StepBody hint="What have you already put aside for this? Leave a row blank if it is nothing yet.">
-            {answers.categories.filter((c) => c.type === 'savings').length === 0 ? (
+          <>
+            <p className="font-structural text-small text-soft">
+              What have you already put aside for this?
+            </p>
+
+            {savingsCategories.length === 0 ? (
               <p className="font-structural text-body text-soft">
                 No savings categories, so there is nothing to open a balance for.
               </p>
             ) : null}
 
-            {answers.categories
-              .filter((c) => c.type === 'savings')
-              .map((category) => (
-                <OpeningBalanceRow
+            <ul>
+              {savingsCategories.map((category) => (
+                <li
                   key={category.id}
-                  name={category.name}
-                  onChange={(amount) =>
-                    setAnswers({
-                      ...answers,
-                      openingBalances: { ...answers.openingBalances, [category.id]: amount },
-                    })
-                  }
-                />
+                  className="flex items-center gap-3 border-b border-hair py-3 last:border-b-0"
+                >
+                  <span className="flex-1 font-structural text-body text-ink">
+                    {category.name}
+                  </span>
+                  {/* The field is 150px and the name takes the rest, so eight
+                      rows read as one column of figures rather than eight forms. */}
+                  <div className="w-[150px] shrink-0">
+                    <OpeningBalanceRow
+                      name={category.name}
+                      onChange={(amount) =>
+                        setAnswers({
+                          ...answers,
+                          openingBalances: { ...answers.openingBalances, [category.id]: amount },
+                        })
+                      }
+                    />
+                  </div>
+                </li>
               ))}
-          </StepBody>
+            </ul>
+
+            <p className="font-structural text-small text-soft">
+              Each amount is recorded as a dated opening movement on 24 September — the day
+              before this cycle starts — so it never counts as this cycle&rsquo;s saving.
+            </p>
+          </>
         ) : null}
 
         {step === 4 ? (
-          <StepBody hint="Both directions sit here together, because the app is about both.">
-            <DebtList
-              debts={answers.debts}
-              onChange={(debts) => setAnswers({ ...answers, debts })}
-            />
-          </StepBody>
+          <DebtList draft={debtDraft} onDraft={setDebtDraft} debts={answers.debts} />
         ) : null}
 
         {step === 5 ? (
-          <StepBody hint="A sinking fund for the rent, so it is not a shock once a year.">
-            <RentStep
-              value={answers.rent}
-              onChange={(rent) => setAnswers({ ...answers, rent })}
-            />
-          </StepBody>
+          <RentStep
+            value={answers.rent}
+            onChange={(rent) => setAnswers({ ...answers, rent })}
+            salaryDay={answers.salaryDay}
+            now={now}
+            alreadySaved={rentOpeningBalance}
+          />
         ) : null}
       </div>
+
+      <DayPicker
+        open={dayPickerOpen}
+        value={answers.salaryDay}
+        onOpenChange={setDayPickerOpen}
+        onPick={(day) => {
+          setAnswers({ ...answers, salaryDay: day })
+          setDayPickerOpen(false)
+        }}
+      />
+
+      <AddCategory open={addingCategory} onOpenChange={setAddingCategory} onAdd={addCategory} />
 
       {saveProblem ? (
         <Banner tone="neutral" action={{ label: 'Try again', onClick: () => void finish() }}>
@@ -238,10 +354,15 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
         </Banner>
       ) : null}
 
-      {/* Pinned to the bottom, above the keyboard. */}
-      <div className="sticky bottom-0 flex gap-3 bg-bg pb-2 pt-3">
+      {/* Back is a fixed 100px and Continue takes the rest, as drawn: the two
+          are not equals, and equal halves say they are. Step 1 has no Back. */}
+      <div className="flex gap-2.5 px-5 pb-6 pt-[22px]">
         {step > 0 ? (
-          <Button variant="secondary" onClick={() => setStep((s) => s - 1)}>
+          <Button
+            variant="secondary"
+            className="w-[100px] shrink-0"
+            onClick={() => setStep((s) => s - 1)}
+          >
             Back
           </Button>
         ) : null}
@@ -249,36 +370,37 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
         <Button
           fullWidth
           loading={saving}
-          onClick={() => (isLast ? void finish() : goNext())}
+          onClick={() => {
+            if (draftIsFillable) return addDebt()
+            return isLast ? void finish() : goNext()
+          }}
         >
-          {isLast ? 'Finish' : 'Continue'}
+          {draftIsFillable ? 'Add another' : isLast ? 'Finish' : 'Continue'}
         </Button>
+      </div>
       </div>
     </div>
   )
 }
 
-function StepBody({ hint, children }: { hint: string; children: ReactNode }) {
-  return (
-    <div className="flex flex-col gap-4">
-      <p className="font-structural text-body text-soft">{hint}</p>
-      {children}
-    </div>
-  )
-}
 
+/**
+ * Six dots, and the one you are on is a pill.
+ *
+ * **Not six equal bars filling up.** A progress bar says "how much is left";
+ * these say "which of six you are on", and the widened current dot is what
+ * carries that. `Step N of 6` is written out beneath in words, so nothing here
+ * has to be announced.
+ */
 function ProgressDots({ current, total }: { current: number; total: number }) {
   return (
-    <div className="flex items-center gap-2">
-      {/* The words, for a screen reader; the dots, for everyone else. */}
-      <span className="sr-only" aria-live="polite">
-        Step {current + 1} of {total}
-      </span>
+    <div aria-hidden="true" className="flex items-center gap-1.5">
       {Array.from({ length: total }, (_, i) => (
         <span
           key={i}
-          aria-hidden="true"
-          className={`h-1.5 flex-1 rounded-full ${i <= current ? 'bg-emerald' : 'bg-track'}`}
+          className={`h-2 rounded-full ${i === current ? 'w-6 bg-emerald' : 'w-2'} ${
+            i < current ? 'bg-emerald' : i > current ? 'bg-track' : ''
+          }`}
         />
       ))}
     </div>
@@ -305,33 +427,22 @@ function OpeningBalanceRow({
   )
 }
 
+/** An empty counterparty form. */
+function emptyDraft(): { name: string; amount: string; began: string; schedule: string; direction?: DebtAnswer['direction'] } {
+  return { name: '', amount: '', began: '', schedule: '' }
+}
+
 function DebtList({
+  draft,
+  onDraft,
   debts,
-  onChange,
 }: {
+  draft: ReturnType<typeof emptyDraft>
+  onDraft: (draft: ReturnType<typeof emptyDraft>) => void
   debts: DebtAnswer[]
-  onChange: (debts: DebtAnswer[]) => void
 }) {
-  const [name, setName] = useState('')
-  const [amount, setAmount] = useState('')
-  const [owedToMe, setOwedToMe] = useState(false)
-
-  function add() {
-    if (!name.trim() || toKobo(amount) <= 0) return
-    onChange([
-      ...debts,
-      {
-        counterpartyName: name.trim(),
-        direction: owedToMe ? 'owed-to-me' : 'i-owe',
-        amount: toKobo(amount),
-      },
-    ])
-    setName('')
-    setAmount('')
-  }
-
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-[18px]">
       {debts.length > 0 ? (
         <ul className="flex flex-col gap-1">
           {debts.map((debt, i) => (
@@ -349,17 +460,47 @@ function DebtList({
         </ul>
       ) : null}
 
-      <Field label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-      <AmountInput label="Amount" value={amount} onValueChange={setAmount} />
-      <Switch
-        checked={owedToMe}
-        label="They owe me"
-        helper="Off means you owe them."
-        onCheckedChange={setOwedToMe}
+      {/* Two chips, and **neither is selected until it is chosen**. A default
+          here would record a direction nobody stated, on the one field where
+          getting it backwards inverts the whole record. */}
+      <ChipGroup
+        label="Direction"
+        helper="No default — pick the one that is true."
+        value={draft.direction}
+        options={[
+          { value: 'i-owe', label: 'I owe them' },
+          { value: 'owed-to-me', label: 'They owe me' },
+        ]}
+        onValueChange={(next) => onDraft({ ...draft, direction: next as DebtAnswer['direction'] })}
       />
-      <Button variant="secondary" onClick={add}>
-        Add another
-      </Button>
+
+      <Field
+        label="Counterparty name"
+        value={draft.name}
+        onChange={(e) => onDraft({ ...draft, name: e.target.value })}
+      />
+
+      <AmountInput
+        label="Amount"
+        value={draft.amount}
+        onValueChange={(next) => onDraft({ ...draft, amount: next })}
+      />
+
+      <Field
+        label="Date it began"
+        type="date"
+        value={draft.began}
+        onChange={(e) => onDraft({ ...draft, began: e.target.value })}
+      />
+
+      <AmountInput
+        label="Agreed repayment per cycle"
+        // `(optional)` sits inside the label at regular weight, as drawn —
+        // not as helper text under the field, where it reads as advice.
+        labelSuffix={<span className="font-normal text-soft"> (optional)</span>}
+        value={draft.schedule}
+        onValueChange={(next) => onDraft({ ...draft, schedule: next })}
+      />
     </div>
   )
 }
@@ -367,41 +508,170 @@ function DebtList({
 function RentStep({
   value,
   onChange,
+  salaryDay,
+  now,
+  alreadySaved,
 }: {
   value: OnboardingAnswers['rent']
   onChange: (rent: OnboardingAnswers['rent']) => void
+  salaryDay: number
+  now: IsoDate
+  alreadySaved: Kobo
 }) {
   const [target, setTarget] = useState('')
+
+  const goal = value?.target ?? (0 as Kobo)
+  const due = value?.dueDate
+  const paydays =
+    due && salaryDay >= 1 && salaryDay <= 31
+      ? paydaysBetween({ salaryDay } as Settings, now, due)
+      : 0
+
+  /**
+   * **What is knowable here, which is not what the artboard quotes.**
+   *
+   * The callout is drawn as *"At ₦75,000.00 a payday — you reach ₦850,000.00…
+   * ₦50,000.00 short"*. That ₦75,000 is the rent fund's **planned
+   * contribution**, and at step 6 there is no plan — it is set on Plan, after
+   * onboarding. So the rate cannot be read; it can only be **solved for**.
+   *
+   * Obligations round **up** (tokens.md §4): a rate that rounds down arrives
+   * short, which is the one direction that matters here.
+   */
+  const perPayday =
+    paydays > 0 && goal > alreadySaved
+      ? (Math.ceil((goal - alreadySaved) / paydays) as Kobo)
+      : (0 as Kobo)
+
   return (
-    <>
+    <div className="flex flex-col gap-[22px]">
       <AmountInput
         label="Rent target"
         value={target}
         onValueChange={(next) => {
           setTarget(next)
-          onChange({ target: toKobo(next), ...(value?.dueDate ? { dueDate: value.dueDate } : {}) })
+          onChange({ target: toKobo(next), ...(due ? { dueDate: due } : {}) })
         }}
       />
+
       <Field
         label="Due date"
         type="date"
-        value={value?.dueDate ?? ''}
+        helper="Mizaniya works out what you need to put aside each payday to get there."
+        value={due ?? ''}
         onChange={(e) =>
           onChange({
-            target: value?.target ?? (0 as Kobo),
+            target: goal,
             ...(e.target.value ? { dueDate: e.target.value as IsoDate } : {}),
           })
         }
       />
-      {value && value.target > 0 ? (
-        <p className="font-structural text-small text-soft">
-          {formatMoney(value.target)} by {value.dueDate ?? 'no date set'}.
-        </p>
+
+      {perPayday > 0 && due ? (
+        <Card className="p-4">
+          <div className="flex items-start gap-3">
+            <IconTile tone="positive">
+              <Icon name="target" size={18} />
+            </IconTile>
+            <div className="flex-1">
+              <div className="font-structural text-body font-semibold text-ink">
+                At {formatMoney(perPayday)} a payday
+              </div>
+              <div className="mt-1 font-structural text-small text-soft">
+                You reach {formatMoney(goal)} by {due}, over {paydays}{' '}
+                {paydays === 1 ? 'payday' : 'paydays'}.
+              </div>
+            </div>
+          </div>
+        </Card>
       ) : null}
-    </>
+    </div>
   )
 }
 
 function defaultMakeId(): string {
   return crypto.randomUUID()
+}
+
+/**
+ * **Neither of these is drawn.** The artboards show the closed salary-day field
+ * and the `+ Add a category` link, and stop there. Rather than invent a new
+ * visual language for what opens, both are composed from primitives the design
+ * system already draws elsewhere — a sheet, a field, a chip group. What they
+ * should actually look like is a question for the designer.
+ */
+function DayPicker({
+  open,
+  value,
+  onOpenChange,
+  onPick,
+}: {
+  open: boolean
+  value: number
+  onOpenChange: (open: boolean) => void
+  onPick: (day: number) => void
+}) {
+  return (
+    <Sheet
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Salary day"
+      description="The day of the month your pay arrives."
+    >
+      <ChipGroup
+        label="Day of the month"
+        value={String(value)}
+        options={Array.from({ length: 31 }, (_, i) => ({
+          value: String(i + 1),
+          label: String(i + 1),
+        }))}
+        onValueChange={(day) => onPick(Number(day))}
+      />
+    </Sheet>
+  )
+}
+
+function AddCategory({
+  open,
+  onOpenChange,
+  onAdd,
+}: {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onAdd: (name: string, type: CategoryType) => void
+}) {
+  const [name, setName] = useState('')
+  const [type, setType] = useState<CategoryType>('expense')
+
+  return (
+    <Sheet
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Add a category"
+      description="Name it, and say what kind it is."
+      footer={
+        <Button
+          fullWidth
+          disabled={!name.trim()}
+          onClick={() => {
+            onAdd(name.trim(), type)
+            setName('')
+            setType('expense')
+          }}
+        >
+          Add
+        </Button>
+      }
+    >
+      <div className="flex flex-col gap-5">
+        <Field label="Name" value={name} onChange={(e) => setName(e.target.value)} />
+        <ChipGroup
+          label="Kind"
+          value={type}
+          options={ADDABLE.map((kind) => ({ value: kind, label: CATEGORY_LABEL[kind] }))}
+          onValueChange={(next) => setType(next as CategoryType)}
+        />
+      </div>
+    </Sheet>
+  )
 }

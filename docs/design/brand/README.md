@@ -49,6 +49,22 @@ app actually needs. Generated on 22 September 2026 from the same path data as
 The launch screen is the browser's own, built from `name`, `background_color` and the
 icon. Do not build a JavaScript splash screen — it would only delay the first frame.
 
+## Sizes the wordmark is set at
+
+The Latin is EB Garamond 600 — live text in the app, outlined in the SVG lockups.
+`tokens.md` §3 does not carry these: a step is a rung other screens reuse, and this
+exists for one string.
+
+| Where | Wordmark | Mark |
+|---|---|---|
+| Launch panel, 360 | 31 / 36 | 74px, bare |
+| Welcome, 360 surface | 42 / 48 | 51px, inside the app-icon tile |
+| Welcome, 1440 surface | 52 / 58 | 49px, inside the tile |
+| Desktop sidebar lockup | 24 | 25px, bare |
+
+The Arabic under it is `wordmark-arabic.svg`, set at 0.62 of the Latin's size,
+coloured `soft`, aligned to the Latin's right edge.
+
 ## Rules that travel with the mark
 
 - **One colour.** Emerald on paper, the lighter emerald on dark, white on an emerald tile,
@@ -57,6 +73,10 @@ icon. Do not build a JavaScript splash screen — it would only delay the first 
   balance, and most days it is not quite.
 - **The Arabic sits under the Latin, never above it, and never carries a figure.**
 - **Below 16px the pans close up.** Use the app icon instead of the bare mark there.
+- **The tile's corner is 22/84 of its own size** — the iOS superellipse ratio, so it
+  scales with the icon: 24px at the size the brand sheet draws it, 134px at 512. It is
+  brand geometry and is deliberately *not* on `tokens.md` §5's radius scale, which
+  governs UI surfaces. Do not round it to 22 or 30 to make it fit.
 
 ## Colours used
 

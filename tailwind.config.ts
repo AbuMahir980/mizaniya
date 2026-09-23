@@ -86,6 +86,11 @@ export default {
         token('size-promise'),
         { lineHeight: token('leading-promise'), fontWeight: token('weight-voice') },
       ],
+      /* Onboarding's question. Drawn at 27/33; unnamed in §3 like the two above. */
+      question: [
+        token('size-question'),
+        { lineHeight: token('leading-question'), fontWeight: token('weight-voice') },
+      ],
       h2: ['22px', { lineHeight: '28px', fontWeight: '600' }],
       body: ['15px', { lineHeight: '22px' }],
       small: ['13px', { lineHeight: '19px' }],

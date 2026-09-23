@@ -23,6 +23,8 @@ const control = cx(
 
 interface FieldShellProps {
   label: string
+  /** Rendered after the label, inside it — "(optional)" and nothing heavier. */
+  labelSuffix?: ReactNode
   /** Hidden visually but always present — every input has a name (J2). */
   hideLabel?: boolean
   helper?: ReactNode
@@ -31,26 +33,32 @@ interface FieldShellProps {
   children: (ids: { inputId: string; describedBy: string | undefined }) => ReactNode
 }
 
-function FieldShell({ label, hideLabel, helper, error, required, children }: FieldShellProps) {
+function FieldShell({ label, labelSuffix, hideLabel, helper, error, required, children }: FieldShellProps) {
   const inputId = useId()
   const helperId = `${inputId}-helper`
   const errorId = `${inputId}-error`
   const describedBy = cx(helper ? helperId : '', error ? errorId : '').trim() || undefined
 
   return (
-    <div className="flex flex-col gap-1">
+    /* 8px above and below the control, as every artboard draws a field. */
+    <div className="flex flex-col gap-2">
       <label
         htmlFor={inputId}
-        className={cx('text-small font-structural text-soft', hideLabel && 'sr-only')}
+        // Semibold ink, not regular soft: the label names the thing being
+        // asked for and the helper underneath is the quiet one. The canvas
+        // draws `font-size:13px; font-weight:600` with no colour, so it takes
+        // the panel's ink.
+        className={cx('text-small font-semibold font-structural text-ink', hideLabel && 'sr-only')}
       >
         {label}
+        {labelSuffix}
         {required ? <span aria-hidden="true"> *</span> : null}
       </label>
 
       {children({ inputId, describedBy })}
 
       {helper && !error ? (
-        <p id={helperId} className="text-small text-faint">
+        <p id={helperId} className="text-small text-soft">
           {helper}
         </p>
       ) : null}
@@ -69,18 +77,20 @@ function FieldShell({ label, hideLabel, helper, error, required, children }: Fie
 export interface FieldProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'aria-describedby'> {
   label: string
+  labelSuffix?: ReactNode
   hideLabel?: boolean
   helper?: ReactNode
   error?: string
 }
 
 export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
-  { label, hideLabel, helper, error, className, required, ...rest },
+  { label, labelSuffix, hideLabel, helper, error, className, required, ...rest },
   ref,
 ) {
   return (
     <FieldShell
       label={label}
+      labelSuffix={labelSuffix}
       hideLabel={hideLabel}
       helper={helper}
       error={error}
@@ -116,12 +126,13 @@ export interface AmountInputProps extends Omit<FieldProps, 'type' | 'inputMode'>
  */
 export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
   function AmountInput(
-    { label, hideLabel, helper, error, value, onValueChange, className, required, ...rest },
+    { label, labelSuffix, hideLabel, helper, error, value, onValueChange, className, required, ...rest },
     ref,
   ) {
     return (
       <FieldShell
         label={label}
+        labelSuffix={labelSuffix}
         hideLabel={hideLabel}
         helper={helper}
         error={error}
@@ -159,3 +170,52 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
     )
   },
 )
+
+/**
+ * A field that opens something rather than accepting typing.
+ *
+ * **A real `<button>` inside the field shell**, not a styled div or a `<select>`
+ * dressed up. The artboards draw the salary day and the due date this way — the
+ * field's own frame with the value in it and a mark on the right — and a button
+ * is labelable, so the shell's `<label>` still points at it and the helper still
+ * describes it.
+ */
+export interface SelectFieldProps {
+  label: string
+  /** What is currently chosen, rendered in the field. */
+  value: ReactNode
+  helper?: ReactNode
+  error?: string
+  /** The mark on the right — a chevron when it opens, a calendar for a date. */
+  trailing?: ReactNode
+  onClick?: () => void
+  disabled?: boolean
+}
+
+export function SelectField({
+  label,
+  value,
+  helper,
+  error,
+  trailing,
+  onClick,
+  disabled,
+}: SelectFieldProps) {
+  return (
+    <FieldShell label={label} helper={helper} error={error}>
+      {({ inputId, describedBy }) => (
+        <button
+          type="button"
+          id={inputId}
+          aria-describedby={describedBy}
+          disabled={disabled}
+          onClick={onClick}
+          className={cx(control, 'flex items-center justify-between gap-2 text-left')}
+        >
+          <span className="truncate">{value}</span>
+          {trailing ? <span className="shrink-0 text-soft">{trailing}</span> : null}
+        </button>
+      )}
+    </FieldShell>
+  )
+}

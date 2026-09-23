@@ -27,6 +27,8 @@ export type IconName =
   | 'shield-check'
   | 'alert'
   | 'trend'
+  | 'chevron'
+  | 'calendar'
 
 /**
  * Every glyph, as the artboard draws it.
@@ -122,6 +124,15 @@ const PATHS: Record<IconName, ReactNode> = {
     <>
       <path d="M4 15.5 8.5 9l4 4.5L20 5" />
       <path d="M20 5h-4.5M20 5v4.5" />
+    </>
+  ),
+
+  /* A field that opens something, and a date. */
+  chevron: <path d="m9.5 5.5 6.5 6.5-6.5 6.5" />,
+  calendar: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="15" rx="2.5" />
+      <path d="M3.5 10.5h17M8 3.5v4M16 3.5v4" />
     </>
   ),
 }

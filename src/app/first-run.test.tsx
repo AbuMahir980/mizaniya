@@ -135,7 +135,8 @@ describe('the welcome screen', () => {
     await user.click(await screen.findByRole('button', { name: 'Get started' }))
 
     // Step 1 is the name, and it is optional — nobody is asked for money first.
-    expect(await screen.findByRole('heading', { name: 'Your name' })).toBeDefined()
+    // The artboards ask a question; they do not label the field twice.
+    expect(await screen.findByRole('heading', { name: 'What should we call you?' })).toBeDefined()
     expect(screen.getByText('Step 1 of 6')).toBeDefined()
   })
 })
@@ -146,7 +147,7 @@ describe('step 2 is the only one that is required', () => {
     renderApp()
     await user.click(await screen.findByRole('button', { name: 'Get started' }))
     await user.click(await screen.findByRole('button', { name: 'Continue' }))
-    await screen.findByRole('heading', { name: 'Your salary' })
+    await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
     return user
   }
 
@@ -156,24 +157,39 @@ describe('step 2 is the only one that is required', () => {
 
     expect(await screen.findByText('Enter how much you take home each month.')).toBeDefined()
     // Still on step 2, not silently advanced.
-    expect(screen.getByRole('heading', { name: 'Your salary' })).toBeDefined()
+    expect(screen.getByRole('heading', { name: 'When are you paid, and how much?' })).toBeDefined()
   })
 
-  it('shows a note, not a warning, for a salary day of 29 to 31 (D4)', async () => {
-    const user = await toStepTwo()
-    const day = screen.getByLabelText(/Salary day/)
-    await user.clear(day)
-    await user.type(day, '31')
+  it('says what a short month does, before it can surprise anyone (D4)', async () => {
+    await toStepTwo()
 
+    // Standing guidance under the field, as the artboard draws it — not a
+    // banner that appears once the day is already 29 or more. Nothing is
+    // wrong, so nothing should arrive looking like a correction (F7).
     const note = await screen.findByText('Short months will use the last day.')
     expect(note).toBeDefined()
-    // Neutral, never danger: nothing is wrong (F7).
     expect(note.closest('.bg-ro2')).toBeNull()
+  })
+
+  it('opens a picker for the salary day rather than asking for a number', async () => {
+    const user = await toStepTwo()
+
+    // The artboard draws a field that opens, not a numeric input.
+    await user.click(screen.getByRole('button', { name: /Salary day/ }))
+    await user.click(await screen.findByRole('radio', { name: '31' }))
+
+    expect(screen.getByRole('button', { name: /Salary day/ })).toHaveProperty(
+      'textContent',
+      expect.stringContaining('31'),
+    )
   })
 
   it('echoes the amount back formatted as it is typed', async () => {
     const user = await toStepTwo()
     await user.type(screen.getByLabelText(/Take-home/), '450000')
+
+    // In the helper slot, which is where the artboard has room for a line of
+    // text under that field — not as an extra one it does not draw.
     expect(await screen.findByText('₦450,000.00 a month.')).toBeDefined()
   })
 })
@@ -185,7 +201,7 @@ describe('what onboarding writes', () => {
     await user.click(await screen.findByRole('button', { name: 'Get started' }))
 
     await user.click(screen.getByRole('button', { name: 'Continue' })) // name
-    await screen.findByRole('heading', { name: 'Your salary' })
+    await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
     await user.type(screen.getByLabelText(/Take-home/), '450000')
 
     for (const _ of [0, 1, 2, 3]) {
@@ -220,7 +236,7 @@ describe('what onboarding writes', () => {
     renderApp(failing)
     await user.click(await screen.findByRole('button', { name: 'Get started' }))
     await user.click(screen.getByRole('button', { name: 'Continue' }))
-    await screen.findByRole('heading', { name: 'Your salary' })
+    await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
     await user.type(screen.getByLabelText(/Take-home/), '450000')
     for (const _ of [0, 1, 2, 3]) {
       await user.click(screen.getByRole('button', { name: 'Continue' }))
@@ -311,7 +327,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
       renderApp()
       await user.click(await screen.findByRole('button', { name: 'Get started' }))
       await user.click(screen.getByRole('button', { name: 'Continue' }))
-      await screen.findByRole('heading', { name: 'Your salary' })
+      await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
       await user.type(screen.getByLabelText(/Take-home/), '450000')
       for (const _ of [0, 1, 2, 3]) {
         await user.click(screen.getByRole('button', { name: 'Continue' }))
