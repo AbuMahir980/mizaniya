@@ -131,7 +131,7 @@ export function AppShell() {
     return (
       <Centred>
         <div role="alert" className="flex flex-col gap-12">
-          <h1 className="font-voice text-title text-ink">
+          <h1 className="font-voice text-title text-ink desktop:text-title-wide">
             Couldn&rsquo;t open your data
           </h1>
           {/* Says what happened and what to do next (L2). */}

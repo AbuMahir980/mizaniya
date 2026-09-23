@@ -215,3 +215,59 @@ export function ChipGroup({
     </div>
   )
 }
+
+/**
+ * One of many, laid out as a grid rather than a wrapping row.
+ *
+ * **Six columns for 1–31**, which is the shape `OnbPickLight` draws: thirty-one
+ * is small enough to read at a glance, and six columns keeps every target over
+ * 44px where seven lands at 43. Selected is `ink` on `bg`, the same state a
+ * chip uses — a grid is a layout, not a new control.
+ */
+export interface OptionGridProps {
+  value: string | undefined
+  onValueChange: (value: string) => void
+  options: Array<{ value: string; label: string }>
+  label: string
+  columns?: number
+  helper?: ReactNode
+}
+
+export function OptionGrid({
+  value,
+  onValueChange,
+  options,
+  label,
+  columns = 6,
+  helper,
+}: OptionGridProps) {
+  return (
+    <div className="flex flex-col gap-16">
+      <RadioGroup.Root
+        value={value}
+        onValueChange={onValueChange}
+        aria-label={label}
+        className="grid gap-8"
+        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+      >
+        {options.map((option) => (
+          <RadioGroup.Item
+            key={option.value}
+            value={option.value}
+            className={cx(
+              'flex h-46 items-center justify-center rounded-md',
+              'font-structural text-body font-semibold',
+              'border border-line text-ink',
+              'transition-colors duration-fast',
+              'data-[state=checked]:border-ink data-[state=checked]:bg-ink',
+              'data-[state=checked]:text-bg',
+            )}
+          >
+            {option.label}
+          </RadioGroup.Item>
+        ))}
+      </RadioGroup.Root>
+      {helper ? <p className="font-structural text-small text-soft">{helper}</p> : null}
+    </div>
+  )
+}

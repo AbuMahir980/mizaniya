@@ -124,17 +124,20 @@ describe('design tokens', () => {
     expect(valuesFor(":root:not([data-theme='light'])").get('weight-voice')).toBe('600')
   })
 
-  it('the title step is a token, so one utility carries both widths', () => {
-    // 30/36 at 360, 34/40 at 1440 (tokens.md section 3). Declared once, so no
-    // call site has to remember a `desktop:` variant — and none can forget.
-    //
-    // Read from the source rather than through `valuesFor`: that parser buckets
-    // by selector and deliberately ignores the `@media` wrapper, so both `:root`
-    // blocks land in one bucket and the step's two values cannot be told apart
-    // there. Asserting the merged value would be asserting a parser detail.
-    expect(css).toMatch(/--size-title: 30px/)
-    expect(css).toMatch(/@media \(min-width: 1440px\)[\s\S]*?--size-title: 34px/)
-    expect(css).toMatch(/@media \(min-width: 1440px\)[\s\S]*?--leading-title: 40px/)
+  it('the wider rung is a separate token, not a media query', () => {
+    // tokens.md §3: the wider step applies only to a surface that **fills the
+    // desktop frame** — 1180px at 1440. A 620px card, a 520px column and a
+    // 480px dialog all take the 360 step on a wide screen, so widening on the
+    // viewport would have been wrong on every one of them. Opt-in instead.
+    const declared = valuesFor(':root')
+    expect(declared.get('size-title')).toBe('30px')
+    expect(declared.get('size-title-wide')).toBe('34px')
+    expect(declared.get('size-statement')).toBe('23px')
+    expect(declared.get('size-statement-wide')).toBe('29px')
+
+    // Nothing may widen these by window alone.
+    expect(css).not.toMatch(/@media[\s\S]*?--size-title:/)
+    expect(css).not.toMatch(/@media[\s\S]*?--size-statement:/)
   })
 
   it('shape, motion and target match tokens.ts', () => {
