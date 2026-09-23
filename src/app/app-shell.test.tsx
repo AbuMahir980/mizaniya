@@ -111,7 +111,7 @@ describe('a new owner is sent to onboarding', () => {
 })
 
 describe('the states the shell can be in', () => {
-  it('shows a loading screen before the data arrives', async () => {
+  it('shows the launch screen before the data arrives', async () => {
     let release: (() => void) | undefined
     const slow: Repository = {
       ...repo,
@@ -122,6 +122,13 @@ describe('the states the shell can be in', () => {
     }
     renderApp(slow)
 
+    // The artboard's launch panel: the name, and the one line of reassurance.
+    // No spinner is drawn, so the announcement carries the "still working" part
+    // that a turning spinner would otherwise convey.
+    expect(screen.getByText('Mizaniya')).toBeDefined()
+    expect(screen.getByText('Everything stays on this device')).toBeDefined()
+    // Scoped: the shell's announcer mounts a live region of its own.
+    expect(screen.getByText('Opening your records…').closest('[role="status"]')).not.toBeNull()
     expect(screen.getByText('Opening your records…')).toBeDefined()
 
     // Released inside act, so the resolution's re-render is not a stray update
