@@ -4,8 +4,8 @@
   "phaseFile": "peer-ai/frontend/03-build.md",
   "cycle": "Cycle 2 \u2014 the shell and the screens the core journey needs",
   "milestoneBranch": "",
-  "ticket": "#18",
-  "ticketTitle": "T11 \u00b7 PWA \u2014 manifest, service worker, persistence",
+  "ticket": "#19",
+  "ticketTitle": "T12 \u00b7 Onboarding",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -16,12 +16,12 @@
     "#14",
     "#15",
     "#16",
-    "#17"
+    "#17",
+    "#18"
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
   "ticketsRemaining": [
-    "#18",
     "#19",
     "#20",
     "#21",
@@ -35,9 +35,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 210 tests, build",
+  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 238 tests, build",
   "lastVerifyTimestamp": "2026-09-23",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-23",
-  "notes": "READ CONTEXT.md at app root. Cycle 2: T10 merged. Next action: start #18, T11 PWA \u2014 it carries the manifest icons from docs/open-items.md item 4 (the icon PNGs are already in public/). Persistence is requested AFTER the first real write, never on first load (D12)."
+  "notes": "READ CONTEXT.md at app root. Cycle 2: T10-T11 merged. Next action: start #19, T12 onboarding \u2014 it carries open-item 5, the welcome screen, which was designed after PAGE SPECS and is already in the issue acceptance criteria."
 }
