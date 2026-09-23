@@ -300,6 +300,52 @@ the ticket that takes it. The file is deleted once every box is ticked.
 
 Newest first.
 
+### 2026-09-24 (Thursday, later) — the designer's three follow-ups, and the welcome screen
+
+- **#60 · the voice face.** A sheet title takes it (`font-voice text-title`),
+  because the voice face names a **surface** and a sheet is one while it is
+  open. `--weight-voice` is 500 on light and 600 on dark: EB Garamond's hairline
+  is 1.02 device pixels at 30px on a 1× screen, and at 500 on dark it is drawn
+  by antialiasing alone. The `title` step's 1440 size is a **token**, not a
+  `desktop:` variant on eight call sites — one definition, and none of them able
+  to forget. A test pins the weight in all three theme blocks, because a token
+  that differs between themes is exactly the one that can quietly stop
+  differing.
+- **#62 · the welcome screen.** The three promises had no icons; the artboard
+  puts each in a 38px tinted square, and the glyphs did not exist. Lifted
+  path-for-path. The tile did exist — `IconTile` with tone `positive` is already
+  `bg-em2 text-emerald`. The wordmark was 30px where the artboard draws 42/48,
+  so **the app's name rendered smaller than the sentence under it.** Added as a
+  `lockup` step rather than reached for with an arbitrary class.
+- **Open item 5 built that screen's *behaviour* and was ticked on that basis,
+  and nothing in it was wrong.** A list of behaviours is not a design-quality
+  pass, and ticking one as though it were is how a screen ships looking
+  unfinished. Noted in `open-items.md`.
+- **#61 · Home at 360.** The ranked section, which never existed. The settled
+  rule — **the heading names what the list is showing** — also decides the state
+  nobody specified: no *"Needs attention · 0 of 8"*, just the worst three headed
+  *Categories*.
+- **Rendered one or the other, not both behind `desktop:hidden`.** That pattern
+  is right for the nav and the rail, which say the same thing in two shapes. It
+  is wrong when the two carry **different** content: hiding a duplicate would
+  leave two identical `Categories` headings and eight repeated rows in the
+  document. Hence `useMediaQuery`, which answers `true` without `matchMedia` so
+  every existing test keeps the fuller layout.
+- **Home listed twelve categories where the artboards draw eight.** Protected
+  lines are money already moved where the plan promised, so `statusOf` gives
+  them `ok` unconditionally — four rows that could never need attention, and a
+  count reading `2 of 12`. Filtered, and the desktop table gained the count
+  badge it was drawn with.
+- **The finding that matters most, and it was an accident**
+  ([#65](https://github.com/AbuMahir980/mizaniya/issues/65)). My first
+  assertions came from `docs/seed-data.md` and failed: Home's fixture seeds its
+  **own** split — 78/22/10 — whose total is right and whose distribution is not.
+  Under it **Health sits at 100% and reads `Low`, where the document has it at
+  140% and `Overspent`.** Home's most important state is not the one its tests
+  exercise, and the seed document chose those figures precisely so that it would
+  be. Nineteen green tests never said so; writing a twentieth against the
+  specification did.
+
 ### 2026-09-24 (Thursday) — the seed, and what it refused to invent
 
 - **T21 · the seed script** ([#28](https://github.com/AbuMahir980/mizaniya/issues/28)),
