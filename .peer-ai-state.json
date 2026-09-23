@@ -39,9 +39,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 354 tests, build",
+  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 359 tests, build",
   "lastVerifyTimestamp": "2026-09-24",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-24",
-  "notes": "READ CONTEXT.md. T21 seed done (#28): npm run seed writes an export file to restore from the welcome screen. T16 (#23) is in progress on feature/transactions-and-editing \u2014 core done, screen not started. Then design follow-ups: open-items 9, 10, 11, and the welcome screen."
+  "notes": "READ CONTEXT.md. Design follow-ups done (#60, #61, #62) and the seed script (#28): run `npm run seed -- --current` and restore from the welcome screen to see real data. T16 (#23) is in progress on feature/transactions-and-editing \u2014 core/movement done, screen not started. Open: #58 seed-data gaps, #65 Home fixture split and table columns."
 }
