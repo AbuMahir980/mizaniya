@@ -9,6 +9,8 @@
 
 import type { ReactNode } from 'react'
 import { cx } from './cx'
+import { Icon } from './icon'
+import { Mark } from './mark'
 
 export interface NavItem {
   key: string
@@ -74,14 +76,7 @@ export function BottomBar({ items, activeKey, onAdd, className }: BottomBarProps
             'rounded-full bg-emerald text-onEmerald shadow-lift',
           )}
         >
-          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-            <path
-              d="M11 4v14M4 11h14"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-            />
-          </svg>
+          <Icon name="add" size={22} />
         </button>
       </div>
 
@@ -90,21 +85,56 @@ export function BottomBar({ items, activeKey, onAdd, className }: BottomBarProps
   )
 }
 
+export interface SidebarProps extends BottomBarProps {
+  /**
+   * Pinned to the bottom, below a divider and a gap.
+   *
+   * For destinations that are not places the owner *works*. Settings is the one
+   * that matters: it holds Import, which page specs §7.9 calls the most
+   * dangerous action in the app. Sitting it apart makes reaching it slightly
+   * deliberate, which is the right weight for a screen that can replace
+   * everything.
+   */
+  footerItems?: NavItem[]
+  /** Rendered above the footer items, below the divider. */
+  footerSlot?: ReactNode
+}
+
 export function Sidebar({
   items,
   activeKey,
   onAdd,
+  footerItems,
+  footerSlot,
   className,
-}: BottomBarProps) {
+}: SidebarProps) {
   return (
     <nav
       aria-label="Main"
       className={cx(
         'hidden desktop:flex desktop:w-[240px] desktop:shrink-0 desktop:flex-col',
         'desktop:gap-1 desktop:border-r desktop:border-line desktop:bg-card desktop:p-4',
+        /**
+         * Stays put while the main column scrolls under it.
+         *
+         * `self-start` is the part that makes it work, and leaving it out is a
+         * silent failure: a flex row stretches its children to the full height
+         * of the container, so the sidebar became as tall as the *page* rather
+         * than the viewport — and an element already that tall has nowhere to
+         * stick. It scrolled away, and only its footer stayed in view.
+         */
+        'desktop:sticky desktop:top-0 desktop:self-start',
+        'desktop:h-screen desktop:overflow-y-auto',
         className,
       )}
     >
+      {/* The lockup the design puts at the top of the sidebar
+          (`docs/design/canvas/DHomeLight.dc.html`, brand/README.md). */}
+      <div className="mb-6 flex items-center gap-2 px-3 pt-1">
+        <Mark size={22} className="text-emerald" />
+        <span className="font-voice text-h2 text-ink">Mizaniya</span>
+      </div>
+
       <button
         type="button"
         onClick={onAdd}
@@ -113,28 +143,41 @@ export function Sidebar({
           'bg-emerald font-structural text-body font-semibold text-onEmerald',
         )}
       >
-        <svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-          <path d="M11 4v14M4 11h14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-        </svg>
+        <Icon name="add" size={18} />
         Add
       </button>
 
-      {items.map((item) => (
-        <button
-          key={item.key}
-          type="button"
-          onClick={item.onSelect}
-          aria-current={item.key === activeKey ? 'page' : undefined}
-          className={cx(
-            'flex min-h-target items-center gap-3 rounded-md px-3 text-left',
-            'font-structural text-body',
-            item.key === activeKey ? 'bg-em2 text-emerald' : 'text-soft',
-          )}
-        >
-          <span aria-hidden="true">{item.icon}</span>
-          {item.label}
-        </button>
-      ))}
+      {items.map((item) => renderSidebarItem(item, activeKey))}
+
+      {footerItems?.length || footerSlot ? (
+        <>
+          {/* Pushed to the bottom, so the gap itself does the separating. */}
+          <div className="flex-1" aria-hidden="true" />
+          <div className="mt-2 flex flex-col gap-2 border-t border-line pt-3">
+            {footerItems?.map((item) => renderSidebarItem(item, activeKey))}
+            {footerSlot}
+          </div>
+        </>
+      ) : null}
     </nav>
+  )
+}
+
+function renderSidebarItem(item: NavItem, activeKey: string) {
+  return (
+    <button
+      key={item.key}
+      type="button"
+      onClick={item.onSelect}
+      aria-current={item.key === activeKey ? 'page' : undefined}
+      className={cx(
+        'flex min-h-target items-center gap-3 rounded-md px-3 text-left',
+        'font-structural text-body',
+        item.key === activeKey ? 'bg-em2 text-emerald' : 'text-soft',
+      )}
+    >
+      <span aria-hidden="true">{item.icon}</span>
+      {item.label}
+    </button>
   )
 }

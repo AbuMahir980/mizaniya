@@ -14,9 +14,12 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
 import { AnnounceProvider } from '@/ui/announce'
 import { BottomBar, Sidebar, type NavItem } from '@/ui/nav'
 import { OfflineNote } from '@/ui/banner'
+import { Icon, type IconName } from '@/ui/icon'
+import { ThemeChoice } from '@/ui/theme-choice'
 import { Spinner } from '@/ui/spinner'
 import { Mark } from '@/ui/mark'
 import { useIsOnline, useSnapshotState } from './store-context'
+import { useTheme } from './use-theme'
 
 /**
  * The five bottom-bar slots (page specs §2).
@@ -25,36 +28,70 @@ import { useIsOnline, useSnapshotState } from './store-context'
  * case, and browsing the list is the rare one. It lives under More.
  */
 const NAV = [
-  { key: 'home', label: 'Home', path: '/' },
-  { key: 'plan', label: 'Plan', path: '/plan' },
-  { key: 'debts', label: 'Debts', path: '/debts' },
-  { key: 'more', label: 'More', path: '/more' },
-] as const
+  { key: 'home', label: 'Home', path: '/', icon: 'home' },
+  { key: 'plan', label: 'Plan', path: '/plan', icon: 'plan' },
+  { key: 'debts', label: 'Debts', path: '/debts', icon: 'debts' },
+  { key: 'more', label: 'More', path: '/more', icon: 'more' },
+] as const satisfies readonly Destination[]
 
-/** A dot rather than a drawn icon: the icon set lands with the screens (T13). */
-function NavDot() {
-  return (
-    <span
-      aria-hidden="true"
-      className="block h-5 w-5 rounded-full border border-current"
-    />
-  )
+/**
+ * The sidebar lists **every destination flat, and no More** (§2).
+ *
+ * More is a mobile affordance: it exists because five slots is all a thumb can
+ * reach. At 1440 there is room for all of them, and keeping More there would
+ * hide four screens behind a button solving a problem that does not exist at
+ * that width.
+ */
+const SIDEBAR_NAV = [
+  { key: 'home', label: 'Home', path: '/', icon: 'home' },
+  { key: 'plan', label: 'Plan', path: '/plan', icon: 'plan' },
+  { key: 'transactions', label: 'Transactions', path: '/transactions', icon: 'transactions' },
+  { key: 'debts', label: 'Debts & Goals', path: '/debts', icon: 'debts' },
+  { key: 'months', label: 'Months', path: '/months', icon: 'months' },
+  { key: 'zakat', label: 'Zakat', path: '/zakat', icon: 'zakat' },
+] as const satisfies readonly Destination[]
+
+/**
+ * Settings sits apart, at the foot of the sidebar.
+ *
+ * Not because configuration is dull. Because **Settings holds Import**, which
+ * page specs §7.9 calls the most dangerous action in the app, and a screen that
+ * can replace every record should not be the seventh identical item in a list.
+ * Reaching it should take a moment's intent.
+ *
+ * Zakat therefore joins the destinations above it, where it belongs: in a
+ * Muslim-facing app it is a feature, not a preference. **This departs from
+ * `DHomeLight.dc.html`, which lists all seven flat with Settings before Zakat**
+ * — recorded as a decision in `CONTEXT.md` rather than slipped in.
+ */
+const SIDEBAR_FOOTER_NAV = [
+  { key: 'settings', label: 'Settings', path: '/settings', icon: 'settings' },
+] as const satisfies readonly Destination[]
+
+interface Destination {
+  key: string
+  label: string
+  path: string
+  icon: IconName
 }
 
-function useNavItems(): { items: NavItem[]; activeKey: string } {
+function useNavItems(destinations: readonly Destination[]): {
+  items: NavItem[]
+  activeKey: string
+} {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  const items = NAV.map((entry) => ({
+  const items = destinations.map((entry) => ({
     key: entry.key,
     label: entry.label,
-    icon: <NavDot />,
+    icon: <Icon name={entry.icon} />,
     onSelect: () => navigate(entry.path),
   }))
 
   // Longest match wins, so `/debts/x/record` still lights Debts.
   const active =
-    [...NAV]
+    [...destinations]
       .filter((entry) => entry.path !== '/' && pathname.startsWith(entry.path))
       .sort((a, b) => b.path.length - a.path.length)[0]?.key ?? 'home'
 
@@ -71,8 +108,15 @@ function useNavItems(): { items: NavItem[]; activeKey: string } {
 export function AppShell() {
   const state = useSnapshotState()
   const online = useIsOnline()
+  const theme = useTheme()
   const navigate = useNavigate()
-  const { items, activeKey } = useNavItems()
+  const bar = useNavItems(NAV)
+  // One list for the active key, split for rendering: otherwise being on
+  // /settings would light Home, because Settings is not in the main group.
+  const sidebar = useNavItems([...SIDEBAR_NAV, ...SIDEBAR_FOOTER_NAV])
+  const footerKeys = new Set<string>(SIDEBAR_FOOTER_NAV.map((entry) => entry.key))
+  const sidebarItems = sidebar.items.filter((item) => !footerKeys.has(item.key))
+  const sidebarFooterItems = sidebar.items.filter((item) => footerKeys.has(item.key))
 
   if (state.status === 'idle' || state.status === 'loading') {
     return <LoadingScreen />
@@ -101,8 +145,10 @@ export function AppShell() {
   return (
     <div className="flex min-h-screen bg-bg">
       <Sidebar
-        items={items}
-        activeKey={activeKey}
+        items={sidebarItems}
+        footerItems={sidebarFooterItems}
+        footerSlot={<ThemeChoice value={theme.choice} onValueChange={theme.setChoice} />}
+        activeKey={sidebar.activeKey}
         onAdd={() => navigate('/transactions')}
       />
 
@@ -123,8 +169,8 @@ export function AppShell() {
         </main>
 
         <BottomBar
-          items={items}
-          activeKey={activeKey}
+          items={bar.items}
+          activeKey={bar.activeKey}
           onAdd={() => navigate('/transactions')}
           className="desktop:hidden"
         />

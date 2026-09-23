@@ -13,6 +13,7 @@ import { Route, Routes } from 'react-router'
 import { ShellWithAnnouncer } from './app-shell'
 import { PrimitivesPage } from './primitives-page'
 import { FirstRun } from './first-run'
+import { HomeRoute } from './home-route'
 
 /**
  * A screen that has not been built.
@@ -64,7 +65,7 @@ export function AppRoutes() {
       />
 
       <Route element={<ShellWithAnnouncer />}>
-        <Route index element={<NotBuiltYet name="Home" ticket="T13" />} />
+        <Route index element={<HomeRoute />} />
         <Route
           path="/plan"
           element={<NotBuiltYet name="Plan" ticket="T15" />}

@@ -12,7 +12,7 @@
 
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
+import { act, cleanup, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { AppRoutes } from './routes'
@@ -102,7 +102,7 @@ describe('a new owner is sent to onboarding', () => {
     await repo.import(seeded)
     renderApp(repo)
 
-    expect(await screen.findByRole('heading', { name: 'Home' })).toBeDefined()
+    expect(await screen.findByRole('heading', { name: 'Safe to spend today' })).toBeDefined()
     expect(screen.queryByRole('button', { name: 'Get started' })).toBeNull()
   })
 })
@@ -152,7 +152,7 @@ describe('navigation', () => {
   it('moves between screens when a nav item is chosen', async () => {
     const user = userEvent.setup()
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     await user.click(screen.getAllByRole('button', { name: /Debts/ })[0]!)
     expect(await screen.findByRole('heading', { name: 'Debts & Goals' })).toBeDefined()
@@ -166,12 +166,149 @@ describe('navigation', () => {
     expect(debts.some((b) => b.getAttribute('aria-current') === 'page')).toBe(true)
   })
 
-  it('has no Transactions item — Quick Add covers recording (§2)', async () => {
+  it('the bottom bar has no Transactions item — Quick Add covers recording (§2)', async () => {
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
-    const nav = screen.getAllByRole('navigation')[0]!
-    expect(nav.textContent).not.toContain('Transactions')
+    // The bottom bar is the mobile one: five slots, and More carries the rest.
+    const bottomBar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('fixed'))!
+    expect(bottomBar.textContent).not.toContain('Transactions')
+    expect(bottomBar.textContent).toContain('More')
+  })
+
+  it('the sidebar lists every destination flat, and no More (§2)', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+
+    for (const label of ['Transactions', 'Months', 'Settings', 'Zakat']) {
+      expect(sidebar.textContent, `${label} missing from the sidebar`).toContain(label)
+    }
+    // More is a mobile affordance for a problem 1440 does not have.
+    expect(sidebar.textContent).not.toContain('More')
+  })
+
+  it('puts Zakat among the destinations and Settings apart, at the foot', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+    const labels = [...sidebar.querySelectorAll('button')].map((b) => b.textContent ?? '')
+
+    // Zakat is a feature, not a preference, so it sits with the places the
+    // owner goes to do something.
+    const zakat = labels.findIndex((l) => l.includes('Zakat'))
+    const settings = labels.findIndex((l) => l.includes('Settings'))
+    expect(zakat).toBeGreaterThan(-1)
+    expect(settings).toBeGreaterThan(zakat)
+
+    // And Settings is in its own group, because it holds Import — the most
+    // dangerous action in the app (§7.9).
+    const settingsButton = [...sidebar.querySelectorAll('button')].find((b) =>
+      b.textContent?.includes('Settings'),
+    )!
+    const zakatButton = [...sidebar.querySelectorAll('button')].find((b) =>
+      b.textContent?.includes('Zakat'),
+    )!
+    expect(settingsButton.parentElement).not.toBe(zakatButton.parentElement)
+  })
+
+  it('still lights Settings when the owner is on it', async () => {
+    renderApp(repo, '/settings')
+    const sidebar = await waitFor(() =>
+      screen
+        .getAllByRole('navigation')
+        .find((nav) => nav.className.includes('desktop:w-[240px]'))!,
+    )
+
+    const settings = [...sidebar.querySelectorAll('button')].find((b) =>
+      b.textContent?.includes('Settings'),
+    )!
+    // Settings sits outside the main group, so the active key is derived over
+    // both — otherwise being here would light Home.
+    expect(settings.getAttribute('aria-current')).toBe('page')
+  })
+
+  it('the root is never a scroll container, or nothing can be sticky', async () => {
+    const css = await import('node:fs').then((fs) => fs.readFileSync('src/index.css', 'utf8'))
+    const root = /html,\s*\n?\s*body\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
+
+    // `overflow-x: hidden` forces the other axis to compute as `auto`, which
+    // makes the root a scroll container and silently breaks every sticky
+    // element inside it. Two fixes to the sidebar did nothing until this line
+    // changed, so it is asserted where it will be read.
+    expect(root).toContain('clip')
+    expect(root).not.toContain('hidden')
+  })
+
+  it('renders a real icon per nav item, not a placeholder', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+
+    // Destinations and the Add button — not the theme control, whose tab
+    // triggers are buttons carrying words rather than glyphs.
+    const navButtons = [...sidebar.querySelectorAll('button')].filter(
+      (b) => !b.closest('[role="tablist"]'),
+    )
+    expect(navButtons.length).toBeGreaterThan(5)
+
+    for (const button of navButtons) {
+      // The Add button and every destination carry a 24-grid glyph.
+      const svg = button.querySelector('svg')
+      expect(svg, `no icon on "${button.textContent}"`).not.toBeNull()
+      expect(svg?.getAttribute('viewBox')).toBe('0 0 24 24')
+      // A drawn path, not the bordered circle the placeholder used.
+      expect(svg?.querySelector('path, circle, rect')).not.toBeNull()
+    }
+  })
+
+  it('carries a theme control, so both themes can be seen', async () => {
+    const user = userEvent.setup()
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const themes = screen.getByRole('tablist', { name: 'Colour theme' })
+    expect(themes).toBeDefined()
+
+    // Auto is the default, and it is a real state rather than "not chosen".
+    const auto = within(themes).getByRole('tab', { name: 'Auto' })
+    expect(auto.getAttribute('data-state')).toBe('active')
+    expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
+
+    await user.click(within(themes).getByRole('tab', { name: 'Dark' }))
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+
+    // And back, which a two-way toggle could not do.
+    await user.click(auto)
+    expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
+  })
+
+  it('the sidebar carries the lockup, and stays put while the page scrolls', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+
+    expect(sidebar.textContent).toContain('Mizaniya')
+    expect(sidebar.className).toContain('desktop:sticky')
+    expect(sidebar.className).toContain('desktop:h-screen')
+    // Without self-start the flex row stretches it to the height of the page,
+    // and a sticky element that tall has nowhere to stick — it scrolls away and
+    // only its footer stays in view.
+    expect(sidebar.className).toContain('desktop:self-start')
   })
 })
 
@@ -183,7 +320,7 @@ describe('the keyboard reaches every nav item (J5)', () => {
   it('tabs to every destination, and each one takes focus', async () => {
     const user = userEvent.setup()
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     const labels = ['Home', 'Plan', 'Debts', 'More']
     const reached = new Set<string>()
@@ -203,7 +340,7 @@ describe('the keyboard reaches every nav item (J5)', () => {
   it('activates a nav item with the keyboard alone', async () => {
     const user = userEvent.setup()
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     const plan = screen.getAllByRole('button', { name: /Plan/ })[0]!
     plan.focus()
@@ -215,7 +352,7 @@ describe('the keyboard reaches every nav item (J5)', () => {
 
   it('every nav item is a real button, so focus is visible by default', async () => {
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     // index.css puts a 2px emerald ring on :focus-visible for every element, so
     // the requirement is that these are focusable elements rather than divs.
@@ -231,7 +368,7 @@ describe('the shell mounts one live region, not one per figure (§3)', () => {
   it('has exactly one polite live region', async () => {
     await repo.import(seeded)
     const { container } = renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     const polite = container.querySelectorAll('[aria-live="polite"]')
     expect(polite.length).toBe(1)

@@ -9,8 +9,8 @@
  */
 
 import { addMoney, clampToZero, perUnitFloor, proportionOf, subtractMoney } from '../money/money'
-import type { Category, Kobo, PlanEntry, Snapshot, Transaction, TransactionType } from '../types'
-import { cycleFor, cycleForTransaction, daysLeft, type Cycle } from '../cycle/cycle'
+import type { Category, IsoDate, Kobo, PlanEntry, Snapshot, Transaction, TransactionType } from '../types'
+import { addDays, cycleFor, cycleForTransaction, daysLeft, type Cycle } from '../cycle/cycle'
 
 /** Movements that put money into the account. */
 const INFLOWS: readonly TransactionType[] = [
@@ -76,7 +76,21 @@ export function movedInto(
   categoryId: Category['id'],
 ): Kobo {
   const movements = movementsIn(snapshot, cycle).filter((t) => t.categoryId === categoryId)
-  const into = sumWhere(movements, (t) => t.type === 'expense' || t.type === 'savings-in')
+  /**
+   * `repaid` counts, and leaving it out was a real fault.
+   *
+   * A *Debt payment* category is funded by repaying the debt — that is the only
+   * movement that can satisfy it. Counting only expense and savings meant such
+   * a category could never be met, so `protectedRemaining` held its whole
+   * planned amount for the entire cycle and safe-to-spend was permanently
+   * understated by it. In the seeded scenario that is ₦1,500.00 a day, and the
+   * figure looks perfectly reasonable — it is simply too careful, every day,
+   * with nothing to say so.
+   */
+  const into = sumWhere(
+    movements,
+    (t) => t.type === 'expense' || t.type === 'savings-in' || t.type === 'repaid',
+  )
   const outOf = sumWhere(movements, (t) => t.type === 'savings-out')
   return subtractMoney(into, outOf)
 }
@@ -233,8 +247,7 @@ export function spendingByCategory(
       )
       const spent = movedInto(snapshot, cycle, category.id)
       const portionUsed = allowance > 0 ? spent / allowance : 0
-      const status: CategoryStatus =
-        allowance > 0 && spent > allowance ? 'overspent' : portionUsed >= 0.8 ? 'low' : 'ok'
+      const status = statusOf(isProtected(category), allowance, spent, portionUsed)
 
       return {
         categoryId: category.id,
@@ -247,10 +260,85 @@ export function spendingByCategory(
         isProtected: isProtected(category),
       }
     })
-    .sort((a, b) => b.portionUsed - a.portionUsed)
+    .sort(byAttentionNeeded)
+}
+
+/**
+ * **Meeting the allowance means opposite things for the two kinds of category.**
+ *
+ * Spending all of a food budget is the last warning before overspending it.
+ * Moving all of a rent contribution is the plan working — the money went where
+ * it was promised. Rating a fully funded savings line "Low" would put an amber
+ * badge on the one thing that went right, and (with the old sort) at the top of
+ * the table.
+ */
+function statusOf(
+  protectedCategory: boolean,
+  allowance: Kobo,
+  spent: Kobo,
+  portionUsed: number,
+): CategoryStatus {
+  if (allowance <= 0) return 'ok'
+
+  if (protectedCategory) {
+    /**
+     * A protected category carries no badge at all.
+     *
+     * None of the five statuses fits it. "Low" means *running out of what you
+     * may spend*, which is not what a half-funded rent contribution is; and
+     * moving more than planned into savings is not overspending, it is simply
+     * generous. Under-funding is still visible — in the bar, and in the amount
+     * still left to move — without a word that means something else.
+     */
+    return 'ok'
+  }
+
+  if (spent > allowance) return 'overspent'
+  return portionUsed >= 0.8 ? 'low' : 'ok'
+}
+
+/**
+ * Worst first — and "worst" is what needs attention, not what is fullest.
+ *
+ * Sorting on `portionUsed` alone floated a fully funded savings category above
+ * a food budget at 87%, which is the table's whole purpose inverted.
+ */
+const RANK: Record<CategoryStatus, number> = { overspent: 0, low: 1, ok: 2 }
+
+function byAttentionNeeded(a: CategorySpending, b: CategorySpending): number {
+  const byStatus = RANK[a.status] - RANK[b.status]
+  if (byStatus !== 0) return byStatus
+  // Within a status, still the fullest first.
+  return b.portionUsed - a.portionUsed
 }
 
 /** Actual movement of one kind this cycle — the figures behind Home's tiles. */
 export function totalMoved(snapshot: Snapshot, cycle: Cycle, types: TransactionType[]): Kobo {
   return sumWhere(movementsIn(snapshot, cycle), (t) => types.includes(t.type))
+}
+
+/**
+ * What was spent on each day of the cycle, one entry per day.
+ *
+ * **Every day appears, including the ones with nothing on them.** A chart drawn
+ * only from days that had spending compresses a quiet week into a gap and makes
+ * a cycle look busier than it was — and the day a bar is missing is exactly the
+ * day the owner wants to see was quiet.
+ *
+ * Expenses only: money moved to savings or to a debt is not spending, it is
+ * money going where the plan already promised it.
+ */
+export function spendingByDay(snapshot: Snapshot, cycle: Cycle): { date: IsoDate; spent: Kobo }[] {
+  const byDate = new Map<string, Kobo>()
+  for (const movement of movementsIn(snapshot, cycle)) {
+    if (movement.type !== 'expense') continue
+    byDate.set(movement.date, addMoney(byDate.get(movement.date) ?? (0 as Kobo), movement.amount))
+  }
+
+  const days: { date: IsoDate; spent: Kobo }[] = []
+  for (let offset = 0; offset < cycle.length; offset += 1) {
+    const date = addDays(cycle.start, offset)
+    days.push({ date, spent: byDate.get(date) ?? (0 as Kobo) })
+  }
+  return days
 }

@@ -146,7 +146,7 @@ describe('what onboarding writes', () => {
 
   it('lands on Home, never leaving the owner on the form', async () => {
     await onboardMinimally()
-    expect(await screen.findByRole('heading', { name: 'Home' })).toBeDefined()
+    expect(await screen.findByRole('heading', { name: 'Safe to spend today' })).toBeDefined()
   })
 
   it('writes the settings to storage, so a reload finds them', async () => {
@@ -229,7 +229,7 @@ describe('restoring an export skips onboarding entirely', () => {
 
     // The export already carries the settings, so asking again would be asking
     // for answers the file has supplied.
-    expect(await screen.findByRole('heading', { name: 'Home' })).toBeDefined()
+    expect(await screen.findByRole('heading', { name: 'Safe to spend today' })).toBeDefined()
     expect(await repo.transactions.list()).toHaveLength(1)
   })
 
@@ -266,7 +266,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
         await user.click(screen.getByRole('button', { name: 'Continue' }))
       }
       await user.click(await screen.findByRole('button', { name: 'Finish' }))
-      await screen.findByRole('heading', { name: 'Home' })
+      await screen.findByRole('heading', { name: 'Safe to spend today' })
     })()
 
     const afterOnboarding = await repo.load()
