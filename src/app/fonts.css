@@ -1,0 +1,77 @@
+/*
+ * WHAT: The three typefaces, declared explicitly and self-hosted.
+ * WHY:  Fontsource's own stylesheets list a legacy `woff` beside every `woff2`,
+ *       so the bundler emits **both** and every face ships twice. woff2 has been
+ *       supported everywhere since 2016 — iOS Safari included, and D14 makes
+ *       iOS Safari the strict case — so the second copy is pure weight on a
+ *       mobile connection.
+ * INTERVIEW: I wrote the font-face blocks by hand to drop a legacy format that
+ *       doubled the font payload for browsers that no longer exist.
+ *
+ * Only the weights tokens.md §3 names. Amiri is deliberately absent: the one
+ * piece of Arabic is the wordmark, and it ships as outlined paths.
+ */
+
+/* Voice — screen titles, hero statements, the printed record. */
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('@fontsource/eb-garamond/files/eb-garamond-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('@fontsource/eb-garamond/files/eb-garamond-latin-600-normal.woff2') format('woff2');
+}
+
+/* Structural — everything else, including the money hero. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/inter/files/inter-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('@fontsource/inter/files/inter-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('@fontsource/inter/files/inter-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('@fontsource/inter/files/inter-latin-700-normal.woff2') format('woff2');
+}
+
+/* Data — the money breakdown, table headers, axis labels. */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2')
+    format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('@fontsource/jetbrains-mono/files/jetbrains-mono-latin-600-normal.woff2')
+    format('woff2');
+}

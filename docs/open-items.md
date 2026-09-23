@@ -40,7 +40,7 @@ item below needs is already there — this list is about wiring it up, not makin
 
 ## B · Design → code — what the design has that the code does not
 
-- [ ] **3 · Load the three typefaces** — **T10**.
+- [x] **3 · Load the three typefaces** — **T10**.
   `src/design/tokens.css` names EB Garamond, Inter and JetBrains Mono, but nothing loads
   them: no `@fontsource` package, no `@font-face`, no link in `index.html`. None of the
   three ships with macOS, Windows or Android, so today the app renders in Georgia, SF and
@@ -53,7 +53,14 @@ item below needs is already there — this list is about wiring it up, not makin
     outlined SVG in `docs/design/brand/`.
   - Done when the primitives page renders its titles in EB Garamond with the network off.
 
-- [ ] **4 · Wire in the brand files** — favicon and the `Mark` component in **T10**,
+  **Done 23 September in T10 (#17), PR #45.** Self-hosted, Latin subset, only the
+  weights `tokens.md` §3 names. Written as explicit `@font-face` blocks rather than
+  Fontsource's own stylesheets, because those list a legacy `woff` beside every
+  `woff2` and the bundler emitted **both** — every face shipped twice, about 261 kB
+  of duplicate payload for browsers that no longer exist. Bundle excluding fonts is
+  155 kB gzipped against the 250 kB budget (spec §401).
+
+- [x] **4 · Wire in the brand files** — favicon and the `Mark` component in **T10**,
   manifest icons in **T11**.
   Everything is in `docs/design/brand/`, and its `README.md` gives the exact file
   destinations, the `index.html` head tags and the manifest `icons` block. In short:
@@ -63,6 +70,13 @@ item below needs is already there — this list is about wiring it up, not makin
     screen and the printed record all use it;
   - do not build a JavaScript splash screen — the browser builds the launch screen from
     the manifest.
+
+  **Favicon and `Mark` done 23 September in T10 (#17), PR #45.** The seven icon files
+  are in `public/`, and the head tags are in `index.html` verbatim from
+  `brand/README.md`. `Mark` is inlined at `src/ui/mark.tsx` rather than an `<img>`, so
+  its `currentColor` strokes take the colour of whatever it sits in — one file for the
+  sidebar, the welcome screen and the printed record. **The manifest icons stay open:
+  they belong to T11 (#18)**, which is where the manifest is written.
 
 - [ ] **5 · Build the welcome screen** — add it to **T12**'s acceptance criteria.
   It was designed after PAGE SPECS, so no ticket mentions it. Artboards:
