@@ -33,14 +33,22 @@ export function ThemeChoice({ value, onValueChange, className }: ThemeChoiceProp
     <Tabs.Root value={value} onValueChange={(next) => onValueChange(next as ThemeChoiceValue)}>
       <Tabs.List
         aria-label="Colour theme"
-        className={cx('flex rounded-md border border-line bg-card p-0.5', className)}
+        /**
+         * `p-1` and a gap, matching `Segmented`.
+         *
+         * The selected pill is a filled shape inside a bordered box, so it
+         * needs space on all four sides or it reads as the box itself being
+         * filled. 2px was not enough to see; 4px plus a gap between segments
+         * leaves the fill clearly floating inside its container.
+         */
+        className={cx('flex gap-0.5 rounded-md border border-line bg-card p-1', className)}
       >
         {OPTIONS.map((option) => (
           <Tabs.Trigger
             key={option.value}
             value={option.value}
             className={cx(
-              'flex-1 rounded-md py-1.5 font-structural text-lab uppercase',
+              'flex-1 rounded-md px-2 py-2 font-structural text-lab uppercase',
               'text-soft transition-colors duration-fast',
               'data-[state=active]:bg-ink data-[state=active]:text-bg',
             )}
