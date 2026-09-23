@@ -102,7 +102,7 @@ describe('a new owner is sent to onboarding', () => {
     await repo.import(seeded)
     renderApp(repo)
 
-    expect(await screen.findByRole('heading', { name: 'Home' })).toBeDefined()
+    expect(await screen.findByRole('heading', { name: 'Safe to spend today' })).toBeDefined()
     expect(screen.queryByRole('button', { name: 'Get started' })).toBeNull()
   })
 })
@@ -152,7 +152,7 @@ describe('navigation', () => {
   it('moves between screens when a nav item is chosen', async () => {
     const user = userEvent.setup()
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     await user.click(screen.getAllByRole('button', { name: /Debts/ })[0]!)
     expect(await screen.findByRole('heading', { name: 'Debts & Goals' })).toBeDefined()
@@ -168,7 +168,7 @@ describe('navigation', () => {
 
   it('has no Transactions item — Quick Add covers recording (§2)', async () => {
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     const nav = screen.getAllByRole('navigation')[0]!
     expect(nav.textContent).not.toContain('Transactions')
@@ -183,7 +183,7 @@ describe('the keyboard reaches every nav item (J5)', () => {
   it('tabs to every destination, and each one takes focus', async () => {
     const user = userEvent.setup()
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     const labels = ['Home', 'Plan', 'Debts', 'More']
     const reached = new Set<string>()
@@ -203,7 +203,7 @@ describe('the keyboard reaches every nav item (J5)', () => {
   it('activates a nav item with the keyboard alone', async () => {
     const user = userEvent.setup()
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     const plan = screen.getAllByRole('button', { name: /Plan/ })[0]!
     plan.focus()
@@ -215,7 +215,7 @@ describe('the keyboard reaches every nav item (J5)', () => {
 
   it('every nav item is a real button, so focus is visible by default', async () => {
     renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     // index.css puts a 2px emerald ring on :focus-visible for every element, so
     // the requirement is that these are focusable elements rather than divs.
@@ -231,7 +231,7 @@ describe('the shell mounts one live region, not one per figure (§3)', () => {
   it('has exactly one polite live region', async () => {
     await repo.import(seeded)
     const { container } = renderApp(repo)
-    await screen.findByRole('heading', { name: 'Home' })
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
 
     const polite = container.querySelectorAll('[aria-live="polite"]')
     expect(polite.length).toBe(1)
