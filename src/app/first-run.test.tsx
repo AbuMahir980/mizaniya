@@ -194,6 +194,54 @@ describe('step 2 is the only one that is required', () => {
   })
 })
 
+describe('what step 5 actually records', () => {
+  async function toStepFive() {
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Continue' }))
+    await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
+    await user.type(screen.getByLabelText(/Take-home/), '450000')
+    for (const question of [
+      'These are your categories.',
+      'What have you already saved?',
+      'Who do you owe, and who owes you?',
+    ]) {
+      await user.click(screen.getByRole('button', { name: 'Continue' }))
+      await screen.findByRole('heading', { name: question })
+    }
+    return user
+  }
+
+  /**
+   * The form asked for both of these and dropped them on the floor: `addDebt`
+   * wrote only the name, direction and amount. The schedule is the one that
+   * showed — `core/debt` reads it to say "clears in N paydays", so that line
+   * could never appear for any debt created at onboarding.
+   */
+  it('keeps the schedule and the date it began', async () => {
+    const user = await toStepFive()
+
+    await user.click(screen.getByRole('radio', { name: 'I owe them' }))
+    await user.type(screen.getByLabelText('Their name'), 'A. Friend')
+    await user.type(screen.getByLabelText('Amount'), '120000')
+    await user.type(screen.getByLabelText(/Date it began/), '2026-03-14')
+    await user.type(screen.getByLabelText(/How much each payday/), '30000')
+    await user.click(screen.getByRole('button', { name: '+ Add another' }))
+
+    await user.click(screen.getByRole('button', { name: 'Continue' }))
+    await user.click(await screen.findByRole('button', { name: 'Finish' }))
+
+    await waitFor(async () => expect(await repo.debts.list()).toHaveLength(1))
+    const [debt] = await repo.debts.list()
+
+    expect(debt?.scheduleAmount).toBe(naira(30_000))
+    // The relationship began in March; the *movement* still lands the day
+    // before the cycle, so the balance never counts as this cycle's activity.
+    expect(debt?.openedOn).toBe('2026-03-14')
+  })
+})
+
 describe('the controls the artboards drew after the rebuild', () => {
   async function toStepThree() {
     const user = userEvent.setup()
