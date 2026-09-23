@@ -259,7 +259,11 @@ function CategoryTable({
 }) {
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="font-voice text-h2 text-ink">Categories</h2>
+      {/* The label step, not the voice face: EB Garamond is for screen
+          titles, hero statements and the printed record (tokens.md §3). A
+          heading *inside* a screen is a label, and the design draws it as
+          one. */}
+      <h2 className="font-structural text-lab uppercase text-soft">Categories</h2>
       <Table
         caption="What is left in each category, worst first"
         rows={rows}
@@ -339,7 +343,7 @@ function GoalsAndDebts({
 
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="font-voice text-h2 text-ink">Goals &amp; debts</h2>
+      <h2 className="font-structural text-lab uppercase text-soft">Goals &amp; debts</h2>
       <Table
         caption="Goals and debts, with their status"
         rows={rows}
