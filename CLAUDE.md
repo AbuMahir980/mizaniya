@@ -148,7 +148,8 @@ enforce every gate.
 | **Issue tracker** | GitHub Issues on `AbuMahir980/mizaniya`. **No project board and no milestones** — deliberate, see `CONTEXT.md` Key Decisions. Status is carried by labels: Backlog is an open issue with no status label, In Progress adds `status:in-progress`, Done is closed as Completed with that label removed. `cycle-1/2/3` are the phases |
 | **Ticket prefix** | none — issues are `#N` |
 | **Remote** | `origin` → github.com/AbuMahir980/mizaniya.git |
-| **Design reference** | `docs/design/` — landed 10 September. `tokens.md` is authoritative; `canvas/*.dc.html` is the markup to read, not the PNGs |
+| **Design reference** | `docs/design/` — landed 10 September, re-cut many times since. **`tokens.md` is authoritative for values; the PNG is what you build from.** Read the PNG first, then `canvas/*.dc.html` as a tree for exact numbers. The old wording here said "the markup to read, not the PNGs", meaning *take values from markup rather than eyeballing pixels* — it was taken as licence never to open the screens, and every rebuilt screen paid for it |
+| **Questions for the designer** | `docs/open-items.md`, a new lettered section per round. They answer in place and mark the heading `answered <date>`. Not a message — the questions belong next to the answers |
 | **Branch naming** | `feature/<short-description>` for build items · `peer-ai/<phase>` for phase documents |
 | **Merge policy** | **Every piece of work goes on a branch and reaches `main` only through a pull request with CI green. Squash and merge. Delete the branch after.** |
 | **PR description** | What changed and why. No AI attribution lines, no emoji, no tool names. |
@@ -223,7 +224,25 @@ For each ticket:
 - **Correct branch (mandatory):** `git branch --show-current` must match this ticket's branch. Never `main`. If wrong, checkout or create the correct branch before editing.
 - Move the issue **Backlog → In Progress** on GitHub Issues.
 - Create the ticket branch off `main` using the **Branch naming** from §0, then `git push -u origin <ticket-branch>` so the branch is on the remote before the PR opens.
-- **Design first (UI work):** open `docs/design/` and locate the screen being built. The design is authoritative on layout, spacing, type and colour; the page spec is authoritative on behaviour, states and data. When design and contract conflict, follow `peer-ai/shared/design-data-contract.md`.
+- **Design first (UI work) — and that means the image, not a grep.**
+  1. **Open the PNG.** `docs/design/<n>-<screen>-360-light.png`, then `-dark`,
+     then `-1440-light`. **Describe the screen before writing anything.** Every
+     screen rebuilt in this project was first built from fragments grepped out
+     of `canvas/*.dc.html`, and every one of them invented layout, copy or an
+     interaction model the design had already settled.
+  2. **Then read `canvas/*.dc.html` as a tree**, for exact values — sizes,
+     tones, radii, spacing. Grepping it returns a class, not a screen.
+  3. **`tokens.md` is authoritative for the scale**; `brand/README.md` owns the
+     wordmark and the app icon, which are not type or radius steps.
+  4. **Invent nothing.** Where the design does not answer something, ask in
+     `docs/open-items.md` — do not fill the gap and move on.
+  5. **The canvas is re-cut often.** Re-pull before each screen; a drop lands
+     mid-build otherwise and the work is against stale values.
+
+  The design is authoritative on layout, spacing, type and colour; the page spec
+  is authoritative on behaviour, states and data. When they conflict, follow
+  `peer-ai/shared/design-data-contract.md` — **name it, log it, never pick a
+  side quietly.**
 - Read the acceptance criteria from the issue, and the page spec from `docs/`.
 
 **During code:**
@@ -308,7 +327,8 @@ This is a single atomic action. The `notes` field is a pointer, not a narrative.
 | **Issue tracker update** | After each ticket | AC ticked + closed as Completed + `status:in-progress` removed + completion comment. The project-level record is `CONTEXT.md`, not a board. |
 | **State file update** | After each ticket or phase transition | Write and commit `.peer-ai-state.json`. |
 | **Tests with code** | With every new feature | Co-located test files. Not batched. Not deferred. |
-| **Design-quality pass** | After each UI page works | Run the pass per `peer-ai/frontend/03-build.md` step 9, against `docs/design/`. |
+| **Design-quality pass** | After each UI page works | **Open the PNG at 360 and 1440, light and dark, and compare.** A list of ticked behaviours is not this pass — open item 5 was ticked that way and the screen shipped with no icons and a wordmark at 70% of its drawn size. This agent cannot see a browser: say so and ask the owner to look. |
+| **Design drop hygiene** | Every commit | **Never `git add -A`.** The designer writes into this worktree, and `git add -A` has swept a whole drop into a feature commit twice. Stage by path. `scripts/check-design-drop.mjs` fails CI on it. |
 | **No real figures** | Every commit | Figures come from `docs/seed-data.md` only. |
 | **Context save** | Session end or ~80% context | Update `CONTEXT.md` and `.peer-ai-state.json` atomically (§4a). |
 

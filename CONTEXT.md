@@ -170,44 +170,38 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: BUILD, cycle 3 — the remaining screens, the seed script and zakat.**
-Everything before BUILD is finished: Step 0, SETUP, UNDERSTAND, ARCHITECT,
-SYSTEM SPEC, API CONTRACT, PAGE SPECS, the design stop, SHARED RULES, FRONTEND
-RULES and ISSUES. The twenty-two tickets BUILD works from are on the board as
-issues **#8–#29**.
+**Phase: BUILD, cycle 3 — but paused for a design-conformance pass.** Cycles 1
+and 2 are closed (T1–T15) and `main` runs end to end. **T16 is started and
+parked**: `core/movement` is merged, its screen is not built, and the branch
+`feature/transactions-and-editing` is unmerged.
 
-**Cycles 1 and 2 are closed — fifteen tickets, T1 through T15.** Cycle 1 settled
-the numbers (`money`, `cycle`, `budget`, `rollover`, `debt`, `goal`, `zakat`, the
-Dexie `Repository`, the snapshot store, export and import). Cycle 2 built the
-shell and the core journey: the app shell and routes (T10), the PWA (T11),
-onboarding (T12), Home (T13), Quick Add (T14) and Plan (T15). **`main` now runs
-end to end** — welcome → onboarding → Home → Quick Add → Plan.
+**What the last day was actually about.** The owner ran the app and found it had
+deviated from the design badly. Every built screen had been assembled from
+fragments grepped out of the canvas rather than from the artboards. **#72 tracks
+rebuilding all of them**, one at a time, PNG first.
 
-**Next is #23 — T16 · Transactions, and editing.**
+| Screen | State |
+|---|---|
+| Welcome + launch | **Rebuilt**, confirmed pixel-perfect by the owner |
+| Onboarding | **Rebuilt**, confirmed pixel-perfect by the owner |
+| Home | **Half done** — #88 landed the date header, the gauge's scale and the card words. The rest is on #68 |
+| Plan | Not started — #70 |
+| Quick Add | Not started — #69 |
+| Transactions and later | Build from the artboards from the start |
 
-**What the repo actually holds now.** A verify command that runs naming, lint,
-typecheck, **342 tests** and a production build. `src/design/` carries the tokens
-twice — typed data for charts, tests and the contrast audit, custom properties
-for the themes — with a test that fails the build when the two disagree.
-`src/ui/` has about twenty-five primitives with all their states and a gallery
-page showing every one in both themes. `src/core/` is framework-free and imports
-nothing.
+**What the repo holds now.** `npm run verify` runs naming, **spacing**, lint,
+typecheck, **384 tests** and a build. CI is live on every pull request — verify,
+repo rules, secret scanning — and three guards exist that did not on 23
+September: the 2px grid, the design-drop staging check, and the fraction-offset
+check. `npm run seed` writes a real export file the app restores through its
+ordinary import path.
 
-**CI exists as of 23 September** — `.github/workflows/pr-checks.yml`, brought
-forward from phase 11b as issue #52. Three jobs: **verify** (`npm run verify`,
-the same one command run locally, so a green badge and a green terminal are the
-same claim), **repo rules** (rule 3, terms from a secret, positions reported
-rather than matches), **secret scanning** (rule 1, full history). The sixteen
-pull requests before it merged on a human reading a local verify. **Branch
-protection is still off** — that, the templates and the AI review workflow remain
-in 11b, and until it is on, nothing but a person stops a red merge.
-
-**Two guarantees are held by tests that break them on purpose** rather than by a
-green run: the architecture boundaries (`src/architecture.test.ts`, after they
-were found decorative for twelve days) and the repo-rule guard
-(`scripts/check-repo-rules.test.mjs`). The rule this project keeps relearning is
-that **a check which has only ever passed is indistinguishable from one that is
-switched off.**
+**Two guarantees are held by tests that break them on purpose**: the
+architecture boundaries and the repo-rule guard. A third is now the spacing
+grid. The rule this project keeps relearning is that **a check which has only
+ever passed is indistinguishable from one that is switched off** — and, learned
+the hard way on 24 September, **a check scoped to one unit is a check with a
+hole in it.**
 
 **The design is complete and all of its files have landed** — 67 artboards,
 `tokens.md` with 54 gated contrast pairs and no failures, the canvas as `.dc.html`
@@ -298,9 +292,92 @@ the ticket that takes it. The file is deleted once every box is ticked.
 | 2026-09-23 | **A heading inside a screen takes the label step, not the voice face.** EB Garamond is for screen titles, hero statements and the printed record (`tokens.md` §3), and the type table names it on the `title` step only. Home's two section headings were `font-voice text-h2` — Garamond at 22px where the design draws Inter at 10.5px uppercase. **Not a house-style preference:** the design-data contract gives typography to the design, and this was the code disagreeing with it silently | #55 |
 | 2026-09-24 | **The lift shadow is on every primary button, not the Add action alone.** `tokens.md` §7 said one thing and every artboard drew another — `.btn-p` carries `var(--lift)` on Continue, Save, Finish and Get started alike. **The rulebook was the one that was wrong**, so §7 and §5 were corrected rather than the drawings. A disabled primary drops it: the lift says *press this*, and saying that of something which cannot be pressed is worse than saying nothing. The `lifted` prop is gone — a per-call-site opt-in is how half the buttons end up without it | owner, #73 |
 | 2026-09-24 | **Questions for the designer go in `docs/open-items.md`, not in a message.** The designer already writes their answers there — their sections C through F each answer one round — so the questions now sit next to the answers instead of in chat history, and nothing has to be relayed by hand. A lettered section per round, answered in place. `check-design-drop.mjs` deliberately exempts that one file: guarding it would make asking a question require a design pull request | owner |
+| 2026-09-24 | **Build a screen from its PNG, not from its markup.** Every screen built before this date was assembled from fragments grepped out of `canvas/*.dc.html`, and every one invented layout, copy or an interaction the design had already settled. The rule is now in `CLAUDE.md` §0 and the build step: open the PNG at 360 and 1440, light and dark, **describe the screen**, then read the markup as a tree for exact values. The old wording — *"the markup to read, not the PNGs"* — meant take values from markup rather than eyeball pixels, and was read as licence never to open the screens | owner, #72 |
+| 2026-09-24 | **Ask for facts in the order the story happened, and derive the rest.** A debt asks what was borrowed and what has been repaid; the outstanding is a **read-out, not a field**. That is what makes the ambiguity impossible rather than merely unlikely — nobody can type the outstanding into a field that means the original, because there is no field for it. It is `transactions are the only facts` applied to a form | designer, §G |
+| 2026-09-24 | **A record with standing must separate what was witnessed from what it was told.** The printed debt record carries the owner's account of what was repaid before the record opened — it must, or the record is incomplete — but says plainly that Mizaniya did not witness it. Presenting hearsay as its own observation would make the one artefact someone outside the household reads less trustworthy, not more complete | designer, §G |
+| 2026-09-24 | **A check scoped to one unit is a check with a hole in it.** The 2px-grid migration was guarded by comparing the emitted stylesheet before and after — which found exactly one difference and felt conclusive. It compared only `px` values, so three broken **percentage** utilities went straight through, and the desktop dialog stopped centring for a day. The lesson pairs with the older one: a check that has only ever passed may be switched off, and a check that passes may simply not be looking where the damage is | #84 |
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-09-24 (Thursday, the long one) — every built screen was rebuilt from the artboards
+
+**The day's finding, and it governs everything below.** The owner ran the app
+and said the build had *"deviated hugely"* from the design. They were right.
+Every screen had been assembled from **fragments grepped out of
+`canvas/*.dc.html`** — a class here, a path there — rather than from the
+artboards. That is sampling, not reading a design, and it is why every miss
+arrived one at a time and was found by the owner rather than by me.
+
+`CLAUDE.md` said *"`canvas/*.dc.html` is the markup to read, not the PNGs"*,
+meaning **take values from markup rather than eyeballing pixels**. It was taken
+as licence never to open the screens at all. §0 and the build step now say the
+opposite in as many words: **open the PNG first, describe the screen, then read
+the markup as a tree.**
+
+- **Welcome, rebuilt** (#75, #77). The three tiles were all emerald where the
+  artboard draws `em2`/`sl2`/`oc2`; the mark was a bare mizan where the artboard
+  draws the app icon; *"Everything stays on this device"* belonged to the launch
+  panel; 1440 was the 360 layout stretched, not the two-column one with **longer
+  copy in the cards**. Then two more the owner caught by eye: the Arabic sat
+  under the Latin instead of at the column's right edge, and rendered at **57% of
+  its drawn size** — an SVG height is not a font size, and the outline spans
+  1.76 em. `brand/README.md` has the real rule: **0.62 of the Latin**.
+- **The launch screen exists** (#78), on the moment the app already spends
+  opening IndexedDB. No artificial delay, no spinner — the artboard draws none,
+  so it carries `role="status"` and an `sr-only` line instead.
+- **Onboarding, rebuilt** (#80), then **corrected to §F** (#83). The headings
+  were labels for the fields rather than the questions. Step 5's direction was a
+  **switch**, which has a default — on the one field where getting it backwards
+  inverts the whole record. Step 3 had no way to remove a category at all.
+- **CI exists** (#54) and **the seed script** (#59), both brought forward.
+- **Home, first half** (#88). The gauge had **no scale**: §6 asks every diagram
+  to carry a text key, and the amber threshold is a figure nobody can derive by
+  looking.
+
+**The designer answered four rounds in a day** — §C to §G of `open-items.md` —
+and was right every time it mattered:
+
+- **The space scale was a fiction.** I thought four values in Welcome were the
+  problem. They audited all 59 boards: **55% of spacing off the nine-step scale,
+  and 10px — the most-used value in the whole design — not on it at all.** §5 is
+  a 2px grid now. 210 classes remapped (#82).
+- **The wider type rung follows the *surface*, not the viewport.** My tokens
+  widened on a media query, which is wrong for a 620px card, a 520px column and
+  a 480px dialog alike. Opt-in now (#83).
+- **The lift shadow** was on every primary button in every artboard while §7
+  said "the Add button only". The rulebook was what changed (#76).
+- **The copy pass.** The owner said *"counterparty"* is not how anyone speaks,
+  and was right that it was bigger than the six labels named. `tokens.md` §10 is
+  new, with a rule worth keeping: **a field asks a question; a column head names
+  a thing.** `Unallocated` became **`Free`** — Home had always drawn *Free* for
+  the same quantity, so two screens were naming one number two ways.
+- **A debt records what is owed but not what has been paid** (#85, §G). Their
+  answer is better than the question: **do not ask for the outstanding at all.**
+  Ask what was borrowed and what has been repaid, and derive the rest — so
+  nobody can type the outstanding into a field that means the original, because
+  there is no field for it. And the printed record must **separate what Mizaniya
+  witnessed from what it was told**, because a record meant to have standing
+  between two people cannot present hearsay as its own observation.
+
+**Three things I got wrong, all the same shape — trusting a proxy for the thing
+itself:**
+
+1. **`git add -A` swept a whole design drop into a feature commit. Twice.** Both
+   times the designer noticed and I did not, the second time four hours after I
+   had recorded the lesson. `scripts/check-design-drop.mjs` is the mechanical
+   version of a resolution that failed twice.
+2. **The grid migration broke `left-1/2` into `left-4/2`** — a class that does
+   not exist, so Tailwind emitted nothing and the desktop dialog stopped
+   centring, with the naira sign off-centre in every amount field for a day.
+   **The check that was meant to guard that migration compared only `px`
+   values, and these are percentages.** A check scoped to one unit is a check
+   with a hole in it, and the hole was exactly where the damage landed.
+3. **Reading the design by grep**, which is the same error at a larger scale.
+
+**Questions now live in `docs/open-items.md` §G**, not in a message. The
+designer already wrote their answers there; now the questions sit beside them
+and nothing is relayed by hand.
 
 ### 2026-09-24 (Thursday, later) — the designer's three follow-ups, and the welcome screen
 
@@ -740,31 +817,27 @@ full reasoning; this is the summary and what it means for the code.*
 
 ## What's Next
 
-1. **#23 — T16 · Transactions, and editing.** The list of movements, and the
-   first screen where a recorded fact can be changed after the event. Editing is
-   the part to be careful with: transactions are the only facts in this app, so
-   an edit rewrites history that every derived figure is computed from.
-2. **Finish cycle 3** — T17 Debts & Goals (#24, and the last open item, the
-   `Tabs` primitive), T18 the printable debt record (#25), T19 Months (#26), T20
-   Settings and the import flow (#27), T21 the seed script (#28), T22 Zakat
-   (#29).
-3. **Set the `FORBIDDEN_TERMS` repository secret.** Until it is set, the repo
-   rules job runs, passes, and says **NOT ENFORCED** in its log — the mechanism
-   is proved on every run by its own test, but it has no terms loaded. One
-   command: `gh secret set FORBIDDEN_TERMS`.
-4. **Branch protection is still off, and it needs repo-admin hands.** The checks
-   now exist and can be read on the pull request, but nothing *stops* a red
-   merge. That, the PR/issue templates, the AI review workflow and pinning the
-   third-party scanning action to a SHA are the rest of phase 11b.
-5. **The day log owes ten entries — T6 through T15 are not in it** (issue #53).
-   The section header says *newest first* and the last entry it holds is T4, on
-   23 September. This is the same staleness that had the state file naming #10
-   three days after T3 merged, and it is the reason a session has to be told
-   where it is rather than reading it.
-6. **Playwright and the K1 journey stay in the TEST phase.** The bugs that unit
-   tests kept missing were combinations — `movedInto` ignoring `repaid`,
-   `leftoverFrom` handed the wrong cycle, routes reading the real clock — and
-   those are what a journey test catches. CI now exists to run it.
+1. **Finish Home — #68.** Half of it landed in #88. Still missing: the
+   **`Today / This cycle` switch**, which exists nowhere in the code; `Peak 25
+   Sep` and the chart's axis row; `÷ 20 days, rounded down` as the money card's
+   footer; the ranked row's shape (rail under the name, pill under the amount);
+   `Show all …` as the emerald link-with-chevron; **Goals and Debts as two
+   tables**; and the two-column desktop layout.
+2. **The debt's history — #85**, answered in `open-items.md` §G and **needed
+   before T17 and T18**. Step 5 and the post-onboarding debt form ask what was
+   borrowed and what has been repaid, and **derive the outstanding** — there is
+   no field for it, which is what makes the ambiguity impossible. The printed
+   record separates what Mizaniya witnessed from what it was told. `seed-data.md`
+   needs a worked part-paid debt; none exists.
+3. **Plan — #70**, then **Quick Add — #69.** Quick Add's is a different
+   interaction model, not a detail: the artboard has two disclosure tiles where
+   the code has a segmented control and a native date input.
+4. **Then resume the queue at T16** (#23) with the screen, on the branch already
+   started. T17 (#24), T18 (#25), T19 (#26), T20 (#27), T22 (#29) follow.
+5. **Still open and unowned:** branch protection (needs repo-admin hands), the
+   gitleaks action pinned to a tag rather than a SHA, `FORBIDDEN_TERMS` unset so
+   the rule-3 guard logs NOT ENFORCED, #58's two unseedable scenarios, #65's
+   Home fixture split, and #53's ten missing day-log entries.
 
 ---
 
