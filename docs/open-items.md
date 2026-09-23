@@ -192,7 +192,7 @@ It was not, but chasing it down found two real faults and one measurement worth 
   read by the `title` step in `tailwind.config.ts`. One definition, every call
   site responsive, and none of them able to forget.
 
-- [ ] **10 · Home's first section is two sections, not one disputed name** — **T13**.
+- [x] **10 · Home's first section is two sections, not one disputed name** — **T13**.
   Neither label was wrong. Page specs §429 sits inside an ASCII sketch of the
   **superseded** 2×2-tile Home and is not a copy specification — §7.2 (lines 462–463) is,
   and it already says *"sorted by what is left, worst first."* The artboards label two
@@ -207,6 +207,19 @@ It was not, but chasing it down found two real faults and one measurement worth 
     state nobody specified: when nothing is over, the mobile section shows the worst three
     and is headed **Categories**, with the same *Show all* link. There is no
     "Needs attention · 0 of 8".
+
+  **Done 24 September in #61.** The two render **one or the other**, not both
+  behind `desktop:hidden`: they carry different content, so hiding a duplicate
+  would leave two identical `Categories` headings and eight repeated rows in the
+  document. `useMediaQuery` is new for this, and answers `true` without
+  `matchMedia` so every existing test keeps the fuller layout.
+
+  Found on the way: the table listed **all twelve** categories where the
+  artboards draw **eight**. Protected lines are money already moved where the
+  plan promised, so `statusOf` gives them `ok` unconditionally — four rows that
+  could never need attention, and `2 of 8` reading `2 of 12`. Now filtered, and
+  the desktop table carries its count badge as drawn. The columns still differ
+  from the artboard — [#65](https://github.com/AbuMahir980/mizaniya/issues/65).
 
 - [x] **11 · The voice face is 500 on light and 600 on dark** — `tokens.css` /
   `tailwind.config.ts`.
