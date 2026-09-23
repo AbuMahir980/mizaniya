@@ -30,16 +30,42 @@ export default tseslint.config(
        * allowed directions are declared below, so the architecture diagram in
        * `docs/02-architecture.md` and the linter cannot disagree.
        */
+      /**
+       * The patterns end `/**\/*` because they must match **files**.
+       *
+       * `src/ui/*` matches a *folder* under `src/ui`, and this codebase is flat
+       * — `src/ui/card.tsx`, not `src/ui/card/index.tsx` — so nothing under
+       * app, ui, store, design or data was ever classified, every import from
+       * them was "unknown", and the rule below silently permitted everything.
+       * Only `core/` matched, because its files sit in subfolders, and core
+       * imports nothing so it never errored either way.
+       *
+       * `feature` keeps the folder form on purpose: a feature *is* a folder,
+       * and `capture` names it for A5.
+       */
       'boundaries/elements': [
-        { type: 'app', pattern: 'src/app/*' },
-        { type: 'feature', pattern: 'src/features/*', capture: ['name'] },
-        { type: 'ui', pattern: 'src/ui/*' },
-        { type: 'design', pattern: 'src/design/*' },
-        { type: 'store', pattern: 'src/store/*' },
-        { type: 'data', pattern: 'src/data/*' },
-        { type: 'core', pattern: 'src/core/*' },
+        { type: 'feature', pattern: 'src/features/*/**', capture: ['name'] },
+        { type: 'app', pattern: 'src/app/**' },
+        { type: 'ui', pattern: 'src/ui/**' },
+        { type: 'design', pattern: 'src/design/**' },
+        { type: 'store', pattern: 'src/store/**' },
+        { type: 'data', pattern: 'src/data/**' },
+        { type: 'core', pattern: 'src/core/**' },
       ],
       'boundaries/ignore': ['**/*.test.{ts,tsx}', 'scripts/**'],
+
+      /**
+       * Without this the rule above is decorative.
+       *
+       * The plugin classifies the *source* file from its path, but it has to
+       * **resolve** each import to a file before it can classify the target.
+       * The default node resolver does not resolve `.ts` or `.tsx`, and knows
+       * nothing of the `@/` alias — so every target came back unresolved, every
+       * dependency was "unknown", and nothing was ever compared.
+       */
+      'import/resolver': {
+        typescript: { project: './tsconfig.json' },
+      },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -66,16 +92,26 @@ export default tseslint.config(
           default: 'disallow',
           message:
             'Dependencies point inward (A2): {{from.element.type}} may not import {{to.element.type}}.',
+          /**
+           * Every layer lists **itself** as well as what it may reach inward.
+           *
+           * Previously they did not, which was invisible while the elements
+           * failed to match: once files are classified, `ui/card.tsx` importing
+           * `ui/cx.ts` is a same-layer import and has to be permitted or the
+           * whole primitives folder goes red.
+           */
           policies: [
             {
               from: [{ element: { type: 'app' } }],
               allow: [
-                { to: { element: { type: ['feature', 'ui', 'design', 'store', 'core'] } } },
+                { to: { element: { type: ['app', 'feature', 'ui', 'design', 'store', 'core'] } } },
               ],
             },
             {
               from: [{ element: { type: 'feature' } }],
-              allow: [{ to: { element: { type: ['ui', 'design', 'store', 'core'] } } }],
+              allow: [
+                { to: { element: { type: ['feature', 'ui', 'design', 'store', 'core'] } } },
+              ],
             },
             {
               from: [{ element: { type: 'ui' } }],
@@ -83,18 +119,21 @@ export default tseslint.config(
             },
             {
               from: [{ element: { type: 'store' } }],
-              allow: [{ to: { element: { type: ['data', 'core'] } } }],
+              allow: [{ to: { element: { type: ['store', 'data', 'core'] } } }],
             },
             {
               from: [{ element: { type: 'data' } }],
-              allow: [{ to: { element: { type: 'core' } } }],
+              allow: [{ to: { element: { type: ['data', 'core'] } } }],
             },
             {
               from: [{ element: { type: 'design' } }],
               allow: [{ to: { element: { type: 'design' } } }],
             },
-            // core/ imports nothing. Not a shorter list — an empty one.
-            { from: [{ element: { type: 'core' } }], allow: [] },
+            // core/ reaches nothing outside itself.
+            {
+              from: [{ element: { type: 'core' } }],
+              allow: [{ to: { element: { type: 'core' } } }],
+            },
           ],
         },
       ],

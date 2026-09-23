@@ -263,6 +263,8 @@ the ticket that takes it. The file is deleted once every box is ticked.
 | 2026-09-11 | **Rounding direction lives in the function name** — `perUnitFloor` for money you may spend, `perUnitCeil` for money you must find. `proportionOf` multiplies before dividing, which is what makes the amber threshold ₦5,200.00 rather than ₦5,199.99 | SHARED RULES |
 | 2026-09-11 | **No danger button variant exists**, so a red Delete is not merely discouraged, it is not constructible. Validation styling and the offline note are neutral for the same reason (F7) | SHARED RULES |
 | 2026-09-11 | **The architecture boundaries are a lint rule, not a diagram.** `eslint-plugin-boundaries` declares each layer once and lists every permitted direction, so the diagram and the linter cannot disagree; `core/` gets an empty list rather than a short one. **Verified by injecting three violations and watching each fail** — a misconfigured boundary rule allows everything and says nothing, so a green run proves nothing until the rule has been seen to go red | FRONTEND RULES |
+| 2026-09-23 | **Correction to the row above: `boundaries/dependencies` never fired.** The elements used folder patterns (`src/ui/*`) against a flat codebase, and no import target resolved because only the node resolver was present and it reads neither `.ts` nor the `@/` alias. An unresolved dependency is compared against nothing. The 11 September verification was real but exercised `no-restricted-imports` — a different rule, which does work. Fixed with `src/ui/**` patterns and `eslint-import-resolver-typescript`, and now held by `src/architecture.test.ts`, which injects a violation per layer and requires ESLint to report it | boundaries fix |
+| 2026-09-23 | **The composition of the storage layer lives in `store/`, not `app/`.** Working boundaries immediately caught `app/app.tsx` importing `data/` to build the Dexie repository. `store/` may choose an implementation for its own seam; the shell has no business knowing the records sit in IndexedDB (A2) | boundaries fix |
 | 2026-09-11 | **The issue plan is a board, not a document.** Twenty-two tickets filed as #8-#29 with acceptance criteria as tickable boxes. Criteria pin figures, not appearances: no ticket is done because it renders — if it shows a figure, a test holds that figure | ISSUES |
 | 2026-09-11 | **The vendored `peer-ai/` reports its own staleness.** `check-upstream.mjs` says which of the changed files the *active phase* is about to read — twelve files changed is a number nobody acts on. Deliberately **not** in `npm run verify`: being offline is not the same as being up to date, and a check that blocks offline work gets deleted rather than fixed | SHARED RULES |
 | 2026-09-11 | **ADR-008 · The clients share one repository; the server's visibility is deferred to v3** against criteria written down now, because there is no server, no users and no payments. Repo rule 1 stands, noted as under review rather than quietly contradicted. Admin is its own app and its own deployment — never a route inside the web app, because bundling it ships admin code to every owner's browser and turns a routing bug into privilege escalation. `ui/` is not shared between web and mobile; the token source is | SHARED RULES |
@@ -276,6 +278,40 @@ the ticket that takes it. The file is deleted once every box is ticked.
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-09-23 (Wednesday, later) — the boundaries were never enforced
+
+- **`boundaries/dependencies` had reported nothing since SHARED RULES.** A `ui`
+  file importing the store, a `data` file importing the store, and the app
+  importing `data` all passed a green lint. A2 — the layered architecture
+  ADR-002 leans on when it says `core/` can stay a folder because the lint rule
+  holds the boundary — was decorative for twelve days.
+- **Three faults, and the third hid the others.** The element patterns asked for
+  folders (`src/ui/*`) in a flat codebase, so nothing was classified except
+  `core/`, whose files sit in subfolders and which imports nothing anyway. Then,
+  once files classified, the import *target* still would not resolve: only
+  `eslint-import-resolver-node` was present, and it reads neither `.ts` nor the
+  `@/` alias. **An unresolved dependency is compared against nothing.**
+- **The 11 September verification was real and touched a different rule.** The
+  three violations injected into `core/` — a React import, an alias import, a
+  `Date.now()` — are all `no-restricted-imports`, which works and still works.
+  The lesson is narrower and worse than "they didn't check": they did check, and
+  checked the neighbouring rule.
+- **I was confidently wrong on the way.** I read the policy shape as the fault
+  and rewrote it flat; the plugin's own deprecation warning then said the nested
+  form was current and the original shape had been right all along. Recorded
+  because the wrong diagnosis was plausible and produced a clean-looking fix.
+- **It immediately found a real violation:** `app/app.tsx` imported `data/`
+  twice, to build the Dexie repository and the notifier. That wiring moved to
+  `store/create-app-store.ts`.
+- **[src/architecture.test.ts](src/architecture.test.ts) now holds the line.** It
+  writes a file into each layer, runs ESLint on it, and requires the violation to
+  be reported — five that must fail, two permitted directions that must not. It
+  costs about twelve seconds because it shells out to ESLint nine times, which is
+  the price of testing the configuration rather than a mock of it.
+- **The general lesson, for the review checklist:** a lint rule that has only
+  ever passed is indistinguishable from one that is switched off. *What breaks —
+  and who finds out?* applied to the enforcement layer itself.
 
 ### 2026-09-22 (Tuesday)
 
