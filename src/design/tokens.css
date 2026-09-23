@@ -57,6 +57,11 @@
   --size-title: 30px;
   --leading-title: 36px;
 
+  /* The promise line on the welcome screen — a hero statement, so the voice
+     face. Drawn at 23/30 and 29/37; tokens.md section 3 names no step here. */
+  --size-promise: 23px;
+  --leading-promise: 30px;
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -176,5 +181,7 @@
   :root {
     --size-title: 34px;
     --leading-title: 40px;
+    --size-promise: 29px;
+    --leading-promise: 37px;
   }
 }
