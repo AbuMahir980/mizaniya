@@ -62,6 +62,12 @@
   --size-promise: 23px;
   --leading-promise: 30px;
 
+  /* Onboarding asks a question rather than titling a screen, and the artboards
+     draw it a notch under `title`. §3's table names no step here either.
+     Deliberately not responsive: OnbDLight draws the same 27/33 at 1440. */
+  --size-question: 27px;
+  --leading-question: 33px;
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;

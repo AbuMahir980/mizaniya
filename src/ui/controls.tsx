@@ -158,6 +158,11 @@ export interface ChipGroupProps {
   options: Array<{ value: string; label: string }>
   /** Named aloud, because a bare set of chips does not say what is being chosen. */
   label: string
+  /** Show the label rather than only announcing it — onboarding draws it. */
+  showLabel?: boolean
+  helper?: ReactNode
+  /** Equal halves, for a choice of two that are genuinely equal weight. */
+  equal?: boolean
   className?: string
 }
 
@@ -167,9 +172,12 @@ export function ChipGroup({
   onValueChange,
   options,
   label,
+  showLabel,
+  helper,
+  equal,
   className,
 }: ChipGroupProps) {
-  return (
+  const group = (
     <RadioGroup.Root
       value={value}
       onValueChange={onValueChange}
@@ -186,11 +194,24 @@ export function ChipGroup({
             'transition-colors duration-fast',
             'data-[state=checked]:border-ink data-[state=checked]:bg-ink',
             'data-[state=checked]:text-bg',
+            equal && 'flex-1 justify-center',
           )}
         >
           {option.label}
         </RadioGroup.Item>
       ))}
     </RadioGroup.Root>
+  )
+
+  if (!showLabel && !helper) return group
+
+  return (
+    <div className="flex flex-col gap-2">
+      {showLabel ? (
+        <span className="font-structural text-small font-semibold text-ink">{label}</span>
+      ) : null}
+      {group}
+      {helper ? <p className="font-structural text-small text-soft">{helper}</p> : null}
+    </div>
   )
 }

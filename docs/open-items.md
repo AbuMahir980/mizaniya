@@ -246,6 +246,65 @@ It was not, but chasing it down found two real faults and one measurement worth 
 
 ---
 
+## E · The three questions from the Welcome rebuild — answered 23 September
+
+*All three were right to raise. One of them found that a token this file has leaned on
+since the design stop never described the design at all. `tokens.md` §3 and §5 and
+`brand/README.md` are updated; the canvas is re-cut and republished.*
+
+- [ ] **12 · The space scale was a fiction — §5 is now a 2px grid** —
+  `tailwind.config.ts`.
+  You were right that matching the artboards meant writing arbitrary values, and right
+  that the replaced theme exists to stop exactly that. But the fault was not the four
+  values Welcome uses. An audit of all 59 product artboards found **55% of spacing
+  values off the nine-step scale**, and **10px — the single most-used spacing value in
+  the design, on every board — was not on it at all.** The scale was written
+  aspirationally after the drawings and never matched them, so the guard could only
+  ever be satisfied by fighting the design.
+  - §5 is now **a 2px grid**: every spacing value is even. Common steps are named
+    (8 · 10 · 12 · 14 · 16 · 20 · 22 · 24 · 26 · 30 · 36) for ergonomics, but the rule
+    is the grid, not the list.
+  - **1–4px is optical, not spacing** — a hairline offset, a glyph nudge. It belongs
+    to the component and never becomes a token. Do not snap those to 4.
+  - The drawings were snapped onto the grid at the single point every artboard is
+    written, so this cannot drift again. **Nothing moved by more than 1px**, but every
+    board changed, so re-pull the canvas before comparing anything.
+  - Rebuild the theme as the grid: keep named tokens for the common steps, and admit
+    any even value. The guard survives — 11px and 23px are still impossible — and it
+    stops contradicting the drawings.
+
+- [ ] **13 · `promise` is a real step; `lockup` is not** — `tailwind.config.ts`,
+  `tokens.md` §3.
+  - **`promise` collapses into a new `statement` step**, now in §3's table:
+    **23 / 30 · 29 / 37 on a 1440 surface**, voice face. It is not a one-off — every
+    empty-state sentence in the app does the same job at the same rung, and they had
+    drifted across 20, 21, 22, 23, 24 and 27px. All of them are re-cut onto it. Use
+    `text-statement` for the Welcome promise *and* every empty state.
+  - **`lockup` stays out of the type table.** It is the wordmark — brand, not type,
+    existing for one string. Its sizes now live in `brand/README.md` beside the mark
+    (31/36 launch · 42/48 Welcome 360 · 52/58 Welcome 1440 · 24 sidebar). Keep the
+    config token and the custom properties; just don't call it a type step.
+  - New rule in §3, because it settles the next question of this shape:
+    **a step follows its surface's width, not the viewport.** A 480px dialog on a 1440
+    screen takes the 360 step. Only a surface that is itself 1440 wide takes the wider
+    one.
+  - **The app-icon radius is not a radius token.** Its corner is 22/84 of the tile's
+    own size — the iOS superellipse ratio — so it scales with the icon (24px as drawn,
+    134px at 512). `brand/README.md` owns it. Leave §5's radius scale alone.
+
+- [ ] **14 · The movement labels are past tense in the artboards now** — **T14 / T16**.
+  You were right and the artboards were wrong. `Income · Expense · Move to savings ·
+  Take from savings` → **`Received · Spent · Moved to savings · Took from savings`**,
+  everywhere they appear: the Transactions type filter, the movement rows, the Quick
+  Add type chip, and the category-detail sub-line. Ordering is unchanged.
+  - One the review did not catch: the cycle-summary table header read
+    `Cycle | Income | Spent | Saved | Debt paid | Ended with` — three past-tense words
+    and one noun. It is `Received` now.
+  - The code already ships the plain wording, so no code change beyond keeping the four
+    strings in step with core.
+
+---
+
 ## What is already complete — do not redo
 
 - `tokens.md` → `src/design/tokens.ts` and `tokens.css`: all 33 colours match, and

@@ -51,7 +51,7 @@
    "x": 0,
    "y": 0,
    "w": 1072,
-   "h": 1008,
+   "h": 1032,
    "title": "Design stop \u00b7 light",
    "page": "page-brand",
    "print": "fixed"
@@ -61,7 +61,7 @@
    "x": 1212,
    "y": 0,
    "w": 1072,
-   "h": 1008,
+   "h": 1032,
    "title": "Design stop \u00b7 dark",
    "page": "page-brand",
    "print": "fixed"
@@ -111,7 +111,7 @@
    "x": 7780,
    "y": 0,
    "w": 1046,
-   "h": 1084,
+   "h": 1086,
    "title": "Mark & wordmark \u00b7 light",
    "page": "page-brand",
    "print": "fixed"
@@ -119,9 +119,9 @@
   {
    "file": "LogoDark.dc.html",
    "x": 0,
-   "y": 1274,
+   "y": 1276,
    "w": 1046,
-   "h": 1084,
+   "h": 1086,
    "title": "Mark & wordmark \u00b7 dark",
    "page": "page-brand",
    "print": "fixed"
@@ -131,7 +131,7 @@
    "x": 0,
    "y": 0,
    "w": 2582,
-   "h": 940,
+   "h": 944,
    "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 light",
    "page": "page-onb",
    "print": "fixed"
@@ -141,7 +141,7 @@
    "x": 2722,
    "y": 0,
    "w": 2582,
-   "h": 940,
+   "h": 944,
    "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 dark",
    "page": "page-onb",
    "print": "fixed"
@@ -149,9 +149,9 @@
   {
    "file": "OnbDLight.dc.html",
    "x": 0,
-   "y": 1130,
+   "y": 1134,
    "w": 4460,
-   "h": 1955,
+   "h": 1963,
    "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 light",
    "page": "page-onb",
    "print": "fixed"
@@ -159,9 +159,9 @@
   {
    "file": "OnbDDark.dc.html",
    "x": 4600,
-   "y": 1130,
+   "y": 1134,
    "w": 4460,
-   "h": 1955,
+   "h": 1963,
    "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 dark",
    "page": "page-onb",
    "print": "fixed"
@@ -171,7 +171,7 @@
    "x": 0,
    "y": 0,
    "w": 832,
-   "h": 1461,
+   "h": 1471,
    "title": "Home \u00b7 360 \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -181,7 +181,7 @@
    "x": 972,
    "y": 0,
    "w": 832,
-   "h": 1461,
+   "h": 1471,
    "title": "Home \u00b7 360 \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -191,7 +191,7 @@
    "x": 1944,
    "y": 0,
    "w": 691,
-   "h": 1425,
+   "h": 1435,
    "title": "Home \u00b7 this cycle \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -201,7 +201,7 @@
    "x": 2775,
    "y": 0,
    "w": 691,
-   "h": 1425,
+   "h": 1435,
    "title": "Home \u00b7 this cycle \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -211,7 +211,7 @@
    "x": 3606,
    "y": 0,
    "w": 2158,
-   "h": 1515,
+   "h": 1525,
    "title": "Home \u00b7 every state \u00b7 360 \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -221,7 +221,7 @@
    "x": 5904,
    "y": 0,
    "w": 2158,
-   "h": 1515,
+   "h": 1525,
    "title": "Home \u00b7 every state \u00b7 360 \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -231,7 +231,7 @@
    "x": 8202,
    "y": 0,
    "w": 832,
-   "h": 887,
+   "h": 907,
    "title": "More sheet \u00b7 360 \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -239,9 +239,9 @@
   {
    "file": "MoreDark.dc.html",
    "x": 0,
-   "y": 1705,
+   "y": 1715,
    "w": 832,
-   "h": 887,
+   "h": 907,
    "title": "More sheet \u00b7 360 \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -249,9 +249,9 @@
   {
    "file": "DHomeLight.dc.html",
    "x": 972,
-   "y": 1705,
+   "y": 1715,
    "w": 1512,
-   "h": 1293,
+   "h": 1314,
    "title": "Home \u00b7 1440 \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -259,9 +259,9 @@
   {
    "file": "DHomeDark.dc.html",
    "x": 2624,
-   "y": 1705,
+   "y": 1715,
    "w": 1512,
-   "h": 1293,
+   "h": 1314,
    "title": "Home \u00b7 1440 \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -269,9 +269,9 @@
   {
    "file": "DHomeStatesLight.dc.html",
    "x": 0,
-   "y": 3188,
+   "y": 3219,
    "w": 7514,
-   "h": 1407,
+   "h": 1428,
    "title": "Home \u00b7 every state \u00b7 1440 \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -279,9 +279,9 @@
   {
    "file": "DHomeStatesDark.dc.html",
    "x": 0,
-   "y": 4785,
+   "y": 4837,
    "w": 7514,
-   "h": 1407,
+   "h": 1428,
    "title": "Home \u00b7 every state \u00b7 1440 \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -291,7 +291,7 @@
    "x": 0,
    "y": 0,
    "w": 886,
-   "h": 1520,
+   "h": 1551,
    "title": "Plan \u00b7 360 \u00b7 light",
    "page": "page-plan",
    "print": "fixed"
@@ -301,7 +301,7 @@
    "x": 1026,
    "y": 0,
    "w": 886,
-   "h": 1520,
+   "h": 1551,
    "title": "Plan \u00b7 360 \u00b7 dark",
    "page": "page-plan",
    "print": "fixed"
@@ -311,7 +311,7 @@
    "x": 2052,
    "y": 0,
    "w": 1512,
-   "h": 1615,
+   "h": 1643,
    "title": "Plan \u00b7 1440 \u00b7 light",
    "page": "page-plan",
    "print": "fixed"
@@ -321,7 +321,7 @@
    "x": 3704,
    "y": 0,
    "w": 1512,
-   "h": 1615,
+   "h": 1643,
    "title": "Plan \u00b7 1440 \u00b7 dark",
    "page": "page-plan",
    "print": "fixed"
@@ -331,7 +331,7 @@
    "x": 0,
    "y": 0,
    "w": 1310,
-   "h": 1460,
+   "h": 1464,
    "title": "Transactions \u00b7 360 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -341,7 +341,7 @@
    "x": 1450,
    "y": 0,
    "w": 1310,
-   "h": 1460,
+   "h": 1464,
    "title": "Transactions \u00b7 360 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -351,7 +351,7 @@
    "x": 2900,
    "y": 0,
    "w": 4460,
-   "h": 882,
+   "h": 897,
    "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -359,9 +359,9 @@
   {
    "file": "DTransactionsDark.dc.html",
    "x": 0,
-   "y": 1650,
+   "y": 1654,
    "w": 4460,
-   "h": 882,
+   "h": 897,
    "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -371,7 +371,7 @@
    "x": 0,
    "y": 0,
    "w": 1310,
-   "h": 1040,
+   "h": 1046,
    "title": "Quick Add \u00b7 every mode \u00b7 360 \u00b7 light",
    "page": "page-qa",
    "print": "fixed"
@@ -381,7 +381,7 @@
    "x": 1450,
    "y": 0,
    "w": 1310,
-   "h": 1040,
+   "h": 1046,
    "title": "Quick Add \u00b7 every mode \u00b7 360 \u00b7 dark",
    "page": "page-qa",
    "print": "fixed"
@@ -391,7 +391,7 @@
    "x": 2900,
    "y": 0,
    "w": 1512,
-   "h": 1275,
+   "h": 1296,
    "title": "Quick Add \u00b7 1440 \u00b7 light",
    "page": "page-qa",
    "print": "fixed"
@@ -401,7 +401,7 @@
    "x": 4552,
    "y": 0,
    "w": 1512,
-   "h": 1275,
+   "h": 1296,
    "title": "Quick Add \u00b7 1440 \u00b7 dark",
    "page": "page-qa",
    "print": "fixed"
@@ -411,7 +411,7 @@
    "x": 0,
    "y": 0,
    "w": 886,
-   "h": 1065,
+   "h": 1071,
    "title": "Debts & Goals \u00b7 360 \u00b7 light",
    "page": "page-debts",
    "print": "fixed"
@@ -421,7 +421,7 @@
    "x": 1026,
    "y": 0,
    "w": 886,
-   "h": 1065,
+   "h": 1071,
    "title": "Debts & Goals \u00b7 360 \u00b7 dark",
    "page": "page-debts",
    "print": "fixed"
@@ -431,7 +431,7 @@
    "x": 2052,
    "y": 0,
    "w": 727,
-   "h": 1017,
+   "h": 1019,
    "title": "Debt record \u00b7 360 \u00b7 light",
    "page": "page-debts",
    "print": "fixed"
@@ -441,7 +441,7 @@
    "x": 2919,
    "y": 0,
    "w": 727,
-   "h": 1017,
+   "h": 1019,
    "title": "Debt record \u00b7 360 \u00b7 dark",
    "page": "page-debts",
    "print": "fixed"
@@ -451,7 +451,7 @@
    "x": 3786,
    "y": 0,
    "w": 886,
-   "h": 1357,
+   "h": 1363,
    "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 light",
    "page": "page-debts",
    "print": "fixed"
@@ -461,7 +461,7 @@
    "x": 4812,
    "y": 0,
    "w": 886,
-   "h": 1357,
+   "h": 1363,
    "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 dark",
    "page": "page-debts",
    "print": "fixed"
@@ -471,7 +471,7 @@
    "x": 5838,
    "y": 0,
    "w": 1512,
-   "h": 833,
+   "h": 835,
    "title": "Debt record \u00b7 1440 \u00b7 light",
    "page": "page-debts",
    "print": "fixed"
@@ -481,7 +481,7 @@
    "x": 7490,
    "y": 0,
    "w": 1512,
-   "h": 833,
+   "h": 835,
    "title": "Debt record \u00b7 1440 \u00b7 dark",
    "page": "page-debts",
    "print": "fixed"
@@ -489,7 +489,7 @@
   {
    "file": "FormsDLight.dc.html",
    "x": 0,
-   "y": 1547,
+   "y": 1553,
    "w": 2986,
    "h": 1166,
    "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 light",
@@ -499,7 +499,7 @@
   {
    "file": "FormsDDark.dc.html",
    "x": 3126,
-   "y": 1547,
+   "y": 1553,
    "w": 2986,
    "h": 1166,
    "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
@@ -509,9 +509,9 @@
   {
    "file": "DDebtsLight.dc.html",
    "x": 0,
-   "y": 2903,
+   "y": 2909,
    "w": 2986,
-   "h": 865,
+   "h": 869,
    "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 light",
    "page": "page-debts",
    "print": "fixed"
@@ -519,9 +519,9 @@
   {
    "file": "DDebtsDark.dc.html",
    "x": 3126,
-   "y": 2903,
+   "y": 2909,
    "w": 2986,
-   "h": 865,
+   "h": 869,
    "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 dark",
    "page": "page-debts",
    "print": "fixed"
@@ -531,7 +531,7 @@
    "x": 0,
    "y": 0,
    "w": 886,
-   "h": 516,
+   "h": 519,
    "title": "Months \u00b7 360 \u00b7 light",
    "page": "page-months",
    "print": "fixed"
@@ -541,7 +541,7 @@
    "x": 1026,
    "y": 0,
    "w": 886,
-   "h": 516,
+   "h": 519,
    "title": "Months \u00b7 360 \u00b7 dark",
    "page": "page-months",
    "print": "fixed"
@@ -551,7 +551,7 @@
    "x": 2052,
    "y": 0,
    "w": 2986,
-   "h": 645,
+   "h": 648,
    "title": "Months \u00b7 1440 \u00b7 light",
    "page": "page-months",
    "print": "fixed"
@@ -561,7 +561,7 @@
    "x": 5178,
    "y": 0,
    "w": 2986,
-   "h": 645,
+   "h": 648,
    "title": "Months \u00b7 1440 \u00b7 dark",
    "page": "page-months",
    "print": "fixed"
@@ -571,7 +571,7 @@
    "x": 0,
    "y": 0,
    "w": 551,
-   "h": 1739,
+   "h": 1741,
    "title": "Settings \u00b7 360 \u00b7 light",
    "page": "page-settings",
    "print": "fixed"
@@ -581,7 +581,7 @@
    "x": 691,
    "y": 0,
    "w": 551,
-   "h": 1739,
+   "h": 1741,
    "title": "Settings \u00b7 360 \u00b7 dark",
    "page": "page-settings",
    "print": "fixed"
@@ -591,7 +591,7 @@
    "x": 1382,
    "y": 0,
    "w": 1310,
-   "h": 781,
+   "h": 784,
    "title": "Import flow \u00b7 360 \u00b7 light",
    "page": "page-settings",
    "print": "fixed"
@@ -601,7 +601,7 @@
    "x": 2832,
    "y": 0,
    "w": 1310,
-   "h": 781,
+   "h": 784,
    "title": "Import flow \u00b7 360 \u00b7 dark",
    "page": "page-settings",
    "print": "fixed"
@@ -631,7 +631,7 @@
    "x": 0,
    "y": 0,
    "w": 832,
-   "h": 1085,
+   "h": 1095,
    "title": "Zakat \u00b7 360 \u00b7 light",
    "page": "page-zakat",
    "print": "fixed"
@@ -641,7 +641,7 @@
    "x": 972,
    "y": 0,
    "w": 832,
-   "h": 1085,
+   "h": 1095,
    "title": "Zakat \u00b7 360 \u00b7 dark",
    "page": "page-zakat",
    "print": "fixed"
@@ -671,7 +671,7 @@
    "x": 0,
    "y": 0,
    "w": 1804,
-   "h": 2381,
+   "h": 2416,
    "title": "Primitives \u00b7 light",
    "page": "page-found",
    "print": "fixed"
@@ -681,7 +681,7 @@
    "x": 1944,
    "y": 0,
    "w": 1804,
-   "h": 2381,
+   "h": 2416,
    "title": "Primitives \u00b7 dark",
    "page": "page-found",
    "print": "fixed"

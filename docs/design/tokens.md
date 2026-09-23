@@ -122,15 +122,23 @@ a screen is a label, and a card title is `h2`; both are Inter.
 | Step | Face | Size / line-height / weight | Use |
 |---|---|---|---|
 | `hero` | Inter | 42 / 48 / 600, `-0.035em`, tabular | Safe to spend — one per screen |
-| `title` | **EB Garamond** | 30 / 36 / 500 · 34 / 40 at 1440 | The title of a surface: a screen, a sheet, a dialog |
+| `title` | **EB Garamond** | 30 / 36 / 500 · 34 / 40 on a 1440 surface | The title of a surface: a screen, a sheet, a dialog |
+| `statement` | **EB Garamond** | 23 / 30 / 500 · 29 / 37 on a 1440 surface | One line in the app's own voice: the Welcome promise, every empty state |
 | `h2` | **Inter** | 22 / 28 / 600 | Card titles |
 | `body` | Inter | 15 / 22 / 400–600 | Rows, fields, prose |
 | `small` | Inter | 13 / 19 / 400 | Sub-lines, helper text |
 | `lab` | Inter | 10.5 / 16 / 600, `+0.115em`, uppercase | Headings inside a screen |
 | `mlab` | JetBrains Mono | 10 / 15 / 400, `+0.12em`, uppercase | Data labels |
 
-Empty-state sentences and the Home date are voice as well, at 19–27. They are quiet
-on purpose and sit outside the table.
+**A step follows its surface's width, not the viewport.** A dialog is 480px wide on a
+1440 screen, so its title takes the 360 step (30 / 36), not the 1440 one. Only a
+surface that is itself 1440 wide takes the wider step.
+
+Two things are voice but are not steps. The **Home date** (20 / 25) is quiet on
+purpose and sits outside the table. The **wordmark** — "Mizaniya" set in EB Garamond
+600 — is brand, not type: it exists for one string, at 42 / 48 on a 360 surface,
+52 / 58 on 1440 and 24px in the desktop sidebar. `brand/README.md` owns those sizes,
+next to the mark they sit beside.
 
 ### 3.1 · Two things about EB Garamond that the sizes do not tell you
 
@@ -187,7 +195,10 @@ radius.lg   16px   cards
 radius.xl   22px   sheets, dialogs, the desktop frame
 radius.full 30px   the phone frame only
 
-space  4 · 8 · 12 · 14 · 16 · 20 · 26 · 36 · 44   (4px base)
+space  a 2px grid — every spacing value is even
+       common steps  8 · 10 · 12 · 14 · 16 · 20 · 22 · 24 · 26 · 30 · 36
+       1–4px is optical, not spacing — a hairline offset, a glyph nudge.
+       It belongs to the component and never becomes a token.
 
 elevation.card   light  0 1px 2px rgba(23,26,23,.05), 0 12px 30px -16px rgba(23,26,23,.22)
                  dark   0 1px 2px rgba(0,0,0,.5),     0 14px 34px -16px rgba(0,0,0,.7)
@@ -208,6 +219,20 @@ focus           2px emerald ring at 2px offset, or a 3px em2 halo on a field
 Under `prefers-reduced-motion: reduce`, the gauge and chart render at their final
 values with no draw-in, sheets fade rather than translate, and the loading spinner
 keeps turning — a still spinner conveys nothing.
+
+**The nine-value space scale this file used to name was a fiction.** An audit of the
+canvas on 23 September found **55% of spacing values off it**, and the single
+most-used value in the whole design — 10px, present on every board — was not on it at
+all. It had been written aspirationally and never described the drawings, so it could
+only ever be satisfied by typing arbitrary values, which is the drift the replaced
+Tailwind theme exists to stop. The drawings were snapped onto the 2px grid above at the
+one point every artboard is written, so the canvas and this file cannot part company
+again. Nothing moved by more than 1px.
+
+**The app-icon tile is not on the radius scale.** Its corner is 22/84 of the tile's
+own size — the iOS superellipse ratio — so it scales with the icon and lands wherever
+that lands (24px at the size the brand sheet draws it, 134px at 512). It is brand
+geometry, not a UI surface. `brand/README.md` owns it.
 
 ---
 
