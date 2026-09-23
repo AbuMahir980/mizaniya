@@ -29,9 +29,9 @@ jobs:
     name: verify
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           # `.nvmrc` is the single source of truth. Naming a version here as
           # well is how CI ends up testing a runtime nobody develops on.
@@ -48,13 +48,13 @@ jobs:
     name: repo rules
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # Full history: the guard reads the commit messages on the branch, and
           # a squash merge makes those subjects permanent on `main`.
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
 
@@ -71,12 +71,15 @@ jobs:
     name: secret scanning
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           # Gitleaks reads history: a key deleted in a later commit is still
           # published, and scanning only the tip would miss exactly that case.
           fetch-depth: 0
 
+      # Still on the Node 20 runtime, and warns about it on every run. It is a
+      # third-party action, so that one is theirs to fix; ours are on v5.
+      # Pinning this to a SHA rather than a mutable tag is a task for 11b.
       - uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
