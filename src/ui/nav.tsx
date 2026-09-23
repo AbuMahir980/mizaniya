@@ -9,6 +9,7 @@
 
 import type { ReactNode } from 'react'
 import { cx } from './cx'
+import { Icon } from './icon'
 import { Mark } from './mark'
 
 export interface NavItem {
@@ -75,14 +76,7 @@ export function BottomBar({ items, activeKey, onAdd, className }: BottomBarProps
             'rounded-full bg-emerald text-onEmerald shadow-lift',
           )}
         >
-          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-            <path
-              d="M11 4v14M4 11h14"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-            />
-          </svg>
+          <Icon name="add" size={22} />
         </button>
       </div>
 
@@ -146,9 +140,7 @@ export function Sidebar({
           'bg-emerald font-structural text-body font-semibold text-onEmerald',
         )}
       >
-        <svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-          <path d="M11 4v14M4 11h14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-        </svg>
+        <Icon name="add" size={18} />
         Add
       </button>
 

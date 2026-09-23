@@ -236,6 +236,36 @@ describe('navigation', () => {
     expect(settings.getAttribute('aria-current')).toBe('page')
   })
 
+  it('the root is never a scroll container, or nothing can be sticky', async () => {
+    const css = await import('node:fs').then((fs) => fs.readFileSync('src/index.css', 'utf8'))
+    const root = /html,\s*\n?\s*body\s*\{([^}]*)\}/.exec(css)?.[1] ?? ''
+
+    // `overflow-x: hidden` forces the other axis to compute as `auto`, which
+    // makes the root a scroll container and silently breaks every sticky
+    // element inside it. Two fixes to the sidebar did nothing until this line
+    // changed, so it is asserted where it will be read.
+    expect(root).toContain('clip')
+    expect(root).not.toContain('hidden')
+  })
+
+  it('renders a real icon per nav item, not a placeholder', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+
+    for (const button of sidebar.querySelectorAll('button')) {
+      // The Add button and every destination carry a 24-grid glyph.
+      const svg = button.querySelector('svg')
+      expect(svg, `no icon on "${button.textContent}"`).not.toBeNull()
+      expect(svg?.getAttribute('viewBox')).toBe('0 0 24 24')
+      // A drawn path, not the bordered circle the placeholder used.
+      expect(svg?.querySelector('path, circle, rect')).not.toBeNull()
+    }
+  })
+
   it('the sidebar carries the lockup, and stays put while the page scrolls', async () => {
     renderApp(repo)
     await screen.findByRole('heading', { name: 'Safe to spend today' })

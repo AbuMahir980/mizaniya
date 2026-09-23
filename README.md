@@ -38,17 +38,21 @@ today, and is that figure in trouble?**
 
 ## What it looks like
 
-|  |  |
-|---|---|
-| **Home** — one figure, ranked above everything else | **Quick Add** — a spend recorded in three taps |
-| <img src="docs/design/02-home-360-light.png" alt="Home on a phone: safe to spend today, ₦7,500.00" width="380"> | <img src="docs/design/04a-quick-add-360-light.png" alt="Quick Add sheet" width="380"> |
+*These are the design artboards. **Home and onboarding are built**; the rest are
+specified and queued — see [Where it is](#where-it-is).*
 
-| **Debts, both directions** | **Desktop** |
+| **Home** — one figure, ranked above everything else · *built* | **Home at 1440** · *built* |
 |---|---|
-| <img src="docs/design/05-debts-goals-360-light.png" alt="Debts and goals" width="380"> | <img src="docs/design/02-home-1440-light.png" alt="Home at 1440" width="380"> |
+| <img src="docs/design/02-home-360-light.png" alt="Home on a phone: safe to spend today, ₦7,500.00" width="380"> | <img src="docs/design/02-home-1440-light.png" alt="Home at 1440" width="380"> |
+
+| **Quick Add** — a spend in three taps · *next* | **Debts, both directions** · *specified* |
+|---|---|
+| <img src="docs/design/04a-quick-add-360-light.png" alt="Quick Add sheet" width="380"> | <img src="docs/design/05-debts-goals-360-light.png" alt="Debts and goals" width="380"> |
 
 Every screen exists in light and dark, at 360px and 1440px, in every state —
-67 artboards in [`docs/design/`](docs/design/).
+**67 artboards** in [`docs/design/`](docs/design/), with
+[`tokens.md`](docs/design/tokens.md) carrying 54 gated contrast pairs and no
+failures.
 
 ---
 
