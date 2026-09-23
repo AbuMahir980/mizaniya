@@ -4,8 +4,8 @@
   "phaseFile": "peer-ai/frontend/03-build.md",
   "cycle": "Cycle 2 \u2014 the shell and the screens the core journey needs",
   "milestoneBranch": "",
-  "ticket": "#17",
-  "ticketTitle": "T10 \u00b7 App shell, routing and navigation",
+  "ticket": "#18",
+  "ticketTitle": "T11 \u00b7 PWA \u2014 manifest, service worker, persistence",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -15,12 +15,12 @@
     "#13",
     "#14",
     "#15",
-    "#16"
+    "#16",
+    "#17"
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
   "ticketsRemaining": [
-    "#17",
     "#18",
     "#19",
     "#20",
@@ -35,9 +35,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 199 tests, build",
+  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 210 tests, build",
   "lastVerifyTimestamp": "2026-09-23",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-23",
-  "notes": "READ CONTEXT.md at app root. CYCLE 1 COMPLETE (T1-T9). Next action: start #17, T10 app shell \u2014 it also carries open-items 3 and 4: load the three typefaces, wire the favicon and the Mark component. See docs/open-items.md."
+  "notes": "READ CONTEXT.md at app root. Cycle 2: T10 merged. Next action: start #18, T11 PWA \u2014 it carries the manifest icons from docs/open-items.md item 4 (the icon PNGs are already in public/). Persistence is requested AFTER the first real write, never on first load (D12)."
 }
