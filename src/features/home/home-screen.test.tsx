@@ -163,9 +163,13 @@ describe('the worked day renders every seeded figure', () => {
 
   it('shows the Hijri date beside the Gregorian one', () => {
     renderHome()
+    // Two lines now, as the artboard draws it: the weekday above, the date and
+    // the Hijri beside each other below.
+    expect(screen.getByText('Monday')).toBeDefined()
     // Pinned to islamic-umalqura: a religious date that differs by device is
     // worse than no date.
-    expect(screen.getByText(/Mon 5 Oct · .*1448/)).toBeDefined()
+    expect(screen.getByText(/5 October/)).toBeDefined()
+    expect(screen.getByText(/1448/)).toBeDefined()
   })
 
   it('reports the cycle’s money — spent, saved, debt paid', () => {
