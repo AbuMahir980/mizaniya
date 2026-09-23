@@ -79,7 +79,7 @@ item below needs is already there — this list is about wiring it up, not makin
   T11 (#18), PR #47** — the `icons`, `background_color` and `theme_color` block
   verbatim, both purposes, and no JavaScript splash screen. **Item 4 is complete.**
 
-- [ ] **5 · Build the welcome screen** — add it to **T12**'s acceptance criteria.
+- [x] **5 · Build the welcome screen** — add it to **T12**'s acceptance criteria.
   It was designed after PAGE SPECS, so no ticket mentions it. Artboards:
   `canvas/WelcomeLight.dc.html`, `WelcomeDark`, `WelcomeDLight`, `WelcomeDDark`.
   Behaviour, since the spec does not cover it:
@@ -91,6 +91,12 @@ item below needs is already there — this list is about wiring it up, not makin
     skips onboarding, because the export already carries the settings. A refused import
     returns here, and ends, as every refusal does, with "Nothing has changed.";
   - the Arabic under "Mizaniya" is `brand/wordmark-arabic.svg` inlined, coloured `soft`.
+
+  **Done 23 September in T12 (#19), PR #48.** The Arabic is inlined as outlined
+  paths in `src/ui/wordmark-arabic.tsx` — `currentColor`, so no Arabic typeface
+  enters the bundle for one word. The restore path runs the real import flow: a
+  successful file lands on Home and skips onboarding; a refused one returns here
+  and ends with "Nothing has changed."
 
 - [ ] **6 · Add a `Tabs` primitive** — **T17**.
   Debts & Goals switches between two views with underline tabs, in every artboard, but
