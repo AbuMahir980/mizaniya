@@ -162,7 +162,7 @@ It was not, but chasing it down found two real faults and one measurement worth 
 > design changes into their own commit — or their own PR — before T16's is reviewed, so
 > the squash onto `main` does not carry a design drop under a feature message.*
 
-- [ ] **9 · A sheet title takes the voice face** — `src/ui/sheet.tsx`.
+- [x] **9 · A sheet title takes the voice face** — `src/ui/sheet.tsx`.
   The settled rule, now in `tokens.md` §3: **the voice face names a surface; the
   structural face names a part of one.** A bottom sheet or dialog *is* the surface while
   it is open — it holds focus, Escape closes it, everything behind it is inert and
@@ -177,6 +177,12 @@ It was not, but chasing it down found two real faults and one measurement worth 
     30 / 36**, which is `text-title` exactly as `tailwind.config.ts` already defines it.
   - One addition: `tokens.md` §3 now gives `title` **34 / 40 at 1440**, which the
     artboards have always drawn and the config has no override for. Add the desktop step.
+
+  **Done 24 September in #60.** `sheet.tsx` takes `font-voice text-title`. The
+  desktop step is a token rather than a `desktop:` variant on eight call sites —
+  `--size-title` / `--leading-title` in `tokens.css`, 30/36 and 34/40 at 1440,
+  read by the `title` step in `tailwind.config.ts`. One definition, every call
+  site responsive, and none of them able to forget.
 
 - [ ] **10 · Home's first section is two sections, not one disputed name** — **T13**.
   Neither label was wrong. Page specs §429 sits inside an ASCII sketch of the
@@ -194,7 +200,7 @@ It was not, but chasing it down found two real faults and one measurement worth 
     and is headed **Categories**, with the same *Show all* link. There is no
     "Needs attention · 0 of 8".
 
-- [ ] **11 · The voice face is 500 on light and 600 on dark** — `tokens.css` /
+- [x] **11 · The voice face is 500 on light and 600 on dark** — `tokens.css` /
   `tailwind.config.ts`.
   Measured from the outlines: EB Garamond's thinnest stroke is 0.034em — **1.02 device
   pixels at 30px on a 1× screen, and under one pixel at every smaller size.** A stroke
@@ -211,6 +217,11 @@ It was not, but chasing it down found two real faults and one measurement worth 
     load, the replacement is **Source Serif 4** — same old-style skeleton, x-height
     0.475em, hairline 0.055em, clears a device pixel from 18px up. Do not make that swap
     without the owner: the bookish register is the design, not a decoration on it.
+
+  **Done 24 September in #60.** `--weight-voice` is 500 in the light block and
+  600 in both dark blocks, and the `title` step reads it. A test pins all three,
+  because a token that differs between themes is exactly the one that can
+  silently stop differing. Not swapped for Source Serif 4 — that needs the owner.
 
 ---
 

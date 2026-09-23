@@ -74,7 +74,7 @@ export default {
     },
     fontSize: {
       hero: ['42px', { lineHeight: '48px', letterSpacing: '-0.035em', fontWeight: '600' }],
-      title: ['30px', { lineHeight: '36px', fontWeight: '500' }],
+      title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
       h2: ['22px', { lineHeight: '28px', fontWeight: '600' }],
       body: ['15px', { lineHeight: '22px' }],
       small: ['13px', { lineHeight: '19px' }],
