@@ -175,9 +175,12 @@ Consequences that apply everywhere below:
   fix, not a one-line typo. `shared.md` requires one peer review before merge,
   and that review happens **on the pull request**, so there is nowhere else for
   it to happen.
-- **CI green is a merge gate, not a suggestion.** Until PR AUTOMATION creates
-  `.github/workflows/`, there are no checks to be green and the PR still needs a
-  human merge; say so on the PR rather than implying checks passed.
+- **CI green is a merge gate, not a suggestion.** `.github/workflows/pr-checks.yml`
+  exists as of issue #52: three required jobs — **verify** (`npm run verify`, the
+  same one command run locally), **repo rules** (rule 3), **secret scanning**
+  (rule 1). Wait for them. Red is not done, and a cancelled run is not a pass.
+  Branch protection is still not on, so merging remains a human action — the
+  checks now have to be *looked at* rather than merely asserted.
 - **Push every phase commit as it lands.** The repo is built in the open and the
   remote is the only backup.
 - **Issue tracker is live** (GitHub Issues, no prefix). Wherever a step says to
@@ -300,7 +303,7 @@ This is a single atomic action. The `notes` field is a pointer, not a narrative.
 | **Verify** | Before any "done", "complete", "ready for PR" | Run the Verify command from §0. Red = not done. |
 | **Push branch** | After the first commit on a branch | `git push -u origin <branch>`. |
 | **Pull request** | Before anything reaches `main` | Open a PR saying what changed and why. No AI attribution lines. |
-| **CI green** | Before merging any pull request | Every required check passing. **A check that was skipped is not a check that passed.** Until PR AUTOMATION creates the workflows there are no checks — say so on the PR rather than implying they ran. |
+| **CI green** | Before merging any pull request | All three jobs in `pr-checks.yml` passing — verify, repo rules, secret scanning. **A check that was skipped is not a check that passed**, and neither is one that was cancelled. Branch protection is not on yet, so nothing stops a red merge but you. |
 | **Squash and delete** | After merge | Squash and merge; delete the branch locally and on `origin`. |
 | **Issue tracker update** | After each ticket | AC ticked + closed as Completed + `status:in-progress` removed + completion comment. The project-level record is `CONTEXT.md`, not a board. |
 | **State file update** | After each ticket or phase transition | Write and commit `.peer-ai-state.json`. |

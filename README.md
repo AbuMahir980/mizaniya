@@ -87,6 +87,8 @@ The long form is in [`docs/02-architecture.md`](docs/02-architecture.md) and the
 
 ## Built in the open, to a written standard
 
+[![PR Checks](https://github.com/AbuMahir980/mizaniya/actions/workflows/pr-checks.yml/badge.svg)](https://github.com/AbuMahir980/mizaniya/actions/workflows/pr-checks.yml)
+
 This repository is also a record of *how* it was built.
 
 - **[`docs/standards/`](docs/standards/)** — the engineering rulebook the code is
@@ -102,6 +104,11 @@ This repository is also a record of *how* it was built.
 - **No real financial data anywhere.** Every figure in the code, the tests, the
   documentation and the screenshots comes from
   [`docs/seed-data.md`](docs/seed-data.md), and it is invented.
+- **The rules about the repository are checked too, not just the code.** CI runs
+  secret scanning over the full history, and a guard that fails the build if a
+  third-party name appears in a file, a path or a commit message. The guard
+  reads the terms from a secret and reports line numbers rather than matches —
+  the names must not enter a public repository, and its logs are public as well.
 
 ---
 
@@ -113,7 +120,9 @@ npm run dev      # http://localhost:5173
 npm run verify   # naming, lint, typecheck, tests, production build
 ```
 
-`npm run verify` is the gate. Nothing is "done" until it is green.
+`npm run verify` is the gate. Nothing is "done" until it is green — and CI runs
+that same one command, so a green badge and a green terminal are the same claim
+rather than two that can drift apart.
 
 ---
 

@@ -170,28 +170,44 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: BUILD, cycle 1 — `core/` and the seam beneath it.** Everything before it
-is finished: Step 0, SETUP, UNDERSTAND, ARCHITECT, SYSTEM SPEC, API CONTRACT,
-PAGE SPECS, the design stop, SHARED RULES, FRONTEND RULES and ISSUES. The
-twenty-two tickets BUILD works from are on the board as issues **#8-#29**.
+**Phase: BUILD, cycle 3 — the remaining screens, the seed script and zakat.**
+Everything before BUILD is finished: Step 0, SETUP, UNDERSTAND, ARCHITECT,
+SYSTEM SPEC, API CONTRACT, PAGE SPECS, the design stop, SHARED RULES, FRONTEND
+RULES and ISSUES. The twenty-two tickets BUILD works from are on the board as
+issues **#8–#29**.
 
-**Three of them are done.** T1 (`core/cycle` — boundaries, days left, paydays),
-T2 (`core/budget` — cash left, protected remaining, safe to spend) and T3
-(rollover) merged as PRs #31, #33 and #35, followed by a naming pass in #36.
-**Next is #11 — T4 · `core/debt`,** balances that cross zero.
+**Cycles 1 and 2 are closed — fifteen tickets, T1 through T15.** Cycle 1 settled
+the numbers (`money`, `cycle`, `budget`, `rollover`, `debt`, `goal`, `zakat`, the
+Dexie `Repository`, the snapshot store, export and import). Cycle 2 built the
+shell and the core journey: the app shell and routes (T10), the PWA (T11),
+onboarding (T12), Home (T13), Quick Add (T14) and Plan (T15). **`main` now runs
+end to end** — welcome → onboarding → Home → Quick Add → Plan.
 
-**What the repo actually holds now.** A `package.json` and a verify command that
-runs: naming, lint, typecheck, **102 tests**, production build. `src/design/`
-carries the tokens twice — typed data for charts, tests and the contrast audit,
-custom properties for the themes — with a test that fails the build when the two
-disagree. `src/ui/` has about twenty primitives with all their states and a
-gallery page showing every one in both themes. `src/core/` has `money`, `cycle`
-and `budget`. ESLint holds the architecture boundaries that ADR-002 left to it,
-and those rules were verified by breaking them rather than by a green run.
+**Next is #23 — T16 · Transactions, and editing.**
 
-**There is still no CI.** PR AUTOMATION (phase 11b) creates it, so every merge so
-far has been a human one on a green local verify. Say so on a pull request rather
-than implying checks ran.
+**What the repo actually holds now.** A verify command that runs naming, lint,
+typecheck, **342 tests** and a production build. `src/design/` carries the tokens
+twice — typed data for charts, tests and the contrast audit, custom properties
+for the themes — with a test that fails the build when the two disagree.
+`src/ui/` has about twenty-five primitives with all their states and a gallery
+page showing every one in both themes. `src/core/` is framework-free and imports
+nothing.
+
+**CI exists as of 23 September** — `.github/workflows/pr-checks.yml`, brought
+forward from phase 11b as issue #52. Three jobs: **verify** (`npm run verify`,
+the same one command run locally, so a green badge and a green terminal are the
+same claim), **repo rules** (rule 3, terms from a secret, positions reported
+rather than matches), **secret scanning** (rule 1, full history). The sixteen
+pull requests before it merged on a human reading a local verify. **Branch
+protection is still off** — that, the templates and the AI review workflow remain
+in 11b, and until it is on, nothing but a person stops a red merge.
+
+**Two guarantees are held by tests that break them on purpose** rather than by a
+green run: the architecture boundaries (`src/architecture.test.ts`, after they
+were found decorative for twelve days) and the repo-rule guard
+(`scripts/check-repo-rules.test.mjs`). The rule this project keeps relearning is
+that **a check which has only ever passed is indistinguishable from one that is
+switched off.**
 
 **The design is complete and all of its files have landed** — 67 artboards,
 `tokens.md` with 54 gated contrast pairs and no failures, the canvas as `.dc.html`
@@ -204,7 +220,7 @@ typefaces nothing loads yet, the brand files, the welcome screen that was drawn
 after PAGE SPECS and so appears in no ticket, and a Tabs primitive — each against
 the ticket that takes it. The file is deleted once every box is ticked.
 
-**Next action:** start **#11 — T4 · `core/debt`**.
+**Next action:** start **#23 — T16 · Transactions, and editing**.
 
 ---
 
@@ -276,9 +292,45 @@ the ticket that takes it. The file is deleted once every box is ticked.
 | 2026-09-23 | **One argument order across `core/`** — the snapshot first, then the subject: `saved(snapshot, goal)`, not `saved(goal, snapshot)`. Fifteen functions did it one way and five the other. Page specs §456 wrote the other order and was corrected, because for `core/` the project already decided which way the arrow points: **the contract is the code**, and a signature in a page spec is illustrative. When they disagree, the spec is wrong | T5 |
 | 2026-09-23 | **No project board and no milestones.** Status is labels: Backlog is an open issue with no status label, In Progress adds `status:in-progress`, Done is closed as Completed with the label removed; `cycle-1/2/3` are the phases. **Why not:** for one person a board carries no information the labels do not, and a board nobody maintains is worse than none — it misleads with authority. The project-level record is this file, which carries the reasoning a one-line status never could. **Revisit when a second person joins**, because then a board is coordination rather than decoration. The peer-ai step that assumed a board is rewritten to point here | process |
 | 2026-09-12 | **Names the owner would say (O4).** `categoryVariance` became `spendingByCategory`, `actualFor` became `movedInto`, `transactionsIn` became `movementsIn`. Four names were deliberately left alone — *protected*, *allowance*, *unallocated*, *safe to spend* — because they are the documented decisions and the words on the switches, and renaming them would cut the thread between the code and the spec for no gain | refactor |
+| 2026-09-23 | **CI brought forward from phase 11b to now** (#52), because the phase file asks for exactly that: *"if you are starting a project and reading ahead, run this early."* Sixteen pull requests had merged saying no checks ran. **Only the checks** — branch protection, templates and the AI review workflow stay in 11b | #52 |
+| 2026-09-23 | **The verify job runs `npm run verify` and nothing else.** Re-listing lint, typecheck and tests as separate CI steps would create a second opinion about what "passing" means, and the two would drift — the one that is easier to keep green wins, and it is never the real one. **Cost:** no per-step timing in the UI, and one red job rather than a precise one. Worth it for `green here` and `green there` being the same sentence | #52 |
+| 2026-09-23 | **Repo rule 3 is enforced by a guard that cannot contain its own subject.** The forbidden names would breach the rule by being written down, so they arrive from the environment as a secret (rule 1's mechanism), and the guard reports `path:line` and **never the match** — this repository is public and so are its Actions logs. Unconfigured, it exits 0 but prints **NOT ENFORCED**; its own test plants a term and requires a non-zero exit, so the mechanism is proved live even when no terms are loaded | #52 |
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-09-23 (Wednesday, evening) — CI, eleven days late
+
+- **`.github/workflows/pr-checks.yml` exists** ([#52](https://github.com/AbuMahir980/mizaniya/issues/52)).
+  Three jobs: **verify**, **repo rules**, **secret scanning**. Brought forward
+  from phase 11b on the phase file's own advice — sixteen pull requests had
+  merged on a human reading a local verify, each one saying so on the PR.
+- **The verify job runs one command and no more.** `npm run verify`, the same
+  one a laptop runs. A workflow that re-lists lint, typecheck and tests as
+  separate steps is a second definition of "green", and two definitions drift.
+- **`.nvmrc` now decides the Node version** for both CI and the dev machine.
+  `engines` said `>=20` and the machine was on 24; CI naming a third number
+  would have been how it ends up testing a runtime nobody develops on.
+- **Repo rule 3 finally has enforcement, and the awkward part was the obvious
+  part.** The check is for third-party names, and writing the list into the
+  repository *is* the breach — so the terms come from the environment as a
+  secret, which is what rule 1 already says about every credential. The guard
+  prints positions and never matches, because this repo is public and so are
+  its Actions logs.
+- **Unconfigured is announced, not assumed.** With no terms set the guard exits
+  0 and prints `NOT ENFORCED`, plus a GitHub annotation on the run. Its test
+  plants a term in a throwaway repository and requires exit 1 — so the
+  mechanism is proved on every run even while the term list is empty. **The
+  distinction worth keeping:** that is a check with nothing loaded, not a check
+  switched off, and the two look identical from the tick alone.
+- **Found while updating this file: ten tickets are missing from the day log.**
+  T6 through T15 have no entry. The last one here is T4. Logged as
+  [#53](https://github.com/AbuMahir980/mizaniya/issues/53) rather than fixed in
+  the CI pull request, because it is a different piece of work — but it is the
+  same failure as the state file naming #10 three days after T3 merged, and it
+  is why a new session has to be told where it is instead of reading it.
+- **Still open:** branch protection needs repo-admin hands, the scanning action
+  is pinned to a tag rather than a SHA, and `FORBIDDEN_TERMS` is unset.
 
 ### 2026-09-23 (Wednesday, later) — the boundaries were never enforced
 
@@ -534,24 +586,31 @@ Newest first.
 
 ## What's Next
 
-1. **#11 — T4 · `core/debt`.** Balances that cross zero. A `Debt` has no direction
-   field: the balance derives from movements and may pass through zero, which is
-   what a rotating ajo does. A stored direction would need correcting at the
-   crossing, and nothing would notice if it were not.
-2. **Finish cycle 1** — T5 `core/goal` (#12), T6 `core/zakat` (#13), T7 the Dexie
-   `Repository` (#14), T8 the snapshot store and its single write path (#15), T9
-   export and import (#16). Cycle 1 decides whether the app's numbers are right;
-   everything after it is presentation.
-3. **Cycle 2 opens at T10** (#17, the app shell), which carries open-items **3 and
-   4**: load the three typefaces, and wire in the favicon and the `Mark`
-   component. Today the app renders in Georgia, SF and Menlo — none of the three
-   designed faces ships with any OS, and nothing loads them.
-4. **PR AUTOMATION (phase 11b) still owes this repo its CI.** Until it runs there
-   are no checks to be green, and the merge gate is a human reading a local verify.
-   It is also where repo rule 3 could gain the enforcement it has never had.
-5. **The README is the artefact a visitor actually opens** — not the issue list,
-   not a board. Repo rule 4 says it leads with the problem and the screenshots.
-   That is where effort spent on being seen belongs, and it lands at DOCUMENT.
+1. **#23 — T16 · Transactions, and editing.** The list of movements, and the
+   first screen where a recorded fact can be changed after the event. Editing is
+   the part to be careful with: transactions are the only facts in this app, so
+   an edit rewrites history that every derived figure is computed from.
+2. **Finish cycle 3** — T17 Debts & Goals (#24, and the last open item, the
+   `Tabs` primitive), T18 the printable debt record (#25), T19 Months (#26), T20
+   Settings and the import flow (#27), T21 the seed script (#28), T22 Zakat
+   (#29).
+3. **Set the `FORBIDDEN_TERMS` repository secret.** Until it is set, the repo
+   rules job runs, passes, and says **NOT ENFORCED** in its log — the mechanism
+   is proved on every run by its own test, but it has no terms loaded. One
+   command: `gh secret set FORBIDDEN_TERMS`.
+4. **Branch protection is still off, and it needs repo-admin hands.** The checks
+   now exist and can be read on the pull request, but nothing *stops* a red
+   merge. That, the PR/issue templates, the AI review workflow and pinning the
+   third-party scanning action to a SHA are the rest of phase 11b.
+5. **The day log owes ten entries — T6 through T15 are not in it** (issue #53).
+   The section header says *newest first* and the last entry it holds is T4, on
+   23 September. This is the same staleness that had the state file naming #10
+   three days after T3 merged, and it is the reason a session has to be told
+   where it is rather than reading it.
+6. **Playwright and the K1 journey stay in the TEST phase.** The bugs that unit
+   tests kept missing were combinations — `movedInto` ignoring `repaid`,
+   `leftoverFrom` handed the wrong cycle, routes reading the real clock — and
+   those are what a journey test catches. CI now exists to run it.
 
 ---
 

@@ -69,6 +69,11 @@ export default defineConfig({
   test: {
     environment: 'node',
     globals: true,
-    include: ['src/**/*.test.{ts,tsx}'],
+    /**
+     * `scripts/` is in scope because the build scripts are load-bearing: the
+     * naming check and the repo-rule guard fail the build, so they need the
+     * same proof as anything under `src/`.
+     */
+    include: ['src/**/*.test.{ts,tsx}', 'scripts/**/*.test.mjs'],
   },
 })
