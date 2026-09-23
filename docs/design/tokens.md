@@ -255,7 +255,7 @@ Every diagram carries a text key. None of them is the only way to read a figure.
 | **Button — primary** | `emerald` fill, `onEmerald`, `radius.md`, `elevation.lift` — **every primary button**, not the Add action alone; no lift when disabled | default · pressed · focused · disabled (`track` fill, `faint`) · loading |
 | **Button — secondary** | `card` fill, `ink`, `line` border | as above |
 | **Button — quiet** | transparent, `soft` | as above |
-| **Field / AmountInput** | `card` fill, `line`, `radius.md`, 50px | default · hover · **focused** (`emerald` border + 3px `em2` halo) · disabled · error (neutral border, `ink` message) · loading |
+| **Field / AmountInput** | `card` fill, `line`, `radius.md`, 50px. **Label** 13 / 600 / `ink`, 8px above the box. **Helper** 12 / 400 / `soft`, 8px below it | default · hover · **focused** (`emerald` border + 3px `em2` halo) · disabled · error (neutral border, `ink` message) · loading |
 | **Chip** | `card`, `line`, `radius.md` | default · **selected** (`ink` fill, `bg` text) · focused · disabled |
 | **Segmented** | `card` in a `line` frame, `radius.md` | active segment is `ink` fill with `bg` text |
 | **Tabs** | `line` bottom border, `soft` inactive, `ink` active with a 2px `emerald` underline, 46px | default · active · focused. **Tabs switch a view** (Debts \| Goals); Segmented switches a value (Today \| This cycle) |
@@ -295,3 +295,49 @@ separations (borders, the rail bed, surface steps) are listed with their measure
 values but carry no gate — none is the only signal for anything.
 
 Re-run this as a token-level test in CI (**J4**, spec §3).
+
+---
+
+## 10 · Words
+
+The app's premise is that anyone can use it, so the copy is what a person would
+actually say. Nobody has ever described their friend as a counterparty.
+
+**A field asks a question. A column head names a thing.** That is the whole rule,
+and it is why the same idea gets two words in two places: the debt form asks
+*Who owes who?*, the debts table heads that column *Which way*.
+
+The pass on 24 September, across all 59 boards at once:
+
+| Was | Is | Where |
+|---|---|---|
+| Counterparty | Who | debts table |
+| Counterparty name | Their name | debt form |
+| Direction | Who owes who? · Which way | debt form · debts table |
+| Agreed repayment per cycle | How much each payday? | debt form |
+| Schedule | Paying back | debts table |
+| No schedule | Nothing agreed | debt rows |
+| Projected gap | Short by | goals |
+| Funded by | Money comes from | goal form |
+| Amber threshold | Turn amber below | Settings |
+| **Unallocated** | **Free** | Plan |
+
+`Unallocated` was the one that mattered: Home has always drawn **Free** for the
+same quantity, so the two screens named one number two ways. Home's word wins —
+it is both plainer and the one people see most.
+
+**Two places keep a formal register, on purpose.**
+
+*The printed debt record* — *The parties*, *Witnesses*, *Terms*. It is not a
+screen; it is a record meant to have standing between two people, and it is read
+by someone who was not in the app. Plain-speech labels would weaken it.
+
+*Nisab* and *hawl*. They are the correct words for what they name, the app
+explains both in place, and an approximation would be less accurate, not more
+accessible.
+
+**What the 12 September naming pass settled still stands**, with that one
+exception. `Protected`, `allowance` and `safe to spend` are plain English and
+they are the words on the switches — they were never in the same class as
+`counterparty`. Changing them would ripple into D1, D15, the page specs and the
+ADRs for no gain in clarity.

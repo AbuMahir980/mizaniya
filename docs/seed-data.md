@@ -210,6 +210,25 @@ The rent fund is deliberately seeded **behind schedule**. A demo where
 everything is fine demonstrates nothing; the projected gap exists to say so
 early, and this is the figure that proves it works.
 
+### At onboarding, 24 September — a different sum
+
+Onboarding's step 6 cannot quote the ₦75,000 rate: that is the rent fund's
+*planned* contribution, and there is no plan until Plan. Before the first cycle
+there is only a target, a due date and the balance just entered, so the only
+figure step 6 can show is the rate **solved for**.
+
+| | Working | Result |
+|---|---|---:|
+| Rent fund at onboarding | the opening balance entered at step 4 | ₦400,000 |
+| Paydays on or before 1 March | 25 Sep, 25 Oct, 25 Nov, 25 Dec, 25 Jan, 25 Feb | **6** |
+| Still to find | 900,000 − 400,000 | ₦500,000 |
+| **Rate needed** | 500,000 ÷ 6, rounded **up** | **₦83,333.34 a payday** |
+
+Six paydays, not the five the table above counts: on 24 September the 25th has
+not happened yet. Rounded up because a rate rounded down reaches ₦499,999.98 and
+misses — falling short is not something a figure may do quietly (D15's rule,
+applied to a target rather than a balance).
+
 ### The first cycle — 25 August to 24 September, completed
 
 The owner's first cycle, and the one that gives Months a row and the food
