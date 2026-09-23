@@ -204,7 +204,19 @@ figures (page specs §7.1 step 4).
 | A. Friend, outstanding | 120,000 − 30,000 | ₦90,000 |
 | Paydays to clear at ₦30,000 | | 3 |
 | Spouse, outstanding | no schedule | ₦60,000 |
+| Spouse, borrowed | **8 March 2026**, before Mizaniya existed | ₦150,000 |
+| Spouse, repaid before the record | stated at onboarding, not witnessed | ₦90,000 |
 | B. Colleague owes | counts toward nothing (D3) | ₦40,000 |
+
+**Spouse is the one debt with a history.** All three debts were fresh, which made
+the case in item 22 — a debt that predates the app and is part-repaid —
+undrawable and untestable. Spouse now carries one: ₦150,000 borrowed on
+**8 March 2026**, ₦90,000 repaid before the record was opened, **₦60,000
+outstanding — unchanged**. The two opening movements net to the same balance and
+both sit on 24 September, so cycle 2, the Home breakdown, Months and the zakat
+estimate are all exactly as they were. D3 keeps it out of every figure anyway.
+Spouse was chosen over A. Friend precisely because it has no schedule: nothing
+projects from it, so nothing downstream moves.
 
 The rent fund is deliberately seeded **behind schedule**. A demo where
 everything is fine demonstrates nothing; the projected gap exists to say so

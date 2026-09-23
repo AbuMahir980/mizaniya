@@ -130,9 +130,21 @@ a screen is a label, and a card title is `h2`; both are Inter.
 | `lab` | Inter | 10.5 / 16 / 600, `+0.115em`, uppercase | Headings inside a screen |
 | `mlab` | JetBrains Mono | 10 / 15 / 400, `+0.12em`, uppercase | Data labels |
 
-**A step follows its surface's width, not the viewport.** A dialog is 480px wide on a
-1440 screen, so its title takes the 360 step (30 / 36), not the 1440 one. Only a
-surface that is itself 1440 wide takes the wider step.
+**A step follows its surface's width, not the viewport.** The wider step applies only
+to a surface that **fills the desktop frame** — the 1180px content area inside the 1440
+shell. Everything narrower takes the 360 step, whatever the screen behind it is doing:
+
+| Surface | Width | Step |
+|---|---|---|
+| A screen at 1440 | 1180 | the 1440 step |
+| The onboarding card | 620 | the 360 step |
+| A form dialog | 520 | the 360 step |
+| The welcome card | 520 | the 360 step |
+| Quick Add's dialog | 480 | the 360 step |
+| A bottom sheet at 360 | 390 | the 360 step |
+
+So a 620px onboarding card and a 480px dialog set their titles at 30 / 36, the same as
+a phone, because that is the measure the type is being read at.
 
 Two things are voice but are not steps. The **Home date** (20 / 25) is quiet on
 purpose and sits outside the table. The **wordmark** — "Mizaniya" set in EB Garamond

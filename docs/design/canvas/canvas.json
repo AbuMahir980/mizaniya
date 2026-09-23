@@ -91,7 +91,7 @@
    "x": 4476,
    "y": 0,
    "w": 1512,
-   "h": 754,
+   "h": 747,
    "title": "Welcome \u00b7 1440 \u00b7 light",
    "page": "page-brand",
    "print": "fixed"
@@ -101,7 +101,7 @@
    "x": 6128,
    "y": 0,
    "w": 1512,
-   "h": 754,
+   "h": 747,
    "title": "Welcome \u00b7 1440 \u00b7 dark",
    "page": "page-brand",
    "print": "fixed"
@@ -131,7 +131,7 @@
    "x": 0,
    "y": 0,
    "w": 2582,
-   "h": 944,
+   "h": 1211,
    "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 light",
    "page": "page-onb",
    "print": "fixed"
@@ -141,17 +141,37 @@
    "x": 2722,
    "y": 0,
    "w": 2582,
-   "h": 944,
+   "h": 1211,
    "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 dark",
+   "page": "page-onb",
+   "print": "fixed"
+  },
+  {
+   "file": "OnbPickLight.dc.html",
+   "x": 5444,
+   "y": 0,
+   "w": 1310,
+   "h": 886,
+   "title": "Onboarding \u00b7 what the controls open \u00b7 360 \u00b7 light",
+   "page": "page-onb",
+   "print": "fixed"
+  },
+  {
+   "file": "OnbPickDark.dc.html",
+   "x": 6894,
+   "y": 0,
+   "w": 1310,
+   "h": 886,
+   "title": "Onboarding \u00b7 what the controls open \u00b7 360 \u00b7 dark",
    "page": "page-onb",
    "print": "fixed"
   },
   {
    "file": "OnbDLight.dc.html",
    "x": 0,
-   "y": 1134,
+   "y": 1401,
    "w": 4460,
-   "h": 1963,
+   "h": 2250,
    "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 light",
    "page": "page-onb",
    "print": "fixed"
@@ -159,9 +179,9 @@
   {
    "file": "OnbDDark.dc.html",
    "x": 4600,
-   "y": 1134,
+   "y": 1401,
    "w": 4460,
-   "h": 1963,
+   "h": 2250,
    "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 dark",
    "page": "page-onb",
    "print": "fixed"
@@ -710,7 +730,7 @@
    "file": "Print.dc.html",
    "x": 5092,
    "y": 0,
-   "w": 866,
+   "w": 1696,
    "h": 1227,
    "title": "Debt record \u2014 print, A4",
    "page": "page-found",
@@ -732,7 +752,7 @@
    "y": -250,
    "w": 820,
    "page": "page-onb",
-   "text": "All six steps, mobile and desktop. Step 2 is the only required one. Opening balances and debts are dated 24 September \u2014 the day before the cycle \u2014 so they never count as this cycle's saving."
+   "text": "All six steps, mobile and desktop, plus the three sheets steps 2 and 3 open. Step 2 is the only required one. Opening balances and debts are dated 24 September \u2014 the day before the cycle \u2014 so they never count as this cycle's saving."
   },
   {
    "id": "n-home",
