@@ -19,19 +19,13 @@ import type {
   TransactionType,
 } from '@/core/types'
 
-/** The eight, in the words the owner uses for them (D7, O4). */
-export const MOVEMENT_LABELS: Record<TransactionType, string> = {
-  expense: 'Spent',
-  income: 'Received',
-  'savings-in': 'Moved to savings',
-  'savings-out': 'Took from savings',
-  borrowed: 'I borrowed',
-  repaid: 'I repaid',
-  lent: 'I lent',
-  'repayment-received': 'They repaid me',
-}
-
-/** Expense first: it is the default, and the common case by a distance. */
+/**
+ * Expense first: it is the default, and the common case by a distance.
+ *
+ * **Order lives here; the words live in `core/movement`.** This ordering is a
+ * Quick Add decision — put the common case under the thumb — and the
+ * Transactions filter sorts the same eight differently on purpose.
+ */
 export const MOVEMENT_ORDER: TransactionType[] = [
   'expense',
   'income',

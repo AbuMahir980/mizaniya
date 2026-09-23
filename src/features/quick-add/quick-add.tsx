@@ -16,8 +16,8 @@ import { Sheet } from '@/ui/sheet'
 import { balanceOf, directionOf } from '@/core/debt/debt'
 import { isProtected } from '@/core/budget/budget'
 import type { Instant, IsoDate, Snapshot, TransactionType } from '@/core/types'
+import { DESTINATION_LABELS, MOVEMENT_LABELS } from '@/core/movement/movement'
 import {
-  MOVEMENT_LABELS,
   MOVEMENT_ORDER,
   emptyDraft,
   needsCategory,
@@ -28,14 +28,6 @@ import {
   toTransaction,
   type MovementDraft,
 } from './movement-draft'
-
-const DESTINATIONS = [
-  { value: 'bank-vault', label: 'Bank vault' },
-  { value: 'cowrywise', label: 'Cowrywise' },
-  { value: 'piggyvest', label: 'PiggyVest' },
-  { value: 'cash-at-home', label: 'Cash at home' },
-  { value: 'ajo', label: 'Ajo' },
-] as const
 
 export interface QuickAddProps {
   open: boolean
@@ -217,7 +209,10 @@ export function QuickAdd({
           <ChipGroup
             label="Where it is kept"
             value={draft.savingsDestination}
-            options={DESTINATIONS.map((d) => ({ value: d.value, label: d.label }))}
+            options={Object.entries(DESTINATION_LABELS).map(([value, label]) => ({
+              value,
+              label,
+            }))}
             onValueChange={(next) =>
               setDraft({
                 ...draft,

@@ -11,7 +11,6 @@
 
 import { describe, expect, it } from 'vitest'
 import {
-  MOVEMENT_LABELS,
   MOVEMENT_ORDER,
   emptyDraft,
   needsCategory,
@@ -42,12 +41,11 @@ describe('the defaults do the work', () => {
     expect(draft.typed).toBe('')
   })
 
-  it('names all eight movements in the owner’s words (D7, O4)', () => {
+  it('offers all eight, with the common case first', () => {
     expect(MOVEMENT_ORDER).toHaveLength(8)
-    expect(MOVEMENT_LABELS.repaid).toBe('I repaid')
-    expect(MOVEMENT_LABELS['repayment-received']).toBe('They repaid me')
-    // "Spent", not "Expense". Nobody says "I made an expense".
-    expect(MOVEMENT_LABELS.expense).toBe('Spent')
+    // Expense and income sit in the segmented control; the other six are one
+    // tap further away. The words themselves are core's — see movement.test.ts.
+    expect(MOVEMENT_ORDER.slice(0, 2)).toEqual(['expense', 'income'])
   })
 })
 

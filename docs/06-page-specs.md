@@ -625,10 +625,19 @@ sign of the movement carried by wording, never a bare minus.
 **Numbers.** Amount per row from `Transaction.amount` via `MoneyText`; a per-day
 subtotal on each header; the filtered total in the filter bar.
 
-**The eight type labels** — plain speech (D7, **O4**):
+**The eight type labels** — everyday speech, not accounting (D7, **O4**):
 
-`Income` · `Expense` · `Move to savings` · `Take from savings` · `I borrowed` ·
+`Received` · `Spent` · `Moved to savings` · `Took from savings` · `I borrowed` ·
 `I repaid` · `I lent` · `They repaid me`
+
+Past tense, because the owner is describing something they **did**. Nobody says
+*"I made an expense."* This paragraph previously read `Income · Expense · Move
+to savings · Take from savings`; the formal pair was corrected to match the
+stated intent for the product's voice, and the four debt labels already read
+this way — the whole set is one voice, which is the point. The labels are
+defined once, in `src/core/movement/movement.ts`. **The type filter in
+`TransactionsLight.dc.html` still draws the formal wording and is a design
+follow-up**, logged in `CONTEXT.md`.
 
 **Actions.** Tap a row to edit; swipe or row menu to delete (confirm: *"Delete
 this ₦3,500.00 expense? This can't be undone."* — neutral, not danger).
