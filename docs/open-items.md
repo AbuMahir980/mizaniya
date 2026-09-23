@@ -1,12 +1,15 @@
 # Open items
 
-*Written 22 September 2026 by the designer, after checking the design stop against the
-code on `main` at `a7dde67`. For the build agent. Work through it on its own branch,
+*Written 22 September 2026 by the designer against `main` at `a7dde67`; section D added
+23 September against `376a7de`. For the build agent. Work through it on its own branch,
 tick each box as it lands, and when every box is ticked fold anything worth keeping into
 `CONTEXT.md` and delete this file in the same PR.*
 
-**The design is complete.** Nothing in `docs/design/` needs regenerating. Every file an
-item below needs is already there — this list is about wiring it up, not making it.
+**Nothing in `docs/design/` needs regenerating.** Every file an item below needs is
+already there — this list is about wiring it up, not making it. Section D came out of
+the two questions #56 correctly logged instead of deciding; the artboards, `tokens.md`
+§3 and the previews were all re-cut on 23 September, so the design side is done and
+what is left is code.
 
 ---
 
@@ -141,6 +144,73 @@ until those tickets ship, which is also when this file can be deleted.
   **Nothing to regress toward, 22 September.** `Button` has no danger variant at all, so a
   red Delete is not merely discouraged — it cannot be built without adding one. The
   corrected artboards are committed.
+
+---
+
+## D · The type questions #56 raised — answered 23 September
+
+*Outside review of the Quick Add artboards asked whether its serif title was a mistake.
+It was not, but chasing it down found two real faults and one measurement worth keeping.
+`tokens.md` §3 is rewritten; §3.1 is new and holds the reasoning. The artboards and all
+67 previews are re-cut.*
+
+> **Housekeeping first — these landed in the worktree while T16 was in flight.** The
+> `tokens.md` §3 rewrite and the 67 re-cut previews were swept into **`c400f07`
+> "feat(core): the eight movements (T16)"** on `feature/transactions-and-editing`, which
+> does not mention them; the 67 `docs/design/canvas/*.dc.html` files were still
+> uncommitted at the time. None of it belongs in a `core/movement` commit. Split the
+> design changes into their own commit — or their own PR — before T16's is reviewed, so
+> the squash onto `main` does not carry a design drop under a feature message.*
+
+- [ ] **9 · A sheet title takes the voice face** — `src/ui/sheet.tsx`.
+  The settled rule, now in `tokens.md` §3: **the voice face names a surface; the
+  structural face names a part of one.** A bottom sheet or dialog *is* the surface while
+  it is open — it holds focus, Escape closes it, everything behind it is inert and
+  scrimmed — so its title is a `title`, not an `h2`. A heading *inside* a screen stays a
+  `lab`, which is what #56 got right on Home.
+  - `sheet.tsx:57` — `font-structural text-h2` → **`font-voice text-title`**. That is the
+    whole change.
+  - The reviewer was seeing something real, but it was the **size**, not the face: the
+    artboards set those titles at 24px, and EB Garamond's x-height is 0.407em against
+    Inter's 0.546, so 24px serif is optically Inter 18px — *below* the `h2` it was meant
+    to lead. An undersized title reads as a misapplied serif. **The artboards are now
+    30 / 36**, which is `text-title` exactly as `tailwind.config.ts` already defines it.
+  - One addition: `tokens.md` §3 now gives `title` **34 / 40 at 1440**, which the
+    artboards have always drawn and the config has no override for. Add the desktop step.
+
+- [ ] **10 · Home's first section is two sections, not one disputed name** — **T13**.
+  Neither label was wrong. Page specs §429 sits inside an ASCII sketch of the
+  **superseded** 2×2-tile Home and is not a copy specification — §7.2 (lines 462–463) is,
+  and it already says *"sorted by what is left, worst first."* The artboards label two
+  different things at two widths, and the code only built one of them:
+  - **1440 (`DHomeLight`)** — the full table of all eight, headed **Categories**. This is
+    what `home-screen.tsx` has, and it is correct at this width.
+  - **360 (`HomeLight`)** — a **ranked subset**: only the categories that are over,
+    headed **Needs attention** with a rose `2 of 8` pill, and a **Show all 8 categories**
+    link beneath. Eight rows at 360 push *Safe to spend today* off the screen, and that
+    figure is the reason Home exists. This is missing from the build.
+  - **The heading names what the list is showing.** That is the rule, and it settles the
+    state nobody specified: when nothing is over, the mobile section shows the worst three
+    and is headed **Categories**, with the same *Show all* link. There is no
+    "Needs attention · 0 of 8".
+
+- [ ] **11 · The voice face is 500 on light and 600 on dark** — `tokens.css` /
+  `tailwind.config.ts`.
+  Measured from the outlines: EB Garamond's thinnest stroke is 0.034em — **1.02 device
+  pixels at 30px on a 1× screen, and under one pixel at every smaller size.** A stroke
+  with no whole pixel to land on is drawn by antialiasing alone, and light-on-dark that
+  reads as washed out. Weight 600 takes the hairline to 0.0385em and clears the pixel at
+  every title size. On a 2× screen the problem never appears, which is why it surfaces in
+  review on a desktop monitor and not on a phone.
+  - Add a `--weight-voice` custom property: **500** in the light block, **600** in the
+    dark block, and have the `title` step take `fontWeight: 'var(--weight-voice)'`.
+  - The canvas does exactly this via `--serw`, so the artboards already show the result.
+  - `@fontsource/eb-garamond` 600 is already imported under item 3, so nothing new to
+    load.
+  - **If 600 still will not hold** on a real 1× dark screen now that the fonts actually
+    load, the replacement is **Source Serif 4** — same old-style skeleton, x-height
+    0.475em, hairline 0.055em, clears a device pixel from 18px up. Do not make that swap
+    without the owner: the bookish register is the design, not a decoration on it.
 
 ---
 

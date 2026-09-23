@@ -300,6 +300,47 @@ the ticket that takes it. The file is deleted once every box is ticked.
 
 Newest first.
 
+### 2026-09-23 (Wednesday, late) — the designer answers, and both questions were better than they looked
+
+*Design drop, produced outside the session. `docs/open-items.md` § D carries the
+full reasoning; this is the summary and what it means for the code.*
+
+- **The bottom-sheet title does take the voice face, and the artboard's size was
+  wrong.** The settled rule is now in `tokens.md` §3: **the voice face names a
+  surface, the structural face names a part of one.** A sheet *is* the surface
+  while it is open — it holds focus, Escape closes it, everything behind it is
+  inert — so its title is a `title`, not an `h2`. Our code was wrong for a
+  defensible reason and is wrong all the same.
+- **The reviewer was reading a real fault, but it was the size, not the face.**
+  EB Garamond's x-height is 0.407em against Inter's 0.546, so a 24px serif title
+  is optically Inter 18px — *below* the `h2` it was meant to lead. An undersized
+  title reads as a misapplied serif. The artboards are re-cut to **30 / 36**.
+  **This is the best outcome available:** the complaint was right, the proposed
+  remedy — drop the serif — would have removed the wrong thing.
+- **And a second fault nobody had named.** EB Garamond's thinnest stroke is
+  0.034em — **1.02 device pixels at 30px on a 1× screen**, under one pixel at
+  anything smaller. A stroke with no whole pixel to land on is drawn by
+  antialiasing alone, and on dark that reads as washed out. Hence
+  `--weight-voice`: **500 on light, 600 on dark**. It never appears on a 2×
+  screen, which is exactly why it surfaced in review on a desktop monitor.
+- **"Categories" versus "Needs attention" was never a conflict.** They are two
+  states of one section, and **the heading names what the list is showing**.
+  Page specs §429 sits inside an ASCII sketch of the *superseded* 2×2 Home and
+  is not a copy spec. At 1440 it is the full table, headed *Categories* — which
+  is what we built. At 360 it is a ranked subset headed *Needs attention* with a
+  `2 of 8` pill and a *Show all 8 categories* link, **which we never built at
+  all.** Eight rows at 360 push *Safe to spend today* off the screen, and that
+  figure is the reason Home exists.
+- **Housekeeping, caught by the designer and not by me.** These files landed in
+  the worktree while T16 was in flight, and `git add -A` swept `tokens.md` and
+  68 re-rendered previews into `c400f07`, a commit titled *"feat(core): the
+  eight movements"*. Split out: T16's commit is now `9e4f83e` and carries only
+  its own work, and the design drop is this one. **Two agents sharing one
+  worktree makes `git add -A` unsafe** — stage by path when anything else may be
+  writing.
+- **Three code follow-ups**, none of them done here: open items 9 (`sheet.tsx`,
+  one class), 10 (Home's mobile section, T13), 11 (`--weight-voice`).
+
 ### 2026-09-23 (Wednesday, night) — the serif was right, the heading was not
 
 - **Outside feedback said the Quick Add title was wrong to be a serif.** It was
@@ -659,8 +700,8 @@ What remains open:
 | Exact copy for the offline and storage-status lines — they must inform without alarming | Open — PAGE SPECS, with `design:ux-copy` |
 | Should archiving a category hide it from past cycles, or only from new plans? | Open — leaning *new plans only*, so history stays truthful. Needed before story C7 |
 | Does the printable debt record carry the owner's own name, and does onboarding collect it? | Open — needed before story E5 |
-| `design:` **Does a bottom-sheet title take the voice face?** The artboards draw it serif (`class="ser"`, 24px, `QADark.dc.html`); the code renders it Inter (`src/ui/sheet.tsx:57`, `font-structural text-h2`). The design system supports both readings and contradicts itself: §3's prose gives voice to *"screen titles"*, but the type table names EB Garamond on the `title` step **only**, and 24px is the `h2` band — and a sheet is not a screen | Open — external design feedback objects to the serif here specifically. **Not silently picked** (design-data-contract). Design wins on typography, so if the artboard stands the code is wrong; needs the designer, and `tokens.md` updated either way. Raised at #55 |
-| `spec:` **Is Home's first section called "Categories" or "Needs attention"?** Page specs §429 writes *Categories*; the artboards label it *Needs attention*. Copy, not type — so neither authority clearly owns it | Open — the design's wording matches what the section actually does (ranked worst-first, D8) and the code's matches the spec. Left as *Categories* rather than changed silently. Raised at #55 |
+| `design:` **Does a bottom-sheet title take the voice face?** The artboards draw it serif (`class="ser"`, 24px, `QADark.dc.html`); the code renders it Inter (`src/ui/sheet.tsx:57`, `font-structural text-h2`). The design system supports both readings and contradicts itself: §3's prose gives voice to *"screen titles"*, but the type table names EB Garamond on the `title` step **only**, and 24px is the `h2` band — and a sheet is not a screen | **Settled 23 September — it takes the voice face, and the artboard's size was wrong.** The rule is now in `tokens.md` §3: the voice face names a **surface**, the structural face names a **part** of one. A sheet is the surface while it is open — it holds focus, Escape closes it, everything behind it is inert — so its title is a `title`, not an `h2`. The reviewer was reading a real fault, but it was the size: EB Garamond's x-height is 0.407em against Inter's 0.546, so 24px serif is optically Inter 18px — *under* the `h2` it was meant to lead, and under-sized titles read as misapplied serif. The artboards are corrected to **30 / 36**, which is the `title` step already in `tailwind.config.ts`. Code change is one class: `font-structural text-h2` → `font-voice text-title` in `src/ui/sheet.tsx`. See open item 9 |
+| `spec:` **Is Home's first section called "Categories" or "Needs attention"?** Page specs §429 writes *Categories*; the artboards label it *Needs attention*. Copy, not type — so neither authority clearly owns it | **Settled 23 September — both words are right; they are two states of one section, and the heading names what the list is showing.** There was never a conflict: page specs §429 sits inside an ASCII sketch of the *superseded* 2×2 tile Home and is not a copy spec (§7.2, lines 462–463, is). The artboards label two different things — `HomeLight` (360) heads a **ranked subset** *Needs attention* with a *Show all 8 categories* link; `DHomeLight` (1440) heads the **full table** *Categories*. The code has only the full table at both widths, so the mobile treatment is missing rather than mis-named. See open item 10 |
 
 The amber threshold is settled as **D15**. Every question raised at SETUP and in
 UNDERSTAND's clarification round is now closed.
