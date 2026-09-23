@@ -80,6 +80,12 @@ export default {
          it yet, which is a design follow-up rather than licence to guess. */
       lockup: ['42px', { lineHeight: '48px', letterSpacing: '-0.015em', fontWeight: '600' }],
       title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
+      /* The welcome screen's promise line, as the artboards draw it. Like
+         `lockup`, tokens.md section 3's table does not name it yet. */
+      promise: [
+        token('size-promise'),
+        { lineHeight: token('leading-promise'), fontWeight: token('weight-voice') },
+      ],
       h2: ['22px', { lineHeight: '28px', fontWeight: '600' }],
       body: ['15px', { lineHeight: '22px' }],
       small: ['13px', { lineHeight: '19px' }],

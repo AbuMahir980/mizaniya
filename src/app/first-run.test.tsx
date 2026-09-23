@@ -76,6 +76,54 @@ describe('the welcome screen', () => {
     expect(screen.getByText('Nothing leaves this device')).toBeDefined()
   })
 
+  /**
+   * **This one earns its brittleness.** The three tints have been shipped as
+   * three identical emerald ones twice — once when the icons were missing
+   * altogether, and again in the fix for that. The artboard draws `em2`, `sl2`
+   * and `oc2`, and nothing else in the suite would notice them collapsing.
+   */
+  it('gives the three points three different tints, as the artboard draws them', async () => {
+    const { container } = renderApp()
+    await screen.findByText('Know what you can spend today.')
+
+    for (const tint of ['bg-em2', 'bg-sl2', 'bg-oc2']) {
+      expect(container.querySelector(`.${tint}`), tint).not.toBeNull()
+    }
+  })
+
+  it('shows the app icon rather than the bare mark', async () => {
+    const { container } = renderApp()
+    await screen.findByText('Know what you can spend today.')
+
+    // A rounded emerald tile with the scales reversed out — the lockup the
+    // installed icon uses. The first screen is where that is established.
+    expect(container.querySelector('.bg-emerald.text-onEmerald')).not.toBeNull()
+  })
+
+  it('says more in the cards at 1440, because there is room to', async () => {
+    const { container } = renderApp()
+    await screen.findByText('Know what you can spend today.')
+
+    // `useMediaQuery` answers true without `matchMedia`, so this is the wide
+    // layout. 360 is checked below.
+    expect(container.textContent).toContain('never a number you have to take on trust')
+  })
+
+  it('keeps the short line at 360, where it sits under a paragraph', async () => {
+    vi.stubGlobal('matchMedia', (query: string) => ({
+      matches: false,
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    }))
+    const { container } = renderApp()
+    await screen.findByText('Know what you can spend today.')
+
+    expect(container.textContent).toContain('One figure, worked out in front of you.')
+    expect(container.textContent).not.toContain('never a number you have to take on trust')
+    vi.unstubAllGlobals()
+  })
+
   it('offers a route in for someone restoring an export', async () => {
     renderApp()
     expect(await screen.findByRole('button', { name: /export to restore/i })).toBeDefined()
