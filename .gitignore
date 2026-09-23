@@ -146,3 +146,6 @@ vite.config.ts.timestamp-*
 # this holds duplicates and direction explorations. Ignored so a `git add -A`
 # cannot sweep 4MB of working files into a public repo.
 Claude outputs/
+
+# Generated demo data — build it with `npm run seed`, never commit it.
+seed/

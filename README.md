@@ -118,7 +118,17 @@ This repository is also a record of *how* it was built.
 npm install
 npm run dev      # http://localhost:5173
 npm run verify   # naming, lint, typecheck, tests, production build
+
+npm run seed              # writes seed/seed.json — an invented household
+npm run seed -- --current # the same data, shifted into the cycle running today
 ```
+
+`npm run seed` writes a **real export file**, which you restore from the welcome
+screen with *"I have an export to restore"*. There is no demo mode and no
+mock-data layer: the sample data arrives through the same import path a real
+backup would, so what you see is the actual code running. Every figure in it
+comes from [`docs/seed-data.md`](docs/seed-data.md), and the script refuses to
+write a file that no longer matches it.
 
 `npm run verify` is the gate. Nothing is "done" until it is green — and CI runs
 that same one command, so a green badge and a green terminal are the same claim
