@@ -33,7 +33,12 @@ const NAV = [
 
 /** A dot rather than a drawn icon: the icon set lands with the screens (T13). */
 function NavDot() {
-  return <span aria-hidden="true" className="block h-5 w-5 rounded-full border border-current" />
+  return (
+    <span
+      aria-hidden="true"
+      className="block h-5 w-5 rounded-full border border-current"
+    />
+  )
 }
 
 function useNavItems(): { items: NavItem[]; activeKey: string } {
@@ -81,7 +86,9 @@ export function AppShell() {
     return (
       <Centred>
         <div role="alert" className="flex flex-col gap-3">
-          <h1 className="font-voice text-title text-ink">Couldn&rsquo;t open your data</h1>
+          <h1 className="font-voice text-title text-ink">
+            Couldn&rsquo;t open your data
+          </h1>
           {/* Says what happened and what to do next (L2). */}
           <p className="font-structural text-body text-soft">
             This is usually temporary. {state.message}
@@ -93,16 +100,26 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-screen bg-bg">
-      <Sidebar items={items} activeKey={activeKey} onAdd={() => navigate('/transactions')} />
+      <Sidebar
+        items={items}
+        activeKey={activeKey}
+        onAdd={() => navigate('/transactions')}
+      />
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <main id="main" className="flex-1 px-4 pb-24 pt-4 desktop:px-8 desktop:pb-8">
-          {/* Offline is a state, not an error — neutral, never danger (L4, F7). */}
-          {!online ? <OfflineNote /> : null}
+        {/* §5 — 16px gutters at 360, 720px centred at tablet, 1200px at desktop. */}
+        <main
+          id="main"
+          className="flex-1 px-4 pb-24 pt-4 desktop:px-8 desktop:pb-8"
+        >
+          <div className="mx-auto w-full max-w-[720px] desktop:max-w-[1200px]">
+            {/* Offline is a state, not an error — neutral, never danger (L4, F7). */}
+            {!online ? <OfflineNote /> : null}
 
-          <Suspense fallback={<LoadingScreen />}>
-            <Outlet />
-          </Suspense>
+            <Suspense fallback={<LoadingScreen />}>
+              <Outlet />
+            </Suspense>
+          </div>
         </main>
 
         <BottomBar
