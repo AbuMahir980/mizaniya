@@ -94,6 +94,19 @@ export default {
         { lineHeight: token('leading-lockup'), letterSpacing: '-0.015em', fontWeight: '600' },
       ],
       title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
+      /**
+       * `-wide` is for a surface that **fills the desktop frame** — §3's rule.
+       * Almost nothing does: a card, a column or a dialog takes the plain step
+       * whatever the window is doing.
+       */
+      'title-wide': [
+        token('size-title-wide'),
+        { lineHeight: token('leading-title-wide'), fontWeight: token('weight-voice') },
+      ],
+      'statement-wide': [
+        token('size-statement-wide'),
+        { lineHeight: token('leading-statement-wide'), fontWeight: token('weight-voice') },
+      ],
       /* One line in the app's own voice: the Welcome promise, every empty state. */
       statement: [
         token('size-statement'),

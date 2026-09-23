@@ -12,7 +12,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/ui/button'
 import { Banner } from '@/ui/banner'
 import { AmountInput, Field, SelectField } from '@/ui/field'
-import { ChipGroup } from '@/ui/controls'
+import { ChipGroup, OptionGrid } from '@/ui/controls'
+import { ListRow } from '@/ui/list-row'
 import { Card } from '@/ui/card'
 import { Icon } from '@/ui/icon'
 import { IconTile, Pill, type PillTone } from '@/ui/pill'
@@ -49,8 +50,9 @@ const CATEGORY_TONE: Record<CategoryType, PillTone> = {
 const CATEGORY_LABEL: Record<CategoryType, string> = {
   savings: 'Savings',
   'debt-payment': 'Debt payment',
-  expense: 'Expense',
-  income: 'Income',
+  // `Spent`, not `Expense` — §10, and the same word the movement labels use.
+  expense: 'Spent',
+  income: 'Received',
 }
 
 const ADDABLE: CategoryType[] = ['expense', 'savings', 'debt-payment']
@@ -81,6 +83,7 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
   const [saving, setSaving] = useState(false)
   const [dayPickerOpen, setDayPickerOpen] = useState(false)
   const [addingCategory, setAddingCategory] = useState(false)
+  const [editing, setEditing] = useState<Id | undefined>()
   const [debtDraft, setDebtDraft] = useState(emptyDraft)
   const heading = useRef<HTMLHeadingElement>(null)
 
@@ -99,11 +102,7 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
 
   const stepIsValid = step !== 1 || (answers.takeHome > 0 && answers.salaryDay >= 1 && answers.salaryDay <= 31)
   const isLast = step === STEPS.length - 1
-  /**
-   * Step 5's primary reads **Add another** while a counterparty is half-typed,
-   * which is the state the artboard draws. With nothing typed there is nothing
-   * to add, so it goes back to carrying the owner forward.
-   */
+  /** Whether the half-typed counterparty is complete enough to add. */
   const draftIsFillable =
     step === 4 && debtDraft.name.trim() !== '' && toKobo(debtDraft.amount) > 0 && !!debtDraft.direction
 
@@ -249,14 +248,20 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
             <Card className="p-16">
               <ul>
                 {answers.categories.map((category) => (
-                  <li
-                    key={category.id}
-                    className="flex min-h-[52px] items-center gap-12 border-b border-hair last:border-b-0"
-                  >
-                    <span className="flex-1 font-structural text-body text-ink">
-                      {category.name}
-                    </span>
-                    <Pill tone={CATEGORY_TONE[category.type]}>{CATEGORY_LABEL[category.type]}</Pill>
+                  <li key={category.id}>
+                    <ListRow
+                      title={category.name}
+                      accessibleName={`${category.name} — edit`}
+                      trailing={
+                        <span className="flex items-center gap-12">
+                          <Pill tone={CATEGORY_TONE[category.type]}>
+                            {CATEGORY_LABEL[category.type]}
+                          </Pill>
+                          <Icon name="chevron" size={18} className="text-faint" />
+                        </span>
+                      }
+                      onClick={() => setEditing(category.id)}
+                    />
                   </li>
                 ))}
               </ul>
@@ -271,8 +276,9 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
             </Button>
 
             <p className="font-structural text-small text-soft">
-              Twelve to start with. Rename, remove or add any of them — you can change them
-              later in Settings.
+              Twelve to start with. Tap any row to rename it, change its type or remove
+              it; &lsquo;+ Add a category&rsquo; adds one. All of it is in Settings later
+              too.
             </p>
           </>
         ) : null}
@@ -323,7 +329,13 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
         ) : null}
 
         {step === 4 ? (
-          <DebtList draft={debtDraft} onDraft={setDebtDraft} debts={answers.debts} />
+          <DebtList
+            draft={debtDraft}
+            onDraft={setDebtDraft}
+            debts={answers.debts}
+            canAdd={draftIsFillable}
+            onAdd={addDebt}
+          />
         ) : null}
 
         {step === 5 ? (
@@ -349,6 +361,22 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
 
       <AddCategory open={addingCategory} onOpenChange={setAddingCategory} onAdd={addCategory} />
 
+      <EditCategory
+        category={answers.categories.find((c) => c.id === editing)}
+        onClose={() => setEditing(undefined)}
+        onSave={(id, name, type) => {
+          setAnswers({
+            ...answers,
+            categories: answers.categories.map((c) => (c.id === id ? { ...c, name, type } : c)),
+          })
+          setEditing(undefined)
+        }}
+        onRemove={(id) => {
+          setAnswers({ ...answers, categories: answers.categories.filter((c) => c.id !== id) })
+          setEditing(undefined)
+        }}
+      />
+
       {saveProblem ? (
         <Banner tone="neutral" action={{ label: 'Try again', onClick: () => void finish() }}>
           <span className="text-small">{saveProblem}</span>
@@ -368,15 +396,11 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
           </Button>
         ) : null}
 
-        <Button
-          fullWidth
-          loading={saving}
-          onClick={() => {
-            if (draftIsFillable) return addDebt()
-            return isLast ? void finish() : goNext()
-          }}
-        >
-          {draftIsFillable ? 'Add another' : isLast ? 'Finish' : 'Continue'}
+        {/* The same two words on all six steps. A primary that changes label
+            on form state is one the owner cannot predict — so `+ Add another`
+            is a link inside the form instead, exactly as step 3 already does. */}
+        <Button fullWidth loading={saving} onClick={() => (isLast ? void finish() : goNext())}>
+          {isLast ? 'Finish' : 'Continue'}
         </Button>
       </div>
       </div>
@@ -437,10 +461,14 @@ function DebtList({
   draft,
   onDraft,
   debts,
+  canAdd,
+  onAdd,
 }: {
   draft: ReturnType<typeof emptyDraft>
   onDraft: (draft: ReturnType<typeof emptyDraft>) => void
   debts: DebtAnswer[]
+  canAdd: boolean
+  onAdd: () => void
 }) {
   return (
     <div className="flex flex-col gap-[18px]">
@@ -502,6 +530,20 @@ function DebtList({
         value={draft.schedule}
         onValueChange={(next) => onDraft({ ...draft, schedule: next })}
       />
+
+      {/* A link in the form, not a primary that changes its own label. */}
+      <Button
+        variant="quiet"
+        disabled={!canAdd}
+        className="self-start px-0 font-semibold text-emerald disabled:text-faint"
+        onClick={onAdd}
+      >
+        + Add another
+      </Button>
+
+      <p className="font-structural text-small text-soft">
+        Add as many as you have, in either direction. Continue when there are no more.
+      </p>
     </div>
   )
 }
@@ -610,13 +652,14 @@ function DayPicker({
       title="Salary day"
       description="The day of the month your pay arrives."
     >
-      <ChipGroup
+      <OptionGrid
         label="Day of the month"
         value={String(value)}
         options={Array.from({ length: 31 }, (_, i) => ({
           value: String(i + 1),
           label: String(i + 1),
         }))}
+        helper="Short months will use the last day — pick 31 and February pays on the 28th."
         onValueChange={(day) => onPick(Number(day))}
       />
     </Sheet>
@@ -656,9 +699,82 @@ function AddCategory({
       }
     >
       <div className="flex flex-col gap-20">
+        <Field
+          label="Name"
+          placeholder="School fees"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <ChipGroup
+          label="Type"
+          showLabel
+          helper="Savings and debt payments are protected — they never come out of what is safe to spend."
+          value={type}
+          options={ADDABLE.map((kind) => ({ value: kind, label: CATEGORY_LABEL[kind] }))}
+          onValueChange={(next) => setType(next as CategoryType)}
+        />
+      </div>
+    </Sheet>
+  )
+}
+
+/**
+ * Rename, retype or remove — the control step 3 promised and never had.
+ *
+ * **Remove is a quiet button, not a red one.** Deleting a category the owner
+ * added seconds ago is an ordinary correction; the danger colour is reserved
+ * for money going wrong (F7), and it is the same rule Quick Add's delete uses.
+ */
+function EditCategory({
+  category,
+  onClose,
+  onSave,
+  onRemove,
+}: {
+  category: OnboardingAnswers['categories'][number] | undefined
+  onClose: () => void
+  onSave: (id: Id, name: string, type: CategoryType) => void
+  onRemove: (id: Id) => void
+}) {
+  const [name, setName] = useState('')
+  const [type, setType] = useState<CategoryType>('expense')
+  const [lastSeen, setLastSeen] = useState<Id | undefined>()
+
+  // Adopt whichever row was opened, without clobbering a half-typed rename.
+  if (category && category.id !== lastSeen) {
+    setLastSeen(category.id)
+    setName(category.name)
+    setType(category.type)
+  }
+
+  if (!category) return null
+
+  return (
+    <Sheet
+      open
+      onOpenChange={(open) => (open ? undefined : onClose())}
+      title={category.name}
+      description="Rename it, change its type, or remove it."
+      footer={
+        <div className="flex flex-col gap-8">
+          <Button
+            fullWidth
+            disabled={!name.trim()}
+            onClick={() => onSave(category.id, name.trim(), type)}
+          >
+            Save
+          </Button>
+          <Button variant="quiet" fullWidth onClick={() => onRemove(category.id)}>
+            Remove this category
+          </Button>
+        </div>
+      }
+    >
+      <div className="flex flex-col gap-18">
         <Field label="Name" value={name} onChange={(e) => setName(e.target.value)} />
         <ChipGroup
-          label="Kind"
+          label="Type"
+          showLabel
           value={type}
           options={ADDABLE.map((kind) => ({ value: kind, label: CATEGORY_LABEL[kind] }))}
           onValueChange={(next) => setType(next as CategoryType)}

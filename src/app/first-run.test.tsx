@@ -194,6 +194,54 @@ describe('step 2 is the only one that is required', () => {
   })
 })
 
+describe('the controls the artboards drew after the rebuild', () => {
+  async function toStepThree() {
+    const user = userEvent.setup()
+    renderApp()
+    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Continue' }))
+    await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
+    await user.type(screen.getByLabelText(/Take-home/), '450000')
+    await user.click(screen.getByRole('button', { name: 'Continue' }))
+    await screen.findByRole('heading', { name: 'These are your categories.' })
+    return user
+  }
+
+  it('opens a category row, because nothing could remove one before', async () => {
+    const user = await toStepThree()
+
+    // PAGE SPECS §7.1 calls the list editable and the helper promises rename,
+    // remove or add — but no row carried a control until the pickers board.
+    await user.click(screen.getByRole('button', { name: /Food and groceries — edit/ }))
+
+    expect(await screen.findByRole('button', { name: 'Remove this category' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDefined()
+  })
+
+  it('removes the category it was opened on', async () => {
+    const user = await toStepThree()
+    await user.click(screen.getByRole('button', { name: /Food and groceries — edit/ }))
+    await user.click(await screen.findByRole('button', { name: 'Remove this category' }))
+
+    await waitFor(() =>
+      expect(screen.queryByRole('button', { name: /Food and groceries — edit/ })).toBeNull(),
+    )
+  })
+
+  it('keeps the same two words in the footer on every step', async () => {
+    const user = await toStepThree()
+    for (const question of ['What have you already saved?', 'Who do you owe, and who owes you?']) {
+      await user.click(screen.getByRole('button', { name: 'Continue' }))
+      await screen.findByRole('heading', { name: question })
+    }
+
+    // Step 5 adds inline. A primary that changes its own label on form state
+    // is one the owner cannot predict, so `+ Add another` lives in the form.
+    expect(screen.getByRole('button', { name: 'Continue' })).toBeDefined()
+    expect(screen.getByRole('button', { name: '+ Add another' })).toBeDefined()
+  })
+})
+
 describe('what onboarding writes', () => {
   async function onboardMinimally() {
     const user = userEvent.setup()

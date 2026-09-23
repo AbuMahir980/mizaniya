@@ -53,9 +53,17 @@
    */
   --weight-voice: 500;
 
-  /* The title step, so one utility is responsive rather than eight call sites. */
+  /**
+   * **The wider rung is opt-in, not a media query.** §3: *"the wider step
+   * applies only to a surface that fills the desktop frame"* — the 1440 content
+   * area is 1180px, so a 620px onboarding card, a 520px column and Quick Add's
+   * 480px dialog all take the 360 step even on a wide screen. Widening on
+   * viewport would have been wrong on every one of them.
+   */
   --size-title: 30px;
   --leading-title: 36px;
+  --size-title-wide: 34px;
+  --leading-title-wide: 40px;
 
   /**
    * One line in the app's own voice — the Welcome promise, and **every empty
@@ -64,6 +72,8 @@
    */
   --size-statement: 23px;
   --leading-statement: 30px;
+  --size-statement-wide: 29px;
+  --leading-statement-wide: 37px;
 
   /**
    * The wordmark. **Brand geometry, not a type step** — it exists for one
@@ -186,14 +196,10 @@
   }
 }
 
-/* `title` is 30/36 at 360 and 34/40 at 1440 — tokens.md §3. Declared here so
-   `text-title` is responsive on its own and no call site has to remember. */
+/* The wordmark does follow the window: the Welcome screen it sits on is the
+   surface, and at 1440 that surface is the frame. */
 @media (min-width: 1440px) {
   :root {
-    --size-title: 34px;
-    --leading-title: 40px;
-    --size-statement: 29px;
-    --leading-statement: 37px;
     --size-lockup: 52px;
     --leading-lockup: 58px;
   }
