@@ -15,9 +15,11 @@ import { AnnounceProvider } from '@/ui/announce'
 import { BottomBar, Sidebar, type NavItem } from '@/ui/nav'
 import { OfflineNote } from '@/ui/banner'
 import { Icon, type IconName } from '@/ui/icon'
+import { ThemeChoice } from '@/ui/theme-choice'
 import { Spinner } from '@/ui/spinner'
 import { Mark } from '@/ui/mark'
 import { useIsOnline, useSnapshotState } from './store-context'
+import { useTheme } from './use-theme'
 
 /**
  * The five bottom-bar slots (page specs §2).
@@ -106,6 +108,7 @@ function useNavItems(destinations: readonly Destination[]): {
 export function AppShell() {
   const state = useSnapshotState()
   const online = useIsOnline()
+  const theme = useTheme()
   const navigate = useNavigate()
   const bar = useNavItems(NAV)
   // One list for the active key, split for rendering: otherwise being on
@@ -144,6 +147,7 @@ export function AppShell() {
       <Sidebar
         items={sidebarItems}
         footerItems={sidebarFooterItems}
+        footerSlot={<ThemeChoice value={theme.choice} onValueChange={theme.setChoice} />}
         activeKey={sidebar.activeKey}
         onAdd={() => navigate('/transactions')}
       />

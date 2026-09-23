@@ -96,6 +96,8 @@ export interface SidebarProps extends BottomBarProps {
    * everything.
    */
   footerItems?: NavItem[]
+  /** Rendered above the footer items, below the divider. */
+  footerSlot?: ReactNode
 }
 
 export function Sidebar({
@@ -103,6 +105,7 @@ export function Sidebar({
   activeKey,
   onAdd,
   footerItems,
+  footerSlot,
   className,
 }: SidebarProps) {
   return (
@@ -146,12 +149,13 @@ export function Sidebar({
 
       {items.map((item) => renderSidebarItem(item, activeKey))}
 
-      {footerItems?.length ? (
+      {footerItems?.length || footerSlot ? (
         <>
           {/* Pushed to the bottom, so the gap itself does the separating. */}
           <div className="flex-1" aria-hidden="true" />
-          <div className="mt-2 flex flex-col gap-1 border-t border-line pt-3">
-            {footerItems.map((item) => renderSidebarItem(item, activeKey))}
+          <div className="mt-2 flex flex-col gap-2 border-t border-line pt-3">
+            {footerItems?.map((item) => renderSidebarItem(item, activeKey))}
+            {footerSlot}
           </div>
         </>
       ) : null}

@@ -12,7 +12,7 @@
 
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
+import { act, cleanup, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { AppRoutes } from './routes'
@@ -256,7 +256,14 @@ describe('navigation', () => {
       .getAllByRole('navigation')
       .find((nav) => nav.className.includes('desktop:w-[240px]'))!
 
-    for (const button of sidebar.querySelectorAll('button')) {
+    // Destinations and the Add button — not the theme control, whose tab
+    // triggers are buttons carrying words rather than glyphs.
+    const navButtons = [...sidebar.querySelectorAll('button')].filter(
+      (b) => !b.closest('[role="tablist"]'),
+    )
+    expect(navButtons.length).toBeGreaterThan(5)
+
+    for (const button of navButtons) {
       // The Add button and every destination carry a 24-grid glyph.
       const svg = button.querySelector('svg')
       expect(svg, `no icon on "${button.textContent}"`).not.toBeNull()
@@ -264,6 +271,27 @@ describe('navigation', () => {
       // A drawn path, not the bordered circle the placeholder used.
       expect(svg?.querySelector('path, circle, rect')).not.toBeNull()
     }
+  })
+
+  it('carries a theme control, so both themes can be seen', async () => {
+    const user = userEvent.setup()
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const themes = screen.getByRole('tablist', { name: 'Colour theme' })
+    expect(themes).toBeDefined()
+
+    // Auto is the default, and it is a real state rather than "not chosen".
+    const auto = within(themes).getByRole('tab', { name: 'Auto' })
+    expect(auto.getAttribute('data-state')).toBe('active')
+    expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
+
+    await user.click(within(themes).getByRole('tab', { name: 'Dark' }))
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+
+    // And back, which a two-way toggle could not do.
+    await user.click(auto)
+    expect(document.documentElement.hasAttribute('data-theme')).toBe(false)
   })
 
   it('the sidebar carries the lockup, and stays put while the page scrolls', async () => {
