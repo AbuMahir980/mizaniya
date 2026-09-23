@@ -48,6 +48,22 @@ export interface SnapshotStore {
     toMemory: (snapshot: Snapshot) => Snapshot,
   ): Promise<WriteResult>
 
+  /**
+   * Replaces the entire dataset — the import path, and the only other way
+   * anything changes.
+   *
+   * Separate from `write` because it is genuinely a different shape: the new
+   * snapshot is not derived from the old one, and it must work from
+   * `new-owner` too, since restoring onto a fresh install is the ordinary case.
+   * Bending `write` to cover it would mean a `toMemory` that ignores its own
+   * argument, which reads as a mistake wherever it appears.
+   *
+   * The ordering rule is unchanged: storage first, memory second, announce
+   * last. Throws rather than returning a result, because the caller is the
+   * import flow, which has its own outcome to report.
+   */
+  replaceAll(snapshot: Snapshot): Promise<void>
+
   /** Re-reads storage. Used by the tab that receives a change broadcast. */
   reload(): Promise<void>
 
@@ -115,6 +131,15 @@ export function createSnapshotStore(repository: Repository, notifier: ChangeNoti
       // read the old data and believe it was current.
       notifier.announce()
       return { ok: true }
+    },
+
+    async replaceAll(snapshot: Snapshot) {
+      // Storage first, as everywhere else. `repository.import` is itself one
+      // transaction, so a rejection here leaves storage exactly as it was —
+      // and memory is not touched, so the two still agree (ADR-005).
+      await repository.import(snapshot)
+      set({ status: 'ready', snapshot })
+      notifier.announce()
     },
 
     reload: read,

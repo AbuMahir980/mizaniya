@@ -2,10 +2,10 @@
   "currentPhase": "build",
   "currentStep": 1,
   "phaseFile": "peer-ai/frontend/03-build.md",
-  "cycle": "Cycle 1 \u2014 core/ and the seam beneath it",
+  "cycle": "Cycle 2 \u2014 the shell and the screens the core journey needs",
   "milestoneBranch": "",
-  "ticket": "#16",
-  "ticketTitle": "T9 \u00b7 Export and import",
+  "ticket": "#17",
+  "ticketTitle": "T10 \u00b7 App shell, routing and navigation",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -14,12 +14,12 @@
     "#12",
     "#13",
     "#14",
-    "#15"
+    "#15",
+    "#16"
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
   "ticketsRemaining": [
-    "#16",
     "#17",
     "#18",
     "#19",
@@ -35,9 +35,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 185 tests, build",
+  "lastVerifyResult": "green \u2014 naming, lint, typecheck, 199 tests, build",
   "lastVerifyTimestamp": "2026-09-23",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-23",
-  "notes": "READ CONTEXT.md at app root. Cycle 1: T1-T8 merged. Next action: start #16, T9 export and import \u2014 checkImport() in core/schema.ts is the guard; every refusal ends \"Nothing has changed.\""
+  "notes": "READ CONTEXT.md at app root. CYCLE 1 COMPLETE (T1-T9). Next action: start #17, T10 app shell \u2014 it also carries open-items 3 and 4: load the three typefaces, wire the favicon and the Mark component. See docs/open-items.md."
 }
