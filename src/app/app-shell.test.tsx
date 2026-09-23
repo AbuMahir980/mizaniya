@@ -193,6 +193,49 @@ describe('navigation', () => {
     expect(sidebar.textContent).not.toContain('More')
   })
 
+  it('puts Zakat among the destinations and Settings apart, at the foot', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+    const labels = [...sidebar.querySelectorAll('button')].map((b) => b.textContent ?? '')
+
+    // Zakat is a feature, not a preference, so it sits with the places the
+    // owner goes to do something.
+    const zakat = labels.findIndex((l) => l.includes('Zakat'))
+    const settings = labels.findIndex((l) => l.includes('Settings'))
+    expect(zakat).toBeGreaterThan(-1)
+    expect(settings).toBeGreaterThan(zakat)
+
+    // And Settings is in its own group, because it holds Import — the most
+    // dangerous action in the app (§7.9).
+    const settingsButton = [...sidebar.querySelectorAll('button')].find((b) =>
+      b.textContent?.includes('Settings'),
+    )!
+    const zakatButton = [...sidebar.querySelectorAll('button')].find((b) =>
+      b.textContent?.includes('Zakat'),
+    )!
+    expect(settingsButton.parentElement).not.toBe(zakatButton.parentElement)
+  })
+
+  it('still lights Settings when the owner is on it', async () => {
+    renderApp(repo, '/settings')
+    const sidebar = await waitFor(() =>
+      screen
+        .getAllByRole('navigation')
+        .find((nav) => nav.className.includes('desktop:w-[240px]'))!,
+    )
+
+    const settings = [...sidebar.querySelectorAll('button')].find((b) =>
+      b.textContent?.includes('Settings'),
+    )!
+    // Settings sits outside the main group, so the active key is derived over
+    // both — otherwise being here would light Home.
+    expect(settings.getAttribute('aria-current')).toBe('page')
+  })
+
   it('the sidebar carries the lockup, and stays put while the page scrolls', async () => {
     renderApp(repo)
     await screen.findByRole('heading', { name: 'Safe to spend today' })

@@ -45,8 +45,24 @@ const SIDEBAR_NAV = [
   { key: 'transactions', label: 'Transactions', path: '/transactions' },
   { key: 'debts', label: 'Debts & Goals', path: '/debts' },
   { key: 'months', label: 'Months', path: '/months' },
-  { key: 'settings', label: 'Settings', path: '/settings' },
   { key: 'zakat', label: 'Zakat', path: '/zakat' },
+] as const
+
+/**
+ * Settings sits apart, at the foot of the sidebar.
+ *
+ * Not because configuration is dull. Because **Settings holds Import**, which
+ * page specs §7.9 calls the most dangerous action in the app, and a screen that
+ * can replace every record should not be the seventh identical item in a list.
+ * Reaching it should take a moment's intent.
+ *
+ * Zakat therefore joins the destinations above it, where it belongs: in a
+ * Muslim-facing app it is a feature, not a preference. **This departs from
+ * `DHomeLight.dc.html`, which lists all seven flat with Settings before Zakat**
+ * — recorded as a decision in `CONTEXT.md` rather than slipped in.
+ */
+const SIDEBAR_FOOTER_NAV = [
+  { key: 'settings', label: 'Settings', path: '/settings' },
 ] as const
 
 /** A dot rather than a drawn icon: the icon set lands with the screens (T13). */
@@ -94,7 +110,12 @@ export function AppShell() {
   const online = useIsOnline()
   const navigate = useNavigate()
   const bar = useNavItems(NAV)
-  const sidebar = useNavItems(SIDEBAR_NAV)
+  // One list for the active key, split for rendering: otherwise being on
+  // /settings would light Home, because Settings is not in the main group.
+  const sidebar = useNavItems([...SIDEBAR_NAV, ...SIDEBAR_FOOTER_NAV])
+  const footerKeys = new Set<string>(SIDEBAR_FOOTER_NAV.map((entry) => entry.key))
+  const sidebarItems = sidebar.items.filter((item) => !footerKeys.has(item.key))
+  const sidebarFooterItems = sidebar.items.filter((item) => footerKeys.has(item.key))
 
   if (state.status === 'idle' || state.status === 'loading') {
     return <LoadingScreen />
@@ -123,7 +144,8 @@ export function AppShell() {
   return (
     <div className="flex min-h-screen bg-bg">
       <Sidebar
-        items={sidebar.items}
+        items={sidebarItems}
+        footerItems={sidebarFooterItems}
         activeKey={sidebar.activeKey}
         onAdd={() => navigate('/transactions')}
       />

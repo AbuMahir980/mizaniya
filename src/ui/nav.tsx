@@ -91,12 +91,26 @@ export function BottomBar({ items, activeKey, onAdd, className }: BottomBarProps
   )
 }
 
+export interface SidebarProps extends BottomBarProps {
+  /**
+   * Pinned to the bottom, below a divider and a gap.
+   *
+   * For destinations that are not places the owner *works*. Settings is the one
+   * that matters: it holds Import, which page specs §7.9 calls the most
+   * dangerous action in the app. Sitting it apart makes reaching it slightly
+   * deliberate, which is the right weight for a screen that can replace
+   * everything.
+   */
+  footerItems?: NavItem[]
+}
+
 export function Sidebar({
   items,
   activeKey,
   onAdd,
+  footerItems,
   className,
-}: BottomBarProps) {
+}: SidebarProps) {
   return (
     <nav
       aria-label="Main"
@@ -131,22 +145,36 @@ export function Sidebar({
         Add
       </button>
 
-      {items.map((item) => (
-        <button
-          key={item.key}
-          type="button"
-          onClick={item.onSelect}
-          aria-current={item.key === activeKey ? 'page' : undefined}
-          className={cx(
-            'flex min-h-target items-center gap-3 rounded-md px-3 text-left',
-            'font-structural text-body',
-            item.key === activeKey ? 'bg-em2 text-emerald' : 'text-soft',
-          )}
-        >
-          <span aria-hidden="true">{item.icon}</span>
-          {item.label}
-        </button>
-      ))}
+      {items.map((item) => renderSidebarItem(item, activeKey))}
+
+      {footerItems?.length ? (
+        <>
+          {/* Pushed to the bottom, so the gap itself does the separating. */}
+          <div className="flex-1" aria-hidden="true" />
+          <div className="mt-2 flex flex-col gap-1 border-t border-line pt-3">
+            {footerItems.map((item) => renderSidebarItem(item, activeKey))}
+          </div>
+        </>
+      ) : null}
     </nav>
+  )
+}
+
+function renderSidebarItem(item: NavItem, activeKey: string) {
+  return (
+    <button
+      key={item.key}
+      type="button"
+      onClick={item.onSelect}
+      aria-current={item.key === activeKey ? 'page' : undefined}
+      className={cx(
+        'flex min-h-target items-center gap-3 rounded-md px-3 text-left',
+        'font-structural text-body',
+        item.key === activeKey ? 'bg-em2 text-emerald' : 'text-soft',
+      )}
+    >
+      <span aria-hidden="true">{item.icon}</span>
+      {item.label}
+    </button>
   )
 }
