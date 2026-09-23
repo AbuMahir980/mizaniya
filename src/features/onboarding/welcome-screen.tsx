@@ -129,7 +129,7 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
               cards, not under the L of the Latin. An SVG ignores `direction`,
               so the alignment has to be asked for.
             */}
-            <WordmarkArabic height={30} className="ml-auto mt-1 block text-soft" />
+            <WordmarkArabic fontSize={30} className="ml-auto mt-1 block text-soft" />
 
             <p className="mt-6 font-voice text-promise text-ink">{PROMISE}</p>
             <p className="mt-3.5 font-structural text-body text-soft">{BLURB}</p>
@@ -169,7 +169,7 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
 
         <h1 className="mt-6 font-voice text-lockup text-ink">Mizaniya</h1>
         {/* Under the Latin, never above it, and never carrying a figure. */}
-        <WordmarkArabic height={25} className="mt-1 text-soft" />
+        <WordmarkArabic fontSize={25} className="mt-1 text-soft" />
 
         <p className="mt-[30px] max-w-[280px] font-voice text-promise text-ink">{PROMISE}</p>
         <p className="mt-3 max-w-[290px] font-structural text-body text-soft">{BLURB}</p>

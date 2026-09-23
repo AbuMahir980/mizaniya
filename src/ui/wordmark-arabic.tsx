@@ -11,16 +11,29 @@
 
 import { cx } from './cx'
 
+/**
+ * The outline spans 176 units against a 100-unit em: 1.124 above the baseline
+ * for the dots and the alif, 0.636 below for the tail of the yāʾ.
+ *
+ * **So the SVG's height is not the font size.** Setting `height={30}` next to a
+ * design that says `font-size: 30px` renders the word at 57% of its drawn size,
+ * which is exactly the mistake this component was called with twice.
+ */
+const OUTLINE_PER_EM = 1.76
+
 export interface WordmarkArabicProps {
-  /** Height in pixels; the width follows the aspect ratio. */
-  height?: number
+  /**
+   * The **font size** this should match, as the artboards write it — not a
+   * pixel height. The outline is scaled to it.
+   */
+  fontSize?: number
   className?: string
 }
 
-export function WordmarkArabic({ height = 28, className }: WordmarkArabicProps) {
+export function WordmarkArabic({ fontSize = 16, className }: WordmarkArabicProps) {
   return (
     <svg
-      height={height}
+      height={fontSize * OUTLINE_PER_EM}
       viewBox="0 0 198 176"
       className={cx('w-auto shrink-0', className)}
       // The Latin wordmark beside it already says the name. Announcing it twice
