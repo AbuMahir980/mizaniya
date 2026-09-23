@@ -305,6 +305,108 @@ since the design stop never described the design at all. `tokens.md` §3 and §5
 
 ---
 
+## F · The nine from the onboarding rebuild — answered 24 September
+
+*The copy question was right and was bigger than the six labels it named. The
+canvas is re-cut, `tokens.md` gains §10, and there is a new board:
+`canvas/OnbPickLight` / `OnbPickDark`.*
+
+- [ ] **15 · The copy pass is done — take the words from the canvas, not from
+  memory** — **T13 / T14 / T15 / T16**.
+  One pass over all 59 boards at the generator level, so label copy cannot drift
+  per screen the way the movement labels did. `tokens.md` **§10 · Words** is new
+  and holds the rule and the full table. The rule in one line: **a field asks a
+  question; a column head names a thing.**
+
+  | Was | Is | Where |
+  |---|---|---|
+  | Counterparty | Who | debts table |
+  | Counterparty name | Their name | debt form |
+  | Direction | Who owes who? · Which way | debt form · debts table |
+  | Agreed repayment per cycle | How much each payday? | debt form |
+  | Schedule · No schedule | Paying back · Nothing agreed | debts table · rows |
+  | Projected gap | Short by | goals |
+  | Funded by | Money comes from | goal form |
+  | Amber threshold | Turn amber below | Settings |
+  | **Unallocated** | **Free** | Plan |
+
+  - `Unallocated` is the one that mattered: **Home has always drawn *Free* for the
+    same quantity**, so two screens named one number two ways. Home's word wins.
+  - **The printed debt record keeps its formal register** — *The parties*,
+    *Witnesses*, *Terms*. It is not a screen; it is a record meant to have
+    standing between two people, read by someone who was never in the app. Do not
+    "fix" it.
+  - **Nisab and hawl stay**, for the same reason you gave.
+  - **The 12 September call stands** for `Protected`, `allowance` and
+    `safe to spend`. They are plain English and they are the words on the
+    switches — never the same class as `counterparty`. D1, D15, the page specs
+    and the ADRs are untouched.
+
+- [ ] **16 · The onboarding question is a `title`, not a `statement`** — **T12**.
+  You read it right. All six were drawn at 29/37 — `statement` at its 1440 rung —
+  which was wrong twice: the question titles its surface, and neither surface
+  (390px panel, 620px card) fills the desktop frame. **Re-cut to `title`
+  30 / 36 at both widths.**
+  - §3's surface rule is sharpened so this is no longer a judgement call: **the
+    wider step applies only to a surface that fills the desktop frame.** The
+    1440 content area is 1180px. A 620px onboarding card, a 520px form dialog and
+    Quick Add's 480px dialog all take the 360 step. So: **yes** to your question 3.
+  - The same rule caught one more: the **1440 welcome promise** sits in a 520px
+    card and was at 29/37. It is 23/30 now.
+
+- [ ] **17 · Three interactions now have drawings** — **T12**.
+  New board `canvas/OnbPickLight` / `OnbPickDark`, preview
+  `01a-onboarding-pickers-360-{light,dark}.png`. All three are composed from
+  primitives that already exist — a sheet, a field, a chip group — so nothing new
+  enters the language.
+  - **Salary day** is a **six-column grid of 1–31**, not thirty-one chips in a
+    row and not a scrolling list. Thirty-one is small enough to read at a glance,
+    and six columns keeps every target over 44px where seven lands at 43. Helper:
+    *"Short months will use the last day — pick 31 and February pays on the 28th."*
+  - **Add a category** is a sheet: Name, Type (Spent · Savings · Debt payment),
+    primary **Add**.
+  - **Edit a category** is the same sheet with the name filled, a **Save**
+    primary and a quiet **Remove this category** — see item 18.
+
+- [ ] **18 · Step 3 was missing its row control — nothing removed a category** —
+  **T12**. Not intended: PAGE SPECS §7.1 calls the list editable and the step-3
+  helper promises *rename, remove or add*, but no row carried a control. **Each
+  category row now has a chevron and opens the edit sheet**, which is where a
+  category is renamed, retyped or removed during onboarding. Remove is a **quiet
+  button, not a red one** — the same rule as Quick Add's delete. The helper now
+  says where the controls are.
+
+- [ ] **19 · Step 6's callout shows the solved rate** — **T12**. You were right
+  that ₦75,000 cannot be read at step 6 — it is the rent fund's *planned*
+  contribution and there is no plan until Plan. **One correction to your build:
+  there are six paydays, not five.** Seed-data's count of five is taken from
+  5 October, after the 25 September payday; onboarding is 24 September, so 25 Sep
+  is still ahead.
+  - The sum, now in **`docs/seed-data.md` → "At onboarding, 24 September — a
+    different sum"**: (900,000 − 400,000) ÷ 6, rounded **up** = **₦83,333.34 a
+    payday**. Rounded up because a rate rounded down reaches ₦499,999.98 and
+    misses.
+  - The artboard reads: *"Put aside ₦83,333.34 a payday — that reaches
+    ₦900,000.00 by 1 March, over six paydays, from the ₦400,000.00 you have
+    already."* No shortfall, because at the required rate there isn't one.
+
+- [ ] **20 · Step 5 gets a Continue, and Add another moves inline** — **T12**.
+  Your reading of the intent was right — there was no way off the step — but a
+  primary that changes label on form state is one the owner cannot predict.
+  **"+ Add another" is now a link inside the form, exactly as step 3 already does
+  for categories, and the footer is Back + Continue on all six steps.** Helper:
+  *"Add as many as you have, in either direction. Continue when there are no
+  more."*
+
+- [ ] **21 · `tokens.md` §7 now specifies the field's label and helper** —
+  no code change, you already fixed it. The row described fill, border, radius,
+  height and states and said nothing about the label or the helper, which is why
+  the primitive could be wrong everywhere and still look compliant. It now reads:
+  **label 13 / 600 / `ink`, 8px above the box; helper 12 / 400 / `soft`, 8px
+  below it** — which is what you measured off the artboards.
+
+---
+
 ## What is already complete — do not redo
 
 - `tokens.md` → `src/design/tokens.ts` and `tokens.css`: all 33 colours match, and
