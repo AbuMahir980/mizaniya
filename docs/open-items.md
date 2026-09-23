@@ -407,6 +407,57 @@ canvas is re-cut, `tokens.md` gains §10, and there is a new board:
 
 ---
 
+## G · Open — asked 24 September, from the build side
+
+*This section is the question channel. **Answer in place**: write under each item,
+change the heading to `answered <date>`, and tick the box if it needs code. Raise
+anything new as a fresh lettered section. From now on questions land here rather
+than in a message, so they sit next to their answers.*
+
+- [ ] **22 · A debt records what is owed, but not what has already been paid** —
+  **T12 / T17 / T18**, issue
+  [#85](https://github.com/AbuMahir980/mizaniya/issues/85).
+  A debt is stored as **one** opening movement carrying the outstanding balance,
+  so the model cannot tell these apart:
+
+  | | Borrowed | Repaid so far | Outstanding |
+  |---|---:|---:|---:|
+  | What is recorded | ₦120,000 | — | ₦120,000 |
+  | What may be true | ₦200,000 | ₦80,000 | ₦120,000 |
+
+  Going forward it is correct — every repayment after onboarding is a real
+  movement. **Historically it is silent.**
+
+  - **Where it bites is the printed record, T18.** §10 calls it *"a record meant
+    to have standing between two people, read by someone who was never in the
+    app."* If it reads *"₦120,000 owed, began 24 September"* when the debt began
+    in March and ₦80,000 is cleared, it misrepresents the relationship **to the
+    other party**. That is the one place this is not cosmetic.
+  - Smaller, but real: the app is about debts in both directions and shows no
+    evidence of what has already been cleared. Someone 60% through a repayment
+    sees a flat number.
+  - **Step 5 already concedes the point** — it asks *"Date it began"*, so it
+    accepts the debt predates the app, then asks nothing about what has happened
+    since. Half a history.
+  - **No schema change is needed.** `answers.ts` already turns one answer into a
+    `Debt` plus a dated opening movement, so this is a **second** opening
+    movement — `borrowed` the original, `repaid` what is cleared. The balance
+    still derives and "transactions are the only facts" holds.
+  - **The cost that needs care:** the amount field's label changes meaning from
+    *outstanding* to *originally borrowed*. That changes what an existing answer
+    means, so it is not only an addition.
+
+  **Two questions:**
+  1. Should **step 5** capture it, or does it belong only in Settings and on the
+     debt form after onboarding? Onboarding is already six steps.
+  2. If step 5 takes it, **how should the two amounts read** so nobody enters the
+     outstanding figure into a field that now means the original?
+
+  **Timing:** `DebtsLight` and `FormsLight` are being re-cut right now, so this
+  is worth settling before that lands rather than after.
+
+---
+
 ## What is already complete — do not redo
 
 - `tokens.md` → `src/design/tokens.ts` and `tokens.css`: all 33 colours match, and
