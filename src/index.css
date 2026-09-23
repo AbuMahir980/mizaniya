@@ -21,9 +21,17 @@
     outline-offset: 2px;
   }
 
-  /* The page body never scrolls sideways; wide content scrolls in its own box. */
+  /**
+   * The page never scrolls sideways; wide content scrolls in its own box.
+   *
+   * `clip`, **never `hidden`**. `overflow-x: hidden` forces the other axis to
+   * compute as `auto`, which turns the root into a scroll container and
+   * silently breaks `position: sticky` for everything inside it — the sidebar
+   * simply scrolls away and no rule you add to it has any effect. `clip` cuts
+   * the overflow without creating a scroller, which is what was wanted here.
+   */
   html,
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
