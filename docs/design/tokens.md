@@ -104,7 +104,7 @@ the consequence.
 ## 3 · Type
 
 ```
-Voice      EB Garamond 500/600 — screen titles, hero statements, the printed record
+Voice      EB Garamond 500/600 — the title of a surface, hero statements, the printed record
 Structural Inter 400/500/600/700 — everything else, including the money hero
 Data       JetBrains Mono 400/600 — the money breakdown, table headers, axis labels,
                                     percentages, and any figure inside a chart
@@ -112,15 +112,47 @@ Data       JetBrains Mono 400/600 — the money breakdown, table headers, axis l
 
 Three faces, each with one job. Money never uses EB Garamond.
 
-| Step | Size / line-height / weight | Use |
-|---|---|---|
-| `hero` | 42 / 48 / 600, `-0.035em`, tabular | Safe to spend — one per screen |
-| `title` | 28–34 / 33–40 / 500 (EB Garamond) | Screen titles |
-| `h2` | 20–24 / 25–30 / 600 | Card and section titles |
-| `body` | 15 / 22 / 400–600 | Rows, fields, prose |
-| `small` | 13 / 19 / 400 | Sub-lines, helper text |
-| `lab` | 10.5 / 16 / 600, `+0.115em`, uppercase | Section labels (Inter) |
-| `mlab` | 10 / 15 / 400, `+0.12em`, uppercase | Data labels (JetBrains Mono) |
+**Which face a heading takes is a question about what it names, not about how big it
+is.** The voice face names a **surface** — the whole of what you are looking at. The
+structural face names a **part** of one. A screen title is voice. A bottom-sheet or
+dialog title is voice too: while it is open the sheet *is* the surface — it holds
+focus, Escape closes it, everything behind it is inert and scrimmed. A heading inside
+a screen is a label, and a card title is `h2`; both are Inter.
+
+| Step | Face | Size / line-height / weight | Use |
+|---|---|---|---|
+| `hero` | Inter | 42 / 48 / 600, `-0.035em`, tabular | Safe to spend — one per screen |
+| `title` | **EB Garamond** | 30 / 36 / 500 · 34 / 40 at 1440 | The title of a surface: a screen, a sheet, a dialog |
+| `h2` | **Inter** | 22 / 28 / 600 | Card titles |
+| `body` | Inter | 15 / 22 / 400–600 | Rows, fields, prose |
+| `small` | Inter | 13 / 19 / 400 | Sub-lines, helper text |
+| `lab` | Inter | 10.5 / 16 / 600, `+0.115em`, uppercase | Headings inside a screen |
+| `mlab` | JetBrains Mono | 10 / 15 / 400, `+0.12em`, uppercase | Data labels |
+
+Empty-state sentences and the Home date are voice as well, at 19–27. They are quiet
+on purpose and sit outside the table.
+
+### 3.1 · Two things about EB Garamond that the sizes do not tell you
+
+**It sets small.** Its x-height is 0.407em against Inter's 0.546 — the same pixel size
+is about a quarter smaller to the eye. EB Garamond 30 looks like Inter 22. Size it by
+eye, and never give it a number that puts it below the step it is meant to lead. The
+sheet titles were 24 until 23 September, which is optically Inter 18 — under the `h2`
+beneath them. That is what outside review noticed, and it was a size fault, not a
+face fault.
+
+**It thins out on dark, and the answer is weight.** Its thinnest stroke is 0.034em:
+1.02 device pixels at 30px on a 1× screen, and under one pixel at every smaller size,
+so the stroke has no whole pixel to land on and is drawn by antialiasing alone.
+Light-on-dark that reads as washed out. So **the voice face is 500 on light and 600 on
+dark** — 600 takes the hairline to 0.0385em and clears the pixel at every title size.
+On a 2× screen the problem does not arise, which is why it surfaces in review on a
+desktop monitor and not on a phone.
+
+If 600 still will not hold on a real 1× dark screen now that the fonts actually load,
+the replacement is **Source Serif 4**: the same old-style skeleton, x-height 0.475em,
+hairline 0.055em, so it clears a device pixel from 18px up. That is a last resort.
+The bookish register is the design, not a decoration on it.
 
 ---
 

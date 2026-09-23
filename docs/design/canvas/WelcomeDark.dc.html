@@ -13,7 +13,12 @@
 body{margin:0}
 .mz{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);
     background:var(--bg);-webkit-font-smoothing:antialiased}
-.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:500;letter-spacing:-.004em}
+/* The voice face steps to 600 on dark. EB Garamond's thinnest stroke is .034em:
+   at 28px that is 0.95 device pixels on a 1x screen, so it has no solid pixel to
+   land on and is drawn by antialiasing alone. Light-on-dark that reads as washed
+   out. 600 takes the hairline to .0385em -- 1.08px at 28px -- which clears it. */
+.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.004em}
 .mz .disp{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-.035em;
      font-variant-numeric:tabular-nums lining-nums}
 .mz .lab{font-size:10.5px;letter-spacing:.115em;text-transform:uppercase;font-weight:600;
@@ -79,7 +84,7 @@ body{margin:0}
 .mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
 </style>
 </helmet>
-<div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">Welcome · 360 · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line);position:relative;background:var(--bg)"><div style="height:844px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px"><span style="color:var(--emerald);display:flex"><svg width="74" height="74" viewBox="0 0 48 48" fill="none"
+<div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">Welcome · 360 · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--serw:600;--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line);position:relative;background:var(--bg)"><div style="height:844px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px"><span style="color:var(--emerald);display:flex"><svg width="74" height="74" viewBox="0 0 48 48" fill="none"
      stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
      stroke-linejoin="round" style="display:block">
   <path d="M24 9v30"/>
@@ -88,7 +93,7 @@ body{margin:0}
   <path d="M9 15h30" transform="rotate(-9 24 15)"/>
   <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
   <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
-</svg></span><div style="text-align:center"><div class="ser" style="font-size:31px;line-height:36px;font-weight:600;letter-spacing:-.01em">Mizaniya</div><div class="ar" style="font-size:19px;color:var(--soft);line-height:1.7">ميزانية</div></div><div style="font-size:12px;color:var(--faint);position:absolute;bottom:34px;left:0;right:0;text-align:center">Everything stays on this device</div></div></div><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="padding:56px 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center"><div style="width:88px;height:88px;border-radius:24px;background:var(--emerald);color:var(--onEmerald);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:var(--lift)"><svg width="51" height="51" viewBox="0 0 48 48" fill="none"
+</svg></span><div style="text-align:center"><div class="ser" style="font-size:31px;line-height:36px;font-weight:600;letter-spacing:-.01em">Mizaniya</div><div class="ar" style="font-size:19px;color:var(--soft);line-height:1.7">ميزانية</div></div><div style="font-size:12px;color:var(--faint);position:absolute;bottom:34px;left:0;right:0;text-align:center">Everything stays on this device</div></div></div><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--serw:600;--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="padding:56px 24px 0;display:flex;flex-direction:column;align-items:center;text-align:center"><div style="width:88px;height:88px;border-radius:24px;background:var(--emerald);color:var(--onEmerald);display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:var(--lift)"><svg width="51" height="51" viewBox="0 0 48 48" fill="none"
      stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
      stroke-linejoin="round" style="display:block">
   <path d="M24 9v30"/>

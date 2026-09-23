@@ -13,7 +13,12 @@
 body{margin:0}
 .mz{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);
     background:var(--bg);-webkit-font-smoothing:antialiased}
-.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:500;letter-spacing:-.004em}
+/* The voice face steps to 600 on dark. EB Garamond's thinnest stroke is .034em:
+   at 28px that is 0.95 device pixels on a 1x screen, so it has no solid pixel to
+   land on and is drawn by antialiasing alone. Light-on-dark that reads as washed
+   out. 600 takes the hairline to .0385em -- 1.08px at 28px -- which clears it. */
+.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.004em}
 .mz .disp{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-.035em;
      font-variant-numeric:tabular-nums lining-nums}
 .mz .lab{font-size:10.5px;letter-spacing:.115em;text-transform:uppercase;font-weight:600;
@@ -79,7 +84,7 @@ body{margin:0}
 .mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
 </style>
 </helmet>
-<div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">Design stop · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:1000px;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:44px 46px"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:30px;border-bottom:1px solid var(--line);padding-bottom:28px"><div><div style="display:flex;align-items:center;gap:17px"><span style="color:var(--emerald);display:flex"><svg width="54" height="54" viewBox="0 0 48 48" fill="none"
+<div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">Design stop · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--serw:600;--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:1000px;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:44px 46px"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:30px;border-bottom:1px solid var(--line);padding-bottom:28px"><div><div style="display:flex;align-items:center;gap:17px"><span style="color:var(--emerald);display:flex"><svg width="54" height="54" viewBox="0 0 48 48" fill="none"
      stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
      stroke-linejoin="round" style="display:block">
   <path d="M24 9v30"/>
