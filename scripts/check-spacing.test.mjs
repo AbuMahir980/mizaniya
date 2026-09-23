@@ -49,3 +49,19 @@ describe('the 2px grid', () => {
     expect(run('export const a = <div className="h-[25px] w-[31px]" />\n').code).toBe(0)
   })
 })
+
+describe('fraction offsets', () => {
+  it('refuses one that is not a real utility', () => {
+    // The exact breakage the grid migration caused: `left-1/2` was rewritten
+    // to `left-4/2`, which Tailwind emits nothing for — so the desktop dialog
+    // stopped centring and nothing said so.
+    const { code, output } = run('export const a = <div className="left-4/2" />\n')
+    expect(code).toBe(1)
+    expect(output).toContain('emits nothing')
+  })
+
+  it('allows the ones that are', () => {
+    const source = 'export const a = <div className="left-1/2 -translate-y-1/2 top-3/4" />\n'
+    expect(run(source).code).toBe(0)
+  })
+})

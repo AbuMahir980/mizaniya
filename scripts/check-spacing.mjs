@@ -24,6 +24,21 @@ const ARBITRARY = new RegExp(String.raw`(?<![\w-])-?(${SPACING})-\[(\d+)px\]`, '
 /** 1–4px is optical, not spacing — a hairline offset, a glyph nudge (§5). */
 const OPTICAL = 4
 
+/**
+ * Fraction utilities, which share the offset prefixes but not the scale.
+ *
+ * **These are here because the grid migration broke three of them and nobody
+ * noticed.** `left-1/2` matched a spacing rewrite as `left-1`, became
+ * `left-4/2`, and Tailwind emitted nothing for it — so the desktop dialog
+ * stopped centring and the naira sign drifted off the middle of every amount
+ * field. A class that does not exist fails silently, which is the worst way to
+ * fail; the before/after check that guarded the migration compared pixel
+ * values and these are percentages.
+ */
+const OFFSET = String.raw`top|right|bottom|left|inset|inset-x|inset-y|translate-x|translate-y`
+const FRACTION = new RegExp(String.raw`(?<![\w-])-?(${OFFSET})-(\d+)\/(\d+)`, 'g')
+const REAL_FRACTIONS = new Set(['1/2', '1/3', '2/3', '1/4', '2/4', '3/4'])
+
 function walk(dir) {
   return readdirSync(dir).flatMap((entry) => {
     const full = join(dir, entry)
@@ -41,6 +56,15 @@ for (const file of walk(root)) {
   readFileSync(file, 'utf8')
     .split('\n')
     .forEach((line, index) => {
+      for (const match of line.matchAll(FRACTION)) {
+        const fraction = `${match[2]}/${match[3]}`
+        if (REAL_FRACTIONS.has(fraction)) continue
+        problems.push(
+          `${relative('.', file)}:${index + 1} — ${match[0]} is not a utility that exists, ` +
+            'so it emits nothing',
+        )
+      }
+
       for (const match of line.matchAll(ARBITRARY)) {
         const px = Number(match[2])
         if (px <= OPTICAL || px % 2 === 0) continue

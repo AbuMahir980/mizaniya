@@ -45,8 +45,8 @@ export function Sheet({
             // owner keeps their place in what is behind it.
             'inset-x-0 bottom-0 max-h-[85vh] rounded-t-xl border-t border-line',
             // Desktop: a centred dialog.
-            'desktop:inset-auto desktop:left-4/2 desktop:top-4/2 desktop:w-[480px]',
-            'desktop:-translate-x-4/2 desktop:-translate-y-4/2',
+            'desktop:inset-auto desktop:left-1/2 desktop:top-1/2 desktop:w-[480px]',
+            'desktop:-translate-x-1/2 desktop:-translate-y-1/2',
             'desktop:rounded-xl desktop:border',
             'shadow-card',
             className,
