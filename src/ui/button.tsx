@@ -7,7 +7,7 @@
  *       warning colour only works if it means one thing.
  */
 
-import { forwardRef, type ButtonHTMLAttributes } from 'react'
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { cx } from './cx'
 import { Spinner } from './spinner'
 
@@ -71,3 +71,37 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     </button>
   )
 })
+
+/**
+ * A 38px square carrying one icon and nothing else.
+ *
+ * **The shape the artboards use for a bare action** — the Home date's calendar,
+ * a sheet's close. It is `IconTile`'s twin: that one is decorative and marks a
+ * row's identity, this one is pressed, so it is a real button and takes a name
+ * aloud rather than `aria-hidden`.
+ */
+export interface IconButtonProps {
+  /** What it does, in words. There is no visible label to fall back on. */
+  label: string
+  children: ReactNode
+  onClick?: () => void
+  className?: string
+}
+
+export function IconButton({ label, children, onClick, className }: IconButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className={cx(
+        'inline-flex h-38 w-38 shrink-0 items-center justify-center',
+        'rounded-md border border-line bg-card text-soft',
+        'transition-colors duration-fast hover:text-ink',
+        className,
+      )}
+    >
+      {children}
+    </button>
+  )
+}

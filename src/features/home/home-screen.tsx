@@ -15,6 +15,7 @@ import {
   cycleAt,
   plannedDailyAllowance,
   safeToSpend,
+  amberThreshold,
   spendingByCategory,
   spendingByDay,
   totalMoved,
@@ -26,14 +27,14 @@ import { debtsByDirection, type DebtSummary } from '@/core/debt/debt'
 import { projectedGap, type GoalProjection } from '@/core/goal/goal'
 import { formatMoney, speakMoney } from '@/core/money/money'
 import type { Goal, IsoDate, Kobo, Snapshot } from '@/core/types'
-import { Banner, OfflineNote } from '@/ui/banner'
+import { OfflineNote } from '@/ui/banner'
 import { Card, CardLabel } from '@/ui/card'
 import { DailySpendChart } from '@/ui/daily-spend-chart'
 import { FigureLink } from '@/ui/figure-link'
 import { Gauge } from '@/ui/gauge'
 import { MoneyBreakdown, type Segment } from '@/ui/money-breakdown'
 import { MoneyText } from '@/ui/money-text'
-import { Button } from '@/ui/button'
+import { Button, IconButton } from '@/ui/button'
 import { Icon } from '@/ui/icon'
 import { IconTile, Pill, StatusPill } from '@/ui/pill'
 import { ListRow } from '@/ui/list-row'
@@ -82,30 +83,29 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
       {/* Offline is a state, not an error (L4). */}
       {!online ? <OfflineNote /> : null}
 
-      <DateRow now={now} />
+      <DateRow now={now} onOpen={onOpen} />
 
       <Hero
         safe={safe}
         tone={tone}
         allowance={allowance}
+        threshold={amberThreshold(snapshot, cycle)}
         left={left}
         days={days}
         nextPayday={nextCycleStart(snapshot.settings, now)}
         onOpen={onOpen}
       />
 
-      {/* A banner, and **absent** at ₦0 — never a tile reading zero (D8). */}
-      {free > 0 ? (
-        <Banner tone="action" action={{ label: 'Plan it', onClick: () => onOpen('/plan') }}>
-          <span className="text-small">
-            <MoneyText amount={free} /> unallocated
-          </span>
-        </Banner>
-      ) : null}
-
       <section className="grid gap-26 tablet:grid-cols-2">
         <Card>
-          <CardLabel>Where this cycle&rsquo;s money went</CardLabel>
+          <div className="flex items-center gap-12">
+            <CardLabel className="flex-1">Where your money is</CardLabel>
+            {/* What came in, beside the label rather than as a sentence under
+                the card — the artboard's header row. */}
+            <span className="font-data text-mlab uppercase text-soft">
+              {formatMoney(income)} in
+            </span>
+          </div>
           <div className="mt-12">
             <MoneyBreakdown
               caption="How this cycle's take-home is divided"
@@ -113,18 +113,11 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
               segments={segmentsFor({ spent, saved, debtPaid, free })}
               footer={{ label: 'Safe to spend', formatted: formatMoney(safe.total) }}
             />
-            {/* Actual against planned. They differ when a salary lands short,
-                or has not landed yet — and the breakdown above divides what was
-                planned, so the difference has to be said rather than implied. */}
-            <p className="mt-12 font-structural text-small text-soft">
-              Income received {formatMoney(income)} of {formatMoney(snapshot.settings.takeHome)}
-              {income < snapshot.settings.takeHome ? ' so far' : ''}.
-            </p>
           </div>
         </Card>
 
         <Card>
-          <CardLabel>Spending, day by day</CardLabel>
+          <CardLabel>Daily spend</CardLabel>
           <div className="mt-12 flex flex-col gap-8">
             <DailySpendChart
               allowance={allowance}
@@ -135,9 +128,6 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
                 isToday: day.date === now,
               }))}
             />
-            <p className="font-structural text-small text-soft">
-              The dashed line is {formatMoney(allowance)} a day, what the plan allows.
-            </p>
           </div>
         </Card>
       </section>
@@ -148,18 +138,33 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
   )
 }
 
-function DateRow({ now }: { now: IsoDate }) {
-  const gregorian = new Intl.DateTimeFormat('en-GB', {
-    weekday: 'short',
+function DateRow({ now, onOpen }: { now: IsoDate; onOpen: (destination: string) => void }) {
+  const at = new Date(`${now}T00:00:00Z`)
+  const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'long', timeZone: 'UTC' }).format(at)
+  const date = new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',
-    month: 'short',
+    month: 'long',
     timeZone: 'UTC',
-  }).format(new Date(`${now}T00:00:00Z`))
+  }).format(at)
 
   return (
-    <p className="font-data text-mlab uppercase text-soft">
-      {gregorian} · {hijriDate(now)}
-    </p>
+    <header className="flex items-center justify-between gap-12">
+      <div>
+        <p className="font-structural text-lab uppercase text-soft">{weekday}</p>
+        {/**
+         * 20/25, which §3 keeps **outside** the type table on purpose: the Home
+         * date is voice but quiet, and naming it a step would invite other
+         * screens to reuse it as one.
+         */}
+        <p className="mt-4 font-voice text-[20px] leading-[25px] text-ink">
+          {date} <span className="text-soft">· {hijriDate(now)}</span>
+        </p>
+      </div>
+
+      <IconButton label="Open other cycles" onClick={() => onOpen('/months')}>
+        <Icon name="calendar" size={18} />
+      </IconButton>
+    </header>
   )
 }
 
@@ -167,6 +172,7 @@ function Hero({
   safe,
   tone,
   allowance,
+  threshold,
   left,
   days,
   nextPayday,
@@ -175,6 +181,8 @@ function Hero({
   safe: ReturnType<typeof safeToSpend>
   tone: 'positive' | 'warning' | 'danger'
   allowance: Kobo
+  /** Always shown, so read from core rather than off the amber variant. */
+  threshold: Kobo
   left: Kobo
   days: number
   nextPayday: IsoDate
@@ -200,6 +208,25 @@ function Hero({
         <h1 className="font-structural text-lab uppercase text-soft">Safe to spend today</h1>
         <MoneyText amount={safe.perDay} tone={tone === 'positive' ? 'default' : tone} />
       </Gauge>
+
+      {/**
+       * The scale the gauge is drawn against, in words.
+       *
+       * Without it the arc says "some of something": §6 asks every diagram to
+       * carry a text key, and the amber threshold in particular is a figure
+       * nobody can derive from looking at it.
+       */}
+      <div className="flex w-full items-baseline justify-between px-4">
+        <span className="font-structural text-lab uppercase text-soft">
+          {formatMoney(0 as Kobo)}
+        </span>
+        <span className="font-structural text-lab uppercase text-ochre">
+          {formatMoney(threshold)} low
+        </span>
+        <span className="font-structural text-lab uppercase text-soft">
+          {formatMoney(allowance)}
+        </span>
+      </div>
 
       {safe.level !== 'green' ? (
         <StatusPill status={safe.level === 'red' ? 'overspent' : 'low'} />
