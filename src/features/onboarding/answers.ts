@@ -32,6 +32,16 @@ export interface DebtAnswer {
   counterpartyName: string
   direction: DebtDirection
   amount: Kobo
+  /**
+   * When the debt began, if the owner said.
+   *
+   * **Not the same as the opening movement's date, and deliberately so.**
+   * `openedOn` is a fact about the relationship and may be months back; the
+   * movement is dated the day before the cycle so the balance never counts as
+   * this cycle's activity. Collapsing the two would either put a March debt
+   * into March's figures or claim every debt started on the 24th.
+   */
+  openedOn?: IsoDate
   /** The agreed repayment per cycle, if there is one. */
   scheduleAmount?: Kobo
 }
@@ -155,7 +165,7 @@ export function buildSnapshot(answers: OnboardingAnswers, ctx: BuildContext): Sn
     debts.push({
       id: debtId,
       counterpartyName: answer.counterpartyName,
-      openedOn: openingDate,
+      openedOn: answer.openedOn ?? openingDate,
       ...(answer.scheduleAmount ? { scheduleAmount: answer.scheduleAmount } : {}),
       witnesses: [],
     })

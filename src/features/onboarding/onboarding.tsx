@@ -115,6 +115,13 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
           counterpartyName: debtDraft.name.trim(),
           direction: debtDraft.direction ?? 'i-owe',
           amount: toKobo(debtDraft.amount),
+          // Both of these were asked for and thrown away. The schedule is the
+          // one that showed: `core/debt` computes "clears in N paydays" from
+          // it, so that line could never appear for a debt made at onboarding.
+          ...(debtDraft.began ? { openedOn: debtDraft.began as IsoDate } : {}),
+          ...(toKobo(debtDraft.schedule) > 0
+            ? { scheduleAmount: toKobo(debtDraft.schedule) }
+            : {}),
         },
       ],
     })
