@@ -17,8 +17,8 @@ import { OfflineNote } from '@/ui/banner'
 import { Icon, type IconName } from '@/ui/icon'
 import { ThemeChoice } from '@/ui/theme-choice'
 import { Spinner } from '@/ui/spinner'
-import { Mark } from '@/ui/mark'
 import { useIsOnline, useSnapshotState } from './store-context'
+import { LaunchScreen } from './launch-screen'
 import { QuickAddRoute } from './quick-add-route'
 import { useTheme } from './use-theme'
 
@@ -120,7 +120,7 @@ export function AppShell() {
   const sidebarFooterItems = sidebar.items.filter((item) => footerKeys.has(item.key))
 
   if (state.status === 'idle' || state.status === 'loading') {
-    return <LoadingScreen />
+    return <LaunchScreen />
   }
 
   if (state.status === 'new-owner') {
@@ -163,7 +163,7 @@ export function AppShell() {
             {/* Offline is a state, not an error — neutral, never danger (L4, F7). */}
             {!online ? <OfflineNote /> : null}
 
-            <Suspense fallback={<LoadingScreen />}>
+            <Suspense fallback={<RouteFallback />}>
               <Outlet />
             </Suspense>
           </div>
@@ -190,15 +190,19 @@ function Centred({ children }: { children: ReactNode }) {
   )
 }
 
-function LoadingScreen() {
+/**
+ * A route still loading **inside** a shell that is already on screen.
+ *
+ * Deliberately not `LaunchScreen`: that one is the app opening its database,
+ * before any chrome exists. Replacing a rendered screen with a full-page lockup
+ * to fetch one route would throw away the nav the owner is looking at.
+ */
+function RouteFallback() {
   return (
-    <Centred>
-      <div className="flex items-center gap-3 text-soft">
-        <Mark size={28} className="text-emerald" />
-        <Spinner />
-        <span className="font-structural text-body">Opening your records…</span>
-      </div>
-    </Centred>
+    <div role="status" className="flex items-center gap-3 py-8 text-soft">
+      <Spinner />
+      <span className="font-structural text-body">Opening your records…</span>
+    </div>
   )
 }
 
