@@ -14,8 +14,8 @@ import { Spinner } from './spinner'
 export type ButtonVariant = 'primary' | 'secondary' | 'quiet'
 
 const base = cx(
-  'inline-flex items-center justify-center gap-2',
-  'min-h-target px-4 rounded-md',
+  'inline-flex items-center justify-center gap-8',
+  'min-h-target px-16 rounded-md',
   'text-body font-structural font-semibold',
   'transition-colors duration-fast',
   'disabled:cursor-not-allowed',

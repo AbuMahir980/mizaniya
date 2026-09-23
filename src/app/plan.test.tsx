@@ -121,10 +121,13 @@ describe('unallocated is the whole feedback loop', () => {
     renderPlan()
 
     await screen.findByRole('heading', { name: 'Plan' })
-    expect(screen.getByText('Unallocated')).toBeDefined()
+    // `Free`, not `Unallocated` — tokens.md §10. Home has always drawn Free
+    // for this same quantity, so the two screens were naming one number two
+    // ways, and Home's word is both plainer and the one seen more often.
+    expect(screen.getByText('Free')).toBeDefined()
     // Two ₦450,000.00 on screen: the unallocated figure, and the take-home it
     // is measured against. The live region is the one that matters.
-    expect(screen.getByText(/unallocated, 450,000 naira/)).toBeDefined()
+    expect(screen.getByText(/free, 450,000 naira/)).toBeDefined()
   })
 
   it('falls as rows are filled in, and each row autosaves on blur', async () => {

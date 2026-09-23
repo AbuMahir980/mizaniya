@@ -60,6 +60,13 @@ jobs:
 
       # No `npm ci` — the guard uses node builtins and git, so this job is a few
       # seconds rather than a full install.
+      - name: A design drop belongs in its own pull request
+        if: github.event_name == 'pull_request'
+        run: node scripts/check-design-drop.mjs
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          BASE_REF: ${{ github.base_ref }}
+
       - name: No employer, client or third-party project names (repo rule 3)
         run: node scripts/check-repo-rules.mjs
         env:

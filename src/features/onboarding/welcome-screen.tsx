@@ -121,7 +121,7 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
           <div className="min-w-0 max-w-[520px] flex-1 basis-0">
             <AppMark tile={84} mark={49} />
 
-            <h1 className="mt-7 font-voice text-lockup text-ink">Mizaniya</h1>
+            <h1 className="mt-36 font-voice text-lockup text-ink">Mizaniya</h1>
             {/*
               Right-aligned in the column, which is where the artboard puts it.
               `.ar` is `direction: rtl` on a block filling the 520px column, so
@@ -129,31 +129,31 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
               cards, not under the L of the Latin. An SVG ignores `direction`,
               so the alignment has to be asked for.
             */}
-            <WordmarkArabic fontSize={30} className="ml-auto mt-1 block text-soft" />
+            <WordmarkArabic latin={52} className="ml-auto mt-4 block text-soft" />
 
-            <p className="mt-6 font-voice text-promise text-ink">{PROMISE}</p>
-            <p className="mt-3.5 font-structural text-body text-soft">{BLURB}</p>
+            <p className="mt-26 font-voice text-statement text-ink">{PROMISE}</p>
+            <p className="mt-14 font-structural text-body text-soft">{BLURB}</p>
 
-            {refusal ? <div className="mt-4">{refusal}</div> : null}
+            {refusal ? <div className="mt-16">{refusal}</div> : null}
 
-            <div className="mt-[32px] flex flex-wrap gap-3">
+            <div className="mt-[32px] flex flex-wrap gap-12">
               <Button onClick={onGetStarted} className="min-w-[180px]">
                 Get started
               </Button>
               {picker}
             </div>
 
-            <p className="mt-3.5 font-structural text-small text-faint">{FOOTNOTE}</p>
+            <p className="mt-14 font-structural text-small text-faint">{FOOTNOTE}</p>
           </div>
 
           {/* Beside the promise rather than under it, each in its own card. */}
-          <ul className="flex shrink-0 basis-[420px] flex-col gap-4">
+          <ul className="flex shrink-0 basis-[420px] flex-col gap-16">
             {POINTS.map((point) => (
               <li
                 key={point.title}
-                className="rounded-lg border border-line bg-card p-5 shadow-card"
+                className="rounded-lg border border-line bg-card p-20 shadow-card"
               >
-                <Point point={point} body={point.wide} gap="gap-3.5" />
+                <Point point={point} body={point.wide} gap="gap-14" />
               </li>
             ))}
           </ul>
@@ -164,32 +164,32 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[420px] flex-col">
-      <header className="flex flex-col items-center px-6 pt-[56px] text-center">
+      <header className="flex flex-col items-center px-26 pt-[56px] text-center">
         <AppMark tile={88} mark={51} />
 
-        <h1 className="mt-6 font-voice text-lockup text-ink">Mizaniya</h1>
+        <h1 className="mt-26 font-voice text-lockup text-ink">Mizaniya</h1>
         {/* Under the Latin, never above it, and never carrying a figure. */}
-        <WordmarkArabic fontSize={25} className="mt-1 text-soft" />
+        <WordmarkArabic latin={42} className="mt-4 text-soft" />
 
-        <p className="mt-[30px] max-w-[280px] font-voice text-promise text-ink">{PROMISE}</p>
-        <p className="mt-3 max-w-[290px] font-structural text-body text-soft">{BLURB}</p>
+        <p className="mt-[30px] max-w-[280px] font-voice text-statement text-ink">{PROMISE}</p>
+        <p className="mt-12 max-w-[290px] font-structural text-body text-soft">{BLURB}</p>
       </header>
 
-      <ul className="flex flex-col gap-3.5 px-6 pt-[34px]">
+      <ul className="flex flex-col gap-14 px-26 pt-[34px]">
         {POINTS.map((point) => (
           <li key={point.title}>
-            <Point point={point} body={point.body} gap="gap-3" />
+            <Point point={point} body={point.body} gap="gap-12" />
           </li>
         ))}
       </ul>
 
-      <div className="flex flex-col gap-3 px-6 pb-7 pt-[34px]">
+      <div className="flex flex-col gap-12 px-26 pb-36 pt-[34px]">
         {refusal}
         <Button onClick={onGetStarted} fullWidth>
           Get started
         </Button>
         {picker}
-        <p className="mt-1 text-center font-structural text-small text-faint">{FOOTNOTE}</p>
+        <p className="mt-4 text-center font-structural text-small text-faint">{FOOTNOTE}</p>
       </div>
     </div>
   )
@@ -202,13 +202,19 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
  * lockup the installed icon uses, which is why the first screen shows it rather
  * than the mark alone.
  */
+/**
+ * `brand/README.md`: *"The tile's corner is 22/84 of its own size — the iOS
+ * superellipse ratio, so it scales with the icon."* **Brand geometry, and
+ * deliberately not on §5's radius scale**, which governs UI surfaces — so it is
+ * computed rather than rounded to 22 or 30 to make it fit a token.
+ */
+const CORNER_OF_TILE = 22 / 84
+
 function AppMark({ tile, mark }: { tile: number; mark: number }) {
   return (
     <span
-      // 24px is the artboard's radius and is not on tokens.md section 5's
-      // scale, whose nearest steps are 22 and 30.
-      className="flex items-center justify-center rounded-[24px] bg-emerald text-onEmerald shadow-lift"
-      style={{ width: tile, height: tile }}
+      className="flex items-center justify-center bg-emerald text-onEmerald shadow-lift"
+      style={{ width: tile, height: tile, borderRadius: tile * CORNER_OF_TILE }}
     >
       <Mark size={mark} />
     </span>
@@ -231,7 +237,7 @@ function Point({
       </IconTile>
       <div className="min-w-0 flex-1">
         <div className="font-structural text-body font-semibold text-ink">{point.title}</div>
-        <div className="mt-1 font-structural text-small text-soft">{body}</div>
+        <div className="mt-4 font-structural text-small text-soft">{body}</div>
       </div>
     </div>
   )

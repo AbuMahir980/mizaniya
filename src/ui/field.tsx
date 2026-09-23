@@ -11,7 +11,7 @@ import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'rea
 import { cx } from './cx'
 
 const control = cx(
-  'w-full min-h-target px-3 rounded-md',
+  'w-full min-h-target px-12 rounded-md',
   'bg-card text-ink border border-line',
   'text-body font-structural',
   'placeholder:text-faint',
@@ -41,7 +41,7 @@ function FieldShell({ label, labelSuffix, hideLabel, helper, error, required, ch
 
   return (
     /* 8px above and below the control, as every artboard draws a field. */
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-8">
       <label
         htmlFor={inputId}
         // Semibold ink, not regular soft: the label names the thing being
@@ -142,7 +142,7 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
           <div className="relative">
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-body text-soft"
+              className="pointer-events-none absolute left-12 top-4/2 -translate-y-4/2 text-body text-soft"
             >
               ₦
             </span>
@@ -158,7 +158,7 @@ export const AmountInput = forwardRef<HTMLInputElement, AmountInputProps>(
               required={required}
               className={cx(
                 control,
-                'pl-7 text-right [font-variant-numeric:tabular-nums]',
+                'pl-36 text-right [font-variant-numeric:tabular-nums]',
                 error && 'border-ink',
                 className,
               )}
@@ -210,7 +210,7 @@ export function SelectField({
           aria-describedby={describedBy}
           disabled={disabled}
           onClick={onClick}
-          className={cx(control, 'flex items-center justify-between gap-2 text-left')}
+          className={cx(control, 'flex items-center justify-between gap-8 text-left')}
         >
           <span className="truncate">{value}</span>
           {trailing ? <span className="shrink-0 text-soft">{trailing}</span> : null}

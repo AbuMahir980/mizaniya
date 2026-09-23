@@ -1,5 +1,5 @@
 /**
- * WHAT: Plan — give every naira a job. Zero-based: the target is unallocated ₦0.
+ * WHAT: Plan — give every naira a job. Zero-based: the target is ₦0 free.
  * WHY:  **No Save button.** Each row saves on blur, because a plan half-typed
  *       and abandoned should still be there tomorrow — and a Save button turns
  *       every interruption into lost work.
@@ -60,7 +60,7 @@ export function PlanScreen({ snapshot, now, onSaveRow, onCopyLastCycle }: PlanSc
   const hasPrevious = snapshot.plans.some((p) => p.cycleStart === previous.start)
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-26">
       <UnallocatedHeader
         free={free}
         overAllocated={overAllocated}
@@ -68,7 +68,7 @@ export function PlanScreen({ snapshot, now, onSaveRow, onCopyLastCycle }: PlanSc
         carried={carried}
       />
 
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-12">
         <h1 className="font-voice text-title text-ink">Plan</h1>
         <CopyLastCycle hasPrevious={hasPrevious} onCopy={onCopyLastCycle} />
       </div>
@@ -92,7 +92,7 @@ export function PlanScreen({ snapshot, now, onSaveRow, onCopyLastCycle }: PlanSc
         if (rows.length === 0) return null
 
         return (
-          <section key={type} className="flex flex-col gap-2">
+          <section key={type} className="flex flex-col gap-8">
             <h2 className="font-structural text-lab uppercase text-soft">{heading}</h2>
             {rows.map((category) => (
               <PlanRow
@@ -131,10 +131,10 @@ function UnallocatedHeader({
   return (
     /* Sticky: it is the only feedback that the plan is finished, so it has to
        stay visible while typing. */
-    <div className="sticky top-0 z-20 -mx-4 bg-bg px-4 py-3 desktop:-mx-8 desktop:px-8">
-      <div className="flex items-baseline justify-between gap-3">
+    <div className="sticky top-0 z-20 -mx-16 bg-bg px-16 py-12 desktop:-mx-44 desktop:px-44">
+      <div className="flex items-baseline justify-between gap-12">
         <span className="font-structural text-lab uppercase text-soft">
-          {overAllocated ? 'Over-allocated' : 'Unallocated'}
+          {overAllocated ? 'Over-allocated' : 'Free'}
         </span>
 
         <span
@@ -147,12 +147,12 @@ function UnallocatedHeader({
           <span className="sr-only">
             {overAllocated
               ? ` over-allocated, ${speakMoney(Math.abs(free) as Kobo)} more than you have`
-              : ` unallocated, ${speakMoney(free)}`}
+              : ` free, ${speakMoney(free)}`}
           </span>
         </span>
       </div>
 
-      <p className="mt-1 font-structural text-small text-faint">
+      <p className="mt-4 font-structural text-small text-faint">
         {formatMoney(takeHome)} take-home
         {carried > 0 ? ` + ${formatMoney(carried)} carried` : ''}
       </p>
@@ -160,7 +160,7 @@ function UnallocatedHeader({
       {/* The one case that earns the danger colour on this screen: money
           promised that does not exist (F7). */}
       {overAllocated ? (
-        <p className="mt-2 font-structural text-small text-ink">
+        <p className="mt-8 font-structural text-small text-ink">
           You&rsquo;ve given jobs to more money than you have.
         </p>
       ) : null}
@@ -182,7 +182,7 @@ function CopyLastCycle({
     return (
       /* Disabled **with a reason**, never silently inert. A dead button with no
          explanation is a bug the owner cannot report. */
-      <div className="flex flex-col items-end gap-1">
+      <div className="flex flex-col items-end gap-4">
         <Button variant="secondary" disabled>
           Copy last cycle
         </Button>
@@ -194,7 +194,7 @@ function CopyLastCycle({
   }
 
   return (
-    <div className="flex flex-col items-end gap-1">
+    <div className="flex flex-col items-end gap-4">
       <Button
         variant="secondary"
         loading={busy}
@@ -265,9 +265,9 @@ function PlanRow({
   }
 
   return (
-    <div className="flex items-center gap-3 border-b border-hair py-2">
+    <div className="flex items-center gap-12 border-b border-hair py-8">
       <div className="flex min-w-0 flex-1 flex-col">
-        <span className="flex items-center gap-2 font-structural text-body text-ink">
+        <span className="flex items-center gap-8 font-structural text-body text-ink">
           {category.name}
           {/* Protection is visible without opening a menu — otherwise it is
               invisible state that changes the app's headline figure. */}
@@ -282,7 +282,7 @@ function PlanRow({
         ) : null}
 
         {problem ? (
-          <span role="alert" className="flex items-center gap-2 font-structural text-small text-ink">
+          <span role="alert" className="flex items-center gap-8 font-structural text-small text-ink">
             {problem}
             <Button variant="quiet" onClick={() => void commit()}>
               Try again

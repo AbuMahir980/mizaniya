@@ -41,17 +41,26 @@ export default {
       scrim: token('scrim'),
     },
     // The 4px scale from tokens.md, and only it.
+    /**
+     * **A 2px grid, keyed by the pixel** — tokens.md §5, rewritten 23 September.
+     *
+     * The nine-step scale this replaces was written after the drawings and
+     * never matched them: an audit of all 59 artboards found 55% of spacing
+     * off it, and **10px — the most-used value in the whole design — was not
+     * on it at all.** A guard that can only be satisfied by fighting the design
+     * is not a guard.
+     *
+     * Keyed by the pixel so `p-10` is 10px and the class says what it draws.
+     * Odd values simply have no key, so 11px and 23px remain impossible.
+     * 1–4px is optical rather than spacing — a hairline offset, a glyph nudge —
+     * and belongs to the component, which is why 2 and 4 are here but nothing
+     * is built from them.
+     */
     spacing: {
       0: '0px',
-      1: '4px',
-      2: '8px',
-      3: '12px',
-      3.5: '14px',
-      4: '16px',
-      5: '20px',
-      6: '26px',
-      7: '36px',
-      8: '44px',
+      ...Object.fromEntries(
+        Array.from({ length: 49 }, (_, i) => i * 2).map((px) => [px, `${px}px`]),
+      ),
       target: 'var(--target-min)',
     },
     borderRadius: {
@@ -74,22 +83,21 @@ export default {
     },
     fontSize: {
       hero: ['42px', { lineHeight: '48px', letterSpacing: '-0.035em', fontWeight: '600' }],
-      /* The brand lockup on the welcome screen. Same size as `hero`, looser
-         tracking: `hero` is tuned for tabular digits and over-tightens a serif
-         word. Drawn in WelcomeLight.dc.html; tokens.md section 3 does not name
-         it yet, which is a design follow-up rather than licence to guess. */
-      lockup: ['42px', { lineHeight: '48px', letterSpacing: '-0.015em', fontWeight: '600' }],
-      title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
-      /* The welcome screen's promise line, as the artboards draw it. Like
-         `lockup`, tokens.md section 3's table does not name it yet. */
-      promise: [
-        token('size-promise'),
-        { lineHeight: token('leading-promise'), fontWeight: token('weight-voice') },
+      /**
+       * The wordmark. **Deliberately not a type step** — tokens.md §3 keeps it
+       * out because a step is a rung other screens reuse and this exists for
+       * one string. `brand/README.md` owns the sizes; this is only where the
+       * two Welcome surfaces read them from.
+       */
+      lockup: [
+        token('size-lockup'),
+        { lineHeight: token('leading-lockup'), letterSpacing: '-0.015em', fontWeight: '600' },
       ],
-      /* Onboarding's question. Drawn at 27/33; unnamed in §3 like the two above. */
-      question: [
-        token('size-question'),
-        { lineHeight: token('leading-question'), fontWeight: token('weight-voice') },
+      title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
+      /* One line in the app's own voice: the Welcome promise, every empty state. */
+      statement: [
+        token('size-statement'),
+        { lineHeight: token('leading-statement'), fontWeight: token('weight-voice') },
       ],
       h2: ['22px', { lineHeight: '28px', fontWeight: '600' }],
       body: ['15px', { lineHeight: '22px' }],

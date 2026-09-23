@@ -130,7 +130,7 @@ export function AppShell() {
   if (state.status === 'error') {
     return (
       <Centred>
-        <div role="alert" className="flex flex-col gap-3">
+        <div role="alert" className="flex flex-col gap-12">
           <h1 className="font-voice text-title text-ink">
             Couldn&rsquo;t open your data
           </h1>
@@ -157,7 +157,20 @@ export function AppShell() {
         {/* §5 — 16px gutters at 360, 720px centred at tablet, 1200px at desktop. */}
         <main
           id="main"
-          className="flex-1 px-4 pb-24 pt-4 desktop:px-8 desktop:pb-8"
+          /**
+           * `pb-80` clears the fixed bottom bar: 44px of items + a 1px border,
+           * the Add button's 12px overhang above it, and the 22px the artboard
+           * leaves under the last row.
+           *
+           * It previously asked for the `24` key, which the replaced theme did
+           * not have — so it emitted **nothing**, and content has scrolled under
+           * the bar since T10. It was written expecting Tailwind's own scale,
+           * where that key is 96px. Rebuilding onto the pixel surfaced it.
+           *
+           * (Class names are not spelled out in this comment on purpose:
+           * Tailwind scans comments too, and naming a utility here mints it.)
+           */
+          className="flex-1 px-16 pb-80 pt-16 desktop:px-44 desktop:pb-44"
         >
           <div className="mx-auto w-full max-w-[720px] desktop:max-w-[1200px]">
             {/* Offline is a state, not an error — neutral, never danger (L4, F7). */}
@@ -184,7 +197,7 @@ export function AppShell() {
 
 function Centred({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto flex min-h-screen max-w-[520px] flex-col justify-center px-4">
+    <div className="mx-auto flex min-h-screen max-w-[520px] flex-col justify-center px-16">
       {children}
     </div>
   )
@@ -199,7 +212,7 @@ function Centred({ children }: { children: ReactNode }) {
  */
 function RouteFallback() {
   return (
-    <div role="status" className="flex items-center gap-3 py-8 text-soft">
+    <div role="status" className="flex items-center gap-12 py-44 text-soft">
       <Spinner />
       <span className="font-structural text-body">Opening your records…</span>
     </div>

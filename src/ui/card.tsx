@@ -24,7 +24,7 @@ export function Card({ children, as: Tag = 'div', className }: CardProps) {
   return (
     <Tag
       className={cx(
-        'rounded-lg border border-line bg-card p-4 shadow-card',
+        'rounded-lg border border-line bg-card p-16 shadow-card',
         className,
       )}
     >
@@ -56,7 +56,7 @@ export function Skeleton({ className }: { className?: string }) {
 
 export function LoadingRows({ rows = 3 }: { rows?: number }) {
   return (
-    <div className="flex flex-col gap-3" role="status" aria-live="polite" aria-busy="true">
+    <div className="flex flex-col gap-12" role="status" aria-live="polite" aria-busy="true">
       <span className="sr-only">Loading</span>
       {Array.from({ length: rows }, (_, index) => (
         <Skeleton key={index} className="h-[52px] w-full" />
@@ -76,8 +76,10 @@ export interface EmptyStateProps {
 
 export function EmptyState({ title, body, action, className }: EmptyStateProps) {
   return (
-    <div className={cx('flex flex-col items-start gap-3 py-6', className)}>
-      <p className="font-structural text-body font-semibold text-ink">{title}</p>
+    <div className={cx('flex flex-col items-start gap-12 py-26', className)}>
+      {/* The app's own voice, on the `statement` rung — not Inter at body size.
+          Every empty state in the design says its sentence this way. */}
+      <p className="font-voice text-statement text-ink">{title}</p>
       <p className="text-small text-soft">{body}</p>
       {action ? (
         <Button variant="secondary" onClick={action.onClick}>
@@ -102,8 +104,10 @@ export interface ErrorStateProps {
  */
 export function ErrorState({ title, body, onRetry, className }: ErrorStateProps) {
   return (
-    <div role="alert" className={cx('flex flex-col items-start gap-3 py-6', className)}>
-      <p className="font-structural text-body font-semibold text-ink">{title}</p>
+    <div role="alert" className={cx('flex flex-col items-start gap-12 py-26', className)}>
+      {/* The app's own voice, on the `statement` rung — not Inter at body size.
+          Every empty state in the design says its sentence this way. */}
+      <p className="font-voice text-statement text-ink">{title}</p>
       <p className="text-small text-soft">{body}</p>
       {onRetry ? (
         <Button variant="secondary" onClick={onRetry}>
@@ -116,7 +120,7 @@ export function ErrorState({ title, body, onRetry, className }: ErrorStateProps)
 
 export function InlineLoading({ label = 'Working' }: { label?: string }) {
   return (
-    <span className="inline-flex items-center gap-2 text-small text-soft" role="status">
+    <span className="inline-flex items-center gap-8 text-small text-soft" role="status">
       <Spinner />
       {label}
     </span>

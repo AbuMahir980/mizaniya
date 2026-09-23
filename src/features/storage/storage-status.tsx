@@ -63,7 +63,7 @@ export function StorageStatus({ read = readStorageReport }: StorageStatusProps) 
   const pending = persistence === 'checking'
 
   return (
-    <section className="flex flex-col gap-2">
+    <section className="flex flex-col gap-8">
       <h2 className="font-structural text-lab uppercase text-soft">Your data</h2>
 
       {/* Neutral in every state. Unprotected storage is a risk to explain, not
@@ -80,8 +80,8 @@ export function StorageStatus({ read = readStorageReport }: StorageStatusProps) 
         </span>
       </Banner>
 
-      <dl className="flex gap-6 font-structural text-small text-soft">
-        <div className="flex gap-2">
+      <dl className="flex gap-26 font-structural text-small text-soft">
+        <div className="flex gap-8">
           <dt>Space used</dt>
           <dd className="font-data text-ink">{pending ? 'Checking…' : describeUsage(usage)}</dd>
         </div>
