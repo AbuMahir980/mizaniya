@@ -137,3 +137,21 @@ export function rateToClose(snapshot: Snapshot, goal: Goal, now: IsoDate): Kobo 
 
   return perUnitCeil(remaining, paydays)
 }
+
+/**
+ * The rate that reaches a target by its date, from what is already put aside.
+ *
+ * **For onboarding, where `rateToClose` cannot be used.** That one reads the
+ * rent fund's *planned* contribution, and at step 6 there is no plan — it is
+ * set on Plan afterwards. Before the first cycle there is only a target, a due
+ * date and the balance just entered, so the rate can only be solved for
+ * (`docs/seed-data.md` § "At onboarding, 24 September").
+ *
+ * **Rounded up.** ₦500,000 over six paydays rounds down to ₦83,333.33, which
+ * reaches ₦499,999.98 and misses. Falling short is not something a figure may
+ * do quietly — D15's rule, applied to a target rather than a balance.
+ */
+export function rateToReach(target: Kobo, saved: Kobo, paydays: number): Kobo {
+  if (paydays <= 0 || target <= saved) return 0 as Kobo
+  return Math.ceil((target - saved) / paydays) as Kobo
+}

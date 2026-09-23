@@ -26,7 +26,7 @@ export interface SwitchProps {
 /** Used for "Protect from safe to spend" and "Rolls over". */
 export function Switch({ checked, onCheckedChange, label, helper, disabled }: SwitchProps) {
   return (
-    <label className="flex min-h-target items-center justify-between gap-4 py-2">
+    <label className="flex min-h-target items-center justify-between gap-16 py-8">
       <span className="flex min-w-0 flex-col">
         <span className="font-structural text-body text-ink">{label}</span>
         {helper ? <span className="text-small text-soft">{helper}</span> : null}
@@ -40,7 +40,7 @@ export function Switch({ checked, onCheckedChange, label, helper, disabled }: Sw
           'transition-colors duration-fast',
           // J1 is a 44px *hit area*, not a 44px visual box. The switch stays
           // 28px tall and grows an invisible target around itself.
-          "before:absolute before:-inset-2 before:content-['']",
+          "before:absolute before:-inset-8 before:content-['']",
           checked ? 'bg-emerald' : 'bg-track',
           'disabled:opacity-60',
         )}
@@ -79,8 +79,8 @@ export function Slider({
   readout,
 }: SliderProps) {
   return (
-    <div className="flex flex-col gap-2 py-2">
-      <div className="flex items-baseline justify-between gap-3">
+    <div className="flex flex-col gap-8 py-8">
+      <div className="flex items-baseline justify-between gap-12">
         <span className="font-structural text-body text-ink">{label}</span>
         <span className="text-small text-soft">{readout}</span>
       </div>
@@ -100,7 +100,7 @@ export function Slider({
           className={cx(
             'relative block h-[28px] w-[28px] rounded-full border-2 border-ochre bg-card shadow-card',
             // Same rule as the switch: the thumb looks 28px and targets 44px.
-            "before:absolute before:-inset-2 before:content-['']",
+            "before:absolute before:-inset-8 before:content-['']",
           )}
           aria-label={label}
         />
@@ -123,14 +123,14 @@ export function Segmented({ value, onValueChange, options, label, children }: Se
     <Tabs.Root value={value} onValueChange={onValueChange}>
       <Tabs.List
         aria-label={label}
-        className="inline-flex rounded-md border border-line bg-card p-1"
+        className="inline-flex rounded-md border border-line bg-card p-4"
       >
         {options.map((option) => (
           <Tabs.Trigger
             key={option.value}
             value={option.value}
             className={cx(
-              'min-h-target rounded-md px-4 font-structural text-body font-semibold',
+              'min-h-target rounded-md px-16 font-structural text-body font-semibold',
               'text-soft transition-colors duration-fast',
               'data-[state=active]:bg-ink data-[state=active]:text-bg',
             )}
@@ -146,7 +146,7 @@ export function Segmented({ value, onValueChange, options, label, children }: Se
 
 export function SegmentedPanel({ value, children }: { value: string; children: ReactNode }) {
   return (
-    <Tabs.Content value={value} className="pt-4">
+    <Tabs.Content value={value} className="pt-16">
       {children}
     </Tabs.Content>
   )
@@ -182,14 +182,14 @@ export function ChipGroup({
       value={value}
       onValueChange={onValueChange}
       aria-label={label}
-      className={cx('flex flex-wrap gap-2', className)}
+      className={cx('flex flex-wrap gap-8', className)}
     >
       {options.map((option) => (
         <RadioGroup.Item
           key={option.value}
           value={option.value}
           className={cx(
-            'min-h-target rounded-md border border-line px-3',
+            'min-h-target rounded-md border border-line px-12',
             'font-structural text-body text-ink',
             'transition-colors duration-fast',
             'data-[state=checked]:border-ink data-[state=checked]:bg-ink',
@@ -206,7 +206,7 @@ export function ChipGroup({
   if (!showLabel && !helper) return group
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-8">
       {showLabel ? (
         <span className="font-structural text-small font-semibold text-ink">{label}</span>
       ) : null}

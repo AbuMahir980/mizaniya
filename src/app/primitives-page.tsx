@@ -47,15 +47,15 @@ import type { NavItem } from '@/ui'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-12">
       <CardLabel>{title}</CardLabel>
-      <Card className="flex flex-col gap-4">{children}</Card>
+      <Card className="flex flex-col gap-16">{children}</Card>
     </section>
   )
 }
 
 function Row({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-wrap items-center gap-3">{children}</div>
+  return <div className="flex flex-wrap items-center gap-12">{children}</div>
 }
 
 const dot = (
@@ -123,8 +123,8 @@ export function PrimitivesPage() {
       <div className="flex min-h-screen">
         <Sidebar items={items} activeKey={nav} onAdd={() => setSheetOpen(true)} />
 
-        <main className="mx-auto flex w-full max-w-[720px] flex-col gap-6 p-4 pb-[120px]">
-          <header className="flex items-center justify-between gap-4">
+        <main className="mx-auto flex w-full max-w-[720px] flex-col gap-26 p-16 pb-[120px]">
+          <header className="flex items-center justify-between gap-16">
             <div>
               <h1 className="font-voice text-title text-ink">Primitives</h1>
               <p className="text-small text-soft">
@@ -368,7 +368,7 @@ export function PrimitivesPage() {
           </Button>
         }
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-16">
           <AmountInput label="Amount" value={amount} onValueChange={setAmount} />
           <ChipGroup
             label="Category"

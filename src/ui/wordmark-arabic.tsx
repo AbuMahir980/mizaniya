@@ -21,16 +21,22 @@ import { cx } from './cx'
  */
 const OUTLINE_PER_EM = 1.76
 
+/**
+ * `brand/README.md`: *"The Arabic under it is set at 0.62 of the Latin's
+ * size."* Encoded here so a call site names the size it sits beside — the
+ * number the brand sheet actually publishes — rather than doing the arithmetic
+ * itself and drifting from it.
+ */
+const OF_THE_LATIN = 0.62
+
 export interface WordmarkArabicProps {
-  /**
-   * The **font size** this should match, as the artboards write it — not a
-   * pixel height. The outline is scaled to it.
-   */
-  fontSize?: number
+  /** The **Latin wordmark's** font size that this sits under. */
+  latin?: number
   className?: string
 }
 
-export function WordmarkArabic({ fontSize = 16, className }: WordmarkArabicProps) {
+export function WordmarkArabic({ latin = 24, className }: WordmarkArabicProps) {
+  const fontSize = latin * OF_THE_LATIN
   return (
     <svg
       height={fontSize * OUTLINE_PER_EM}

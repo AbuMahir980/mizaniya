@@ -55,7 +55,7 @@ export function Table<Row>({
                 key={column.key}
                 scope="col"
                 className={cx(
-                  'border-b border-line pb-2 font-data text-mlab uppercase text-faint',
+                  'border-b border-line pb-8 font-data text-mlab uppercase text-faint',
                   column.align === 'right' ? 'text-right' : 'text-left',
                 )}
               >
@@ -78,7 +78,7 @@ export function Table<Row>({
                 <td
                   key={column.key}
                   className={cx(
-                    'py-3 font-structural text-body text-ink',
+                    'py-12 font-structural text-body text-ink',
                     column.align === 'right' &&
                       'text-right [font-variant-numeric:tabular-nums]',
                   )}

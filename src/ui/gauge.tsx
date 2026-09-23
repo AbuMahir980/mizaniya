@@ -95,7 +95,7 @@ export function Gauge({
       </svg>
 
       {/* In the opening, never over the arc. */}
-      <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-1">
+      <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-4">
         {children}
       </div>
     </div>

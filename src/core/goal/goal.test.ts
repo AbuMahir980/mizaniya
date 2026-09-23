@@ -16,6 +16,7 @@ import {
   projectedGap,
   rateToClose,
   saved,
+  rateToReach,
 } from './goal'
 import { formatMoney, naira } from '../money/money'
 import type {
@@ -270,5 +271,30 @@ describe('no due date, and a date gone by', () => {
     expect(projection.kind).toBe('no-deadline')
     expect(projection.saved).toBe(0)
     expect(formatMoney(projection.remaining)).toBe('₦150,000.00')
+  })
+})
+
+describe('the rate that reaches a target, before there is a plan', () => {
+  it('matches the worked figure in docs/seed-data.md', () => {
+    // § "At onboarding, 24 September": ₦900,000 target, ₦400,000 already put
+    // aside, six paydays on or before 1 March — six, not five, because on the
+    // 24th the 25th has not happened yet.
+    expect(rateToReach(naira(900_000), naira(400_000), 6)).toBe(8_333_334)
+  })
+
+  it('rounds up, because a rate rounded down arrives short', () => {
+    // ₦83,333.33 × 6 is ₦499,999.98 — it misses by two kobo, silently.
+    expect(rateToReach(naira(900_000), naira(400_000), 6)).toBeGreaterThan(
+      Math.floor((naira(900_000) - naira(400_000)) / 6),
+    )
+  })
+
+  it('asks for nothing once the target is already met', () => {
+    expect(rateToReach(naira(900_000), naira(900_000), 6)).toBe(0)
+    expect(rateToReach(naira(900_000), naira(950_000), 6)).toBe(0)
+  })
+
+  it('asks for nothing when there are no paydays left to ask on', () => {
+    expect(rateToReach(naira(900_000), naira(0), 0)).toBe(0)
   })
 })

@@ -57,16 +57,21 @@
   --size-title: 30px;
   --leading-title: 36px;
 
-  /* The promise line on the welcome screen — a hero statement, so the voice
-     face. Drawn at 23/30 and 29/37; tokens.md section 3 names no step here. */
-  --size-promise: 23px;
-  --leading-promise: 30px;
+  /**
+   * One line in the app's own voice — the Welcome promise, and **every empty
+   * state**. Named in tokens.md §3 since 23 September: the empty states had
+   * drifted across 20, 21, 22, 23, 24 and 27px and are all on this rung now.
+   */
+  --size-statement: 23px;
+  --leading-statement: 30px;
 
-  /* Onboarding asks a question rather than titling a screen, and the artboards
-     draw it a notch under `title`. §3's table names no step here either.
-     Deliberately not responsive: OnbDLight draws the same 27/33 at 1440. */
-  --size-question: 27px;
-  --leading-question: 33px;
+  /**
+   * The wordmark. **Brand geometry, not a type step** — it exists for one
+   * string, and `brand/README.md` owns its four sizes. Kept as a custom
+   * property so the two Welcome surfaces stay in step.
+   */
+  --size-lockup: 42px;
+  --leading-lockup: 48px;
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -187,7 +192,9 @@
   :root {
     --size-title: 34px;
     --leading-title: 40px;
-    --size-promise: 29px;
-    --leading-promise: 37px;
+    --size-statement: 29px;
+    --leading-statement: 37px;
+    --size-lockup: 52px;
+    --leading-lockup: 58px;
   }
 }

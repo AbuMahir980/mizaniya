@@ -45,14 +45,14 @@ export function Sheet({
             // owner keeps their place in what is behind it.
             'inset-x-0 bottom-0 max-h-[85vh] rounded-t-xl border-t border-line',
             // Desktop: a centred dialog.
-            'desktop:inset-auto desktop:left-1/2 desktop:top-1/2 desktop:w-[480px]',
-            'desktop:-translate-x-1/2 desktop:-translate-y-1/2',
+            'desktop:inset-auto desktop:left-4/2 desktop:top-4/2 desktop:w-[480px]',
+            'desktop:-translate-x-4/2 desktop:-translate-y-4/2',
             'desktop:rounded-xl desktop:border',
             'shadow-card',
             className,
           )}
         >
-          <div className="flex items-center justify-between gap-3 px-4 pt-4">
+          <div className="flex items-center justify-between gap-12 px-16 pt-16">
             <Dialog.Title
               className={cx('font-voice text-title text-ink', hideTitle && 'sr-only')}
             >
@@ -74,15 +74,15 @@ export function Sheet({
           </div>
 
           {description ? (
-            <Dialog.Description className="px-4 pt-1 text-small text-soft">
+            <Dialog.Description className="px-16 pt-4 text-small text-soft">
               {description}
             </Dialog.Description>
           ) : null}
 
-          <div className="flex-1 overflow-y-auto px-4 py-4">{children}</div>
+          <div className="flex-1 overflow-y-auto px-16 py-16">{children}</div>
 
           {footer ? (
-            <div className="border-t border-hair px-4 py-3 pb-[max(12px,env(safe-area-inset-bottom))]">
+            <div className="border-t border-hair px-16 py-12 pb-[max(12px,env(safe-area-inset-bottom))]">
               {footer}
             </div>
           ) : null}
@@ -119,7 +119,7 @@ export function ConfirmSheet({
       title={title}
       description={body}
       footer={
-        <div className="flex gap-3">
+        <div className="flex gap-12">
           <button
             type="button"
             onClick={() => onOpenChange(false)}

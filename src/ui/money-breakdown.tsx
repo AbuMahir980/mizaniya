@@ -51,9 +51,9 @@ export function MoneyBreakdown({
   const shown = segments.filter((s) => s.amount > 0)
 
   return (
-    <div className={cx('flex flex-col gap-3', className)}>
+    <div className={cx('flex flex-col gap-12', className)}>
       {/* Gapped, so two adjacent segments of the same weight stay countable. */}
-      <div className="flex h-3 gap-1 overflow-hidden rounded-full" role="img" aria-label={caption}>
+      <div className="flex h-12 gap-4 overflow-hidden rounded-full" role="img" aria-label={caption}>
         {shown.map((segment) => (
           <span
             key={segment.tone}
@@ -64,13 +64,13 @@ export function MoneyBreakdown({
         {shown.length === 0 ? <span className="w-full rounded-full bg-track" /> : null}
       </div>
 
-      <dl className="flex flex-col gap-1">
+      <dl className="flex flex-col gap-4">
         {shown.map((segment) => (
-          <div key={segment.tone} className="flex items-baseline justify-between gap-3">
-            <dt className="flex items-center gap-2 font-data text-mlab uppercase text-soft">
+          <div key={segment.tone} className="flex items-baseline justify-between gap-12">
+            <dt className="flex items-center gap-8 font-data text-mlab uppercase text-soft">
               <span
                 aria-hidden="true"
-                className={cx('h-2 w-2 shrink-0 rounded-full', FILLS[segment.tone])}
+                className={cx('h-8 w-8 shrink-0 rounded-full', FILLS[segment.tone])}
               />
               {segment.label}
             </dt>
@@ -79,7 +79,7 @@ export function MoneyBreakdown({
         ))}
 
         {footer ? (
-          <div className="mt-1 flex items-baseline justify-between gap-3 border-t border-line pt-2">
+          <div className="mt-4 flex items-baseline justify-between gap-12 border-t border-line pt-8">
             <dt className="font-data text-mlab uppercase text-soft">{footer.label}</dt>
             <dd className="font-data text-small font-semibold text-ink">{footer.formatted}</dd>
           </div>

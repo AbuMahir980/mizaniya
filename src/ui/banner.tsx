@@ -30,7 +30,7 @@ export function Banner({ tone = 'neutral', children, action, onDismiss, classNam
   return (
     <div
       className={cx(
-        'flex min-h-target items-center gap-3 rounded-md border px-3 py-2',
+        'flex min-h-target items-center gap-12 rounded-md border px-12 py-8',
         'font-structural text-body',
         tones[tone],
         className,
@@ -42,7 +42,7 @@ export function Banner({ tone = 'neutral', children, action, onDismiss, classNam
         <button
           type="button"
           onClick={action.onClick}
-          className="min-h-target min-w-target shrink-0 px-2 font-semibold text-emerald"
+          className="min-h-target min-w-target shrink-0 px-8 font-semibold text-emerald"
         >
           {action.label}
         </button>

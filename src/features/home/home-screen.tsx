@@ -78,7 +78,7 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
   const tone = safe.level === 'red' ? 'danger' : safe.level === 'amber' ? 'warning' : 'positive'
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-44">
       {/* Offline is a state, not an error (L4). */}
       {!online ? <OfflineNote /> : null}
 
@@ -103,10 +103,10 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
         </Banner>
       ) : null}
 
-      <section className="grid gap-6 tablet:grid-cols-2">
+      <section className="grid gap-26 tablet:grid-cols-2">
         <Card>
           <CardLabel>Where this cycle&rsquo;s money went</CardLabel>
-          <div className="mt-3">
+          <div className="mt-12">
             <MoneyBreakdown
               caption="How this cycle's take-home is divided"
               total={snapshot.settings.takeHome}
@@ -116,7 +116,7 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
             {/* Actual against planned. They differ when a salary lands short,
                 or has not landed yet — and the breakdown above divides what was
                 planned, so the difference has to be said rather than implied. */}
-            <p className="mt-3 font-structural text-small text-soft">
+            <p className="mt-12 font-structural text-small text-soft">
               Income received {formatMoney(income)} of {formatMoney(snapshot.settings.takeHome)}
               {income < snapshot.settings.takeHome ? ' so far' : ''}.
             </p>
@@ -125,7 +125,7 @@ export function HomeScreen({ snapshot, now, online = true, onOpen }: HomeScreenP
 
         <Card>
           <CardLabel>Spending, day by day</CardLabel>
-          <div className="mt-3 flex flex-col gap-2">
+          <div className="mt-12 flex flex-col gap-8">
             <DailySpendChart
               allowance={allowance}
               label={dailyChartLabel(snapshot, cycle.start, now, allowance)}
@@ -187,7 +187,7 @@ function Hero({
   }).format(new Date(`${nextPayday}T00:00:00Z`))
 
   return (
-    <section className="flex flex-col items-center gap-3 text-center">
+    <section className="flex flex-col items-center gap-12 text-center">
       <Gauge
         value={safe.perDay}
         max={allowance > 0 ? allowance : Math.max(safe.perDay, 1)}
@@ -313,8 +313,8 @@ function RankedCategories({
   const heading = !expanded && needingAttention.length > 0 ? 'Needs attention' : 'Categories'
 
   return (
-    <section className="flex flex-col gap-3">
-      <div className="flex items-center gap-2">
+    <section className="flex flex-col gap-12">
+      <div className="flex items-center gap-8">
         <h2 className="font-structural text-lab uppercase text-soft">{heading}</h2>
         {heading === 'Needs attention' ? (
           <Pill tone="danger">{`${needingAttention.length} of ${rows.length}`}</Pill>
@@ -360,7 +360,7 @@ function RankedRow({ row, onOpen }: { row: CategorySpending; onOpen: () => void 
         }
         title={<span className="font-semibold">{row.name}</span>}
         trailing={
-          <span className="flex flex-col items-end gap-1">
+          <span className="flex flex-col items-end gap-4">
             <MoneyText amount={row.spent} tone={row.status === 'overspent' ? 'danger' : 'default'} />
             {row.status === 'ok' ? null : (
               <StatusPill status={row.status === 'overspent' ? 'overspent' : 'low'} />
@@ -389,12 +389,12 @@ function FullCategoryTable({
   onOpen: (destination: string) => void
 }) {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-12">
       {/* The label step, not the voice face: EB Garamond is for screen
           titles, hero statements and the printed record (tokens.md §3). A
           heading *inside* a screen is a label, and the design draws it as
           one. */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-8">
         <h2 className="font-structural text-lab uppercase text-soft">Categories</h2>
         <Pill tone="quiet">{rows.length}</Pill>
       </div>
@@ -476,7 +476,7 @@ function GoalsAndDebts({
   ]
 
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-12">
       <h2 className="font-structural text-lab uppercase text-soft">Goals &amp; debts</h2>
       <Table
         caption="Goals and debts, with their status"

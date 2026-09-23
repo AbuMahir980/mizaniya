@@ -42,7 +42,7 @@ export function BottomBar({ items, activeKey, onAdd, className }: BottomBarProps
         onClick={item.onSelect}
         aria-current={item.key === activeKey ? 'page' : undefined}
         className={cx(
-          'flex min-h-target flex-1 flex-col items-center justify-center gap-1',
+          'flex min-h-target flex-1 flex-col items-center justify-center gap-4',
           'font-structural text-lab uppercase',
           item.key === activeKey ? 'text-emerald' : 'text-faint',
         )}
@@ -72,7 +72,7 @@ export function BottomBar({ items, activeKey, onAdd, className }: BottomBarProps
           onClick={onAdd}
           aria-label="Add a movement"
           className={cx(
-            'inline-flex h-[56px] w-[56px] -translate-y-3 items-center justify-center',
+            'inline-flex h-[56px] w-[56px] -translate-y-12 items-center justify-center',
             'rounded-full bg-emerald text-onEmerald shadow-lift',
           )}
         >
@@ -113,7 +113,7 @@ export function Sidebar({
       aria-label="Main"
       className={cx(
         'hidden desktop:flex desktop:w-[240px] desktop:shrink-0 desktop:flex-col',
-        'desktop:gap-1 desktop:border-r desktop:border-line desktop:bg-card desktop:p-4',
+        'desktop:gap-4 desktop:border-r desktop:border-line desktop:bg-card desktop:p-16',
         /**
          * Stays put while the main column scrolls under it.
          *
@@ -130,7 +130,7 @@ export function Sidebar({
     >
       {/* The lockup the design puts at the top of the sidebar
           (`docs/design/canvas/DHomeLight.dc.html`, brand/README.md). */}
-      <div className="mb-6 flex items-center gap-2 px-3 pt-1">
+      <div className="mb-26 flex items-center gap-8 px-12 pt-4">
         <Mark size={22} className="text-emerald" />
         <span className="font-voice text-h2 text-ink">Mizaniya</span>
       </div>
@@ -139,7 +139,7 @@ export function Sidebar({
         type="button"
         onClick={onAdd}
         className={cx(
-          'mb-4 inline-flex min-h-target items-center justify-center gap-2 rounded-md',
+          'mb-16 inline-flex min-h-target items-center justify-center gap-8 rounded-md',
           'bg-emerald font-structural text-body font-semibold text-onEmerald',
         )}
       >
@@ -153,7 +153,7 @@ export function Sidebar({
         <>
           {/* Pushed to the bottom, so the gap itself does the separating. */}
           <div className="flex-1" aria-hidden="true" />
-          <div className="mt-2 flex flex-col gap-2 border-t border-line pt-3">
+          <div className="mt-8 flex flex-col gap-8 border-t border-line pt-12">
             {footerItems?.map((item) => renderSidebarItem(item, activeKey))}
             {footerSlot}
           </div>
@@ -171,7 +171,7 @@ function renderSidebarItem(item: NavItem, activeKey: string) {
       onClick={item.onSelect}
       aria-current={item.key === activeKey ? 'page' : undefined}
       className={cx(
-        'flex min-h-target items-center gap-3 rounded-md px-3 text-left',
+        'flex min-h-target items-center gap-12 rounded-md px-12 text-left',
         'font-structural text-body',
         item.key === activeKey ? 'bg-em2 text-emerald' : 'text-soft',
       )}

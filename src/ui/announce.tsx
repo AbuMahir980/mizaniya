@@ -71,7 +71,7 @@ export function AnnounceProvider({ children }: { children: ReactNode }) {
         >
           <div
             className={cx(
-              'rounded-md border border-line bg-card px-4 py-3 shadow-card',
+              'rounded-md border border-line bg-card px-16 py-12 shadow-card',
               'font-structural text-body text-ink',
             )}
           >

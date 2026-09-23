@@ -63,7 +63,7 @@ export function RailWithValue({
 }: RailProps) {
   const percent = Math.round(Math.max(value, 0) * 100)
   return (
-    <div className={cx('flex items-center gap-3', className)}>
+    <div className={cx('flex items-center gap-12', className)}>
       <Rail value={value} tone={tone} label={label} className="flex-1" />
       <span
         aria-hidden="true"

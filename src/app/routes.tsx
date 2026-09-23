@@ -24,7 +24,7 @@ import { PlanRoute } from './plan-route'
  */
 function NotBuiltYet({ name, ticket }: { name: string; ticket: string }) {
   return (
-    <section className="flex flex-col gap-2">
+    <section className="flex flex-col gap-8">
       <h1 className="font-voice text-title text-ink">{name}</h1>
       <p className="font-structural text-body text-soft">
         This screen arrives in {ticket}. The shell, the navigation and the data
@@ -44,7 +44,7 @@ function NotBuiltYet({ name, ticket }: { name: string; ticket: string }) {
  */
 function BareLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-bg px-4 py-6 tablet:px-6">
+    <div className="min-h-screen bg-bg px-16 py-26 tablet:px-26">
       <div className="mx-auto w-full max-w-[720px] desktop:max-w-[1200px]">
         {children}
       </div>

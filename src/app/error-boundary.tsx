@@ -37,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return (
       <div
         role="alert"
-        className="mx-auto flex min-h-screen max-w-[520px] flex-col justify-center gap-4 px-4"
+        className="mx-auto flex min-h-screen max-w-[520px] flex-col justify-center gap-16 px-16"
       >
         <h1 className="font-voice text-title text-ink">Something went wrong</h1>
         {/* The sentence that matters. Everything is still on the device. */}

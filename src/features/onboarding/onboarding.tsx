@@ -20,6 +20,7 @@ import { Sheet } from '@/ui/sheet'
 import { paydaysBetween } from '@/core/cycle/cycle'
 import type { CategoryType, Settings } from '@/core/types'
 import { formatMoney } from '@/core/money/money'
+import { rateToReach } from '@/core/goal/goal'
 import type { Id, Instant, IsoDate, Kobo } from '@/core/types'
 import { emptyAnswers, type DebtAnswer, type OnboardingAnswers } from './answers'
 
@@ -174,23 +175,23 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
       {/* Full-bleed on a phone; a 620px card at 1440, which is what OnbDLight
           draws — the same content, given an edge rather than a new layout. */}
       <div className="flex w-full max-w-[420px] flex-col desktop:max-w-[620px] desktop:rounded-xl desktop:border desktop:border-line desktop:bg-card desktop:shadow-card">
-        <header className="px-5 pt-6">
+        <header className="px-20 pt-26">
           <ProgressDots current={step} total={STEPS.length} />
 
-          <p className="mt-4 font-structural text-lab uppercase text-soft">
+          <p className="mt-16 font-structural text-lab uppercase text-soft">
             Step {step + 1} of {STEPS.length}
           </p>
 
           <h1
             ref={heading}
             tabIndex={-1}
-            className="mt-2 font-voice text-question text-ink outline-none"
+            className="mt-8 font-voice text-title text-ink outline-none"
           >
             {STEPS[step]}
           </h1>
         </header>
 
-      <div className="flex flex-1 flex-col gap-5 px-5 pt-6">
+      <div className="flex flex-1 flex-col gap-20 px-20 pt-26">
 
         {step === 0 ? (
           <>
@@ -245,12 +246,12 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
 
         {step === 2 ? (
           <>
-            <Card className="p-4">
+            <Card className="p-16">
               <ul>
                 {answers.categories.map((category) => (
                   <li
                     key={category.id}
-                    className="flex min-h-[52px] items-center gap-3 border-b border-hair last:border-b-0"
+                    className="flex min-h-[52px] items-center gap-12 border-b border-hair last:border-b-0"
                   >
                     <span className="flex-1 font-structural text-body text-ink">
                       {category.name}
@@ -292,7 +293,7 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
               {savingsCategories.map((category) => (
                 <li
                   key={category.id}
-                  className="flex items-center gap-3 border-b border-hair py-3 last:border-b-0"
+                  className="flex items-center gap-12 border-b border-hair py-12 last:border-b-0"
                 >
                   <span className="flex-1 font-structural text-body text-ink">
                     {category.name}
@@ -356,7 +357,7 @@ export function Onboarding({ now, at, makeId = defaultMakeId, onFinish }: Onboar
 
       {/* Back is a fixed 100px and Continue takes the rest, as drawn: the two
           are not equals, and equal halves say they are. Step 1 has no Back. */}
-      <div className="flex gap-2.5 px-5 pb-6 pt-[22px]">
+      <div className="flex gap-2.5 px-20 pb-26 pt-[22px]">
         {step > 0 ? (
           <Button
             variant="secondary"
@@ -398,7 +399,7 @@ function ProgressDots({ current, total }: { current: number; total: number }) {
       {Array.from({ length: total }, (_, i) => (
         <span
           key={i}
-          className={`h-2 rounded-full ${i === current ? 'w-6 bg-emerald' : 'w-2'} ${
+          className={`h-8 rounded-full ${i === current ? 'w-26 bg-emerald' : 'w-8'} ${
             i < current ? 'bg-emerald' : i > current ? 'bg-track' : ''
           }`}
         />
@@ -444,7 +445,7 @@ function DebtList({
   return (
     <div className="flex flex-col gap-[18px]">
       {debts.length > 0 ? (
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-4">
           {debts.map((debt, i) => (
             <li
               key={`${debt.counterpartyName}-${i}`}
@@ -464,7 +465,7 @@ function DebtList({
           here would record a direction nobody stated, on the one field where
           getting it backwards inverts the whole record. */}
       <ChipGroup
-        label="Direction"
+        label="Who owes who?"
         helper="No default — pick the one that is true."
         value={draft.direction}
         options={[
@@ -475,7 +476,7 @@ function DebtList({
       />
 
       <Field
-        label="Counterparty name"
+        label="Their name"
         value={draft.name}
         onChange={(e) => onDraft({ ...draft, name: e.target.value })}
       />
@@ -494,7 +495,7 @@ function DebtList({
       />
 
       <AmountInput
-        label="Agreed repayment per cycle"
+        label="How much each payday?"
         // `(optional)` sits inside the label at regular weight, as drawn —
         // not as helper text under the field, where it reads as advice.
         labelSuffix={<span className="font-normal text-soft"> (optional)</span>}
@@ -528,20 +529,11 @@ function RentStep({
       : 0
 
   /**
-   * **What is knowable here, which is not what the artboard quotes.**
-   *
-   * The callout is drawn as *"At ₦75,000.00 a payday — you reach ₦850,000.00…
-   * ₦50,000.00 short"*. That ₦75,000 is the rent fund's **planned
-   * contribution**, and at step 6 there is no plan — it is set on Plan, after
-   * onboarding. So the rate cannot be read; it can only be **solved for**.
-   *
-   * Obligations round **up** (tokens.md §4): a rate that rounds down arrives
-   * short, which is the one direction that matters here.
+   * Solved for, not read. `rateToClose` reads the rent fund's *planned*
+   * contribution, and at step 6 there is no plan — it is set on Plan, after
+   * onboarding. `docs/seed-data.md` carries the worked figure.
    */
-  const perPayday =
-    paydays > 0 && goal > alreadySaved
-      ? (Math.ceil((goal - alreadySaved) / paydays) as Kobo)
-      : (0 as Kobo)
+  const perPayday = rateToReach(goal, alreadySaved, paydays)
 
   return (
     <div className="flex flex-col gap-[22px]">
@@ -568,8 +560,8 @@ function RentStep({
       />
 
       {perPayday > 0 && due ? (
-        <Card className="p-4">
-          <div className="flex items-start gap-3">
+        <Card className="p-16">
+          <div className="flex items-start gap-12">
             <IconTile tone="positive">
               <Icon name="target" size={18} />
             </IconTile>
@@ -577,7 +569,7 @@ function RentStep({
               <div className="font-structural text-body font-semibold text-ink">
                 At {formatMoney(perPayday)} a payday
               </div>
-              <div className="mt-1 font-structural text-small text-soft">
+              <div className="mt-4 font-structural text-small text-soft">
                 You reach {formatMoney(goal)} by {due}, over {paydays}{' '}
                 {paydays === 1 ? 'payday' : 'paydays'}.
               </div>
@@ -663,7 +655,7 @@ function AddCategory({
         </Button>
       }
     >
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-20">
         <Field label="Name" value={name} onChange={(e) => setName(e.target.value)} />
         <ChipGroup
           label="Kind"

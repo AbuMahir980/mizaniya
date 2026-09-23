@@ -135,7 +135,7 @@ export function QuickAdd({
         </Button>
       }
     >
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-20">
         <AmountInput
           label="Amount"
           hideLabel
@@ -162,7 +162,7 @@ export function QuickAdd({
           <summary className="cursor-pointer font-structural text-small text-soft">
             Another kind of movement
           </summary>
-          <div className="mt-3">
+          <div className="mt-12">
             <ChipGroup
               label="Movement type"
               value={draft.type}
@@ -179,7 +179,7 @@ export function QuickAdd({
           noCategories ? (
             <EmptyChoice>Add a category first, in Plan.</EmptyChoice>
           ) : (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-4">
               <ChipGroup
                 label="Category"
                 value={draft.categoryId}
@@ -197,7 +197,7 @@ export function QuickAdd({
           noCounterparties ? (
             <EmptyChoice>Add a debt first, in Debts &amp; Goals.</EmptyChoice>
           ) : (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-4">
               <ChipGroup
                 label="Who this is with"
                 value={draft.debtId}
@@ -227,7 +227,7 @@ export function QuickAdd({
           />
         ) : null}
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-4">
           <Field
             label="Date"
             type="date"

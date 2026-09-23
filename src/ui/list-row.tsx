@@ -40,7 +40,7 @@ export function ListRow({
 }: ListRowProps) {
   const body = (
     <>
-      <div className="flex w-full items-center gap-3">
+      <div className="flex w-full items-center gap-12">
         {leading}
         <div className="min-w-0 flex-1 text-left">
           <div className="truncate font-structural text-body text-ink">{title}</div>
@@ -48,13 +48,13 @@ export function ListRow({
         </div>
         {trailing ? <div className="shrink-0 text-right">{trailing}</div> : null}
       </div>
-      {footer ? <div className="mt-2 w-full">{footer}</div> : null}
+      {footer ? <div className="mt-8 w-full">{footer}</div> : null}
     </>
   )
 
   const shell = cx(
     'flex min-h-target w-full flex-col justify-center',
-    'border-b border-hair py-3 last:border-b-0',
+    'border-b border-hair py-12 last:border-b-0',
     className,
   )
 

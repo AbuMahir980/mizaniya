@@ -35,7 +35,7 @@ export function Pill({ tone = 'neutral', children, className }: PillProps) {
   return (
     <span
       className={cx(
-        'inline-flex h-[25px] items-center rounded-sm px-2',
+        'inline-flex h-[25px] items-center rounded-sm px-8',
         'font-structural text-lab uppercase',
         tones[tone],
         className,
