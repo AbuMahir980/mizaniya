@@ -22,6 +22,9 @@ export type IconName =
   | 'settings'
   | 'more'
   | 'add'
+  | 'target'
+  | 'people'
+  | 'shield-check'
 
 /**
  * Every glyph, as the artboard draws it.
@@ -82,6 +85,29 @@ const PATHS: Record<IconName, ReactNode> = {
     </>
   ),
   add: <path d="M12 5v14M5 12h14" />,
+
+  /* The welcome screen's three promises. Same grid, same stroke, same family —
+     lifted from WelcomeLight.dc.html rather than drawn again. */
+  target: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="12" cy="12" r=".9" />
+    </>
+  ),
+  people: (
+    <>
+      <path d="M16.5 20.5v-2a3.4 3.4 0 0 0-3.4-3.4H6.9a3.4 3.4 0 0 0-3.4 3.4v2" />
+      <circle cx="10" cy="7.6" r="3.6" />
+      <path d="M20.5 20.5v-2a3.4 3.4 0 0 0-2.6-3.3M15.6 4.3a3.6 3.6 0 0 1 0 6.6" />
+    </>
+  ),
+  'shield-check': (
+    <>
+      <path d="M12 3.4 20 6.2v5.9c0 4.4-3.2 7.6-8 8.7-4.8-1.1-8-4.3-8-8.7V6.2z" />
+      <path d="m9 12 2.2 2.2L15.5 10" />
+    </>
+  ),
 }
 
 export interface IconProps {

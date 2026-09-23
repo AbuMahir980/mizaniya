@@ -101,6 +101,14 @@ what is left is code.
   successful file lands on Home and skips onboarding; a refused one returns here
   and ends with "Nothing has changed."
 
+  **Its visual detail was not checked, and this item was ticked anyway.** The
+  three promises shipped as a plain text list with no icons, and the wordmark at
+  `text-title` where the artboard draws 42/48 — found by the owner running the
+  app, fixed 24 September in [#62](https://github.com/AbuMahir980/mizaniya/issues/62).
+  The item listed behaviour only, so nothing here was wrong; **a list of
+  behaviours is not a design-quality pass**, and ticking one as though it were
+  is how a screen ships looking unfinished.
+
 - [ ] **6 · Add a `Tabs` primitive** — **T17**.
   Debts & Goals switches between two views with underline tabs, in every artboard, but
   `src/ui/` has only `Segmented`. They are different controls: **Tabs switch a view**

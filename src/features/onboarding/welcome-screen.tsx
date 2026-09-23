@@ -13,17 +13,28 @@ import { useState } from 'react'
 import { Button } from '@/ui/button'
 import { FilePicker } from '@/ui/file-picker'
 import { Banner } from '@/ui/banner'
+import { Icon, type IconName } from '@/ui/icon'
+import { IconTile } from '@/ui/pill'
 import { Mark } from '@/ui/mark'
 import { WordmarkArabic } from '@/ui/wordmark-arabic'
 
-/** The three promises, in the order the artboard sets them. */
-const POINTS = [
-  { title: 'Safe to spend, today', body: 'One figure, worked out in front of you.' },
+/** The three promises, in the order the artboard sets them, each with its glyph. */
+const POINTS: { icon: IconName; title: string; body: string }[] = [
   {
+    icon: 'target',
+    title: 'Safe to spend, today',
+    body: 'One figure, worked out in front of you.',
+  },
+  {
+    icon: 'people',
     title: 'Debts in both directions',
     body: 'Written down, with a record you can print.',
   },
-  { title: 'Nothing leaves this device', body: 'No account, no server, no sync.' },
+  {
+    icon: 'shield-check',
+    title: 'Nothing leaves this device',
+    body: 'No account, no server, no sync.',
+  },
 ]
 
 export interface WelcomeScreenProps {
@@ -55,7 +66,9 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
     <div className="mx-auto flex min-h-screen max-w-[520px] flex-col justify-center gap-8 py-10">
       <header className="flex flex-col items-center gap-2 text-center">
         <Mark size={44} className="text-emerald" />
-        <h1 className="font-voice text-title text-ink">Mizaniya</h1>
+        {/* The lockup's own display size. The artboard draws it at 42/48, and
+            `text-title` left the app's name smaller than the sentence under it. */}
+        <h1 className="font-voice text-lockup text-ink">Mizaniya</h1>
         {/* Under the Latin, never above it, and never carrying a figure. */}
         <WordmarkArabic height={26} className="text-soft" />
         <p className="font-structural text-small text-soft">
@@ -73,11 +86,18 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
 
       <ul className="flex flex-col gap-4">
         {POINTS.map((point) => (
-          <li key={point.title} className="flex flex-col gap-0.5">
-            <span className="font-structural text-body font-semibold text-ink">
-              {point.title}
-            </span>
-            <span className="font-structural text-small text-soft">{point.body}</span>
+          <li key={point.title} className="flex items-start gap-3">
+            {/* `positive` is bg-em2 on text-emerald — the tint the artboard uses
+                here, already named. A second 38px square would be one too many. */}
+            <IconTile tone="positive">
+              <Icon name={point.icon} size={18} />
+            </IconTile>
+            <div className="flex flex-1 flex-col gap-0.5">
+              <span className="font-structural text-body font-semibold text-ink">
+                {point.title}
+              </span>
+              <span className="font-structural text-small text-soft">{point.body}</span>
+            </div>
           </li>
         ))}
       </ul>

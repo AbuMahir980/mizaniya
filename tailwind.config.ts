@@ -74,6 +74,11 @@ export default {
     },
     fontSize: {
       hero: ['42px', { lineHeight: '48px', letterSpacing: '-0.035em', fontWeight: '600' }],
+      /* The brand lockup on the welcome screen. Same size as `hero`, looser
+         tracking: `hero` is tuned for tabular digits and over-tightens a serif
+         word. Drawn in WelcomeLight.dc.html; tokens.md section 3 does not name
+         it yet, which is a design follow-up rather than licence to guess. */
+      lockup: ['42px', { lineHeight: '48px', letterSpacing: '-0.015em', fontWeight: '600' }],
       title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
       h2: ['22px', { lineHeight: '28px', fontWeight: '600' }],
       body: ['15px', { lineHeight: '22px' }],
