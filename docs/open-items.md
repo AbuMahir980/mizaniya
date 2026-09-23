@@ -75,8 +75,9 @@ item below needs is already there — this list is about wiring it up, not makin
   are in `public/`, and the head tags are in `index.html` verbatim from
   `brand/README.md`. `Mark` is inlined at `src/ui/mark.tsx` rather than an `<img>`, so
   its `currentColor` strokes take the colour of whatever it sits in — one file for the
-  sidebar, the welcome screen and the printed record. **The manifest icons stay open:
-  they belong to T11 (#18)**, which is where the manifest is written.
+  sidebar, the welcome screen and the printed record. **Manifest icons done 23 September in
+  T11 (#18), PR #47** — the `icons`, `background_color` and `theme_color` block
+  verbatim, both purposes, and no JavaScript splash screen. **Item 4 is complete.**
 
 - [ ] **5 · Build the welcome screen** — add it to **T12**'s acceptance criteria.
   It was designed after PAGE SPECS, so no ticket mentions it. Artboards:
