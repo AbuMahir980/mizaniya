@@ -166,12 +166,44 @@ describe('navigation', () => {
     expect(debts.some((b) => b.getAttribute('aria-current') === 'page')).toBe(true)
   })
 
-  it('has no Transactions item — Quick Add covers recording (§2)', async () => {
+  it('the bottom bar has no Transactions item — Quick Add covers recording (§2)', async () => {
     renderApp(repo)
     await screen.findByRole('heading', { name: 'Safe to spend today' })
 
-    const nav = screen.getAllByRole('navigation')[0]!
-    expect(nav.textContent).not.toContain('Transactions')
+    // The bottom bar is the mobile one: five slots, and More carries the rest.
+    const bottomBar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('fixed'))!
+    expect(bottomBar.textContent).not.toContain('Transactions')
+    expect(bottomBar.textContent).toContain('More')
+  })
+
+  it('the sidebar lists every destination flat, and no More (§2)', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+
+    for (const label of ['Transactions', 'Months', 'Settings', 'Zakat']) {
+      expect(sidebar.textContent, `${label} missing from the sidebar`).toContain(label)
+    }
+    // More is a mobile affordance for a problem 1440 does not have.
+    expect(sidebar.textContent).not.toContain('More')
+  })
+
+  it('the sidebar carries the lockup, and stays put while the page scrolls', async () => {
+    renderApp(repo)
+    await screen.findByRole('heading', { name: 'Safe to spend today' })
+
+    const sidebar = screen
+      .getAllByRole('navigation')
+      .find((nav) => nav.className.includes('desktop:w-[240px]'))!
+
+    expect(sidebar.textContent).toContain('Mizaniya')
+    expect(sidebar.className).toContain('desktop:sticky')
+    expect(sidebar.className).toContain('desktop:h-screen')
   })
 })
 

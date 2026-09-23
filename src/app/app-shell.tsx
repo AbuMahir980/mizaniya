@@ -31,6 +31,24 @@ const NAV = [
   { key: 'more', label: 'More', path: '/more' },
 ] as const
 
+/**
+ * The sidebar lists **every destination flat, and no More** (§2).
+ *
+ * More is a mobile affordance: it exists because five slots is all a thumb can
+ * reach. At 1440 there is room for all of them, and keeping More there would
+ * hide four screens behind a button solving a problem that does not exist at
+ * that width.
+ */
+const SIDEBAR_NAV = [
+  { key: 'home', label: 'Home', path: '/' },
+  { key: 'plan', label: 'Plan', path: '/plan' },
+  { key: 'transactions', label: 'Transactions', path: '/transactions' },
+  { key: 'debts', label: 'Debts & Goals', path: '/debts' },
+  { key: 'months', label: 'Months', path: '/months' },
+  { key: 'settings', label: 'Settings', path: '/settings' },
+  { key: 'zakat', label: 'Zakat', path: '/zakat' },
+] as const
+
 /** A dot rather than a drawn icon: the icon set lands with the screens (T13). */
 function NavDot() {
   return (
@@ -41,11 +59,14 @@ function NavDot() {
   )
 }
 
-function useNavItems(): { items: NavItem[]; activeKey: string } {
+function useNavItems(destinations: readonly { key: string; label: string; path: string }[]): {
+  items: NavItem[]
+  activeKey: string
+} {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  const items = NAV.map((entry) => ({
+  const items = destinations.map((entry) => ({
     key: entry.key,
     label: entry.label,
     icon: <NavDot />,
@@ -54,7 +75,7 @@ function useNavItems(): { items: NavItem[]; activeKey: string } {
 
   // Longest match wins, so `/debts/x/record` still lights Debts.
   const active =
-    [...NAV]
+    [...destinations]
       .filter((entry) => entry.path !== '/' && pathname.startsWith(entry.path))
       .sort((a, b) => b.path.length - a.path.length)[0]?.key ?? 'home'
 
@@ -72,7 +93,8 @@ export function AppShell() {
   const state = useSnapshotState()
   const online = useIsOnline()
   const navigate = useNavigate()
-  const { items, activeKey } = useNavItems()
+  const bar = useNavItems(NAV)
+  const sidebar = useNavItems(SIDEBAR_NAV)
 
   if (state.status === 'idle' || state.status === 'loading') {
     return <LoadingScreen />
@@ -101,8 +123,8 @@ export function AppShell() {
   return (
     <div className="flex min-h-screen bg-bg">
       <Sidebar
-        items={items}
-        activeKey={activeKey}
+        items={sidebar.items}
+        activeKey={sidebar.activeKey}
         onAdd={() => navigate('/transactions')}
       />
 
@@ -123,8 +145,8 @@ export function AppShell() {
         </main>
 
         <BottomBar
-          items={items}
-          activeKey={activeKey}
+          items={bar.items}
+          activeKey={bar.activeKey}
           onAdd={() => navigate('/transactions')}
           className="desktop:hidden"
         />

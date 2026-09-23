@@ -9,6 +9,7 @@
 
 import type { ReactNode } from 'react'
 import { cx } from './cx'
+import { Mark } from './mark'
 
 export interface NavItem {
   key: string
@@ -102,9 +103,20 @@ export function Sidebar({
       className={cx(
         'hidden desktop:flex desktop:w-[240px] desktop:shrink-0 desktop:flex-col',
         'desktop:gap-1 desktop:border-r desktop:border-line desktop:bg-card desktop:p-4',
+        // Sticky and full height: the navigation stays put while the page moves
+        // under it. A sidebar that scrolls away leaves a long screen — Home,
+        // with two tables — with no way out but scrolling back up.
+        'desktop:sticky desktop:top-0 desktop:h-screen desktop:overflow-y-auto',
         className,
       )}
     >
+      {/* The lockup the design puts at the top of the sidebar
+          (`docs/design/canvas/DHomeLight.dc.html`, brand/README.md). */}
+      <div className="mb-6 flex items-center gap-2 px-3 pt-1">
+        <Mark size={22} className="text-emerald" />
+        <span className="font-voice text-h2 text-ink">Mizaniya</span>
+      </div>
+
       <button
         type="button"
         onClick={onAdd}
