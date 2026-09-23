@@ -9,13 +9,14 @@
 
 import { useNavigate } from 'react-router'
 import { HomeScreen } from '@/features/home/home-screen'
-import type { IsoDate } from '@/core/types'
 import { useIsOnline, useSnapshotState } from './store-context'
+import { useToday } from './today-context'
 
-export function HomeRoute({ now }: { now?: IsoDate }) {
+export function HomeRoute() {
   const state = useSnapshotState()
   const online = useIsOnline()
   const navigate = useNavigate()
+  const { now } = useToday()
 
   // The shell has already handled loading, new-owner and error, so anything
   // else here would be a second place for those states to drift.
@@ -24,7 +25,7 @@ export function HomeRoute({ now }: { now?: IsoDate }) {
   return (
     <HomeScreen
       snapshot={state.snapshot}
-      now={now ?? (new Date().toISOString().slice(0, 10) as IsoDate)}
+      now={now}
       online={online}
       onOpen={(destination) => navigate(destination)}
     />

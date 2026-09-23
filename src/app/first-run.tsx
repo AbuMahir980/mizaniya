@@ -14,8 +14,8 @@ import { Onboarding } from '@/features/onboarding/onboarding'
 import { buildSnapshot } from '@/features/onboarding/answers'
 import { createImportExport } from '@/store/import-export'
 import type { ImportRefusal } from '@/core/schema'
-import type { Instant, IsoDate } from '@/core/types'
 import { useSnapshotActions } from './store-context'
+import { useToday } from './today-context'
 
 /** Every refusal ends with this sentence, said to the person it protects. */
 const NOTHING_CHANGED = 'Nothing has changed.'
@@ -31,19 +31,11 @@ function refusalMessage(refusal: ImportRefusal): string {
   }
 }
 
-export interface FirstRunProps {
-  /** Injected so tests can fix the date; the app passes the real one. */
-  now?: IsoDate
-  at?: Instant
-}
-
-export function FirstRun({ now, at }: FirstRunProps) {
+export function FirstRun() {
   const actions = useSnapshotActions()
   const navigate = useNavigate()
   const [started, setStarted] = useState(false)
-
-  const today = now ?? (new Date().toISOString().slice(0, 10) as IsoDate)
-  const instant = at ?? (new Date().toISOString() as Instant)
+  const { now: today, at: instant } = useToday()
 
   if (!started) {
     return (

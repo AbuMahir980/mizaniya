@@ -9,27 +9,25 @@
 
 import { safeToSpend } from '@/core/budget/budget'
 import { speakMoney } from '@/core/money/money'
-import type { Instant, IsoDate, Transaction } from '@/core/types'
+import type { Transaction } from '@/core/types'
 import { QuickAdd } from '@/features/quick-add/quick-add'
 import { useAnnounce } from '@/ui/announce'
 import { useSnapshotActions, useSnapshotState } from './store-context'
+import { useToday } from './today-context'
 
 export interface QuickAddRouteProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  now?: IsoDate
-  at?: Instant
 }
 
-export function QuickAddRoute({ open, onOpenChange, now, at }: QuickAddRouteProps) {
+export function QuickAddRoute({ open, onOpenChange }: QuickAddRouteProps) {
   const state = useSnapshotState()
   const actions = useSnapshotActions()
   const { announce } = useAnnounce()
+  const { now: today, at: instant } = useToday()
 
   if (state.status !== 'ready') return null
 
-  const today = now ?? (new Date().toISOString().slice(0, 10) as IsoDate)
-  const instant = at ?? (new Date().toISOString() as Instant)
 
   return (
     <QuickAdd

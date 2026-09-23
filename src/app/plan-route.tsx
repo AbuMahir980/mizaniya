@@ -1,0 +1,104 @@
+/**
+ * WHAT: Plan, joined to the store.
+ * WHY:  Each row is its own write, so a failure is local to the row that failed
+ *       — the rest of the plan is already saved, and unallocated still reflects
+ *       what actually reached storage (ADR-001).
+ * INTERVIEW: I saved the plan row by row rather than as one document, so a
+ *       rejected write costs one figure rather than the whole screen.
+ */
+
+import { cycleAt, plannedFor } from '@/core/budget/budget'
+import { previousCycle } from '@/core/budget/rollover'
+import type { Category, Id, Kobo, PlanEntry } from '@/core/types'
+import { PlanScreen } from '@/features/plan/plan-screen'
+import { useAnnounce } from '@/ui/announce'
+import { useSnapshotActions, useSnapshotState } from './store-context'
+import { useToday } from './today-context'
+
+export function PlanRoute({ makeId }: { makeId?: () => string } = {}) {
+  const state = useSnapshotState()
+  const actions = useSnapshotActions()
+  const { announce } = useAnnounce()
+  const { now: today } = useToday()
+
+  if (state.status !== 'ready') return null
+
+  const newId = makeId ?? (() => crypto.randomUUID())
+
+  async function saveRow(categoryId: Category['id'], planned: Kobo): Promise<string | undefined> {
+    if (state.status !== 'ready') return 'Nothing is loaded yet.'
+    const cycle = cycleAt(state.snapshot, today)
+
+    const existing = state.snapshot.plans.find(
+      (p) => p.cycleStart === cycle.start && p.categoryId === categoryId,
+    )
+    const entry: PlanEntry = existing
+      ? { ...existing, planned }
+      : { id: newId() as Id, cycleStart: cycle.start, categoryId, planned }
+
+    const result = await actions.write(
+      (repository) => repository.plans.put(entry),
+      (snapshot) => ({
+        ...snapshot,
+        plans: existing
+          ? snapshot.plans.map((p) => (p.id === entry.id ? entry : p))
+          : [...snapshot.plans, entry],
+      }),
+    )
+
+    // Says what happened and what to do next (L2). The row keeps its figure and
+    // unallocated has not moved, because memory was never touched.
+    return result.ok ? undefined : `Couldn't save that. (${result.message})`
+  }
+
+  async function copyLastCycle(): Promise<string | undefined> {
+    if (state.status !== 'ready') return 'Nothing is loaded yet.'
+    const cycle = cycleAt(state.snapshot, today)
+    const previous = previousCycle(state.snapshot, cycle)
+
+    /**
+     * Only categories with nothing planned this cycle are filled in.
+     *
+     * Copying over a figure the owner has already typed would undo deliberate
+     * work with one tap, and there is no undo on this screen.
+     */
+    const entries: PlanEntry[] = state.snapshot.categories
+      .filter((category) => !category.archivedAt)
+      .filter((category) => plannedFor(state.snapshot.plans, cycle, category.id) === 0)
+      .map((category) => ({
+        category,
+        amount: plannedFor(state.snapshot.plans, previous, category.id),
+      }))
+      .filter(({ amount }) => amount > 0)
+      .map(({ category, amount }) => ({
+        id: newId() as Id,
+        cycleStart: cycle.start,
+        categoryId: category.id,
+        planned: amount,
+      }))
+
+    if (entries.length === 0) return 'Last cycle had nothing to copy.'
+
+    const result = await actions.write(
+      (repository) => repository.plans.bulkPut(entries),
+      (snapshot) => ({ ...snapshot, plans: [...snapshot.plans, ...entries] }),
+    )
+
+    if (!result.ok) return `Couldn't copy that. (${result.message})`
+
+    announce({
+      toast: 'Copied.',
+      spoken: `Copied ${entries.length} ${entries.length === 1 ? 'amount' : 'amounts'} from last cycle.`,
+    })
+    return undefined
+  }
+
+  return (
+    <PlanScreen
+      snapshot={state.snapshot}
+      now={today}
+      onSaveRow={saveRow}
+      onCopyLastCycle={copyLastCycle}
+    />
+  )
+}
