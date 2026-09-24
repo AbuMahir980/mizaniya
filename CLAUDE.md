@@ -56,21 +56,44 @@ stack; `docs/standards/` is the rulebook.
 
 ---
 
-## 4. Learning mode — suspended 2026-09-24
+## 4. Learning mode — replaced 2026-09-24: topic notes, not code comments
 
-**Suspended at the stakeholder's instruction; a replacement approach is coming.**
-Do not follow the old contract, and do not reinstate it by inferring it from the
-existing `docs/concepts/` files or the file headers already in `src/`. The
-suspended text is kept, collapsed, in `CONTEXT.md` for reference.
+The old contract is **gone**, not suspended. Its text is kept collapsed in
+`CONTEXT.md` as history. The replacement has two halves.
 
-Two things still apply, because neither is learning mode:
+**1. The code is cleared of explanation.** The three-line `WHAT / WHY /
+INTERVIEW` header is **removed** — from new files and, as a sweep, from existing
+ones. Comments survive only where the code genuinely cannot speak for itself: a
+non-obvious constraint, a workaround that needs its reason, a domain rule a reader
+would otherwise "fix". The test is whether a competent reader would ask *why is it
+like this?* and find no answer in the code. If they would, comment it. Otherwise
+delete it. Explanation lives in the notes below, not in the source.
 
-- **The three-line file header** (WHAT / WHY this pattern over the obvious
-  alternative / the one sentence for an interview) is now **house code style**.
-  Nearly every file in `src/` has one; keep writing them so new files match.
-- **Real trade-offs are laid out with both sides, the stakeholder chooses, and the
-  choice and its reason are recorded** — in an ADR, and in `CONTEXT.md` Key
-  Decisions. That is this project's decision procedure, not a teaching device.
+**2. One note per engineering topic**, in `docs/engineering-notes/` — not per
+file, not per decision, but **per topic someone would actually ask about** (state
+management, storage, money, offline, sync, performance, auth…). Each note answers,
+in order:
+
+- what the problem was;
+- what this project did;
+- the concepts involved, named plainly;
+- **the why-chain** — why this and not the obvious alternative, and why not *that*,
+  down until the answer rests on a constraint rather than a preference.
+
+The test of a good note: it answers the question cold, and survives being pushed.
+*"How did you handle a thousand records?"* — *"Caching."* — *"Why caching?"* — and
+the chain holds three or four levels deep without bottoming out in "it seemed
+better".
+
+**A note may say the work is not done.** *"Not built yet; here is when it would be
+needed, and what we would do"* is a legitimate and valuable note. **Writing down a
+deliberate deferral is worth more than building the thing early** — it shows the
+limit was understood and chosen, which is precisely what premature machinery fails
+to show.
+
+**Notes are not ADRs, and both stay.** An ADR records a decision *at the moment it
+was made* and is immutable history. A topic note explains the **system as it now
+is** and is rewritten whenever that changes. A note links its ADRs.
 
 ---
 

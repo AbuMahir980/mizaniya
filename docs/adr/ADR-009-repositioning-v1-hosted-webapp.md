@@ -149,10 +149,12 @@ user rather than the first line of server code.
 
 ## Action Items
 
-1. [ ] **Rule 6 — real user data.** The stakeholder writes it verbatim; it is added to `CONTEXT.md` under the repo rules. **Blocks the first real user**, not the first commit.
+1. [x] **Rule 6 — given 2026-09-24, and it is a different rule than expected:** every build is developed and tested against **seeded data, behind a toggle**, so any feature can be exercised end to end with dummy figures. Recorded in `CONTEXT.md`, awaiting the stakeholder's final phrasing. The in-app seed toggle is a new build item — `npm run seed` exists but is a script, not a switch.
+1b. [ ] **A seventh rule is still owed — what the server may hold.** Rule 6 governs how we build; nothing yet governs real user data in a production database. Production data never becomes a fixture or screenshot; NDPR duties including real erasure; encryption at rest; a tested restore. **Blocks the first real user**, not the first line of server code.
 2. [ ] **[ADR-010](ADR-010-sync-model.md) — the sync model.** Written alongside this; it gates every endpoint and is design-visible.
 3. [ ] Re-spec: the system spec's new stories (accounts, sign-in, sync state, tiers, household) and `peer-ai/backend/01-spec-endpoints.md`.
-4. [ ] **One design brief** for the new and changed surface, naming what is reusable: landing page, sign-up / sign-in / reset, account and billing, what a locked paid feature looks like, household invite, the signed-out state of every screen, and the reconciliation flow for bank sync. Goes to the designer **after** items 2 and 3.
+4. [ ] **One design brief** for the new and changed surface, naming what is reusable: sign-up / sign-in / reset, account and billing, what a locked paid feature looks like, household invite, the signed-out state of every screen, and the reconciliation flow for bank sync. Goes to the designer **after** items 2 and 3.
+4b. [ ] **The landing page is confirmed in scope and is not a stub** — the owner's instruction, 2026-09-24: it *"has to be done properly"*, as part of this being a real product rather than a demo. It is the first thing an investor, an employer or a prospective user sees, so it is designed properly and briefed alongside item 4, not improvised from leftover components at the end.
 5. [ ] The workspace extraction (ADR-008 item 2), before `services/api` has a line in it.
 6. [ ] Amend ADR-007 for a service worker that now has network data behind it.
 7. [ ] Choose hosting, and **verify the free tier's database retention** before committing. A budgeting app that loses a user's data to an expired free database does not get their trust back.

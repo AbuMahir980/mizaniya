@@ -50,16 +50,34 @@ ADR-008's written criteria were applied to it. **The criterion that will move is
 becomes true at the first paying user, and when it does, visibility is revisited
 by another written amendment here.
 
-**Rule 6 is owed and not yet written, 2026-09-24.** Rule 2 forbids real financial
-figures **in the repository**; it is silent about a database, because there was
-none. A hosted app holding other people's salary and transaction data needs the
-equivalent rule. The repo rules are recorded verbatim in the stakeholder's own
-words and must not be paraphrased, so **it is not drafted here** — the stakeholder
-writes it. What it has to cover is listed in ADR-009: production data never
-becomes a fixture, screenshot or seed file; `docs/seed-data.md` stays the only
-source of figures; NDPR duties including erasure on request; encryption at rest;
-and a restore from backup that has actually been tested. **This blocks the first
-real user, not the first line of server code.**
+**Rule 6, given by the stakeholder 2026-09-24 — build against seeded data, and
+make it a switch.** Their words: *"for any build we must build with a seeded data
+first — so it should be something that can be toggled on and off. We build with
+seeded data, that's like dummy data, to actually test functionality."*
+
+Draft wording, **awaiting the stakeholder's final phrasing** before it joins the
+five above as binding:
+
+> 6. Every build is developed and tested against seeded data, never against real
+>    data. The seed is a switch that can be turned on and off, so any feature can
+>    be exercised end to end with dummy figures on demand. Figures come only from
+>    `docs/seed-data.md` (rule 2).
+
+Partly in place already: `npm run seed` writes a real export file that the app
+restores through its ordinary import path. **What is new is the toggle** — seeding
+on demand from inside the running app, rather than as a one-off script. That
+becomes a build item.
+
+**A seventh rule is still owed, and rule 6 does not cover it.** Rule 6 is about how
+we build; the gap is about what a server *holds*. Rule 2 forbids real financial
+figures **in the repository** and is silent about a database, because there was
+none. A hosted app holding other people's salary and transaction data needs its own
+rule: production data never becomes a fixture, screenshot or seed file; NDPR duties
+including real erasure on request; encryption at rest; and a restore from backup
+that has actually been tested rather than assumed. **This blocks the first real
+user, not the first line of server code.** It is not drafted here because the rules
+are the stakeholder's own words — but a draft can be offered for them to correct, if
+they would rather work that way.
 
 ---
 
@@ -132,23 +150,68 @@ different client.
 
 ---
 
-## Learning mode — suspended 2026-09-24, awaiting its replacement
+## Learning mode — replaced 2026-09-24 by topic notes
 
-**The contract below is suspended at the stakeholder's instruction.** They have a
-different approach in mind and will describe it; until then **none of it is
-enforced**, and no session should reinstate it by inference from the existing
-artefacts.
+The old contract is **gone**, not suspended. The stakeholder's replacement, in
+their words: *"the parts where we've been adding comments to codes and the likes
+— except maybe there is a need for it — I want everything to be cleared now"*, and
+instead a note per subject that says *"this is what this project did, these are the
+concepts from it… how did you manage 1000 data? I managed 1000 data using caching.
+And why caching? Why? Why?"*
 
-**One item is retained, and deliberately reclassified.** The **three-line file
-header** (WHAT · WHY this pattern over the obvious alternative · the one sentence
-for an interview) stays — not as learning mode, but as **house code style**.
-Roughly every file in `src/` already carries one, and dropping it now would make
-new files inconsistent with the whole existing codebase. If the replacement idea
-removes it too, that is a deliberate style change to make across the repo at once,
-not a drift.
+**So: explanation comes out of the code and goes into one note per topic.**
 
-`docs/concepts/` and `docs/concepts/revisit.md` are **kept as artefacts** — they
-are written and useful. They are simply no longer *required output* of any step.
+**1. The code is cleared.** The three-line `WHAT / WHY / INTERVIEW` header is
+removed, from new files and from existing ones as a sweep. A comment survives only
+where the code cannot speak for itself — a non-obvious constraint, a workaround
+that needs its reason, a domain rule someone would otherwise "fix". The test: would
+a competent reader ask *why is it like this?* and find no answer in the code? Then
+comment. Otherwise delete.
+
+**2. One note per topic**, in `docs/engineering-notes/`. Not per file and not per
+decision — **per topic someone would ask about**: state management, storage, money,
+offline, sync, performance, auth. Each answers, in order: what the problem was ·
+what this project did · the concepts, named plainly · **the why-chain**, why this
+and not the obvious alternative, and why not that, until the answer rests on a
+constraint rather than a preference.
+
+The test is that it survives being pushed. *"How did you handle a thousand
+records?"* — *"Caching."* — *"Why caching?"* — and it holds three or four levels
+deep without bottoming out in "it seemed better".
+
+**A note may say the work is not done.** *"Not built yet; here is when it would be
+needed and what we would do"* is a legitimate note, and often a better one.
+**Writing down a deliberate deferral is worth more than building the thing early**
+— it shows the limit was understood and chosen, which premature machinery never
+shows.
+
+**Notes are not ADRs, and both stay.** An ADR records a decision *at the moment it
+was made* and is immutable. A note explains the **system as it is now** and is
+rewritten when that changes. A note links its ADRs.
+
+**`docs/concepts/` is the old format.** Kept as artefacts; its useful content is
+folded into the topic notes as those are written, and the WHY lines being deleted
+from file headers are harvested into them rather than thrown away. Tracked on the
+sweep ticket.
+
+<details>
+<summary>The replaced contract, kept as history</summary>
+
+This project is built to be understood. The stakeholder reads; they do not type
+the code. Do not slow down to make them type.
+
+- **Before each phase:** three or four plain sentences on what it produces and why it comes before the next.
+- **Before non-trivial logic** (cycle maths, safe-to-spend, rollover, projected gap, zakat): state the reasoning in steps — inputs, rule, edge cases — *then* write the code.
+- **Every file gets a three-line header:** WHAT it does · WHY this pattern over the obvious alternative · ONE SENTENCE to say about it in an interview.
+- **`docs/concepts/`** — one short file per concept the first time it appears (repository pattern, IndexedDB, derived state, optimistic UI, idempotent saves, tokens vs hard-coded styles…): what it is, why it is used here, what we would have used instead and why not, and the interview sentence. The stakeholder adds a line in their own words after reading.
+- **At each stop:** ask five questions about what was built, and say honestly whether the answers hold up. Log misses in `docs/concepts/revisit.md`.
+- **Real trade-offs** are laid out with both sides; the stakeholder chooses; the choice and its reason are recorded in Key Decisions below.
+
+</details>
+
+**One thing that was never learning mode and continues regardless:** trade-offs are
+laid out both ways, the stakeholder chooses, and the choice and its reason are
+recorded — in an ADR and in Key Decisions. That is how this project decides things.
 
 <details>
 <summary>The suspended contract, kept for reference</summary>
@@ -382,7 +445,9 @@ rather than left to be rediscovered.)*
 | 2026-09-24 | **Mizaniya reads bank movement; it never holds or moves money.** No custody, no transfer, no settlement — so none of the payment-licensing weight applies, and an earlier reading that assumed it did was wrong. What remains is narrower and unrelated: NDPR applies to processing the data, and **the aggregator's commercial onboarding is the real gate** — they bill per linked account, which is also why that feature cannot sit on a free tier | owner |
 | 2026-09-24 | **Sync moves facts, never derivations.** Every money figure — safe-to-spend, rollover, projected gap, the debt balance, zakat — is derived, and ADR-003 (time is a parameter) plus ADR-004 (integer kobo) make that derivation deterministic. So no two devices ever have to reconcile two values of safe-to-spend; they recompute from the same rows and agree by construction. It shrinks the conflict surface to one row type (`PlanEntry`) and one singleton (`Settings`) | [ADR-010](docs/adr/ADR-010-sync-model.md) |
 | 2026-09-24 | **"Open source" was the wrong word, and PolyForm already does what was wanted.** The intent is a repository that is *readable as proof of work* to investors and employers — not an invitation to alter the code. PolyForm Noncommercial gives exactly that: anyone may read and study it, nobody may commercialise it, and the owner keeps every commercial right. **No CLA is needed while no outside code is accepted**, and the project is described as **source-available**, not open source | owner |
-| 2026-09-24 | **Learning mode is suspended pending a replacement the owner is designing.** The three-line file header is **retained and reclassified as house code style** — nearly every file in `src/` has one, and dropping it would leave new files inconsistent with the whole codebase. `docs/concepts/` is kept as artefacts, no longer required output. What survives is not learning mode at all: trade-offs laid out both ways, the owner choosing, the reason recorded | owner |
+| 2026-09-24 | **Learning mode is replaced: explanation comes out of the code and goes into one note per topic.** The three-line file header is **removed** across the repo, and a comment survives only where the code cannot speak for itself. In its place, `docs/engineering-notes/` carries one note per subject someone would actually ask about — what the problem was, what we did, the concepts, and **the why-chain pushed until it rests on a constraint rather than a preference**. A note may legitimately say *not built yet, here is when it would be needed* — **writing down a deliberate deferral is worth more than building the thing early.** Notes explain the system as it is now; ADRs stay immutable records of decisions | owner |
+| 2026-09-24 | **Rule 6: every build is developed against seeded data, behind a toggle.** Dummy figures on demand so any feature can be exercised end to end. `npm run seed` already writes a restorable export, but it is a script — **the toggle inside the running app is the new part**, and it is also the honest reason nobody ever needs production data to reproduce a bug | owner |
+| 2026-09-24 | **The landing page is in scope and done properly, not a stub.** It is the first thing an investor, an employer or a user sees, so it is designed and briefed with the rest — not improvised from leftover components once the app works | owner |
 ## What Was Done — By Day
 
 Newest first.
@@ -453,10 +518,18 @@ never derivations.** Every money figure is derived, and ADR-003 and ADR-004 make
 the derivation deterministic, so the conflict surface is one row type and one
 singleton against a transaction log that merges by construction.
 
-**Learning mode was suspended** at the owner's instruction; a replacement is
-theirs to describe. The three-line file header was retained and reclassified as
-house code style, because nearly every file has one and removing it piecemeal
-would leave the codebase inconsistent in a way nobody chose.
+**Learning mode was replaced**, and the owner described the replacement the same
+day. Explanation comes out of the code — the three-line header goes, and comments
+stay only where the code cannot speak for itself — and moves into one note per
+topic in `docs/engineering-notes/`: what the problem was, what we did, the concepts,
+and the why-chain pushed until it rests on a constraint. *"How did you manage 1000
+data? Caching. Why caching? Why?"* — the note has to survive that. A note may also
+say a thing is deliberately not built yet, which is often the better note.
+
+An earlier call in this session was overruled and rightly: the file header had been
+retained as house style on the argument that a hundred files already carried one.
+The owner wants the code cleared. The WHY lines are harvested into the topic notes
+as the sweep removes them, so the reasoning is relocated rather than deleted.
 
 **Nothing ran.** No code changed, so `npm run verify` was not the gate today; the
 gate was that the repositioning is written down before a line is built against it.
