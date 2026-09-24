@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | **Proposed — awaiting the stakeholder** |
+| **Status** | **Accepted** — 2026-09-24 |
 | **Date** | 2026-09-24 |
 | **Deciders** | Qudus Lawal (stakeholder and owner) |
 
@@ -74,11 +74,20 @@ which is exactly what a sync timestamp is.
 
 ---
 
-## Decision (proposed)
+## Decision
 
 **Local-first. IndexedDB stays authoritative for the device; the server is a sync
 target, not the source of truth.** Per-row last-write-wins, with tombstones for
 deletes and the server providing the ordering.
+
+**Chosen on a product argument, not a technical one.** The stakeholder's reason,
+2026-09-24: *offline is the selling point of the app.* And it holds up — budgeting
+only works if spending is recorded **at the moment it happens**, in a queue, at a
+fuel station, immediately after paying, which is exactly when the connection is
+worst. An app that refuses the entry teaches people to stop entering, and **a
+budget nobody updates is worse than no budget**: it reports a comfortable figure
+for what is left, and that figure is wrong. The offline guarantee is not a
+technical nicety here, it is the thing that makes the numbers true.
 
 Three parts:
 
@@ -95,12 +104,38 @@ Three parts:
 
 ### What this does not solve, and must not pretend to
 
-**Household sharing changes the stakes.** One owner on two devices losing a plan
-edit to last-write-wins is tolerable — they made both edits and the later one is
-what they meant. A spouse's edit vanishing silently is a different thing
-entirely. When household sharing is built, `PlanEntry` needs either field-level
-merge or a visible "changed by X" resolution, and last-write-wins on a shared
-budget row is not acceptable. **Named here, decided when that feature is specced.**
+**Household sharing changes the stakes, and the answer is to ask, not to merge.**
+One owner on two devices losing a plan edit to last-write-wins is tolerable — they
+made both edits, and the later one is what they meant. A spouse's edit vanishing
+silently is a different thing entirely.
+
+The stakeholder's resolution, 2026-09-24, and it is better than the technical
+default: **surface the disagreement to the two people and let them settle it.**
+*"You set Food to ₦40,000; your wife set it to ₦35,000. Do you agree to this?"* —
+and on agreement it updates.
+
+This is not a softer version of conflict resolution; it is a different and
+sounder one. A shared household budget is **an agreement between two people**, so
+a disagreement about it is a conversation, not a data-integrity problem to be
+resolved behind their backs by a timestamp. It also happens to be easier to
+reason about than any silent merge rule.
+
+What it requires, and the requirement is the interesting part: **the sync must
+keep both values.** A conflict stops being something to resolve on arrival and
+becomes a piece of state the app stores and shows — both amounts, who set each,
+and when — until a person settles it. Nothing is overwritten in the meantime.
+
+So there are deliberately **two rules, because these are two different
+situations**:
+
+| Situation | Rule |
+|---|---|
+| One person, two devices | **Last write wins.** They made both edits; the later one is what they meant. No prompt — being asked to arbitrate with yourself is noise |
+| Two people, one shared budget | **Keep both and ask.** Neither value is discarded until someone agrees |
+
+Design consequence, into ADR-009's brief: this needs a notification and a
+resolution screen, and copy that reads as two people agreeing rather than the
+software refereeing.
 
 **Tombstones need a retention policy.** Keep them forever and the table grows
 without bound; expire them at 90 days and a device offline longer than that
@@ -113,7 +148,7 @@ happens to a device that has been away longer.
 
 | Option | Pros | Cons |
 |--------|------|------|
-| **Local-first, server as sync target** *(proposed)* | Keeps the offline story, which matters on a Nigerian mobile connection and is currently a selling point; ADR-007 and D14 stay true; writes never wait on the network; the local implementation stays live code rather than becoming a dead seam; the conflict surface is genuinely small | Merge logic to build and test; needs the schema migration above; last-write-wins is honest for one owner but not for a household |
+| **Local-first, server as sync target** *(chosen)* | Keeps the offline story, which matters on a Nigerian mobile connection and is currently a selling point; ADR-007 and D14 stay true; writes never wait on the network; the local implementation stays live code rather than becoming a dead seam; the conflict surface is genuinely small | Merge logic to build and test; needs the schema migration above; last-write-wins is honest for one owner but not for a household |
 | **Server authoritative, local as cache** | Much simpler — one source of truth, no merge logic, no tombstones, no clock problem; the conventional shape every backend tutorial teaches | Gives up offline writes and therefore the local-first identity; the app stops working in a lift; the existing Dexie implementation becomes a cache layer rather than the real thing; and it contradicts the brief's first sentence |
 | **Event log / CRDT** | Correct by construction; merges without losing an edit; would make household sharing fall out for free | Heavy for a budget app: every screen reads a projection, debugging gets much harder, and it is a large amount of machinery for one contentious row type |
 | **No sync — accounts for billing only, data stays per-device** | Almost no work; still enables a paid tier | The thing people would pay for is their data following them; and bank sync writes to the server anyway, so the seam is needed regardless |
