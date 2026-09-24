@@ -12,13 +12,16 @@
 import type {
   Category,
   Debt,
+  Deletion,
   Goal,
   Id,
   IsoDate,
   PlanEntry,
   Settings,
+  Instant,
   Snapshot,
   Transaction,
+  Unstamped,
 } from './types'
 
 /**
@@ -32,6 +35,30 @@ export interface DateRange {
   to: IsoDate
 }
 
+/**
+ * Every write takes `Unstamped<T>` and the instant to stamp it with.
+ *
+ * **Why the caller cannot pass `updatedAt` itself.** `{ ...category, name: 'Food' }`
+ * is the ordinary way to edit an object, and it carries the *old* timestamp
+ * forward. Nothing would fail; the row would simply stop winning the comparisons
+ * it should win — a silent fault in sync, which is the worst shape available. So
+ * the type refuses it.
+ *
+ * **Why the instant is a parameter rather than a clock inside the repository.**
+ * Nothing in this codebase reads the clock where it could be told the time
+ * (ADR-003): `core/` takes `now`, `buildExportFile` takes `exportedAt`,
+ * `useToday()` hands the app `at` and calls it *"the instant, for stamping
+ * records"*. A repository that read `Date.now()` privately would also make the
+ * stored row and the in-memory row differ by a few milliseconds for no reason —
+ * because `write` commits to storage first and updates memory second, and the
+ * caller must be able to produce **exactly** the row that was stored. Passing the
+ * instant means `stamp(row, at)` and `put(row, at)` agree by construction.
+ *
+ * **`import` is the exception and takes fully stamped rows.** A file's timestamps
+ * are the truth about when those rows last changed. Re-stamping them on import
+ * would make every row look edited at the moment of restore, and at the next sync
+ * a restored backup would beat newer data that is genuinely newer.
+ */
 export interface Repository {
   /**
    * Reads everything, once, at startup. The app then works from that snapshot
@@ -50,40 +77,40 @@ export interface Repository {
 
   settings: {
     get(): Promise<Settings | undefined>
-    put(settings: Settings): Promise<void>
+    put(settings: Unstamped<Settings>, at: Instant): Promise<void>
   }
 
   categories: {
     list(): Promise<Category[]>
-    put(category: Category): Promise<void>
-    delete(id: Id): Promise<void>
+    put(category: Unstamped<Category>, at: Instant): Promise<void>
+    delete(id: Id, at: Instant): Promise<void>
   }
 
   plans: {
     listByCycle(cycleStart: IsoDate): Promise<PlanEntry[]>
-    put(entry: PlanEntry): Promise<void>
-    bulkPut(entries: PlanEntry[]): Promise<void>
-    delete(id: Id): Promise<void>
+    put(entry: Unstamped<PlanEntry>, at: Instant): Promise<void>
+    bulkPut(entries: Unstamped<PlanEntry>[], at: Instant): Promise<void>
+    delete(id: Id, at: Instant): Promise<void>
   }
 
   transactions: {
     /** Omit the range to list everything. */
     list(range?: DateRange): Promise<Transaction[]>
-    put(transaction: Transaction): Promise<void>
-    bulkPut(transactions: Transaction[]): Promise<void>
-    delete(id: Id): Promise<void>
+    put(transaction: Unstamped<Transaction>, at: Instant): Promise<void>
+    bulkPut(transactions: Unstamped<Transaction>[], at: Instant): Promise<void>
+    delete(id: Id, at: Instant): Promise<void>
   }
 
   debts: {
     list(): Promise<Debt[]>
-    put(debt: Debt): Promise<void>
-    delete(id: Id): Promise<void>
+    put(debt: Unstamped<Debt>, at: Instant): Promise<void>
+    delete(id: Id, at: Instant): Promise<void>
   }
 
   goals: {
     list(): Promise<Goal[]>
-    put(goal: Goal): Promise<void>
-    delete(id: Id): Promise<void>
+    put(goal: Unstamped<Goal>, at: Instant): Promise<void>
+    delete(id: Id, at: Instant): Promise<void>
   }
 
   /** Everything, for the export file. */
@@ -98,6 +125,18 @@ export interface Repository {
    * exported the current data to disk before calling this.
    */
   import(snapshot: Snapshot): Promise<void>
+
+  /**
+   * Tombstones — what was deleted, and when.
+   *
+   * Read-only here, because nothing writes one directly: a tombstone is a
+   * consequence of `delete`, and a second way to create one is a second way for
+   * the two to disagree. Pruning arrives with the retention policy, in the
+   * endpoint spec (ADR-010).
+   */
+  deletions: {
+    list(): Promise<Deletion[]>
+  }
 
   /** Removes everything. Used by tests and by "start again" in Settings. */
   clear(): Promise<void>

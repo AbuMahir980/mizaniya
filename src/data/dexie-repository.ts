@@ -12,19 +12,43 @@
 import type { Repository, DateRange } from '@/core/repository'
 import type {
   Category,
+  DeletableEntity,
   Debt,
+  Deletion,
   Goal,
   Id,
+  Instant,
   IsoDate,
   PlanEntry,
   Settings,
   Snapshot,
   Transaction,
+  Unstamped,
 } from '@/core/types'
+import { stamp, stampAll } from '@/core/sync/stamp'
 import { MizaniyaDatabase, SETTINGS_KEY } from './database'
 
 export function createDexieRepository(database = new MizaniyaDatabase()): Repository {
   const db = database
+
+  /**
+   * Records that a row used to exist, in the same transaction that removes it.
+   *
+   * Both together or neither. A row removed with no tombstone is a deletion that
+   * can never reach another device; a tombstone with the row still present is a
+   * record that contradicts itself. Either half alone is worse than neither.
+   */
+  async function removeAndRecord(
+    table: { delete(id: string): Promise<void> },
+    entity: DeletableEntity,
+    id: Id,
+    at: Instant,
+  ): Promise<void> {
+    await db.transaction('rw', [table as never, db.deletions as never], async () => {
+      await table.delete(id)
+      await db.deletions.put({ entity, id, deletedAt: at })
+    })
+  }
 
   /**
    * Everything on the device, or `undefined` when there is nothing yet.
@@ -55,10 +79,10 @@ export function createDexieRepository(database = new MizaniyaDatabase()): Reposi
       async get(): Promise<Settings | undefined> {
         return db.settings.get(SETTINGS_KEY)
       },
-      async put(settings: Settings): Promise<void> {
+      async put(settings: Unstamped<Settings>, at: Instant): Promise<void> {
         // The key is passed separately because the table is declared outbound,
         // which keeps `Settings` free of a field that exists only for storage.
-        await db.settings.put(settings, SETTINGS_KEY)
+        await db.settings.put(stamp<Settings>(settings, at), SETTINGS_KEY)
       },
     },
 
@@ -66,11 +90,11 @@ export function createDexieRepository(database = new MizaniyaDatabase()): Reposi
       async list(): Promise<Category[]> {
         return db.categories.toArray()
       },
-      async put(category: Category): Promise<void> {
-        await db.categories.put(category)
+      async put(category: Unstamped<Category>, at: Instant): Promise<void> {
+        await db.categories.put(stamp<Category>(category, at))
       },
-      async delete(id: Id): Promise<void> {
-        await db.categories.delete(id)
+      async delete(id: Id, at: Instant): Promise<void> {
+        await removeAndRecord(db.categories, 'category', id, at)
       },
     },
 
@@ -78,14 +102,14 @@ export function createDexieRepository(database = new MizaniyaDatabase()): Reposi
       async listByCycle(cycleStart: IsoDate): Promise<PlanEntry[]> {
         return db.plans.where('cycleStart').equals(cycleStart).toArray()
       },
-      async put(entry: PlanEntry): Promise<void> {
-        await db.plans.put(entry)
+      async put(entry: Unstamped<PlanEntry>, at: Instant): Promise<void> {
+        await db.plans.put(stamp<PlanEntry>(entry, at))
       },
-      async bulkPut(entries: PlanEntry[]): Promise<void> {
-        await db.plans.bulkPut(entries)
+      async bulkPut(entries: Unstamped<PlanEntry>[], at: Instant): Promise<void> {
+        await db.plans.bulkPut(stampAll<PlanEntry>(entries, at))
       },
-      async delete(id: Id): Promise<void> {
-        await db.plans.delete(id)
+      async delete(id: Id, at: Instant): Promise<void> {
+        await removeAndRecord(db.plans, 'plan', id, at)
       },
     },
 
@@ -96,14 +120,14 @@ export function createDexieRepository(database = new MizaniyaDatabase()): Reposi
         // Cycles abut, and an inclusive end would put every boundary day in two.
         return db.transactions.where('date').between(range.from, range.to, true, false).toArray()
       },
-      async put(transaction: Transaction): Promise<void> {
-        await db.transactions.put(transaction)
+      async put(transaction: Unstamped<Transaction>, at: Instant): Promise<void> {
+        await db.transactions.put(stamp<Transaction>(transaction, at))
       },
-      async bulkPut(transactions: Transaction[]): Promise<void> {
-        await db.transactions.bulkPut(transactions)
+      async bulkPut(transactions: Unstamped<Transaction>[], at: Instant): Promise<void> {
+        await db.transactions.bulkPut(stampAll<Transaction>(transactions, at))
       },
-      async delete(id: Id): Promise<void> {
-        await db.transactions.delete(id)
+      async delete(id: Id, at: Instant): Promise<void> {
+        await removeAndRecord(db.transactions, 'transaction', id, at)
       },
     },
 
@@ -111,11 +135,11 @@ export function createDexieRepository(database = new MizaniyaDatabase()): Reposi
       async list(): Promise<Debt[]> {
         return db.debts.toArray()
       },
-      async put(debt: Debt): Promise<void> {
-        await db.debts.put(debt)
+      async put(debt: Unstamped<Debt>, at: Instant): Promise<void> {
+        await db.debts.put(stamp<Debt>(debt, at))
       },
-      async delete(id: Id): Promise<void> {
-        await db.debts.delete(id)
+      async delete(id: Id, at: Instant): Promise<void> {
+        await removeAndRecord(db.debts, 'debt', id, at)
       },
     },
 
@@ -123,11 +147,11 @@ export function createDexieRepository(database = new MizaniyaDatabase()): Reposi
       async list(): Promise<Goal[]> {
         return db.goals.toArray()
       },
-      async put(goal: Goal): Promise<void> {
-        await db.goals.put(goal)
+      async put(goal: Unstamped<Goal>, at: Instant): Promise<void> {
+        await db.goals.put(stamp<Goal>(goal, at))
       },
-      async delete(id: Id): Promise<void> {
-        await db.goals.delete(id)
+      async delete(id: Id, at: Instant): Promise<void> {
+        await removeAndRecord(db.goals, 'goal', id, at)
       },
     },
 
@@ -169,7 +193,18 @@ export function createDexieRepository(database = new MizaniyaDatabase()): Reposi
           db.debts.bulkPut(snapshot.debts),
           db.goals.bulkPut(snapshot.goals),
         ])
+        // Nothing stamps these rows: the file's own timestamps are the truth
+        // about when they last changed. Re-stamping on restore would make every
+        // row look edited just now, and a restored backup would then beat data
+        // that is genuinely newer at the first sync.
+
       })
+    },
+
+    deletions: {
+      async list(): Promise<Deletion[]> {
+        return db.deletions.toArray()
+      },
     },
 
     async clear(): Promise<void> {

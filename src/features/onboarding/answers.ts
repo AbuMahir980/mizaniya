@@ -11,6 +11,7 @@
  */
 
 import { addDays, cycleFor } from '@/core/cycle/cycle'
+import { stampAll } from '@/core/sync/stamp'
 import type {
   Category,
   CategoryType,
@@ -23,6 +24,7 @@ import type {
   Settings,
   Snapshot,
   Transaction,
+  Unstamped,
 } from '@/core/types'
 
 /** Which way a debt was entered. The balance derives from the movement (D9). */
@@ -53,7 +55,7 @@ export interface OnboardingAnswers {
   salaryDay: number
   takeHome: Kobo
   /** Step 3 — the starter list, as edited. */
-  categories: Category[]
+  categories: Unstamped<Category>[]
   /** Step 4 — per savings category, zero or absent means "nothing yet". */
   openingBalances: Record<string, Kobo>
   /** Step 5 — both directions in one step. */
@@ -82,7 +84,7 @@ export const STARTER_CATEGORIES: { name: string; type: CategoryType; rollsOver: 
   { name: 'Sadaqah', type: 'expense', rollsOver: false },
 ]
 
-export function starterCategories(makeId: () => string): Category[] {
+export function starterCategories(makeId: () => string): Unstamped<Category>[] {
   return STARTER_CATEGORIES.map((c, index) => ({
     id: makeId() as Id,
     name: c.name,
@@ -124,6 +126,9 @@ export interface BuildContext {
  */
 export function buildSnapshot(answers: OnboardingAnswers, ctx: BuildContext): Snapshot {
   const settings: Settings = {
+    // Stamped inline rather than at the return, because `cycleFor` below takes a
+    // complete `Settings` and this is the instant it was created at anyway.
+    updatedAt: ctx.at,
     ...(answers.ownerName ? { ownerName: answers.ownerName } : {}),
     salaryDay: answers.salaryDay,
     takeHome: answers.takeHome,
@@ -142,7 +147,7 @@ export function buildSnapshot(answers: OnboardingAnswers, ctx: BuildContext): Sn
    */
   const openingDate = addDays(cycleFor(settings, ctx.now).start, -1)
 
-  const transactions: Transaction[] = []
+  const transactions: Unstamped<Transaction>[] = []
 
   for (const category of answers.categories) {
     const amount = answers.openingBalances[category.id]
@@ -159,7 +164,7 @@ export function buildSnapshot(answers: OnboardingAnswers, ctx: BuildContext): Sn
     })
   }
 
-  const debts: Debt[] = []
+  const debts: Unstamped<Debt>[] = []
   for (const answer of answers.debts) {
     const debtId = ctx.makeId() as Id
     debts.push({
@@ -181,7 +186,7 @@ export function buildSnapshot(answers: OnboardingAnswers, ctx: BuildContext): Sn
     })
   }
 
-  const goals: Goal[] = []
+  const goals: Unstamped<Goal>[] = []
   const rentCategory = answers.categories.find((c) => c.name === 'Rent fund')
   if (answers.rent && answers.rent.target > 0 && rentCategory) {
     goals.push({
@@ -194,5 +199,18 @@ export function buildSnapshot(answers: OnboardingAnswers, ctx: BuildContext): Sn
     })
   }
 
-  return { settings, categories: answers.categories, plans: [], transactions, debts, goals }
+  /**
+   * Stamped with `ctx.at` — the instant, not `ctx.now`, which is a calendar date
+   * (ADR-003). These rows genuinely are created at this instant, so it is the
+   * true answer rather than a backfill, and onboarding hands the result to
+   * `import`, which preserves timestamps instead of inventing its own.
+   */
+  return {
+    settings,
+    categories: stampAll(answers.categories, ctx.at),
+    plans: [],
+    transactions: stampAll(transactions, ctx.at),
+    debts: stampAll(debts, ctx.at),
+    goals: stampAll(goals, ctx.at),
+  }
 }

@@ -24,6 +24,9 @@ import type {
   Transaction,
 } from '../types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 /** The hawl start the owner gave: 16 June 2026, 1 Muharram 1448. */
 const HAWL_START = '2026-06-16' as IsoDate
 
@@ -36,6 +39,7 @@ const baseSettings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: { hawlStart: HAWL_START, nisab: NISAB },
+  updatedAt: STAMPED_AT,
 }
 
 const rent: Category = {
@@ -44,6 +48,7 @@ const rent: Category = {
   type: 'savings',
   rollsOver: false,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 const emergency: Category = {
   id: 'c-emergency' as Id,
@@ -51,6 +56,7 @@ const emergency: Category = {
   type: 'savings',
   rollsOver: false,
   sortOrder: 1,
+  updatedAt: STAMPED_AT,
 }
 const personal: Category = {
   id: 'c-personal' as Id,
@@ -58,6 +64,7 @@ const personal: Category = {
   type: 'savings',
   rollsOver: false,
   sortOrder: 2,
+  updatedAt: STAMPED_AT,
 }
 const food: Category = {
   id: 'c-food' as Id,
@@ -65,6 +72,7 @@ const food: Category = {
   type: 'expense',
   rollsOver: true,
   sortOrder: 3,
+  updatedAt: STAMPED_AT,
 }
 
 const colleague: Debt = {
@@ -72,6 +80,7 @@ const colleague: Debt = {
   counterpartyName: 'B. Colleague',
   openedOn: '2026-08-10' as IsoDate,
   witnesses: [],
+  updatedAt: STAMPED_AT,
 }
 
 let nextId = 0
@@ -89,6 +98,7 @@ function move(
     amount: naira(whole),
     categoryId,
     createdAt: `${date}T09:00:00.000Z` as Instant,
+    updatedAt: STAMPED_AT,
   }
 }
 
@@ -101,6 +111,7 @@ function debtMove(type: Transaction['type'], whole: number, date: string): Trans
     amount: naira(whole),
     debtId: colleague.id,
     createdAt: `${date}T09:00:00.000Z` as Instant,
+    updatedAt: STAMPED_AT,
   }
 }
 

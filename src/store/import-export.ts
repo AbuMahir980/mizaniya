@@ -93,7 +93,7 @@ export function createImportExport(store: SnapshotStore) {
 
       await store.write(
         (repository) =>
-          repository.settings.put({ ...state.snapshot.settings, lastExportedAt: now }),
+          repository.settings.put({ ...state.snapshot.settings, lastExportedAt: now }, now),
         (snapshot) => ({
           ...snapshot,
           settings: { ...snapshot.settings, lastExportedAt: now },

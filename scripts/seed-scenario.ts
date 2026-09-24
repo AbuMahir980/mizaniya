@@ -23,7 +23,9 @@ import type {
   Settings,
   Snapshot,
   Transaction,
+  Unstamped,
 } from '../src/core/types'
+import { stamp, stampAll } from '../src/core/sync/stamp'
 
 /** Every figure below is transcribed from `docs/seed-data.md`. None is invented here. */
 
@@ -73,7 +75,14 @@ export function monthsBetween(from: string, to: string): number {
 // The household
 // ---------------------------------------------------------------------------
 
-const settings: Settings = {
+/**
+ * Fixed, so the seed is reproducible. A seed stamped with `Date.now()` writes a
+ * different file every run, and then nothing downstream can be compared to
+ * anything — including the checks at the bottom of this file.
+ */
+const SEEDED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
+const settings: Unstamped<Settings> = {
   salaryDay: 25,
   takeHome: naira(450_000),
   amberRatio: 0.6,
@@ -88,7 +97,7 @@ const settings: Settings = {
  * requires every income movement to name one, so it exists as a record rather
  * than as a figure.
  */
-const CATEGORIES: (Category & { planned?: Kobo })[] = [
+const CATEGORIES: (Unstamped<Category> & { planned?: Kobo })[] = [
   { id: 'c-salary' as Id, name: 'Salary', type: 'income', rollsOver: false, sortOrder: 0 },
   { id: 'c-rent' as Id, name: 'Rent fund', type: 'savings', rollsOver: false, sortOrder: 1, planned: naira(75_000) },
   { id: 'c-debt-friend' as Id, name: 'Debt payment — A. Friend', type: 'debt-payment', rollsOver: false, sortOrder: 2, planned: naira(30_000) },
@@ -104,13 +113,13 @@ const CATEGORIES: (Category & { planned?: Kobo })[] = [
   { id: 'c-sadaqah' as Id, name: 'Sadaqah', type: 'expense', rollsOver: false, sortOrder: 12, planned: naira(10_000) },
 ]
 
-const DEBTS: Debt[] = [
+const DEBTS: Unstamped<Debt>[] = [
   { id: 'd-friend' as Id, counterpartyName: 'A. Friend', openedOn: '2026-09-24' as IsoDate, scheduleAmount: naira(30_000), witnesses: [] },
   { id: 'd-spouse' as Id, counterpartyName: 'Spouse', openedOn: '2026-09-24' as IsoDate, witnesses: [] },
   { id: 'd-colleague' as Id, counterpartyName: 'B. Colleague', openedOn: '2026-09-24' as IsoDate, witnesses: [] },
 ]
 
-const GOALS: Goal[] = [
+const GOALS: Unstamped<Goal>[] = [
   { id: 'g-rent' as Id, name: 'Annual rent', target: naira(900_000), dueDate: '2027-03-01' as IsoDate, categoryId: 'c-rent' as Id, createdOn: '2026-08-24' as IsoDate },
   { id: 'g-emergency' as Id, name: 'Emergency fund', target: naira(150_000), categoryId: 'c-emergency' as Id, createdOn: '2026-08-24' as IsoDate },
 ]
@@ -179,7 +188,10 @@ function idFor(prefix: string): Id {
   return `${prefix}-${String(counter).padStart(3, '0')}` as Id
 }
 
-function toTransaction([day, type, amount, ref, note]: Row, months: number): Transaction {
+function toTransaction(
+  [day, type, amount, ref, note]: Row,
+  months: number,
+): Unstamped<Transaction> {
   const date = shiftMonths(day, months)
   const isDebt = ref.startsWith('d-')
   return {
@@ -197,9 +209,11 @@ function toTransaction([day, type, amount, ref, note]: Row, months: number): Tra
 }
 
 export function build(months: number, withMovements: boolean): Snapshot {
-  const categories: Category[] = CATEGORIES.map(({ planned: _planned, ...category }) => category)
+  const categories: Unstamped<Category>[] = CATEGORIES.map(
+    ({ planned: _planned, ...category }) => category,
+  )
 
-  const plans: PlanEntry[] = CATEGORIES.filter((c) => c.planned !== undefined).map((c) => ({
+  const plans: Unstamped<PlanEntry>[] = CATEGORIES.filter((c) => c.planned !== undefined).map((c) => ({
     id: idFor('plan'),
     cycleStart: shiftMonths(ANCHOR_CYCLE_START, months),
     categoryId: c.id,
@@ -218,13 +232,19 @@ export function build(months: number, withMovements: boolean): Snapshot {
     ? [...FIRST_CYCLE, ...OPENINGS, ...MOVEMENTS].map((row) => toTransaction(row, months))
     : []
 
+  /**
+   * Every seeded row is stamped with one fixed instant, not the moment the seed
+   * ran. The seed is a fixture: two runs must produce the same file, or the
+   * assertions below compare against a moving target and `npm run seed` stops
+   * being reproducible.
+   */
   return {
-    settings,
-    categories,
-    plans,
-    transactions,
-    debts: withMovements ? DEBTS : [],
-    goals: GOALS,
+    settings: stamp<Settings>(settings, SEEDED_AT),
+    categories: stampAll<Category>(categories, SEEDED_AT),
+    plans: stampAll<PlanEntry>(plans, SEEDED_AT),
+    transactions: stampAll<Transaction>(transactions, SEEDED_AT),
+    debts: stampAll<Debt>(withMovements ? DEBTS : [], SEEDED_AT),
+    goals: stampAll<Goal>(GOALS, SEEDED_AT),
   }
 }
 

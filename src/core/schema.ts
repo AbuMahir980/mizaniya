@@ -75,6 +75,7 @@ export const settingsSchema = z.object({
     })
     .default({}),
   lastExportedAt: instantSchema.optional(),
+  updatedAt: instantSchema,
 })
 
 export const categorySchema = z.object({
@@ -85,6 +86,7 @@ export const categorySchema = z.object({
   protectedOverride: z.boolean().optional(),
   archivedAt: isoDateSchema.optional(),
   sortOrder: z.number().int(),
+  updatedAt: instantSchema,
 })
 
 export const planEntrySchema = z.object({
@@ -92,6 +94,7 @@ export const planEntrySchema = z.object({
   cycleStart: isoDateSchema,
   categoryId: idSchema,
   planned: koboSchema,
+  updatedAt: instantSchema,
 })
 
 /**
@@ -112,6 +115,7 @@ export const transactionSchema = z
     paymentMethod: paymentMethodSchema.optional(),
     note: z.string().max(500).optional(),
     createdAt: instantSchema,
+    updatedAt: instantSchema,
   })
   .superRefine((transaction, ctx) => {
     const needsCategory = (CATEGORY_TYPES as readonly string[]).includes(transaction.type)
@@ -148,6 +152,7 @@ export const debtSchema = z.object({
   terms: z.string().max(500).optional(),
   witnesses: z.array(z.string().min(1).max(120)).default([]),
   closedAt: isoDateSchema.optional(),
+  updatedAt: instantSchema,
 })
 
 export const goalSchema = z.object({
@@ -157,6 +162,21 @@ export const goalSchema = z.object({
   dueDate: isoDateSchema.optional(),
   categoryId: idSchema,
   createdOn: isoDateSchema,
+  updatedAt: instantSchema,
+})
+
+export const deletableEntitySchema = z.enum([
+  'category',
+  'plan',
+  'transaction',
+  'debt',
+  'goal',
+])
+
+export const deletionSchema = z.object({
+  entity: deletableEntitySchema,
+  id: idSchema,
+  deletedAt: instantSchema,
 })
 
 // ---------------------------------------------------------------------------
@@ -189,23 +209,52 @@ export type ImportRefusal =
   | { reason: 'malformed'; issues: string[] }
 
 export type ImportCheck =
-  | { ok: true; file: z.infer<typeof exportFileSchema>; migrationsNeeded: number }
+  | { ok: true; envelope: ExportEnvelope; migrationsNeeded: number }
   | { ok: false; refusal: ImportRefusal }
 
 /**
- * Decides whether a parsed file may be imported. It changes nothing — the
- * caller runs migrations and writes in a single transaction (ADR-005).
+ * The file's wrapper, with its contents left alone.
+ *
+ * `data` is `unknown` on purpose. **The envelope has to be readable before the
+ * contents can be**, because the envelope is what says which shape the contents
+ * are in. Validating both together can only ever check the file against the
+ * *current* shape, which makes every older file unreadable — see the note on
+ * `checkImport`.
+ */
+export const exportEnvelopeSchema = z.object({
+  app: z.literal('mizaniya'),
+  schemaVersion: z.number().int().positive(),
+  exportedAt: instantSchema,
+  data: z.unknown(),
+})
+
+export type ExportEnvelope = z.infer<typeof exportEnvelopeSchema>
+
+/**
+ * Decides whether a parsed file may be imported **at all**, from its envelope.
+ * It changes nothing and it does not look inside `data` — the caller migrates
+ * the contents forward and then validates them with `validateSnapshot`.
  *
  * A file from a newer version is refused outright rather than partially read.
  * Loading what we recognise and ignoring the rest would silently discard the
  * owner's data while appearing to succeed, which is the worst outcome available.
+ *
+ * **Why this stops at the envelope.** It used to validate the whole file against
+ * the current schema and *then* migrate. That order works only while there has
+ * never been a second version: the moment schema 2 required a field schema 1 did
+ * not have, every v1 file on disk would be rejected as malformed — by the check
+ * standing in front of the migration written to add that very field. The
+ * guarantee that matters is unchanged, and it is about writing rather than
+ * reading: **nothing reaches the database without passing the current schema.**
  */
 export function checkImport(parsed: unknown): ImportCheck {
-  const result = exportFileSchema.safeParse(parsed)
+  const result = exportEnvelopeSchema.safeParse(parsed)
 
   if (!result.success) {
     const looksForeign =
-      typeof parsed !== 'object' || parsed === null || !('app' in parsed) ||
+      typeof parsed !== 'object' ||
+      parsed === null ||
+      !('app' in parsed) ||
       (parsed as { app?: unknown }).app !== 'mizaniya'
 
     if (looksForeign) return { ok: false, refusal: { reason: 'not-mizaniya' } }
@@ -232,7 +281,26 @@ export function checkImport(parsed: unknown): ImportCheck {
 
   return {
     ok: true,
-    file: result.data,
+    envelope: result.data,
     migrationsNeeded: SCHEMA_VERSION - result.data.schemaVersion,
+  }
+}
+
+export type SnapshotCheck =
+  | { ok: true; data: z.infer<typeof snapshotSchema> }
+  | { ok: false; issues: string[] }
+
+/**
+ * Validates migrated contents against the **current** schema, immediately before
+ * anything is written. This is the check the whole mechanism exists for: a file
+ * from disk is untrusted input, and a migration is code that has only ever been
+ * run against the shapes we imagined.
+ */
+export function validateSnapshot(data: unknown): SnapshotCheck {
+  const result = snapshotSchema.safeParse(data)
+  if (result.success) return { ok: true, data: result.data }
+  return {
+    ok: false,
+    issues: result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`),
   }
 }

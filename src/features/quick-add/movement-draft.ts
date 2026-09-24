@@ -17,6 +17,7 @@ import type {
   SavingsDestination,
   Transaction,
   TransactionType,
+  Unstamped,
 } from '@/core/types'
 
 /** The eight, in the words the owner uses for them (D7, O4). */
@@ -125,7 +126,7 @@ export function problemWith(draft: MovementDraft): DraftProblem | undefined {
 export function toTransaction(
   draft: MovementDraft,
   ctx: { id: string; at: Instant },
-): Transaction {
+): Unstamped<Transaction> {
   const problem = problemWith(draft)
   if (problem) throw new Error(`Draft is not ready to save: ${problem.message}`)
 

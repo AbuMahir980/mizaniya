@@ -19,12 +19,16 @@ import type { ChangeNotifier, Repository } from '@/core/repository'
 import { naira } from '@/core/money/money'
 import type { Category, Id, Instant, IsoDate, Settings, Snapshot, Transaction } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const settings: Settings = {
   salaryDay: 25,
   takeHome: naira(450_000),
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 const salary: Category = {
@@ -33,6 +37,7 @@ const salary: Category = {
   type: 'income',
   rollsOver: false,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 
 function income(id: string): Transaction {
@@ -43,6 +48,7 @@ function income(id: string): Transaction {
     amount: naira(450_000),
     categoryId: salary.id,
     createdAt: '2026-09-25T09:00:00.000Z' as Instant,
+    updatedAt: STAMPED_AT,
   }
 }
 
@@ -103,7 +109,7 @@ describe('the browser is asked after the first real write (D12)', () => {
 
     const added = income('t2')
     const result = await api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 
@@ -119,7 +125,7 @@ describe('the browser is asked after the first real write (D12)', () => {
     for (const id of ['t2', 't3', 't4']) {
       const added = income(id)
       await api.write(
-        (r) => r.transactions.put(added),
+        (r) => r.transactions.put(added, STAMPED_AT),
         (s) => ({ ...s, transactions: [...s.transactions, added] }),
       )
     }
@@ -144,7 +150,7 @@ describe('the browser is asked after the first real write (D12)', () => {
 
     const added = income('t-never')
     const result = await api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 
@@ -177,7 +183,7 @@ describe('the browser is asked after the first real write (D12)', () => {
 
     const added = income('t5')
     const result = await bundle.api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 

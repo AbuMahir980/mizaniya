@@ -25,12 +25,16 @@ import type { ChangeNotifier, Repository } from '@/core/repository'
 import { naira } from '@/core/money/money'
 import type { Category, Id, Instant, IsoDate, Settings, Snapshot, Transaction } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const settings: Settings = {
   salaryDay: 25,
   takeHome: naira(450_000),
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 const salary: Category = {
@@ -39,6 +43,7 @@ const salary: Category = {
   type: 'income',
   rollsOver: false,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 
 const income: Transaction = {
@@ -48,6 +53,7 @@ const income: Transaction = {
   amount: naira(450_000),
   categoryId: salary.id,
   createdAt: '2026-09-25T09:00:00.000Z' as Instant,
+  updatedAt: STAMPED_AT,
 }
 
 const seeded: Snapshot = {

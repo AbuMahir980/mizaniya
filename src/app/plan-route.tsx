@@ -9,7 +9,8 @@
 
 import { cycleAt, plannedFor } from '@/core/budget/budget'
 import { previousCycle } from '@/core/budget/rollover'
-import type { Category, Id, Kobo, PlanEntry } from '@/core/types'
+import { stamp, stampAll } from '@/core/sync/stamp'
+import type { Category, Id, Kobo, PlanEntry, Unstamped } from '@/core/types'
 import { PlanScreen } from '@/features/plan/plan-screen'
 import { useAnnounce } from '@/ui/announce'
 import { useSnapshotActions, useSnapshotState } from './store-context'
@@ -19,7 +20,7 @@ export function PlanRoute({ makeId }: { makeId?: () => string } = {}) {
   const state = useSnapshotState()
   const actions = useSnapshotActions()
   const { announce } = useAnnounce()
-  const { now: today } = useToday()
+  const { now: today, at: instant } = useToday()
 
   if (state.status !== 'ready') return null
 
@@ -32,17 +33,24 @@ export function PlanRoute({ makeId }: { makeId?: () => string } = {}) {
     const existing = state.snapshot.plans.find(
       (p) => p.cycleStart === cycle.start && p.categoryId === categoryId,
     )
-    const entry: PlanEntry = existing
+    // Unstamped: the repository sets `updatedAt`. Spreading `existing` carries
+    // its old timestamp in, and the repository replaces it — which is exactly the
+    // mistake `Unstamped` exists to make impossible to get wrong.
+    const entry: Unstamped<PlanEntry> = existing
       ? { ...existing, planned }
       : { id: newId() as Id, cycleStart: cycle.start, categoryId, planned }
 
+    // The same `(row, instant)` pair produces both the stored row and the one
+    // memory gets, so the two cannot differ.
+    const saved = stamp<PlanEntry>(entry, instant)
+
     const result = await actions.write(
-      (repository) => repository.plans.put(entry),
+      (repository) => repository.plans.put(entry, instant),
       (snapshot) => ({
         ...snapshot,
         plans: existing
-          ? snapshot.plans.map((p) => (p.id === entry.id ? entry : p))
-          : [...snapshot.plans, entry],
+          ? snapshot.plans.map((p) => (p.id === saved.id ? saved : p))
+          : [...snapshot.plans, saved],
       }),
     )
 
@@ -62,7 +70,7 @@ export function PlanRoute({ makeId }: { makeId?: () => string } = {}) {
      * Copying over a figure the owner has already typed would undo deliberate
      * work with one tap, and there is no undo on this screen.
      */
-    const entries: PlanEntry[] = state.snapshot.categories
+    const entries: Unstamped<PlanEntry>[] = state.snapshot.categories
       .filter((category) => !category.archivedAt)
       .filter((category) => plannedFor(state.snapshot.plans, cycle, category.id) === 0)
       .map((category) => ({
@@ -79,9 +87,11 @@ export function PlanRoute({ makeId }: { makeId?: () => string } = {}) {
 
     if (entries.length === 0) return 'Last cycle had nothing to copy.'
 
+    const saved = stampAll<PlanEntry>(entries, instant)
+
     const result = await actions.write(
-      (repository) => repository.plans.bulkPut(entries),
-      (snapshot) => ({ ...snapshot, plans: [...snapshot.plans, ...entries] }),
+      (repository) => repository.plans.bulkPut(entries, instant),
+      (snapshot) => ({ ...snapshot, plans: [...snapshot.plans, ...saved] }),
     )
 
     if (!result.ok) return `Couldn't copy that. (${result.message})`

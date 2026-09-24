@@ -9,7 +9,15 @@
  */
 
 import Dexie, { type Table } from 'dexie'
-import type { Category, Debt, Goal, PlanEntry, Settings, Transaction } from '@/core/types'
+import type {
+  Category,
+  Debt,
+  Deletion,
+  Goal,
+  PlanEntry,
+  Settings,
+  Transaction,
+} from '@/core/types'
 
 /**
  * Settings is a singleton, but a table stores rows.
@@ -28,8 +36,14 @@ export class MizaniyaDatabase extends Dexie {
   transactions!: Table<Transaction, string>
   debts!: Table<Debt, string>
   goals!: Table<Goal, string>
+  deletions!: Table<Deletion, [string, string]>
 
-  constructor(name = 'mizaniya') {
+  /**
+   * `stampedAt` is the instant version 2's upgrade writes onto rows that predate
+   * `updatedAt`. Injected so the migration can be tested against a fixed time;
+   * a backfill nobody can pin down is a backfill nobody can assert on.
+   */
+  constructor(name = 'mizaniya', stampedAt: () => string = () => new Date().toISOString()) {
     super(name)
 
     /**
@@ -53,6 +67,56 @@ export class MizaniyaDatabase extends Dexie {
       debts: 'id',
       goals: 'id',
     })
+
+    /**
+     * Version 2 — sync needs to know *when* (ADR-010).
+     *
+     * Two additions. Every row gains `updatedAt`, because a device cannot work
+     * out which of two versions of a row is newer without it. And deletions are
+     * recorded in their own table, because "I deleted this" and "I have never
+     * seen this" are indistinguishable between two databases, so a sync puts the
+     * row back — and a deleted category reappears.
+     *
+     * **A table, not a `deletedAt` column.** A column would put deleted rows
+     * into the snapshot, and then every calculation and every selector would
+     * have to filter them; one forgotten filter shows deleted records or counts
+     * deleted money. Here the rows are simply gone, so nothing in `core/`
+     * changes and no filter can be forgotten.
+     *
+     * `[entity+id]` is the key because an id is only unique within its own
+     * table, and one deletions table holds all five.
+     */
+    this.version(2)
+      .stores({
+        deletions: '[entity+id], deletedAt',
+      })
+      .upgrade(async (tx) => {
+        const at = stampedAt()
+
+        /**
+         * Existing rows get the moment of the upgrade. It is not when they last
+         * really changed — nothing can recover that — but it is the same value
+         * for every row, so no row spuriously beats another, and it is honest
+         * about being the first moment this device could vouch for them.
+         */
+        await Promise.all(
+          ['categories', 'plans', 'transactions', 'debts', 'goals'].map((table) =>
+            tx
+              .table(table)
+              .toCollection()
+              .modify((row: Record<string, unknown>) => {
+                row.updatedAt = at
+              }),
+          ),
+        )
+
+        await tx
+          .table('settings')
+          .toCollection()
+          .modify((row: Record<string, unknown>) => {
+            row.updatedAt = at
+          })
+      })
   }
 
   /** Every table, for the operations that touch all of them at once. */
@@ -64,6 +128,10 @@ export class MizaniyaDatabase extends Dexie {
       this.transactions as Table<unknown, string>,
       this.debts as Table<unknown, string>,
       this.goals as Table<unknown, string>,
+      // Included so `clear()` and `import()` wipe tombstones with everything
+      // else. An import replaces the whole dataset, and a tombstone left behind
+      // refers to a row from data that no longer exists.
+      this.deletions as unknown as Table<unknown, string>,
     ]
   }
 }

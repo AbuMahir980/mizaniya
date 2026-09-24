@@ -15,6 +15,7 @@ import type {
   Category,
   CategoryType,
   Id,
+  Instant,
   IsoDate,
   PlanEntry,
   Settings,
@@ -22,6 +23,9 @@ import type {
   Transaction,
   TransactionType,
 } from '../types'
+
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
 
 const SEPT = '2026-09-25' as IsoDate
 const AUG = '2026-08-25' as IsoDate
@@ -33,6 +37,7 @@ const settings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 const SEED: Array<[string, CategoryType, number, boolean]> = [
@@ -47,6 +52,7 @@ const categories: Category[] = SEED.map(([name, type, , rollsOver], index) => ({
   type,
   rollsOver,
   sortOrder: index,
+  updatedAt: STAMPED_AT,
 }))
 
 const food = categories[1]!
@@ -58,6 +64,7 @@ function planFor(cycleStart: IsoDate): PlanEntry[] {
     cycleStart,
     categoryId: `c${index}` as Id,
     planned: naira(planned),
+    updatedAt: STAMPED_AT,
   }))
 }
 
@@ -76,6 +83,7 @@ function movement(
     amount: naira(amount),
     categoryId: category?.id,
     createdAt: '2026-10-05T00:00:00.000+01:00' as Transaction['createdAt'],
+    updatedAt: STAMPED_AT,
   }
 }
 

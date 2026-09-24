@@ -30,6 +30,9 @@ import type {
   Transaction,
 } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const TODAY = '2026-10-05' as IsoDate
 
 const settings: Settings = {
@@ -38,6 +41,7 @@ const settings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 const food: Category = {
@@ -46,6 +50,7 @@ const food: Category = {
   type: 'expense',
   rollsOver: true,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 
 const plan: PlanEntry = {
@@ -53,6 +58,7 @@ const plan: PlanEntry = {
   cycleStart: '2026-09-25' as IsoDate,
   categoryId: food.id,
   planned: naira(90_000),
+  updatedAt: STAMPED_AT,
 }
 
 function spend(id: string, whole: number, date = '2026-10-01'): Transaction {
@@ -63,6 +69,7 @@ function spend(id: string, whole: number, date = '2026-10-01'): Transaction {
     amount: naira(whole),
     categoryId: food.id,
     createdAt: `${date}T09:00:00.000Z` as Instant,
+    updatedAt: STAMPED_AT,
   }
 }
 
@@ -157,7 +164,7 @@ describe('storage first, memory second', () => {
 
     const added = spend('t2', 5_000, '2026-10-06')
     const result = await api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 
@@ -189,7 +196,7 @@ describe('storage first, memory second', () => {
     const added = spend('t-never', 5_000, '2026-10-06')
 
     const result = await api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 
@@ -213,7 +220,7 @@ describe('storage first, memory second', () => {
 
     const added = spend('t3', 1_000, '2026-10-07')
     await api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 
@@ -255,7 +262,7 @@ describe('two tabs do not drift', () => {
 
     const added = spend('t-from-a', 7_000, '2026-10-08')
     await tabA.api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 
@@ -316,7 +323,7 @@ describe('nothing derived is stored', () => {
 
     const added = spend('t4', 20_000, '2026-10-09')
     await api.write(
-      (r) => r.transactions.put(added),
+      (r) => r.transactions.put(added, STAMPED_AT),
       (s) => ({ ...s, transactions: [...s.transactions, added] }),
     )
 
