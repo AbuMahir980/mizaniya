@@ -1,4 +1,12 @@
-# Storage — where the money lives
+# Data storage
+
+*How the app keeps your records on your own device, and why it's IndexedDB.*
+
+## The problem
+
+The app had to work **offline, on a phone, used every day**. So it cannot make a
+network call just to show you your own budget — which means the records live on the
+device, and something on the device has to store them properly.
 
 ## The short version
 
@@ -124,6 +132,72 @@ could do it.
 gains nothing and adds a new way to be wrong: a stale number that looks correct.
 
 **None of it is built**, deliberately — see above.
+
+---
+
+## If you had to do it again
+
+Three steps. The snippets are cut down to the shape — the files named beside them are
+the real thing.
+
+### 1. Declare the tables, and version them from the start
+
+`src/data/database.ts`
+
+```ts
+this.version(1).stores({
+  settings: '',              // a singleton: one row, key kept outside the record
+  categories: 'id, sortOrder',
+  transactions: 'id, date',  // indexed by date, because that is what we query by
+})
+```
+
+Two things that are easy to get wrong here:
+
+- **Index only what you query.** An index nothing reads is a write cost with no reader.
+- **Declare `version(1)` even when it is the only version.** Dexie replays versions in
+  order to bring an old database forward. Without a declared 1, a later `version(2)`
+  has no chain to join — you get a fresh schema and no route from the old one. We
+  needed this for real when schema 2 added `updatedAt`.
+
+### 2. Write the implementation, and let nothing leak
+
+`src/data/dexie-repository.ts`
+
+```ts
+categories: {
+  async list(): Promise<Category[]> {
+    return db.categories.toArray()     // a plain array, not a Dexie Collection
+  },
+  async put(category: Unstamped<Category>, at: Instant): Promise<void> {
+    await db.categories.put(stamp<Category>(category, at))
+  },
+},
+```
+
+The rule: **only domain types cross this line.** No Dexie `Table`, `Collection` or
+`PromiseExtended` goes out. If a Dexie type escaped, callers would start depending on
+it, and the seam would exist in name only.
+
+### 3. Group writes that must not half-happen
+
+```ts
+await db.transaction('rw', [db.categories, db.deletions], async () => {
+  await db.categories.delete(id)
+  await db.deletions.put({ entity: 'category', id, deletedAt: at })
+})
+```
+
+Both land or neither does. Here it matters because a row deleted with no tombstone is
+a deletion that can never reach another device, and a tombstone with the row still
+present is a record contradicting itself. **Either half alone is worse than neither.**
+
+### Then test it against a real database
+
+`fake-indexeddb` gives you a working IndexedDB in tests, so the tests run against
+actual database behaviour rather than a mock that agrees with you. That is how the
+version 1 → 2 upgrade is tested: build an old database, open it with the new code, and
+check the rows survived — see `src/data/dexie-repository.test.ts`.
 
 ---
 
