@@ -2,10 +2,10 @@
   "currentPhase": "build",
   "currentStep": 1,
   "phaseFile": "peer-ai/frontend/03-build.md",
-  "cycle": "Cycle 3 \u2014 paused for the design-conformance pass (#72)",
+  "cycle": "Repositioning — v1 is a hosted webapp with a server (ADR-009)",
   "milestoneBranch": "",
-  "ticket": "#68",
-  "ticketTitle": "Design conformance \u00b7 Home \u2014 the second half",
+  "ticket": "#94",
+  "ticketTitle": "Schema v2: updatedAt and real deletes, so sync is possible",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -33,10 +33,13 @@
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [
-    "#68",
-    "#23"
+    "#94"
   ],
   "ticketsRemaining": [
+    "#68",
+    "#70",
+    "#69",
+    "#85",
     "#23",
     "#24",
     "#25",
@@ -45,9 +48,9 @@
     "#29"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green \u2014 naming, spacing, lint, typecheck, 384 tests, build",
+  "lastVerifyResult": "green — naming, spacing, lint, typecheck, 416 tests, build",
   "lastVerifyTimestamp": "2026-09-24",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-24",
-  "notes": "READ CONTEXT.md, then docs/open-items.md. BUILD A SCREEN FROM ITS PNG, NOT ITS MARKUP (CLAUDE.md \u00a70) \u2014 open docs/design/*-360-light.png and -dark and -1440-light, describe it, then read canvas/*.dc.html as a tree. Never git add -A: the designer writes in this worktree. Questions go in open-items.md as a new lettered section. Next: finish Home (#68), then #85 the debt's history (answered in \u00a7G, needed before T17/T18), then Plan (#70), Quick Add (#69), then resume T16 (#23) on feature/transactions-and-editing."
+  "notes": "REPOSITIONED 2026-09-24 — read CONTEXT.md and ADR-009/010/011 (on PR #91, not yet merged). v1 is a hosted webapp with a public server; mobile is v2; no v3. TWO PRs OPEN: #91 the repositioning docs, #95 schema v2 (#94, CI green). BUILD OF SCREENS IS STOPPED: #72 parked half-done; #68/#70/#69/#23-#29 to be re-specced before building. Next after #95 merges: re-spec (stories + backend/01-spec-endpoints.md), then ONE design brief, then the workspace extraction. Rules 6 and 7 are drafts awaiting the owner's wording. Learning mode replaced by docs/engineering-notes/ (#93 harvests file headers and docs/concepts/ before deleting them). Never git add -A."
 }
