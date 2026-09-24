@@ -24,12 +24,12 @@ The detailed `Repository` method signatures and the export schema belong in
 
 Not reopened in this phase:
 
-- **Local-first.** No server, no accounts, no network, no telemetry in v1.
+- **Local-first** — but no longer *server-less*. The device stays the source of truth and the app works fully offline ([ADR-010](adr/ADR-010-sync-model.md)); accounts and sync arrive in v1 with the repositioning (**ADR-009**). The original wording — *"no server, no accounts, no network, no telemetry in v1"* — held until 2026-09-24 and is kept here as history, because "local-first" now means *the phone is in charge*, not *there is nothing else*.
 - **IndexedDB via Dexie, behind a `Repository` interface** (standard **A4**).
 - **A framework-free `core/`** holding cycle maths, safe-to-spend, rollover, projected gap, zakat estimate and money (standard **A3**).
 - **React 19 + TypeScript + Vite**, mobile-first at 360px, correct at 1440px.
 - **Feature-first folders**, dependencies pointing inward (**A1**, **A2**, **A5**).
-- **v2** is Expo/React Native sharing `core/`. **v3** adds a server; whether it is public is decided at v3 against written criteria (**ADR-008**), and repo rule 1 stands until then.
+- **v1 is a hosted webapp with a server** since the repositioning of 2026-09-24 (**ADR-009**): accounts, sync, free and paid tiers, and bank-movement reading designed in v1 and built as v1.1. **v2** is Expo/React Native sharing `core/`. **There is no v3** — its contents moved into v1, `services/api` is public, and repo rule 1 is amended in writing in `CONTEXT.md`. The sync model is **ADR-010**.
 - Money in **kobo**; `docs/seed-data.md` is the only source of figures.
 
 ---
@@ -63,7 +63,7 @@ calculations* — which is section 6.
 | **Data layer** | The Dexie implementation of `Repository`, schema migrations, export/import | Dexie 4 | Runtime |
 | **Storage** | The database itself | IndexedDB | The owner's browser |
 | **PWA layer** | Manifest, icons, service worker precaching the app shell; persistence request | vite-plugin-pwa (Workbox) | Static bundle |
-| **v3 API** *(not built)* | Sync, email auth, household sharing, payments | TBD | Visibility decided at v3 — **[ADR-008](adr/ADR-008-repository-layout.md)** |
+| **`services/api`** *(not built — v1)* | Sync, email auth, entitlement, household sharing, payments, and the aggregator integration for bank movement (v1.1) | TBD | **Public, in this repository** — **[ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)**; sync model **[ADR-010](adr/ADR-010-sync-model.md)** |
 
 ### Dependency direction (A2)
 
@@ -122,7 +122,9 @@ the implementation is a platform detail. `core/` still imports nothing, so
 ## 5 · The data seam
 
 `Repository` is **plain async CRUD**. It is deliberately boring, because it has
-to survive three implementations: Dexie today, SQLite in v2, HTTP in v3.
+to survive three implementations: Dexie today, **HTTP in v1** since the
+repositioning, and SQLite in v2. The HTTP one **wraps** the local implementation
+rather than replacing it (ADR-010), so writes still land on the device first.
 
 Shape only — the real signatures are the API CONTRACT's job:
 
@@ -291,12 +293,15 @@ spelling out and a status that may change. The rest are recorded inline.
 | ADR | Decision | Status |
 |---|---|---|
 | **[ADR-001](adr/ADR-001-reactivity-and-the-data-seam.md)** | In-memory snapshot with a plain async Repository; the UI never touches Dexie | Accepted |
-| **[ADR-002](adr/ADR-002-where-core-lives.md)** | Where `core/` lives — a folder now, or a workspace package now | **Proposed — awaiting the stakeholder** |
+| **[ADR-002](adr/ADR-002-where-core-lives.md)** | Where `core/` lives — a folder now, or a workspace package now | Accepted |
 | **ADR-003** | **Time is a parameter.** `core/` never reads the clock; `now` is passed in, and dates are stored as calendar dates (`YYYY-MM-DD`), not instants. *Context:* every cycle figure depends on today. *Consequences:* every calculation is testable against a fixed date and a February bug can be reproduced on purpose; the cost is one extra argument on many functions. | Accepted |
 | **ADR-004** | **Money is integer kobo with a branded type**, all arithmetic in `core/money`. *Context:* floating point cannot represent decimal money exactly. *Consequences:* rounding is explicit and testable, and a raw number cannot be passed where an amount is expected; the cost is conversion at every input and output boundary. | Accepted |
 | **ADR-005** | **Export carries a `schemaVersion`; import is atomic and version-checked.** Older files migrate through a chain of pure functions; a newer file is refused with a plain explanation rather than partially loaded. Import replaces everything, and the current data is exported to a file first. *Consequences:* an import can never half-succeed, and overwriting live data is recoverable; the cost is a migration chain to maintain from the first schema change. | Accepted |
 | **ADR-006** | **Zustand as the single client store** (**B4**). *Alternatives:* Context + `useReducer` — no dependency, but one snapshot in one context re-renders every consumer on every change, which is felt on a phone; Redux Toolkit — more ceremony than one person's budget warrants. *Consequences:* selector-based subscriptions keep re-renders narrow and it works unchanged in React Native for v2; the cost is one dependency, justified per **N1** (~1 KB, no provider, no platform equivalent). | Accepted |
-| **ADR-007** | **PWA via vite-plugin-pwa; persistence requested after first meaningful write.** The service worker precaches the app shell only — there is no network data to cache. *Consequences:* the app opens offline, becomes installable, and installation is the single biggest factor in whether the browser evicts the data (**D14**: iOS Safari is the strict case); the cost is a service-worker update path that must not serve a stale shell. | Accepted |
+| **ADR-007** | **PWA via vite-plugin-pwa; persistence requested after first meaningful write.** The service worker precaches the app shell only — there is no network data to cache. *Consequences:* the app opens offline, becomes installable, and installation is the single biggest factor in whether the browser evicts the data (**D14**: iOS Safari is the strict case); the cost is a service-worker update path that must not serve a stale shell. | **Accepted, partly invalidated 2026-09-24** — "there is no network data to cache" stops being true once sync exists. Amendment owed (ADR-009 item 6) |
+| **[ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)** | **v1 is a hosted webapp with a public server; mobile becomes v2; v3 dissolves into v1.** Bank-movement reading is designed in v1 and built as v1.1. Repo rule 1 amended in writing; a rule about real user data is owed from the stakeholder. | Accepted |
+| **[ADR-010](adr/ADR-010-sync-model.md)** | **Local-first with the server as sync target** — per-row last-write-wins, tombstones for deletes, the server providing the order. Derived money figures are never synced, only recomputed. Requires `updatedAt` and soft deletion on every entity (`SCHEMA_VERSION` 2). | Accepted |
+| **[ADR-011](adr/ADR-011-encryption-and-data-protection.md)** | **Strong encryption at rest done properly; end-to-end deliberately deferred.** Sensitive fields encrypted with keys held outside the database, bank tokens held higher still, financial values never logged, every production access audited, support by asking rather than looking. Does **not** defend a live server compromise — stated rather than assumed. End-to-end returns as an opt-in once recovery and support are understood. | Accepted |
 
 **A numbering note.** `docs/standards/standards-addendum-mizaniya.md` says the
 Expo SDK will be "recorded in ADR-01 when v2 starts". ADR-001 is now taken. The
@@ -344,5 +349,5 @@ settled in SYSTEM SPEC.
 |---|---|
 | The snapshot stops fitting comfortably in memory (many years of daily records) | Paginate transactions in the repository; keep aggregates in the snapshot. The `Repository` interface already allows a ranged `list` |
 | **v2 (Expo)** | Extract `core/` to a package if Choice A went the other way; add a SQLite `Repository` implementation. No screen logic changes |
-| **v3 (sync and sharing)** | An HTTP `Repository` implementation; **A6** wakes up; the snapshot needs conflict resolution, which is the first genuinely hard problem this project will have. Also `apps/admin` as its own deployment, never a route in the web app (**ADR-008**) |
+| **v1 sync and sharing** *(was v3 — **ADR-009**)* | An HTTP `Repository` wrapping the local one; **A6** wakes up; the snapshot needs conflict resolution, which is the first genuinely hard problem this project will have — answered in **[ADR-010](adr/ADR-010-sync-model.md)**, which also finds that no entity carries `updatedAt` or a tombstone, so deletes cannot currently propagate at all. Also `apps/admin` as its own deployment, never a route in the web app (**ADR-008**) |
 | A second person uses one device | Audiences, and everything **C5** implies |

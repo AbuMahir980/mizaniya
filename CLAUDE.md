@@ -56,18 +56,49 @@ stack; `docs/standards/` is the rulebook.
 
 ---
 
-## 4. Learning mode
+## 4. Learning mode — replaced 2026-09-24: topic notes, not code comments
 
-This project is built to be understood, not just shipped. The full contract is
-in `CONTEXT.md`. In short: explain before each phase in three or four plain
-sentences; state the reasoning in steps *before* writing non-trivial logic
-(cycle maths, safe-to-spend, rollover, projected gap, zakat); give every file a
-three-line header (WHAT / WHY this pattern over the obvious alternative / the
-one sentence to say about it in an interview); write one `docs/concepts/` file
-per concept the first time it appears; ask five questions at each stop and
-answer honestly whether the answers hold up, logging misses in
-`docs/concepts/revisit.md`. Real trade-offs are laid out with both sides — the
-user chooses, and the choice and its reason go into `CONTEXT.md`.
+The old contract is **gone**, not suspended. Its text is kept collapsed in
+`CONTEXT.md` as history. The replacement has two halves.
+
+**1. The code is cleared of explanation.** The three-line `WHAT / WHY /
+INTERVIEW` header is **removed** — from new files and, as a sweep, from existing
+ones. Comments survive only where the code genuinely cannot speak for itself: a
+non-obvious constraint, a workaround that needs its reason, a domain rule a reader
+would otherwise "fix". The test is whether a competent reader would ask *why is it
+like this?* and find no answer in the code. If they would, comment it. Otherwise
+delete it. Explanation lives in the notes below, not in the source.
+
+**2. One note per engineering topic**, in `docs/engineering-notes/` — not per
+file, not per decision, but **per topic someone would actually ask about** (state
+management, storage, money, offline, sync, performance, auth…). Each note answers,
+in order:
+
+- what the problem was;
+- what this project did;
+- the concepts involved, named plainly;
+- **the why-chain** — why this and not the obvious alternative, and why not *that*,
+  down until the answer rests on a constraint rather than a preference.
+
+The test of a good note: it answers the question cold, and survives being pushed.
+*"How did you handle a thousand records?"* — *"Caching."* — *"Why caching?"* — and
+the chain holds three or four levels deep without bottoming out in "it seemed
+better".
+
+**A note may say the work is not done.** *"Not built yet; here is when it would be
+needed, and what we would do"* is a legitimate and valuable note. **Writing down a
+deliberate deferral is worth more than building the thing early** — it shows the
+limit was understood and chosen, which is precisely what premature machinery fails
+to show.
+
+**Notes are not ADRs, and both stay.** An ADR records a decision *at the moment it
+was made* and is immutable history. A topic note explains the **system as it now
+is** and is rewritten whenever that changes. A note links its ADRs.
+
+**`docs/concepts/` is being deleted**, not kept alongside — the engineering note
+replaces it, and two folders explaining the same things is how documentation starts
+contradicting itself. Its content is harvested into the notes first, and the seven
+files that link into it are repointed. Do not add to it.
 
 ---
 
