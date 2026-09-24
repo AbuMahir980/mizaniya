@@ -55,29 +55,79 @@ make it a switch.** Their words: *"for any build we must build with a seeded dat
 first — so it should be something that can be toggled on and off. We build with
 seeded data, that's like dummy data, to actually test functionality."*
 
+**The toggle is an environment variable**, clarified by the stakeholder
+2026-09-24: a line in `.env` — `VITE_USE_SEED=true` or `false`. True means every
+screen is populated with dummy data, so functionality can be exercised without
+typing anything. False means the real path: sign up, onboard, enter your own
+figures, and see what a new user actually sees.
+
 Draft wording, **awaiting the stakeholder's final phrasing** before it joins the
 five above as binding:
 
 > 6. Every build is developed and tested against seeded data, never against real
->    data. The seed is a switch that can be turned on and off, so any feature can
->    be exercised end to end with dummy figures on demand. Figures come only from
->    `docs/seed-data.md` (rule 2).
+>    data. A single switch in `.env` — `VITE_USE_SEED` — fills the app with dummy
+>    figures when it is on, and gives the true new-user path when it is off. Both
+>    states are expected to work, and both are checked before a feature is called
+>    done. Figures come only from `docs/seed-data.md` (rule 2).
+
+**Why both states, not just the convenient one.** Seeded mode is the fast way to
+see a screen with realistic content. Unseeded mode is the only way to see what a
+new user sees — the empty states, the onboarding, the first-run path — which is
+exactly the part that ships broken when everyone develops against a full database.
 
 Partly in place already: `npm run seed` writes a real export file that the app
-restores through its ordinary import path. **What is new is the toggle** — seeding
-on demand from inside the running app, rather than as a one-off script. That
-becomes a build item.
+restores through its ordinary import path. **What is new is the switch**, and it
+brings two requirements that are easy to miss:
 
-**A seventh rule is still owed, and rule 6 does not cover it.** Rule 6 is about how
-we build; the gap is about what a server *holds*. Rule 2 forbids real financial
-figures **in the repository** and is silent about a database, because there was
-none. A hosted app holding other people's salary and transaction data needs its own
-rule: production data never becomes a fixture, screenshot or seed file; NDPR duties
-including real erasure on request; encryption at rest; and a restore from backup
-that has actually been tested rather than assumed. **This blocks the first real
-user, not the first line of server code.** It is not drafted here because the rules
-are the stakeholder's own words — but a draft can be offered for them to correct, if
-they would rather work that way.
+- **`.env` is git-ignored** (rule 1), so `.env.example` carries the variable and
+  its default, documented and committed. Nobody should have to guess the name.
+- **Vite bakes environment variables into the bundle at build time.** So a
+  production build must *never* be made with the seed on — a real user would be
+  shown invented figures, or worse, have theirs replaced. This is not a thing to
+  remember: **the build fails if `VITE_USE_SEED` is true in a production build**,
+  and the seed path is excluded from the production bundle entirely. A guard,
+  because a convention here would eventually be forgotten once.
+
+**Rule 7 — drafted 2026-09-24 at the stakeholder's request, awaiting their
+approval or rewrite.** Rule 6 covers how we build; nothing yet covers what the
+server is allowed to *hold*. Rule 2 forbids real financial figures **in the
+repository** and is silent about a database, because there was none.
+
+> 7. Other people's money data is held in trust, and the app holds as little of it
+>    as it can. It is never copied out of production — not into the repository, not
+>    into a fixture, a screenshot, a log line, an error report, or a conversation
+>    about a bug; rule 6 exists so that nobody ever needs to. It is encrypted in
+>    transit and where it is stored. Production data is opened only to fix a
+>    specific reported problem, never browsed. Every person can export everything
+>    the app holds about them and can delete their account, and **deleting means
+>    the data is actually gone, not hidden** — a sync tombstone is not a deletion.
+>    Bank access is **read-only**: Mizaniya never moves, holds or takes money, the
+>    connection can be revoked by the person at any time, and unlinking destroys
+>    the stored token. Backups exist, and a restore has been **performed and
+>    verified**, not merely configured. If data is ever exposed, the people
+>    affected are told plainly and promptly.
+
+**Why each clause is there**, so it can be argued with rather than nodded at:
+
+- *Never copied out of production* — this is rule 2 extended from the repo to the
+  database, and it is the clause most often broken by accident, usually by a log
+  line or a screenshot in a bug report.
+- *As little as it can* — the strongest protection for data is not collecting it.
+  Also the cheapest.
+- *Deleting means gone* — this is a direct tension with
+  [ADR-010](docs/adr/ADR-010-sync-model.md), which keeps tombstones so deletes can
+  propagate between devices. A tombstone satisfies sync; it does **not** satisfy a
+  person asking to be erased. Both have to be built, and the rule says which one
+  wins.
+- *Read-only bank access* — the factual boundary that keeps this out of payment
+  regulation entirely, so it is written down rather than assumed.
+- *A restore that has been performed* — this project already knows that a check
+  which has only ever passed is indistinguishable from one that is switched off.
+  An untested backup is that, with someone's financial history inside it.
+- *Told plainly and promptly* — NDPR requires notification; and it is the one
+  moment where the whole trust of a money app is decided.
+
+**This blocks the first real user, not the first line of server code.**
 
 ---
 
