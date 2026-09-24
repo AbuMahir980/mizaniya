@@ -27,6 +27,9 @@ import { naira } from '@/core/money/money'
 import type { ChangeNotifier, Repository } from '@/core/repository'
 import type { Category, Id, Instant, IsoDate, PlanEntry, Settings, Snapshot } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const TODAY = '2026-10-05' as IsoDate
 const AT = '2026-10-05T09:00:00.000Z' as Instant
 
@@ -35,6 +38,7 @@ const settings: Settings = {
   takeHome: naira(450_000),
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
+  updatedAt: STAMPED_AT,
   zakat: {},
 }
 
@@ -44,6 +48,7 @@ const rent: Category = {
   type: 'savings',
   rollsOver: false,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 const food: Category = {
   id: 'c-food' as Id,
@@ -51,6 +56,7 @@ const food: Category = {
   type: 'expense',
   rollsOver: true,
   sortOrder: 1,
+  updatedAt: STAMPED_AT,
 }
 const transport: Category = {
   id: 'c-transport' as Id,
@@ -58,6 +64,7 @@ const transport: Category = {
   type: 'expense',
   rollsOver: false,
   sortOrder: 2,
+  updatedAt: STAMPED_AT,
 }
 
 function snapshotWith(plans: PlanEntry[], extra: Partial<Snapshot> = {}): Snapshot {
@@ -73,6 +80,7 @@ function snapshotWith(plans: PlanEntry[], extra: Partial<Snapshot> = {}): Snapsh
         amount: naira(450_000),
         categoryId: rent.id,
         createdAt: AT,
+        updatedAt: STAMPED_AT,
       },
     ],
     debts: [],
@@ -157,7 +165,13 @@ describe('unallocated is the whole feedback loop', () => {
   it('turns to the danger colour only when more is promised than exists', async () => {
     await repo.import(
       snapshotWith([
-        { id: 'p1' as Id, cycleStart: '2026-09-25' as IsoDate, categoryId: rent.id, planned: naira(500_000) },
+        {
+          id: 'p1' as Id,
+          cycleStart: '2026-09-25' as IsoDate,
+          categoryId: rent.id,
+          planned: naira(500_000),
+          updatedAt: STAMPED_AT,
+        },
       ]),
     )
     renderPlan()
@@ -234,8 +248,20 @@ describe('copy last cycle', () => {
   it('fills the empty rows from last cycle', async () => {
     await repo.import(
       snapshotWith([
-        { id: 'p-old-1' as Id, cycleStart: '2026-08-25' as IsoDate, categoryId: rent.id, planned: naira(75_000) },
-        { id: 'p-old-2' as Id, cycleStart: '2026-08-25' as IsoDate, categoryId: food.id, planned: naira(90_000) },
+        {
+          id: 'p-old-1' as Id,
+          cycleStart: '2026-08-25' as IsoDate,
+          categoryId: rent.id,
+          planned: naira(75_000),
+          updatedAt: STAMPED_AT,
+        },
+        {
+          id: 'p-old-2' as Id,
+          cycleStart: '2026-08-25' as IsoDate,
+          categoryId: food.id,
+          planned: naira(90_000),
+          updatedAt: STAMPED_AT,
+        },
       ]),
     )
     const user = userEvent.setup()
@@ -253,8 +279,20 @@ describe('copy last cycle', () => {
   it('never overwrites a figure already typed this cycle', async () => {
     await repo.import(
       snapshotWith([
-        { id: 'p-old' as Id, cycleStart: '2026-08-25' as IsoDate, categoryId: rent.id, planned: naira(75_000) },
-        { id: 'p-now' as Id, cycleStart: '2026-09-25' as IsoDate, categoryId: rent.id, planned: naira(20_000) },
+        {
+          id: 'p-old' as Id,
+          cycleStart: '2026-08-25' as IsoDate,
+          categoryId: rent.id,
+          planned: naira(75_000),
+          updatedAt: STAMPED_AT,
+        },
+        {
+          id: 'p-now' as Id,
+          cycleStart: '2026-09-25' as IsoDate,
+          categoryId: rent.id,
+          planned: naira(20_000),
+          updatedAt: STAMPED_AT,
+        },
       ]),
     )
     const user = userEvent.setup()
@@ -295,7 +333,13 @@ describe('what a row shows', () => {
   it('shows the planned daily allowance as a footnote', async () => {
     await repo.import(
       snapshotWith([
-        { id: 'p1' as Id, cycleStart: '2026-09-25' as IsoDate, categoryId: food.id, planned: naira(90_000) },
+        {
+          id: 'p1' as Id,
+          cycleStart: '2026-09-25' as IsoDate,
+          categoryId: food.id,
+          planned: naira(90_000),
+          updatedAt: STAMPED_AT,
+        },
       ]),
     )
     renderPlan()

@@ -117,6 +117,9 @@ export interface Settings {
 
   /** Drives the export nudge, which counts unexported changes rather than days (D12). */
   lastExportedAt?: Instant
+
+  /** Set by the repository on every write. See `Unstamped`. */
+  updatedAt: Instant
 }
 
 export interface Category {
@@ -133,6 +136,8 @@ export interface Category {
   /** Archived categories vanish from new plans but stay in history. */
   archivedAt?: IsoDate
   sortOrder: number
+  /** Set by the repository on every write. See `Unstamped`. */
+  updatedAt: Instant
 }
 
 /** One planned amount, for one category, in one cycle. */
@@ -142,6 +147,8 @@ export interface PlanEntry {
   cycleStart: IsoDate
   categoryId: Id
   planned: Kobo
+  /** Set by the repository on every write. See `Unstamped`. */
+  updatedAt: Instant
 }
 
 export interface Transaction {
@@ -159,6 +166,12 @@ export interface Transaction {
   paymentMethod?: PaymentMethod
   note?: string
   createdAt: Instant
+  /**
+   * Set by the repository on every write. Distinct from `createdAt`: one says
+   * when the record was first made, the other when it last changed. Sync needs
+   * the second, and a corrected amount changes only the second.
+   */
+  updatedAt: Instant
 }
 
 /**
@@ -181,6 +194,8 @@ export interface Debt {
   witnesses: string[]
   /** Set when the balance reaches zero and the owner closes it. */
   closedAt?: IsoDate
+  /** Set by the repository on every write. See `Unstamped`. */
+  updatedAt: Instant
 }
 
 export interface Goal {
@@ -192,6 +207,49 @@ export interface Goal {
   /** The savings category whose movements fund this goal. */
   categoryId: Id
   createdOn: IsoDate
+  /** Set by the repository on every write. See `Unstamped`. */
+  updatedAt: Instant
+}
+
+// ---------------------------------------------------------------------------
+// Sync bookkeeping
+// ---------------------------------------------------------------------------
+
+/**
+ * An entity as a **caller** supplies it — without `updatedAt`.
+ *
+ * `updatedAt` is set by the repository, never by a screen, and the type says so
+ * rather than trusting anyone to remember. The alternative was to let callers
+ * pass it, and the failure mode there is silent: `{ ...category, name: 'Food' }`
+ * is the ordinary way to edit an object in React, and it carries the *old*
+ * timestamp forward. Nothing would fail, and the row would simply stop winning
+ * the comparisons it should win.
+ */
+export type Unstamped<T> = Omit<T, 'updatedAt'>
+
+/** The entities that can be deleted. `Settings` is a singleton and cannot. */
+export type DeletableEntity = 'category' | 'plan' | 'transaction' | 'debt' | 'goal'
+
+/**
+ * A record that something used to exist — a tombstone.
+ *
+ * **Why deletion cannot simply remove the row.** With one database, it can:
+ * the row is gone and nothing else needs to know. With two, "I deleted this"
+ * and "I have not heard about this yet" look identical, so a sync does the safe
+ * thing and puts the row back. The deleted category reappears, and deleting it
+ * again does not help.
+ *
+ * These live in their **own table**, deliberately, rather than as a `deletedAt`
+ * column on each entity. A column would mean `Snapshot` contained deleted rows,
+ * and then every derivation and every selector would have to filter them out —
+ * where one forgotten filter shows deleted records or counts deleted money. In
+ * a separate table, the arrays hold only live rows, **no calculation in `core/`
+ * changes at all**, and a forgotten filter cannot leak what is not there.
+ */
+export interface Deletion {
+  entity: DeletableEntity
+  id: Id
+  deletedAt: Instant
 }
 
 // ---------------------------------------------------------------------------
@@ -204,6 +262,10 @@ export interface Goal {
  */
 export interface Snapshot {
   settings: Settings
+  // Deletions are deliberately absent. An import replaces everything (ADR-005),
+  // so afterwards the device matches the file exactly and a tombstone has
+  // nothing left to tell anyone. They are local sync state, not user data.
+
   categories: Category[]
   plans: PlanEntry[]
   transactions: Transaction[]
@@ -225,4 +287,4 @@ export interface ExportFile {
 }
 
 /** Bump on any change to the shapes above, and add a migration. */
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2

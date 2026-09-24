@@ -23,6 +23,9 @@ import { cashLeft, cycleAt } from '../budget/budget'
 import { formatMoney, naira, speakMoney } from '../money/money'
 import type { Debt, Id, Instant, IsoDate, Settings, Snapshot, Transaction } from '../types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const TODAY = '2026-10-05' as IsoDate
 
 const settings: Settings = {
@@ -31,6 +34,7 @@ const settings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 /** The three counterparties `docs/seed-data.md` names. */
@@ -41,6 +45,7 @@ const friend: Debt = {
   scheduleAmount: naira(30_000),
   terms: '₦30,000 monthly until cleared',
   witnesses: [],
+  updatedAt: STAMPED_AT,
 }
 
 const spouse: Debt = {
@@ -48,6 +53,7 @@ const spouse: Debt = {
   counterpartyName: 'Spouse',
   openedOn: '2026-07-01' as IsoDate,
   witnesses: [],
+  updatedAt: STAMPED_AT,
 }
 
 const colleague: Debt = {
@@ -55,6 +61,7 @@ const colleague: Debt = {
   counterpartyName: 'B. Colleague',
   openedOn: '2026-08-10' as IsoDate,
   witnesses: [],
+  updatedAt: STAMPED_AT,
 }
 
 /** An ajo counterparty — one record, both directions over its life (D9). */
@@ -63,6 +70,7 @@ const ajo: Debt = {
   counterpartyName: 'Ajo group',
   openedOn: '2026-06-01' as IsoDate,
   witnesses: ['Witness One'],
+  updatedAt: STAMPED_AT,
 }
 
 let nextId = 0
@@ -80,6 +88,7 @@ function movement(
     amount: naira(whole),
     debtId,
     createdAt: `${date}T09:00:00.000Z` as Instant,
+    updatedAt: STAMPED_AT,
   }
 }
 

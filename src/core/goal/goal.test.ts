@@ -31,6 +31,9 @@ import type {
   Transaction,
 } from '../types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const TODAY = '2026-10-05' as IsoDate
 const CYCLE_START = '2026-09-25' as IsoDate
 
@@ -40,6 +43,7 @@ const settings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 const rentCategory: Category = {
@@ -48,6 +52,7 @@ const rentCategory: Category = {
   type: 'savings',
   rollsOver: false,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 
 const emergencyCategory: Category = {
@@ -56,6 +61,7 @@ const emergencyCategory: Category = {
   type: 'savings',
   rollsOver: false,
   sortOrder: 1,
+  updatedAt: STAMPED_AT,
 }
 
 /** Annual rent — ₦900,000, due 1 March (`docs/seed-data.md`). */
@@ -66,6 +72,7 @@ const rent: Goal = {
   dueDate: '2027-03-01' as IsoDate,
   categoryId: rentCategory.id,
   createdOn: '2026-08-24' as IsoDate,
+  updatedAt: STAMPED_AT,
 }
 
 /** Emergency fund — ₦150,000, no due date. */
@@ -75,6 +82,7 @@ const emergency: Goal = {
   target: naira(150_000),
   categoryId: emergencyCategory.id,
   createdOn: '2026-08-24' as IsoDate,
+  updatedAt: STAMPED_AT,
 }
 
 let nextId = 0
@@ -92,12 +100,13 @@ function move(
     amount: naira(whole),
     categoryId,
     createdAt: `${date}T09:00:00.000Z` as Instant,
+    updatedAt: STAMPED_AT,
   }
 }
 
 function plan(categoryId: Id, whole: number, cycleStart: IsoDate = CYCLE_START): PlanEntry {
   nextId += 1
-  return { id: `p${nextId}` as Id, cycleStart, categoryId, planned: naira(whole) }
+  return { id: `p${nextId}` as Id, cycleStart, categoryId, planned: naira(whole), updatedAt: STAMPED_AT }
 }
 
 /**

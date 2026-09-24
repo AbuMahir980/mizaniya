@@ -17,6 +17,7 @@ import { createDexieRepository } from '@/data/dexie-repository'
 import { MizaniyaDatabase } from '@/data/database'
 import { buildExportFile, serialiseExport } from '@/data/export-file'
 import { cashLeft, cycleAt, safeToSpend, spendingByCategory } from '@/core/budget/budget'
+import { SCHEMA_VERSION } from '@/core/types'
 import { balanceOf } from '@/core/debt/debt'
 import { projectedGap } from '@/core/goal/goal'
 import { estimate } from '@/core/zakat/zakat'
@@ -35,6 +36,9 @@ import type {
   Transaction,
 } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const TODAY = '2026-10-05' as IsoDate
 const NOW = '2026-10-05T09:00:00.000Z' as Instant
 
@@ -44,6 +48,7 @@ const settings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: { nisab: naira(2_450_000) },
+  updatedAt: STAMPED_AT,
 }
 
 const rentCat: Category = {
@@ -52,6 +57,7 @@ const rentCat: Category = {
   type: 'savings',
   rollsOver: false,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 const foodCat: Category = {
   id: 'c-food' as Id,
@@ -59,6 +65,7 @@ const foodCat: Category = {
   type: 'expense',
   rollsOver: true,
   sortOrder: 1,
+  updatedAt: STAMPED_AT,
 }
 const salaryCat: Category = {
   id: 'c-salary' as Id,
@@ -66,11 +73,24 @@ const salaryCat: Category = {
   type: 'income',
   rollsOver: false,
   sortOrder: 2,
+  updatedAt: STAMPED_AT,
 }
 
 const plans: PlanEntry[] = [
-  { id: 'p1' as Id, cycleStart: '2026-09-25' as IsoDate, categoryId: rentCat.id, planned: naira(75_000) },
-  { id: 'p2' as Id, cycleStart: '2026-09-25' as IsoDate, categoryId: foodCat.id, planned: naira(90_000) },
+  {
+    id: 'p1' as Id,
+    cycleStart: '2026-09-25' as IsoDate,
+    categoryId: rentCat.id,
+    planned: naira(75_000),
+    updatedAt: STAMPED_AT,
+  },
+  {
+    id: 'p2' as Id,
+    cycleStart: '2026-09-25' as IsoDate,
+    categoryId: foodCat.id,
+    planned: naira(90_000),
+    updatedAt: STAMPED_AT,
+  },
 ]
 
 const friend: Debt = {
@@ -79,6 +99,7 @@ const friend: Debt = {
   openedOn: '2026-07-01' as IsoDate,
   scheduleAmount: naira(30_000),
   witnesses: ['Witness One'],
+  updatedAt: STAMPED_AT,
 }
 
 const rentGoal: Goal = {
@@ -88,6 +109,7 @@ const rentGoal: Goal = {
   dueDate: '2027-03-01' as IsoDate,
   categoryId: rentCat.id,
   createdOn: '2026-08-24' as IsoDate,
+  updatedAt: STAMPED_AT,
 }
 
 function tx(
@@ -102,6 +124,7 @@ function tx(
     date: date as IsoDate,
     type,
     amount: naira(whole),
+    updatedAt: STAMPED_AT,
     createdAt: `${date}T09:00:00.000Z` as Instant,
     ...extra,
   }
@@ -169,7 +192,7 @@ describe('export', () => {
 
     expect(saved).toBeDefined()
     expect(saved?.file.app).toBe('mizaniya')
-    expect(saved?.file.schemaVersion).toBe(1)
+    expect(saved?.file.schemaVersion).toBe(SCHEMA_VERSION)
     expect(saved?.file.exportedAt).toBe(NOW)
   })
 
@@ -270,7 +293,7 @@ describe('refusals — and nothing changes', () => {
     expect(outcome.refusal.reason).toBe('too-new')
     if (outcome.refusal.reason !== 'too-new') throw new Error('expected too-new')
     expect(outcome.refusal.fileVersion).toBe(99)
-    expect(outcome.refusal.appVersion).toBe(1)
+    expect(outcome.refusal.appVersion).toBe(SCHEMA_VERSION)
 
     if (sourceStore.state.status !== 'ready') throw new Error('expected ready')
     expect(sourceStore.state.snapshot).toBe(before)
@@ -395,7 +418,7 @@ describe('the migration chain', () => {
     const io = createImportExport(sourceStore)
     const saved = await io.exportNow(NOW, TODAY)
     if (!saved) throw new Error('expected a file')
-    expect(saved.file.schemaVersion).toBe(1)
+    expect(saved.file.schemaVersion).toBe(SCHEMA_VERSION)
 
     const outcome = await io.importFrom(saved.text, {
       now: NOW,

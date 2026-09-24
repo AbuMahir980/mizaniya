@@ -26,6 +26,7 @@ import type {
   Category,
   CategoryType,
   Id,
+  Instant,
   IsoDate,
   PlanEntry,
   Settings,
@@ -33,6 +34,9 @@ import type {
   Transaction,
   TransactionType,
 } from '../types'
+
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
 
 const CYCLE_START = '2026-09-25' as IsoDate
 const TODAY = '2026-10-05' as IsoDate
@@ -43,6 +47,7 @@ const settings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 /** The seeded plan, exactly as `docs/seed-data.md` sets it. */
@@ -67,6 +72,7 @@ const categories: Category[] = SEED.map(([name, type, , rollsOver], index) => ({
   type,
   rollsOver,
   sortOrder: index,
+  updatedAt: STAMPED_AT,
 }))
 
 const plans: PlanEntry[] = SEED.map(([, , planned], index) => ({
@@ -74,6 +80,7 @@ const plans: PlanEntry[] = SEED.map(([, , planned], index) => ({
   cycleStart: CYCLE_START,
   categoryId: `c${index}` as Id,
   planned: naira(planned),
+  updatedAt: STAMPED_AT,
 }))
 
 const byName = (name: string) => categories.find((c) => c.name.startsWith(name))!.id
@@ -93,6 +100,7 @@ function movement(
     amount: naira(amount),
     categoryId: categoryName ? byName(categoryName) : undefined,
     createdAt: '2026-10-05T00:00:00.000+01:00' as Transaction['createdAt'],
+    updatedAt: STAMPED_AT,
   }
 }
 

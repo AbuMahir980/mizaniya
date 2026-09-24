@@ -30,6 +30,9 @@ import { formatMoney, naira } from '@/core/money/money'
 import type { ChangeNotifier, Repository } from '@/core/repository'
 import type { Id, Instant, IsoDate, PlanEntry, Snapshot, Transaction } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const TODAY = '2026-10-05' as IsoDate
 const NOW = '2026-10-05T09:00:00.000Z' as Instant
 
@@ -359,10 +362,18 @@ describe('restoring an export skips onboarding entirely', () => {
       takeHome: naira(450_000),
       amberRatio: 0.6,
       earlyIncomeWindowDays: 3,
+      updatedAt: STAMPED_AT,
       zakat: {},
     },
     categories: [
-      { id: 'c-salary' as Id, name: 'Salary', type: 'income', rollsOver: false, sortOrder: 0 },
+      {
+        id: 'c-salary' as Id,
+        name: 'Salary',
+        type: 'income',
+        rollsOver: false,
+        sortOrder: 0,
+        updatedAt: STAMPED_AT,
+      },
     ],
     plans: [],
     transactions: [
@@ -373,6 +384,7 @@ describe('restoring an export skips onboarding entirely', () => {
         amount: naira(450_000),
         categoryId: 'c-salary' as Id,
         createdAt: NOW,
+        updatedAt: STAMPED_AT,
       },
     ],
     debts: [],
@@ -447,6 +459,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
       cycleStart: '2026-09-25' as IsoDate,
       categoryId: byName(name).id,
       planned: naira(whole),
+      updatedAt: STAMPED_AT,
     })
     const move = (
       id: string,
@@ -461,6 +474,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
       amount: naira(whole),
       categoryId: byName(name).id,
       createdAt: NOW,
+      updatedAt: STAMPED_AT,
     })
 
     // The seeded plan and the seeded cycle, from docs/seed-data.md.
@@ -487,6 +501,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
           amount: naira(450_000),
           categoryId: byName('Rent fund').id,
           createdAt: NOW,
+          updatedAt: STAMPED_AT,
         },
         move('s1', 'savings-in', 75_000, 'Rent fund'),
         move('s2', 'savings-in', 15_000, 'Emergency fund'),
@@ -500,6 +515,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
           amount: naira(30_000),
           debtId: 'debt-friend' as Id,
           createdAt: NOW,
+          updatedAt: STAMPED_AT,
         },
       ],
       debts: [
@@ -509,6 +525,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
           openedOn: '2026-09-24' as IsoDate,
           scheduleAmount: naira(30_000),
           witnesses: [],
+          updatedAt: STAMPED_AT,
         },
       ],
     }

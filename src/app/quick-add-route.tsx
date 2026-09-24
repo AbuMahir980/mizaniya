@@ -9,7 +9,8 @@
 
 import { safeToSpend } from '@/core/budget/budget'
 import { speakMoney } from '@/core/money/money'
-import type { Transaction } from '@/core/types'
+import type { Transaction, Unstamped } from '@/core/types'
+import { stamp } from '@/core/sync/stamp'
 import { QuickAdd } from '@/features/quick-add/quick-add'
 import { useAnnounce } from '@/ui/announce'
 import { useSnapshotActions, useSnapshotState } from './store-context'
@@ -36,10 +37,14 @@ export function QuickAddRoute({ open, onOpenChange }: QuickAddRouteProps) {
       snapshot={state.snapshot}
       now={today}
       at={instant}
-      onSave={async (transaction: Transaction) => {
+      onSave={async (transaction: Unstamped<Transaction>) => {
+        // One `(row, instant)` pair for both, so the stored movement and the one
+        // on screen are the same row rather than two rows that agree.
+        const saved = stamp<Transaction>(transaction, instant)
+
         const result = await actions.write(
-          (repository) => repository.transactions.put(transaction),
-          (snapshot) => ({ ...snapshot, transactions: [...snapshot.transactions, transaction] }),
+          (repository) => repository.transactions.put(transaction, instant),
+          (snapshot) => ({ ...snapshot, transactions: [...snapshot.transactions, saved] }),
         )
 
         if (!result.ok) {

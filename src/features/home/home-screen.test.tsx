@@ -28,6 +28,9 @@ import type {
   Transaction,
 } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const TODAY = '2026-10-05' as IsoDate
 const AT = '2026-10-05T09:00:00.000Z' as Instant
 
@@ -39,6 +42,7 @@ const settings: Settings = {
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
   zakat: {},
+  updatedAt: STAMPED_AT,
 }
 
 /** The seeded plan, exactly as `docs/seed-data.md` sets it. */
@@ -63,6 +67,7 @@ const categories: Category[] = SEED.map(([name, type, , rollsOver], i) => ({
   type,
   rollsOver,
   sortOrder: i,
+  updatedAt: STAMPED_AT,
 }))
 
 const plans: PlanEntry[] = SEED.map(([, , planned], i) => ({
@@ -70,6 +75,7 @@ const plans: PlanEntry[] = SEED.map(([, , planned], i) => ({
   cycleStart: '2026-09-25' as IsoDate,
   categoryId: `c${i}` as Id,
   planned: naira(planned),
+  updatedAt: STAMPED_AT,
 }))
 
 const byName = (name: string) => categories.find((c) => c.name === name)!
@@ -89,6 +95,7 @@ function move(
     amount: naira(whole),
     createdAt: AT,
     ...extra,
+    updatedAt: STAMPED_AT,
   }
 }
 
@@ -98,6 +105,7 @@ const friend: Debt = {
   openedOn: '2026-09-24' as IsoDate,
   scheduleAmount: naira(30_000),
   witnesses: [],
+  updatedAt: STAMPED_AT,
 }
 
 const rentGoal: Goal = {
@@ -107,6 +115,7 @@ const rentGoal: Goal = {
   dueDate: '2027-03-01' as IsoDate,
   categoryId: byName('Rent fund').id,
   createdOn: '2026-08-24' as IsoDate,
+  updatedAt: STAMPED_AT,
 }
 
 /** The worked day: 5 October, day 11 of 30 (`docs/seed-data.md`). */

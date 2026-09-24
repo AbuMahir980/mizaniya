@@ -34,6 +34,9 @@ import type {
   Snapshot,
 } from '@/core/types'
 
+/** One fixed instant for every fixture here, so `updatedAt` never moves between runs. */
+const STAMPED_AT = '2026-09-24T09:00:00.000Z' as Instant
+
 const AT = '2026-10-05T09:00:00.000Z' as Instant
 
 const settings: Settings = {
@@ -41,6 +44,7 @@ const settings: Settings = {
   takeHome: naira(450_000),
   amberRatio: 0.6,
   earlyIncomeWindowDays: 3,
+  updatedAt: STAMPED_AT,
   zakat: {},
 }
 
@@ -50,6 +54,7 @@ const food: Category = {
   type: 'expense',
   rollsOver: true,
   sortOrder: 0,
+  updatedAt: STAMPED_AT,
 }
 const transport: Category = {
   id: 'c-transport' as Id,
@@ -57,6 +62,7 @@ const transport: Category = {
   type: 'expense',
   rollsOver: false,
   sortOrder: 1,
+  updatedAt: STAMPED_AT,
 }
 const salary: Category = {
   id: 'c-salary' as Id,
@@ -64,6 +70,7 @@ const salary: Category = {
   type: 'income',
   rollsOver: false,
   sortOrder: 2,
+  updatedAt: STAMPED_AT,
 }
 
 const friend: Debt = {
@@ -71,10 +78,17 @@ const friend: Debt = {
   counterpartyName: 'A. Friend',
   openedOn: '2026-09-24' as IsoDate,
   witnesses: [],
+  updatedAt: STAMPED_AT,
 }
 
 const plans: PlanEntry[] = [
-  { id: 'p1' as Id, cycleStart: '2026-09-25' as IsoDate, categoryId: food.id, planned: naira(90_000) },
+  {
+    id: 'p1' as Id,
+    cycleStart: '2026-09-25' as IsoDate,
+    categoryId: food.id,
+    planned: naira(90_000),
+    updatedAt: STAMPED_AT,
+  },
 ]
 
 const seeded: Snapshot = {
@@ -89,6 +103,7 @@ const seeded: Snapshot = {
       amount: naira(450_000),
       categoryId: salary.id,
       createdAt: AT,
+      updatedAt: STAMPED_AT,
     },
   ],
   debts: [friend],
