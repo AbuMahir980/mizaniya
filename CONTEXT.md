@@ -94,29 +94,39 @@ server is allowed to *hold*. Rule 2 forbids real financial figures **in the
 repository** and is silent about a database, because there was none.
 
 > 7. Other people's money data is held in trust, and the app holds as little of it
->    as it can. **We cannot read it.** It is encrypted on the person's own device
->    with a key only they hold, and the server stores what it cannot open — so
->    production data is not "not browsed", it is **unreadable to us by design**
->    ([ADR-011](docs/adr/ADR-011-end-to-end-encryption.md)). Nothing is ever copied
->    out of production — not into the repository, a fixture, a screenshot, a log
->    line, an error report, or a conversation about a bug; rule 6 exists so nobody
->    ever needs to. Every person can export everything the app holds about them and
->    can delete their account, and **deleting means the data is actually gone, not
->    hidden** — a sync tombstone is not a deletion. Bank access is **read-only**:
->    Mizaniya never moves, holds or takes money, the connection can be revoked at
->    any time, and unlinking destroys the stored token. Backups exist, and a restore
->    has been **performed and verified**, not merely configured. If data is ever
->    exposed, the people affected are told plainly and promptly. **And what is
->    claimed publicly is exactly what is true** — including that bank movement
->    reaches the server before it is encrypted, because it must.
+>    as it can. The sensitive figures are **encrypted with keys kept outside the
+>    database**, so a stolen copy of the database is not a copy of anyone's finances.
+>    **Bank access tokens are held to a higher standard than anything else**, because
+>    a leaked token is ongoing access to someone's account rather than a record of
+>    last month. Bank access is **read-only**: Mizaniya never moves, holds or takes
+>    money; the person can cut the connection at any time, and unlinking destroys the
+>    token. **Financial values never reach a log, an error report or a monitoring
+>    tool.** Nothing is ever copied out of production — not into the repository, a
+>    fixture, a screenshot, or a conversation about a bug; rule 6 exists so nobody
+>    ever needs to. **Every access to production data leaves a record, and people are
+>    told that it does** — support works by asking, not by looking. Everyone can
+>    export everything the app holds about them and can delete their account, and
+>    **deleting means the data is actually gone, not hidden** — a sync tombstone is
+>    not a deletion. Backups exist, and a restore has been **performed and verified**,
+>    not merely configured. If data is ever exposed, the people affected are told
+>    plainly and promptly. **And what is claimed publicly is exactly what is true** —
+>    never more: not *"nobody can read your data"* while we can, and not *"your bank
+>    data never touches our servers"*, because it must.
 
 **Why each clause is there**, so it can be argued with rather than nodded at:
 
-- *We cannot read it* — the stakeholder's own strengthening, 2026-09-24: not a
-  promise of restraint but a fact about the architecture. A rule that depends on
-  nobody looking is only as good as the busiest day; a rule that makes looking
-  impossible does not degrade. See [ADR-011](docs/adr/ADR-011-end-to-end-encryption.md),
-  **including the one thing it cannot claim.**
+- *Keys outside the database* — the stakeholder's instinct was stronger than this:
+  they wanted data **we could not read at all**. That was examined properly and
+  deliberately deferred in [ADR-011](docs/adr/ADR-011-encryption-and-data-protection.md),
+  for three reasons — a forgotten password would destroy someone's budget for good, a
+  paying customer could not be supported, and **the promise can be added later but
+  never withdrawn**. What this clause keeps is the part that defeats the breach shapes
+  that actually happen: a leaked database dump or a mishandled backup is ciphertext
+  without a key. What it does **not** defend is a live compromise of the running
+  server, and ADR-011 says so plainly rather than letting anyone assume otherwise.
+- *Every access leaves a record* — the honest substitute for "we cannot look". A
+  promise not to look is worth what the busiest day is worth; an audit log is
+  checkable, and users are told it exists.
 - *Never copied out of production* — this is rule 2 extended from the repo to the
   database, and it is the clause most often broken by accident, usually by a log
   line or a screenshot in a bug report.
@@ -507,8 +517,10 @@ rather than left to be rediscovered.)*
 | 2026-09-24 | **Rule 6: every build is developed against seeded data, behind a toggle.** Dummy figures on demand so any feature can be exercised end to end. `npm run seed` already writes a restorable export, but it is a script — **the toggle inside the running app is the new part**, and it is also the honest reason nobody ever needs production data to reproduce a bug | owner |
 | 2026-09-24 | **Offline is the selling point, so the phone stays in charge — ADR-010 accepted.** Budgeting only works if spending is recorded *at the moment it happens*, which is exactly when the signal is worst. An app that refuses the entry teaches people to stop entering, and **a budget nobody updates is worse than no budget** — it reports a comfortable number for what is left, and that number is wrong | owner, [ADR-010](docs/adr/ADR-010-sync-model.md) |
 | 2026-09-24 | **When two people disagree about a shared budget, ask them — do not merge.** *"You set Food to ₦40,000, your wife set ₦35,000. Do you agree?"* A shared household budget **is an agreement between two people**, so a disagreement about it is a conversation, not a data problem for a timestamp to settle behind their backs. It requires the sync to **keep both values** rather than resolve on arrival — which is also easier to reason about than any silent merge rule. Two deliberate rules: one person on two devices, last write wins; two people, keep both and ask | owner, ADR-010 |
-| 2026-09-24 | **We should not be able to read user data at all — end-to-end encryption proposed (ADR-011).** Not a promise of restraint but a fact of the architecture: a rule that depends on nobody looking is only as good as the busiest day. It fits unusually well because **every money figure is already computed on the device**, so the server never needed to read anything. **One decision blocks it:** if a person forgets their password their data is permanently gone, and *"I lost a year of my budget and they could not help"* is worse for trust than a breach. Recovery must be designed first | owner, [ADR-011](docs/adr/ADR-011-end-to-end-encryption.md) |
-| 2026-09-24 | **The one thing encryption cannot claim, written down before anyone is tempted to claim it.** Bank movement arrives by webhook **to the server** — a browser cannot hold aggregator credentials — so the server necessarily sees it in plaintext for the length of one request before encrypting it to the person's public key. *"We never store your bank data readable"* is true. *"Your bank data never touches our servers"* is **false**, and writing it would be the most damaging thing this project could do to its own credibility | ADR-011 |
+| 2026-09-24 | **Strong encryption now; end-to-end deliberately deferred — and the deferral is the conservative choice, not the compromise.** The owner wanted data *we* could not read. The goal underneath it — a breach must not be a catastrophe — is reached most of the way by encrypting the sensitive fields with **keys held outside the database**, which defeats the breach shapes that actually happen. Three things decided against going further now: a forgotten password destroys a budget permanently, **a paying customer cannot be supported by someone who cannot see anything**, and above all **the promise can be added later but never withdrawn** — retracting *"we cannot read your data"* is a worse day than a breach. Named openly: this does **not** defend a live server compromise | owner, [ADR-011](docs/adr/ADR-011-encryption-and-data-protection.md) |
+| 2026-09-24 | **The middle option is the one with no reason to exist.** End-to-end encryption *with* a spare key held for recovery costs nearly as much engineering as the real thing while delivering only the weak guarantee, because the server can still decrypt. If that is where the reasoning lands, ordinary encryption is nearly as good for a fraction of the work. Recorded because it is the option that looks like prudence and is actually the worst trade in the set | ADR-011 |
+| 2026-09-24 | **End-to-end encryption returns as an opt-in, probably paid.** *"Nobody, including us, can read your data — and nobody can recover it for you"* is an honest premium feature, because the person accepts the trade-off themselves. Forcing it on everyone at launch makes that choice on their behalf, and it is not ours to make | ADR-011 |
+| 2026-09-24 | **The one thing encryption cannot claim, written down before anyone is tempted to claim it.** Bank movement arrives by webhook **to the server** — a browser cannot hold aggregator credentials — so the server necessarily sees it in plaintext for the length of one request before encrypting it to the person's public key. *"We never store your bank data readable"* is true. *"Your bank data never touches our servers"* is **false**, and writing it would be the most damaging thing this project could do to its own credibility. True under any encryption choice, which is why **the most sensitive data in the product was always the least protectable** | ADR-011 |
 | 2026-09-24 | **The landing page is in scope and done properly, not a stub.** It is the first thing an investor, an employer or a user sees, so it is designed and briefed with the rest — not improvised from leftover components once the app works | owner |
 ## What Was Done — By Day
 
