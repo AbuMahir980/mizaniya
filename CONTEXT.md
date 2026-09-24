@@ -257,10 +257,28 @@ shows.
 was made* and is immutable. A note explains the **system as it is now** and is
 rewritten when that changes. A note links its ADRs.
 
-**`docs/concepts/` is the old format.** Kept as artefacts; its useful content is
-folded into the topic notes as those are written, and the WHY lines being deleted
-from file headers are harvested into them rather than thrown away. Tracked on the
-sweep ticket.
+**`docs/concepts/` is deleted once its content has moved.** The stakeholder's
+call, 2026-09-24: two folders explaining the same things is confusing, and the
+engineering note is the format that is actually useful — *"I can even easily talk
+about it in gatherings, in interviews."* The concept note was written to teach a
+concept; the engineering note answers a question someone asks you. The second
+replaces the first.
+
+**Harvest first, delete second** — 907 lines of real content across ten files, and
+seven other files link into it (`docs/04-api-contract.md`,
+`docs/07-frontend-coding-rules.md`, `docs/Mizaniya_Kickoff_Pack.md`, three
+`peer-ai/` files, and this one). Each concept file has an obvious destination:
+repository-pattern and indexeddb into **Storage**; derived-state and
+one-source-of-truth into **Derived state**; types-vs-runtime-validation into
+**Validation**; all-or-nothing into **Import and export**; hierarchy-and-attention
+into a design note.
+
+Two need a decision rather than a move: **`review-questions.md` and `revisit.md`
+are artefacts of the five-questions ritual**, which no longer exists — but
+`revisit.md` holds genuinely open threads, and those belong in Open Questions here
+rather than being deleted with the file. And **`what-breaks-who-finds-out.md` is
+cited as a named principle** elsewhere in this document; it needs a home before the
+reference can be repointed. Tracked on the sweep ticket.
 
 <details>
 <summary>The replaced contract, kept as history</summary>
@@ -1224,7 +1242,7 @@ UNDERSTAND's clarification round is now closed.
 | The primitives | `src/ui/` — about twenty, with their states; gallery at `src/app/primitives-page.tsx` |
 | Domain logic | `src/core/` — `money`, `cycle`, `budget` so far |
 | Auto rules mapped to what enforces them | `docs/05-coding-standards.md` |
-| Concept notes (learning mode) | `docs/concepts/` — one file per concept, plus `revisit.md` for threads to pull later |
+| Engineering notes | `docs/engineering-notes/` — one note per topic someone would ask about: what the problem was, what we did, the concepts, and the why-chain. **Replaces `docs/concepts/`**, which is deleted once harvested (sweep ticket) |
 | Licence | `LICENSE` (PolyForm Noncommercial 1.0.0) — authoritative, never regenerated |
 
 ---
