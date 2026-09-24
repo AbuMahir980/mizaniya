@@ -56,18 +56,21 @@ stack; `docs/standards/` is the rulebook.
 
 ---
 
-## 4. Learning mode
+## 4. Learning mode — suspended 2026-09-24
 
-This project is built to be understood, not just shipped. The full contract is
-in `CONTEXT.md`. In short: explain before each phase in three or four plain
-sentences; state the reasoning in steps *before* writing non-trivial logic
-(cycle maths, safe-to-spend, rollover, projected gap, zakat); give every file a
-three-line header (WHAT / WHY this pattern over the obvious alternative / the
-one sentence to say about it in an interview); write one `docs/concepts/` file
-per concept the first time it appears; ask five questions at each stop and
-answer honestly whether the answers hold up, logging misses in
-`docs/concepts/revisit.md`. Real trade-offs are laid out with both sides — the
-user chooses, and the choice and its reason go into `CONTEXT.md`.
+**Suspended at the stakeholder's instruction; a replacement approach is coming.**
+Do not follow the old contract, and do not reinstate it by inferring it from the
+existing `docs/concepts/` files or the file headers already in `src/`. The
+suspended text is kept, collapsed, in `CONTEXT.md` for reference.
+
+Two things still apply, because neither is learning mode:
+
+- **The three-line file header** (WHAT / WHY this pattern over the obvious
+  alternative / the one sentence for an interview) is now **house code style**.
+  Nearly every file in `src/` has one; keep writing them so new files match.
+- **Real trade-offs are laid out with both sides, the stakeholder chooses, and the
+  choice and its reason are recorded** — in an ADR, and in `CONTEXT.md` Key
+  Decisions. That is this project's decision procedure, not a teaching device.
 
 ---
 

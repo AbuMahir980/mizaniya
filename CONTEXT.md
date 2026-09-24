@@ -25,12 +25,41 @@ must not be paraphrased anywhere else.
 
 5. docs/standards/ is the rulebook: frontend-engineering-standards.md, backend-engineering-standards.md and standards-addendum-mizaniya.md. Every rule marked auto is enforced by ESLint/tsconfig/CI; every rule marked review is listed in CONTEXT.md as the code-review agent's checklist. Token, primitive and file naming follow frontend sections F and O.
 
-**Note on rule 1, 2026-09-11.** Rule 1 says the server lives in a separate
-private repository. That is **unchanged and still binding**, but it is under
-review: [ADR-008](docs/adr/ADR-008-repository-layout.md) defers the server's
-visibility to v3 and writes down the criteria for deciding it. If the answer
-turns out to be public, **rule 1 is amended here, in writing, first.** The rule
-is not contradicted quietly.
+**Note on rule 1, 2026-09-11 — superseded by the amendment below.** Rule 1 says
+the server lives in a separate private repository. That was **unchanged and still
+binding** at the time, but under review:
+[ADR-008](docs/adr/ADR-008-repository-layout.md) defers the server's visibility to
+v3 and writes down the criteria for deciding it. If the answer turned out to be
+public, **rule 1 was to be amended here, in writing, first.** The rule is not
+contradicted quietly.
+
+**Amendment to rule 1, 2026-09-24 — the server lives in this repository, and it
+is public.** This is the writing the note above required, and it is the only place
+the change is made. Rule 1's clause *"A future server for sync, sharing or
+payments lives in a separate private repository"* is replaced by: **the server
+lives in this repository at `services/api`, public, under the same PolyForm
+Noncommercial licence. Infrastructure, secrets and any future fraud heuristics
+stay private.** Everything else in rule 1 is untouched and still binding — the
+licence, the open development, the phase commit names, and secrets never entering
+the repo.
+
+The reason is in [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md):
+v1 is now a hosted webapp, so the server is v1's work rather than v3's, and
+ADR-008's written criteria were applied to it. **The criterion that will move is
+"there are paying users whose trust is the asset"** — it is not true yet, it
+becomes true at the first paying user, and when it does, visibility is revisited
+by another written amendment here.
+
+**Rule 6 is owed and not yet written, 2026-09-24.** Rule 2 forbids real financial
+figures **in the repository**; it is silent about a database, because there was
+none. A hosted app holding other people's salary and transaction data needs the
+equivalent rule. The repo rules are recorded verbatim in the stakeholder's own
+words and must not be paraphrased, so **it is not drafted here** — the stakeholder
+writes it. What it has to cover is listed in ADR-009: production data never
+becomes a fixture, screenshot or seed file; `docs/seed-data.md` stays the only
+source of figures; NDPR duties including erasure on request; encryption at rest;
+and a restore from backup that has actually been tested. **This blocks the first
+real user, not the first line of server code.**
 
 ---
 
@@ -103,7 +132,26 @@ different client.
 
 ---
 
-## Learning mode — the contract
+## Learning mode — suspended 2026-09-24, awaiting its replacement
+
+**The contract below is suspended at the stakeholder's instruction.** They have a
+different approach in mind and will describe it; until then **none of it is
+enforced**, and no session should reinstate it by inference from the existing
+artefacts.
+
+**One item is retained, and deliberately reclassified.** The **three-line file
+header** (WHAT · WHY this pattern over the obvious alternative · the one sentence
+for an interview) stays — not as learning mode, but as **house code style**.
+Roughly every file in `src/` already carries one, and dropping it now would make
+new files inconsistent with the whole existing codebase. If the replacement idea
+removes it too, that is a deliberate style change to make across the repo at once,
+not a drift.
+
+`docs/concepts/` and `docs/concepts/revisit.md` are **kept as artefacts** — they
+are written and useful. They are simply no longer *required output* of any step.
+
+<details>
+<summary>The suspended contract, kept for reference</summary>
 
 This project is built to be understood. The stakeholder reads; they do not type
 the code. Do not slow down to make them type.
@@ -114,6 +162,13 @@ the code. Do not slow down to make them type.
 - **`docs/concepts/`** — one short file per concept the first time it appears (repository pattern, IndexedDB, derived state, optimistic UI, idempotent saves, tokens vs hard-coded styles…): what it is, why it is used here, what we would have used instead and why not, and the interview sentence. The stakeholder adds a line in their own words after reading.
 - **At each stop:** ask five questions about what was built, and say honestly whether the answers hold up. Log misses in `docs/concepts/revisit.md`.
 - **Real trade-offs** are laid out with both sides; the stakeholder chooses; the choice and its reason are recorded in Key Decisions below.
+
+</details>
+
+**What survives regardless, because it is not learning mode:** real trade-offs are
+still laid out with both sides, the stakeholder still chooses, and the choice and
+its reason still go into Key Decisions. That is how this project makes decisions,
+not a teaching device — it is why ADRs exist.
 
 ---
 
@@ -170,10 +225,29 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: BUILD, cycle 3 — but paused for a design-conformance pass.** Cycles 1
-and 2 are closed (T1–T15) and `main` runs end to end. **T16 is started and
-parked**: `core/movement` is merged, its screen is not built, and the branch
-`feature/transactions-and-editing` is unmerged.
+**Phase: BUILD — stopped 2026-09-24 for the repositioning.** v1 is no longer a
+local-first single-owner web app; it is a **hosted webapp with a server**, and
+mobile moves to v2. See [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md)
+and [ADR-010](docs/adr/ADR-010-sync-model.md). **No further screen building until
+the re-spec and the design brief are done** — the reason to reposition now is that
+little has been built, and building more against single-owner assumptions is the
+thing being avoided.
+
+**What is parked, and why each:**
+
+- **#72's design-conformance pass — parked half-done.** Home stays incomplete.
+  Every one of those screens changes under the repositioning (sign-up, signed-out
+  states, sync state, account and billing), so rebuilding them now means
+  rebuilding them twice.
+- **T16 (#23) — started and parked.** `core/movement` is merged; its screen is not
+  built; the branch `feature/transactions-and-editing` is unmerged.
+- **T17–T22 (#24–#27, #29) — not started, and now to be re-specced** before they
+  are built, not built as written.
+
+Cycles 1 and 2 are closed (T1–T15) and `main` runs end to end as a local-first
+app. That build is not wasted: `core/` is unchanged by the repositioning, the
+`Repository` seam is exactly what the server slots behind, and the local
+implementation stays the offline path under ADR-010.
 
 **What the last day was actually about.** The owner ran the app and found it had
 deviated from the design badly. Every built screen had been assembled from
@@ -214,7 +288,14 @@ typefaces nothing loads yet, the brand files, the welcome screen that was drawn
 after PAGE SPECS and so appears in no ticket, and a Tabs primitive — each against
 the ticket that takes it. The file is deleted once every box is ticked.
 
-**Next action:** start **#23 — T16 · Transactions, and editing**.
+**Next action:** the repositioning's own sequence — **ADR-010 signed off**, then
+the re-spec (new stories + `peer-ai/backend/01-spec-endpoints.md`), then the
+**one** design brief. No screen is built before those three. ADR-009's action
+items are the checklist.
+
+*(This line previously read "start #23 — T16", which had already been stale for a
+day: #72's conformance pass outranked it and the state file said so. Corrected
+rather than left to be rediscovered.)*
 
 ---
 
@@ -296,11 +377,91 @@ the ticket that takes it. The file is deleted once every box is ticked.
 | 2026-09-24 | **Ask for facts in the order the story happened, and derive the rest.** A debt asks what was borrowed and what has been repaid; the outstanding is a **read-out, not a field**. That is what makes the ambiguity impossible rather than merely unlikely — nobody can type the outstanding into a field that means the original, because there is no field for it. It is `transactions are the only facts` applied to a form | designer, §G |
 | 2026-09-24 | **A record with standing must separate what was witnessed from what it was told.** The printed debt record carries the owner's account of what was repaid before the record opened — it must, or the record is incomplete — but says plainly that Mizaniya did not witness it. Presenting hearsay as its own observation would make the one artefact someone outside the household reads less trustworthy, not more complete | designer, §G |
 | 2026-09-24 | **A check scoped to one unit is a check with a hole in it.** The 2px-grid migration was guarded by comparing the emitted stylesheet before and after — which found exactly one difference and felt conclusive. It compared only `px` values, so three broken **percentage** utilities went straight through, and the desktop dialog stopped centring for a day. The lesson pairs with the older one: a check that has only ever passed may be switched off, and a check that passes may simply not be looking where the damage is | #84 |
+| 2026-09-24 | **v1 is a hosted webapp with a server; mobile is v2; there is no v3.** Outside interest arrived, and reading bank movement — the paid feature — *cannot* be done from a browser, so the server stops being a v3 luxury and becomes what the headline feature is made of. Repositioning now is chosen precisely **because little has been built**: the cost is rebuilding what exists, and that cost only grows. Bank sync is **designed in v1, built as v1.1**, so launch is not hostage to an aggregator contract that needs a registered business first | owner, [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md) |
+| 2026-09-24 | **Repo rule 1 is amended in writing: the server is in this repository, and public.** ADR-008's criteria were applied rather than the mood of the day — entitlement is enforced server-side, the full-stack story is the point of a public repo, and nothing in the code is a secret rather than a key. **The criterion that will move is named**: at the first paying user, "their trust is the asset" becomes true, and visibility is revisited by another written amendment | owner, ADR-008 criteria |
+| 2026-09-24 | **Mizaniya reads bank movement; it never holds or moves money.** No custody, no transfer, no settlement — so none of the payment-licensing weight applies, and an earlier reading that assumed it did was wrong. What remains is narrower and unrelated: NDPR applies to processing the data, and **the aggregator's commercial onboarding is the real gate** — they bill per linked account, which is also why that feature cannot sit on a free tier | owner |
+| 2026-09-24 | **Sync moves facts, never derivations.** Every money figure — safe-to-spend, rollover, projected gap, the debt balance, zakat — is derived, and ADR-003 (time is a parameter) plus ADR-004 (integer kobo) make that derivation deterministic. So no two devices ever have to reconcile two values of safe-to-spend; they recompute from the same rows and agree by construction. It shrinks the conflict surface to one row type (`PlanEntry`) and one singleton (`Settings`) | [ADR-010](docs/adr/ADR-010-sync-model.md) |
+| 2026-09-24 | **"Open source" was the wrong word, and PolyForm already does what was wanted.** The intent is a repository that is *readable as proof of work* to investors and employers — not an invitation to alter the code. PolyForm Noncommercial gives exactly that: anyone may read and study it, nobody may commercialise it, and the owner keeps every commercial right. **No CLA is needed while no outside code is accepted**, and the project is described as **source-available**, not open source | owner |
+| 2026-09-24 | **Learning mode is suspended pending a replacement the owner is designing.** The three-line file header is **retained and reclassified as house code style** — nearly every file in `src/` has one, and dropping it would leave new files inconsistent with the whole codebase. `docs/concepts/` is kept as artefacts, no longer required output. What survives is not learning mode at all: trade-offs laid out both ways, the owner choosing, the reason recorded | owner |
 ## What Was Done — By Day
 
 Newest first.
 
-### 2026-09-24 (Thursday, the long one) — every built screen was rebuilt from the artboards
+### 2026-09-24 (Thursday, the turn) — the product was repositioned, and the build stopped to let it
+
+**Nothing was built today. That was the point.**
+
+The owner had been talking to people about Mizaniya, and some of them may want to
+use it. That alone would be weak evidence — interest in conversation is the
+weakest signal there is — but it arrived next to two facts that were stronger.
+
+**The paid feature cannot exist without a server.** The intended bank integration
+is read-only: see that money left the account, and ask which envelope it belongs
+to. Mizaniya never holds or moves money, so the payment-licensing weight an
+earlier reading had assumed simply does not apply — that reading was wrong and is
+recorded as wrong. But an aggregator cannot be called from a browser. The
+credentials, the token exchange and the webhooks need somewhere private to run. So
+the server stopped being a v3 luxury and became the thing the headline feature is
+made of.
+
+**And the moment to turn was now, because little has been built.** T1–T15 are
+closed, T16 is half-started, and #72's conformance pass had already stopped three
+screens short. Every ticket from T16 on assumed a single owner on a single device.
+Building six more of them and then adding accounts is the expensive order.
+
+**What was decided** — [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md):
+v1 is a hosted webapp with accounts, sync, tiers and a landing page; mobile becomes
+v2; **v3 dissolves into v1**. Bank sync is *designed* in v1 and built as v1.1 — the
+aggregator needs a registered business before it will onboard anyone, and that is
+calendar time the build should not sit inside.
+
+**Repo rule 1 was amended in writing, which is the only way it may be changed.**
+ADR-008 had deferred the server's visibility to v3 *against written criteria*
+precisely so this decision would be made on evidence. The criteria were applied:
+public, in this repository, with infrastructure and secrets private. The criterion
+that will eventually move was named rather than ignored — at the first paying user,
+"their trust is the asset" becomes true.
+
+**Two corrections to the plan as proposed**, both of which the owner was right
+about:
+
+- The regulatory objection was wrong and was dropped. What survives is smaller and
+  is about *data*, not money: NDPR applies regardless, and the stakes go up rather
+  than down, because a leaked table of real transaction histories is a different
+  category of event from a leaked file of invented seed figures. **Rule 6 is owed**
+  — in the owner's own words, since the rules are verbatim and not paraphrased.
+- "Open source" meant *visible as proof of work*, not *open to contribution*.
+  PolyForm Noncommercial already does exactly that, so the worry about contributor
+  licensing was misplaced. **No CLA is needed until outside code is accepted.** The
+  only change is the word: **source-available**.
+
+**And one correction the other way.** The recommendation had been to finish #68,
+#70 and #69 first. The owner's counter — those screens change under the
+repositioning, so finishing them means building them twice — is correct, and #72
+is parked half-done instead. Home stays incomplete on purpose.
+
+**[ADR-010](docs/adr/ADR-010-sync-model.md) was written and is awaiting sign-off.**
+Its useful finding was not the recommendation but something the code revealed:
+**no entity carries `updatedAt`, `deletedAt` or a revision counter** — a grep
+across `src/` returns nothing. So last-write-wins cannot be implemented at all,
+and **a delete can never propagate**: device A removes a category, device B still
+has it, and the next sync resurrects it. That is a migration across every entity,
+and it is cheapest today, while the owner's device holds the only data that exists.
+
+The other half of the ADR is the reason this is tractable: **sync moves facts,
+never derivations.** Every money figure is derived, and ADR-003 and ADR-004 make
+the derivation deterministic, so the conflict surface is one row type and one
+singleton against a transaction log that merges by construction.
+
+**Learning mode was suspended** at the owner's instruction; a replacement is
+theirs to describe. The three-line file header was retained and reclassified as
+house code style, because nearly every file has one and removing it piecemeal
+would leave the codebase inconsistent in a way nobody chose.
+
+**Nothing ran.** No code changed, so `npm run verify` was not the gate today; the
+gate was that the repositioning is written down before a line is built against it.
+
+
 
 **The day's finding, and it governs everything below.** The owner ran the app
 and said the build had *"deviated hugely"* from the design. They were right.
@@ -817,27 +978,52 @@ full reasoning; this is the summary and what it means for the code.*
 
 ## What's Next
 
-1. **Finish Home — #68.** Half of it landed in #88. Still missing: the
-   **`Today / This cycle` switch**, which exists nowhere in the code; `Peak 25
-   Sep` and the chart's axis row; `÷ 20 days, rounded down` as the money card's
-   footer; the ranked row's shape (rail under the name, pill under the amount);
-   `Show all …` as the emerald link-with-chevron; **Goals and Debts as two
-   tables**; and the two-column desktop layout.
-2. **The debt's history — #85**, answered in `open-items.md` §G and **needed
-   before T17 and T18**. Step 5 and the post-onboarding debt form ask what was
-   borrowed and what has been repaid, and **derive the outstanding** — there is
-   no field for it, which is what makes the ambiguity impossible. The printed
-   record separates what Mizaniya witnessed from what it was told. `seed-data.md`
-   needs a worked part-paid debt; none exists.
-3. **Plan — #70**, then **Quick Add — #69.** Quick Add's is a different
-   interaction model, not a detail: the artboard has two disclosure tiles where
-   the code has a segmented control and a native date input.
-4. **Then resume the queue at T16** (#23) with the screen, on the branch already
-   started. T17 (#24), T18 (#25), T19 (#26), T20 (#27), T22 (#29) follow.
-5. **Still open and unowned:** branch protection (needs repo-admin hands), the
-   gitleaks action pinned to a tag rather than a SHA, `FORBIDDEN_TERMS` unset so
-   the rule-3 guard logs NOT ENFORCED, #58's two unseedable scenarios, #65's
-   Home fixture split, and #53's ten missing day-log entries.
+**The repositioning comes first, and nothing is built until step 4.** Order
+matters here: handing the designer a repositioning without the product decisions
+is how the artboards get re-cut a third time.
+
+1. **Sign off [ADR-010](docs/adr/ADR-010-sync-model.md)** — local-first with the
+   server as sync target, or server-authoritative. It is design-visible (does
+   every screen need an offline and sync state?) so it blocks the brief.
+2. **The schema migration ADR-010 uncovered.** No entity has `updatedAt`,
+   `deletedAt` or a revision, so **last-write-wins cannot be implemented and a
+   delete can never propagate — it resurrects on the next sync.** `SCHEMA_VERSION`
+   1 → 2 across every entity, with a step in the ADR-005 chain. Cheapest now,
+   while the owner's device holds the only data in existence.
+3. **Re-spec.** New stories in the system spec — sign-up, sign-in, reset, sync
+   state, the free/paid boundary, household sharing — then
+   `peer-ai/backend/01-spec-endpoints.md`. `docs/standards/backend-engineering-standards.md`
+   stops being dormant; **§A6 wakes up and §C5 applies** (ADR-008 item 5).
+4. **One design brief**, covering new *and* changed screens and saying explicitly
+   what is reusable — the owner's point is that much of the existing set is:
+   landing page, sign-up / sign-in / reset, account and billing, **what a locked
+   paid feature looks like** (the hardest copy problem in freemium), household
+   invite, the signed-out state of every screen, and the **reconciliation flow**
+   for bank movement — *"₦12,000 left your account, which envelope?"* — which is
+   the product's centre and is drawn nowhere.
+5. **The workspace extraction** (ADR-008 item 2, pulled forward): `src/` →
+   `apps/web/`, `packages/core`, `packages/tokens`. Before `services/api` has a
+   line in it.
+6. **Then build**, and only then resume the screen queue — which is re-specced
+   T16–T22, not T16–T22 as written.
+
+**Rule 6 — real user data — is owed from the stakeholder in their own words.**
+Blocks the first real user, not the first commit. See the repo rules above.
+
+**Still open and unowned, unchanged by any of this:** branch protection (needs
+repo-admin hands), the gitleaks action pinned to a tag rather than a SHA,
+`FORBIDDEN_TERMS` unset so the rule-3 guard logs NOT ENFORCED, #58's two
+unseedable scenarios, #65's Home fixture split, and #53's ten missing day-log
+entries.
+
+**Carried forward from the parked pass, so it is not lost:** #68's remaining Home
+work (the `Today / This cycle` switch, `Peak 25 Sep` and the axis row, the `÷ 20
+days` footer, the ranked row's rail-and-pill, the emerald `Show all …` link, Goals
+and Debts as two tables, the two-column desktop layout); **#85's debt history**,
+answered in `open-items.md` §G and still needed before T17/T18, including the
+worked part-paid debt that `seed-data.md` still lacks; and **#69's Quick Add**,
+where the artboard's two disclosure tiles are a different interaction model from
+the code's segmented control, not a detail.
 
 ---
 
