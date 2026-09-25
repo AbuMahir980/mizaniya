@@ -218,19 +218,28 @@ elevation.lift   every primary button, and the Add action —
                  light  0 8px 20px -8px rgba(15,92,60,.55)
                  dark   0 8px 20px -8px rgba(78,203,139,.4)
 
-motion.instant   0ms    every money figure — money never animates
-motion.fast    120ms    press, focus, pill swap
-motion.base    180ms    chart draw, expand, tab change
-motion.sheet   240ms in / 160ms out
+motion.fast    120ms    press, focus, hover, chip and pill selection
+motion.base    180ms    expand, tab change, banner, chart and rail fills
+motion.sheet   240ms in / 160ms out    sheets, dialogs, the scrim
 easing         cubic-bezier(.2,0,0,1) · exit cubic-bezier(.4,0,1,1)
+               → money never animates. See motion.md §0
 
 target.min      44px hit area (not the visual box), 8px minimum between targets
 focus           2px emerald ring at 2px offset, or a 3px em2 halo on a field
 ```
 
+**Motion has its own file now: [`motion.md`](motion.md).** The three durations and
+two curves above are repeated there and nowhere else is authoritative — what
+animates, what never does, the reduced-motion fallback for every entry, and the
+pointer and keyboard states all live there. The values stayed here because they are
+tokens and `tokens.css` reads them; everything that is a *decision* rather than a
+number moved.
+
 Under `prefers-reduced-motion: reduce`, the gauge and chart render at their final
 values with no draw-in, sheets fade rather than translate, and the loading spinner
-keeps turning — a still spinner conveys nothing.
+keeps turning — a still spinner conveys nothing. `motion.md` §5 gives the rule that
+makes every other fallback derivable: remove movement and scaling, keep opacity and
+colour, never remove information.
 
 **The nine-value space scale this file used to name was a fiction.** An audit of the
 canvas on 23 September found **55% of spacing values off it**, and the single
@@ -353,3 +362,26 @@ exception. `Protected`, `allowance` and `safe to spend` are plain English and
 they are the words on the switches — they were never in the same class as
 `counterparty`. Changing them would ripple into D1, D15, the page specs and the
 ADRs for no gain in clarity.
+
+### 10.1 · The privacy claim — one string, used verbatim in two places
+
+**Never write, anywhere, in any medium:** ~~*"your bank data never touches our
+servers."*~~ It is **false**. Movement reaches the server before it is encrypted.
+Writing it on a landing page, in an app store listing, in an email or in a slide is
+a false statement about security made to people deciding whether to trust us with a
+salary.
+
+**The approved claim, which is the only wording to use, and is strong enough:**
+
+> **We never store your bank data in readable form.**
+
+That exact string appears on the landing page and on the sign-up trust panel, and
+the two must be **character-identical** — two slightly different privacy claims read
+as a company that is not sure, which is worse than one plain one. It lives here so
+there is one copy of it; a screen or a page quotes this line rather than rewriting it.
+
+The three supporting claims travel with it and are also fixed wording:
+
+- Encrypted, with the keys held outside the database.
+- Every access to production data is logged, and you can ask for that record.
+- Bank access is **read-only** — it can see money move, it cannot move money.

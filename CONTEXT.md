@@ -1332,10 +1332,23 @@ D1–D6 below. Six of the original seven had in fact already been answered in
 brief was read properly. Full reasoning for each decision, including the option
 rejected, is in [docs/01-requirements-summary.md](docs/01-requirements-summary.md).
 
+**Design round, 25 September — §H answered and §I raised back.** All thirteen
+questions in [docs/open-items.md](docs/open-items.md) §H are answered in place.
+`docs/design/motion.md` is new and authoritative for motion; `tokens.md` §5 now points
+at it and §10.1 holds the privacy string as one copy. **[§I](docs/open-items.md) is
+eleven items back to the build side** — four figures that block drawings (36–39),
+four behaviour decisions logged below (40–43), and three assumptions to confirm
+(44–46). **Item 44 is the one to answer first:** it is the only one that could send a
+finished drawing back to the board.
+
 What remains open:
 
 | Question | Status |
 |----------|--------|
+| `design:` **Which figure does the engine use while a household disagreement is unsettled?** Two amounts are both live and something has to be computed with | Open — **design proposes the lower of the two**, stated on the screen in words, because it is the conservative direction for a budgeting app and never says there is more to spend than there might be. **Which figure the engine uses is behaviour, so this is the spec's call.** Raised at open-items §I item 40 |
+| `design:` **Is the reconciliation queue blocking?** | Open — **design says no.** It is a row on Home that opens its own surface, never a modal or an interstitial; a queue that must be cleared turns a paid feature into a toll gate on the free product. Placement is design's; **non-blocking is behaviour**. Raised at §I item 41 |
+| `design:` **A demo export must not restore silently as real data** | Open — the on-screen marker is designed (§H item 33) but an export leaving the app carries the hazard one step removed. Needs a flag on the export and a sentence on import. **Pure behaviour — flagged, not designed.** Wants an issue in `docs/08-issue-plan.md`. Raised at §I item 42 |
+| `design:` **Is export reachable while signing in, before the two-budget choice?** | Open — the whole design of §I3's screen rests on offering *"save this device's budget to a file"* **before** either destructive option, which turns an irreversible decision into a reversible one. **If it is not available at that point in the flow, the screen needs redesigning around a worse set of options.** Raised at §I item 43 |
 | Exact copy for the offline and storage-status lines — they must inform without alarming | Open — PAGE SPECS, with `design:ux-copy` |
 | Should archiving a category hide it from past cycles, or only from new plans? | Open — leaning *new plans only*, so history stays truthful. Needed before story C7 |
 | Does the printable debt record carry the owner's own name, and does onboarding collect it? | Open — needed before story E5 |
