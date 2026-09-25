@@ -43,6 +43,10 @@
   {
    "id": "page-found",
    "name": "Foundations"
+  },
+  {
+   "id": "page-land",
+   "name": "Landing page"
   }
  ],
  "artboards": [
@@ -271,7 +275,7 @@
    "x": 972,
    "y": 1715,
    "w": 1512,
-   "h": 1314,
+   "h": 1295,
    "title": "Home \u00b7 1440 \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -281,7 +285,7 @@
    "x": 2624,
    "y": 1715,
    "w": 1512,
-   "h": 1314,
+   "h": 1295,
    "title": "Home \u00b7 1440 \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -289,9 +293,9 @@
   {
    "file": "DHomeStatesLight.dc.html",
    "x": 0,
-   "y": 3219,
+   "y": 3200,
    "w": 7514,
-   "h": 1428,
+   "h": 1369,
    "title": "Home \u00b7 every state \u00b7 1440 \u00b7 light",
    "page": "page-home",
    "print": "fixed"
@@ -299,9 +303,9 @@
   {
    "file": "DHomeStatesDark.dc.html",
    "x": 0,
-   "y": 4837,
+   "y": 4759,
    "w": 7514,
-   "h": 1428,
+   "h": 1369,
    "title": "Home \u00b7 every state \u00b7 1440 \u00b7 dark",
    "page": "page-home",
    "print": "fixed"
@@ -331,7 +335,7 @@
    "x": 2052,
    "y": 0,
    "w": 1512,
-   "h": 1643,
+   "h": 1567,
    "title": "Plan \u00b7 1440 \u00b7 light",
    "page": "page-plan",
    "print": "fixed"
@@ -341,7 +345,7 @@
    "x": 3704,
    "y": 0,
    "w": 1512,
-   "h": 1643,
+   "h": 1567,
    "title": "Plan \u00b7 1440 \u00b7 dark",
    "page": "page-plan",
    "print": "fixed"
@@ -371,7 +375,7 @@
    "x": 2900,
    "y": 0,
    "w": 4460,
-   "h": 897,
+   "h": 964,
    "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -381,7 +385,7 @@
    "x": 0,
    "y": 1654,
    "w": 4460,
-   "h": 897,
+   "h": 964,
    "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -471,7 +475,7 @@
    "x": 3786,
    "y": 0,
    "w": 886,
-   "h": 1363,
+   "h": 1531,
    "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 light",
    "page": "page-debts",
    "print": "fixed"
@@ -481,7 +485,7 @@
    "x": 4812,
    "y": 0,
    "w": 886,
-   "h": 1363,
+   "h": 1531,
    "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 dark",
    "page": "page-debts",
    "print": "fixed"
@@ -509,7 +513,7 @@
   {
    "file": "FormsDLight.dc.html",
    "x": 0,
-   "y": 1553,
+   "y": 1721,
    "w": 2986,
    "h": 1166,
    "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 light",
@@ -519,7 +523,7 @@
   {
    "file": "FormsDDark.dc.html",
    "x": 3126,
-   "y": 1553,
+   "y": 1721,
    "w": 2986,
    "h": 1166,
    "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
@@ -528,21 +532,21 @@
   },
   {
    "file": "DDebtsLight.dc.html",
-   "x": 0,
-   "y": 2909,
-   "w": 2986,
-   "h": 869,
-   "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 light",
+   "x": 6252,
+   "y": 1721,
+   "w": 1512,
+   "h": 1227,
+   "title": "Debts & Goals \u00b7 one screen, no tabs \u00b7 1440 \u00b7 light",
    "page": "page-debts",
    "print": "fixed"
   },
   {
    "file": "DDebtsDark.dc.html",
-   "x": 3126,
-   "y": 2909,
-   "w": 2986,
-   "h": 869,
-   "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 dark",
+   "x": 0,
+   "y": 3138,
+   "w": 1512,
+   "h": 1227,
+   "title": "Debts & Goals \u00b7 one screen, no tabs \u00b7 1440 \u00b7 dark",
    "page": "page-debts",
    "print": "fixed"
   },
@@ -735,6 +739,86 @@
    "title": "Debt record \u2014 print, A4",
    "page": "page-found",
    "print": "fixed"
+  },
+  {
+   "file": "LandLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 8505,
+   "title": "Landing page \u00b7 1440 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandDark.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 1512,
+   "h": 8505,
+   "title": "Landing page \u00b7 1440 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandPhoneLight.dc.html",
+   "x": 3304,
+   "y": 0,
+   "w": 832,
+   "h": 10468,
+   "title": "Landing page \u00b7 390 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandPhoneDark.dc.html",
+   "x": 4276,
+   "y": 0,
+   "w": 832,
+   "h": 10468,
+   "title": "Landing page \u00b7 390 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandCycleLight.dc.html",
+   "x": 5248,
+   "y": 0,
+   "w": 1220,
+   "h": 1734,
+   "title": "The strongest moment \u00b7 item 34 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandCycleDark.dc.html",
+   "x": 6608,
+   "y": 0,
+   "w": 1220,
+   "h": 1734,
+   "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandDemoLight.dc.html",
+   "x": 0,
+   "y": 10658,
+   "w": 1512,
+   "h": 3471,
+   "title": "The demo marker \u00b7 item 33 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandDemoDark.dc.html",
+   "x": 1652,
+   "y": 10658,
+   "w": 1512,
+   "h": 2875,
+   "title": "The demo marker \u00b7 item 33 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
   }
  ],
  "annotations": [
@@ -825,6 +909,14 @@
    "w": 820,
    "page": "page-found",
    "text": "The primitives sheet \u2014 every component in every state, both themes \u2014 then the palette and type tile, and the printed debt record: A4, black and white, no app chrome."
+  },
+  {
+   "id": "n-land",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-land",
+   "text": "Its own project \u2014 docs/11-landing-page-brief.md \u2014 and the one place the design is allowed to perform. The page is built from real screens at real size and nothing else: no device frames, no abstract phone, no gradient mesh. Recognition and why-the-others-failed are words only, so the first picture on the page is the answer as a screen. The cycle board is \u00a7H item 34 \u2014 the number steps, the cycle sweeps \u2014 with the motion-off rendering beside it. The demo marker is item 33, a bar in the frame with no dismiss control."
   }
  ],
  "launch": {

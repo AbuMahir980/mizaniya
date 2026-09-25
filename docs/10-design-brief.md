@@ -111,6 +111,63 @@ Suggestions, to argue with:
 
 ---
 
+## 3a · The whole flow, end to end
+
+Written out once because the shape has been misread. Every arrow is a real route.
+
+```
+LANDING PAGE  (13)
+  nav: Sign in ──────────────────────────────────────┐
+  primary CTA:   "See it with sample data" ──┐       │
+  secondary CTA: "Start with my own figures" │       │
+                                             │       │
+                        ┌────────────────────┘       │
+                        ▼                            │
+                   DEMO MODE (11)                    │
+                   real app, seeded figures,         │
+                   permanent "not your money" bar    │
+                   "Start with my own figures" ──┐   │
+                                                 │   │
+  ┌──────────────────────────────────────────────┘   │
+  ▼                                                  │
+WELCOME → ONBOARDING (6 steps, unchanged)            │
+  no email · no password · no account                │
+  ▼                                                  │
+HOME — the free tier, and a complete product         │
+  full app on one device, no prompts in the way      │
+  │                                                  │
+  ├── reaches a paid feature ──▶ inline "not turned  │
+  │     on yet" (09) ──▶ tier comparison ──▶ SIGN UP │
+  │                                                  │
+  └── Settings ──▶ account row ──▶ SIGN UP (08) ◀────┘
+                                      │        SIGN IN (08)
+                                      ▼            │
+                          local data is uploaded    │
+                          never starts empty        │
+                                      │            ▼
+                                      │   second device:
+                                      │   budget arrives, straight
+                                      │   to Home, no onboarding
+                                      │            │
+                                      │   unless that device already
+                                      │   holds a different budget ──▶
+                                      │   the two-budget choice (25),
+                                      │   export offered FIRST
+                                      ▼
+                          SIGNED IN — sync, household, bank
+```
+
+**The three things that shape it:**
+
+1. **Onboarding never asks for an account.** Someone can install this, use it for a year, and never see a sign-up screen. That is the free tier, and it is a complete product — not a trial.
+2. **Sign-up is reached from two places only:** a paid feature the person reached for, or the account row in Settings. Never an interstitial, never on Home, never on open.
+3. **Sign-in is reached from three:** the landing page nav, the Settings row, and the sign-up screen itself (*already have an account?*).
+
+**Where the two surfaces differ, and this is the bit that caused the confusion:** the
+**landing page** has *Sign in* in its nav like any webapp — a returning user on a new
+laptop arrives there. **Inside the app** it is a Settings row, because a persistent
+*Sign in* on every screen would imply the app is incomplete without one.
+
 ## 4 · New pages, at page-spec level
 
 For each: **purpose · how you arrive · hierarchy · the states · motion · keyboard ·
@@ -118,6 +175,19 @@ what happens on success.** Behaviour is in the system spec; this is what the pag
 to *do*.
 
 ### 08 · `/sign-up`, `/sign-in`, `/reset`
+
+> **These screens exist and are all `Must`.** The phrase *"an account is an upgrade,
+> not a gate"* elsewhere in this brief means an account is not **required** — it does
+> not mean there is no sign-up. Stories **I2** (sign up), **I3** (sign in), **I4**
+> (reset) are every one of them a `Must`.
+>
+> **Where the entry points live, and they are different on two surfaces:**
+>
+> - **The landing page** carries *Sign in* in its nav, as any webapp does. Someone returning on a new laptop arrives there and must be able to get in.
+> - **Inside the app** the way in is a row in **Settings** (§08a), not a persistent nav item. A *Sign in* link on every app screen would imply the app is incomplete without one, and it is not.
+>
+> Whether 1440 also wants a quiet header affordance inside the app is **your call** —
+> the only constraint is that it must not read as a nag or imply something is missing.
 
 **Purpose:** turn a local user into an account holder, with as little ceremony as the
 security allows.

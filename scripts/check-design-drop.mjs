@@ -34,6 +34,11 @@ const theirs = changed.filter(
     // feature commit. The list itself is the hole: anything named individually
     // has to be added by hand and nobody remembers. Hence the check below.
     path === 'docs/design/motion.md' ||
+    // Added 2026-09-25. The landing page's two photographs are specified but
+    // not sourced -- the image CDNs are unreachable from the designer's
+    // sandbox -- so the shot list, licences and file names live here.
+    path === 'docs/design/image-brief.md' ||
+    path.startsWith('docs/design/img/') ||
     (path.startsWith('docs/design/') && path.endsWith('.png')),
 )
 

@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+.mz{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);
+    background:var(--bg);-webkit-font-smoothing:antialiased}
+/* The voice face steps to 600 on dark. EB Garamond's thinnest stroke is .034em:
+   at 28px that is 0.95 device pixels on a 1x screen, so it has no solid pixel to
+   land on and is drawn by antialiasing alone. Light-on-dark that reads as washed
+   out. 600 takes the hairline to .0385em -- 1.08px at 28px -- which clears it. */
+.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.004em}
+.mz .disp{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-.035em;
+     font-variant-numeric:tabular-nums lining-nums}
+.mz .lab{font-size:10.5px;letter-spacing:.115em;text-transform:uppercase;font-weight:600;
+     color:var(--soft)}
+.mz .num{font-variant-numeric:tabular-nums lining-nums}
+.mz .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;
+     font-variant-numeric:tabular-nums}
+.mz .mlab{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+     letter-spacing:.12em;text-transform:uppercase;color:var(--soft);font-weight:400}
+.mz .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+     box-shadow:var(--shadow)}
+.mz .pill{display:inline-flex;align-items:center;height:25px;padding:0 10px;
+     border-radius:8px;font-size:10.5px;font-weight:700;letter-spacing:.07em;
+     text-transform:uppercase;white-space:nowrap}
+.mz .tile{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;
+     justify-content:center;flex:0 0 auto}
+.mz .seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;
+     background:var(--card);padding:3px;box-shadow:var(--shadow)}
+.mz .seg>span{padding:8px 20px;border-radius:9px;font-size:13px;font-weight:600;
+     color:var(--soft);white-space:nowrap}
+.mz .seg>span.on{background:var(--ink);color:var(--bg)}
+.mz .link{display:inline-flex;align-items:center;gap:8px;min-height:44px;
+     color:var(--emerald);font-size:13.5px;font-weight:600}
+.mz .rail{height:6px;border-radius:4px;background:var(--track);overflow:hidden}
+.mz .rail>i{display:block;height:100%;border-radius:4px}
+.mz .nav{display:flex;align-items:center;background:var(--card);
+     border-top:1px solid var(--line);padding:6px 10px 10px}
+.mz .nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+     padding:8px 0;color:var(--faint);font-size:10px;font-weight:600;letter-spacing:.02em}
+.mz .nav-i.on{color:var(--emerald)}
+
+.mz .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+     min-height:48px;padding:0 20px;border-radius:13px;font-size:14.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .btn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .btn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .btn-q{background:transparent;color:var(--soft)}
+.mz .fld{min-height:50px;background:var(--card);border:1px solid var(--line);
+     border-radius:13px;padding:12px 16px;font-size:15px;display:flex;align-items:center;
+     gap:10px;color:var(--ink)}
+.mz .fld.on{border-color:var(--emerald);box-shadow:0 0 0 3px var(--em2)}
+.mz .fld .ph{color:var(--faint)}
+.mz .chip{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;
+     border-radius:12px;border:1px solid var(--line);background:var(--card);
+     font-size:13.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+.mz .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mz .row{display:flex;align-items:center;gap:14px;min-height:56px;padding:12px 0;
+     border-bottom:1px solid var(--hair)}
+.mz .row:last-child{border-bottom:0}
+.mz .tabs{display:flex;gap:26px;border-bottom:1px solid var(--line)}
+.mz .tabs>span{min-height:46px;display:flex;align-items:center;font-size:15px;
+     font-weight:600;color:var(--soft);border-bottom:2px solid transparent}
+.mz .tabs>span.on{color:var(--ink);border-bottom-color:var(--emerald)}
+.mz .sw{width:46px;height:27px;border-radius:14px;background:var(--track);
+     border:1px solid var(--line);position:relative;flex:0 0 auto}
+.mz .sw>i{position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:11px;
+     background:var(--card);border:1px solid var(--line);display:block}
+.mz .sw.on{background:var(--emerald);border-color:var(--emerald)}
+.mz .sw.on>i{left:auto;right:2px;background:var(--onEmerald);border-color:transparent}
+.mz .sk{background:var(--track);border-radius:6px;height:12px;display:block}
+
+.mz .dtbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.mz .dtbl th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;
+     text-transform:uppercase;color:var(--soft);font-weight:400;text-align:left;
+     padding:0 22px 12px 0;border-bottom:1px solid var(--line)}
+.mz .dtbl th.r,.mz .dtbl td.r{text-align:right}
+.mz .dtbl th:last-child,.mz .dtbl td:last-child{padding-right:0}
+.mz .dtbl td{padding:16px 22px 16px 0;border-bottom:1px solid var(--hair);
+     vertical-align:middle}
+.mz .dtbl tr:last-child td{border-bottom:0}
+
+.mz .lnav{display:flex;align-items:center;gap:14px;height:76px}
+.mz .lnav .sp{flex:1}
+.mz .lbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+     min-height:52px;padding:0 26px;border-radius:14px;font-size:15.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .lbtn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .lbtn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .lbtn-q{background:transparent;color:var(--soft);padding:0 8px}
+.mz .lbtn.sm{min-height:46px;padding:0 20px;font-size:14.5px}
+.mz .kicker{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+     font-weight:600;color:var(--soft)}
+.mz .h2{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.008em;font-size:40px;line-height:46px}
+.mz .h3{font-size:20px;line-height:27px;font-weight:600;letter-spacing:-.012em}
+.mz .body{font-size:17px;line-height:29px;color:var(--soft)}
+.mz .lead{font-size:19px;line-height:32px;color:var(--soft)}
+.mz .hair{height:1px;background:var(--hair)}
+.mz .shot{border-radius:30px;overflow:hidden;box-shadow:var(--shadow);
+     border:1px solid var(--line);display:block}
+/* Money is never set in the voice face — see ngn() below.
+   0.88em is measured, not guessed: EB Garamond's cap H is .658em and Inter's
+   lining figures are .747em, so .658/.747 = .881 sets the figure exactly as tall
+   as the capitals it sits beside. Weight 500, because Inter at 600 out-colours
+   EB Garamond 500 and the line reads as two documents spliced together. */
+.mz .ser .ngn,.mz .h2 .ngn{font-family:Inter,system-ui,sans-serif;
+     font-size:.88em;font-weight:500;letter-spacing:-.018em;
+     font-variant-numeric:tabular-nums lining-nums}
+</style>
+</helmet>
+<div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">The strongest moment · item 34 · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--serw:600;--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:1148px;background:var(--bg);padding:34px;border-radius:6px;border:1px solid var(--line)"><div style="display:flex;flex-direction:column;gap:38px"><div style="width:1080px"><div class="lab" style="font-size:9.5px">1 · The debt crossing zero — scroll position 1 of 4</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:760px">The emphasised anchor is <b>today</b>. Every other anchor is already drawn and already legible; scrolling changes which one is emphasised and how far the rail has filled. The figures never tween.</div><div class="card" style="padding:26px 28px 28px"><div style="display:flex;gap:18px"><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:2px solid var(--emerald)"><div class="lab" style="font-size:9.5px">Today</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">5 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--emerald)">₦90,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦60,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Nov</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦30,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Clear</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Dec</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦0<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div></div><div class="rail" style="margin-top:22px;height:6px"><i style="width:0%;background:var(--emerald)"></i></div></div></div><div style="width:1080px"><div class="lab" style="font-size:9.5px">1 · The same section, scroll position 3 of 4</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:760px">The figure has <b>snapped</b> to ₦30,000.00 — a real balance on a real payday. Nothing was interpolated to arrive here. The rail swept; the number stepped.</div><div class="card" style="padding:26px 28px 28px"><div style="display:flex;gap:18px"><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Today</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">5 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦90,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦60,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:2px solid var(--emerald)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Nov</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--emerald)">₦30,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Clear</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Dec</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦0<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div></div><div class="rail" style="margin-top:22px;height:6px"><i style="width:67%;background:var(--emerald)"></i></div></div></div><div style="width:1080px"><div class="lab" style="font-size:9.5px">1 · The same section with <b>motion off</b> — the small multiple</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:760px">No fallback layout: the identical markup with emphasis removed. Four paydays side by side, the whole argument told statically. This is the test — the page must make its case to someone who never sees it move.</div><div class="card" style="padding:26px 28px 28px"><div style="display:flex;gap:18px"><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Today</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">5 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦90,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦60,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Nov</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦30,000<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Clear</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Dec</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦0<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div></div><div class="rail" style="margin-top:22px;height:6px"><i style="width:0%;background:var(--emerald)"></i></div></div></div><div style="width:1080px"><div class="lab" style="font-size:9.5px">2 · The rent fund reaching for ₦900,000.00</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:760px">Six anchors, the rail against the ₦900,000.00 target rather than against the last step — so the gap is visible the whole way along. The last anchor is ₦850,000.00 and the target is not met: that is the point, and it is what <code>seed-data.md</code> seeds deliberately.</div><div class="card" style="padding:26px 28px 28px"><div style="display:flex;gap:18px"><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:2px solid var(--emerald)"><div class="lab" style="font-size:9.5px">Today</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">5 Oct</div><div class="disp" style="font-size:21px;margin-top:8px;color:var(--emerald)">₦475,000<span style="font-size:12px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Oct</div><div class="disp" style="font-size:21px;margin-top:8px;color:var(--ink)">₦550,000<span style="font-size:12px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Nov</div><div class="disp" style="font-size:21px;margin-top:8px;color:var(--ink)">₦625,000<span style="font-size:12px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Dec</div><div class="disp" style="font-size:21px;margin-top:8px;color:var(--ink)">₦700,000<span style="font-size:12px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Jan</div><div class="disp" style="font-size:21px;margin-top:8px;color:var(--ink)">₦775,000<span style="font-size:12px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Payday</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Feb</div><div class="disp" style="font-size:21px;margin-top:8px;color:var(--ink)">₦850,000<span style="font-size:12px;font-weight:500;opacity:.6">.00</span></div></div></div><div class="rail" style="margin-top:22px;height:6px"><i style="width:53%;background:var(--emerald)"></i></div><div style="display:flex;justify-content:space-between;margin-top:14px"><span class="mlab" style="font-size:9px">₦75,000.00 a payday</span><span class="mlab" style="font-size:9px;color:var(--ochre)">₦50,000.00 short of ₦900,000.00 on 1 March</span></div></div></div><div style="width:1080px"><div class="lab" style="font-size:9.5px">3 · Safe to spend across the cycle — <b>two anchors, not four</b></div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:760px">The suggestion was the money figure counting down across a whole cycle. The mechanism is settled, but <code>seed-data.md</code> carries safe-to-spend for exactly two days: 25 September and 5 October. The 23 movements stop there by design, and the eight detected bank movements are explicitly not transactions yet. A third anchor means inventing spending — repo rule 2. <b>Raised as §I item 49.</b> Drawn here with what exists.</div><div class="card" style="padding:26px 28px 28px"><div style="display:flex;gap:18px"><div style="flex:1;min-width:0;opacity:.34;padding-top:14px;border-top:1px solid var(--hair)"><div class="lab" style="font-size:9.5px">Paid</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">25 Sep</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--ink)">₦8,666<span style="font-size:15px;font-weight:500;opacity:.6">.66</span></div></div><div style="flex:1;min-width:0;opacity:1;padding-top:14px;border-top:2px solid var(--emerald)"><div class="lab" style="font-size:9.5px">Day 11</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">5 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--emerald)">₦7,500<span style="font-size:15px;font-weight:500;opacity:.6">.00</span></div></div><div style="flex:1;min-width:0;padding-top:14px;border-top:1px dashed var(--line);opacity:.45"><div class="lab" style="font-size:9.5px">Needs a figure</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">~12 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--faint)">₦<span style="letter-spacing:.06em">—</span></div></div><div style="flex:1;min-width:0;padding-top:14px;border-top:1px dashed var(--line);opacity:.45"><div class="lab" style="font-size:9.5px">Needs a figure</div><div style="font-size:11.5px;color:var(--soft);margin-top:3px">24 Oct</div><div class="disp" style="font-size:27px;margin-top:8px;color:var(--faint)">₦<span style="letter-spacing:.06em">—</span></div></div></div><div class="rail" style="margin-top:22px;height:6px"><i style="width:87%;background:var(--emerald)"></i></div><div style="display:flex;justify-content:space-between;margin-top:14px"><span class="mlab" style="font-size:9px">Against the ₦8,666.66 planned allowance, as Home scales it</span><span class="mlab" style="font-size:9px;color:var(--ochre)">Two anchors make a weaker argument than four</span></div></div></div></div></div></div><div style="font-size:12.5px;line-height:18px;color:#7C8A95;margin-top:16px;max-width:760px"><b>The number steps, the cycle sweeps.</b> A figure counting down on scroll is unreadable at every position but the ends, which <code>motion.md</code> §0.2 forbids and §9 extends to this page. Instead every anchor is a real value from a real payday, fully rendered; the figure snaps between them and the rail sweeps. The first three panels are one section at three scroll positions, the third with motion off — <b>there is no fallback layout</b>, only emphasis removed, so nothing is gated behind the animation. Treatment 3 is honest about a gap: safe-to-spend has two anchors in the seed, not four, and the two it lacks are drawn as gaps rather than closed up.</div></div>
+</x-dc>
+</body>
+</html>
