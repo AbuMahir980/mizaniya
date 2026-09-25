@@ -692,7 +692,7 @@ can be trusted.
 | **Payment provider** — Paystack or Flutterwave | **Settled 25 September — deferred on the same reasoning.** Choosing before integrating buys nothing and would constrain the endpoint spec against a provider we may not use. The `billing` routes are written provider-agnostic. **No longer blocking** |
 | **Tombstone retention**, and what a device absent longer than that does on its next sync | Endpoint spec (**deliberately parked there** by ADR-010) | **Yes — blocks J4** |
 | **Clock skew.** Plan: the client's `updatedAt` records intent, a server sequence decides order. Needs settling rather than assuming | Endpoint spec (ADR-010) | **Yes — blocks J1** |
-| **Rules 6 and 7** are drafted in `CONTEXT.md` awaiting the stakeholder's own wording | Stakeholder | **Rule 7 blocks the first real user** |
+| ~~**Rules 6 and 7**~~ | **Both binding from 25 September**, recorded in `CONTEXT.md`. Rule 6 is the `.env` seed switch; rule 7 governs what the server may hold — encryption with keys outside the database, bank tokens held higher than anything else, financial values never logged, every production access recorded and users told, real erasure, a *verified* restore, and claims that are exactly true. **No longer blocks the first real user** |
 | What a device does when it signs in and already holds a *different* local budget — **I3** says ask, but the wording of that question is real design work | Design brief | No — blocks **I3** build |
 
 ---

@@ -129,7 +129,7 @@ Two things, honestly:
 
 ### "What has to be true before any of this is written?"
 
-- Rule 7 (what a server may hold) in the owner's own words.
+- ~~Rule 7~~ — **binding from 25 September.** One clause lands on sync directly: *deleting means the data is actually gone, not hidden.* A tombstone satisfies sync and does **not** satisfy someone asking to be erased, so both have to be built and the rule says which wins.
 - The endpoint spec, which is where the two open questions above get settled.
 - The design for the sync indicator and the conflict screen — this is user-visible, not just plumbing.
 

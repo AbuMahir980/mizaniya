@@ -162,8 +162,7 @@ matters.
 | 30-day deletion grace period | Stating it in the product |
 | Full E2EE deferred, returns as opt-in | The recovery story, before it ever ships |
 
-**Rule 7** — what the server may hold — is drafted and waiting on the owner's own wording.
-It's not binding yet.
+**Rule 7** — what the server may hold — is **binding from 25 September.**
 
 ## Related
 

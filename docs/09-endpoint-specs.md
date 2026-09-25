@@ -290,7 +290,7 @@ heuristic deciding that two of someone's expenses were one.
 | ~~Price and billing period~~ | **Settled 25 September — a deliberate placeholder.** Nothing is integrated yet; a figure now would harden into a commitment. Three strings to change when it lands |
 | ~~Payment provider~~ — Paystack or Flutterwave | **Settled 25 September — deferred.** The `billing` routes here stay provider-agnostic, so the choice costs nothing later. Signature verification and idempotency-by-event-id are required of whichever is chosen |
 | Hosting, and **the free tier's database retention verified** before committing | Deployment |
-| Rule 7 in the stakeholder's own words | **The first real user** |
+| ~~Rule 7~~ | **Binding from 25 September** — see `CONTEXT.md`. Two clauses constrain this document directly: *deleting means actually gone* (so a tombstone is not an erasure — §3a's retention must not become a way to keep data someone asked to be rid of), and *every access to production data leaves a record* |
 | The duplicate-matching rule and its UI (**M5**) | **M5** build |
 | What the copy says when a device signs in holding a different local budget (**I3**) | **I3** build |
 
