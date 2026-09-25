@@ -287,8 +287,8 @@ heuristic deciding that two of someone's expenses were one.
 
 | Question | Blocking |
 |---|---|
-| Price and billing period | Design of **K3**, not the build |
-| Payment provider — Paystack or Flutterwave. Webhook signature and idempotency details follow from the choice | **K3** build |
+| ~~Price and billing period~~ | **Settled 25 September — a deliberate placeholder.** Nothing is integrated yet; a figure now would harden into a commitment. Three strings to change when it lands |
+| ~~Payment provider~~ — Paystack or Flutterwave | **Settled 25 September — deferred.** The `billing` routes here stay provider-agnostic, so the choice costs nothing later. Signature verification and idempotency-by-event-id are required of whichever is chosen |
 | Hosting, and **the free tier's database retention verified** before committing | Deployment |
 | Rule 7 in the stakeholder's own words | **The first real user** |
 | The duplicate-matching rule and its UI (**M5**) | **M5** build |
