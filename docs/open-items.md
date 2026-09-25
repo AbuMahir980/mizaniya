@@ -2167,7 +2167,13 @@ a regex over nested `<div>`s is not.
 
 ### M·17 — The demo is dropped, and item 74 is withdrawn
 
-The owner's ruling, 25 September, and the reasoning is better than mine:
+> **THIS IS THE OWNER'S DECISION, NOT THE DESIGNER'S.** Recorded here at his
+> instruction so the build side knows where it came from. I argued for keeping
+> the demo in the same conversation and was overruled, on better reasoning than
+> mine. Anything downstream of this — §H items 33 and 42 especially — changes
+> because he decided it, not because a drawing changed.
+
+Jamiu, 25 September:
 
 > *"Since a user can use their own data and they don't necessarily have to sign
 > up — if they had to sign up before they could do that, then yes, friction is a
