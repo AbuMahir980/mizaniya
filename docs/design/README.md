@@ -87,7 +87,6 @@ numbered in flow order, and the same stem names the `.dc.html` beside it in `can
 | `tokens.md` | The complete token set, light and dark. 54 gated contrast pairs, 0 failures. §3.2 covers a figure set inside a line of the voice face. |
 | `motion.md` | What moves and what does not. §0: nothing animates on the path to a figure. |
 | `image-brief.md` | The two photographs the landing page specifies and does not contain — dimensions, budget, search terms, reject list, licences. |
-| `PROPOSED-seed-additions.md` | The figures the design needed. **Merged into `docs/seed-data.md` on 10 September** and kept here as the record — `seed-data.md` is the source; do not read figures from this file. |
 
 ## The direction
 

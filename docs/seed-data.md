@@ -413,11 +413,41 @@ minimum that makes the two-device sync state reachable at all.
 
 ---
 
+## Why the overspent row is Health and not Food
+
+Folded in from `docs/design/PROPOSED-seed-additions.md` on 25 September, which was
+then deleted. It was the last thing in that file not already here, and it is the
+reasoning behind a figure this file states — so it belongs beside the figure.
+
+`DESIGN-BRIEF.md` §3 asks for **Food & groceries** to be the *Overspent* row and
+**Transport, data and airtime** to be at *85%*. Those two cannot both hold
+inside ₦110,000:
+
+- Food's allowance is **₦102,000.00** (₦90,000 planned + ₦12,000 carried in), so
+  overspending it needs **more than ₦102,000.00**.
+- Transport at 85% of ₦45,000.00 adds **₦38,250.00**.
+- That is **₦140,250.00** before any of the other six categories — already
+  ₦30,250 past the whole cycle's expense spend.
+
+Honouring the brief literally would push expense spend to roughly ₦200,000,
+which moves cash left off ₦220,000.00 and the hero off ₦7,500.00 — the two
+figures the entire design is built to make trustworthy.
+
+**Resolution, agreed before drawing:** the *Overspent* row moves to **Health**,
+and Transport keeps its briefed 85% *Low*. Every load-bearing figure survives
+untouched. Health is a plausible carrier — a clinic visit is exactly the kind of
+non-discretionary expense the protection override in spec §7.3 was written for.
+
+---
+
 ## Adding to this file
 
 The individual movements arrived on 10 September, worked out for the design stop
-and merged here from `docs/design/PROPOSED-seed-additions.md`, which is kept as
-the record of *why* those figures are what they are.
+and merged here from `docs/design/PROPOSED-seed-additions.md`. That file was
+**deleted on 25 September** once its last unmerged section — the reasoning behind
+Health rather than Food as the overspent row — was folded in above. A document
+whose own header said *"do not read figures from this file"* is a document someone
+eventually reads.
 
 The zakat scenario arrived on 10 September and is above.
 

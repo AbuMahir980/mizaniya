@@ -1723,7 +1723,9 @@ outstanding, and item **47** in §I is new and small.
   being redrawn — see §H item 31.
 - The four stale figures the design stop found (₦8,666.66, the bare minus sign) —
   fixed on 10 September.
-- `PROPOSED-seed-additions.md` — merged into `docs/seed-data.md`, kept as the record.
+- `PROPOSED-seed-additions.md` — merged into `docs/seed-data.md` and **deleted**
+  on 25 September (item 73). Its last unmerged section, the reasoning behind Health
+  rather than Food as the overspent row, now sits in `seed-data.md` beside the figure.
 
 ---
 
@@ -2094,3 +2096,49 @@ Food, and that reasoning exists nowhere else. **73 — fold §2 into
 `seed-data.md` and delete the file, or leave it?** I would fold and delete: a
 document that has to warn you not to read half of it is a document someone will
 eventually read. ☐
+
+### M·14 — Every control on the landing page, and where it goes
+
+The owner asked the only question that matters about a button: *where does it take
+them?* Nine controls, and **six of them went nowhere.** A control with no
+destination is the dead control §I calls **L2**, and I had drawn six of them.
+
+**What stays, and its destination:**
+
+| Control | Where | Status |
+|---|---|---|
+| **See it with sample data** (nav, hero, closing) | The app, at Home, loaded with the seeded household and the demo marker bar across the frame | The marker is §H **item 33**, already a Must. **74 — but demo mode itself is in no spec section.** The marker cannot be the only written trace of a whole mode ☐ |
+| **Start with my own figures** | Onboarding step 1 | Drawn, page 3 |
+| **Sign in** | Sign in | Drawn, page 3 |
+| **Read the source** (closing) | `github.com/AbuMahir980/mizaniya` — public, source-available under PolyForm Noncommercial 1.0.0 | Real |
+| **Security and privacy** (footer) | The Security page | **Undrawn**, item 72 |
+| **Source · Open items · Licence** (footer) | The repo, `docs/open-items.md`, `LICENSE` | Real |
+
+**What came off, and why:**
+
+- **"Tell me when it is"** — I drew a button under the unsettled price. It implies
+  an email list: capture, consent, storage, a send. None of that is in v1 and all
+  of it I invented by drawing a control. The panel says the price is not settled;
+  that is the message, and a message needs no action.
+- **"See the whole screen"** on all four *rest of it* cards — I gave those cards a
+  way in twice, first *See it* and then *See the whole screen*, and neither ever had
+  anywhere to go. The page already has **one door**, at the top and again at the
+  bottom. Four more doors beside four screenshots is four more decisions for a
+  reader who has not made the first one.
+- **Footer: nine rows became four.** *What paying adds*, *What is free forever*,
+  *Export your data* and *What we can see* were headings from this page dressed as
+  links — a footer that scrolls you back up wastes a click. *Demo with sample data*
+  is the button already at the top and bottom. *About* had no page and no content
+  anyone had written.
+
+**74 — demo mode needs a spec section.** What it loads, whether it persists, what
+happens when a demo user signs up, and whether an edited demo can be kept. §H item
+42 already says a demo export must not restore silently as real data — that answer
+exists without the question it answers being written down anywhere. ☐
+
+### M·15 — Item 73: done
+
+`PROPOSED-seed-additions.md` is **deleted**. Its §2 — the only part not already in
+`seed-data.md`, explaining why the overspent row is Health rather than Food — is
+folded into `seed-data.md` beside the figure it explains. The three other documents
+that pointed at it are updated.
