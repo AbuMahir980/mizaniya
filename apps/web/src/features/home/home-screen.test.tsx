@@ -131,10 +131,23 @@ function seeded(): Snapshot {
         categoryId: byName('Debt payment — A. Friend').id,
       }),
       move('borrowed', 120_000, { debtId: friend.id }, '2026-09-24'),
-      // ₦110,000 spent across expense categories.
-      move('expense', 78_000, { categoryId: byName('Food and groceries').id }),
-      move('expense', 22_000, { categoryId: byName('Transport, data and airtime').id }, '2026-10-01'),
-      move('expense', 10_000, { categoryId: byName('Health').id }, '2026-10-03'),
+      /**
+       * The ₦110,000 spent, split **exactly as `docs/seed-data.md` documents it**.
+       *
+       * This fixture used to invent its own split — Food ₦78,000, Transport
+       * ₦22,000, Health ₦10,000. The total was right and the split was not, and
+       * the consequence was not cosmetic: Health landed at 100% and read `Low`,
+       * where the documented ₦14,000 against a ₦10,000 allowance reads
+       * **`Overspent`** at 140%. So the screen's most important state was the one
+       * state these tests never exercised (#65) — and `seed-data.md` chose those
+       * figures precisely so that it would be.
+       */
+      move('expense', 14_000, { categoryId: byName('Health').id }, '2026-10-03'),
+      move('expense', 38_250, { categoryId: byName('Transport, data and airtime').id }, '2026-10-01'),
+      move('expense', 40_000, { categoryId: byName('Food and groceries').id }),
+      move('expense', 4_750, { categoryId: byName('Utilities').id }, '2026-09-28'),
+      move('expense', 5_000, { categoryId: byName('Miscellaneous').id }, '2026-10-03'),
+      move('expense', 8_000, { categoryId: byName('Family support').id }, '2026-09-29'),
     ],
     debts: [friend],
     goals: [rentGoal],
@@ -181,12 +194,47 @@ describe('the worked day renders every seeded figure', () => {
     expect(within(key).getByText('₦30,000.00')).toBeDefined()
   })
 
+  /**
+   * The test #65 existed for.
+   *
+   * `Overspent` was reachable before this, but only by **pushing extra spending
+   * into the snapshot** — the two tests that touch it add ₦60,000 or ₦300,000 to
+   * Miscellaneous first. That proves the badge can render; it does not prove the
+   * worked day produces it.
+   *
+   * `docs/seed-data.md` chose Health at ₦14,000 against a ₦10,000 allowance
+   * precisely so the documented day *already* contains an overspent category,
+   * while every other figure — cash left ₦220,000, safe to spend ₦7,500 a day —
+   * stays untouched. The fixture's invented split removed that state, and nothing
+   * asserted it, so its absence was invisible.
+   */
+  it('has an overspent category on the seeded day, with nothing added', () => {
+    renderHome()
+    const row = screen
+      .getAllByRole('row')
+      .find((r) => (r.textContent ?? '').includes('Health'))
+    expect(row).toBeDefined()
+    expect(row?.textContent).toContain('Overspent')
+    /**
+     * ₦14,000 spent against a ₦10,000 allowance, so ₦4,000.00 over — and the
+     * table shows the **amount**, not the percentage. That is deliberate here:
+     * the 140% figure `seed-data.md` quotes is what the *design* puts in a `Used`
+     * column, and the code does not have that column yet (the other half of #65,
+     * superseded by the 1440 redraw). Asserting the money is the stronger test
+     * regardless: this is an app about figures, and ₦4,000.00 over is the figure.
+     */
+    expect(row?.textContent).toContain('₦4,000.00 over')
+  })
+
   it('lists categories worst first, so the row needing attention is on top', () => {
     renderHome()
     const rows = screen.getAllByRole('row').slice(1)
-    // Health is at 100% of its allowance with ₦0.00 left — worse than Food at
-    // 87%. Rent fund is also at 100%, but it is protected: fully funding it is
-    // the plan working, so it carries no badge and does not lead the table.
+    // Health is at **140%** of its allowance — ₦14,000 against ₦10,000 — and is
+    // the only overspent row. Food sits at 39% once its ₦12,000 rollover is
+    // counted. (This comment said 100% and 87% until #65: it described
+    // `seed-data.md` while the fixture beneath it had invented a different split.)
+    // Rent fund is also fully funded, but it is protected: that is the plan
+    // working, so it carries no badge and does not lead the table.
     expect(rows[0]?.textContent).toContain('Health')
     const names = rows.map((r) => r.textContent ?? '')
     // Anchored on a spending category: protected lines are no longer listed
@@ -323,6 +371,20 @@ describe('the ranked section at 360', () => {
     return screen.getByRole('heading', { name: /Needs attention|^Categories$/ }).closest('section')!
   }
 
+  /**
+   * The test #65 existed for.
+   *
+   * `Overspent` was reachable before this, but only by **pushing extra spending
+   * into the snapshot** — the two tests that touch it add ₦60,000 or ₦300,000 to
+   * Miscellaneous first. That proves the badge can render; it does not prove the
+   * worked day produces it.
+   *
+   * `docs/seed-data.md` chose Health at ₦14,000 against a ₦10,000 allowance
+   * precisely so the documented day *already* contains an overspent category, with
+   * every other figure — cash left ₦220,000, safe to spend ₦7,500 a day — left
+   * untouched. Manufacturing the state elsewhere and never asserting it here is
+   * how it went unnoticed that the fixture had removed it.
+   */
   it('shows only what needs attention, and says how many of how many', () => {
     atPhoneWidth()
     renderHome()
@@ -336,10 +398,22 @@ describe('the ranked section at 360', () => {
     // has nothing left to spend, so it can never need attention.
     expect(within(ranked()).getByText('2 of 8')).toBeDefined()
     expect(within(ranked()).getByText('Health')).toBeDefined()
-    expect(within(ranked()).getByText('Food and groceries')).toBeDefined()
+    expect(within(ranked()).getByText('Transport, data and airtime')).toBeDefined()
+    /**
+     * Food is **not** here, and that is the correction (#65).
+     *
+     * The comment above this block always said *"Health is over, Transport is at
+     * 85%"* — it was written from `seed-data.md`. The assertions underneath it
+     * named Food instead, because they were written from a fixture that invented
+     * its own split. The file has been contradicting itself since it was written.
+     *
+     * Food is at 39% — ₦40,000 of a ₦102,000 allowance once the rollover is
+     * counted — so it is comfortable, and a ranked subset that showed it would be
+     * ranking the wrong thing.
+     */
+    expect(within(ranked()).queryByText('Food and groceries')).toBeNull()
     // Comfortable categories are not in the subset — that is the whole point.
     expect(within(ranked()).queryByText('Sadaqah')).toBeNull()
-    expect(within(ranked()).queryByText('Transport, data and airtime')).toBeNull()
     expect(within(ranked()).queryByText('Rent fund')).toBeNull()
   })
 
