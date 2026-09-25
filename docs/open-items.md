@@ -565,6 +565,22 @@ than in a message, so they sit next to their answers.*
 
 ## H · The repositioning round — asked 25 September
 
+> **UPDATED 25 September, and one earlier statement is withdrawn.** This section
+> originally said *"the 69 artboards you have all still stand."* **That is no longer
+> accurate.** Three decisions taken after it was written change the scope: desktop is
+> now a first-class design target rather than an adaptation, motion and interactivity
+> are in scope **as a system**, and the one-click demo is promoted to a **Must**.
+>
+> **What does still stand:** every 360 artboard, the whole token system, onboarding,
+> and every behaviour in the page specs. The product did not change — how it presents
+> itself on a large screen, and how it moves, did.
+>
+> Two briefs now: [10-design-brief.md](10-design-brief.md) for the app, and
+> [11-landing-page-brief.md](11-landing-page-brief.md) for the landing page, which is
+> its own project with full showcase motion.
+>
+> **New items 31–35 below are from that change.** Items 23–30 stand as asked.
+
 *Answer in place: write under each item, change the heading to `answered <date>`,
 and tick the box when the drawings land. The full context is
 [docs/10-design-brief.md](10-design-brief.md) — read that first, it is short.*
@@ -614,6 +630,36 @@ is not reopened.** What follows is additive.
   readable form."* The wording on the landing page and on sign-up must be
   **identical**, because two slightly different privacy claims is worse than one
   plain one.
+
+- [ ] **31 · Which 1440 screens genuinely need rework, and what earns the width?**
+  The central question of the desktop decision. Home at 1440 should not be a 360
+  column centred in grey — but what fills it? The category table beside the gauge? The
+  debt list beside the goals? **Your call, and it decides how much of the set is
+  redrawn.** Likely candidates: Home, Transactions, Plan, Debts & Goals. The forms and
+  sheets may be fine as they are.
+
+- [ ] **32 · `docs/design/motion.md`** — a sibling to `tokens.md`, authoritative the
+  same way. Named durations (a small scale, two or three values), named easings and
+  when each applies, an explicit list of what animates, and a **reduced-motion
+  fallback for every entry**. Two constraints from our side: nothing animates on the
+  path to a figure, and **money never counts up on first paint** — a number mid-count
+  is a number nobody can read, and reading it is the product.
+
+- [ ] **33 · The demo's "these are not your figures" marker.** Promoted to a Must. It
+  must be **visible on every screen and not dismissable** — someone mistaking demo
+  numbers for their own budget is a genuine hazard, not a design nicety. Also needs a
+  state for *demo that has been edited*, because people will.
+
+- [ ] **34 · The landing page's strongest moment.** The suggestion to argue with: the
+  money figure counting down as the reader scrolls through a cycle — the product's
+  central idea shown rather than described. Also the rent fund filling toward ₦900,000,
+  and a debt crossing zero (the ajo case no other app can represent). **No
+  scroll-jacking**, and the page must read completely with motion off.
+
+- [ ] **35 · Pointer and keyboard states, which barely existed before.** Hover,
+  focus-visible, active, and drag where it applies. On a phone these hardly matter; on
+  a laptop their absence is exactly what makes a page feel like a port. And someone
+  entering ten movements on a laptop should never need the mouse.
 
 - [ ] **30 · Anything here that needs a figure `docs/seed-data.md` does not have** —
   say so rather than inventing one (repo rule 2). Likely candidates: a part-paid
