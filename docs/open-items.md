@@ -2399,12 +2399,11 @@ first name, a kunya, or the household — because for a debt between neighbours
 *Abu Mahir* identifies the borrower where a name off a form may not. It is one
 field with three examples, not three fields: one decision is being made.
 
-**At 1440 the document sits beside the field**, imported from `screens2` and
-scaled rather than re-typed, so the preview cannot drift from the record it
-previews. Drawing it caught a fault on sight: substituting only the *Who owes*
-row left the sheet **signed by somebody else**. One person, one name, on a
-document a second party keeps. At 360 the preview would push the field off the
-screen, so the phone gets the sentence instead.
+**And the owner then asked the better question: why is it here at all?** Step 1
+was explaining a field with a document nobody has met — debts are step 5, they
+are optional, and a person may never record one. So the record moved to step 5,
+where it is built from the debt just entered, and step 1 asks plainly. **Ask,
+then show.** ☑
 
 **What is still the spec's, and it is one question:** if someone signs up
 *first* and sets up after, is step 1 still asked, or is the account expected to
@@ -2417,3 +2416,57 @@ needed* — and are correct for that order. ☐
 Two screens, two names for one person, and neither is seeded. One owner display
 name in `seed-data.md` would let both read from it. Until then the mismatch is
 deliberate and this item is why. ☐
+
+### M·24 — Six screens that were six forms, read as a chain
+
+The owner walked the 1440 setting-up flow end to end and found six faults. Five
+of them are the same fault: **the 1440 screens were drawn without opening the
+360 screens they replaced**, and drifted. The 360 flow had it right on four of
+the six the whole time.
+
+| Step | What was wrong | Where the right answer already was |
+|---|---|---|
+| 1 | Explained the name with a debt record four steps early | — (new) |
+| 2 | A derived figure that cannot exist yet | 360 shows no figure |
+| 3 | Add a category, but **no way to remove one** | 360's row sheet removes |
+| 4 | ₦305,000 dated 24 August; **no way to add a pot** | 360: ₦400,000, 24 September |
+| 5 | A table of three debts and a button, **no form** | 360 has had the form since it was drawn |
+| 6 | ₦85,000 from "₦305,000 and five paydays" | 360: ₦83,333.34, correctly |
+
+**Step 2 is worth spelling out.** The panel read *₦8,666.66 a day, over 30
+days*. That is `PLAN ÷ 30` — and there is no plan at step 2; the categories do
+not exist until step 3 and the amounts until Plan. Sitting under a take-home of
+₦450,000.00 it also invited the reader to check it and find it wrong, since
+450,000 ÷ 30 is 15,000. **And that figure would have been a worse lie**, because
+take-home is not spendable: rent, savings and debt repayments come out of it
+first. What a salary day and a take-home genuinely produce is **a cycle**, so
+the cycle is what the panel shows — 25 September to 24 October, 30 days — and
+it says plainly that nothing is divided up yet.
+
+**Step 4 was the expensive one**, because step 6 reads it. Getting ₦400,000
+wrong made step 6 wrong as well, which is how ₦85,000.00 and *five paydays*
+appeared on a screen when `seed-data.md` solves that exact sum for that exact
+screen. The rule the flow now follows: **a figure a later step depends on is
+named as coming from the step that holds it.** Step 6's card has
+*Already saved, from step 4* as a line in the sum, not a number that arrived
+from nowhere.
+
+**Step 5 answers the owner's second question too** — *is the debt record
+separate from "who you owe, and who owes you"?* No. A debt recorded there **is**
+the record; printing is only how it leaves the screen. The form comes first
+because a person arriving here has no debts, and the thing they need is the
+thing they fill in; the table is what accumulates behind it, and adding one
+clears the form and leaves it ready. Outstanding stays derived — borrowed minus
+paid back — so no wrong balance has a field to go into.
+
+**81 — removing has two meanings and only one is drawn.** Step 3 and step 4 now
+offer *Remove*, which is correct while nothing has history. **After the first
+cycle a category with movements in it cannot simply vanish** — the past would
+stop adding up. The screens say "archived instead"; the spec owns what archived
+means, where archived categories are listed, and whether an archived one can
+come back. ☐
+
+**82 — a savings pot the user adds needs a type and a protection rule.** *Add a
+savings pot* at step 4 is drawn as a button. What it opens is the spec's:
+presumably the same sheet as *Add a category* with the type fixed to Savings,
+but the protection default for a user-made pot is not stated anywhere. ☐
