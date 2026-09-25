@@ -2378,12 +2378,42 @@ pane beside it lays content out as a web screen would:
 `extra.onb_desktop` is unused now and stays in the file until the build side has
 read this, so the diff shows what replaced it.
 
-**79 — the owner's question about step 1, and it is a good one.** *"Somebody
-already signed up — do we still need to call them anything? Or a username, a
-nickname, a kunya?"* Right now step 1 asks for a name and the only place it
-appears is the printed debt record. Two things follow and both are the spec's:
-**(a)** if setting up happens BEFORE any account exists — which is the whole
-point of *no account needed* — then there is no name to inherit and asking is
-correct; **(b)** if someone signs up first and sets up after, the name should
-come from the account and step 1 should not be asked at all. **The screen cannot
-be right for both until the spec says which order is real.** ☐
+**79 — step 1, and the owner was right twice over.** *"Somebody already signed
+up — do we still need to call them anything? Or a username, a nickname, a
+kunya?"*
+
+**Is the step needed?** Yes, and the sign-up form is what settles it: it takes
+**an email address and a password, and nothing else**. There is no name to
+inherit, signed up or not, and the alternative is heading a paper record with an
+email address. Drawn and kept.
+
+**Was the question right?** No. It asked *"What should we call you?"* — which
+promises a greeting. Mizaniya never greets anybody: no name on Home, none in the
+sidebar, none in a report. A question implying a relationship the product does
+not have is a small lie told in the first thirty seconds. It now asks **"What
+should the debt record call you?"**, because the name has exactly one reader:
+the person on the other side of a debt, holding a sheet of paper.
+
+**And the kunya belongs in it.** The field's examples now say so plainly — a
+first name, a kunya, or the household — because for a debt between neighbours
+*Abu Mahir* identifies the borrower where a name off a form may not. It is one
+field with three examples, not three fields: one decision is being made.
+
+**At 1440 the document sits beside the field**, imported from `screens2` and
+scaled rather than re-typed, so the preview cannot drift from the record it
+previews. Drawing it caught a fault on sight: substituting only the *Who owes*
+row left the sheet **signed by somebody else**. One person, one name, on a
+document a second party keeps. At 360 the preview would push the field off the
+screen, so the phone gets the sentence instead.
+
+**What is still the spec's, and it is one question:** if someone signs up
+*first* and sets up after, is step 1 still asked, or is the account expected to
+carry a display name it currently has no field for? The screens assume setting
+up can happen with no account at all — which is the whole point of *no account
+needed* — and are correct for that order. ☐
+
+**80 — `seed-data.md` should name the owner.** The printed record says
+*A. Owner*; step 1 now shows *Abu Mahir* to demonstrate what the field does.
+Two screens, two names for one person, and neither is seeded. One owner display
+name in `seed-data.md` would let both read from it. Until then the mismatch is
+deliberate and this item is why. ☐

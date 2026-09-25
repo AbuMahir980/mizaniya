@@ -291,8 +291,8 @@
    "x": 3304,
    "y": 2408,
    "w": 1512,
-   "h": 976,
-   "title": "05.1 \u00b7 Setting up \u00b7 your name \u00b7 1440 \u00b7 light",
+   "h": 1135,
+   "title": "05.1 \u00b7 Setting up \u00b7 the name on the debt record \u00b7 1440 \u00b7 light",
    "page": "page-w-in",
    "print": "fixed"
   },
@@ -301,8 +301,8 @@
    "x": 4956,
    "y": 2408,
    "w": 1512,
-   "h": 976,
-   "title": "05.1 \u00b7 Setting up \u00b7 your name \u00b7 1440 \u00b7 dark",
+   "h": 1135,
+   "title": "05.1 \u00b7 Setting up \u00b7 the name on the debt record \u00b7 1440 \u00b7 dark",
    "page": "page-w-in",
    "print": "fixed"
   },
@@ -319,7 +319,7 @@
   {
    "file": "WebOnb2Dark.dc.html",
    "x": 0,
-   "y": 3612,
+   "y": 3733,
    "w": 1512,
    "h": 976,
    "title": "05.2 \u00b7 Setting up \u00b7 salary day and take-home \u00b7 1440 \u00b7 dark",
@@ -329,7 +329,7 @@
   {
    "file": "WebOnb3Light.dc.html",
    "x": 1652,
-   "y": 3612,
+   "y": 3733,
    "w": 1512,
    "h": 1317,
    "title": "05.3 \u00b7 Setting up \u00b7 categories \u00b7 1440 \u00b7 light",
@@ -339,7 +339,7 @@
   {
    "file": "WebOnb3Dark.dc.html",
    "x": 3304,
-   "y": 3612,
+   "y": 3733,
    "w": 1512,
    "h": 1317,
    "title": "05.3 \u00b7 Setting up \u00b7 categories \u00b7 1440 \u00b7 dark",
@@ -349,7 +349,7 @@
   {
    "file": "WebOnb4Light.dc.html",
    "x": 4956,
-   "y": 3612,
+   "y": 3733,
    "w": 1512,
    "h": 976,
    "title": "05.4 \u00b7 Setting up \u00b7 what you have already saved \u00b7 1440 \u00b7 light",
@@ -359,7 +359,7 @@
   {
    "file": "WebOnb4Dark.dc.html",
    "x": 6608,
-   "y": 3612,
+   "y": 3733,
    "w": 1512,
    "h": 976,
    "title": "05.4 \u00b7 Setting up \u00b7 what you have already saved \u00b7 1440 \u00b7 dark",
@@ -369,7 +369,7 @@
   {
    "file": "WebOnb5Light.dc.html",
    "x": 0,
-   "y": 5119,
+   "y": 5240,
    "w": 1512,
    "h": 958,
    "title": "05.5 \u00b7 Setting up \u00b7 debts, both directions \u00b7 1440 \u00b7 light",
@@ -379,7 +379,7 @@
   {
    "file": "WebOnb5Dark.dc.html",
    "x": 1652,
-   "y": 5119,
+   "y": 5240,
    "w": 1512,
    "h": 958,
    "title": "05.5 \u00b7 Setting up \u00b7 debts, both directions \u00b7 1440 \u00b7 dark",
@@ -389,7 +389,7 @@
   {
    "file": "WebOnb6Light.dc.html",
    "x": 3304,
-   "y": 5119,
+   "y": 5240,
    "w": 1512,
    "h": 976,
    "title": "05.6 \u00b7 Setting up \u00b7 rent target \u00b7 1440 \u00b7 light",
@@ -399,7 +399,7 @@
   {
    "file": "WebOnb6Dark.dc.html",
    "x": 4956,
-   "y": 5119,
+   "y": 5240,
    "w": 1512,
    "h": 976,
    "title": "05.6 \u00b7 Setting up \u00b7 rent target \u00b7 1440 \u00b7 dark",
@@ -1051,8 +1051,8 @@
    "x": 972,
    "y": 1854,
    "w": 832,
-   "h": 568,
-   "title": "05.1 \u00b7 Setting up \u00b7 your name \u00b7 360 \u00b7 light",
+   "h": 646,
+   "title": "05.1 \u00b7 Setting up \u00b7 the name on the debt record \u00b7 360 \u00b7 light",
    "page": "page-m-in",
    "print": "fixed"
   },
@@ -1061,8 +1061,8 @@
    "x": 1944,
    "y": 1854,
    "w": 832,
-   "h": 568,
-   "title": "05.1 \u00b7 Setting up \u00b7 your name \u00b7 360 \u00b7 dark",
+   "h": 646,
+   "title": "05.1 \u00b7 Setting up \u00b7 the name on the debt record \u00b7 360 \u00b7 dark",
    "page": "page-m-in",
    "print": "fixed"
   },
@@ -1071,7 +1071,7 @@
    "x": 2916,
    "y": 1854,
    "w": 832,
-   "h": 651,
+   "h": 669,
    "title": "05.2 \u00b7 Setting up \u00b7 salary day and take-home \u00b7 360 \u00b7 light",
    "page": "page-m-in",
    "print": "fixed"
@@ -1081,7 +1081,7 @@
    "x": 3888,
    "y": 1854,
    "w": 832,
-   "h": 651,
+   "h": 669,
    "title": "05.2 \u00b7 Setting up \u00b7 salary day and take-home \u00b7 360 \u00b7 dark",
    "page": "page-m-in",
    "print": "fixed"
@@ -1091,7 +1091,7 @@
    "x": 4860,
    "y": 1854,
    "w": 832,
-   "h": 965,
+   "h": 983,
    "title": "05.3 \u00b7 Setting up \u00b7 categories \u00b7 360 \u00b7 light",
    "page": "page-m-in",
    "print": "fixed"
@@ -1101,7 +1101,7 @@
    "x": 5832,
    "y": 1854,
    "w": 832,
-   "h": 965,
+   "h": 983,
    "title": "05.3 \u00b7 Setting up \u00b7 categories \u00b7 360 \u00b7 dark",
    "page": "page-m-in",
    "print": "fixed"
@@ -1111,7 +1111,7 @@
    "x": 6804,
    "y": 1854,
    "w": 832,
-   "h": 693,
+   "h": 711,
    "title": "05.4 \u00b7 Setting up \u00b7 what you have already saved \u00b7 360 \u00b7 light",
    "page": "page-m-in",
    "print": "fixed"
@@ -1121,7 +1121,7 @@
    "x": 7776,
    "y": 1854,
    "w": 832,
-   "h": 693,
+   "h": 711,
    "title": "05.4 \u00b7 Setting up \u00b7 what you have already saved \u00b7 360 \u00b7 dark",
    "page": "page-m-in",
    "print": "fixed"
@@ -1129,9 +1129,9 @@
   {
    "file": "MwOnb5Light.dc.html",
    "x": 0,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
-   "h": 1211,
+   "h": 1229,
    "title": "05.5 \u00b7 Setting up \u00b7 debts, both directions \u00b7 360 \u00b7 light",
    "page": "page-m-in",
    "print": "fixed"
@@ -1139,9 +1139,9 @@
   {
    "file": "MwOnb5Dark.dc.html",
    "x": 972,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
-   "h": 1211,
+   "h": 1229,
    "title": "05.5 \u00b7 Setting up \u00b7 debts, both directions \u00b7 360 \u00b7 dark",
    "page": "page-m-in",
    "print": "fixed"
@@ -1149,9 +1149,9 @@
   {
    "file": "MwOnb6Light.dc.html",
    "x": 1944,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
-   "h": 729,
+   "h": 747,
    "title": "05.6 \u00b7 Setting up \u00b7 rent target \u00b7 360 \u00b7 light",
    "page": "page-m-in",
    "print": "fixed"
@@ -1159,9 +1159,9 @@
   {
    "file": "MwOnb6Dark.dc.html",
    "x": 2916,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
-   "h": 729,
+   "h": 747,
    "title": "05.6 \u00b7 Setting up \u00b7 rent target \u00b7 360 \u00b7 dark",
    "page": "page-m-in",
    "print": "fixed"
@@ -1169,7 +1169,7 @@
   {
    "file": "MwOnbSalaryDayLight.dc.html",
    "x": 3888,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
    "h": 850,
    "title": "05.2a \u00b7 Setting up \u00b7 the salary-day picker \u00b7 360 \u00b7 light",
@@ -1179,7 +1179,7 @@
   {
    "file": "MwOnbSalaryDayDark.dc.html",
    "x": 4860,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
    "h": 850,
    "title": "05.2a \u00b7 Setting up \u00b7 the salary-day picker \u00b7 360 \u00b7 dark",
@@ -1189,7 +1189,7 @@
   {
    "file": "MwOnbAddCategoryLight.dc.html",
    "x": 5832,
-   "y": 3009,
+   "y": 3027,
    "w": 462,
    "h": 684,
    "title": "05.3a \u00b7 Setting up \u00b7 add a category \u00b7 360 \u00b7 light",
@@ -1199,7 +1199,7 @@
   {
    "file": "MwOnbAddCategoryDark.dc.html",
    "x": 6434,
-   "y": 3009,
+   "y": 3027,
    "w": 462,
    "h": 684,
    "title": "05.3a \u00b7 Setting up \u00b7 add a category \u00b7 360 \u00b7 dark",
@@ -1209,7 +1209,7 @@
   {
    "file": "MwOnbEditCategoryLight.dc.html",
    "x": 7036,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
    "h": 754,
    "title": "05.3b \u00b7 Setting up \u00b7 edit a category \u00b7 360 \u00b7 light",
@@ -1219,7 +1219,7 @@
   {
    "file": "MwOnbEditCategoryDark.dc.html",
    "x": 8008,
-   "y": 3009,
+   "y": 3027,
    "w": 832,
    "h": 754,
    "title": "05.3b \u00b7 Setting up \u00b7 edit a category \u00b7 360 \u00b7 dark",
