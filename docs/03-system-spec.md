@@ -147,7 +147,7 @@ MoSCoW. **Must** = v1 cannot ship without it.
 | A3 | As the owner, I want to record what I already have saved and already owe, so the figures are right from day one | **Must** |
 | A4 | As the owner, I want to set my rent target and its due date so the projected gap works from the first cycle | **Must** |
 | A5 | As the owner, I want to skip optional steps and add them later so I can start using it in two minutes | Should |
-| A6 | As the owner, I want to load the seeded demo data so I can see what a filled-in app looks like | Could |
+| A6 | As **anyone**, I want to see a filled-in app in one click without signing up, so I can tell whether this is for me | **Must** — promoted from *Could* 2026-09-25. It is the landing page's primary call to action, and the seed already restores through the ordinary import path |
 
 ### B · Home
 
@@ -585,6 +585,37 @@ saved is the only real backup, and the README says so.
 journey. A bug fix ships with the test that would have caught it (**K4**).
 
 **Language.** British English throughout, copy and docs.
+
+---
+
+## 10a · Motion, and what a webapp owes a big screen *(added 2026-09-25)*
+
+Three decisions taken with the repositioning, recorded here because they are
+requirements rather than taste:
+
+**Desktop is a design target, not an adaptation.** The set was mobile-first at 360 and
+merely *correct* at 1440. For a webapp that is met on a laptop by people deciding
+whether to trust it, correct is not enough. Several 1440 artboards are reworked rather
+than conformed — **which changes the shape of #72's conformance pass**, since it can no
+longer be measured against artboards that are themselves being redrawn.
+
+**Motion becomes a system, with `docs/design/motion.md` authoritative** the way
+`tokens.md` is: named durations, named easings, an explicit list of what animates, and
+a reduced-motion fallback for every entry.
+
+Two hard rules:
+
+- **`prefers-reduced-motion` gets a complete experience**, not a broken one. Standard **J3** already forbids motion carrying meaning alone; this extends it to the landing page, which may perform but must still read with animation off.
+- **Nothing animates on the path to a figure.** No entrance animation between opening the app and reading safe-to-spend, and **no counting up on first paint** — a number mid-animation is a number you cannot read, and reading the number is the product.
+
+**The daily user wins any conflict.** If a flourish costs the person recording an
+expense in a queue half a second, it goes. Selling the product must not cost the
+product.
+
+**Engineering consequence:** the bundle already warns at 594KB. A motion library must
+justify its weight under **N1**; CSS transitions and the Web Animations API are
+preferred. Animate `transform` and `opacity` — animating layout properties drops frames
+on the mid-range Android the daily user actually holds.
 
 ---
 

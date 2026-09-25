@@ -1,167 +1,257 @@
-# Design brief — accounts, sync, tiers, and the landing page
+# Design brief — the webapp: accounts, sync, tiers, motion, desktop
 
 | Field | Value |
 |---|---|
-| **Date** | 2026-09-25 |
+| **Date** | 2026-09-25 (**supersedes the first version of this file, same date**) |
 | **For** | the designer |
-| **Why** | [ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md) — v1 is now a hosted webapp with accounts and a paid tier |
-| **Behaviour is defined in** | [03-system-spec.md](03-system-spec.md) §I–§M and §11a |
-| **Questions go in** | [open-items.md](open-items.md), a new section **H** |
+| **Why** | [ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md) — v1 is a hosted webapp with a paid tier |
+| **Behaviour** | [03-system-spec.md](03-system-spec.md) §I–§M, §11a |
+| **Landing page** | its own brief — [11-landing-page-brief.md](11-landing-page-brief.md) |
+| **Questions** | [open-items.md](open-items.md) §H |
 
 ---
 
-## 1 · What changed, in three sentences
+## 0 · A correction to what you were told first
 
-Mizaniya was a local-first app for one person on one device. It still is — **and
-that version is now the free tier, unchanged**. On top of it: an optional account
-that lets the budget follow you to a second device, share with a spouse, and read
-bank movement, paid monthly.
+The first version of this brief said **"your 69 artboards all stand."** That is no
+longer accurate and I would rather correct it than let you build on it.
 
-Nothing about cycles, safe-to-spend, the rent fund, debts or zakat has changed.
+Three decisions taken after it was written change the scope:
 
----
+1. **Desktop is now a first-class design target**, not an adaptation. So several 1440 artboards need rework rather than conformance.
+2. **Motion and interactivity are in scope as a system**, which the design set does not currently have.
+3. **A one-click demo** is now a **Must**, not a *Could*.
 
-## 2 · What is *not* changing — read this before anything else
-
-**The 69 existing artboards stand.** Onboarding, Home, Plan, Transactions, Quick
-Add, Debts & Goals, the printed debt record, Months, Settings, Zakat, Import —
-all still correct, and the build is still catching up to several of them (#72).
-
-**Two things in particular are unchanged, and it would be easy to assume otherwise:**
-
-- **Onboarding is untouched.** No sign-up step, no account step, no email field. Someone downloading this can use it forever without an account.
-- **`tokens.md` is still authoritative**, and the type, colour, spacing and radius scales are not reopened. Everything below is built from the existing system.
-
-### The simplification worth knowing
-
-**There is no "signed-out state" to draw for the main screens.** An account is an
-upgrade, not a gate — so signed out is not a degraded Home, it *is* Home. Only the
-account screens themselves have a signed-out state.
-
-This removes what would have been the largest piece of work in this brief.
+**What genuinely does still stand:** every 360 artboard, the whole token system,
+onboarding, and every behaviour in the page specs. The product did not change. How
+it presents itself on a large screen, and how it moves, did.
 
 ---
 
-## 3 · New screens
+## 1 · What this has to be now
 
-Numbering continues from the existing set (00–07b). Each needs 360 and 1440, light
-and dark, unless noted.
+v1 is not a mobile app that happens to open in a browser. It is a **webapp with a
+paid tier**, and it will be met by three different people:
 
-### 08 · Account — sign up, sign in, reset
+| Who | Where | What they need in the first ten seconds |
+|---|---|---|
+| Someone budgeting | phone, 360, daily, often bad signal | The one figure. Fast. No ceremony |
+| Someone deciding whether to try it | laptop, 1440, once | A reason to care, and proof it is real |
+| An investor or employer | laptop, 1440, once | Evidence that whoever built this knows what they are doing |
 
-| State | Notes |
+The existing set serves the first person well. It was never asked to serve the other
+two.
+
+**The daily user still wins any conflict.** If a flourish costs the person in a queue
+at a fuel station half a second, it goes. Selling the product must not cost the
+product.
+
+---
+
+## 2 · Desktop, as a design target
+
+Currently: mobile-first at 360, *correct* at 1440. Correct means nothing is broken.
+It does not mean the width is used.
+
+**What "designed for desktop" means here, concretely:**
+
+- **The width does something.** Home at 1440 should not be a 360 column centred in grey. What earns the second column — the category table beside the gauge? the debt list beside the goals? That is your call and it is the central question of this brief.
+- **Density is a choice per page.** A phone shows the ranked subset; a laptop can show the full table. The page specs already know this (`HomeLight` ranks a subset, `DHomeLight` shows the full table) — extend that thinking rather than inventing it.
+- **Pointer states are real states.** Hover, focus-visible, active, drag where it applies. On a phone these barely exist. On a laptop their absence is what makes a page feel like a port.
+- **Keyboard is a first-class path**, not an accessibility box ticked at the end. Someone on a laptop entering ten movements should never touch the mouse.
+
+**Pages most likely to need genuine desktop rework** — your judgement, this is a
+prompt not a list of orders: Home, Transactions, Plan, Debts & Goals. The forms and
+sheets may be fine as they are.
+
+---
+
+## 3 · Motion — as a system, not decorations
+
+### What exists already
+
+The page specs' accessibility section (§3) already names three animations — the
+sheet slide, tile counters, progress-bar fills — and already requires
+`prefers-reduced-motion` to remove them. So the *rule* exists. **The system does
+not.**
+
+### What is needed: `docs/design/motion.md`
+
+A sibling to `tokens.md`, and authoritative the same way. It should define:
+
+| | |
 |---|---|
-| Sign up | Email, password. **The password requirement is stated before the field is typed into**, not after rejection |
-| Sign up — what we can and cannot see | **§I8, and it is not fine print.** Before anyone hands over data: what is encrypted, that keys are held separately from the database, and that every access to production data is logged. This is a trust surface, not a legal one |
-| Sign in | Email, password, and a way to reach reset |
-| Reset — request | Deliberately says *"if that address has an account, a link has been sent"* — it must **not** reveal whether the account exists |
-| Reset — confirm | New password. Signing in elsewhere is ended |
-| Error states | Wrong password, rate-limited, expired link. Each says what to do next (**L2**) |
+| **Durations** | A small scale, named. Two or three values, not seven. Most UI motion is 150–300ms and anything longer needs a reason |
+| **Easings** | Named curves and when each applies. Entering and leaving are rarely the same curve |
+| **What animates** | An explicit list. Anything not on it does not animate |
+| **What never animates** | **Money figures on first paint.** A number counting up on load is a figure you cannot read yet, and this app's whole job is telling you a number |
+| **Reduced motion** | The fallback for every single entry. Not "animations off" — the state change still has to be legible |
+| **Orchestration** | Whether lists stagger, and how much. Stagger is the fastest way to make an app feel slow |
 
-### 08a · Account settings
+### Motion that earns its place in this product
 
-Extends the existing **07 Settings**, rather than becoming a separate area.
+Suggestions, to argue with:
 
-| State | Notes |
-|---|---|
-| Signed out | One row: what an account would add, and a way in. Not a banner, not a nag |
-| Signed in | Email, tier, next billing date |
-| Devices | Which devices are signed in, and signing one out remotely (**I7**) |
-| Sign out | **Must say plainly what happens to the data on this device**, and the words have to match what actually happens. If unsynced changes exist, warn before, not after |
-| Delete account | Two-step. States the **30-day** grace period, then permanent. This is the most serious action in the app and should feel it without being theatrical |
+- **A figure that changes should be seen to change.** Record an expense and safe-to-spend drops. If it silently re-renders, the person has to re-read the whole screen to find what moved. This is the most valuable motion in the app.
+- **The reconciliation queue should feel like clearing an inbox.** An item categorised should leave, and the next should arrive. That rhythm is the difference between a satisfying task and data entry.
+- **Sheets and routes need spatial logic.** Where did this come from, and where does it go when dismissed?
+- **Skeletons must match their content's shape.** A generic grey block that becomes a table is worse than nothing — it moves everything twice.
+
+### Motion that must not appear in the app
+
+- **Anything on the critical path to a figure.** No entrance animation between opening the app and reading safe-to-spend.
+- **Scroll-jacking, parallax, reveal-on-scroll.** Those belong on the landing page and nowhere near a tool someone uses daily.
+- **Motion carrying meaning alone** (**J3**). If the only signal that a save failed is a shake, the message did not arrive.
+
+### The engineering constraints, so the spec is buildable
+
+- **`prefers-reduced-motion` is mandatory**, not a nicety. This project gates contrast at the token level; motion gets the same seriousness.
+- **The bundle is already 594KB** and warns at build. A motion library has to be justified under standard **N1** — so prefer CSS transitions and the Web Animations API, and name a library only where it genuinely earns the weight.
+- **Animate `transform` and `opacity`.** Animating layout properties on a mid-range Android phone drops frames, and that is the device the daily user has.
+
+---
+
+## 4 · New pages, at page-spec level
+
+For each: **purpose · how you arrive · hierarchy · the states · motion · keyboard ·
+what happens on success.** Behaviour is in the system spec; this is what the page has
+to *do*.
+
+### 08 · `/sign-up`, `/sign-in`, `/reset`
+
+**Purpose:** turn a local user into an account holder, with as little ceremony as the
+security allows.
+
+**Arrive from:** Settings, a locked feature (§09), the landing page.
+
+**Hierarchy:** one job per screen. The password requirement is stated **before** the
+field, not after rejection.
+
+**The trust panel is not fine print (§I8).** Before anyone hands over data: what is
+encrypted, that keys live outside the database, that every access is logged. This is
+the screen where someone decides whether to trust you with their salary.
+
+**States:** empty · typing · invalid · submitting · rate-limited · wrong password ·
+expired reset link · success. Reset always says *"if that address has an account, a
+link has been sent"* — it must never reveal whether it exists.
+
+**Motion:** minimal. Validation appearing must not shift the layout under the cursor.
+
+**Keyboard:** Enter submits. Tab order is field, field, submit — nothing clever.
+
+**On success:** they land where they were going, not on a generic dashboard. Someone
+who signed up to unlock sync arrives back at sync.
+
+### 08a · `/settings` — extended, not replaced
+
+**Purpose:** the account lives beside the existing settings, because it is a setting.
+
+**States:** signed out (one row, what an account adds — not a banner, not a nag) ·
+signed in · devices (**I7**) · sign out · delete account.
+
+**Sign out must say what happens to the data on this device**, in words that match
+what actually happens. If unsynced changes exist, warn **before**.
+
+**Delete account** is the most serious action in the product: two steps, states the
+**30-day** grace, then permanent. Serious without being theatrical.
 
 ### 09 · Tiers and the locked state
 
-| State | Notes |
-|---|---|
-| What paying adds | Reachable from Settings. Free vs paid, per §11a. **Never interrupts the core journey** |
-| A locked feature | **The hardest copy problem here.** A locked control must say what the feature is and what it costs. A disabled button with no explanation is a bug (**L2**) — and a lock that feels punitive on a budgeting app is worse than no paid tier |
-| Subscribe | Hand-off to the payment provider, and coming back |
-| Subscribed | Status, next bill, and cancelling without contacting anyone |
-| Lapsed | **The important one.** Sync has stopped; the app has not. Every record is still there, still editable, still exportable. This state must not read as a punishment or a broken app — it is the free tier, which is a complete product |
+**Purpose:** explain what paying adds, without poisoning the free product.
+
+**The locked state is the hardest thing in this brief.** A locked control must say
+what the feature is and what it costs. A dead control with no explanation is a bug
+(**L2**). And the tone has a floor: **a lock that feels punitive on a budgeting app
+is worse than having no paid tier.** These are people managing scarcity.
+
+**States:** free (what paid adds) · a locked feature in place · subscribing ·
+subscribed · **lapsed**.
+
+**Lapsed is the one to get right.** Sync stopped; the app did not. Every record is
+there, editable, exportable. It must read as *the free tier*, which is a complete
+product — never as a broken or hostage app.
+
+**Motion:** none that celebrates. A tasteful confirmation on subscribing, nothing
+that performs.
 
 ### 10 · Sync
 
-| State | Notes |
-|---|---|
-| Up to date | Quiet. Probably not a badge competing with the money |
-| Unsynced changes | **§J3 — a figure the app cannot vouch for must not look like one it can.** Where this lives is your call; it affects Home |
-| Offline | The existing offline treatment may already cover this — please say if it does |
-| Sync failed | Says what failed and what to do. Not a silent retry forever |
-| **Signing in where a budget already exists** | **§I3, and it needs real thought.** Someone signs in on a device already holding a different local budget. They must be *asked* which to keep — nothing merges silently, because merging two budgets has no correct answer. The wording is the whole problem: both options are destructive and the person must understand which is which |
+**Purpose:** let someone know whether the figure in front of them can be trusted.
+
+**States:** up to date · unsynced changes · offline · syncing · failed ·
+**cursor expired / full resync** (rare, slow, needs an honest explanation) ·
+**signing in where a budget already exists**.
+
+**That last one needs real thought (§I3).** Someone signs in on a device that already
+holds a different budget. They must be *asked* — nothing merges, because merging two
+budgets has no correct answer. **Both options are destructive** and the person has to
+understand which is which. This may not fit in one screen.
+
+**Where the indicator lives is §H item 23** and it is the only item touching a screen
+you have already drawn.
+
+### 11 · Demo mode — **now a Must**
+
+**Purpose:** let a stranger see a filled-in app in one click, without signing up.
+
+**Arrive from:** the landing page (primary call to action) and the welcome screen.
+
+**This is probably the highest-converting screen in the product**, and most of the
+work exists: `npm run seed` already writes a real export file that restores through
+the ordinary import path.
+
+**What it needs from you:**
+
+- **An unmistakable, permanent marker that these figures are not theirs.** A money app showing invented numbers that someone mistakes for their own is a genuine hazard, not a design nicety. It has to be visible on every screen, and it must not be dismissable.
+- **A way out that keeps nothing** — "start with my own figures" wipes the demo cleanly.
+- **A state where they have edited the demo.** People will. It must still be obviously a demo.
+
+### 12 · Household *(drawn now, built later)*
+
+Invite · accept (joins an existing budget, **never** a second copy) · members ·
+**the disagreement**.
+
+> *"You set Food to ₦40,000. Your wife set it to ₦35,000. Do you agree to this?"*
+
+**It must read as two people agreeing, not as software refereeing.** A shared
+household budget *is* an agreement between two people. Both amounts are kept until
+someone settles it.
+
+### 13 · Bank movement *(drawn now, built v1.1)*
+
+Before linking (**read-only must be unmistakable** — it can see, it cannot move
+money, and the connection can be cut any time) · linking · linked · **reconciliation**
+· possible duplicate.
+
+**Reconciliation is the centre of the paid product and is drawn nowhere:**
+
+> *"₦12,000 left your account — which envelope?"*
+
+A queue. Clearing a small inbox, not doing data entry. **This is where the app's best
+motion belongs.**
+
+**Possible duplicate (§M5):** manual entry does not stop, so the same expense arrives
+twice. Suggest a match; let the owner confirm or separate. **Never silently decide
+two of someone's expenses were one.**
 
 ---
 
-## 4 · Designed now, built later
+## 5 · What this brief does not decide
 
-Drawn now so the set is cut once. **Not** being built yet, so these can be single
-states rather than exhaustive.
+Layout, hierarchy, palette, type, and the motion values themselves are **yours**.
+Where this and the spec disagree, `peer-ai/shared/design-data-contract.md` applies:
+design owns layout, spacing, type, colour and motion; the spec owns behaviour, states
+and data. **Name it and log it — never pick a side quietly.**
 
-### 11 · Household sharing *(built after launch)*
+## 6 · Constraints
 
-| Screen | Notes |
-|---|---|
-| Invite | By email. An invitation is not an account |
-| Accept | Joins an existing budget — **never creates a second copy** |
-| Members | Who is in, who invited them, removing someone |
-| **The disagreement** | *"You set Food to ₦40,000. Your wife set it to ₦35,000. Do you agree to this?"* **This must read as two people agreeing, not as software refereeing.** A shared household budget *is* an agreement between two people, so a disagreement about it is a conversation. Both amounts are kept until someone settles it — neither is discarded in the meantime |
+- **360 and 1440, light and dark**, for anything built now. Desktop is designed, not derived.
+- **Every state** (**F6**), including the awkward one.
+- **Contrast stays gated** — 54 pairs, no failures; new pairs join the check.
+- **`prefers-reduced-motion` for every animation**, with a legible fallback.
+- **No invented figures.** Amounts come from `docs/seed-data.md` (repo rule 2). If a screen needs one that does not exist, say so — it will be added, not invented.
 
-### 12 · Bank movement *(built as v1.1)*
+## 7 · Questions
 
-| Screen | Notes |
-|---|---|
-| Before linking | **Read-only must be unmistakable.** Mizaniya can see movement; it cannot move money. Say it plainly, and say that the connection can be cut at any time |
-| Linking | The aggregator's consent flow, and returning |
-| Linked | Which account, when it last updated, and unlinking |
-| **Reconciliation** | ***"₦12,000 left your account — which envelope?"*** **This is the centre of the paid product and it is drawn nowhere.** A queue of detected movements, each needing a category. It should feel like clearing a small inbox, not doing data entry |
-| Possible duplicate | **§M5.** Manual entry does not stop, so the same expense arrives twice. The app should *suggest* a match and let the owner confirm or separate it. **It must not silently decide two of someone's expenses were one** |
-
----
-
-## 5 · 13 · The landing page
-
-Separate from the app, and **done properly** — the owner's instruction. It is the
-first thing an investor, an employer or a prospective user sees.
-
-Content, in the order the repo rules require of the README:
-
-1. **The problem first** — salary gone before the month ends, debts in both directions, rent due once a year in a lump sum. Not the stack.
-2. **The screenshots.** They are the product.
-3. Free vs paid, honestly, per §11a.
-4. What we can and cannot see — the same claims as §I8, worded identically. **Consistency between these two surfaces matters more than the wording of either.**
-
-**One sentence must never appear**, on this page or anywhere: *"your bank data never
-touches our servers."* It is false — movement arrives at the server before it is
-encrypted. What is true, and strong enough: *"we never store your bank data in
-readable form."*
-
----
-
-## 6 · What this brief does not decide
-
-**Layout, hierarchy, palette and type are yours.** Nothing above prescribes an
-arrangement. Where it says "probably not a badge", that is a concern to weigh, not
-an instruction.
-
-Where the brief and the spec disagree, `peer-ai/shared/design-data-contract.md`
-applies: the design owns layout, spacing, type and colour; the spec owns behaviour,
-states and data. **Name it and log it rather than picking a side quietly.**
-
-## 7 · Constraints
-
-- **360 and 1440, light and dark**, for anything being built now.
-- **Every state**, per **F6** — loading, empty, error, and the awkward one.
-- **Contrast stays gated.** The existing set has 54 pairs and no failures; new colour pairs join that check.
-- **No new figures.** Any amount shown comes from `docs/seed-data.md` (repo rule 2). If a screen needs a figure that does not exist there, say so and it will be added rather than invented.
-
-## 8 · Questions
-
-New section **H** in [open-items.md](open-items.md) — answered in place, heading
-marked `answered <date>`. Questions belong beside their answers rather than in a
-message.
-
-**Three things I expect you to push back on**, and would rather hear now:
-
-1. Whether the sync indicator belongs on Home at all, or only in Settings.
-2. Whether the locked state should be a separate screen or an inline treatment.
-3. Whether §I3's "which budget do you keep?" is answerable in one screen, or needs a short flow.
+[open-items.md](open-items.md) §H — answered in place, heading marked
+`answered <date>`.
