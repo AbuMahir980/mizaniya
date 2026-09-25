@@ -2300,3 +2300,44 @@ sidebar, it is reached only from that footer, and it is the only page on this
 canvas that is reached from the landing page and is not the landing page. Filing
 it under *Account, sync and household* was a leftover from the version that had
 a sidebar on it.
+
+### M·21 — The options page is gone, and the account flow is drawn at 390
+
+**Page 2, the three Home options, is off the canvas.** It was a *choosing* page
+— three answers to one question, kept only while the question was open. The
+owner picked A and B, Home is built from them, and a page that exists to be
+decided on is clutter once it has been. `build_opts.py` is untouched, so the
+argument is recoverable from git if the decision is ever reopened. **Eleven
+pages now.**
+
+**The account flow exists at 390.** The 1440 set has had it since this morning
+and the 390 set did not, which made *Getting in* the only place on the canvas
+where the two widths did not match. Six screens: sign up, sign up with the
+address taken, sign in, forgot password, check your email, set a new password.
+
+It is **a different composition, not the wide one narrowed.** At 1440 the form
+and the trust panel sit side by side, so you read the fields and the reasons at
+once and the panel is a wall you cannot miss. At 390 there is no *beside*, so
+they stack — form, then the same claims in the same order underneath. **The
+claims are not cut down for the phone.** A trust panel that says less to someone
+signing up on a phone says less to most of the people signing up.
+
+The three reset screens carry **no trust panel at all**. The panel is for
+someone deciding whether to hand something over; a person resetting a password
+decided that already, and repeating it there is furniture.
+
+### M·22 — The trust panel had the same fault as the Security page
+
+Two of its three claims described the **storage**: *"Encrypted, with the keys
+held outside the database"* and *"Every access to production data is logged."*
+Architecture, told to a stranger, at the one moment they are least able to judge
+it — and I had just removed exactly that from the Security page for exactly
+that reason. Finding it twice in one day is the point: **it is not a slip, it is
+a habit**, and the habit is reaching for the impressive-sounding truth instead
+of the useful one.
+
+The panel now says what the page says: we hold four things and each has a
+reason; we never ask for a card number, a BVN or a phone number; bank access is
+read-only. The headline caveat is reframed the same way — *our server sees the
+movement in order to pass it to you* rather than *the movement reaches our
+server before it is encrypted*. Same admission, no implementation detail.

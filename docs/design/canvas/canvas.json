@@ -5,48 +5,44 @@
    "name": "1 \u00b7 Landing page"
   },
   {
-   "id": "page-opts",
-   "name": "2 \u00b7 Home at 1440 \u2014 three options, pick one"
-  },
-  {
    "id": "page-w-in",
-   "name": "3 \u00b7 Web 1440 \u00b7 Getting in"
+   "name": "2 \u00b7 Web 1440 \u00b7 Getting in"
   },
   {
    "id": "page-w-home",
-   "name": "4 \u00b7 Web 1440 \u00b7 Home"
+   "name": "3 \u00b7 Web 1440 \u00b7 Home"
   },
   {
    "id": "page-w-money",
-   "name": "5 \u00b7 Web 1440 \u00b7 The month's money"
+   "name": "4 \u00b7 Web 1440 \u00b7 The month's money"
   },
   {
    "id": "page-w-acct",
-   "name": "6 \u00b7 Web 1440 \u00b7 Account, sync and household"
+   "name": "5 \u00b7 Web 1440 \u00b7 Account, sync and household"
   },
   {
    "id": "page-m-in",
-   "name": "7 \u00b7 Phone browser 360 \u00b7 Getting in"
+   "name": "6 \u00b7 Phone browser 360 \u00b7 Getting in"
   },
   {
    "id": "page-m-home",
-   "name": "8 \u00b7 Phone browser 360 \u00b7 Home"
+   "name": "7 \u00b7 Phone browser 360 \u00b7 Home"
   },
   {
    "id": "page-m-money",
-   "name": "9 \u00b7 Phone browser 360 \u00b7 The month's money"
+   "name": "8 \u00b7 Phone browser 360 \u00b7 The month's money"
   },
   {
    "id": "page-m-acct",
-   "name": "10 \u00b7 Phone browser 360 \u00b7 Settings and data"
+   "name": "9 \u00b7 Phone browser 360 \u00b7 Settings and data"
   },
   {
    "id": "page-brand",
-   "name": "11 \u00b7 Mark"
+   "name": "10 \u00b7 Mark"
   },
   {
    "id": "page-found",
-   "name": "12 \u00b7 Foundations"
+   "name": "11 \u00b7 Foundations"
   }
  ],
  "artboards": [
@@ -168,66 +164,6 @@
    "h": 2944,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
    "page": "page-land",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeOptALight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 1252,
-   "h": 799,
-   "title": "20A \u00b7 Home, option A \u2014 The pace line \u00b7 1440 \u00b7 light",
-   "page": "page-opts",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeOptADark.dc.html",
-   "x": 1392,
-   "y": 0,
-   "w": 1252,
-   "h": 799,
-   "title": "20A \u00b7 Home, option A \u2014 The pace line \u00b7 1440 \u00b7 dark",
-   "page": "page-opts",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeOptBLight.dc.html",
-   "x": 2784,
-   "y": 0,
-   "w": 1252,
-   "h": 678,
-   "title": "20B \u00b7 Home, option B \u2014 The pace bullets \u00b7 1440 \u00b7 light",
-   "page": "page-opts",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeOptBDark.dc.html",
-   "x": 4176,
-   "y": 0,
-   "w": 1252,
-   "h": 678,
-   "title": "20B \u00b7 Home, option B \u2014 The pace bullets \u00b7 1440 \u00b7 dark",
-   "page": "page-opts",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeOptCLight.dc.html",
-   "x": 5568,
-   "y": 0,
-   "w": 1252,
-   "h": 575,
-   "title": "20C \u00b7 Home, option C \u2014 The cycle grid \u00b7 1440 \u00b7 light",
-   "page": "page-opts",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeOptCDark.dc.html",
-   "x": 6960,
-   "y": 0,
-   "w": 1252,
-   "h": 575,
-   "title": "20C \u00b7 Home, option C \u2014 The cycle grid \u00b7 1440 \u00b7 dark",
-   "page": "page-opts",
    "print": "fixed"
   },
   {
@@ -1151,9 +1087,129 @@
    "print": "fixed"
   },
   {
-   "file": "MwOnbSalaryDayLight.dc.html",
+   "file": "MwSignUpLight.dc.html",
    "x": 3888,
    "y": 1151,
+   "w": 832,
+   "h": 1592,
+   "title": "03 \u00b7 Sign up \u00b7 360 \u00b7 light",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSignUpDark.dc.html",
+   "x": 4860,
+   "y": 1151,
+   "w": 832,
+   "h": 1592,
+   "title": "03 \u00b7 Sign up \u00b7 360 \u00b7 dark",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSignUpTakenLight.dc.html",
+   "x": 5832,
+   "y": 1151,
+   "w": 534,
+   "h": 1598,
+   "title": "03a \u00b7 Sign up \u00b7 address already has an account \u00b7 360 \u00b7 light",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSignUpTakenDark.dc.html",
+   "x": 6506,
+   "y": 1151,
+   "w": 530,
+   "h": 1598,
+   "title": "03a \u00b7 Sign up \u00b7 address already has an account \u00b7 360 \u00b7 dark",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSignInLight.dc.html",
+   "x": 7176,
+   "y": 1151,
+   "w": 462,
+   "h": 1408,
+   "title": "04 \u00b7 Sign in \u00b7 360 \u00b7 light",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSignInDark.dc.html",
+   "x": 7778,
+   "y": 1151,
+   "w": 462,
+   "h": 1408,
+   "title": "04 \u00b7 Sign in \u00b7 360 \u00b7 dark",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwForgotLight.dc.html",
+   "x": 0,
+   "y": 2939,
+   "w": 832,
+   "h": 564,
+   "title": "05 \u00b7 Forgot password \u00b7 360 \u00b7 light",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwForgotDark.dc.html",
+   "x": 972,
+   "y": 2939,
+   "w": 832,
+   "h": 564,
+   "title": "05 \u00b7 Forgot password \u00b7 360 \u00b7 dark",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwLinkSentLight.dc.html",
+   "x": 1944,
+   "y": 2939,
+   "w": 758,
+   "h": 661,
+   "title": "05a \u00b7 Forgot password \u00b7 check your email \u00b7 360 \u00b7 light",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwLinkSentDark.dc.html",
+   "x": 2842,
+   "y": 2939,
+   "w": 758,
+   "h": 661,
+   "title": "05a \u00b7 Forgot password \u00b7 check your email \u00b7 360 \u00b7 dark",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwNewPasswordLight.dc.html",
+   "x": 3740,
+   "y": 2939,
+   "w": 832,
+   "h": 689,
+   "title": "06 \u00b7 Reset password \u00b7 set a new one \u00b7 360 \u00b7 light",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwNewPasswordDark.dc.html",
+   "x": 4712,
+   "y": 2939,
+   "w": 832,
+   "h": 689,
+   "title": "06 \u00b7 Reset password \u00b7 set a new one \u00b7 360 \u00b7 dark",
+   "page": "page-m-in",
+   "print": "fixed"
+  },
+  {
+   "file": "MwOnbSalaryDayLight.dc.html",
+   "x": 5684,
+   "y": 2939,
    "w": 832,
    "h": 832,
    "title": "02.2a \u00b7 Onboarding \u00b7 the salary-day picker \u00b7 360 \u00b7 light",
@@ -1162,8 +1218,8 @@
   },
   {
    "file": "MwOnbSalaryDayDark.dc.html",
-   "x": 4860,
-   "y": 1151,
+   "x": 6656,
+   "y": 2939,
    "w": 832,
    "h": 832,
    "title": "02.2a \u00b7 Onboarding \u00b7 the salary-day picker \u00b7 360 \u00b7 dark",
@@ -1172,8 +1228,8 @@
   },
   {
    "file": "MwOnbAddCategoryLight.dc.html",
-   "x": 5832,
-   "y": 1151,
+   "x": 7628,
+   "y": 2939,
    "w": 462,
    "h": 684,
    "title": "02.3a \u00b7 Onboarding \u00b7 add a category \u00b7 360 \u00b7 light",
@@ -1182,8 +1238,8 @@
   },
   {
    "file": "MwOnbAddCategoryDark.dc.html",
-   "x": 6434,
-   "y": 1151,
+   "x": 8230,
+   "y": 2939,
    "w": 462,
    "h": 684,
    "title": "02.3a \u00b7 Onboarding \u00b7 add a category \u00b7 360 \u00b7 dark",
@@ -1192,8 +1248,8 @@
   },
   {
    "file": "MwOnbEditCategoryLight.dc.html",
-   "x": 7036,
-   "y": 1151,
+   "x": 0,
+   "y": 3961,
    "w": 832,
    "h": 754,
    "title": "02.3b \u00b7 Onboarding \u00b7 edit a category \u00b7 360 \u00b7 light",
@@ -1202,8 +1258,8 @@
   },
   {
    "file": "MwOnbEditCategoryDark.dc.html",
-   "x": 8008,
-   "y": 1151,
+   "x": 972,
+   "y": 3961,
    "w": 832,
    "h": 754,
    "title": "02.3b \u00b7 Onboarding \u00b7 edit a category \u00b7 360 \u00b7 dark",
@@ -1869,14 +1925,6 @@
    "w": 820,
    "page": "page-land",
    "text": "First, because it is the first thing anyone meets. Built from real components at their real size \u2014 fragments, never whole screens \u2014 and on the 1440 board from the WEB app's components, because v1 is a web app and a laptop reader must see the tables and the dashboard they will actually get. `LandMotion` draws the pointer states, because a static artboard cannot show motion and the build cannot implement from a description. Two image slots are specified and not filled \u2014 `docs/design/image-brief.md` carries the shot list, the licences and the reject list."
-  },
-  {
-   "id": "n-opts",
-   "x": 0,
-   "y": -250,
-   "w": 820,
-   "page": "page-opts",
-   "text": "<b>Three answers to one question. Pick one \u2014 or one and a half.</b> The arc gauge is not merely an inefficient chart at 1440; it answers a question nobody asks at a desk. <i>Can I spend this, right now?</i> is asked standing in a shop, and a dial is a good answer to it. At a laptop, eleven days into a cycle, the question is <i>am I on pace, and what is pulling me off it?</i> \u2014 and a dial has no memory of yesterday and no opinion about tomorrow. <b>The gauge stays at 360</b>, where it is right. Every figure on these three boards is derived from the nineteen dated expenses in `docs/seed-data.md`; the derivations are logged in open-items \u00a7L for the seed script to assert. <b>A</b> is the cycle over time, <b>B</b> is the categories against their pace, <b>C</b> is the month as a shape. My own recommendation is on the reply, not on the board."
   },
   {
    "id": "n-w-in",
