@@ -1308,11 +1308,11 @@ being a document and becomes a set of tests.**
 Start with the migration ADR-010 requires *before any endpoint*: the sync metadata
 exists, so the next piece is the sync endpoints themselves.
 
-### The fourteen open issues, by what they are
+### The thirteen open issues, by what they are
 
 | | |
 |---|---|
-| **Actionable now** | **#65** the Home fixture never exercises the overspent state · **#106** a demo export must not restore as real data |
+| **Actionable now** | **#106** a demo export must not restore as real data |
 | **Needs the owner's hands** | **#111** rule 3 is unenforced — `FORBIDDEN_TERMS` has never been set · **#112** branch protection off, gitleaks on a mutable tag · **#113** hosting, and verify the free tier's retention *before* committing |
 | **Blocked on the designer** | **#72** the conformance pass, re-scoped — 360 work still valid, four 1440 screens being redrawn |
 | **`blocked:respec`** | **#23–#27, #29, #85** — real product need, acceptance criteria written for a different product. Re-read the specs before building |
@@ -1329,7 +1329,7 @@ It is the project's own principle in its purest form.
 - **#73** — all four artboard/`tokens.md` disagreements settled. In one of them the *authoritative document* turned out to be wrong, which is only ever discoverable by asking rather than complying.
 - **#53** — the day-log backfill, closed as not planned. Reconstructing narrative two weeks later produces something that reads like a record and is a reconstruction, and the decisions are already in the ADRs, Key Decisions and the engineering notes.
 - **#92** — the repositioning epic, all nine steps done.
-- **#65 and #58** were each half superseded and half real; both re-scoped to the half that survives rather than closed whole.
+- **#65 and #58** were each half superseded and half real; both re-scoped to the half that survives rather than closed whole. **#65's surviving half is now fixed and closed** — the Home fixture takes its split from `seed-data.md`, and a test asserts an overspent category on the seeded day with nothing added. Putting the invented split back fails four tests, not one: it had been quietly moving the headline figures too.
 
 ---
 
