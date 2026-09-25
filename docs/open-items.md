@@ -754,16 +754,24 @@ is not reopened.** What follows is additive.
   computed with. The honest and defensible choice is **the lower of the two**, stated
   in plain words on the screen:
 
-  > *Until you agree, Mizaniya uses ₦35,000 — the lower of the two, so it never tells
-  > you there is more to spend than there might be.*
+  > *Until you agree, Mizaniya uses ₦90,000 — the larger of the two, so it never assumes
+  > less is promised than might be.*
 
-  That is a real decision with a real reason, it is conservative in the direction that
-  protects the household, and it removes the suspicion that the app quietly preferred
-  one person.
+  **Corrected 25 September.** My original rule said *lower*, and §I item 40 showed it
+  was backwards for a protected category: taking the lower figure for a Rent fund
+  disagreement reserves less, which pushes safe-to-spend **up** — the exact harm the
+  rule existed to prevent. The settled rule is **the higher of the two, with no
+  exceptions**, and the sentence above is the only thing that changes on the screen.
+
+  Worth recording why *no exceptions* rather than a per-type rule: a rule that switched
+  on category type would decide which of two people "wins" on a property neither of them
+  is thinking about while they disagree about groceries. That collides with the fourth
+  decision above — the app must not look as though it prefers someone. One rule, said
+  once, in both cases.
 
   **Blocked on figures** — see item 30.
 
-- [ ] **28 · The landing page** — done properly, not assembled from leftovers. The
+- [x] **28 · The landing page** — done properly, not assembled from leftovers. The
   problem first (salary gone before the month ends, debts both ways, rent once a
   year), then the screenshots, then free vs paid honestly.
 
@@ -792,6 +800,27 @@ is not reopened.** What follows is additive.
   Sequenced after the app work; the app's 1440 rework (item 31) produces the
   screenshots this page is made of, so it has to come first.
 
+  **Delivered 25 September — four boards.** `Land` and `LandPhone`, light and dark.
+
+  | Board | What it is |
+  |---|---|
+  | `Land` · 1440 | The nine sections in the brief's order, on alternating `bg`/`card2` bands |
+  | `LandPhone` · 390 | Designed, not adapted. The three-column sections stack against hairlines; the proof screenshots stack at 88% rather than becoming a clipped carousel, because a strip of a screen is not proof of anything |
+
+  **What is deliberately not in the hero: any picture at all.** §2.1 and §2.2 are words
+  only, so the first image on the page is the answer as a screen — the real Home at its
+  drawn size with `seed-data.md` figures. That is the one structural idea the page has,
+  and a stock image between the problem and the answer would break it.
+
+  The trust section quotes `tokens.md` §10.1 rather than restating it, and the build
+  asserts the approved string appears **and** that the false sentence does not — in the
+  rendered markup, rather than in my memory of having avoided it. It also asserts no
+  *unlock* / *upgrade* / *premium* vocabulary anywhere, per item 24.
+
+  **Pricing is a placeholder**, per item 30 #5: the space is drawn, the figure is
+  ₦—, and the card says in plain words that the price is not settled rather than
+  leaving a blank that reads as a bug.
+
 - [x] **29 · One sentence that must never appear anywhere**, and it needs saying to
   whoever writes marketing copy as much as to you: ~~*"your bank data never touches
   our servers"*~~. It is **false** — movement arrives at the server before it is
@@ -817,7 +846,7 @@ is not reopened.** What follows is additive.
   It is in §10 rather than in a brief because briefs get finished and closed, and this
   has to still be true in a year when someone is writing an app-store description.
 
-- [ ] **31 · Which 1440 screens genuinely need rework, and what earns the width?**
+- [x] **31 · Which 1440 screens genuinely need rework, and what earns the width?**
   The central question of the desktop decision. Home at 1440 should not be a 360
   column centred in grey — but what fills it? The category table beside the gauge? The
   debt list beside the goals? **Your call, and it decides how much of the set is
@@ -843,11 +872,21 @@ is not reopened.** What follows is additive.
   persistent left rail; the list keeps its place; and the rows become real columns
   (date · category · note · amount · balance) instead of stacked cards.
 
-  **Plan — the width buys editing without covering the total.** On a phone, editing an
-  envelope is a sheet, which hides the figure the edit is changing. At 1440 the envelope
-  list sits left and the one being edited sits right, with the cycle total visible
-  throughout. You watch *unallocated* fall as you type. That is genuinely better, not
-  merely wider.
+  **Plan — withdrawn on 25 September. It does not need rework.** I said the width would
+  buy *editing without covering the total*, on the premise that editing an envelope is a
+  sheet that hides the figure it changes. **That premise is false at 1440** — the desktop
+  Plan already edits inline, with the amount as a field in each row and *Free* standing in
+  the header, so the fault I proposed to fix does not exist at this width. It exists at
+  360, where it is correct as drawn. Changing Plan to prove a point in this answer would
+  have been the rework equivalent of a flourish.
+
+  **What *would* earn Plan's width is a column it cannot have yet:** last cycle's actual
+  beside this cycle's planned. *"You planned ₦90,000, you spent ₦78,000"* is the single
+  most useful thing to see while deciding an amount, and it passes the test above — you
+  want it **while** looking at the planned figure, not on another screen. `seed-data.md`
+  carries that pair for **Food and groceries only**; the other seven categories have no
+  cycle-1 actual, and repo rule 2 says I do not invent them. **Raised as §I item 48.**
+  Until it exists, Plan stays as drawn.
 
   **Debts & Goals — the width buys the removal of a control.** Both lists fit side by
   side, so **the tabs go away entirely at 1440.** The best thing width can buy is
@@ -857,7 +896,16 @@ is not reopened.** What follows is additive.
   they take the 360 step per §3's surface rule and are already right), onboarding,
   welcome, the printed record, Settings, Zakat, Import, and every 360 board.
 
-  That is **eight boards redrawn** (four screens × light and dark), plus their states.
+  **Delivered 25 September — six boards, not eight,** because Plan was withdrawn:
+
+  | Board | What changed |
+  |---|---|
+  | `DHome` · light and dark | The figure and the daily chart move to a 420px left column; *Where your money is* and the **full categories table** move up beside them. Goals and debts drop below as a two-up. What you see without scrolling is now the figure **and why it is that figure** — Health at 140% sits beside the number it explains |
+  | `DHomeStates` · light and dark | The same composition across ok · amber · red · no-plan · empty · offline |
+  | `DTransactions` · light and dark | The filters become a **standing 236px rail**; the whole filter set is visible at once instead of behind three chevrons, and changing one no longer scrolls the list away. All three states |
+  | `DDebts` · light and dark | **The tabs are gone.** Both lists side by side, goals below as a table. The board is one screen now, not two |
+
+  Every 360 board, every form, sheet and dialog, and Plan at both widths are untouched.
 
 - [x] **32 · `docs/design/motion.md`** — a sibling to `tokens.md`, authoritative the
   same way. Named durations (a small scale, two or three values), named easings and
@@ -892,7 +940,30 @@ is not reopened.** What follows is additive.
   §5 gives the rule that makes every future fallback derivable without asking:
   **remove movement and scaling, keep opacity and colour, never remove information.**
 
-- [ ] **33 · The demo's "these are not your figures" marker.** Promoted to a Must. It
+  **Delivered 25 September — `LandDemo`, light and dark.** Fresh, edited, over a sheet,
+  at 1440, and the printed record.
+
+  **Two things changed once it was drawn**, and both were the drawing catching the
+  writing:
+
+  1. **No icon.** I had it leading with the `warn` triangle. This item says explicitly
+     that nothing has gone wrong — and a warning glyph says one has, whatever colour it
+     is painted. A triangle in `slate` is still a triangle. The bold lead-in *"Sample
+     figures"* does the work and reads faster.
+  2. **The height is reserved, not fitted.** The edited string is longer, and at 390 it
+     wrapped to a third line and made the bar taller — pushing the whole app down. That
+     is exactly what *"never changes place or shape"* exists to prevent, and my first
+     drawing broke it. Both states now sit in one fixed height.
+
+  **One contrast finding, and it is why a safety control is worth auditing on its own.**
+  `sl2` against the screen below it is a **1.09** luminance step in light and 1.26 in
+  dark — it separates by *hue*, which is the one thing WCAG says not to rely on. The
+  text passes comfortably (`slate` on `sl2` is 7.49); the bar's presence as a distinct
+  region did not. So it carries a **2px `slate` bottom rule** instead of the usual 1px
+  `line` — unmistakable at any brightness, no new token, and no borrowing of rose or
+  ochre.
+
+- [x] **33 · The demo's "these are not your figures" marker.** Promoted to a Must. It
   must be **visible on every screen and not dismissable** — someone mistaking demo
   numbers for their own budget is a genuine hazard, not a design nicety. Also needs a
   state for *demo that has been edited*, because people will.
@@ -926,7 +997,27 @@ is not reopened.** What follows is additive.
     here rather than decided: the export needs a demo flag and the import needs to say
     so.
 
-- [ ] **34 · The landing page's strongest moment.** The suggestion to argue with: the
+  **Delivered 25 September — `LandCycle`, light and dark.** Five panels.
+
+  The first three are **one section at three scroll positions**, the third with motion
+  off — and that is the part worth looking at, because there is **no fallback layout.**
+  Every anchor is drawn at every scroll position; motion changes only which one is
+  emphasised and how far the rail has filled. So `prefers-reduced-motion` gets the
+  identical markup with emphasis removed, which is already a complete small multiple.
+  Nothing is gated behind the animation because there is nothing the animation creates.
+
+  One thing that only appeared once it was drawn: **with motion off the rail must show
+  today's position, not the last step's.** A rail filled to the end beside a series
+  ending at ₦0.00 says the debt is already cleared. Removing motion may not change
+  what a figure claims — §5's *"never remove information"*, read the other way round.
+
+  **The rent fund runs end to end** (six anchors, ₦475,000.00 → ₦850,000.00 against
+  the ₦900,000.00 target, ending short, which is the point). **Safe to spend does
+  not**, and that is item 49: the seed carries it for two days. The two missing anchors
+  are drawn **as gaps, in sequence**, rather than closed up — a series that quietly
+  shortens itself tells the reader the wrong shape.
+
+- [x] **34 · The landing page's strongest moment.** The suggestion to argue with: the
   money figure counting down as the reader scrolls through a cycle — the product's
   central idea shown rather than described. Also the rent fund filling toward ₦900,000,
   and a debt crossing zero (the ajo case no other app can represent). **No
@@ -1174,7 +1265,7 @@ a `design:` row in `CONTEXT.md` Open Questions.
   Still awaiting the owner's confirmation, and **nothing is blocked** — the copy above is
   the only thing that changes on your screen, and it is shorter.
 
-- [ ] **47 · A lingering disagreement leaks into the next cycle, and the fix is a nudge
+- [x] **47 · A lingering disagreement leaks into the next cycle, and the fix is a nudge
   rather than a rule.** Raised from the build side, and neither of us named it.
 
   `Food and groceries` **rolls over** — unspent allowance carries into the next cycle. So
@@ -1191,6 +1282,48 @@ a `design:` row in `CONTEXT.md` Open Questions.
   **Your call on whether that is a nudge, a line on the Plan screen, or nothing at all.**
   I would rather flag the mechanism than have it discovered as a wrong figure two cycles
   later.
+
+  **Answered: a line at cycle close, attached to the carried figure. Not a nudge, not
+  a line on Plan, and not nothing.**
+
+  You are right that it needs something, and right about where — the leak happens at
+  the close, so that is where it can be named. The other two placements both fail in
+  ways this project has now hit three times:
+
+  - **A standing line on Plan** becomes chrome. Plan is where amounts get set, so a
+    permanent notice about an unsettled one is read twice and then never again — the
+    same failure as a permanent sync badge (§H item 23) and a permanent demo badge that
+    could be dismissed (item 33).
+  - **A notification-style nudge** is software refereeing, which §H item 27 exists to
+    avoid. Being chased about a disagreement with your wife is precisely the tone floor
+    it set.
+
+  **What I would draw instead.** At cycle close the app already shows what carried in.
+  The carried figure is the number the leak lives in, so the explanation belongs against
+  it — a caveat about a number goes next to the number:
+
+  > **Food and groceries** carried **₦12,000.00** in, worked out from ₦90,000.00 — the
+  > figure you and Aisha have not agreed yet.   **[ Settle it ]**
+
+  Three properties that keep it from becoming the thing it is trying not to be:
+
+  1. **It only appears if the disagreement actually changed the carried figure.** If the
+     category was fully spent, both amounts would have carried the same nothing and
+     there is no leak to report. Rare by construction, so it keeps its force.
+  2. **It escalates by naming duration, not by getting louder.** Second cycle: the same
+     line, plus *"the second cycle it has carried."* No rose, no badge, no growth.
+     Saying how long is the entire nudge — it makes *leave it for now* feel less
+     permanent without ever refusing to let them leave it.
+  3. **It states a fact, never a fault.** It says what the number was worked out from,
+     which is information the person is owed about a figure already on their screen. It
+     does not say anyone should have done something by now.
+
+  That is the third appearance of one rule, so it is worth naming as a pattern rather
+  than re-deriving it next time: **a caveat about a figure lives against that figure, at
+  the moment the figure is shown — never as a standing indicator somewhere else.**
+  `tokens.md` §10 is where it will go if it comes up a fourth time.
+
+  Drawn with §H item 27, since it is the same screen's consequence.
 - [x] **41 · The reconciliation queue never blocks anything.** It is a row on Home that
   opens its own surface, not a modal and not an interstitial. A queue that must be
   cleared would make a paid feature into a toll gate on the free product. Placement is
@@ -1247,6 +1380,67 @@ a `design:` row in `CONTEXT.md` Open Questions.
 
   Your instinct is better than the architecture deserved credit for: **the escape hatch
   already existed and nobody had thought to put it at the one moment it is worth most.**
+
+- [ ] **48 · Per-category actuals for the first cycle** — would unlock a real desktop
+  improvement to Plan, and nothing is blocked without it.
+
+  §H item 31 originally named Plan as needing rework. **It does not** — the premise was
+  wrong and I have withdrawn it in place rather than quietly dropping it. But the thing
+  that *would* earn Plan's width is one column: **last cycle's actual beside this cycle's
+  planned.** *"You planned ₦90,000, you spent ₦78,000"* is the most useful thing to have
+  in view while deciding an amount, and it is exactly the kind of thing a phone has to
+  send you to another screen for.
+
+  `seed-data.md` §"The first cycle" carries that pair for **Food and groceries only**
+  (₦78,000.00 against ₦90,000.00 planned, which is where the ₦12,000.00 rollover comes
+  from). The other seven categories have no cycle-1 actual.
+
+  **What is needed:** a spent figure for each of the remaining seven, summing to the
+  ₦355,000.00 that cycle already records — so the existing total stays true and nothing
+  downstream moves. If that sum is awkward to divide credibly, say so and Plan stays as
+  it is; this is an improvement, not a gap.
+
+- [ ] **49 · Safe to spend has two anchors in the seed, and §H item 34's section
+  wants four.** Drawn with what exists; nothing is blocked.
+
+  The mechanism is settled and delivered. The debt crossing zero and the rent fund both
+  run end to end, because `seed-data.md` states their rate and their outstanding and the
+  rest is the app's own arithmetic. **Safe to spend does not.** The file carries it for
+  exactly two days — 25 September (₦8,666.66, the opening allowance) and 5 October
+  (₦7,500.00, the worked day).
+
+  There is no third and I have not invented one. The 23 movements stop at 5 October by
+  design, and the eight detected bank movements added on 25 September are explicitly
+  *"not yet transactions at all"* precisely so the ₦110,000.00 still sums. Anything
+  between 5 and 24 October is **spending** — a figure, not arithmetic. Repo rule 2.
+
+  **What is needed:** a cash-left figure for two more days in the cycle, one mid-cycle
+  (~12 Oct) and one at the close (24 Oct), consistent with ₦220,000.00 cash left on
+  5 October and with a cycle that ends at ₦0.00 under D16.
+
+  **If that is awkward to divide credibly, say so and the section keeps two anchors.**
+  A weaker argument, not a broken one — and the debt leads the band anyway, because it
+  is the better story. This is an improvement, like item 48, not a gap.
+
+- [x] **50 · `tokens.md` gained a §3.2, and it adds one CSS class.** Recorded rather
+  than asked, but it touches `tokens.css`, so it needs to be seen.
+
+  §3 has always said *"Money never uses EB Garamond"*, and it held across all 69 app
+  boards because no app screen puts a figure in a title. **The landing page does**, and
+  my first drawing of it set the whole line in the voice face. What caught it was
+  looking at the render, not remembering the rule — which is the uncomfortable part,
+  because the rule was already written down.
+
+  The gap in §3 was real, though: it says what face money may not take, not what to do
+  when money sits **inside** a sentence in that face. §3.2 answers that, with the ratio
+  measured from the outlines rather than chosen by eye — EB Garamond's cap height
+  0.658em over Inter's lining figures 0.747em gives **0.88em**, at weight 500 rather
+  than money's usual 600, because Inter 600 out-colours EB Garamond 500 and the line
+  reads as two documents spliced together.
+
+  **For the build: one class, `.ngn`, scoped to `.ser` and `.h2`.** The CSS is in
+  §3.2 verbatim. Dates and ordinals in prose stay in the voice face and are better for
+  it — *"by the 12th"* is what old-style figures are for. The switch is for money only.
 
 ### I·c — Assumptions that would invalidate a drawing if wrong
 

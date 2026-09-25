@@ -176,6 +176,49 @@ The bookish register is the design, not a decoration on it.
 
 ---
 
+### 3.2 · A figure inside a line of the voice face
+
+§3 already says **money never uses EB Garamond**, and that rule held across all 69
+app boards because no app screen puts a figure in a title. The landing page does —
+*"You owe A. Friend ₦90,000.00. Three paydays from now you do not."* — and the first
+drawing of it set the whole line in EB Garamond, which is how the gap in the rule was
+found: the rule says what face money may not take, not what to do when money has to
+sit **inside** a sentence that is in that face.
+
+What it looks like when you get it wrong, because both faults are the face behaving
+correctly:
+
+- **Its figures are old-style.** Measured from the outlines: `0` is 0.434em and sits
+  at x-height, `9` is 0.573em and descends 0.143em below the baseline. So
+  ₦90,000.00 sets as ₦9o,ooo.oo — lowercase money.
+- **Its naira glyph reads as a strikethrough.** The bars are wide enough to look like
+  a rule drawn through the figure, and on a line about a debt that is precisely the
+  mark a reader expects to see over a number that has been settled.
+
+**The rule: the words stay in the voice face, the figure switches to Inter, at
+`0.88em` of the surrounding size and weight 500.**
+
+`0.88` is measured, not chosen by eye: EB Garamond's cap height is 0.658em and Inter's
+lining figures are 0.747em, so 0.658 ÷ 0.747 = 0.881 sets the figure exactly as tall
+as the capitals beside it. Weight 500 rather than the money default of 600, because
+Inter 600 out-colours EB Garamond 500 and the line reads as two documents spliced
+together.
+
+Applied as one class so it cannot drift:
+
+```css
+.ser .ngn, .h2 .ngn {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .88em; font-weight: 500; letter-spacing: -.018em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+```
+
+**Dates and ordinals in prose are not money and stay in the voice face** — *"Your
+salary lands on the 25th. By the 12th…"* is exactly what old-style figures are for,
+and it is better set than it would be in Inter. The switch is for money only.
+
+
 ## 4 · Money
 
 ```html

@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+.mz{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);
+    background:var(--bg);-webkit-font-smoothing:antialiased}
+/* The voice face steps to 600 on dark. EB Garamond's thinnest stroke is .034em:
+   at 28px that is 0.95 device pixels on a 1x screen, so it has no solid pixel to
+   land on and is drawn by antialiasing alone. Light-on-dark that reads as washed
+   out. 600 takes the hairline to .0385em -- 1.08px at 28px -- which clears it. */
+.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.004em}
+.mz .disp{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-.035em;
+     font-variant-numeric:tabular-nums lining-nums}
+.mz .lab{font-size:10.5px;letter-spacing:.115em;text-transform:uppercase;font-weight:600;
+     color:var(--soft)}
+.mz .num{font-variant-numeric:tabular-nums lining-nums}
+.mz .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;
+     font-variant-numeric:tabular-nums}
+.mz .mlab{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+     letter-spacing:.12em;text-transform:uppercase;color:var(--soft);font-weight:400}
+.mz .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+     box-shadow:var(--shadow)}
+.mz .pill{display:inline-flex;align-items:center;height:25px;padding:0 10px;
+     border-radius:8px;font-size:10.5px;font-weight:700;letter-spacing:.07em;
+     text-transform:uppercase;white-space:nowrap}
+.mz .tile{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;
+     justify-content:center;flex:0 0 auto}
+.mz .seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;
+     background:var(--card);padding:3px;box-shadow:var(--shadow)}
+.mz .seg>span{padding:8px 20px;border-radius:9px;font-size:13px;font-weight:600;
+     color:var(--soft);white-space:nowrap}
+.mz .seg>span.on{background:var(--ink);color:var(--bg)}
+.mz .link{display:inline-flex;align-items:center;gap:8px;min-height:44px;
+     color:var(--emerald);font-size:13.5px;font-weight:600}
+.mz .rail{height:6px;border-radius:4px;background:var(--track);overflow:hidden}
+.mz .rail>i{display:block;height:100%;border-radius:4px}
+.mz .nav{display:flex;align-items:center;background:var(--card);
+     border-top:1px solid var(--line);padding:6px 10px 10px}
+.mz .nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+     padding:8px 0;color:var(--faint);font-size:10px;font-weight:600;letter-spacing:.02em}
+.mz .nav-i.on{color:var(--emerald)}
+
+.mz .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+     min-height:48px;padding:0 20px;border-radius:13px;font-size:14.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .btn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .btn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .btn-q{background:transparent;color:var(--soft)}
+.mz .fld{min-height:50px;background:var(--card);border:1px solid var(--line);
+     border-radius:13px;padding:12px 16px;font-size:15px;display:flex;align-items:center;
+     gap:10px;color:var(--ink)}
+.mz .fld.on{border-color:var(--emerald);box-shadow:0 0 0 3px var(--em2)}
+.mz .fld .ph{color:var(--faint)}
+.mz .chip{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;
+     border-radius:12px;border:1px solid var(--line);background:var(--card);
+     font-size:13.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+.mz .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mz .row{display:flex;align-items:center;gap:14px;min-height:56px;padding:12px 0;
+     border-bottom:1px solid var(--hair)}
+.mz .row:last-child{border-bottom:0}
+.mz .tabs{display:flex;gap:26px;border-bottom:1px solid var(--line)}
+.mz .tabs>span{min-height:46px;display:flex;align-items:center;font-size:15px;
+     font-weight:600;color:var(--soft);border-bottom:2px solid transparent}
+.mz .tabs>span.on{color:var(--ink);border-bottom-color:var(--emerald)}
+.mz .sw{width:46px;height:27px;border-radius:14px;background:var(--track);
+     border:1px solid var(--line);position:relative;flex:0 0 auto}
+.mz .sw>i{position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:11px;
+     background:var(--card);border:1px solid var(--line);display:block}
+.mz .sw.on{background:var(--emerald);border-color:var(--emerald)}
+.mz .sw.on>i{left:auto;right:2px;background:var(--onEmerald);border-color:transparent}
+.mz .sk{background:var(--track);border-radius:6px;height:12px;display:block}
+
+.mz .dtbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.mz .dtbl th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;
+     text-transform:uppercase;color:var(--soft);font-weight:400;text-align:left;
+     padding:0 22px 12px 0;border-bottom:1px solid var(--line)}
+.mz .dtbl th.r,.mz .dtbl td.r{text-align:right}
+.mz .dtbl th:last-child,.mz .dtbl td:last-child{padding-right:0}
+.mz .dtbl td{padding:16px 22px 16px 0;border-bottom:1px solid var(--hair);
+     vertical-align:middle}
+.mz .dtbl tr:last-child td{border-bottom:0}
+
+.mz .lnav{display:flex;align-items:center;gap:14px;height:76px}
+.mz .lnav .sp{flex:1}
+.mz .lbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+     min-height:52px;padding:0 26px;border-radius:14px;font-size:15.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .lbtn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .lbtn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .lbtn-q{background:transparent;color:var(--soft);padding:0 8px}
+.mz .lbtn.sm{min-height:46px;padding:0 20px;font-size:14.5px}
+.mz .kicker{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+     font-weight:600;color:var(--soft)}
+.mz .h2{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.008em;font-size:40px;line-height:46px}
+.mz .h3{font-size:20px;line-height:27px;font-weight:600;letter-spacing:-.012em}
+.mz .body{font-size:17px;line-height:29px;color:var(--soft)}
+.mz .lead{font-size:19px;line-height:32px;color:var(--soft)}
+.mz .hair{height:1px;background:var(--hair)}
+.mz .shot{border-radius:30px;overflow:hidden;box-shadow:var(--shadow);
+     border:1px solid var(--line);display:block}
+/* Money is never set in the voice face — see ngn() below.
+   0.88em is measured, not guessed: EB Garamond's cap H is .658em and Inter's
+   lining figures are .747em, so .658/.747 = .881 sets the figure exactly as tall
+   as the capitals it sits beside. Weight 500, because Inter at 600 out-colours
+   EB Garamond 500 and the line reads as two documents spliced together. */
+.mz .ser .ngn,.mz .h2 .ngn{font-family:Inter,system-ui,sans-serif;
+     font-size:.88em;font-weight:500;letter-spacing:-.018em;
+     font-variant-numeric:tabular-nums lining-nums}
+</style>
+</helmet>
+<div style="background:#EDE7DA;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#5A564A;margin:0 0 18px 2px">The demo marker · item 33 · light</div><div style="display:flex;gap:34px;align-items:flex-start"><div style="display:flex;flex-direction:column;gap:30px"><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);"><div style="display:flex;gap:30px;align-items:flex-start"><div><div class="lab" style="font-size:9.5px">Fresh</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:360px">Above the top bar, in the frame. No dismiss control exists — not a small one, none.</div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="background:var(--sl2);border-bottom:2px solid var(--slate);padding:12px 20px;min-height:64px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;row-gap:6px;"><span style="flex:1;min-width:160px;font-size:12.5px;line-height:17px;color:var(--slate);letter-spacing:-.002em"><span style="font-weight:700;letter-spacing:.01em">Sample figures</span> — not your money.</span><span style="font-size:12.5px;font-weight:600;color:var(--slate);text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Start with my own figures</span></div>
+
+  <div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between">
+    <div><div class="lab">Monday</div>
+      <div class="ser" style="font-size:20px;line-height:25px;margin-top:2px">5 October
+        <span style="color:var(--soft)">· 24 Rabiʻ II 1448</span></div></div>
+    <span class="tile" style="border:1px solid var(--line);color:var(--soft);
+      background:var(--card)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg></span>
+  </div>
+
+  <div style="padding:14px 20px 0;text-align:center;position:relative">
+    <div style="display:flex;justify-content:center">
+      <svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
+  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
+        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
+        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
+  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
+        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
+</svg></div>
+    <div style="position:absolute;left:0;right:0;top:92px">
+      <div class="lab">Safe to spend today</div>
+      <div class="disp" style="font-size:42px;line-height:48px;margin-top:3px">
+        ₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:-10px;padding:0 4px">
+      <span class="lab" style="font-size:10px">₦0</span>
+      <span class="lab" style="font-size:10px;color:var(--ochre)">₦5,200 low</span>
+      <span class="lab" style="font-size:10px">₦8,666</span></div>
+    <div style="font-size:13px;color:var(--soft);margin-top:10px">
+      ₦220,000.00 left · 20 days to 25 Oct</div>
+    <div class="seg" style="margin-top:16px">
+      <span class="on">Today</span>
+      <span class="">This cycle</span></div>
+  </div>
+
+  <div style="padding:24px 20px 0">
+    <div class="card" style="padding:18px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="mlab" style="flex:1">Daily spend</span>
+        <span class="pill" style="background:var(--oc2);color:var(--ochre)">Peak 25 Sep</span>
+      </div>
+      <div style="margin-top:16px"><svg width="100%" height="108" viewBox="0 0 298 108"
+     preserveAspectRatio="none" style="display:block">
+  <rect x="0.0" y="0.0" width="21.6" height="104.0" rx="3" fill="var(--ochre)" opacity="1"/><rect x="27.6" y="75.1" width="21.6" height="28.9" rx="3" fill="var(--faint)" opacity=".38"/><rect x="55.3" y="102.0" width="21.6" height="2.0" rx="3" fill="var(--faint)" opacity=".38"/><rect x="82.9" y="64.7" width="21.6" height="39.3" rx="3" fill="var(--faint)" opacity=".38"/><rect x="110.5" y="36.0" width="21.6" height="68.0" rx="3" fill="var(--ochre)" opacity="1"/><rect x="138.2" y="72.3" width="21.6" height="31.7" rx="3" fill="var(--faint)" opacity=".38"/><rect x="165.8" y="8.6" width="21.6" height="95.4" rx="3" fill="var(--ochre)" opacity="1"/><rect x="193.5" y="40.1" width="21.6" height="63.9" rx="3" fill="var(--ochre)" opacity="1"/><rect x="221.1" y="63.4" width="21.6" height="40.6" rx="3" fill="var(--faint)" opacity=".38"/><rect x="248.7" y="53.3" width="21.6" height="50.7" rx="3" fill="var(--ochre)" opacity="1"/><rect x="276.4" y="68.5" width="21.6" height="35.5" rx="3" fill="var(--emerald)" opacity="1"/>
+  <line x1="0" y1="60.0" x2="298" y2="60.0" stroke="var(--slate)"
+        stroke-width="1.5" stroke-dasharray="4 4" opacity=".85"/>
+</svg></div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px">
+        <span class="mlab" style="font-size:9px">25 Sep</span>
+        <span class="mlab" style="font-size:9px;color:var(--slate)">┈ allowance ₦8,666.66</span>
+        <span class="mlab" style="font-size:9px">Today</span></div>
+    </div>
+  </div>
+
+  <div style="padding:16px 20px 0">
+    <div class="card" style="padding:18px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="mlab" style="flex:1">Where your money is</span>
+        <span class="mlab">₦450,000 in</span></div>
+      <div style="margin-top:16px"><div style="display:flex;gap:3px;height:11px"><span style="width:24.444%;background:var(--emerald);border-radius:3px;display:block"></span><span style="width:20.000%;background:var(--slate);border-radius:3px;display:block"></span><span style="width:6.667%;background:var(--ochre);border-radius:3px;display:block"></span><span style="width:15.556%;background:var(--faint);border-radius:3px;display:block"></span><span style="width:33.333%;background:var(--track);border-radius:3px;display:block;border:1px solid var(--line)"></span></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin-top:16px"><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--emerald);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Spent</span><span class="mono" style="font-size:12px;font-weight:600">₦110,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--slate);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Saved</span><span class="mono" style="font-size:12px;font-weight:600">₦90,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--ochre);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Debt paid</span><span class="mono" style="font-size:12px;font-weight:600">₦30,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--faint);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Protected</span><span class="mono" style="font-size:12px;font-weight:600">₦70,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--track);flex:0 0 auto;border:1px solid var(--line)"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Free</span><span class="mono" style="font-size:12px;font-weight:600">₦150,000<span style="font-size:9px;opacity:.55">.00</span></span></div></div>
+      <div style="display:flex;align-items:baseline;gap:10px;margin-top:16px;padding-top:14px;
+           border-top:1px solid var(--hair)">
+        <span class="mlab" style="flex:1">÷ 20 days, rounded down</span>
+        <span class="mono" style="font-size:17px;font-weight:600">₦7,500<span
+          style="font-size:11px;opacity:.55">.00</span></span></div>
+    </div>
+  </div>
+
+  <div style="padding:26px 20px 0">
+    <div style="display:flex;align-items:center;gap:10px;padding-bottom:4px">
+      <span class="lab" style="flex:1">Needs attention</span>
+      <span class="pill" style="background:var(--ro2);color:var(--rose)">2 of 8</span></div>
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--hair)"><span class="tile" style="background:var(--ro2);color:var(--rose)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M12 4.6 20.8 20H3.2z"/><path d="M12 10.2v4.1M12 17h.02"/></svg></span><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600;line-height:20px">Health</div><div class="rail" style="margin-top:8px;height:5px"><i style="width:100%;background:var(--rose)"></i></div></div><div style="text-align:right;flex:0 0 auto"><span class="num" style="font-size:15px;font-weight:600;letter-spacing:-.012em">₦14,000<span style="font-size:9px;font-weight:500;opacity:.6">.00</span></span><div class="pill" style="background:var(--ro2);color:var(--rose);margin-top:6px">Overspent</div></div></div>
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--hair)"><span class="tile" style="background:var(--oc2);color:var(--ochre)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M4 15.5 8.5 9l4 4.5L20 5"/><path d="M20 5h-4.5M20 5v4.5"/></svg></span><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600;line-height:20px">Transport &amp; data</div><div class="rail" style="margin-top:8px;height:5px"><i style="width:85%;background:var(--ochre)"></i></div></div><div style="text-align:right;flex:0 0 auto"><span class="num" style="font-size:15px;font-weight:600;letter-spacing:-.012em">₦38,250<span style="font-size:9px;font-weight:500;opacity:.6">.00</span></span><div class="pill" style="background:var(--oc2);color:var(--ochre);margin-top:6px">Low</div></div></div>
+    <div class="link">Show all 8 categories <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+  </div>
+
+  <div style="padding:10px 20px 22px">
+    <span class="lab">Goals &amp; debts</span>
+    <div style="padding:14px 0 4px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="tile" style="background:var(--em2);color:var(--emerald)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".9"/></svg></span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:15px;font-weight:600">Rent fund</div>
+          <div class="rail" style="margin-top:8px;height:5px">
+            <i style="width:53%;background:var(--emerald)"></i></div></div>
+        <div style="text-align:right;flex:0 0 auto"><span class="num" style="font-size:15px;font-weight:600;letter-spacing:-.012em">₦475,000<span style="font-size:9px;font-weight:500;opacity:.6">.00</span></span>
+          <div class="pill" style="background:var(--oc2);color:var(--ochre);margin-top:6px">
+            Short</div></div></div>
+      <div style="font-size:12.5px;color:var(--soft);margin-top:10px;padding-left:52px">
+        ₦50,000.00 short · needs ₦85,000.00 a payday</div></div>
+    <div class="link">Show all 4 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+  </div>
+
+  <div class="nav">
+    <div class="nav-i on"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M3 10.4 12 3.5l9 6.9V20a1 1 0 0 1-1 1h-5.3v-6.3H9.3V21H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></div>
+    <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M4 5h16M4 12h16M4 19h10"/></svg><span>Plan</span></div>
+    <div style="flex:0 0 auto;margin:0 6px">
+      <div style="width:56px;height:56px;border-radius:19px;background:var(--emerald);
+        color:var(--onEmerald);display:flex;align-items:center;justify-content:center;
+        box-shadow:var(--lift)"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M12 5v14M5 12h14"/></svg></div></div>
+    <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M16.5 20.5v-2a3.4 3.4 0 0 0-3.4-3.4H6.9a3.4 3.4 0 0 0-3.4 3.4v2"/><circle cx="10" cy="7.6" r="3.6"/><path d="M20.5 20.5v-2a3.4 3.4 0 0 0-2.6-3.3M15.6 4.3a3.6 3.6 0 0 1 0 6.6"/></svg><span>Debts</span></div>
+    <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>More</span></div>
+  </div>
+</div></div><div><div class="lab" style="font-size:9.5px">Edited by the reader</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:360px">One word longer. Same place, same colour, same shape — a marker that moves when you touch it teaches people it is negotiable.</div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="background:var(--sl2);border-bottom:2px solid var(--slate);padding:12px 20px;min-height:64px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;row-gap:6px;"><span style="flex:1;min-width:160px;font-size:12.5px;line-height:17px;color:var(--slate);letter-spacing:-.002em"><span style="font-weight:700;letter-spacing:.01em">Sample figures</span>, edited by you — still not your money.</span><span style="font-size:12.5px;font-weight:600;color:var(--slate);text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Start with my own figures</span></div>
+
+  <div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between">
+    <div><div class="lab">Monday</div>
+      <div class="ser" style="font-size:20px;line-height:25px;margin-top:2px">5 October
+        <span style="color:var(--soft)">· 24 Rabiʻ II 1448</span></div></div>
+    <span class="tile" style="border:1px solid var(--line);color:var(--soft);
+      background:var(--card)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg></span>
+  </div>
+
+  <div style="padding:14px 20px 0;text-align:center;position:relative">
+    <div style="display:flex;justify-content:center">
+      <svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
+  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
+        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
+        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
+  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
+        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
+</svg></div>
+    <div style="position:absolute;left:0;right:0;top:92px">
+      <div class="lab">Safe to spend today</div>
+      <div class="disp" style="font-size:42px;line-height:48px;margin-top:3px">
+        ₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:-10px;padding:0 4px">
+      <span class="lab" style="font-size:10px">₦0</span>
+      <span class="lab" style="font-size:10px;color:var(--ochre)">₦5,200 low</span>
+      <span class="lab" style="font-size:10px">₦8,666</span></div>
+    <div style="font-size:13px;color:var(--soft);margin-top:10px">
+      ₦220,000.00 left · 20 days to 25 Oct</div>
+    <div class="seg" style="margin-top:16px">
+      <span class="on">Today</span>
+      <span class="">This cycle</span></div>
+  </div>
+
+  <div style="padding:24px 20px 0">
+    <div class="card" style="padding:18px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="mlab" style="flex:1">Daily spend</span>
+        <span class="pill" style="background:var(--oc2);color:var(--ochre)">Peak 25 Sep</span>
+      </div>
+      <div style="margin-top:16px"><svg width="100%" height="108" viewBox="0 0 298 108"
+     preserveAspectRatio="none" style="display:block">
+  <rect x="0.0" y="0.0" width="21.6" height="104.0" rx="3" fill="var(--ochre)" opacity="1"/><rect x="27.6" y="75.1" width="21.6" height="28.9" rx="3" fill="var(--faint)" opacity=".38"/><rect x="55.3" y="102.0" width="21.6" height="2.0" rx="3" fill="var(--faint)" opacity=".38"/><rect x="82.9" y="64.7" width="21.6" height="39.3" rx="3" fill="var(--faint)" opacity=".38"/><rect x="110.5" y="36.0" width="21.6" height="68.0" rx="3" fill="var(--ochre)" opacity="1"/><rect x="138.2" y="72.3" width="21.6" height="31.7" rx="3" fill="var(--faint)" opacity=".38"/><rect x="165.8" y="8.6" width="21.6" height="95.4" rx="3" fill="var(--ochre)" opacity="1"/><rect x="193.5" y="40.1" width="21.6" height="63.9" rx="3" fill="var(--ochre)" opacity="1"/><rect x="221.1" y="63.4" width="21.6" height="40.6" rx="3" fill="var(--faint)" opacity=".38"/><rect x="248.7" y="53.3" width="21.6" height="50.7" rx="3" fill="var(--ochre)" opacity="1"/><rect x="276.4" y="68.5" width="21.6" height="35.5" rx="3" fill="var(--emerald)" opacity="1"/>
+  <line x1="0" y1="60.0" x2="298" y2="60.0" stroke="var(--slate)"
+        stroke-width="1.5" stroke-dasharray="4 4" opacity=".85"/>
+</svg></div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px">
+        <span class="mlab" style="font-size:9px">25 Sep</span>
+        <span class="mlab" style="font-size:9px;color:var(--slate)">┈ allowance ₦8,666.66</span>
+        <span class="mlab" style="font-size:9px">Today</span></div>
+    </div>
+  </div>
+
+  <div style="padding:16px 20px 0">
+    <div class="card" style="padding:18px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="mlab" style="flex:1">Where your money is</span>
+        <span class="mlab">₦450,000 in</span></div>
+      <div style="margin-top:16px"><div style="display:flex;gap:3px;height:11px"><span style="width:24.444%;background:var(--emerald);border-radius:3px;display:block"></span><span style="width:20.000%;background:var(--slate);border-radius:3px;display:block"></span><span style="width:6.667%;background:var(--ochre);border-radius:3px;display:block"></span><span style="width:15.556%;background:var(--faint);border-radius:3px;display:block"></span><span style="width:33.333%;background:var(--track);border-radius:3px;display:block;border:1px solid var(--line)"></span></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin-top:16px"><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--emerald);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Spent</span><span class="mono" style="font-size:12px;font-weight:600">₦110,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--slate);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Saved</span><span class="mono" style="font-size:12px;font-weight:600">₦90,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--ochre);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Debt paid</span><span class="mono" style="font-size:12px;font-weight:600">₦30,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--faint);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Protected</span><span class="mono" style="font-size:12px;font-weight:600">₦70,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--track);flex:0 0 auto;border:1px solid var(--line)"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Free</span><span class="mono" style="font-size:12px;font-weight:600">₦150,000<span style="font-size:9px;opacity:.55">.00</span></span></div></div>
+      <div style="display:flex;align-items:baseline;gap:10px;margin-top:16px;padding-top:14px;
+           border-top:1px solid var(--hair)">
+        <span class="mlab" style="flex:1">÷ 20 days, rounded down</span>
+        <span class="mono" style="font-size:17px;font-weight:600">₦7,500<span
+          style="font-size:11px;opacity:.55">.00</span></span></div>
+    </div>
+  </div>
+
+  <div style="padding:26px 20px 0">
+    <div style="display:flex;align-items:center;gap:10px;padding-bottom:4px">
+      <span class="lab" style="flex:1">Needs attention</span>
+      <span class="pill" style="background:var(--ro2);color:var(--rose)">2 of 8</span></div>
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--hair)"><span class="tile" style="background:var(--ro2);color:var(--rose)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M12 4.6 20.8 20H3.2z"/><path d="M12 10.2v4.1M12 17h.02"/></svg></span><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600;line-height:20px">Health</div><div class="rail" style="margin-top:8px;height:5px"><i style="width:100%;background:var(--rose)"></i></div></div><div style="text-align:right;flex:0 0 auto"><span class="num" style="font-size:15px;font-weight:600;letter-spacing:-.012em">₦14,000<span style="font-size:9px;font-weight:500;opacity:.6">.00</span></span><div class="pill" style="background:var(--ro2);color:var(--rose);margin-top:6px">Overspent</div></div></div>
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--hair)"><span class="tile" style="background:var(--oc2);color:var(--ochre)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M4 15.5 8.5 9l4 4.5L20 5"/><path d="M20 5h-4.5M20 5v4.5"/></svg></span><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600;line-height:20px">Transport &amp; data</div><div class="rail" style="margin-top:8px;height:5px"><i style="width:85%;background:var(--ochre)"></i></div></div><div style="text-align:right;flex:0 0 auto"><span class="num" style="font-size:15px;font-weight:600;letter-spacing:-.012em">₦38,250<span style="font-size:9px;font-weight:500;opacity:.6">.00</span></span><div class="pill" style="background:var(--oc2);color:var(--ochre);margin-top:6px">Low</div></div></div>
+    <div class="link">Show all 8 categories <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+  </div>
+
+  <div style="padding:10px 20px 22px">
+    <span class="lab">Goals &amp; debts</span>
+    <div style="padding:14px 0 4px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="tile" style="background:var(--em2);color:var(--emerald)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".9"/></svg></span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:15px;font-weight:600">Rent fund</div>
+          <div class="rail" style="margin-top:8px;height:5px">
+            <i style="width:53%;background:var(--emerald)"></i></div></div>
+        <div style="text-align:right;flex:0 0 auto"><span class="num" style="font-size:15px;font-weight:600;letter-spacing:-.012em">₦475,000<span style="font-size:9px;font-weight:500;opacity:.6">.00</span></span>
+          <div class="pill" style="background:var(--oc2);color:var(--ochre);margin-top:6px">
+            Short</div></div></div>
+      <div style="font-size:12.5px;color:var(--soft);margin-top:10px;padding-left:52px">
+        ₦50,000.00 short · needs ₦85,000.00 a payday</div></div>
+    <div class="link">Show all 4 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+  </div>
+
+  <div class="nav">
+    <div class="nav-i on"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M3 10.4 12 3.5l9 6.9V20a1 1 0 0 1-1 1h-5.3v-6.3H9.3V21H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></div>
+    <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M4 5h16M4 12h16M4 19h10"/></svg><span>Plan</span></div>
+    <div style="flex:0 0 auto;margin:0 6px">
+      <div style="width:56px;height:56px;border-radius:19px;background:var(--emerald);
+        color:var(--onEmerald);display:flex;align-items:center;justify-content:center;
+        box-shadow:var(--lift)"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M12 5v14M5 12h14"/></svg></div></div>
+    <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M16.5 20.5v-2a3.4 3.4 0 0 0-3.4-3.4H6.9a3.4 3.4 0 0 0-3.4 3.4v2"/><circle cx="10" cy="7.6" r="3.6"/><path d="M20.5 20.5v-2a3.4 3.4 0 0 0-2.6-3.3M15.6 4.3a3.6 3.6 0 0 1 0 6.6"/></svg><span>Debts</span></div>
+    <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>More</span></div>
+  </div>
+</div></div><div><div class="lab" style="font-size:9.5px">Over a sheet</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:360px">The case a badge in content fails. The bar is frame, so a sheet cannot cover it and scrolling cannot lose it.</div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);width:390px;border-radius:30px;overflow:hidden;border:1px solid var(--line)"><div style="background:var(--sl2);border-bottom:2px solid var(--slate);padding:12px 20px;min-height:64px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;row-gap:6px;"><span style="flex:1;min-width:160px;font-size:12.5px;line-height:17px;color:var(--slate);letter-spacing:-.002em"><span style="font-weight:700;letter-spacing:.01em">Sample figures</span> — not your money.</span><span style="font-size:12.5px;font-weight:600;color:var(--slate);text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Start with my own figures</span></div><div style="position:relative;overflow:hidden"><div style="padding:22px 20px 0;display:flex;align-items:center;justify-content:space-between"><div><div class="lab">Monday</div><div class="ser" style="font-size:20px;line-height:25px;margin-top:2px">5 October <span style="color:var(--soft)">· 24 Rabiʻ II 1448</span></div></div><span class="tile" style="border:1px solid var(--line);color:var(--soft);background:var(--card)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg></span></div><div style="padding:14px 20px 0;text-align:center;position:relative"><div style="display:flex;justify-content:center"><svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
+  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
+        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
+        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
+  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
+        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
+</svg></div><div style="position:absolute;left:0;right:0;top:92px"><div class="lab">Safe to spend today</div><div class="disp" style="font-size:42px;line-height:48px;margin-top:3px">₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div></div></div><div style="height:80px"></div><div style="position:absolute;inset:0;background:var(--scrim)"></div></div><div style="background:var(--card);border:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:var(--shadow);padding:20px 20px 24px;width:100%"><div style="display:flex;align-items:center;justify-content:space-between"><div class="ser" style="font-size:30px;line-height:36px">Record a payment</div><span class="tile" style="border:1px solid var(--line);color:var(--soft)">✕</span></div><div style="font-size:12.5px;color:var(--soft);margin-top:4px">Who it is with is fixed, amount pre-filled from what was agreed, date today. One tap confirms the usual case.</div><div class="fld on" style="min-height:66px;justify-content:flex-end;margin-top:16px"><span class="num" style="font-size:27px;font-weight:600;letter-spacing:-.012em">₦30,000<span style="font-size:16px;font-weight:500;opacity:.6">.00</span></span></div><div style="display:flex;gap:10px;margin-top:14px"><div class="fld" style="flex:1;justify-content:space-between">I repaid<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div><div class="fld" style="flex:1;justify-content:space-between">Today<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></svg></div></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><div class="chip on" style="pointer-events:none">A. Friend</div><div class="chip" style="opacity:.45">Spouse</div></div><div class="btn btn-p" style="width:100%;margin-top:18px">Save</div></div></div></div></div></div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);"><div><div class="lab" style="font-size:9.5px">1440 — the same bar, the same string</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:360px">It spans the whole frame including the sidebar, because the sidebar is part of what is showing sample figures.</div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);width:1440px;border-radius:22px;overflow:hidden;border:1px solid var(--line)"><div style="background:var(--sl2);border-bottom:2px solid var(--slate);padding:12px 36px;display:flex;align-items:center;gap:16px;"><span style="flex:1;min-width:0px;font-size:13.5px;line-height:19px;color:var(--slate);letter-spacing:-.002em"><span style="font-weight:700;letter-spacing:.01em">Sample figures</span> — not your money.</span><span style="font-size:13.5px;font-weight:600;color:var(--slate);text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Start with my own figures</span></div><div style="display:flex;align-items:stretch"><div style="width:252px;flex:0 0 252px;border-right:1px solid var(--line);padding:26px 14px;display:flex;flex-direction:column;gap:4px;background:var(--card)"><div style="display:flex;align-items:center;gap:10px;padding:0 14px 22px"><span style="color:var(--emerald);display:flex;flex:0 0 auto"><svg width="25" height="25" viewBox="0 0 48 48" fill="none"
+     stroke="currentColor" stroke-width="3.8" stroke-linecap="round"
+     stroke-linejoin="round" style="display:block">
+  <path d="M24 9v30"/>
+  <path d="M15 39h18"/>
+  <circle cx="24" cy="7" r="2.6" fill="currentColor" stroke="none"/>
+  <path d="M9 15h30" transform="rotate(-9 24 15)"/>
+  <path d="M9.6 16.4 5 26a5.6 5.6 0 0 0 9.2 0z"/>
+  <path d="M38.4 12.6 34.6 20.4a4.6 4.6 0 0 0 7.6 0z"/>
+</svg></span><span class="ser" style="font-size:24px;letter-spacing:-.01em">Mizaniya</span></div><div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:12px;font-size:14.5px;background:var(--em2);color:var(--emerald);font-weight:600;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M3 10.4 12 3.5l9 6.9V20a1 1 0 0 1-1 1h-5.3v-6.3H9.3V21H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></div><div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:12px;font-size:14.5px;color:var(--soft);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M4 5h16M4 12h16M4 19h10"/></svg><span>Plan</span></div><div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:12px;font-size:14.5px;color:var(--soft);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M4 15.5 8.5 9l4 4.5L20 5"/><path d="M20 5h-4.5M20 5v4.5"/></svg><span>Transactions</span></div><div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:12px;font-size:14.5px;color:var(--soft);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M16.5 20.5v-2a3.4 3.4 0 0 0-3.4-3.4H6.9a3.4 3.4 0 0 0-3.4 3.4v2"/><circle cx="10" cy="7.6" r="3.6"/><path d="M20.5 20.5v-2a3.4 3.4 0 0 0-2.6-3.3M15.6 4.3a3.6 3.6 0 0 1 0 6.6"/></svg><span>Debts & Goals</span></div><div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:12px;font-size:14.5px;color:var(--soft);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg><span>Months</span></div><div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:12px;font-size:14.5px;color:var(--soft);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.5a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.11-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.55-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H9.1a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.08a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>Settings</span></div><div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:12px;font-size:14.5px;color:var(--soft);"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".9"/></svg><span>Zakat</span></div></div><div style="flex:1;min-width:0;display:flex;flex-direction:column"><div style="display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 36px;border-bottom:1px solid var(--line)"><div><div class="lab" style="font-size:9.5px">Monday</div><div class="ser" style="font-size:18px;margin-top:1px">5 October <span style="color:var(--soft)">· 24 Rabiʻ II 1448</span></div></div><div class="btn btn-p" style="min-width:120px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M12 5v14M5 12h14"/></svg>Add</div></div><div style="padding:36px;display:flex;justify-content:center"><div style="width:100%;max-width:1180px"><div style="display:flex;gap:44px;align-items:flex-start"><div style="width:420px;flex:0 0 auto"><div><div style="display:flex;justify-content:center;position:relative"><svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
+  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
+        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
+        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
+  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
+        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
+</svg><div style="position:absolute;left:0;right:0;top:92px;text-align:center"><div class="lab">Safe to spend today</div><div class="disp" style="font-size:42px;line-height:48px;margin-top:3px;color:var(--ink)">₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div></div></div><div style="display:flex;justify-content:space-between;margin-top:-10px;padding:0 34px"><span class="lab" style="font-size:10px">₦0</span><span class="lab" style="font-size:10px;color:var(--ochre)">₦5,200 low</span><span class="lab" style="font-size:10px">₦8,666</span></div><div style="text-align:center;font-size:13.5px;color:var(--soft);margin-top:12px">₦220,000.00 left · 20 days to 25 Oct</div><div style="display:flex;justify-content:center;margin-top:18px"><div class="seg"><span class="on">Today</span><span>This cycle</span></div></div></div><div class="card" style="padding:20px;margin-top:26px"><div style="display:flex;align-items:center;gap:10px"><span class="mlab" style="flex:1">Daily spend</span><span class="pill" style="background:var(--oc2);color:var(--ochre)">Peak 25 Sep</span></div><div style="margin-top:16px"><svg width="100%" height="116" viewBox="0 0 376 116"
+     preserveAspectRatio="none" style="display:block">
+  <rect x="0.0" y="0.0" width="28.7" height="112.0" rx="3" fill="var(--ochre)" opacity="1"/><rect x="34.7" y="80.9" width="28.7" height="31.1" rx="3" fill="var(--faint)" opacity=".38"/><rect x="69.5" y="110.0" width="28.7" height="2.0" rx="3" fill="var(--faint)" opacity=".38"/><rect x="104.2" y="69.7" width="28.7" height="42.3" rx="3" fill="var(--faint)" opacity=".38"/><rect x="138.9" y="38.8" width="28.7" height="73.2" rx="3" fill="var(--ochre)" opacity="1"/><rect x="173.6" y="77.9" width="28.7" height="34.1" rx="3" fill="var(--faint)" opacity=".38"/><rect x="208.4" y="9.3" width="28.7" height="102.7" rx="3" fill="var(--ochre)" opacity="1"/><rect x="243.1" y="43.2" width="28.7" height="68.8" rx="3" fill="var(--ochre)" opacity="1"/><rect x="277.8" y="68.3" width="28.7" height="43.7" rx="3" fill="var(--faint)" opacity=".38"/><rect x="312.5" y="57.4" width="28.7" height="54.6" rx="3" fill="var(--ochre)" opacity="1"/><rect x="347.3" y="73.8" width="28.7" height="38.2" rx="3" fill="var(--emerald)" opacity="1"/>
+  <line x1="0" y1="64.7" x2="376" y2="64.7" stroke="var(--slate)"
+        stroke-width="1.5" stroke-dasharray="4 4" opacity=".85"/>
+</svg></div><div style="display:flex;justify-content:space-between;margin-top:10px"><span class="mlab" style="font-size:9px">25 Sep</span><span class="mlab" style="font-size:9px;color:var(--slate)">┈ ₦8,666.66</span><span class="mlab" style="font-size:9px">Today</span></div></div></div><div style="flex:1;min-width:0"><div class="card" style="padding:20px;"><div style="display:flex;align-items:center;gap:10px"><span class="mlab" style="flex:1">Where your money is</span><span class="mlab">₦450,000 in</span></div><div style="margin-top:16px"><div style="display:flex;gap:3px;height:11px"><span style="width:24.444%;background:var(--emerald);border-radius:3px;display:block"></span><span style="width:20.000%;background:var(--slate);border-radius:3px;display:block"></span><span style="width:6.667%;background:var(--ochre);border-radius:3px;display:block"></span><span style="width:15.556%;background:var(--faint);border-radius:3px;display:block"></span><span style="width:33.333%;background:var(--track);border-radius:3px;display:block;border:1px solid var(--line)"></span></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;margin-top:16px"><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--emerald);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Spent</span><span class="mono" style="font-size:12px;font-weight:600">₦110,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--slate);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Saved</span><span class="mono" style="font-size:12px;font-weight:600">₦90,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--ochre);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Debt paid</span><span class="mono" style="font-size:12px;font-weight:600">₦30,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--faint);flex:0 0 auto"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Protected</span><span class="mono" style="font-size:12px;font-weight:600">₦70,000<span style="font-size:9px;opacity:.55">.00</span></span></div><div style="display:flex;align-items:center;gap:8px;min-width:0"><span style="width:9px;height:9px;border-radius:2px;background:var(--track);flex:0 0 auto;border:1px solid var(--line)"></span><span style="flex:1;min-width:0;font-size:12.5px;color:var(--soft);white-space:nowrap">Free</span><span class="mono" style="font-size:12px;font-weight:600">₦150,000<span style="font-size:9px;opacity:.55">.00</span></span></div></div><div style="display:flex;align-items:baseline;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--hair)"><span class="mlab" style="flex:1">÷ 20 days, rounded down</span><span class="mono" style="font-size:18px;font-weight:600">₦7,500<span style="font-size:11px;opacity:.55">.00</span></span></div></div><div style="margin-top:30px"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 0 4px"><span class="lab">Categories</span><span class="lab" style="font-size:10px">8</span></div><table class="dtbl" style="margin-top:14px"><thead><tr><th>Category</th><th class="r">Spent</th><th class="r">Allowance</th><th class="r">Used</th><th class="r">Status</th></tr></thead><tbody><tr><td><span style="font-weight:600">Health</span></td><td class="r"><span class="num" style="color:var(--rose);font-size:14px;font-weight:600;letter-spacing:-.012em">₦14,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦10,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px;color:var(--rose)">140%</span></td><td class="r"><span class="pill" style="background:var(--ro2);color:var(--rose)">Overspent</span></td></tr><tr><td><span style="font-weight:600">Transport &amp; data</span></td><td class="r"><span class="num" style="color:var(--ochre);font-size:14px;font-weight:600;letter-spacing:-.012em">₦38,250<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦45,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px;color:var(--ochre)">85%</span></td><td class="r"><span class="pill" style="background:var(--oc2);color:var(--ochre)">Low</span></td></tr><tr><td><span style="font-weight:600">Food and groceries</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦40,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦102,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px">39%</span></td><td class="r"><span style="color:var(--faint)">—</span></td></tr><tr><td><span style="font-weight:600">Utilities</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦4,750<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦18,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px">26%</span></td><td class="r"><span style="color:var(--faint)">—</span></td></tr><tr><td><span style="font-weight:600">Miscellaneous</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦5,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦22,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px">23%</span></td><td class="r"><span style="color:var(--faint)">—</span></td></tr><tr><td><span style="font-weight:600">Family support</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦8,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦40,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px">20%</span></td><td class="r"><span style="color:var(--faint)">—</span></td></tr><tr><td><span style="font-weight:600">Apartment setup</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦0<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦25,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px">0%</span></td><td class="r"><span style="color:var(--faint)">—</span></td></tr><tr><td><span style="font-weight:600">Sadaqah</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦0<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦10,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></span></td><td class="r"><span class="mono" style="font-size:13px">0%</span></td><td class="r"><span style="color:var(--faint)">—</span></td></tr></tbody></table></div></div></div><div style="display:flex;gap:44px;align-items:flex-start;margin-top:46px"><div style="flex:1;min-width:0"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 0 4px"><span class="lab">Goals</span><span class="lab" style="font-size:10px">2</span></div><div style="margin-top:14px"><table class="dtbl"><thead><tr><th class="">Goal</th><th class="r">Saved</th><th class="r">Target</th><th class="r">Progress</th><th class="r">Status</th></tr></thead><tbody><tr><td class=""><span style='font-weight:600'>Rent fund</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦475,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦900,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span class="mono" style="font-size:13px">53%</span></td><td class="r"><span class="pill" style="background:var(--oc2);color:var(--ochre)">Short</span></td></tr><tr><td class=""><span style='font-weight:600'>Emergency fund</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦0<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span class="num" style="font-size:13px;font-weight:600;letter-spacing:-.012em">₦150,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span class="mono" style="font-size:13px">0%</span></td><td class="r"><span style="color:var(--faint)">—</span></td></tr></tbody></table></div></div><div style="flex:1;min-width:0"><div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 0 4px"><span class="lab">Debts</span><span class="lab" style="font-size:10px">2</span></div><div style="margin-top:14px"><table class="dtbl"><thead><tr><th class="">Who</th><th class="r">Balance</th><th class="r">Which way</th><th class="r">Paying back</th></tr></thead><tbody><tr><td class=""><span style='font-weight:600'>A. Friend</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦90,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)">you owe</span></td><td class="r"><span style="color:var(--soft)">₦30,000.00 a month</span></td></tr><tr><td class=""><span style='font-weight:600'>Spouse</span></td><td class="r"><span class="num" style="font-size:14px;font-weight:600;letter-spacing:-.012em">₦60,000<span style="font-size:8px;font-weight:500;opacity:.6">.00</span></span></td><td class="r"><span style="color:var(--soft)">you owe</span></td><td class="r"><span style="color:var(--soft)">Nothing agreed · 60% cleared</span></td></tr></tbody></table></div></div></div></div></div></div></div></div></div></div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);"><div><div class="lab" style="font-size:9.5px">The printed record — the marker in the document, not the chrome</div><div style="font-size:12.5px;line-height:19px;color:var(--soft);margin:6px 0 16px;max-width:360px">It leaves the app and is read by someone who was never in it, so app chrome is no protection: it does not print. The notice is part of the document, in the same register as "stated by the owner, not witnessed by Mizaniya". <b>The export file needs the same and it is behaviour, not drawing</b> — a demo export restoring silently as real data is the same hazard one step removed.</div><div class="mz" style="--bg:#F7F3EA;--card:#FFFFFF;--card2:#FBF8F1;--line:#DED8CA;--hair:#EBE5D8;--ink:#171A17;--soft:#5A615B;--faint:#858A85;--emerald:#0F5C3C;--ochre:#8C5C15;--slate:#3C4A5A;--rose:#9E2B2B;--em2:#E4EFE7;--oc2:#F6EBD5;--sl2:#E6EAEF;--ro2:#F7E2DF;--track:#EDE7DA;--onEmerald:#FFFFFF;--scrim:rgba(23,26,23,.46);--serw:500;--shadow:0 1px 2px rgba(23,26,23,.05),0 12px 30px -16px rgba(23,26,23,.22);--lift:0 8px 20px -8px rgba(15,92,60,.55);width:520px;background:#FFF;color:#111;border:1px solid #CCC;padding:0"><div style="border:2px solid #111;margin:26px 26px 0;padding:12px 14px;display:flex;align-items:center;gap:10px"><span style="font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:700">Sample record</span><span style="font-size:12px;line-height:17px">These figures are sample data. This document does not record a real debt.</span></div><div style="padding:24px 26px 30px"><div style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#555">Debt record</div><div style="font-family:EB Garamond,Georgia,serif;font-size:27px;margin-top:4px">A. Friend</div><div style="margin-top:20px"><div style="display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid #DDD"><span style="font-family:JetBrains Mono,monospace;font-size:11.5px;color:#555;flex:0 0 92px">24 Sep 2026</span><span style="flex:1;font-size:13.5px">I borrowed</span><span style="font-family:JetBrains Mono,monospace;font-size:13px;font-weight:600">₦120,000.00</span></div><div style="display:flex;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px solid #DDD"><span style="font-family:JetBrains Mono,monospace;font-size:11.5px;color:#555;flex:0 0 92px">25 Sep 2026</span><span style="flex:1;font-size:13.5px">I repaid</span><span style="font-family:JetBrains Mono,monospace;font-size:13px;font-weight:600">₦30,000.00</span></div></div><div style="display:flex;align-items:baseline;gap:14px;padding:14px 0 0"><span style="flex:1;font-size:13.5px;font-weight:600">Outstanding</span><span style="font-family:JetBrains Mono,monospace;font-size:16px;font-weight:600">₦90,000.00</span></div><div style="font-size:11.5px;line-height:18px;color:#555;margin-top:22px;padding-top:14px;border-top:1px solid #DDD">Every movement above was recorded in Mizaniya on the date shown. Nothing here was stated after the fact.</div></div></div></div></div></div></div><div style="font-size:12.5px;line-height:18px;color:#5A564A;margin-top:16px;max-width:760px"><b>slate on sl2, and the colour is a decision.</b> Not rose — nothing has gone wrong. Not ochre — this is not a warning about their money. Not emerald — it is not a success. <code>slate</code> is the system's one genuinely neutral informational tone and it is load-bearing for nothing else, so it can carry this without colliding.</div></div>
+</x-dc>
+</body>
+</html>
