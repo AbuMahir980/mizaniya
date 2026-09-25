@@ -1123,6 +1123,74 @@ a `design:` row in `CONTEXT.md` Open Questions.
   with a user-visible consequence and the owner has not confirmed it yet. Logged in
   `CONTEXT.md` Open Questions. Nothing about drawing Case A is blocked by the
   confirmation.
+
+  ---
+
+  ### Corrected the same day — **the rule is simply "the higher of the two"**
+
+  **I am withdrawing the per-figure rule above and replacing it with one rule.** The
+  finding that your *lower* was backwards for protected categories stands — that part is
+  arithmetic. What I got wrong was the replacement. Correcting it now, while it is a
+  paragraph, rather than after Case B has been drawn against it.
+
+  > **While a planned amount is unsettled, the engine uses the higher of the two
+  > figures. No exceptions.**
+
+  **Why the per-figure rule was wrong, and it is your own reasoning that shows it.**
+  *Higher for protected, lower for expense* is maximally cautious per calculation, and it
+  means **which person's number wins flips on a category type neither of them thinks
+  about.** You and Aisha disagree about the rent fund and the app uses hers; next cycle
+  you disagree about food and it uses hers again — but for the opposite reason, and had
+  the numbers fallen the other way it would have used yours. Neither of you can predict
+  it.
+
+  Your fourth decision was *say which figure is being used and why*, precisely so the app
+  is not suspected of quietly preferring one person. *"Because it is the more cautious one
+  for this particular calculation"* is honest and still reads as **arbitrary** — and
+  arbitrary is one step from *it preferred her*. On a screen whose whole job is looking
+  like it has not taken sides, that costs more than the caution it buys. I was optimising
+  an arithmetic property and you were designing a conversation; yours is the right frame.
+
+  **Why "higher" works as a single rule:**
+
+  - **It is the conservative reading of a promise.** If two people disagree about how much is committed to something, assume more is committed. That intuition holds in both directions and requires knowing nothing about the engine.
+  - **It still never overstates safe-to-spend** — the one thing this app must not do. Protected categories reserve more, so the figure goes down; expense plans never enter that figure at all, so there is nothing to overstate.
+  - **It is one sentence, true in every case**, which is what makes it explainable to two people who are mid-argument.
+
+  **What it costs, so it is not hidden:** an expense envelope warns slightly later. Food
+  at ₦90,000 rather than ₦75,000 means *what is left in Food* reaches zero later than
+  Aisha expects. A soft inconsistency in a secondary signal, not money overstated.
+
+  **The copy, and it is simpler than before:**
+
+  > *Until you agree, Mizaniya uses ₦90,000 — the larger of the two, so it never assumes
+  > less is promised than might be.*
+
+  This is nameable on the screen without arithmetic, and it is the same sentence in both
+  of `seed-data.md`'s cases. **Case B is still worth drawing** — it is the one where the
+  larger figure belongs to the person who is *not* the account holder, which is exactly
+  the case that has to look even-handed.
+
+  Still awaiting the owner's confirmation, and **nothing is blocked** — the copy above is
+  the only thing that changes on your screen, and it is shorter.
+
+- [ ] **47 · A lingering disagreement leaks into the next cycle, and the fix is a nudge
+  rather than a rule.** Raised from the build side, and neither of us named it.
+
+  `Food and groceries` **rolls over** — unspent allowance carries into the next cycle. So
+  while a disagreement is unsettled and the engine is using the higher figure, the
+  *unspent* amount is larger, and a larger amount carries forward. **The longer it
+  lingers, the more the chosen figure leaks past the cycle it belonged to.**
+
+  This is not an argument for a cleverer engine rule — any rule has the same property. It
+  is an argument that **"leave it for now" should be comfortable but not permanent.**
+  Your §H item 27 made leaving it unsettled a first-class choice, and that was right; the
+  question is whether anything gently reminds them at the point it starts to matter —
+  probably when the cycle is closing, which is when the leak actually happens.
+
+  **Your call on whether that is a nudge, a line on the Plan screen, or nothing at all.**
+  I would rather flag the mechanism than have it discovered as a wrong figure two cycles
+  later.
 - [ ] **41 · The reconciliation queue never blocks anything.** It is a row on Home that
   opens its own surface, not a modal and not an interstitial. A queue that must be
   cleared would make a paid feature into a toll gate on the free product. Placement is
