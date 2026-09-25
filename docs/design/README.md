@@ -58,30 +58,35 @@ secondary — under the Latin, never above it, and never carrying a figure.
 
 ## What is here
 
-| File | What it shows |
+**Re-cut 25 September: one screen, one artboard.** A board used to be able to hold six
+onboarding steps, or sign-up beside sign-in, or five states of Home in a row. That reads
+fine flipping through and is useless for review — you cannot point at "the sign-in
+screen" if sign-in is the right-hand half of a board called Auth. So every file below is
+one screen, and its name says which.
+
+**77 screens · 173 artboards · 11 pages.** File names are `NN-what-it-is-WIDTH-theme.png`,
+numbered in flow order, and the same stem names the `.dc.html` beside it in `canvas/`.
+
+| Page | Files | What is on it |
+|---|---|---|
+| 1 · Landing page | `11-landing-*` | 1440 and 390, the pointer states, the strongest moment (item 34) and the demo marker (item 33). |
+| 2 · Web 1440 · Getting in | `01-*` … `06-*` | Welcome · the six onboarding steps, **one board each** · sign up · sign up with the address already taken · sign in · forgot password · check your email · set a new password. **These are web screens.** In v1 the web app is the only place to sign up; the Expo mobile app is v2 and is not drawn. |
+| 3 · Web 1440 · Home | `07-home-*` | Home, then amber, over, no plan, a plan with no movements, offline — each its own board, because each has its own fix. |
+| 4 · Web 1440 · The month's money | `08-*` … `14-*` | Plan · Transactions and both empty states · Quick Add · Debts and Goals (no tabs at this width) · add a debt · add a goal · the debt record · Months · Zakat. |
+| 5 · Web 1440 · Account, sync, household | `15-*` … `18a-*` | Settings · Settings signed out · what an account adds, free and lapsed · the reconciliation queue, the duplicate case and the empty state · the household disagreement, both cases. **No padlock anywhere** — item 24, and `build_boards.py` fails if the word appears. |
+| 6 · Phone browser 360 · Getting in | `01-*-360-*`, `02-*-360-*` | The same web app at 360: welcome, six onboarding steps, and the three pickers steps 2 and 3 refer to. |
+| 7 · Phone browser 360 · Home | `07-*-360-*` | Home, this cycle, four states, offline, and the More sheet — which is 360-only, because at 1440 everything in it is a sidebar item. |
+| 8 · Phone browser 360 · The month's money | `08-*-360-*` … `14-*-360-*` | Plan and its row menu · Transactions and both empty states · Quick Add, record and edit · Debts · Goals · the two forms · the debt record · Months empty and populated · Zakat. |
+| 9 · Phone browser 360 · Settings and data | `15-*-360-*`, `19-*` | Settings, and the three-stage import flow — spec §7.9, the most dangerous action in the app. |
+| 10 · Mark | `00-cover-*`, `00-logo-*` | The contents page, and the mark: construction grid, sizes 48→16, app icon, favicon, wordmark lockups, and the three misuses. |
+| 11 · Foundations | `00-primitives-*`, `00-style-*`, `05a-debt-record-print.png` | Every component in every state, the palette and type tile, and the printed record: A4, black and white, no app chrome. |
+
+| Also here | What it is |
 |---|---|
-| `00-cover-{light,dark}.png` | The contents page — every page, the settled figures, the rules that never bend. |
-| `00-logo-{light,dark}.png` | The mark: construction grid, sizes 48→16, app icon, favicon, wordmark lockups, and the three misuses. |
-| `00-style-{light,dark}.png` | Palette, type and status pills. |
 | `brand/` | **Production files for the mark** — favicon (`.svg` + `.ico`), PWA icons 192/512 in `any` and `maskable`, Apple touch icon, `mark.svg` (currentColor), and the wordmarks with letters outlined so the app never loads Amiri. See `brand/README.md`. |
-| `00-primitives-{light,dark}.png` | **Every component in every state** — default, hover, focus, pressed, disabled, loading, error, empty — plus the focus-ring, touch-target, radius, spacing and type scales. |
-| `01-welcome-{360,1440}-{light,dark}.png` | Launch, then the welcome screen before onboarding step 1. |
-| `01-onboarding-{360,1440}-{light,dark}.png` | All six steps at both widths. Step 2 is the only required one. At 1440 it is the same 620px card centred in an empty frame — one component, one breakpoint. |
-| `02-home-{360,1440}-{light,dark}.png` | Home, plus `-cycle` mid-cycle. |
-| `02-home-{360,1440}-states-{light,dark}.png` | Every state at **both** widths: amber, red, no plan, empty, offline. |
-| `02a-more-sheet-360-{light,dark}.png` | The More sheet over Home. |
-| `03-plan-{360,1440}-{light,dark}.png` | Envelopes and the row menu. |
-| `04-transactions-{360,1440}-{light,dark}.png` | The ledger, grouped by day, plus both empty states (nothing recorded / nothing matches the filters) at both widths. |
-| `04a-quick-add-{360,1440}-{light,dark}.png` | Sheet, full screen, record and edit, desktop dialog. |
-| `05-debts-goals-{360,1440}-{light,dark}.png` | Both tabs at both widths — debts in both directions, and goals. |
-| `05a-debt-record-{360,1440}-{light,dark}.png` | The on-screen debt record. |
-| `05a-debt-record-print.png` | The printed record: A4, black and white, no app chrome. |
-| `05b-forms-{360,1440}-{light,dark}.png` | Add a debt, add a goal. At 1440 the sheet becomes a 520px dialog over Debts & Goals — the page it was opened from. |
-| `06-months-{360,1440}-{light,dark}.png` | Closed cycles and what carried over, empty and populated, at both widths. |
-| `07-settings-{360,1440}-{light,dark}.png` | Settings. |
-| `07a-zakat-{360,1440}-{light,dark}.png` | The estimate, its workings, and its caveat. |
-| `07b-import-360-{light,dark}.png` | The three-stage import flow. |
-| `tokens.md` | The complete token set, light and dark. 54 gated contrast pairs, 0 failures. |
+| `tokens.md` | The complete token set, light and dark. 54 gated contrast pairs, 0 failures. §3.2 covers a figure set inside a line of the voice face. |
+| `motion.md` | What moves and what does not. §0: nothing animates on the path to a figure. |
+| `image-brief.md` | The two photographs the landing page specifies and does not contain — dimensions, budget, search terms, reject list, licences. |
 | `PROPOSED-seed-additions.md` | The figures the design needed. **Merged into `docs/seed-data.md` on 10 September** and kept here as the record — `seed-data.md` is the source; do not read figures from this file. |
 
 ## The direction

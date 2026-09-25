@@ -1724,3 +1724,89 @@ outstanding, and item **47** in §I is new and small.
 - The four stale figures the design stop found (₦8,666.66, the bare minus sign) —
   fixed on 10 September.
 - `PROPOSED-seed-additions.md` — merged into `docs/seed-data.md`, kept as the record.
+
+---
+
+## K · The canvas re-cut — 25 September
+
+### K·1 — One screen, one artboard
+
+The owner's instruction: *"separate them, sign up, sign in, forgot password, reset
+password, home, transaction, plan, transactions, separate everything. Let them be
+listed out in the file picker."*
+
+Until now a board could hold six onboarding steps, or sign-up beside sign-in, or five
+states of Home in a row. That reads fine flipping through and is useless for review —
+you cannot point at "the sign-in screen" if sign-in is the right-hand half of a board
+called Auth. **Every artboard is now one screen**, numbered and named for what it is.
+
+**77 screens · 173 artboards · 11 pages.** Landing page first, then Web 1440 in four
+pages (Getting in · Home · The month's money · Account, sync and household), then the
+same app at 360 in four more, then Mark and Foundations.
+
+**Onboarding and sign-up sit under Web, and that is deliberate.** v1 is the web app and
+it is the only place anyone can sign up (ADR-009, spec §4). The Expo mobile app is v2
+and nothing on this canvas is drawn for it.
+
+### K·2 — Three copy faults the re-cut exposed
+
+All three were true before ADR-009 and false after it, and all three survived because
+the screen carrying them was never looked at on its own.
+
+| Where | Was | Now |
+|---|---|---|
+| Home · offline, 1440 and 360 | "your data is on this device and was never sent anywhere" | "Record as usual — anything new goes up when you're back." |
+| Settings · About, 1440 | "stored on this device… anyone who can unlock this phone" — *phone*, on a laptop board | "Without an account your data is stored in this browser… anyone who can sign in to this computer" |
+| Settings · About, 360 | "Your data is stored on this device" | "**Without an account** your data is stored in this browser" |
+
+The first is the exact shape `tokens.md` §10.1 exists to stop — an absolute claim about
+where data does not go — and it was sitting inside the product rather than on the
+landing page, where the guard was looking. **The landing-page guard now runs over every
+app board too.**
+
+Two structural faults came with them: `desktop.plan()` left three `<div>`s unclosed and
+the offline banner one, invisible while those screens shared a board with neighbours
+that absorbed the imbalance.
+
+### K·3 — Answered: the divergence from ADR-011 action 6 and doc 11 §7 — **logged, not resolved**
+
+Both documents say the landing page carries a security section. **It no longer does.**
+That was the owner's decision on 25 September, in these words: *"we shouldn't put our
+most secure thing out there for hackers to know… you just make them more like a privacy
+policy… shown to real users."*
+
+So the landing page keeps **one** sentence — the §10.1 string, character-identical —
+and everything else (encryption, where the keys live, what the server can see, the
+caveat that movement reaches the server before it is encrypted) moved to the **sign-up
+trust panel**, which §I8 already required, and to the privacy notice.
+
+**This is design diverging from two written documents, so it is named rather than
+chosen silently.** ADR-011 action 6 and `11-landing-page-brief.md` §7 both need
+amending, and that is the build side's to do, not mine.
+
+### K·4 — New behaviour I drew and did not own — **spec, please rule**
+
+`design-data-contract.md`: design owns layout, spacing, type, colour, motion; **spec
+owns behaviour, states and data.** Splitting *forgot password* into three screens needed
+four behavioural facts I had no document for. I drew them and I am naming all four.
+
+| # | What I drew | Why | Confirm or correct |
+|---|---|---|---|
+| 53 | The reset link **works once** and **expires in an hour** | Stated on screen, so it cannot be vague | ☐ |
+| 54 | Setting a new password **signs out every other device** | It is the only thing that makes a reset useful after a device is lost, and the screen says so plainly | ☐ |
+| 55 | **No confirm-password field.** One field with a *Show* control | A second field catches typos the person cannot see and nothing else; the reset link is still in their inbox if it goes wrong. Doubling the typing on a phone keyboard costs more than it saves | ☐ |
+| 56 | **Resend is available after 60 seconds** | So a mistyped address is not a locked account, without handing anyone an email cannon | ☐ |
+
+### K·5 — A gap the separation made visible — **not drawn**
+
+**57 — Settings has no signed-in account section.** `WebAccount` draws Settings *signed
+out*: one row, no banner. There is no signed-in counterpart, so nothing says what that
+row becomes once there is an account — email address, plan, the device list, sign out,
+delete account. Spec §I accounts should say what belongs there; then I draw it. ☐
+
+### K·6 — Still outstanding, unchanged
+
+- Screen **10** (sync states), **12** (household invite / accept / members), **13**'s bank
+  *linking* flow, and **09**'s subscribe flow — all still undrawn.
+- The **360 versions** of the new web surfaces (auth, tiers, reconciliation, household).
+  The 1440 set is drawn; the brief requires both widths.
