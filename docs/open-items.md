@@ -2524,3 +2524,49 @@ ticked box reading *I have read the security and privacy*. Whether that text is
 the legally intended wording, whether the tick must be stored against the account
 with a timestamp and a policy version, and what happens to an account created
 before a later policy version — all spec, and all of it sits next to item 77. ☐
+
+### M·26 — ميزانية was missing, and the reason is the same one as last time
+
+The owner: *"I can't see the Arabic for Mizaniya anymore — not on the landing
+page, not on first launch. Why was it removed?"*
+
+**It was never removed. It was never called.** `brand.wordmark()` has set
+ميزانية under the Latin since the mark was drawn, and the brand page states the
+rule in full — *stacked when there is room; single-line in bars and on the
+sidebar, where the Arabic is dropped rather than shrunk.* The rule was right.
+What went wrong is that the landing page, the auth screens and first launch each
+**hand-typed their own lockup** instead of calling the component, and a
+hand-typed lockup has no Arabic in it.
+
+**That is the second time in four days**, and the first one was §10.1's trust
+panel: one thing defined once, re-typed in five places, drifting in five
+directions. The fix is the same both times — one definition, and no second way
+to draw it. `tokens.md` **§10.2** now carries the wordmark rule, with a table of
+where it stacks and where it is dropped, and with the failure written down so the
+next hand-typed lockup has something to be measured against.
+
+**Where it now appears:** first launch (both widths), the auth masthead, the
+landing footer, splash, the cover. **Where it is deliberately absent:** the nav
+bar, the app sidebar, the phone header. *Dropped, not shrunk* — Amiri at 9px is
+not the Arabic, it is a smudge of the right shape.
+
+**One build-guard change followed.** The landing page has a 190-word prose
+ceiling, and adding the Arabic to the footer took it to 191. The Arabic is a
+**mark, not copy** — it is the product's name, exactly as *Mizaniya* beside it
+is — so the counter skips it, the same way it already skips the app screens
+embedded in the hero. A budget meant to stop a page arguing with itself should
+not be the thing that decides whether the name appears in full.
+
+**First launch at 1440 was also wrong, and the owner named the shape.** The first
+pass centred one column in a 1440 frame — the fault this project has named at
+every width. He remembered the old `brand.welcome_desktop`: the name on the left,
+the Arabic under it, content on the right. It is two columns now. **What is on
+the right is not a sales argument** — someone who installed the app has already
+been convinced — it is the six setting-up steps with the one required marked,
+so the screen is continuous with step 1 rather than a door in front of it.
+
+**Two smaller faults the render caught.** The consent line read *"I have read the
+Read our security and privacy"*, because the link was treated as a fixed string
+rather than a phrase; it takes a label now. And sign-up carried **two lockups**,
+one in the form column and one in the rail — a screen that says its own name
+twice is a screen that is not sure you saw it the first time. The rail's is gone.

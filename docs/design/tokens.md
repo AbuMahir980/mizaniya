@@ -435,3 +435,32 @@ The three supporting claims travel with it and are also fixed wording:
 - Encrypted, with the keys held outside the database.
 - Every access to production data is logged, and you can ask for that record.
 - Bank access is **read-only** — it can see money move, it cannot move money.
+
+### 10.2 · The wordmark — when ميزانية appears, and when it does not
+
+The name is **Mizaniya** set in EB Garamond 600 with **ميزانية** in Amiri beneath
+it, never above, never larger, and never carrying a figure. The brand page has
+said this since it was drawn. It is written here because saying it on the brand
+page was not enough.
+
+| Where | The Arabic |
+|---|---|
+| First launch, splash, the auth masthead, the landing footer, the cover | **Stacked.** The mark is being presented and there is room |
+| The nav bar, the app sidebar, the phone header, a tab | **Dropped.** Never shrunk to fit |
+
+**Dropped, not shrunk** is the whole rule. A 28px bar cannot carry two lines, and
+Amiri at 9px is not the Arabic — it is a smudge that happens to be the right
+shape.
+
+**How it went missing, 25 September.** `brand.wordmark()` has always set it
+correctly, and the owner had to point out that the name had lost half of itself
+on the landing page, on sign-up and on first launch. Every one of those screens
+had **hand-typed its own lockup** instead of calling the component, and a
+hand-typed lockup has no Arabic in it. Same failure as §10.1's trust panel, four
+days apart: one thing defined once and re-typed five times drifts in five
+directions. **A lockup is a component call. There is no second way to draw it.**
+
+One consequence for the build, since the landing page has a prose budget: the
+Arabic is a **mark, not copy**, and the word counter skips it. A budget meant to
+stop a page arguing with itself should not be the thing that decides whether the
+product's name appears in full.
