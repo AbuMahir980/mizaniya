@@ -563,6 +563,65 @@ than in a message, so they sit next to their answers.*
 
 ---
 
+## H · The repositioning round — asked 25 September
+
+*Answer in place: write under each item, change the heading to `answered <date>`,
+and tick the box when the drawings land. The full context is
+[docs/10-design-brief.md](10-design-brief.md) — read that first, it is short.*
+
+**The headline: v1 now has accounts, sync and a paid tier ([ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)).
+The 69 artboards you have all still stand, onboarding is untouched, and `tokens.md`
+is not reopened.** What follows is additive.
+
+- [ ] **23 · Does the sync indicator belong on Home, or only in Settings?** §J3 says
+  a figure the app cannot vouch for must not look like one it can — so *something*
+  has to show when there are unsynced changes. But Home's job is one clear money
+  figure, and a sync badge competing with it may cost more than it earns. Your call,
+  and it is the only one of these that touches a screen you have already drawn.
+
+- [ ] **24 · Is a locked paid feature a separate screen or an inline treatment?**
+  It has to say what the feature is and what it costs — a dead control with no
+  explanation is a bug (**L2**). The risk is tone: a lock that feels punitive on a
+  **budgeting** app is worse than having no paid tier. This is the hardest copy
+  problem in the brief.
+
+- [ ] **25 · Can "which budget do you keep?" be answered in one screen?** §I3:
+  someone signs in on a device that already holds a different local budget. They
+  must be *asked*, because merging two budgets has no correct answer. **Both options
+  are destructive** and the person has to understand which is which. One screen, or
+  a short flow?
+
+- [ ] **26 · The reconciliation queue — the centre of the paid product, drawn
+  nowhere.** *"₦12,000 left your account — which envelope?"* A list of detected bank
+  movements each needing a category. It should feel like clearing a small inbox
+  rather than doing data entry. Built as v1.1, so a single state is enough for now —
+  but it is the interaction the subscription is actually selling.
+
+- [ ] **27 · The disagreement screen must read as two people agreeing, not as
+  software refereeing.** *"You set Food to ₦40,000. Your wife set it to ₦35,000. Do
+  you agree?"* A shared household budget **is** an agreement between two people, so
+  a disagreement about it is a conversation. Both amounts are kept until someone
+  settles it. Built after launch; drawn now.
+
+- [ ] **28 · The landing page** — done properly, not assembled from leftovers. The
+  problem first (salary gone before the month ends, debts both ways, rent once a
+  year), then the screenshots, then free vs paid honestly.
+
+- [ ] **29 · One sentence that must never appear anywhere**, and it needs saying to
+  whoever writes marketing copy as much as to you: ~~*"your bank data never touches
+  our servers"*~~. It is **false** — movement arrives at the server before it is
+  encrypted. The true claim is strong enough: *"we never store your bank data in
+  readable form."* The wording on the landing page and on sign-up must be
+  **identical**, because two slightly different privacy claims is worse than one
+  plain one.
+
+- [ ] **30 · Anything here that needs a figure `docs/seed-data.md` does not have** —
+  say so rather than inventing one (repo rule 2). Likely candidates: a part-paid
+  debt for the reconciliation screens, and a second person's name for the household
+  drawings.
+
+---
+
 ## What is already complete — do not redo
 
 - `tokens.md` → `src/design/tokens.ts` and `tokens.css`: all 33 colours match, and
