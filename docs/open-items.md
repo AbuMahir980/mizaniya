@@ -2603,3 +2603,40 @@ the app listing, search and word of mouth. Worth knowing before deciding: almost
 nobody will type ī or ā, so a name that requires them to find us costs reach;
 and `© 2026 Mizaniya` in the footer is a legal entity, which changes only if the
 entity does. ☐
+
+### M·28 — The lockup is one object, and first launch goes back to the screen that existed
+
+**ميزانية looked stuck on rather than part of the name.** The owner: *“it should
+look like a child on a parent — written tiny, but part of the main name, not
+sitting separately.”* Three causes, all now in `tokens.md` §10.2 with the values:
+the block was **right-aligned** (RTL is right for the glyphs, wrong for the
+block — it opened an empty wedge beside the mark), it had **a line and a half of
+leading** on a face that already sits low in its box, and at **0.68 of the Latin**
+it competed rather than accompanied. Left-aligned, 1.05 with a −10% pull, 0.5.
+
+**And there were still three copies of the lockup** — `landing.py`, `webnew.py`
+and `brand.wordmark()` — which is what let the Arabic go missing from two of
+them in the first place. There is one now, `brand.lockup()`, and everything else
+calls it. §10.2 already said *a lockup is a component call and there is no second
+way to draw it*; now that is true rather than aspirational.
+
+**First launch — two corrections, both of them drift from a screen that already
+existed.** `brand.welcome_desktop` is the composition the owner remembered and it
+was right: the name and the actions left, **three tiles with icons** right, the
+pair centred. My version listed the six setting-up steps — an agenda, where a
+new arrival wants a reason — and it sat hard against the left edge, because the
+columns were sized to a total narrower than the frame and every pixel of slack
+fell on one side. The inner row centres now.
+
+**86 — a false line, and it is the third in four days.** The old third tile read
+*“Nothing leaves this device — no account, no server, no sync.”* ADR-009
+made every clause of that false on 24 September. It is the exact shape §10.1
+exists to stop: a comforting sentence about where data goes that stopped being
+true and nobody re-read. The other two were Home's offline banner and the phone
+onboarding's *“everything you enter stays on this device”*. **Three
+independent finds means this is not a slip, it is a class**, and the only thing
+that will catch the fourth is a build guard. Proposed: fail the build on
+*leaves this device*, *stays on this device*, *never sent anywhere*, *no server*
+and *no sync* outside a file that is explicitly about the free single-device
+tier. ☐ (The replacement, *Works with no signal*, is true and is the better
+promise anyway.)

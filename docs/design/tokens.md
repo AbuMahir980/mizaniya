@@ -455,6 +455,20 @@ owner whether it should follow). Set ī (U+012B) and ā (U+0101), never ī/ā 
 from combining marks, and never a tilde: EB Garamond has both characters and
 Google Fonts serves them from the latin-ext subset without a second request.
 
+### How the two lines sit together
+
+The owner, on the first attempt: *“it should look like a child on a parent —
+written tiny, but part of the main name, not sitting separately.”* Three things
+were making it two objects instead of one.
+
+| | Was | Is | Why |
+|---|---|---|---|
+| Alignment | right (RTL default) | **left** | `direction: rtl` is right for the glyphs and wrong for the block — it pushed the Arabic to the far end of the Latin and opened an empty wedge next to the mark. `text-align` does not reorder Arabic; `direction` does, and it is untouched |
+| Leading | `line-height: 1.5` | **1.05, with a −10% pull** | Amiri sits low in its own box, so 1.5 on top of that put most of a blank line between them |
+| Size | 0.68 of the Latin | **0.5** | At 0.68 it competed; at 0.5 it is clearly the smaller of two things that belong together |
+
+A −25% pull starts to crowd the *y* descender. −10% is the value.
+
 ### Where the Arabic appears
 
 | Where | The Arabic |
