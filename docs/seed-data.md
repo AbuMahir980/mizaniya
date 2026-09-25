@@ -142,6 +142,36 @@ moves cash left off ₦220,000.00 and the hero off ₦7,500.00. Health at
 load-bearing figure untouched. It is also the honest example: a clinic visit is
 exactly the non-discretionary expense the protection override exists for.
 
+### The amber variant's expense split — added 25 September (#58)
+
+The ₦160,000.00 of the amber variant, by category. Same shape as the split above, so
+the amber screenshot can be produced from seeded data rather than from a guess.
+
+| Category | Spent | Allowance | % | Badge |
+|---|---:|---:|---:|---|
+| Health | ₦14,000.00 | ₦10,000.00 | 140% | **Overspent** |
+| Transport, data and airtime | ₦38,250.00 | ₦45,000.00 | 85% | **Low** |
+| Food and groceries *(+₦12,000.00 carried)* | ₦74,000.00 | ₦102,000.00 | 73% | — |
+| Apartment setup | ₦16,000.00 | ₦25,000.00 | 64% | — |
+| Utilities | ₦4,750.00 | ₦18,000.00 | 26% | — |
+| Miscellaneous | ₦5,000.00 | ₦22,000.00 | 23% | — |
+| Family support | ₦8,000.00 | ₦40,000.00 | 20% | — |
+| Sadaqah | ₦0.00 | ₦10,000.00 | 0% | — |
+| **Total** | **₦160,000.00** | | | |
+
+**Where the extra ₦50,000.00 went, and why there.** ₦34,000.00 more on food and
+₦16,000.00 on apartment setup — the two most plausible places for a month to run heavy,
+and the two with enough allowance to absorb it without a second category tipping over.
+
+Three properties are deliberate:
+
+- **Health still carries the overspend**, at the same ₦14,000.00 against ₦10,000.00. The badge under test does not move between the two variants, so a screenshot of either exercises the same state.
+- **Transport still reads `Low` at 85%**, unchanged, so the amber hero is not the only warning on the screen — which is the realistic case.
+- **Sadaqah stays at ₦0.00**, so there is still an untouched category and the 0% row does not disappear from the amber screenshot.
+
+Every figure above the split is unchanged: cash left ₦170,000.00, safe to spend
+₦100,000.00, **₦5,000.00 a day — below the ₦5,200.00 threshold, so amber.**
+
 ### The 23 movements, 25 September to 5 October
 
 | # | Date | Type | Category / counterparty | Note | Amount |
@@ -396,7 +426,8 @@ was blocking it — whether cash left carries between cycles. It does not; the
 leftover arrives on the next Plan as unallocated instead.
 
 Still missing: the **individual movements of the first cycle**, needed only if
-story F2 is built.
+story F2 is built — the one remaining gap on #58. The amber variant's split was
+added on 25 September and closed the other half.
 
 Three rules for adding them:
 

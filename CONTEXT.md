@@ -499,14 +499,9 @@ typefaces nothing loads yet, the brand files, the welcome screen that was drawn
 after PAGE SPECS and so appears in no ticket, and a Tabs primitive — each against
 the ticket that takes it. The file is deleted once every box is ticked.
 
-**Next action:** the repositioning's own sequence — **ADR-010 signed off**, then
-the re-spec (new stories + `peer-ai/backend/01-spec-endpoints.md`), then the
-**one** design brief. No screen is built before those three. ADR-009's action
-items are the checklist.
-
-*(This line previously read "start #23 — T16", which had already been stale for a
-day: #72's conformance pass outranked it and the state file said so. Corrected
-rather than left to be rediscovered.)*
+**Next action: accounts and sync** — stories I and J, endpoints §5a and §5b. The
+repositioning sequence is finished and #92 is closed; the tracker was tidied on
+25 September so every remaining item is an issue with an honest scope.
 
 ---
 
@@ -1282,52 +1277,42 @@ full reasoning; this is the summary and what it means for the code.*
 
 ## What's Next
 
-**The repositioning comes first, and nothing is built until step 4.** Order
-matters here: handing the designer a repositioning without the product decisions
-is how the artboards get re-cut a third time.
+**The repositioning is complete and the tracker was tidied on 25 September.** Every
+open issue is accurate, scoped and either actionable or explicitly conditional. Nothing
+is carried informally any more — if it is not an issue, it is not outstanding.
 
-1. **Sign off [ADR-010](docs/adr/ADR-010-sync-model.md)** — local-first with the
-   server as sync target, or server-authoritative. It is design-visible (does
-   every screen need an offline and sync state?) so it blocks the brief.
-2. **The schema migration ADR-010 uncovered.** No entity has `updatedAt`,
-   `deletedAt` or a revision, so **last-write-wins cannot be implemented and a
-   delete can never propagate — it resurrects on the next sync.** `SCHEMA_VERSION`
-   1 → 2 across every entity, with a step in the ADR-005 chain. Cheapest now,
-   while the owner's device holds the only data in existence.
-3. **Re-spec.** New stories in the system spec — sign-up, sign-in, reset, sync
-   state, the free/paid boundary, household sharing — then
-   `peer-ai/backend/01-spec-endpoints.md`. `docs/standards/backend-engineering-standards.md`
-   stops being dormant; **§A6 wakes up and §C5 applies** (ADR-008 item 5).
-4. **One design brief**, covering new *and* changed screens and saying explicitly
-   what is reusable — the owner's point is that much of the existing set is:
-   landing page, sign-up / sign-in / reset, account and billing, **what a locked
-   paid feature looks like** (the hardest copy problem in freemium), household
-   invite, the signed-out state of every screen, and the **reconciliation flow**
-   for bank movement — *"₦12,000 left your account, which envelope?"* — which is
-   the product's centre and is drawn nowhere.
-5. **The workspace extraction** (ADR-008 item 2, pulled forward): `src/` →
-   `apps/web/`, `packages/core`, `packages/tokens`. Before `services/api` has a
-   line in it.
-6. **Then build**, and only then resume the screen queue — which is re-specced
-   T16–T22, not T16–T22 as written.
+### The next build work: accounts and sync
 
-**Rule 6 — real user data — is owed from the stakeholder in their own words.**
-Blocks the first real user, not the first commit. See the repo rules above.
+Stories **I** and **J** in `docs/03-system-spec.md`, endpoints in
+`docs/09-endpoint-specs.md` §5a and §5b. This is the first code in `services/api/`,
+the first auth, and the first thing holding anyone else's data — so **rule 7 stops
+being a document and becomes a set of tests.**
 
-**Still open and unowned, unchanged by any of this:** branch protection (needs
-repo-admin hands), the gitleaks action pinned to a tag rather than a SHA,
-`FORBIDDEN_TERMS` unset so the rule-3 guard logs NOT ENFORCED, #58's two
-unseedable scenarios, #65's Home fixture split, and #53's ten missing day-log
-entries.
+Start with the migration ADR-010 requires *before any endpoint*: the sync metadata
+exists, so the next piece is the sync endpoints themselves.
 
-**Carried forward from the parked pass, so it is not lost:** #68's remaining Home
-work (the `Today / This cycle` switch, `Peak 25 Sep` and the axis row, the `÷ 20
-days` footer, the ranked row's rail-and-pill, the emerald `Show all …` link, Goals
-and Debts as two tables, the two-column desktop layout); **#85's debt history**,
-answered in `open-items.md` §G and still needed before T17/T18, including the
-worked part-paid debt that `seed-data.md` still lacks; and **#69's Quick Add**,
-where the artboard's two disclosure tiles are a different interaction model from
-the code's segmented control, not a detail.
+### The fourteen open issues, by what they are
+
+| | |
+|---|---|
+| **Actionable now** | **#65** the Home fixture never exercises the overspent state · **#106** a demo export must not restore as real data |
+| **Needs the owner's hands** | **#111** rule 3 is unenforced — `FORBIDDEN_TERMS` has never been set · **#112** branch protection off, gitleaks on a mutable tag · **#113** hosting, and verify the free tier's retention *before* committing |
+| **Blocked on the designer** | **#72** the conformance pass, re-scoped — 360 work still valid, four 1440 screens being redrawn |
+| **`blocked:respec`** | **#23–#27, #29, #85** — real product need, acceptance criteria written for a different product. Re-read the specs before building |
+| **Conditional** | **#58** first-cycle movements, needed only if story F2 is built |
+
+**#111 is the one to read.** Repo rule 3 — one of the five the stakeholder wrote
+verbatim — has been unenforced for the entire life of the repository. The guard exists,
+runs, and announces that it is doing nothing, in a green CI run nobody reads further.
+It is the project's own principle in its purest form.
+
+### What was closed, and why closing was right
+
+- **#68, #69, #70** folded into #72. Three issues scoped against artboards being redrawn cannot each be tracked; their surviving 360 work is on #72 with what is superseded marked as such.
+- **#73** — all four artboard/`tokens.md` disagreements settled. In one of them the *authoritative document* turned out to be wrong, which is only ever discoverable by asking rather than complying.
+- **#53** — the day-log backfill, closed as not planned. Reconstructing narrative two weeks later produces something that reads like a record and is a reconstruction, and the decisions are already in the ADRs, Key Decisions and the engineering notes.
+- **#92** — the repositioning epic, all nine steps done.
+- **#65 and #58** were each half superseded and half real; both re-scoped to the half that survives rather than closed whole.
 
 ---
 
