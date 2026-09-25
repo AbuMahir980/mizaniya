@@ -2039,3 +2039,58 @@ page now is the expensive direction. ☐
 **72 — Neither page is drawn.** Security in particular is a screen with real
 content, and it is not in `docs/10-design-brief.md` §4. If it is in scope for
 v1 it needs a line in the brief and I will draw it. ☐
+
+### M·11 — The nav is two links, and §M·10 is answered
+
+The owner ruled, 25 September, and it settles items 71 and 72:
+
+- **Pricing leaves the nav and the footer entirely.** There is one product and
+  one set of paid extras — no tier to compare, so nothing for the link to take
+  you to that the page does not already say further down. The footer's Product
+  column now reads *What paying adds · Demo with sample data · What is free
+  forever*.
+- **Security leaves the nav and stays in the footer**, under *Security and
+  privacy*, where it already sat. It is still **a page of its own**, still
+  undrawn, and it now belongs in `10-design-brief.md` §4 as screen 20 — the
+  owner has said it will be built when we reach the footer's own contents.
+- **The nav is `Sign in` and `See it with sample data`.** Two links. In the nav
+  the other two competed with the only action that matters there.
+
+**Item 71: answered.** **Item 72 stands** — the Security page is in scope, and
+it needs a line in the brief before I draw it.
+
+### M·12 — Two more 390 corrections
+
+**The debt band was jam-packed.** Four money figures side by side across 310px
+is four figures none of which can be read. The anchors go back to a column —
+and what stacking them cost, the rail that shows the debt *crossing zero* rather
+than four separate balances, comes back as a **vertical loader down the left**,
+filling from one payday to the next. Same object, turned ninety degrees. Every
+anchor is fully drawn at rest, so with motion off it is a complete list of four
+real paydays ending at ₦0.00.
+
+**The price card was touching the §10.1 claim.** It had no top margin of its
+own — at 1440 it sits in a side column where it does not need one, and at 390
+it stacked straight onto *"We never store your bank data in readable form."*
+The most important sentence on the page was touching a card. 34px between them
+now.
+
+### M·13 — The cleanup, done and checked
+
+**`docs/design/` is 177 artboards and 177 previews, and nothing else.** Every
+file under the old naming (`DHome`, `02-home-1440-light.png` and the rest) is
+gone; the set on disk is exactly what `canvas.json` places, checked
+name-by-name against the build rather than by eye.
+
+Both READMEs still said *173 artboards · 11 pages* — written before the Home
+options page existed. Corrected to 177 and 12.
+
+**One file I have NOT removed, and it is a judgement call:**
+`PROPOSED-seed-additions.md`. Its own header says the figures were merged into
+`seed-data.md` on 10 September and **"do not read figures from this file"** —
+which makes it exactly the kind of stale document worth deleting. But it is kept
+deliberately, because §2 records *why* the overspent row is Health rather than
+Food, and that reasoning exists nowhere else. **73 — fold §2 into
+`seed-data.md` and delete the file, or leave it?** I would fold and delete: a
+document that has to warn you not to read half of it is a document someone will
+eventually read. ☐
