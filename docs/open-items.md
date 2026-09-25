@@ -2288,3 +2288,15 @@ separate database that developers cannot read production from, and backups need
 to exist. Both are real requirements. Neither belongs on a public page — that is
 exactly the architecture disclosure this rewrite removed. They belong in
 `02-architecture.md`. ☐
+
+### M·20 — Security and privacy moves to page 1
+
+It stopped being an app screen the moment it became public, so it stops sitting
+on an app page. **Page 1 · Landing page**, after the four landing boards, at
+both widths.
+
+It wears the landing page's nav and the landing page's footer and has no
+sidebar, it is reached only from that footer, and it is the only page on this
+canvas that is reached from the landing page and is not the landing page. Filing
+it under *Account, sync and household* was a leftover from the version that had
+a sidebar on it.

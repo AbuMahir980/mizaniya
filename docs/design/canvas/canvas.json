@@ -131,6 +131,46 @@
    "print": "fixed"
   },
   {
+   "file": "WebSecurityLight.dc.html",
+   "x": 2720,
+   "y": 7418,
+   "w": 1512,
+   "h": 2727,
+   "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "WebSecurityDark.dc.html",
+   "x": 4372,
+   "y": 7418,
+   "w": 1512,
+   "h": 2727,
+   "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSecurityLight.dc.html",
+   "x": 6024,
+   "y": 7418,
+   "w": 832,
+   "h": 2944,
+   "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSecurityDark.dc.html",
+   "x": 6996,
+   "y": 7418,
+   "w": 832,
+   "h": 2944,
+   "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
    "file": "HomeOptALight.dc.html",
    "x": 0,
    "y": 0,
@@ -791,28 +831,8 @@
    "print": "fixed"
   },
   {
-   "file": "WebSecurityLight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 1512,
-   "h": 2727,
-   "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "WebSecurityDark.dc.html",
-   "x": 1652,
-   "y": 0,
-   "w": 1512,
-   "h": 2727,
-   "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
    "file": "WebSettingsLight.dc.html",
-   "x": 3304,
+   "x": 0,
    "y": 0,
    "w": 1512,
    "h": 1202,
@@ -822,7 +842,7 @@
   },
   {
    "file": "WebSettingsDark.dc.html",
-   "x": 4956,
+   "x": 1652,
    "y": 0,
    "w": 1512,
    "h": 1202,
@@ -832,7 +852,7 @@
   },
   {
    "file": "WebAccountLight.dc.html",
-   "x": 6608,
+   "x": 3304,
    "y": 0,
    "w": 1512,
    "h": 808,
@@ -842,8 +862,8 @@
   },
   {
    "file": "WebAccountDark.dc.html",
-   "x": 0,
-   "y": 2917,
+   "x": 4956,
+   "y": 0,
    "w": 1512,
    "h": 808,
    "title": "15a \u00b7 Settings \u00b7 signed out \u00b7 1440 \u00b7 dark",
@@ -852,8 +872,8 @@
   },
   {
    "file": "WebTiersLight.dc.html",
-   "x": 1652,
-   "y": 2917,
+   "x": 6608,
+   "y": 0,
    "w": 1512,
    "h": 960,
    "title": "16 \u00b7 What an account adds \u00b7 1440 \u00b7 light",
@@ -862,8 +882,8 @@
   },
   {
    "file": "WebTiersDark.dc.html",
-   "x": 3304,
-   "y": 2917,
+   "x": 0,
+   "y": 1392,
    "w": 1512,
    "h": 960,
    "title": "16 \u00b7 What an account adds \u00b7 1440 \u00b7 dark",
@@ -872,8 +892,8 @@
   },
   {
    "file": "WebTiersLapsedLight.dc.html",
-   "x": 4956,
-   "y": 2917,
+   "x": 1652,
+   "y": 1392,
    "w": 1512,
    "h": 1061,
    "title": "16a \u00b7 What an account adds \u00b7 lapsed \u00b7 1440 \u00b7 light",
@@ -882,8 +902,8 @@
   },
   {
    "file": "WebTiersLapsedDark.dc.html",
-   "x": 6608,
-   "y": 2917,
+   "x": 3304,
+   "y": 1392,
    "w": 1512,
    "h": 1061,
    "title": "16a \u00b7 What an account adds \u00b7 lapsed \u00b7 1440 \u00b7 dark",
@@ -892,8 +912,8 @@
   },
   {
    "file": "WebQueueLight.dc.html",
-   "x": 0,
-   "y": 4168,
+   "x": 4956,
+   "y": 1392,
    "w": 1512,
    "h": 994,
    "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 light",
@@ -902,8 +922,8 @@
   },
   {
    "file": "WebQueueDark.dc.html",
-   "x": 1652,
-   "y": 4168,
+   "x": 6608,
+   "y": 1392,
    "w": 1512,
    "h": 994,
    "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 dark",
@@ -912,8 +932,8 @@
   },
   {
    "file": "WebQueueDuplicateLight.dc.html",
-   "x": 3304,
-   "y": 4168,
+   "x": 0,
+   "y": 2643,
    "w": 1512,
    "h": 815,
    "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 light",
@@ -922,8 +942,8 @@
   },
   {
    "file": "WebQueueDuplicateDark.dc.html",
-   "x": 4956,
-   "y": 4168,
+   "x": 1652,
+   "y": 2643,
    "w": 1512,
    "h": 815,
    "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 dark",
@@ -932,8 +952,8 @@
   },
   {
    "file": "WebQueueEmptyLight.dc.html",
-   "x": 6608,
-   "y": 4168,
+   "x": 3304,
+   "y": 2643,
    "w": 1512,
    "h": 643,
    "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 light",
@@ -942,8 +962,8 @@
   },
   {
    "file": "WebQueueEmptyDark.dc.html",
-   "x": 0,
-   "y": 5352,
+   "x": 4956,
+   "y": 2643,
    "w": 1512,
    "h": 643,
    "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 dark",
@@ -952,8 +972,8 @@
   },
   {
    "file": "WebDisagreeALight.dc.html",
-   "x": 1652,
-   "y": 5352,
+   "x": 6608,
+   "y": 2643,
    "w": 1512,
    "h": 936,
    "title": "18 \u00b7 Household \u00b7 two amounts for one expense \u00b7 1440 \u00b7 light",
@@ -962,8 +982,8 @@
   },
   {
    "file": "WebDisagreeADark.dc.html",
-   "x": 3304,
-   "y": 5352,
+   "x": 0,
+   "y": 3769,
    "w": 1512,
    "h": 936,
    "title": "18 \u00b7 Household \u00b7 two amounts for one expense \u00b7 1440 \u00b7 dark",
@@ -972,8 +992,8 @@
   },
   {
    "file": "WebDisagreeBLight.dc.html",
-   "x": 4956,
-   "y": 5352,
+   "x": 1652,
+   "y": 3769,
    "w": 1512,
    "h": 882,
    "title": "18a \u00b7 Household \u00b7 two amounts for a savings target \u00b7 1440 \u00b7 light",
@@ -982,8 +1002,8 @@
   },
   {
    "file": "WebDisagreeBDark.dc.html",
-   "x": 6608,
-   "y": 5352,
+   "x": 3304,
+   "y": 3769,
    "w": 1512,
    "h": 882,
    "title": "18a \u00b7 Household \u00b7 two amounts for a savings target \u00b7 1440 \u00b7 dark",
@@ -1691,28 +1711,8 @@
    "print": "fixed"
   },
   {
-   "file": "MwSecurityLight.dc.html",
-   "x": 1382,
-   "y": 0,
-   "w": 832,
-   "h": 2944,
-   "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
-   "page": "page-m-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "MwSecurityDark.dc.html",
-   "x": 2354,
-   "y": 0,
-   "w": 832,
-   "h": 2944,
-   "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
-   "page": "page-m-acct",
-   "print": "fixed"
-  },
-  {
    "file": "MwImportConfirmLight.dc.html",
-   "x": 3326,
+   "x": 1382,
    "y": 0,
    "w": 462,
    "h": 754,
@@ -1722,7 +1722,7 @@
   },
   {
    "file": "MwImportConfirmDark.dc.html",
-   "x": 3928,
+   "x": 1984,
    "y": 0,
    "w": 462,
    "h": 754,
@@ -1732,7 +1732,7 @@
   },
   {
    "file": "MwImportDoneLight.dc.html",
-   "x": 4530,
+   "x": 2586,
    "y": 0,
    "w": 462,
    "h": 732,
@@ -1742,7 +1742,7 @@
   },
   {
    "file": "MwImportDoneDark.dc.html",
-   "x": 5132,
+   "x": 3188,
    "y": 0,
    "w": 462,
    "h": 732,
@@ -1752,7 +1752,7 @@
   },
   {
    "file": "MwImportRefuseLight.dc.html",
-   "x": 5734,
+   "x": 3790,
    "y": 0,
    "w": 793,
    "h": 685,
@@ -1762,7 +1762,7 @@
   },
   {
    "file": "MwImportRefuseDark.dc.html",
-   "x": 6667,
+   "x": 4723,
    "y": 0,
    "w": 793,
    "h": 685,
