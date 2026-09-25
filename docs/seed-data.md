@@ -310,6 +310,79 @@ personal savings has reached ₦2,000,000.00, so zakatable savings are
 
 ---
 
+## Added 25 September — for the design round (§H item 30, §I items 36–39)
+
+Five gaps the designer named rather than invented. Invented here, per rule 2, and
+**none of them disturbs an existing figure**: the detected movements are dated after
+the worked day and are not yet transactions at all, so the nineteen expenses still sum
+to exactly ₦110,000.00 and every assertion in `scripts/seed-scenario.ts` still holds.
+
+### The second person in the household — **Aisha**
+
+A given name, not a role. `Spouse` already exists as a **debt counterparty** (₦60,000
+owed), and reusing it would say the person you owe money to is the person editing your
+budget — two different relationships that happen to share a house.
+
+`Aisha` is the co-budgeter: invited to the household, edits the same plan, appears by
+name on the disagreement screen. **Swap it freely** — nothing derives from the
+spelling.
+
+### The disagreement — two cases, not one
+
+The brief's *Food ₦40,000 / ₦35,000* was illustrative and inconsistent with the
+seeded plan, which has **Food and groceries at ₦90,000**. Two cases, because they
+behave differently and the design needs both:
+
+| Case | Category | Type | Owner set | Aisha set |
+|---|---|---|---:|---:|
+| **A — the ordinary one** | Food and groceries | Expense | **₦90,000** | ₦75,000 |
+| **B — the one that tests the rule** | Rent fund | Savings | **₦75,000** | ₦90,000 |
+
+Case A is what §H item 27 is drawn against. **Case B exists because a planned amount
+only reduces safe-to-spend when the category is protected** — so which figure is the
+cautious one is not the same in both cases. See §I item 40.
+
+Aisha wanting to save *faster* than the owner is also the more realistic household
+argument, and it is the one where a naive rule gives the wrong answer.
+
+### Detected bank movements — eight, dated 5–12 October
+
+For the reconciliation queue (§H item 26). The *3 of 8* counter in that design is why
+the count is fixed here rather than left to the drawing.
+
+**Payee strings are deliberately ugly**, because that ugliness *is* the design problem
+— a bank sends `POS 4412 FUELMART LEKKI` and not "Fuel". They are also deliberately
+**not real companies**: repo rule 3 keeps third-party names out of the repo, and an
+invented merchant carries the same design problem without naming anyone. Do not
+"improve" these into real brands.
+
+| # | Date | Amount | As the bank sends it | Note |
+|:-:|---|---:|---|---|
+| 1 | Mon 5 Oct | ₦7,000.00 | `POS 4412 FUELMART LEKKI LA` | **The duplicate case.** Matches movement 23 — already entered by hand as *Fuel*, ₦7,000.00, 5 Oct (§M5) |
+| 2 | Tue 6 Oct | ₦3,450.00 | `MKTSQUARE ILUPEJU POS 8801` | Groceries, plainly |
+| 3 | Tue 6 Oct | ₦1,200.00 | `VTU AIRTIME TOPUP` | Small and obvious |
+| 4 | Wed 7 Oct | ₦18,000.00 | `PREPAID ELECTRIC TOKEN PUR` | Larger than the Utilities envelope's ₦18,000 leaves room for — a real reconciliation decision |
+| 5 | Thu 8 Oct | ₦2,800.00 | `RIDEHAIL LAGOS NG` | Transport |
+| 6 | Fri 9 Oct | ₦900.00 | `CARD MAINTENANCE FEE` | **The *Not mine* case** — a bank fee the owner never chose. Every queue needs an escape and this is why |
+| 7 | Sat 10 Oct | ₦25,000.00 | `TRF TO AISHA HOUSEKEEPING` | Ambiguous on purpose: household support, or money to the co-budgeter? |
+| 8 | Sun 12 Oct | ₦6,500.00 | `ATM WDL LEKKI BR 0041` | Cash out, so the category is genuinely unknowable from the feed |
+
+**Eight, of which two are not simple categorisations** — the duplicate and the fee. A
+queue drawn only against easy rows would not show what the feature is for.
+
+### Devices — two, for the sync line and the device list
+
+| Device | Last synced |
+|---|---|
+| **This phone** | *now* — the device being used |
+| **Laptop** | 5 Oct, 09:14 |
+
+§H item 23's Home line quotes *"Not synced since 09:14"*, which is this. Two entries is
+the minimum that makes **I7** (sign a device out remotely) mean anything, and the
+minimum that makes the two-device sync state reachable at all.
+
+---
+
 ## Adding to this file
 
 The individual movements arrived on 10 September, worked out for the design stop

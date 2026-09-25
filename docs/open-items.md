@@ -1020,7 +1020,7 @@ is not reopened.** What follows is additive.
 
 ---
 
-## I · Back to the build side — asked 25 September, from the design side
+## I · Back to the build side — asked 25 September, answered 25 September
 
 *Same convention in reverse: answer in place, change this heading to `answered
 <date>`. Nothing here blocks §H's answers, which are final as written — but three of
@@ -1033,21 +1033,31 @@ reached that are not mine to make alone.*
 (disagreement) cannot be drawn faithfully until the first three exist**, and repo
 rule 2 says I do not invent them. In priority order:
 
-- [ ] **36 · Detected bank movements.** The seed has no uncategorised movements at
+- [x] **36 · Detected bank movements.** The seed has no uncategorised movements at
   all. Needed: **how many** — the *3 of 8* counter is part of the queue's design and a
   made-up count would draw the wrong screen — and for each, an amount, a payee string
   *as a bank would actually send it* (that ugliness is the design problem), and a date.
   **At least one should plausibly match an existing manual entry**, so the duplicate
   case (§M5) has something to show.
-- [ ] **37 · A second household member's given name.** `Spouse` exists only as a debt
+- [x] **37 · A second household member's given name.** `Spouse` exists only as a debt
   counterparty; reusing it would say the person you owe ₦60,000 is the person editing
   your budget. §H item 27 turns on using names rather than roles, so this is not
   cosmetic.
-- [ ] **38 · Two figures for the disagreement**, consistent with the seeded plan —
+- [x] **38 · Two figures for the disagreement**, consistent with the seeded plan —
   `Food and groceries` is planned at **₦90,000**, so the brief's ₦40,000 / ₦35,000 is
   illustrative. Also which of the two is the owner's.
-- [ ] **39 · Device names and last-sync times.** §H item 23's Home line quotes a time,
+- [x] **39 · Device names and last-sync times.** §H item 23's Home line quotes a time,
   and the devices list (**I7**) needs at least two rows.
+
+**All four answered — `docs/seed-data.md`, new section *Added 25 September*.**
+Nothing there disturbs an existing figure: the detected movements are dated after the
+worked day and are not transactions yet, so the nineteen expenses still sum to exactly
+₦110,000.00 and `npm run seed` still passes its own assertions.
+
+- **37 — the name is `Aisha`.** Your reasoning is recorded with it: `Spouse` is a *debt counterparty*, a co-budgeter is a different relationship, and reusing the word would have said the person you owe ₦60,000 is the person editing your plan. Swap the spelling freely; nothing derives from it.
+- **38 — two cases, not one, and the second is deliberate.** Case A is Food and groceries, owner ₦90,000 against Aisha's ₦75,000 — consistent with the seeded plan, which the brief's ₦40,000/₦35,000 was not. **Case B is Rent fund, owner ₦75,000 against Aisha's ₦90,000**, and it exists because it breaks the rule you proposed. See item 40.
+- **36 — eight movements, 5–12 October**, with the *3 of 8* count fixed in the file rather than left to the drawing. Two of the eight are not simple categorisations: **#1 duplicates seeded movement 23 exactly** (Fuel, ₦7,000.00, 5 Oct) for §M5, and **#6 is a `CARD MAINTENANCE FEE`** — the *Not mine* case, a charge the owner never chose. A queue drawn only against easy rows would not show what the feature is for. Payee strings are ugly on purpose and **deliberately not real companies** — repo rule 3 — so please do not improve them into real brands.
+- **39 — two devices**, *This phone* (now) and *Laptop* (5 Oct, 09:14), which is the 09:14 your Home line quotes.
 
 ### I·b — Decisions I reached that belong to the spec, not to design
 
@@ -1063,14 +1073,95 @@ a `design:` row in `CONTEXT.md` Open Questions.
   spend than there might be — and the screen states it in words so the app is not
   suspected of quietly preferring one person. **But which figure the engine uses is
   behaviour, and it is your call.**
+
+
+  **Answered — and your instinct is right while the rule implements it backwards for
+  the case that matters. Thank you for surfacing it instead of drawing it.**
+
+  I checked it against `src/core/budget/budget.ts` rather than reasoning about it. A
+  planned amount reaches safe-to-spend through **`protectedRemaining`**, which counts
+  **only protected categories** — anything whose type is not `Expense` (**D1**).
+
+  So the two cases behave in opposite directions:
+
+  | Disagreement about | Taking the **lower** figure | Effect on safe-to-spend |
+  |---|---|---|
+  | **Food and groceries** (Expense) | Envelope smaller, warns earlier | **None** — expenses are not protected |
+  | **Rent fund** (Savings, protected) | Reserves **less** | **Safe-to-spend goes UP** |
+
+  **For a protected category, "lower" says there is more to spend than there might be** —
+  precisely the harm you were guarding against. Your example was Food, where the rule is
+  harmless because the planned amount never enters the figure at all; it fails on Rent
+  fund, Emergency fund and the debt payments, which are also the allocations a couple is
+  most likely to argue about. That is why `seed-data.md` now carries **Case B** as well.
+
+  **The rule, stated so it cannot be got backwards:**
+
+  > **While a planned amount is unsettled, the engine uses whichever of the two figures
+  > produces the smaller safe-to-spend.**
+
+  Which resolves to: **the higher amount for a protected category** (reserve more, leave
+  less spendable), and **the lower for an expense category** (the envelope warns earlier,
+  and safe-to-spend is unaffected either way).
+
+  It is one sentence, it is testable, and it is derived from the one thing this app must
+  never do — overstate what someone can spend (`money.md`).
+
+  **What this changes on your screen: the wording, not the layout.** Your fourth
+  decision — say which figure is being used and why — stands exactly, and it was the
+  right instinct. It just cannot be *"the lower of the two"* in every case. Proposed:
+
+  > *Until you agree, Mizaniya uses ₦90,000 — the more cautious of the two, so it never
+  > tells you there is more to spend than there might be.*
+
+  **"The more cautious of the two"** is true in both cases and needs no arithmetic from
+  the reader. **Please confirm that reads acceptably**, since the copy is yours — and if
+  it does not, the constraint is only that it must not claim *lower* or *higher* as a
+  universal rule.
+
+  **Marked as proposed rather than settled**, because it is a money-behaviour decision
+  with a user-visible consequence and the owner has not confirmed it yet. Logged in
+  `CONTEXT.md` Open Questions. Nothing about drawing Case A is blocked by the
+  confirmation.
 - [ ] **41 · The reconciliation queue never blocks anything.** It is a row on Home that
   opens its own surface, not a modal and not an interstitial. A queue that must be
   cleared would make a paid feature into a toll gate on the free product. Placement is
   mine; **being non-blocking is a behaviour decision.**
+
+
+  **Agreed, and it is now a requirement rather than a preference.** Non-blocking is the
+  only reading consistent with the addendum's **K1** — no upsell interrupts the core
+  journey — and a paid queue standing between someone and their safe-to-spend figure
+  would do exactly that. Recorded in the system spec.
+
+  One addition from the behaviour side: **the count on the Home row must not be a badge
+  that nags.** *"8 movements to sort"* is information; a red dot that grows is pressure
+  to use a feature they are paying for, applied to a screen about money they are short
+  of. Same reasoning as your item 24.
 - [ ] **42 · A demo export must not restore silently as real data** (§H item 33). The
   on-screen marker is drawn, but an export leaving the app and coming back carries the
   hazard one step removed. Needs a flag on the export and a sentence on import. **Pure
   behaviour — flagged, not designed.** Worth an issue in `08-issue-plan.md`.
+
+
+  **Agreed, and it is the sharpest catch in §I.** A demo export restoring silently as
+  real data would put invented figures into someone's actual budget with nothing
+  anywhere marking them — and because every figure in this app is *derived*, the
+  contamination spreads to safe-to-spend, the rollover and the debt balances at once,
+  all looking equally correct. That is the exact failure shape the project has a name
+  for.
+
+  **The mechanism:** `ExportFile` gains a `demo: true` flag. On import, a demo file is
+  refused by default with a plain explanation, and restorable only into a demo session
+  — never into an account. Not a warning someone clicks through: a refusal.
+
+  **One extra place you did not name, and it is worse:** the **`schemaVersion` migration
+  path**. A demo file exported today and imported after a schema change must keep its
+  flag through every migration step, or the flag is lost exactly when the file is
+  oldest and least recognisable.
+
+  Needs an issue and a test that a demo file cannot reach a real account. Both being
+  raised now.
 - [ ] **43 · Export must be reachable while signing in** (§H item 25). The whole
   design of the two-budget choice rests on offering *"save this device's budget to a
   file"* **before** either destructive option, which turns an irreversible decision
@@ -1078,25 +1169,111 @@ a `design:` row in `CONTEXT.md` Open Questions.
   — the screen needs redesigning around a worse set of options, and I would rather know
   now.
 
+
+  **Yes, and with no work needed. Draw it.**
+
+  Export reads the local snapshot through the `Repository` and writes a file. It touches
+  no server, needs no session, and does not care whether anyone is signed in — so it is
+  available at any point in the sign-in flow, including this one. `buildExportFile` takes
+  the snapshot and an instant, and that is all it takes.
+
+  Your instinct is better than the architecture deserved credit for: **the escape hatch
+  already existed and nobody had thought to put it at the one moment it is worth most.**
+
 ### I·c — Assumptions that would invalidate a drawing if wrong
 
-- [ ] **44 · Can the client know how many devices are on the account, without a
+- [x] **44 · Can the client know how many devices are on the account, without a
   blocking round trip, at the moment Home paints?** §H item 23 shows the sync line on
   Home **only** when there are unsynced changes *and* more than one device — because
   on a single-device account the figure cannot be stale, and a badge that is always
   there stops being read. **If that count is not available locally at paint time, the
   rule collapses** and I need to redesign it — probably to the last-known count with an
   honest stale caveat, but I would rather you tell me than have me guess.
-- [ ] **45 · Does the 1440 shell keep its 1180px content area** once account and sync
+
+
+  **Answered: no, not authoritatively — and your fallback is right, with one change that
+  makes it safe. This is the best question in §I.**
+
+  The device count is **server state**. Home paints from the local snapshot with no
+  network call — that is the architecture (**ADR-001**, **ADR-010**) — so at paint time
+  the client knows only the **last count it was told**, cached from the previous sync.
+  It cannot be made authoritative without a blocking round trip, and a blocking round
+  trip on Home is the one thing this app refuses.
+
+  So your fallback stands. But a plain cached count fails in the direction that matters:
+
+  > One device on the account. A second signs in. The first has not synced since, so its
+  > cached count is still 1 — **and it hides the line exactly when it first becomes
+  > true.**
+
+  **The fix: make the flag sticky and one-way.** Once an account has *ever* been seen
+  with more than one device, that device treats itself as multi-device until a sync
+  confirms it has genuinely returned to one.
+
+  **Why one-way** — the two errors are not equal. Showing the line unnecessarily costs
+  one quiet line of `small`/`soft` under the figure. *Not* showing it when another device
+  holds newer figures means someone reads a stale number believing it current, which is
+  what §J3 exists to prevent. Where a caveat is cheap and its absence is not, it errs
+  toward present.
+
+  | | |
+  |---|---|
+  | Available at paint time? | **Yes**, locally, from the last sync |
+  | Authoritative? | **No**, and it cannot be |
+  | Behaviour | Sticky once multi-device; only a sync clears it |
+  | Errs toward | **Showing** the line |
+
+  **Nothing in your design changes** — the one state you drew is still the one state.
+  Recorded in the system spec so the build cannot quietly ship the naive version.
+- [x] **45 · Does the 1440 shell keep its 1180px content area** once account and sync
   chrome exist? §H item 31's two-column maths for Home, Transactions, Plan and
   Debts & Goals is built on it, and `tokens.md` §3's surface rule uses 1180 as the
   threshold that decides which type step a surface takes. A new sidebar or top bar
   moves both.
-- [ ] **46 · Does CSS plus the Web Animations API cover `motion.md` §3.11?** The queue
+
+
+  **Answered: yes, 1180 holds. No new persistent chrome.** Your two-column maths is safe.
+
+  | New surface | Where it lives | Touches the content area? |
+  |---|---|---|
+  | Account, sign-in, reset (§08) | their own routes | no |
+  | Account settings (§08a) | **inside existing Settings**, deliberately not a new area | no |
+  | Tier comparison (§09) | its own route, reached from a row | no |
+  | The sync line (§H 23) | under the hero | no — it is content, not chrome |
+  | Locked rows (§H 24) | in place, as rows | no |
+  | Reconciliation (§H 26) | a row on Home opening its own surface | no |
+
+  **The one exception is already yours:** the demo bar (§H 33) sits above the top bar by
+  design. It costs vertical viewport in demo mode and does not touch the 1180 horizontal
+  content area, so the surface rule and the type steps are unaffected.
+
+  **No sidebar.** Folding the account into Settings rather than giving it its own area is
+  what avoids one — an instinct from the brief whose payoff only shows up here.
+- [x] **46 · Does CSS plus the Web Animations API cover `motion.md` §3.11?** The queue
   — one item leaving, the next arriving — is the only entry with real orchestration.
   `motion.md` §7 asserts no motion library is needed and that the 594KB bundle (**N1**)
   should not grow for this. **Bundle weight is yours**; if you disagree after trying
   it, say so and I will simplify the motion rather than buy a library for it.
+
+
+  **Answered: agreed, no library — and §3.11 is easier than it looks, because of a
+  choice you already made.**
+
+  §4 says exactly one item is ever moving, because exactly one item is ever being asked
+  about. **That removes the orchestration.** No list to reflow, no measuring, no FLIP —
+  one element leaving over `sheet` out and one arriving over `sheet` in, which is two CSS
+  transitions and a callback. A motion library exists to coordinate many moving things,
+  and you designed the many away.
+
+  So **§7 stands as written.** The bundle does not grow and **N1** is not invoked. If it
+  proves harder in practice I will take your offer and simplify the motion rather than
+  buy weight for it, but I do not expect to.
+
+  One note back on §7's third bullet, which is a good one — *honour the media query in
+  CSS, not only in JS*. Agreed, and it will be enforced rather than remembered: a
+  JS-gated animation still runs for the frame before hydration, which is the
+  reduced-motion bug nobody ever sees, because it happens once, on the device of the
+  person who most needed it not to.
 
 
 ---
