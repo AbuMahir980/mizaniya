@@ -1346,6 +1346,69 @@ a `design:` row in `CONTEXT.md` Open Questions.
 
 ---
 
+## J · The workspace moved, and the decisions since your last drop — 25 September
+
+*Nothing here needs an answer. It is the state of the repo as you resume, and the
+decisions taken while you were drawing, so nothing you read contradicts what you
+find. Anything needing your judgement is still in §H and §I.*
+
+### J·1 — Files moved. **Yours did not.**
+
+The code was reorganised into a workspace so the coming server can share the domain
+logic. **Every file you write is exactly where it was:** the canvas, the PNGs,
+`tokens.md`, `motion.md`, `brand/`, and this file. Nothing under `docs/` moved.
+
+What moved, in case you open the code or a document points you at it:
+
+| Was | Now |
+|---|---|
+| `src/ui/`, `src/app/`, `src/features/`, `src/store/`, `src/data/`, `src/design/` | `apps/web/src/…` |
+| `src/core/` | `packages/core/src/` |
+| `src/design/tokens.ts` and `tokens.css` | `apps/web/src/design/` — **still together, still guarded by `tokens.test.ts`** |
+| the primitives gallery | `apps/web/src/app/primitives-page.tsx` |
+
+**`tokens.md` is unaffected in every way that matters.** It is still authoritative,
+it still generates nothing, and `tokens.test.ts` still fails the build when the code
+drifts from it. Only the path of the file it is checked against changed.
+
+**Every command is unchanged.** `npm run dev`, `npm run verify`, `npm run seed` work
+from the repository root exactly as before — that was a deliberate constraint on the
+move, not luck. If you run the app to look at a screen, nothing you type is different.
+
+**Two of your own documents still say `src/…`** — `docs/design/README.md` and
+`docs/design/DESIGN-BRIEF.md`. Left alone on purpose: they are yours, and they are now
+covered by the design-drop guard, so we do not edit them. Update them or leave them;
+nothing depends on it.
+
+### J·2 — `motion.md` is now guarded, and that was a gap
+
+`scripts/check-design-drop.mjs` protects your files from being swept into an unrelated
+commit. It covered the canvas, `brand/`, `tokens.md` and the PNGs — **and not
+`motion.md`, on the day it arrived.** Fixed, and the guard now also fails when *any*
+new markdown file appears in `docs/design/` and is not accounted for, so the next thing
+you produce is protected without anyone remembering to add it.
+
+### J·3 — Decisions taken since your drop
+
+| | |
+|---|---|
+| **Rules 6 and 7 are binding** | 6: every build runs against seeded data behind a `.env` switch. 7: what the server may hold — encryption with keys outside the database, bank tokens held higher than anything else, financial values never logged, every production access recorded **and users told**, real erasure, a *verified* restore, and **claims that are exactly true**. Your §H item 29 work is what rule 7's last clause points at |
+| **Price and payment provider: placeholders, settled** | Not gaps. Nothing is integrated yet, so a figure now would harden into a commitment. **This unblocks §09's subscribe flow — please do draw it**, which reverses what the covering note told you. Your plan was already right: draw around a placeholder and name the three strings |
+| **Item 40 corrected** | The household disagreement rule is **the higher of the two, no exceptions** — see §I. Your *lower* was backwards for protected categories, and my first replacement was worse for your reasons. Only the copy on your screen changes, and it gets shorter |
+| **Item 42 is issue #106** | The demo export hazard you flagged. Includes one thing you did not name and it is worse: the demo flag has to survive every schema migration, or it is lost exactly when the file is oldest |
+| **`packages/tokens` was not created** | ADR-008 called for it. Skipped: nothing imports `tokens.ts` but two tests, so the package would have had one consumer in another package. It arrives at v2 when React Native needs the values and cannot use CSS. **No effect on you** |
+
+### J·4 — What is waiting on you
+
+Nothing new. §H items 26 and 27 were blocked on figures; **those figures now exist** in
+`docs/seed-data.md` — eight detected bank movements, the second household name, two
+disagreement cases, and two devices. So **26 and 27 are unblocked**, along with §09.
+
+Item **31** (which 1440 screens, and what earns the width) is the largest piece
+outstanding, and item **47** in §I is new and small.
+
+---
+
 ## What is already complete — do not redo
 
 - `tokens.md` → `apps/web/src/design/tokens.ts` and `tokens.css`: all 33 colours match, and
