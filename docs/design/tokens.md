@@ -473,7 +473,8 @@ were making it two objects instead of one.
 |---|---|---|---|
 | Position | under the Latin | **above it** | Owner's call, third pass: *“it sits on top of it, like a child on the head of a parent, in its tiny form.”* |
 | Alignment | right | **right — unchanged** | Left was tried and sent back. ميزانية starts at the RIGHT, so its first letter sits over the Latin's last one — over the *h*, running back towards the *M*. Each script begins at its own reading edge |
-| Pull | top margin | **bottom margin, −18%** | It sits on the cap line. −25% and the tails of the *ya* and the *ta marbuta* touch the ascenders below |
+| Horizontal | flush right | **shifted left 30%** of the Latin size | Flush right put it over the *h*, the tallest thing in the word and the one place with no room. `-iya-` is four x-height letters with nothing above them but the *i*'s dot, so the skyline has a valley between the ā's macron and the *h*'s ascender. The Arabic drops into it |
+| Pull | top margin | **bottom margin, −28%** | Deeper than it could sit over the *h*, precisely because there is nothing under it now. Much past that and the tails of the *ya* and the *ta marbuta* reach the *i*'s dot |
 | Font | Inter's fallback | **Amiri** | `.ar` lived in `brand.AR_CSS`, which every builder had to remember to append, and `build_land.py` did not. It is in `ui.ALL_CSS` now, and Amiri is in the global font link |
 | Leading | `line-height: 1.5` | **1.05, with a −10% pull** | Amiri sits low in its own box, so 1.5 on top of that put most of a blank line between them |
 | Size | 0.68 of the Latin | **0.5** | At 0.68 it competed; at 0.5 it is clearly the smaller of two things that belong together |

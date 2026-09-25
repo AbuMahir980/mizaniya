@@ -35,7 +35,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 6627,
+   "h": 6625,
    "title": "Landing page \u00b7 1440 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -45,7 +45,7 @@
    "x": 1652,
    "y": 0,
    "w": 1512,
-   "h": 6627,
+   "h": 6625,
    "title": "Landing page \u00b7 1440 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -53,9 +53,9 @@
   {
    "file": "LandPhoneLight.dc.html",
    "x": 0,
-   "y": 6817,
+   "y": 6815,
    "w": 832,
-   "h": 7234,
+   "h": 7232,
    "title": "Landing page \u00b7 390 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -63,9 +63,9 @@
   {
    "file": "LandPhoneDark.dc.html",
    "x": 972,
-   "y": 6817,
+   "y": 6815,
    "w": 832,
-   "h": 7234,
+   "h": 7232,
    "title": "Landing page \u00b7 390 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -73,7 +73,7 @@
   {
    "file": "LandMotionLight.dc.html",
    "x": 0,
-   "y": 14241,
+   "y": 14237,
    "w": 1708,
    "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 light",
@@ -83,7 +83,7 @@
   {
    "file": "LandMotionDark.dc.html",
    "x": 1848,
-   "y": 14241,
+   "y": 14237,
    "w": 1708,
    "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 dark",
@@ -93,7 +93,7 @@
   {
    "file": "LandCycleLight.dc.html",
    "x": 0,
-   "y": 15994,
+   "y": 15990,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 light",
@@ -103,7 +103,7 @@
   {
    "file": "LandCycleDark.dc.html",
    "x": 1360,
-   "y": 15994,
+   "y": 15990,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
@@ -113,7 +113,7 @@
   {
    "file": "WebFirstRunLight.dc.html",
    "x": 0,
-   "y": 17918,
+   "y": 17914,
    "w": 1512,
    "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 light",
@@ -123,7 +123,7 @@
   {
    "file": "MwFirstRunLight.dc.html",
    "x": 1652,
-   "y": 17918,
+   "y": 17914,
    "w": 462,
    "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 light",
@@ -133,7 +133,7 @@
   {
    "file": "WebFirstRunDark.dc.html",
    "x": 2254,
-   "y": 17918,
+   "y": 17914,
    "w": 1512,
    "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 dark",
@@ -143,7 +143,7 @@
   {
    "file": "MwFirstRunDark.dc.html",
    "x": 3906,
-   "y": 17918,
+   "y": 17914,
    "w": 462,
    "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 dark",
@@ -153,7 +153,7 @@
   {
    "file": "WebPrivacyModalLight.dc.html",
    "x": 0,
-   "y": 19282,
+   "y": 19278,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 light",
@@ -163,9 +163,9 @@
   {
    "file": "MwPrivacyModalLight.dc.html",
    "x": 1652,
-   "y": 19282,
+   "y": 19278,
    "w": 523,
-   "h": 928,
+   "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -173,7 +173,7 @@
   {
    "file": "WebPrivacyModalDark.dc.html",
    "x": 2315,
-   "y": 19282,
+   "y": 19278,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 dark",
@@ -183,9 +183,9 @@
   {
    "file": "MwPrivacyModalDark.dc.html",
    "x": 3967,
-   "y": 19282,
+   "y": 19278,
    "w": 519,
-   "h": 928,
+   "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -193,9 +193,9 @@
   {
    "file": "WebSecurityLight.dc.html",
    "x": 0,
-   "y": 20504,
+   "y": 20500,
    "w": 1512,
-   "h": 2733,
+   "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -203,9 +203,9 @@
   {
    "file": "MwSecurityLight.dc.html",
    "x": 1652,
-   "y": 20504,
+   "y": 20500,
    "w": 832,
-   "h": 2950,
+   "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -213,9 +213,9 @@
   {
    "file": "WebSecurityDark.dc.html",
    "x": 2624,
-   "y": 20504,
+   "y": 20500,
    "w": 1512,
-   "h": 2733,
+   "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -223,9 +223,9 @@
   {
    "file": "MwSecurityDark.dc.html",
    "x": 4276,
-   "y": 20504,
+   "y": 20500,
    "w": 832,
-   "h": 2950,
+   "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -245,7 +245,7 @@
    "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 1052,
+   "h": 1051,
    "title": "01 \u00b7 Sign up \u00b7 360 \u00b7 light",
    "page": "page-w-in",
    "print": "fixed"
@@ -265,7 +265,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 1052,
+   "h": 1051,
    "title": "01 \u00b7 Sign up \u00b7 360 \u00b7 dark",
    "page": "page-w-in",
    "print": "fixed"
@@ -285,7 +285,7 @@
    "x": 1652,
    "y": 1330,
    "w": 532,
-   "h": 986,
+   "h": 985,
    "title": "01a \u00b7 Sign up \u00b7 address already has an account \u00b7 360 \u00b7 light",
    "page": "page-w-in",
    "print": "fixed"
@@ -305,7 +305,7 @@
    "x": 3976,
    "y": 1330,
    "w": 528,
-   "h": 986,
+   "h": 985,
    "title": "01a \u00b7 Sign up \u00b7 address already has an account \u00b7 360 \u00b7 dark",
    "page": "page-w-in",
    "print": "fixed"
@@ -325,7 +325,7 @@
    "x": 1652,
    "y": 2516,
    "w": 462,
-   "h": 838,
+   "h": 837,
    "title": "02 \u00b7 Sign in \u00b7 360 \u00b7 light",
    "page": "page-w-in",
    "print": "fixed"
@@ -345,7 +345,7 @@
    "x": 3906,
    "y": 2516,
    "w": 462,
-   "h": 838,
+   "h": 837,
    "title": "02 \u00b7 Sign in \u00b7 360 \u00b7 dark",
    "page": "page-w-in",
    "print": "fixed"
@@ -365,7 +365,7 @@
    "x": 1652,
    "y": 3684,
    "w": 832,
-   "h": 570,
+   "h": 568,
    "title": "03 \u00b7 Forgot password \u00b7 360 \u00b7 light",
    "page": "page-w-in",
    "print": "fixed"
@@ -385,7 +385,7 @@
    "x": 4276,
    "y": 3684,
    "w": 832,
-   "h": 570,
+   "h": 568,
    "title": "03 \u00b7 Forgot password \u00b7 360 \u00b7 dark",
    "page": "page-w-in",
    "print": "fixed"
@@ -405,7 +405,7 @@
    "x": 1652,
    "y": 4852,
    "w": 758,
-   "h": 666,
+   "h": 665,
    "title": "03a \u00b7 Forgot password \u00b7 check your email \u00b7 360 \u00b7 light",
    "page": "page-w-in",
    "print": "fixed"
@@ -425,7 +425,7 @@
    "x": 4202,
    "y": 4852,
    "w": 758,
-   "h": 666,
+   "h": 665,
    "title": "03a \u00b7 Forgot password \u00b7 check your email \u00b7 360 \u00b7 dark",
    "page": "page-w-in",
    "print": "fixed"
@@ -445,7 +445,7 @@
    "x": 1652,
    "y": 6038,
    "w": 832,
-   "h": 694,
+   "h": 693,
    "title": "04 \u00b7 Reset password \u00b7 set a new one \u00b7 360 \u00b7 light",
    "page": "page-w-in",
    "print": "fixed"
@@ -465,7 +465,7 @@
    "x": 4276,
    "y": 6038,
    "w": 832,
-   "h": 694,
+   "h": 693,
    "title": "04 \u00b7 Reset password \u00b7 set a new one \u00b7 360 \u00b7 dark",
    "page": "page-w-in",
    "print": "fixed"
@@ -1855,7 +1855,7 @@
    "x": 0,
    "y": 0,
    "w": 1072,
-   "h": 1005,
+   "h": 1001,
    "title": "Design stop \u00b7 light",
    "page": "page-brand",
    "print": "fixed"
@@ -1863,9 +1863,9 @@
   {
    "file": "CoverDark.dc.html",
    "x": 0,
-   "y": 1195,
+   "y": 1191,
    "w": 1072,
-   "h": 1005,
+   "h": 1001,
    "title": "Design stop \u00b7 dark",
    "page": "page-brand",
    "print": "fixed"
@@ -1873,9 +1873,9 @@
   {
    "file": "LogoLight.dc.html",
    "x": 0,
-   "y": 2390,
+   "y": 2382,
    "w": 1046,
-   "h": 1092,
+   "h": 1088,
    "title": "Mark & wordmark \u00b7 light",
    "page": "page-brand",
    "print": "fixed"
@@ -1883,9 +1883,9 @@
   {
    "file": "LogoDark.dc.html",
    "x": 0,
-   "y": 3672,
+   "y": 3660,
    "w": 1046,
-   "h": 1092,
+   "h": 1088,
    "title": "Mark & wordmark \u00b7 dark",
    "page": "page-brand",
    "print": "fixed"

@@ -2704,3 +2704,36 @@ had each solved this separately, badly). And `render/` was never pruned, so the
 sweep was reading the HTML of boards deleted on 25 September — **a guard that
 fails on a file nobody ships teaches people to ignore the guard**, so it prunes
 anything absent from the `*-meta.json` manifests first.
+
+### M·31 — The Arabic drops into the valley, and two guard bugs
+
+**ميزانية sits IN the word's skyline, not over its end.** Flush right put it above
+the *h* — the tallest thing in Mīzāniyah, and the one place with no room. The
+owner saw the actual gap: *“look at the i and the h, that space between
+them — y and a have flat heads, so there is a space there. Place the Arabic on
+top of that place so it looks like it's sitting in it.”*
+
+He is right and it is the whole trick. `-iya-` is four x-height letters with
+nothing above them but the *i*'s dot, so the word's skyline has a **valley**
+between the ā's macron and the *h*'s ascender. Shifting the block **30% of the
+Latin size left** drops the Arabic into it, with the *h* rising to its right and
+the macron to its left, and the pull deepens to **−28%** — deeper than it could
+sit over the *h*, precisely because there are no ascenders under it any more. It
+stops being balanced on top and becomes something the word makes room for.
+
+**Two bugs in yesterday's guard, both found by it breaking honest work**, and
+both fixed in the guard rather than worked around:
+
+**The prune deleted a builder's own output.** `build_combined` writes renders but
+its manifest was called `combined.json`, which nothing else could see — so the
+sweep counted three live pages as dead and removed them, and the screenshot step
+then failed on files that had existed ten seconds earlier. **A guard that deletes
+a builder's output is worse than the bug it was catching.** The manifest is
+`combined-meta.json` now, because the manifest name is the contract, and pruning
+is opt-in per builder so a builder with no manifest checks what it can see and
+removes nothing.
+
+**And it had already failed once on dead files** — `WebWelcome` and `Onboarding`,
+boards deleted on 25 September whose HTML was still on disk, because `render/`
+had never been pruned by anything. Both faults are the same shape: **a guard is
+only as trustworthy as its idea of what is live.**
