@@ -2341,3 +2341,49 @@ reason; we never ask for a card number, a BVN or a phone number; bank access is
 read-only. The headline caveat is reframed the same way — *our server sees the
 movement in order to pass it to you* rather than *the movement reaches our
 server before it is encrypted*. Same admission, no implementation detail.
+
+### M·23 — *Getting in* rebuilt: three faults, and the third is the old one
+
+The page is **Account and setting up** now, at both widths.
+
+**1 · The order ran backwards.** Welcome, six onboarding steps, then the account
+flow at the end — so the page opened in the middle of a journey and finished at
+its start. It is sign up · address taken · sign in · forgot · check your email ·
+set a new password, then the six setting-up steps.
+
+**2 · The Welcome screen is gone, at both widths.** It said *get started* to
+someone who had just clicked *Start with my own figures* on the landing page.
+That is the welcome. The second one was a door in front of a door.
+
+**3 · The 1440 onboarding was a phone screen.** `extra.onb_desktop` said so in
+its own docstring — *"the same step, centred as a card at 1440"* — a 390px
+column with 410px of paper either side of it. That is the fault the owner has
+named at every width on this project, and it was sitting in the first screen a
+new person ever sees.
+
+**What the width is actually for here.** A phone can show you the step you are
+on; **it cannot show you the path**. Six dots say there are six of something.
+They do not say that step 2 is the only one that matters, or that step 4 is
+about money you already have. So 1440 spends its width on a **rail** naming
+every step, what it is for, which are done and which can be skipped — and the
+pane beside it lays content out as a web screen would:
+
+| Step | What changes at 1440 |
+|---|---|
+| 2 | **The salary-day picker is inline.** At 360 thirty-one days do not fit beside a field, so tapping opens a sheet. At 1440 they fit. A sheet that exists only because a phone was narrow has no reason here. |
+| 3 | **A table, not a stacked list.** Type and protection are columns, because reading twelve categories down one column is how you miss that four of them are protected. |
+| 4, 5 | Tables with the figure and its date in columns, and the *dated 24 August* rule stated once beside them rather than repeated per row. |
+| 6 | The target and its date beside what it needs per payday — ₦85,000.00, derived from ₦305,000.00 saved and five paydays left. |
+
+`extra.onb_desktop` is unused now and stays in the file until the build side has
+read this, so the diff shows what replaced it.
+
+**79 — the owner's question about step 1, and it is a good one.** *"Somebody
+already signed up — do we still need to call them anything? Or a username, a
+nickname, a kunya?"* Right now step 1 asks for a name and the only place it
+appears is the printed debt record. Two things follow and both are the spec's:
+**(a)** if setting up happens BEFORE any account exists — which is the whole
+point of *no account needed* — then there is no name to inherit and asking is
+correct; **(b)** if someone signs up first and sets up after, the name should
+come from the account and step 1 should not be asked at all. **The screen cannot
+be right for both until the spec says which order is real.** ☐

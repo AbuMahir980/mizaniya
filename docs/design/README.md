@@ -64,7 +64,7 @@ fine flipping through and is useless for review — you cannot point at "the sig
 screen" if sign-in is the right-hand half of a board called Auth. So every file below is
 one screen, and its name says which.
 
-**187 artboards across 11 pages.** File names are `NN-what-it-is-WIDTH-theme.png`,
+**183 artboards across 11 pages.** File names are `NN-what-it-is-WIDTH-theme.png`,
 numbered in flow order, and the same stem names the `.dc.html` beside it in `canvas/`.
 
 | Page | Files | What is on it |

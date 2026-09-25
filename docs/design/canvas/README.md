@@ -5,7 +5,7 @@ plus `canvas.json` describing the pages, positions and notes.
 
 **Re-cut 25 September: one screen, one artboard.** A board used to be able to hold
 six onboarding steps, or sign-up beside sign-in, or five states of Home in a row.
-Every file here is now one screen, named for the screen. 187 artboards across
+Every file here is now one screen, named for the screen. 183 artboards across
 11 pages — landing page first, then the web app at 1440 in four pages, the same app
 at 360 in four more, then the mark and the foundations.
 
