@@ -1442,6 +1442,55 @@ a `design:` row in `CONTEXT.md` Open Questions.
   §3.2 verbatim. Dates and ordinals in prose stay in the voice face and are better for
   it — *"by the 12th"* is what old-style figures are for. The switch is for money only.
 
+- [ ] **51 · Does v1 want people signed in, or does it want them not to have to be?**
+  The landing page cannot answer this and I should not pick.
+
+  Raised by the owner, 25 September, and it is the right question. I had written
+  *"no account needed"* on the page as a headline benefit. It is **supported** —
+  [ADR-010](adr/ADR-010-sync-model.md) makes IndexedDB authoritative and the server a
+  sync target, and §08a of the brief draws **signed out** as a first-class state, one
+  row, *"not a banner, not a nag"*. So the app genuinely works without an account and
+  the claim is not false.
+
+  **But it may still be the wrong thing to sell**, and that is a product decision, not
+  a design one (`design-data-contract.md`: spec owns behaviour, name it and log it).
+  Three things pull against it:
+
+  1. **Billing cannot be anonymous.** A subscription needs something to attach to and
+     something to restore from. Someone who pays, clears their browser and comes back
+     has no way to prove they are the same person without an account. §09's **lapsed**
+     state is not even reachable without one.
+  2. **Nothing can be learnt from an anonymous install.** [ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)
+     repositioned v1 precisely because *"people the owner spoke to may want to use
+     Mizaniya"* is the weakest signal in product and needs testing. An anonymous
+     free tier cannot tell you whether anyone came back on day 14, which is the one
+     number that would settle it.
+  3. **ADR-009 already rejected the shape once.** Its discarded alternative — ship the
+     PWA first — was marked down for *"onboards users onto a single-device store with
+     no account, then asks them to migrate"*. A free tier sold as accountless
+     reproduces that, one step later.
+
+  **What I need is which of these v1 is:**
+
+  | | The offer | What the page leads with |
+  |---|---|---|
+  | **A — account-first** | An account is the normal path; working offline and signed out is a *property* you are told about, not the pitch | *Start with your own figures* — sign-up is step one, and offline is a trust claim further down |
+  | **B — anonymous-first** | No account until you pay; the account appears at the tier boundary | *No account needed* stays where it was, and v1 accepts that it learns nothing about retention |
+
+  **I have drawn A's copy in the meantime**, because it is reversible and B is not:
+  the page now says the app *works* without an account rather than offering that as
+  the deal, and it says plainly that an account is what carries sync, a second person
+  and billing. If the answer is B, one line changes back.
+
+  **One thing I fixed rather than asked about.** The trust section closed with
+  *"everything on the free tier never leaves your device at all."* **I wrote that
+  sentence and I had not verified it** — it is not in `tokens.md` §10.1, not in any
+  brief, and whether a free *account holder's* rows reach the server is exactly the
+  question above. It is the same failure §10.1 exists to prevent, one step removed:
+  the guard caught the sentence we inherited and missed the one I invented. It is gone,
+  and `build_land.py` now fails on any absolute privacy claim that is not the §10.1
+  string.
+
 ### I·c — Assumptions that would invalidate a drawing if wrong
 
 - [x] **44 · Can the client know how many devices are on the account, without a

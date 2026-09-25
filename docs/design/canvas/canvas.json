@@ -745,7 +745,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 8642,
+   "h": 8505,
    "title": "Landing page \u00b7 1440 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -755,7 +755,7 @@
    "x": 1652,
    "y": 0,
    "w": 1512,
-   "h": 8642,
+   "h": 8505,
    "title": "Landing page \u00b7 1440 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -765,7 +765,7 @@
    "x": 3304,
    "y": 0,
    "w": 832,
-   "h": 12024,
+   "h": 10468,
    "title": "Landing page \u00b7 390 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -775,7 +775,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 12024,
+   "h": 10468,
    "title": "Landing page \u00b7 390 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -803,7 +803,7 @@
   {
    "file": "LandDemoLight.dc.html",
    "x": 0,
-   "y": 12214,
+   "y": 10658,
    "w": 1512,
    "h": 3471,
    "title": "The demo marker \u00b7 item 33 \u00b7 light",
@@ -813,7 +813,7 @@
   {
    "file": "LandDemoDark.dc.html",
    "x": 1652,
-   "y": 12214,
+   "y": 10658,
    "w": 1512,
    "h": 2875,
    "title": "The demo marker \u00b7 item 33 \u00b7 dark",
