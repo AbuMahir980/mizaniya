@@ -1491,6 +1491,31 @@ a `design:` row in `CONTEXT.md` Open Questions.
   and `build_land.py` now fails on any absolute privacy claim that is not the §10.1
   string.
 
+- [x] **52 · The landing page's photographs — specified, not sourced.** Recorded so
+  nobody waits on me for them.
+
+  You are right that a page made only of type and UI reads as unfinished, and §6 of
+  the landing brief already contemplates images. **I cannot fetch them.** The image
+  CDNs are not on the allow-list of either environment I can reach —
+  `images.unsplash.com` and `images.pexels.com` both fail to connect from the cloud
+  sandbox *and* from the desktop VM. That is not a thing that will resolve by trying
+  again.
+
+  So the artboards carry **specified slots**: exact dimensions, a weight budget, and
+  art direction. [`docs/design/image-brief.md`](design/image-brief.md) has the rest —
+  search terms, what to reject and why, the licences, the `convert` line that hits
+  the budget, and the file names the slots expect. Dropping two files into
+  `docs/design/img/` is the whole job.
+
+  **Two, not more, and the reasoning is in the file.** Photography helps the first of
+  the brief's three readers and actively costs us the other two once it becomes
+  decoration — a person smiling at a phone is the same failure as a device frame
+  drifting in space, which §2.3 of the landing brief already rules out. And **no
+  photograph goes near a figure**, anywhere on the page.
+
+  `scripts/check-design-drop.mjs` now accounts for `image-brief.md` and
+  `docs/design/img/`, per its own instruction to add rather than leave a hole.
+
 ### I·c — Assumptions that would invalidate a drawing if wrong
 
 - [x] **44 · Can the client know how many devices are on the account, without a
