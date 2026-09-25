@@ -1979,3 +1979,23 @@ The 1440 landing page is settled. **The 390 phone-browser landing page is
 next**, and it is a different composition rather than the same one narrowed —
 the deck, the pile and the four cards all need their own arrangement at that
 width.
+
+### M·8 — The 390 landing page, designed rather than narrowed
+
+| Section | 1440 | 390 | Why it changes |
+|---|---|---|---|
+| Hero | copy and deck side by side, the eye moves across | copy, then the deck beneath it | There is no *across* at 390. Same two elements, same order of reading, no overlap to go wrong. The fan tightens from 16px a sheet to 9px — at 16, five sheets leave the back card 128px narrower than a 326px front card, which reads as a mistake rather than a pile. |
+| §2.3 Safe to spend | pile on the floor, sheets stand up **beside** the figure | pile unchanged, sheets lift into a **rail beneath** it | The pile is a vertical idea and needs no width. What cannot survive the narrowing is *beside* — there is no beside. The three points move under the rail. |
+| The rest of it | four cards in a row, each its own height | the same card on a rail | Each still takes the height its contents need; a rail does not need them levelled, and levelling them is what put empty paper under the short ones. |
+
+**Two faults found by drawing it:**
+
+- The hero deck's sheets were 240px against a 250px front card, so they hid
+  behind it entirely and the pile rendered as a single card. The sheet height
+  has to exceed the front card's own height or there is nothing to see.
+- The card visuals used `transform: scale()` with a negative margin to pull the
+  following content up. `transform` does not change the layout box, and **a
+  percentage margin resolves against the container's width, not the scaled
+  height** — so it over-pulled and sawed the bottom off the component. Both
+  widths now use `zoom`, which scales the layout box too, so the wrapper's
+  height follows the component and no correction is needed at all.
