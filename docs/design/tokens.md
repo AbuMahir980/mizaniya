@@ -439,7 +439,15 @@ The three supporting claims travel with it and are also fixed wording:
 ### 10.2 · The wordmark — when ميزانية appears, and when it does not
 
 The name is **Mīzāniyah** set in EB Garamond 600 with **ميزانية** in Amiri
-beneath it, never above, never larger, and never carrying a figure.
+**above** it, half its size, never larger, and never carrying a figure.
+
+The brand sheet used to carry a DON'T tile reading *never set the Arabic above
+the Latin*. It was drawn when the Arabic was two-thirds the size of the Latin —
+and at that size, above does read as a competing headline, so the tile was right
+about the real fault and wrong about the cause. At half the size, pulled onto the
+cap line, it accompanies rather than competes. **The tile now says what is
+actually true: never let the Arabic match or outweigh the Latin.** A DON'T that
+contradicts the lockup beside it is worse than no DON'T at all.
 
 ### The romanisation — owner's call, 25 September
 
@@ -463,7 +471,9 @@ were making it two objects instead of one.
 
 | | Was | Is | Why |
 |---|---|---|---|
-| Alignment | right | **right — unchanged** | Left was tried and sent back. ميزانية starts at the RIGHT, so its first letter sits under the Latin's last one — under the *h*, running back towards the *M*. Each script begins at its own reading edge |
+| Position | under the Latin | **above it** | Owner's call, third pass: *“it sits on top of it, like a child on the head of a parent, in its tiny form.”* |
+| Alignment | right | **right — unchanged** | Left was tried and sent back. ميزانية starts at the RIGHT, so its first letter sits over the Latin's last one — over the *h*, running back towards the *M*. Each script begins at its own reading edge |
+| Pull | top margin | **bottom margin, −18%** | It sits on the cap line. −25% and the tails of the *ya* and the *ta marbuta* touch the ascenders below |
 | Font | Inter's fallback | **Amiri** | `.ar` lived in `brand.AR_CSS`, which every builder had to remember to append, and `build_land.py` did not. It is in `ui.ALL_CSS` now, and Amiri is in the global font link |
 | Leading | `line-height: 1.5` | **1.05, with a −10% pull** | Amiri sits low in its own box, so 1.5 on top of that put most of a blank line between them |
 | Size | 0.68 of the Latin | **0.5** | At 0.68 it competed; at 0.5 it is clearly the smaller of two things that belong together |
@@ -494,3 +504,45 @@ One consequence for the build, since the landing page has a prose budget: the
 Arabic is a **mark, not copy**, and the word counter skips it. A budget meant to
 stop a page arguing with itself should not be the thing that decides whether the
 product's name appears in full.
+
+### 10.3 · Sentences that were true once — a build guard, not a habit
+
+**Three lines of the same shape were found in four days**, each written when it
+was true and none re-read when it stopped:
+
+| Where | What it said |
+|---|---|
+| Home, offline banner | *your data is on this device and was never sent anywhere* |
+| Onboarding at 390 | *everything you enter stays on this device* |
+| First launch, third tile | *Nothing leaves this device — no account, no server, no sync.* |
+
+**ADR-009** (24 September) gave v1 a server, accounts and sync. Every one of
+those was correct before it and false after it, and all three survived rewrites
+of the screens around them — because **nobody re-reads a reassurance.**
+
+Three independent finds is a class, not a slip. Owner's call, 25 September: make
+it a guard. `guards.py` in the design sources runs it over every rendered board;
+**the app build should run the same list over its own strings.**
+
+```
+never leaves this device     never sent anywhere        nothing leaves
+never leaves your device     never sent to a server     never uploaded
+leaves this device           no server                  only on this device
+stays on this device         no sync
+stays on your device
+```
+
+**What the list is for, so it is not widened into uselessness.** It catches one
+narrow, recurring, expensive family: **an absolute claim about where the owner's
+data does not go.** Those are load-bearing for trust, cheap to write, and
+silently invalidated by an architecture decision taken in another file. It is
+not a general honesty checker and must not grow into one — *“We never see
+it and never store it”*, on the Security page about a card number, is true,
+is the point of that page, and is deliberately **not** on the list.
+
+**The escape hatch is narrow and visible.** A screen genuinely about the free
+single-device tier wraps the claim in `<!--tier-local-->` … `<!--/tier-local-->`
+— a decision someone made on purpose, which shows up in a diff. Board notes are
+exempt (they are wrapped in `<!--note-->` by the board component), because a note
+that quotes a banned sentence in order to explain the ban is the correct use of
+it. **§10.1's forbidden sentence has no hatch at all.**

@@ -2628,18 +2628,30 @@ new arrival wants a reason — and it sat hard against the left edge, because th
 columns were sized to a total narrower than the frame and every pixel of slack
 fell on one side. The inner row centres now.
 
-**86 — a false line, and it is the third in four days.** The old third tile read
+**86 — DONE on the design side, and it is the build side's turn.** The old third tile read
 *“Nothing leaves this device — no account, no server, no sync.”* ADR-009
 made every clause of that false on 24 September. It is the exact shape §10.1
 exists to stop: a comforting sentence about where data goes that stopped being
 true and nobody re-read. The other two were Home's offline banner and the phone
 onboarding's *“everything you enter stays on this device”*. **Three
 independent finds means this is not a slip, it is a class**, and the only thing
-that will catch the fourth is a build guard. Proposed: fail the build on
-*leaves this device*, *stays on this device*, *never sent anywhere*, *no server*
-and *no sync* outside a file that is explicitly about the free single-device
-tier. ☐ (The replacement, *Works with no signal*, is true and is the better
-promise anyway.)
+that will catch the fourth is a build guard. **The owner approved it, so it is built**: `guards.py`
+runs the list over every rendered board, and `tokens.md` §10.3 carries the list,
+the reasoning and the escape hatch in prose. It found four more offenders on its
+first run — `brand.welcome`, `brand.welcome_desktop`, `brand.splash` and two
+more copies of the onboarding footer — none of which anyone had noticed. All
+fixed.
+
+**For the build side:** run the same list over the app's own strings. It is
+twelve substrings and a lower-case comparison; the escape hatch is a marker on
+the string, not an exemption list someone has to maintain. ☐
+
+One thing the first run taught: `render/` was never pruned, so the sweep failed
+on `WebWelcome` and `Onboarding` — boards deleted on 25 September whose HTML was
+still on disk. **A guard that fails on a file nobody ships teaches people to
+ignore the guard**, so the sweep now prunes anything absent from the `*-meta.json`
+manifests before it checks. (The replacement tile, *Works with no signal*, is
+true and is the better promise anyway.)
 
 ### M·29 — The Arabic starts at the *h*, and it was not in Amiri
 
@@ -2662,3 +2674,33 @@ It is in **`ui.ALL_CSS`** now, so no builder can omit it, and **Amiri is in the
 global font link** rather than assumed. A stylesheet you have to remember is a
 stylesheet that will be forgotten — the same lesson as the lockup itself, one
 layer down.
+
+### M·30 — The Arabic sits on top, and the guard is built
+
+**ميزانية is above the Latin now**, right-aligned so its first letter is over the
+*h* of Mīzāniyah, half the size, pulled −18% onto the cap line. The owner,
+third pass and the clearest statement of it: *“it sits on top of it, like a
+child on the head of a parent, in its tiny form.”*
+
+That **overrules the brand sheet's old DON'T tile**, which said never set the
+Arabic above the Latin. The tile was drawn when the Arabic was two-thirds the
+size of the Latin, and at that size above does read as a competing headline —
+right about the fault, wrong about the cause. It now says the true rule: never
+let the Arabic match or outweigh the Latin. A DON'T that contradicts the lockup
+beside it is worse than no DON'T at all.
+
+**And the false-comfort guard is built** (item 86, owner approved). `guards.py`
+sweeps every rendered board. On its first run it found **five more offenders
+nobody had noticed** — `brand.welcome`, `brand.welcome_desktop`,
+`brand.splash`, and two further copies of the onboarding footer in `mobile.py`
+and `screens2.py`. All fixed. `tokens.md` §10.3 carries the list, the reasoning
+and the escape hatch for the build side.
+
+Two things that run taught, both now fixed in the guard rather than worked
+around: a board **note** that quotes a banned sentence in order to explain the
+ban was tripping it, so notes are wrapped in `<!--note-->` by the board component
+and every text guard strips them (the lock-vocabulary check and the word counter
+had each solved this separately, badly). And `render/` was never pruned, so the
+sweep was reading the HTML of boards deleted on 25 September — **a guard that
+fails on a file nobody ships teaches people to ignore the guard**, so it prunes
+anything absent from the `*-meta.json` manifests first.
