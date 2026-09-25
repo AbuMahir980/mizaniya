@@ -21,16 +21,16 @@ will each need different storage.
 | Word | What it means | Where |
 |---|---|---|
 | **IndexedDB** | A database built into every browser. Lives on the user's own device. | — |
-| **Dexie** | A small library that makes IndexedDB pleasant to use. A convenience, not a decision. | `src/data/database.ts` |
-| **`Repository`** | Our list of allowed operations: list, save, delete. Says *what*, never *where*. | `src/core/repository.ts` |
+| **Dexie** | A small library that makes IndexedDB pleasant to use. A convenience, not a decision. | `apps/web/src/data/database.ts` |
+| **`Repository`** | Our list of allowed operations: list, save, delete. Says *what*, never *where*. | `packages/core/src/repository.ts` |
 | **Transaction** (database sense) | A group of writes that all land or none do. Not a money transaction. | — |
 
 ### Two files, easy to mix up
 
 | File | What it is |
 |---|---|
-| `src/core/repository.ts` | **The interface.** The list of operations. No storage code in it. |
-| `src/data/dexie-repository.ts` | **One implementation of it**, using IndexedDB. |
+| `packages/core/src/repository.ts` | **The interface.** The list of operations. No storage code in it. |
+| `apps/web/src/data/dexie-repository.ts` | **One implementation of it**, using IndexedDB. |
 
 Screens import the first. They never name the second. The phone app will have
 `sqlite-repository.ts` beside it and no screen will notice.
@@ -89,8 +89,8 @@ One interface in the middle, and nothing above it knows what's underneath:
 
 ```
 Screens          →  Repository              →  IndexedDB   (web, today)
-src/features/       src/core/repository.ts     src/data/dexie-repository.ts
-src/app/            (the interface)
+apps/web/src/features/       packages/core/src/repository.ts     apps/web/src/data/dexie-repository.ts
+apps/web/src/app/            (the interface)
                                             →  SQLite      (phone, v2)
                                             →  HTTP        (server)
 ```
@@ -101,7 +101,7 @@ every screen knew about it, every screen would need rewriting. This way it is on
 file, and the screens don't change.
 
 **And it's enforced, not agreed.** In `eslint.config.js`, `no-restricted-imports` bans
-`dexie` across `src/`, with one override re-enabling it for `src/data/`. A boundary
+`dexie` across `src/`, with one override re-enabling it for `apps/web/src/data/`. A boundary
 that is only a good intention drifts; this one fails the build.
 
 **The interface is deliberately boring** — get, list, save, delete. No query language,
@@ -142,7 +142,7 @@ the real thing.
 
 ### 1. Declare the tables, and version them from the start
 
-`src/data/database.ts`
+`apps/web/src/data/database.ts`
 
 ```ts
 this.version(1).stores({
@@ -162,7 +162,7 @@ Two things that are easy to get wrong here:
 
 ### 2. Write the implementation, and let nothing leak
 
-`src/data/dexie-repository.ts`
+`apps/web/src/data/dexie-repository.ts`
 
 ```ts
 categories: {
@@ -197,7 +197,7 @@ present is a record contradicting itself. **Either half alone is worse than neit
 `fake-indexeddb` gives you a working IndexedDB in tests, so the tests run against
 actual database behaviour rather than a mock that agrees with you. That is how the
 version 1 → 2 upgrade is tested: build an old database, open it with the new code, and
-check the rows survived — see `src/data/dexie-repository.test.ts`.
+check the rows survived — see `apps/web/src/data/dexie-repository.test.ts`.
 
 ---
 
@@ -219,14 +219,14 @@ owe A. Friend, zakat. Worked out fresh every time. Why: `derived-state.md`.
 
 | File | What's in it |
 |---|---|
-| `src/core/repository.ts` | The interface. Read this first — it is the whole contract. |
-| `src/core/types.ts` | The six entities, and `Snapshot` (everything the app holds). |
-| `src/data/dexie-repository.ts` | The IndexedDB implementation. |
-| `src/data/database.ts` | Dexie tables, indexes, and the version 1 → 2 migration. |
-| `src/data/export-file.ts` | Export files and the migration chain. |
-| `src/store/snapshot-store.ts` | Holds the snapshot in memory. Every write goes through here. |
-| `src/data/dexie-repository.test.ts` | 30 tests, including upgrading a database that already exists. |
-| `eslint.config.js` | The rule keeping Dexie inside `src/data/`. |
+| `packages/core/src/repository.ts` | The interface. Read this first — it is the whole contract. |
+| `packages/core/src/types.ts` | The six entities, and `Snapshot` (everything the app holds). |
+| `apps/web/src/data/dexie-repository.ts` | The IndexedDB implementation. |
+| `apps/web/src/data/database.ts` | Dexie tables, indexes, and the version 1 → 2 migration. |
+| `apps/web/src/data/export-file.ts` | Export files and the migration chain. |
+| `apps/web/src/store/snapshot-store.ts` | Holds the snapshot in memory. Every write goes through here. |
+| `apps/web/src/data/dexie-repository.test.ts` | 30 tests, including upgrading a database that already exists. |
+| `eslint.config.js` | The rule keeping Dexie inside `apps/web/src/data/`. |
 
 ## Related
 

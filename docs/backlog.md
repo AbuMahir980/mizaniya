@@ -25,7 +25,7 @@ waits.
 
 | Item | Why it waits |
 |---|---|
-| **Tie the zod schemas to the TypeScript types.** Annotate each as `SchemaFor<T> = z.ZodType<T, z.ZodTypeDef, unknown>` so `tsc` fails when a schema and its interface disagree | `src/core/types.ts` and `src/core/schema.ts` currently describe the same shapes with **nothing preventing drift**. Found at the API CONTRACT stop. The fix needs a compiler to prove it works, and `package.json` does not exist until BUILD — writing unverified type-level code and calling it a gate would be worse than naming the gap ([[types-vs-runtime-validation]]) |
+| **Tie the zod schemas to the TypeScript types.** Annotate each as `SchemaFor<T> = z.ZodType<T, z.ZodTypeDef, unknown>` so `tsc` fails when a schema and its interface disagree | `packages/core/src/types.ts` and `packages/core/src/schema.ts` currently describe the same shapes with **nothing preventing drift**. Found at the API CONTRACT stop. The fix needs a compiler to prove it works, and `package.json` does not exist until BUILD — writing unverified type-level code and calling it a gate would be worse than naming the gap ([[types-vs-runtime-validation]]) |
 | **`npm run contract:gen` + a CI diff check** — regenerate the tables in `docs/04-api-contract.md` §4 and §5 from the source files and fail if the working tree changes | Required by the API CONTRACT phase. Until it exists those tables are hand-checked, and the document says so. A contract that can drift silently is not a contract |
 
 ---

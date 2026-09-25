@@ -18,10 +18,10 @@ ticket re-does it:
 | Built | Where |
 |---|---|
 | Tooling, and `npm run verify` — naming, lint, typecheck, test, build | `package.json`, `eslint.config.js`, `tsconfig.json` |
-| Design tokens, both themes, guarded by a test | `src/design/` |
-| Money — the only formatter, and the rounding rules | `src/core/money/` |
-| Domain types, runtime schema, the `Repository` interface | `src/core/types.ts`, `schema.ts`, `repository.ts` |
-| Twenty UI primitives with every state, and the gallery | `src/ui/`, `src/app/primitives-page.tsx` |
+| Design tokens, both themes, guarded by a test | `apps/web/src/design/` |
+| Money — the only formatter, and the rounding rules | `packages/core/src/money/` |
+| Domain types, runtime schema, the `Repository` interface | `packages/core/src/types.ts`, `schema.ts`, `repository.ts` |
+| Twenty UI primitives with every state, and the gallery | `apps/web/src/ui/`, `apps/web/src/app/primitives-page.tsx` |
 
 **Nothing derived is stored anywhere.** Every ticket below inherits that.
 

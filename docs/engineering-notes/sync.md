@@ -29,7 +29,7 @@ app asks them instead of picking silently.
 | **Source of truth** | Which copy wins if two disagree. Here: the device. | — |
 | **Sync target** | A place a device sends changes to and reads changes from. Not the boss. | — |
 | **Last-write-wins** | The simplest rule: the most recently changed version wins. | — |
-| **Tombstone** | A record that something used to exist. What's left behind by a delete. | `src/core/types.ts` |
+| **Tombstone** | A record that something used to exist. What's left behind by a delete. | `packages/core/src/types.ts` |
 | **Conflict** | Two copies changed the same thing, independently. | — |
 
 ---
@@ -139,11 +139,11 @@ Two things, honestly:
 
 | Done | Where |
 |---|---|
-| `updatedAt` on every record | `src/core/types.ts` |
-| Tombstones, in their own table | `src/core/types.ts`, `src/data/database.ts` |
-| Writes stamp the time; imports preserve it | `src/core/repository.ts` |
-| Schema migration 1 → 2, and an old file still imports | `src/data/export-file.ts` |
-| A test that upgrading an existing database keeps the records | `src/data/dexie-repository.test.ts` |
+| `updatedAt` on every record | `packages/core/src/types.ts` |
+| Tombstones, in their own table | `packages/core/src/types.ts`, `apps/web/src/data/database.ts` |
+| Writes stamp the time; imports preserve it | `packages/core/src/repository.ts` |
+| Schema migration 1 → 2, and an old file still imports | `apps/web/src/data/export-file.ts` |
+| A test that upgrading an existing database keeps the records | `apps/web/src/data/dexie-repository.test.ts` |
 
 **Why this was built before sync:** adding a column is easy while the only data in
 existence is the owner's own. Once real people have budgets, the same change is a migration

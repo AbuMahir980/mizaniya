@@ -15,7 +15,10 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage', 'docs', 'peer-ai', 'node_modules'] },
+  // `**/dist` rather than `dist`: the build output moved to apps/web/dist with the
+  // workspace extraction, and a root-relative ignore stopped covering it — which
+  // pointed ESLint at a bundled service worker and produced 2,147 errors.
+  { ignores: ['**/dist', '**/coverage', 'docs', 'peer-ai', '**/node_modules'] },
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -44,13 +47,13 @@ export default tseslint.config(
        * and `capture` names it for A5.
        */
       'boundaries/elements': [
-        { type: 'feature', pattern: 'src/features/*/**', capture: ['name'] },
-        { type: 'app', pattern: 'src/app/**' },
-        { type: 'ui', pattern: 'src/ui/**' },
-        { type: 'design', pattern: 'src/design/**' },
-        { type: 'store', pattern: 'src/store/**' },
-        { type: 'data', pattern: 'src/data/**' },
-        { type: 'core', pattern: 'src/core/**' },
+        { type: 'feature', pattern: 'apps/web/src/features/*/**', capture: ['name'] },
+        { type: 'app', pattern: 'apps/web/src/app/**' },
+        { type: 'ui', pattern: 'apps/web/src/ui/**' },
+        { type: 'design', pattern: 'apps/web/src/design/**' },
+        { type: 'store', pattern: 'apps/web/src/store/**' },
+        { type: 'data', pattern: 'apps/web/src/data/**' },
+        { type: 'core', pattern: 'packages/core/src/**' },
       ],
       'boundaries/ignore': ['**/*.test.{ts,tsx}', 'scripts/**'],
 
@@ -153,7 +156,7 @@ export default tseslint.config(
    * Relative imports travel with the folder and need no configuration at all.
    */
   {
-    files: ['src/core/**/*.ts'],
+    files: ['packages/core/src/**/*.ts'],
     rules: {
       'no-restricted-imports': [
         'error',
@@ -170,7 +173,7 @@ export default tseslint.config(
             {
               group: ['@/*'],
               message:
-                'Inside core/, import relatively. The @/ alias points at the app, and core/ leaves it at v2 (ADR-008).',
+                'core is its own package and must not reach into the app. Import relatively within it; the @/ alias points at apps/web (A3, ADR-008).',
             },
           ],
         },
@@ -202,8 +205,7 @@ export default tseslint.config(
    * alias, so the v2 move is a prefix swap rather than a per-file rewrite.
    */
   {
-    files: ['src/**/*.{ts,tsx}'],
-    ignores: ['src/core/**'],
+    files: ['apps/web/src/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
         'error',
@@ -217,8 +219,9 @@ export default tseslint.config(
           ],
           patterns: [
             {
-              group: ['../core/*', '../../core/*', '../../../core/*'],
-              message: 'Reach core/ through the @/ alias, so the v2 move is a prefix swap (ADR-008).',
+              group: ['../../../packages/core/*', '**/packages/core/*'],
+              message:
+                'Reach core through @mizaniya/core, never a relative path out of the app (ADR-008).',
             },
           ],
         },
@@ -226,7 +229,7 @@ export default tseslint.config(
     },
   },
 
-  { files: ['src/data/**/*.ts'], rules: { 'no-restricted-imports': 'off' } },
+  { files: ['apps/web/src/data/**/*.ts'], rules: { 'no-restricted-imports': 'off' } },
 
   /**
    * F2/F3/F4 — tokens come from one source, and no screen hard-codes a value.
@@ -236,8 +239,12 @@ export default tseslint.config(
    * anything else importing the formatter is a second place waiting to disagree.
    */
   {
-    files: ['src/ui/**/*.{ts,tsx}', 'src/features/**/*.{ts,tsx}', 'src/app/**/*.{ts,tsx}'],
-    ignores: ['src/ui/money-text.tsx'],
+    files: [
+      'apps/web/src/ui/**/*.{ts,tsx}',
+      'apps/web/src/features/**/*.{ts,tsx}',
+      'apps/web/src/app/**/*.{ts,tsx}',
+    ],
+    ignores: ['apps/web/src/ui/money-text.tsx'],
     rules: {
       'no-restricted-syntax': [
         'error',
@@ -265,7 +272,7 @@ export default tseslint.config(
    * forbids `<div>` gets switched off within a week.
    */
   {
-    files: ['src/features/**/*.tsx'],
+    files: ['apps/web/src/features/**/*.tsx'],
     rules: {
       'react/forbid-elements': 'off',
       'no-restricted-syntax': [

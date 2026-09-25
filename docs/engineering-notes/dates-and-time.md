@@ -24,11 +24,11 @@ end of a short month is clamped to the last day, never rolled into the next one.
 
 | Word | What it means | Where |
 |---|---|---|
-| **`IsoDate`** | A calendar day, `YYYY-MM-DD`. No time, no timezone. | `src/core/types.ts` |
-| **`Instant`** | A real moment, with a timezone. Used for bookkeeping only. | `src/core/types.ts` |
-| **Cycle** | One salary period. Starts on your salary day, ends the day before the next. | `src/core/cycle/cycle.ts` |
-| **Clamp** | Pull a value back to the nearest allowed one. The 31st clamps to the 28th in February. | `src/core/cycle/cycle.ts` |
-| **Half-open range** | Start included, end excluded. How cycles are expressed so they don't overlap. | `src/core/repository.ts` |
+| **`IsoDate`** | A calendar day, `YYYY-MM-DD`. No time, no timezone. | `packages/core/src/types.ts` |
+| **`Instant`** | A real moment, with a timezone. Used for bookkeeping only. | `packages/core/src/types.ts` |
+| **Cycle** | One salary period. Starts on your salary day, ends the day before the next. | `packages/core/src/cycle/cycle.ts` |
+| **Clamp** | Pull a value back to the nearest allowed one. The 31st clamps to the 28th in February. | `packages/core/src/cycle/cycle.ts` |
+| **Half-open range** | Start included, end excluded. How cycles are expressed so they don't overlap. | `packages/core/src/repository.ts` |
 
 ---
 
@@ -69,7 +69,7 @@ export function daysLeft(settings: Settings, now: IsoDate): number
 export function safeToSpend(snapshot: Snapshot, now: string): SafeToSpend
 ```
 
-`src/core/` contains no `Date.now()` anywhere, and ESLint fails the build if one appears.
+`packages/core/src/` contains no `Date.now()` anywhere, and ESLint fails the build if one appears.
 
 The rule itself is worth a look, because the obvious version of it was wrong. Banning
 `Date` outright was the first attempt — and it also banned *parsing* a date, which
@@ -92,7 +92,7 @@ that runs in milliseconds.
 it's visible in every signature rather than hidden.
 
 The app reads the clock in exactly one place — a React hook — which hands `now` and `at`
-down to everything else (`src/app/today-context.tsx`).
+down to everything else (`apps/web/src/app/today-context.tsx`).
 
 ### "What happens if someone is paid on the 31st?"
 
@@ -177,7 +177,7 @@ One comment that stops a double-counting bug.
 
 ### 5. Test the calendar's nasty corners
 
-`src/core/cycle/cycle.test.ts` — 32 tests. February in a leap year and not. The 29th,
+`packages/core/src/cycle/cycle.test.ts` — 32 tests. February in a leap year and not. The 29th,
 30th and 31st as salary days. A cycle that crosses a year boundary. Those are the tests
 that make the rest trustworthy.
 
@@ -187,10 +187,10 @@ that make the rest trustworthy.
 
 | File | What's in it |
 |---|---|
-| `src/core/cycle/cycle.ts` | Everything: cycles, clamping, day counting, paydays, Hijri display. |
-| `src/core/types.ts` | `IsoDate` and `Instant`, and the rule about which is for what. |
-| `src/app/today-context.tsx` | The one place the clock is read, handing `now` and `at` down. |
-| `src/core/cycle/cycle.test.ts` | 32 tests, mostly about awkward months. |
+| `packages/core/src/cycle/cycle.ts` | Everything: cycles, clamping, day counting, paydays, Hijri display. |
+| `packages/core/src/types.ts` | `IsoDate` and `Instant`, and the rule about which is for what. |
+| `apps/web/src/app/today-context.tsx` | The one place the clock is read, handing `now` and `at` down. |
+| `packages/core/src/cycle/cycle.test.ts` | 32 tests, mostly about awkward months. |
 
 ## Related
 

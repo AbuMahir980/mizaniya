@@ -27,11 +27,11 @@ TypeScript alone is enough.
 
 | Word | What it means | Where |
 |---|---|---|
-| **Runtime validation** | Checking the actual shape of data while the program runs, not just while compiling. | `src/core/schema.ts` |
-| **Zod** | A library for describing a shape, then checking a value against it. | `src/core/schema.ts` |
-| **Schema** | The description of an allowed shape. `categorySchema` describes a valid category. | `src/core/schema.ts` |
-| **Boundary** | Where data crosses from outside the app to inside. Here: file import. | `src/data/export-file.ts` |
-| **Branded type** | A type the compiler won't let you fake. Validation is what earns the brand. | `src/core/types.ts` |
+| **Runtime validation** | Checking the actual shape of data while the program runs, not just while compiling. | `packages/core/src/schema.ts` |
+| **Zod** | A library for describing a shape, then checking a value against it. | `packages/core/src/schema.ts` |
+| **Schema** | The description of an allowed shape. `categorySchema` describes a valid category. | `packages/core/src/schema.ts` |
+| **Boundary** | Where data crosses from outside the app to inside. Here: file import. | `apps/web/src/data/export-file.ts` |
+| **Branded type** | A type the compiler won't let you fake. Validation is what earns the brand. | `packages/core/src/types.ts` |
 
 ---
 
@@ -171,7 +171,7 @@ need re-checking.
 
 ### 2. Write schemas that mirror the types, and keep them beside them
 
-`src/core/types.ts` and `src/core/schema.ts` sit next to each other, so when one changes the
+`packages/core/src/types.ts` and `packages/core/src/schema.ts` sit next to each other, so when one changes the
 other is in view.
 
 **And here is a real gap, named rather than glossed: nothing checks that they agree.** The
@@ -210,10 +210,10 @@ again with a different file and be certain nothing happened.
 
 | File | What's in it |
 |---|---|
-| `src/core/schema.ts` | Every schema, the refusal types, and the envelope/contents split. Start here. |
-| `src/data/export-file.ts` | Reading a file: envelope, migrate, validate, then hand over. |
-| `src/data/export-file.test.ts` | Includes a version-1 file importing, and broken contents being refused. |
-| `src/core/types.ts` | The types the schemas mirror. |
+| `packages/core/src/schema.ts` | Every schema, the refusal types, and the envelope/contents split. Start here. |
+| `apps/web/src/data/export-file.ts` | Reading a file: envelope, migrate, validate, then hand over. |
+| `apps/web/src/data/export-file.test.ts` | Includes a version-1 file importing, and broken contents being refused. |
+| `packages/core/src/types.ts` | The types the schemas mirror. |
 
 ## Related
 

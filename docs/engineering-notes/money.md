@@ -32,10 +32,10 @@ that causes harm.
 | Word | What it means | Where |
 |---|---|---|
 | **Kobo** | The minor unit of the naira. 100 kobo = ₦1. Like pence, or cents. | — |
-| **Minor unit** | Storing money as the smallest whole unit, so no fractions exist. | `src/core/money/money.ts` |
-| **`Kobo`** | Our *type* for that. A number the compiler treats as money, not as any old number. | `src/core/types.ts` |
-| **Branded type** | A type that is really a number, but that TypeScript refuses to mix with plain numbers. | `src/core/types.ts` |
-| **Floor** | Round down, always. Never to the nearest. | `src/core/money/money.ts` |
+| **Minor unit** | Storing money as the smallest whole unit, so no fractions exist. | `packages/core/src/money/money.ts` |
+| **`Kobo`** | Our *type* for that. A number the compiler treats as money, not as any old number. | `packages/core/src/types.ts` |
+| **Branded type** | A type that is really a number, but that TypeScript refuses to mix with plain numbers. | `packages/core/src/types.ts` |
+| **Floor** | Round down, always. Never to the nearest. | `packages/core/src/money/money.ts` |
 
 ---
 
@@ -90,7 +90,7 @@ Because money formatted in two places eventually disagrees. One shows `₦1,250.
 other `₦1,250.50`, and now the app looks careless in the one area where it must not.
 
 So `formatMoney` is the only thing that renders an amount, and **ESLint enforces it**:
-only `src/ui/money-text.tsx` may import it. Anywhere else importing it fails the build.
+only `apps/web/src/ui/money-text.tsx` may import it. Anywhere else importing it fails the build.
 Every screen renders `<MoneyText />` instead.
 
 Three rules live inside that one place:
@@ -152,7 +152,7 @@ error.
 
 ### 3. Put every money operation in one module, with the rounding in the names
 
-`src/core/money/money.ts` — construction, formatting, speaking, splitting for display,
+`packages/core/src/money/money.ts` — construction, formatting, speaking, splitting for display,
 and the two rounding directions. Nothing outside it does arithmetic on amounts.
 
 ### 4. Enforce the single formatter with a lint rule
@@ -162,7 +162,7 @@ that fails the build lasts.
 
 ### 5. Test the awkward numbers, not the round ones
 
-`src/core/money/money.test.ts` — 22 tests, and the interesting half are about the edges:
+`packages/core/src/money/money.test.ts` — 22 tests, and the interesting half are about the edges:
 
 - `rejects fractional naira and fractional kobo`
 - `never hides a non-zero kobo`
@@ -183,11 +183,11 @@ and a test that says so out loud.
 
 | File | What's in it |
 |---|---|
-| `src/core/money/money.ts` | Everything. Construction, formatting, rounding. Read this first. |
-| `src/core/types.ts` | The `Kobo` type itself. |
-| `src/ui/money-text.tsx` | The only component allowed to format an amount. |
+| `packages/core/src/money/money.ts` | Everything. Construction, formatting, rounding. Read this first. |
+| `packages/core/src/types.ts` | The `Kobo` type itself. |
+| `apps/web/src/ui/money-text.tsx` | The only component allowed to format an amount. |
 | `eslint.config.js` | The rule that keeps `formatMoney` inside that one component. |
-| `src/core/money/money.test.ts` | The awkward numbers. |
+| `packages/core/src/money/money.test.ts` | The awkward numbers. |
 | `docs/seed-data.md` | The only source of figures anywhere in this repo (repo rule 2). |
 
 ## Related

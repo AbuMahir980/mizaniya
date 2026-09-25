@@ -5,7 +5,7 @@
   "cycle": "Repositioning — v1 is a hosted webapp with a server (ADR-009)",
   "milestoneBranch": "",
   "ticket": "",
-  "ticketTitle": "Next: the workspace extraction (ADR-008 item 2)",
+  "ticketTitle": "Workspace extracted; next is accounts and sync (stories I, J)",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -53,5 +53,5 @@
   "lastVerifyTimestamp": "2026-09-25",
   "pdfExportOffered": "",
   "lastUpdated": "2026-09-25",
-  "notes": "REPOSITIONED — v1 is a hosted webapp with a public server; mobile is v2; no v3 (ADR-009). Read CONTEXT.md, then docs/09-endpoint-specs.md. DONE 25 Sep: schema v2 (#94), cleanup sweep (#93 — headers gone from src/, docs/concepts/ deleted, ten notes in docs/engineering-notes/; do not recreate either), stories I-M (#99), endpoint spec (#100), two design briefs out and the designer has answered all of section H with motion.md delivered (#105), section I answered back (#107). ALL RULES NOW BINDING: rules 6 and 7 approved 25 Sep — 6 is the .env seed switch, 7 is what the server may hold. Rules 1-5 are the stakeholder verbatim and must never be reworded; 6 and 7 were drafted here and approved, so they are equally binding but not verbatim. Price and payment provider are settled as deliberate placeholders — nothing is blocked on them. NEXT: the workspace extraction (ADR-008 item 2) — src/ -> apps/web/, extract packages/core and packages/tokens; independent of the designer. Then accounts and sync (I, J), then tiers (K). SCREEN BUILDING IS STILL STOPPED: #72 parked and re-scoped; #68/#70/#69/#85/#23-#29 predate the repositioning and need re-speccing before building — most open issues are stale for the same reason and want a tidy-up pass. ONE ANSWER STILL PENDING FROM THE OWNER: item 40, the household disagreement rule (proposed: the engine uses the higher of the two). Never git add -A."
+  "notes": "REPOSITIONED — v1 is a hosted webapp with a public server; mobile is v2; no v3 (ADR-009). Read CONTEXT.md, then docs/09-endpoint-specs.md. LAYOUT CHANGED 25 Sep: this is an npm workspace. apps/web/src is the app, packages/core/src is the domain logic imported as @mizaniya/core/<module>, and @/ means apps/web/src. Root commands are UNCHANGED by design — npm run dev/verify/seed/test all work from the root. packages/tokens was deliberately NOT extracted (nothing imports tokens.ts but two tests); it arrives at v2. One config at the root: vitest.config.ts, which vite-node also uses for the seed. ALL SEVEN RULES BINDING. Price and payment provider are settled as placeholders. DONE 25 Sep: schema v2 (#94), cleanup sweep (#93), stories I-M (#99), endpoint spec (#100), two design briefs, the designer answered all of section H and delivered motion.md (#105), section I answered back (#107), rules 6+7 binding (#109), workspace extraction. Designer handoff is open-items section J. NEXT: accounts and sync — stories I and J in docs/03-system-spec.md, endpoints in docs/09-endpoint-specs.md section 5a/5b. SCREEN BUILDING IS STILL STOPPED for the old screens: #72 re-scoped; #68/#70/#69/#85/#23-#29 predate the repositioning. Most open issues are stale for that reason and want a tidy-up pass. Never git add -A."
 }

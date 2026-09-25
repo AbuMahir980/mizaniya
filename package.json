@@ -9,9 +9,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "dev": "npm run dev -w @mizaniya/web",
+    "build": "npm run build -w @mizaniya/web",
+    "preview": "npm run preview -w @mizaniya/web",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --check .",
@@ -20,26 +20,8 @@
     "verify": "npm run naming && npm run spacing && npm run lint && npm run typecheck && npm run test && npm run build",
     "naming": "node scripts/check-naming.mjs",
     "peer-ai:check": "node peer-ai/check-upstream.mjs",
-    "seed": "vite-node scripts/seed.ts",
+    "seed": "vite-node -c vitest.config.ts scripts/seed.ts",
     "spacing": "node scripts/check-spacing.mjs"
-  },
-  "dependencies": {
-    "@fontsource/eb-garamond": "^5.3.0",
-    "@fontsource/inter": "^5.3.0",
-    "@fontsource/jetbrains-mono": "^5.3.0",
-    "@radix-ui/react-dialog": "^1.1.23",
-    "@radix-ui/react-radio-group": "^1.4.7",
-    "@radix-ui/react-slider": "^1.4.7",
-    "@radix-ui/react-switch": "^1.3.7",
-    "@radix-ui/react-tabs": "^1.1.21",
-    "@radix-ui/react-toast": "^1.2.23",
-    "@radix-ui/react-visually-hidden": "^1.2.11",
-    "dexie": "^4.0.8",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router": "^8.4.0",
-    "zod": "^3.23.8",
-    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -65,5 +47,9 @@
     "vite": "^5.4.10",
     "vite-plugin-pwa": "^1.3.0",
     "vitest": "^2.1.4"
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

@@ -27,12 +27,12 @@ first, so the operation is recoverable.
 
 | Word | What it means | Where |
 |---|---|---|
-| **Export file** | One JSON file with every record, plus a version stamp and the date. | `src/data/export-file.ts` |
-| **Schema version** | A number saying which shape the file is in. Currently 2. | `src/core/types.ts` |
-| **Migration** | Code that brings an older file's shape up to the current one. | `src/data/export-file.ts` |
-| **Transaction** (database) | A group of writes that all land or none do. | `src/data/dexie-repository.ts` |
+| **Export file** | One JSON file with every record, plus a version stamp and the date. | `apps/web/src/data/export-file.ts` |
+| **Schema version** | A number saying which shape the file is in. Currently 2. | `packages/core/src/types.ts` |
+| **Migration** | Code that brings an older file's shape up to the current one. | `apps/web/src/data/export-file.ts` |
+| **Transaction** (database) | A group of writes that all land or none do. | `apps/web/src/data/dexie-repository.ts` |
 | **Atomic** | All-or-nothing. No partial result is possible. | — |
-| **Safety copy** | The current data, written to disk before an import overwrites it. | `src/store/import-export.ts` |
+| **Safety copy** | The current data, written to disk before an import overwrites it. | `apps/web/src/store/import-export.ts` |
 
 ---
 
@@ -96,7 +96,7 @@ the device is exactly as it was.
 
 **This is the one property that cannot be verified by reading the code.** A rollback either
 happens or it doesn't. So the test breaks a write on purpose, part-way through, and then
-checks what survived: `src/data/dexie-repository.test.ts`.
+checks what survived: `apps/web/src/data/dexie-repository.test.ts`.
 
 ### "And if the import succeeds but the file was wrong?"
 
@@ -188,7 +188,7 @@ data while appearing to succeed.
 
 ### 6. Test the failure, not the success
 
-The happy path is easy and proves little. `src/data/dexie-repository.test.ts` rejects a
+The happy path is easy and proves little. `apps/web/src/data/dexie-repository.test.ts` rejects a
 write mid-import and asserts the device is untouched. That test is the reason the guarantee
 is real rather than intended.
 
@@ -198,11 +198,11 @@ is real rather than intended.
 
 | File | What's in it |
 |---|---|
-| `src/data/export-file.ts` | The file format, the migration chain, and reading a file safely. |
-| `src/store/import-export.ts` | The flow: safety copy, validate, replace, report. |
-| `src/data/dexie-repository.ts` | `import()` — the single transaction. |
-| `src/data/export-file.test.ts` | A version-1 file importing; broken contents refused. |
-| `src/data/dexie-repository.test.ts` | The part-way failure and the rollback. |
+| `apps/web/src/data/export-file.ts` | The file format, the migration chain, and reading a file safely. |
+| `apps/web/src/store/import-export.ts` | The flow: safety copy, validate, replace, report. |
+| `apps/web/src/data/dexie-repository.ts` | `import()` — the single transaction. |
+| `apps/web/src/data/export-file.test.ts` | A version-1 file importing; broken contents refused. |
+| `apps/web/src/data/dexie-repository.test.ts` | The part-way failure and the rollback. |
 | `scripts/seed.ts` | Writes a real export file, restored through this same path. |
 
 ## Related

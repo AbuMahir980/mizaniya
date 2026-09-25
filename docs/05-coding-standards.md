@@ -26,7 +26,7 @@ Every **`review`** rule is the code-review checklist in
 
 **The design tokens are a contract, not a suggestion.**
 [docs/design/tokens.md](design/tokens.md) is authoritative;
-`src/design/tokens.ts` implements it and `src/design/tokens.test.ts` fails when
+`apps/web/src/design/tokens.ts` implements it and `apps/web/src/design/tokens.test.ts` fails when
 the two disagree.
 
 ---
@@ -53,8 +53,8 @@ catches most of it. **Not yet** names where it lands.
 |---|---|:-:|
 | **A1** Feature-first folders | `eslint-plugin-boundaries` declares each layer once, so the architecture diagram and the linter cannot disagree | **Enforced** |
 | **A2** Dependencies point inward | `boundaries/dependencies` with `default: disallow` — every permitted direction is listed, and `core/` is allowed an **empty** list | **Enforced** |
-| **A3** `core/` is framework-free | `no-restricted-imports` blocks React, Dexie and Zustand inside `src/core/` | **Enforced** |
-| **A4** Data access behind an interface | `no-restricted-imports` blocks `dexie` everywhere except `src/data/` | **Enforced** |
+| **A3** `core/` is framework-free | `no-restricted-imports` blocks React, Dexie and Zustand inside `packages/core/src/` | **Enforced** |
+| **A4** Data access behind an interface | `no-restricted-imports` blocks `dexie` everywhere except `apps/web/src/data/` | **Enforced** |
 | **A5** Feature has a public surface | `boundaries/no-private` blocks reaching into another element's internals | **Enforced** |
 
 > **A3 carries more weight than it looks.** ADR-002 chose a folder over a
@@ -76,7 +76,7 @@ catches most of it. **Not yet** names where it lands.
 | **F1** Zero inline style objects | — | **Not yet** — one legitimate exception exists (`Rail`'s computed width), so the rule needs an allowlist before it can be turned on |
 | **F2** Zero hard-coded colours | `no-restricted-syntax` rejects a hex literal in `src/ui`, `src/features`, `src/app` | **Enforced** for colour; spacing and radii pending |
 | **F3** Tokens come from one source | Tailwind's theme is **replaced**, not extended — `bg-blue-500` and `p-7` do not exist, so there is nothing to reach for | **Enforced** by construction |
-| **F5** Screens compose only `ui/` primitives | `no-restricted-syntax` bans `<button>`, `<input>`, `<select>` and `<table>` in `src/features/`. Deliberately narrow — a rule that forbids `<div>` gets switched off within a week | **Enforced** |
+| **F5** Screens compose only `ui/` primitives | `no-restricted-syntax` bans `<button>`, `<input>`, `<select>` and `<table>` in `apps/web/src/features/`. Deliberately narrow — a rule that forbids `<div>` gets switched off within a week | **Enforced** |
 | **F7** Danger colour is reserved | `hueMeaning` in `tokens.ts` records the rule; the review checklist enforces it | **Review** |
 
 ### Types
@@ -84,7 +84,7 @@ catches most of it. **Not yet** names where it lands.
 | Rule | Enforced by | Status |
 |---|---|:-:|
 | **G1** `strict: true`, `any` is an error | `tsconfig.json` (`strict`, `noUncheckedIndexedAccess`, `noUnusedLocals`) + `@typescript-eslint/no-explicit-any` | **Enforced** |
-| **G2** API types generated from the contract | The contract *is* `src/core/types.ts`; the doc indexes it rather than restating it | **Enforced** by design |
+| **G2** API types generated from the contract | The contract *is* `packages/core/src/types.ts`; the doc indexes it rather than restating it | **Enforced** by design |
 | **G4** No assertions across a data boundary | — | **Not yet** — FRONTEND RULES |
 
 ### Money — non-negotiable
@@ -92,7 +92,7 @@ catches most of it. **Not yet** names where it lands.
 | Rule | Enforced by | Status |
 |---|---|:-:|
 | **H1** Integer minor units | The branded `Kobo` type; `naira()` and `kobo()` throw on a fraction | **Enforced** |
-| **H2** Formatted in exactly one place | `no-restricted-syntax` bans importing `formatMoney` or `splitMoney` anywhere except `src/ui/money-text.tsx` | **Enforced** |
+| **H2** Formatted in exactly one place | `no-restricted-syntax` bans importing `formatMoney` or `splitMoney` anywhere except `apps/web/src/ui/money-text.tsx` | **Enforced** |
 | **H3** No money arithmetic in a component | Review checklist | **Review** |
 | **H4** Every money path tested before merge | 22 tests in `money.test.ts`, including every published figure | **Partial** — the coverage *gate* lands at PR AUTOMATION |
 | **H5** Positive amounts, direction from the type | `transactionSchema` rejects a non-positive amount at runtime | **Enforced** |
@@ -126,12 +126,12 @@ catches most of it. **Not yet** names where it lands.
 
 | Path | What it is |
 |---|---|
-| `src/design/tokens.ts` | Every token as typed data — the source |
-| `src/design/tokens.css` | The same values as custom properties, guarded by a test |
+| `apps/web/src/design/tokens.ts` | Every token as typed data — the source |
+| `apps/web/src/design/tokens.css` | The same values as custom properties, guarded by a test |
 | `tailwind.config.ts` | Theme **replaced**, so only design values exist |
-| `src/core/money/money.ts` | The only formatter, and the rounding direction in the function name |
-| `src/ui/*` | The primitives, each with its states |
-| `src/app/primitives-page.tsx` | The gallery — every component, every state, both themes |
+| `packages/core/src/money/money.ts` | The only formatter, and the rounding direction in the function name |
+| `apps/web/src/ui/*` | The primitives, each with its states |
+| `apps/web/src/app/primitives-page.tsx` | The gallery — every component, every state, both themes |
 | `eslint.config.js` | The architecture boundaries above |
 
 ### Two things worth remembering from building it

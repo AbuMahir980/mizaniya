@@ -25,12 +25,12 @@ save fails the screen still shows what's actually stored.
 
 | Word | What it means | Where |
 |---|---|---|
-| **State** | What the app knows right now, while running. Gone when you close the tab. Different from storage, which survives. | `src/store/` |
-| **Store** | The one place state lives. Screens read from it and never hold their own copy. | `src/store/snapshot-store.ts` |
-| **Zustand** | A small library (~1KB) for holding state and letting components subscribe to parts of it. | `src/store/snapshot-store.ts` |
-| **Snapshot** | Every record the app holds, as one object: settings, categories, plans, transactions, debts, goals. | `src/core/types.ts` |
-| **Selector** | A function that works out one figure from the snapshot. Safe-to-spend is a selector. | `src/store/selectors.ts` |
-| **Memoise** | Remember the last answer, and skip the work if nothing changed. | `src/store/selectors.ts` |
+| **State** | What the app knows right now, while running. Gone when you close the tab. Different from storage, which survives. | `apps/web/src/store/` |
+| **Store** | The one place state lives. Screens read from it and never hold their own copy. | `apps/web/src/store/snapshot-store.ts` |
+| **Zustand** | A small library (~1KB) for holding state and letting components subscribe to parts of it. | `apps/web/src/store/snapshot-store.ts` |
+| **Snapshot** | Every record the app holds, as one object: settings, categories, plans, transactions, debts, goals. | `packages/core/src/types.ts` |
+| **Selector** | A function that works out one figure from the snapshot. Safe-to-spend is a selector. | `apps/web/src/store/selectors.ts` |
+| **Memoise** | Remember the last answer, and skip the work if nothing changed. | `apps/web/src/store/selectors.ts` |
 | **Re-render** | React redrawing a component. Too many is what makes a phone feel slow. | — |
 
 ---
@@ -169,7 +169,7 @@ write committed would read the old data and believe it was current.
 
 ### 1. Put the state in one store, shaped as a union
 
-`src/store/snapshot-store.ts`
+`apps/web/src/store/snapshot-store.ts`
 
 ```ts
 const store = createStore<{ state: SnapshotState }>(() => ({ state: { status: 'idle' } }))
@@ -194,7 +194,7 @@ It returns a result instead of throwing, so a caller cannot forget to handle fai
 
 ### 3. Derive figures, never store them
 
-`src/store/selectors.ts` — seven selectors, each memoised on snapshot identity. None of
+`apps/web/src/store/selectors.ts` — seven selectors, each memoised on snapshot identity. None of
 them writes anything.
 
 ```ts
@@ -224,7 +224,7 @@ the behaviour observable so a test could look at it.
 
 ### 4. Subscribe narrowly in React
 
-`src/app/store-context.tsx`
+`apps/web/src/app/store-context.tsx`
 
 ```ts
 return useStore(bundle.store, (s) => s.state)
@@ -246,12 +246,12 @@ the app holds rather than something resolved silently. See `sync.md`.
 
 | File | What's in it |
 |---|---|
-| `src/store/snapshot-store.ts` | The store, the union, and the one `write` path. Read this first. |
-| `src/store/selectors.ts` | The seven derived figures, the memoising, and the recompute counter. |
-| `src/app/store-context.tsx` | The React binding — `useSnapshotState`, `useSnapshotActions`. |
-| `src/store/create-app-store.ts` | Wires store, repository and cross-tab notifier together. |
-| `src/store/import-export.ts` | The one flow that replaces everything at once. |
-| `src/store/snapshot-store.test.ts` | The failed-save case (storage rejects, memory must not change) and the recompute assertion. |
+| `apps/web/src/store/snapshot-store.ts` | The store, the union, and the one `write` path. Read this first. |
+| `apps/web/src/store/selectors.ts` | The seven derived figures, the memoising, and the recompute counter. |
+| `apps/web/src/app/store-context.tsx` | The React binding — `useSnapshotState`, `useSnapshotActions`. |
+| `apps/web/src/store/create-app-store.ts` | Wires store, repository and cross-tab notifier together. |
+| `apps/web/src/store/import-export.ts` | The one flow that replaces everything at once. |
+| `apps/web/src/store/snapshot-store.test.ts` | The failed-save case (storage rejects, memory must not change) and the recompute assertion. |
 
 ## Related
 

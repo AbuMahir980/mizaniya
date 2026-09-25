@@ -140,7 +140,7 @@ would be deciding without information.
 ## Action Items
 
 1. [x] Cross-package imports use the `@/` alias; intra-`core/` imports stay relative, because `core/` moves as a unit. Done 2026-09-11 — it turns the v2 move into a prefix swap rather than a per-file rewrite.
-2. [ ] At v2: create the workspace, move `src/` → `apps/web/`, extract `packages/core` and `packages/tokens`. First task, before any Expo screen (ADR-002).
+2. [x] ~~At v2:~~ **Done 2026-09-25, pulled forward from v2** because `services/api` shares `core/` and ADR-009 moved the server into v1. The workspace exists, `src/` → `apps/web/`, and `packages/core` is extracted and imported as `@mizaniya/core/<module>`. **`packages/tokens` is deliberately not extracted:** nothing in the app imports `tokens.ts` — only two tests do, since the app reads the CSS custom properties — so the package would have a single consumer living in another package. Its reason to exist is v2, where React Native needs the values and cannot use CSS; it is extracted then, when it has a real consumer. Root commands were kept identical so no one has to learn a new one because of an internal move.
 3. [ ] At v3: decide `services/api` visibility against the criteria above, and amend repo rule 1 **in writing** if the answer is public.
 4. [ ] At v3: `apps/admin` as its own deployment with its own authentication. Never a route in `apps/web`.
 5. [ ] At v3: **A6 wakes up** — every request carries its session scope. The addendum's single-audience assumption ends and **C5** applies.
