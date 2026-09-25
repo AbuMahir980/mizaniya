@@ -544,9 +544,9 @@ rather than left to be rediscovered.)*
 | 2026-09-10 | **ADR-006 · Zustand as the single client store** (B4). Context + `useReducer` rejected: one snapshot in one context re-renders every consumer on every change, which is felt on a phone | ARCHITECT |
 | 2026-09-10 | **ADR-007 · PWA via vite-plugin-pwa**, shell precached only, persistence requested after the first meaningful write | ARCHITECT |
 | 2026-09-10 | Multi-tab drift closed with a `BroadcastChannel` reload after each successful write — two open tabs would otherwise disagree silently | ARCHITECT (ADR-001) |
-| 2026-09-10 | **ADR-002 · `core/` stays a `src/core/` folder in v1**, extracted to a package as the first task of v2. What makes it reusable is that it imports nothing, and the A3 lint rule enforces that from day one — so the boundary is real without workspace configuration in five tools | ARCHITECT, stakeholder's choice |
+| 2026-09-10 | **ADR-002 · `core/` stays a `packages/core/src/` folder in v1**, extracted to a package as the first task of v2. What makes it reusable is that it imports nothing, and the A3 lint rule enforces that from day one — so the boundary is real without workspace configuration in five tools | ARCHITECT, stakeholder's choice |
 | 2026-09-10 | **D15 · Amber when safe-to-spend per day falls below 60% of the planned daily allowance**, editable in Settings; red only when negative. A proportion stays meaningful after a pay rise, where a fixed naira threshold quietly goes wrong and nobody re-tunes it | SYSTEM SPEC |
-| 2026-09-10 | **The contract is the code.** `src/core/types.ts`, `schema.ts` and `repository.ts` are the source of record; `docs/04-api-contract.md` explains and indexes them rather than restating shapes that would then drift | API CONTRACT |
+| 2026-09-10 | **The contract is the code.** `packages/core/src/types.ts`, `schema.ts` and `repository.ts` are the source of record; `docs/04-api-contract.md` explains and indexes them rather than restating shapes that would then drift | API CONTRACT |
 | 2026-09-10 | **Eight transaction types, not seven.** *Move to savings* and *Take from savings* are two types, not one type with a direction field — H5 says direction comes from the type. This corrects an earlier draft of D9 | API CONTRACT |
 | 2026-09-10 | **A `Debt` has no direction field.** The balance derives from transactions and may cross zero, which is what a rotating ajo does. A stored direction would need correcting at the crossing and nothing would notice if it were not (D9) | API CONTRACT |
 | 2026-09-10 | **The `Repository` interface lives in `core/`, its implementations in `data/`** — correcting the first draft of the architecture. The interface is shared domain contract that Expo must implement; the implementation is a platform detail | API CONTRACT |
@@ -566,7 +566,7 @@ rather than left to be rediscovered.)*
 | 2026-09-11 | **No danger button variant exists**, so a red Delete is not merely discouraged, it is not constructible. Validation styling and the offline note are neutral for the same reason (F7) | SHARED RULES |
 | 2026-09-11 | **The architecture boundaries are a lint rule, not a diagram.** `eslint-plugin-boundaries` declares each layer once and lists every permitted direction, so the diagram and the linter cannot disagree; `core/` gets an empty list rather than a short one. **Verified by injecting three violations and watching each fail** — a misconfigured boundary rule allows everything and says nothing, so a green run proves nothing until the rule has been seen to go red | FRONTEND RULES |
 | 2026-09-23 | **D17 · The desktop sidebar groups destinations, and Settings sits apart at the foot.** Zakat joins the places the owner *goes to do something* — in a Muslim-facing app it is a feature, not a preference. Settings is pinned below a divider because **it holds Import**, which page specs §7.9 calls the most dangerous action in the app, and a screen that can replace every record should not be the seventh identical item in a list. **This departs from `DHomeLight.dc.html`**, which lists all seven flat with Settings before Zakat. The design wins on layout; this is information architecture, and the owner chose it | owner, T13 |
-| 2026-09-23 | **Correction to the row above: `boundaries/dependencies` never fired.** The elements used folder patterns (`src/ui/*`) against a flat codebase, and no import target resolved because only the node resolver was present and it reads neither `.ts` nor the `@/` alias. An unresolved dependency is compared against nothing. The 11 September verification was real but exercised `no-restricted-imports` — a different rule, which does work. Fixed with `src/ui/**` patterns and `eslint-import-resolver-typescript`, and now held by `src/architecture.test.ts`, which injects a violation per layer and requires ESLint to report it | boundaries fix |
+| 2026-09-23 | **Correction to the row above: `boundaries/dependencies` never fired.** The elements used folder patterns (`apps/web/src/ui/*`) against a flat codebase, and no import target resolved because only the node resolver was present and it reads neither `.ts` nor the `@/` alias. An unresolved dependency is compared against nothing. The 11 September verification was real but exercised `no-restricted-imports` — a different rule, which does work. Fixed with `apps/web/src/ui/**` patterns and `eslint-import-resolver-typescript`, and now held by `src/architecture.test.ts`, which injects a violation per layer and requires ESLint to report it | boundaries fix |
 | 2026-09-23 | **The composition of the storage layer lives in `store/`, not `app/`.** Working boundaries immediately caught `app/app.tsx` importing `data/` to build the Dexie repository. `store/` may choose an implementation for its own seam; the shell has no business knowing the records sit in IndexedDB (A2) | boundaries fix |
 | 2026-09-11 | **The issue plan is a board, not a document.** Twenty-two tickets filed as #8-#29 with acceptance criteria as tickable boxes. Criteria pin figures, not appearances: no ticket is done because it renders — if it shows a figure, a test holds that figure | ISSUES |
 | 2026-09-11 | **The vendored `peer-ai/` reports its own staleness.** `check-upstream.mjs` says which of the changed files the *active phase* is about to read — twelve files changed is a number nobody acts on. Deliberately **not** in `npm run verify`: being offline is not the same as being up to date, and a check that blocks offline work gets deleted rather than fixed | SHARED RULES |
@@ -1036,7 +1036,7 @@ full reasoning; this is the summary and what it means for the code.*
   ADR-002 leans on when it says `core/` can stay a folder because the lint rule
   holds the boundary — was decorative for twelve days.
 - **Three faults, and the third hid the others.** The element patterns asked for
-  folders (`src/ui/*`) in a flat codebase, so nothing was classified except
+  folders (`apps/web/src/ui/*`) in a flat codebase, so nothing was classified except
   `core/`, whose files sit in subfolders and which imports nothing anyway. Then,
   once files classified, the import *target* still would not resolve: only
   `eslint-import-resolver-node` was present, and it reads neither `.ts` nor the
@@ -1072,7 +1072,7 @@ full reasoning; this is the summary and what it means for the code.*
 - **The primitives sheet was the thing that was wrong, not the code.** The 10
   September drawing disagreed with `tokens.md` in five places — a rose Delete
   button, a rose field error, disabled as an opacity, an invented 3px halo on
-  every control, and hover and pressed colours nobody had implemented. `src/ui/`
+  every control, and hover and pressed colours nobody had implemented. `apps/web/src/ui/`
   follows `tokens.md`, so the sheet was redrawn to match the code. **The code must
   not be changed toward the old picture**; the Quick Add artboards lost their red
   Delete for the same reason.
@@ -1168,7 +1168,7 @@ full reasoning; this is the summary and what it means for the code.*
 
 - **SHARED RULES.** `package.json` exists, so the verify gate stopped being "none
   yet": lint, typecheck, 33 tests and a production build, 69 kB gzipped against a
-  250 kB budget. Tokens landed in `src/design/` as typed data *and* as custom
+  250 kB budget. Tokens landed in `apps/web/src/design/` as typed data *and* as custom
   properties, with a test that fails when they drift.
 - **Twenty primitives built from `tokens.md`,** each with its states, plus a
   gallery page showing every one in both themes.
@@ -1259,7 +1259,7 @@ full reasoning; this is the summary and what it means for the code.*
 - **Settled the amber threshold as D15** — a proportion of the planned daily allowance rather than a fixed figure, with the divide-by-zero and no-plan cases written down rather than discovered later.
 - **Extended `docs/seed-data.md` with a full worked cycle**, because the spec needed real figures and repo rule 2 says figures live only there. The rent fund is seeded **behind schedule on purpose**: a demo where everything is fine demonstrates nothing, and the projected gap exists to warn early.
 - **Wrote the states per screen rather than per story** — five states repeated across forty stories would have been unreadable, and unreadable criteria are criteria nobody checks.
-- **Ran API CONTRACT.** In v1 the contract is the `Repository` interface plus the export/import file, so it was written as **real source files** — `src/core/types.ts`, `schema.ts`, `repository.ts` — with [docs/04-api-contract.md](docs/04-api-contract.md) indexing them rather than restating shapes that would drift. First code in the repo.
+- **Ran API CONTRACT.** In v1 the contract is the `Repository` interface plus the export/import file, so it was written as **real source files** — `packages/core/src/types.ts`, `schema.ts`, `repository.ts` — with [docs/04-api-contract.md](docs/04-api-contract.md) indexing them rather than restating shapes that would drift. First code in the repo.
 - **Corrected myself on the transaction types.** I had proposed savings as one type with a direction field; H5 is explicit that direction comes from the type, so there are **eight** types. Fixed in the requirements summary and the spec.
 - **Moved the `Repository` interface from `data/` to `core/`**, correcting the architecture's first draft — the Expo app must implement the interface, so it is shared contract, not a platform detail.
 - **Recorded what API CONTRACT could not finish:** the phase requires a CI step that regenerates the contract doc from the source and fails on any diff. That needs `package.json`, which BUILD creates first, so it is written up as a BUILD task and the tables are marked hand-checked rather than passed off as generated.
@@ -1371,7 +1371,7 @@ What remains open:
 | Exact copy for the offline and storage-status lines — they must inform without alarming | Open — PAGE SPECS, with `design:ux-copy` |
 | Should archiving a category hide it from past cycles, or only from new plans? | Open — leaning *new plans only*, so history stays truthful. Needed before story C7 |
 | Does the printable debt record carry the owner's own name, and does onboarding collect it? | Open — needed before story E5 |
-| `design:` **Does a bottom-sheet title take the voice face?** The artboards draw it serif (`class="ser"`, 24px, `QADark.dc.html`); the code renders it Inter (`src/ui/sheet.tsx:57`, `font-structural text-h2`). The design system supports both readings and contradicts itself: §3's prose gives voice to *"screen titles"*, but the type table names EB Garamond on the `title` step **only**, and 24px is the `h2` band — and a sheet is not a screen | **Settled 23 September — it takes the voice face, and the artboard's size was wrong.** The rule is now in `tokens.md` §3: the voice face names a **surface**, the structural face names a **part** of one. A sheet is the surface while it is open — it holds focus, Escape closes it, everything behind it is inert — so its title is a `title`, not an `h2`. The reviewer was reading a real fault, but it was the size: EB Garamond's x-height is 0.407em against Inter's 0.546, so 24px serif is optically Inter 18px — *under* the `h2` it was meant to lead, and under-sized titles read as misapplied serif. The artboards are corrected to **30 / 36**, which is the `title` step already in `tailwind.config.ts`. Code change is one class: `font-structural text-h2` → `font-voice text-title` in `src/ui/sheet.tsx`. See open item 9 |
+| `design:` **Does a bottom-sheet title take the voice face?** The artboards draw it serif (`class="ser"`, 24px, `QADark.dc.html`); the code renders it Inter (`apps/web/src/ui/sheet.tsx:57`, `font-structural text-h2`). The design system supports both readings and contradicts itself: §3's prose gives voice to *"screen titles"*, but the type table names EB Garamond on the `title` step **only**, and 24px is the `h2` band — and a sheet is not a screen | **Settled 23 September — it takes the voice face, and the artboard's size was wrong.** The rule is now in `tokens.md` §3: the voice face names a **surface**, the structural face names a **part** of one. A sheet is the surface while it is open — it holds focus, Escape closes it, everything behind it is inert — so its title is a `title`, not an `h2`. The reviewer was reading a real fault, but it was the size: EB Garamond's x-height is 0.407em against Inter's 0.546, so 24px serif is optically Inter 18px — *under* the `h2` it was meant to lead, and under-sized titles read as misapplied serif. The artboards are corrected to **30 / 36**, which is the `title` step already in `tailwind.config.ts`. Code change is one class: `font-structural text-h2` → `font-voice text-title` in `apps/web/src/ui/sheet.tsx`. See open item 9 |
 | `spec:` **Is Home's first section called "Categories" or "Needs attention"?** Page specs §429 writes *Categories*; the artboards label it *Needs attention*. Copy, not type — so neither authority clearly owns it | **Settled 23 September — both words are right; they are two states of one section, and the heading names what the list is showing.** There was never a conflict: page specs §429 sits inside an ASCII sketch of the *superseded* 2×2 tile Home and is not a copy spec (§7.2, lines 462–463, is). The artboards label two different things — `HomeLight` (360) heads a **ranked subset** *Needs attention* with a *Show all 8 categories* link; `DHomeLight` (1440) heads the **full table** *Categories*. The code has only the full table at both widths, so the mobile treatment is missing rather than mis-named. See open item 10 |
 
 The amber threshold is settled as **D15**. Every question raised at SETUP and in
@@ -1391,7 +1391,7 @@ UNDERSTAND's clarification round is now closed.
 | Backlog — what is deliberately not built | `docs/backlog.md` |
 | System spec — stories, criteria, screen states | `docs/03-system-spec.md` |
 | API contract — indexes the source of record | `docs/04-api-contract.md` |
-| **The contract itself** | `src/core/types.ts` · `schema.ts` · `repository.ts` |
+| **The contract itself** | `packages/core/src/types.ts` · `schema.ts` · `repository.ts` |
 | Page specs — what the design is made from | `docs/06-page-specs.md` |
 | Engineering standards (rulebook) | `docs/standards/` |
 | Seed data — the only source of figures | `docs/seed-data.md` |
@@ -1402,9 +1402,9 @@ UNDERSTAND's clarification round is now closed.
 | Design system and screen designs | `docs/design/` — **landed 10 September**. `tokens.md` is authoritative; read `canvas/*.dc.html` as markup, not the PNGs |
 | Production brand files | `docs/design/brand/` — favicon, PWA icons, Apple touch icon, the mark as `currentColor` SVG, the wordmarks with letters outlined. `brand/README.md` says where each file goes and which ticket takes it |
 | What the design has that the code does not | `docs/open-items.md` — **read before building a screen.** Deleted once every box is ticked |
-| The tokens in code | `src/design/tokens.ts` (typed data) · `tokens.css` (custom properties) · `tokens.test.ts` fails the build when they drift |
-| The primitives | `src/ui/` — about twenty, with their states; gallery at `src/app/primitives-page.tsx` |
-| Domain logic | `src/core/` — `money`, `cycle`, `budget` so far |
+| The tokens in code | `apps/web/src/design/tokens.ts` (typed data) · `tokens.css` (custom properties) · `tokens.test.ts` fails the build when they drift |
+| The primitives | `apps/web/src/ui/` — about twenty, with their states; gallery at `apps/web/src/app/primitives-page.tsx` |
+| Domain logic | `packages/core/src/` — `money`, `cycle`, `budget` so far |
 | Auto rules mapped to what enforces them | `docs/05-coding-standards.md` |
 | Engineering notes | `docs/engineering-notes/` — one note per topic someone would ask about: what the problem was, what we did, the concepts, and the why-chain. **Replaces `docs/concepts/`**, which is deleted once harvested (sweep ticket) |
 | Licence | `LICENSE` (PolyForm Noncommercial 1.0.0) — authoritative, never regenerated |
@@ -1420,4 +1420,4 @@ UNDERSTAND's clarification round is now closed.
 | The canvas | The same artboards as markup — **read these, not the PNGs** | `docs/design/canvas/*.dc.html` |
 | Token set | Complete, light and dark. 54 gated contrast pairs, 0 failures | `docs/design/tokens.md` |
 | The mark, as production files | Favicon, PWA icons, Apple touch icon, wordmarks | `docs/design/brand/` |
-| Primitives gallery | Every primitive in every state, in the running app | `src/app/primitives-page.tsx` |
+| Primitives gallery | Every primitive in every state, in the running app | `apps/web/src/app/primitives-page.tsx` |

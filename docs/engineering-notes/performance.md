@@ -89,7 +89,7 @@ plan written down before they do.
 
 **1. Load less.** Keep the current cycle in memory, plus one total per past cycle, instead
 of every row since 2026. The `Repository` interface already allows a ranged read
-(`transactions.list(range)`), so this is a change inside `src/data/` and the store — no
+(`transactions.list(range)`), so this is a change inside `apps/web/src/data/` and the store — no
 screen touches it.
 
 **2. Cache the calculated figures, per cycle.** A closed cycle can never change, so its
@@ -154,10 +154,10 @@ user.
 
 | File | What's in it |
 |---|---|
-| `src/store/selectors.ts` | The memoising, and the recompute counter. |
-| `src/store/snapshot-store.test.ts` | The test asserting memoisation actually happens. |
-| `src/core/repository.ts` | `transactions.list(range)` — the ranged read step 1 would use. |
-| `src/core/budget/budget.ts` | The calculations in question. |
+| `apps/web/src/store/selectors.ts` | The memoising, and the recompute counter. |
+| `apps/web/src/store/snapshot-store.test.ts` | The test asserting memoisation actually happens. |
+| `packages/core/src/repository.ts` | `transactions.list(range)` — the ranged read step 1 would use. |
+| `packages/core/src/budget/budget.ts` | The calculations in question. |
 
 ## Related
 

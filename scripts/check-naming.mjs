@@ -1,7 +1,12 @@
 import { readdirSync, statSync } from 'node:fs'
 import { join, relative, basename, extname } from 'node:path'
 
-const ROOT = 'src'
+/**
+ * Every tree that holds source. Listed rather than globbed from the workspace,
+ * because a new package that nobody adds here would be silently unchecked —
+ * and a naming rule nothing enforces is a naming suggestion.
+ */
+const ROOTS = ['apps/web/src', 'packages/core/src']
 const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/
 /** Files the ecosystem names for us. */
 const ALLOWED = new Set(['vite-env.d.ts'])
@@ -15,7 +20,7 @@ function walk(dir) {
 
 const problems = []
 
-for (const file of walk(ROOT)) {
+for (const file of ROOTS.flatMap(walk)) {
   const name = basename(file)
   if (ALLOWED.has(name)) continue
 
@@ -38,4 +43,4 @@ if (problems.length > 0) {
   process.exit(1)
 }
 
-console.log(`Naming: ${walk(ROOT).length} files checked, all kebab-case.`)
+console.log(`Naming: ${ROOTS.flatMap(walk).length} files checked, all kebab-case.`)

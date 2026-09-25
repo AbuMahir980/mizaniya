@@ -57,7 +57,7 @@ calculations* — which is section 6.
 | **App shell** | Routing, layout, providers, error boundary, offline and install prompts | React 19, React Router | Static bundle |
 | **Feature modules** | One folder per screen area: onboarding, home, plan, transactions, debts, goals, months, settings | React + TypeScript | Same bundle |
 | **UI primitives** | Button, Input, Select, Card, Sheet, StatTile, ProgressBar, Badge, Tabs, Toast, EmptyState, Table — every state included (**F6**) | Radix + Tailwind bound to tokens | Same bundle |
-| **Design tokens** | Colour, type scale, spacing, radius, elevation; light and dark | `src/design/tokens.ts`, generated from `docs/design/tokens.md` | Same bundle |
+| **Design tokens** | Colour, type scale, spacing, radius, elevation; light and dark | `apps/web/src/design/tokens.ts`, generated from `docs/design/tokens.md` | Same bundle |
 | **Session store** | The single in-memory snapshot of all data, and the actions that change it | Zustand | Runtime |
 | **`core/`** | Every domain calculation and type. No React, no storage, no platform APIs, no `Date.now()` | Pure TypeScript | Shared with v2 |
 | **Data layer** | The Dexie implementation of `Repository`, schema migrations, export/import | Dexie 4 | Runtime |
@@ -89,23 +89,53 @@ Only `data/` may name Dexie; **no file outside `data/` imports it**, enforced by
 
 ### Folder layout
 
+**Amended 2026-09-25 — the workspace extraction landed** (ADR-008 action item 2,
+pulled forward from v2 because `services/api` must share `core/`).
+
 ```
-src/
-  app/                 routes, providers, layout, error boundary
-  features/
-    onboarding/  home/  plan/  transactions/
-    debts/  goals/  months/  settings/
-  ui/                  design-system primitives
-  design/              tokens.ts
-  store/               the snapshot store and its actions
-  data/                dexie-repository.ts (implementation)
-                       migrations/
-                       export-import.ts
-  core/                money/  cycle/  budget/  debt/  goal/  zakat/
+apps/web/                      the web app
+  index.html  vite.config.ts  tailwind.config.ts  postcss.config.js
+  public/
+  src/
+    app/                 routes, providers, layout, error boundary
+    features/
+      onboarding/  home/  plan/  transactions/
+      debts/  goals/  months/  settings/
+    ui/                  design-system primitives
+    design/              tokens.ts, tokens.css
+    store/               the snapshot store and its actions
+    data/                dexie-repository.ts (implementation)
+                         migrations/
+                         export-import.ts
+
+packages/core/                 framework-free domain logic
+  src/                 money/  cycle/  budget/  debt/  goal/  zakat/  sync/
                        types.ts       (domain types)
                        schema.ts      (runtime validation)
                        repository.ts  (the interface — see note below)
+
+services/api/                  not built yet (ADR-009)
+apps/mobile/                   v2 (ADR-002)
+
+tsconfig.json  eslint.config.js  vitest.config.ts  scripts/   at the root
 ```
+
+**One deviation from ADR-008 item 2, deliberate:** it also called for
+`packages/tokens`. **Not extracted.** Nothing in the app imports `tokens.ts` — only
+two tests do; the app reads the CSS custom properties. So a package now would have
+one consumer, a test living in another package. The reason the package exists is
+**v2**, where React Native needs the values and cannot use CSS — so it is extracted
+then, when it has a real consumer. Extracting it now would be machinery ahead of
+need, which is the thing `performance.md` argues against.
+
+**`@/` means `apps/web/src`. `core` is imported as `@mizaniya/core/<module>`** —
+subpath only, no barrel file, because a barrel over a domain package invites circular
+imports and hides which module a dependency came from.
+
+**Every root command is unchanged**: `npm run dev`, `verify`, `seed`, `test`, `lint`
+all still work from the repository root and mean what they meant before. Root scripts
+delegate into the workspace, deliberately, so nobody has to learn a new command
+because of an internal move.
 
 Each feature exposes its public surface through `index.ts`; nothing imports
 another feature's internal file (**A5**).
@@ -317,7 +347,7 @@ Both sides given; the stakeholder chooses, and the choice is recorded in
 
 ### Choice A — where `core/` lives (ADR-002)
 
-| | **`src/core/` folder now** | **`packages/core` workspace now** |
+| | **`packages/core/src/` folder now** | **`packages/core` workspace now** |
 |---|---|---|
 | Cost today | none | workspace config across Vite, Vitest, ESLint, tsconfig and CI |
 | Cost at v2 | move a folder that already imports nothing, then fix import paths | none — Expo consumes the package |

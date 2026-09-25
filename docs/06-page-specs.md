@@ -1067,6 +1067,6 @@ Everything else here is settled. These are genuinely open.
 produced from this document, outside the session.
 
 After it arrives, **SHARED RULES** implements the tokens exactly as `tokens.md`
-specifies and builds the `src/ui/` primitives from them, then configures ESLint,
+specifies and builds the `apps/web/src/ui/` primitives from them, then configures ESLint,
 tsconfig and CI for every `auto` rule in `docs/standards/`. Nothing before that
 invents a palette or a layout.

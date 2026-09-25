@@ -28,9 +28,9 @@ contract is for.
 
 | File | Holds |
 |---|---|
-| [`src/core/types.ts`](../src/core/types.ts) | Every domain type, with branded primitives |
-| [`src/core/schema.ts`](../src/core/schema.ts) | The runtime schema, and the import check |
-| [`src/core/repository.ts`](../src/core/repository.ts) | The `Repository` interface |
+| [`packages/core/src/types.ts`](../packages/core/src/types.ts) | Every domain type, with branded primitives |
+| [`packages/core/src/schema.ts`](../packages/core/src/schema.ts) | The runtime schema, and the import check |
+| [`packages/core/src/repository.ts`](../packages/core/src/repository.ts) | The `Repository` interface |
 
 This document explains and indexes them. **It does not restate them**, because
 a shape written twice is a shape that will disagree with itself, and nobody will
@@ -90,7 +90,7 @@ types — see §6.
 
 ## 4 · Entities
 
-Field-by-field definitions live in [`src/core/types.ts`](../src/core/types.ts).
+Field-by-field definitions live in [`packages/core/src/types.ts`](../packages/core/src/types.ts).
 What follows is what a reader needs to know that the types cannot say.
 
 | Entity | Purpose | Worth knowing |
@@ -124,7 +124,7 @@ positive at the payout, in one record.
 
 ## 5 · The `Repository` interface
 
-Defined in [`src/core/repository.ts`](../src/core/repository.ts).
+Defined in [`packages/core/src/repository.ts`](../packages/core/src/repository.ts).
 
 | Group | Operations |
 |---|---|
@@ -157,7 +157,7 @@ abut. An inclusive end would put every boundary day in two cycles at once.
 TypeScript disappears when the code is compiled. A file the owner picks from
 disk is data from outside the app, and static types cannot check it.
 
-[`src/core/schema.ts`](../src/core/schema.ts) validates at that boundary, and
+[`packages/core/src/schema.ts`](../packages/core/src/schema.ts) validates at that boundary, and
 catches things types cannot express:
 
 - an amount of `0` or below — `amount` must be **greater than** zero;

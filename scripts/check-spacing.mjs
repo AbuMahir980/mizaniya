@@ -37,9 +37,13 @@ function walk(dir) {
 
 const problems = []
 
-const root = process.argv[2] ?? 'src'
+/**
+ * The spacing grid only applies where styles are written, which is the web app.
+ * `packages/core` has no classes in it and never will — it is framework-free.
+ */
+const roots = process.argv.length > 2 ? process.argv.slice(2) : ['apps/web/src']
 
-for (const file of walk(root)) {
+for (const file of roots.flatMap(walk)) {
   if (!['.ts', '.tsx'].includes(extname(file))) continue
 
   readFileSync(file, 'utf8')

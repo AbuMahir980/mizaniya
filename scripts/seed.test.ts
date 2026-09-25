@@ -10,10 +10,10 @@ import {
   resetIds,
   shiftMonths,
 } from './seed-scenario'
-import { buildExportFile } from '../src/data/export-file'
-import { checkImport } from '../src/core/schema'
-import { naira } from '../src/core/money/money'
-import type { Instant } from '../src/core/types'
+import { buildExportFile } from '@/data/export-file'
+import { checkImport } from '@mizaniya/core/schema'
+import { naira } from '@mizaniya/core/money/money'
+import type { Instant } from '@mizaniya/core/types'
 
 function seeded(months = 0) {
   resetIds()

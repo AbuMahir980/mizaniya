@@ -44,7 +44,7 @@ what is left is code.
 ## B · Design → code — what the design has that the code does not
 
 - [x] **3 · Load the three typefaces** — **T10**.
-  `src/design/tokens.css` names EB Garamond, Inter and JetBrains Mono, but nothing loads
+  `apps/web/src/design/tokens.css` names EB Garamond, Inter and JetBrains Mono, but nothing loads
   them: no `@fontsource` package, no `@font-face`, no link in `index.html`. None of the
   three ships with macOS, Windows or Android, so today the app renders in Georgia, SF and
   Menlo. The design's whole voice depends on these faces.
@@ -68,7 +68,7 @@ what is left is code.
   Everything is in `docs/design/brand/`, and its `README.md` gives the exact file
   destinations, the `index.html` head tags and the manifest `icons` block. In short:
   - copy the favicons, the Apple touch icon and the four PWA icons into `public/`;
-  - add a `Mark` primitive to `src/ui/` from `mark.svg` — its strokes are
+  - add a `Mark` primitive to `apps/web/src/ui/` from `mark.svg` — its strokes are
     `currentColor`, so the component sets the colour. The sidebar lockup, the welcome
     screen and the printed record all use it;
   - do not build a JavaScript splash screen — the browser builds the launch screen from
@@ -76,7 +76,7 @@ what is left is code.
 
   **Favicon and `Mark` done 23 September in T10 (#17), PR #45.** The seven icon files
   are in `public/`, and the head tags are in `index.html` verbatim from
-  `brand/README.md`. `Mark` is inlined at `src/ui/mark.tsx` rather than an `<img>`, so
+  `brand/README.md`. `Mark` is inlined at `apps/web/src/ui/mark.tsx` rather than an `<img>`, so
   its `currentColor` strokes take the colour of whatever it sits in — one file for the
   sidebar, the welcome screen and the printed record. **Manifest icons done 23 September in
   T11 (#18), PR #47** — the `icons`, `background_color` and `theme_color` block
@@ -96,7 +96,7 @@ what is left is code.
   - the Arabic under "Mizaniya" is `brand/wordmark-arabic.svg` inlined, coloured `soft`.
 
   **Done 23 September in T12 (#19), PR #48.** The Arabic is inlined as outlined
-  paths in `src/ui/wordmark-arabic.tsx` — `currentColor`, so no Arabic typeface
+  paths in `apps/web/src/ui/wordmark-arabic.tsx` — `currentColor`, so no Arabic typeface
   enters the bundle for one word. The restore path runs the real import flow: a
   successful file lands on Home and skips onboarding; a refused one returns here
   and ends with "Nothing has changed."
@@ -111,7 +111,7 @@ what is left is code.
 
 - [ ] **6 · Add a `Tabs` primitive** — **T17**.
   Debts & Goals switches between two views with underline tabs, in every artboard, but
-  `src/ui/` has only `Segmented`. They are different controls: **Tabs switch a view**
+  `apps/web/src/ui/` has only `Segmented`. They are different controls: **Tabs switch a view**
   (Debts | Goals); **Segmented switches a value** (Today | This cycle). `tokens.md` §7
   now has a Tabs row (added 22 September), and the primitives sheet shows it: `line`
   bottom border, `soft` inactive, `ink` active with a 2px `emerald` underline, 46px.
@@ -125,7 +125,7 @@ until those tickets ship, which is also when this file can be deleted.
 ## C · Corrections to the design itself — no code change, read so nothing regresses
 
 - [x] **7 · The primitives sheet was redrawn on 22 September.** The 10 September version
-  disagreed with `tokens.md` in five places. `src/ui/` already follows `tokens.md`, so the
+  disagreed with `tokens.md` in five places. `apps/web/src/ui/` already follows `tokens.md`, so the
   code is right and **must not be changed toward the old picture**. The corrections:
 
   | Was drawn | Now matches `tokens.md` and the code |
@@ -170,7 +170,7 @@ It was not, but chasing it down found two real faults and one measurement worth 
 > design changes into their own commit — or their own PR — before T16's is reviewed, so
 > the squash onto `main` does not carry a design drop under a feature message.*
 
-- [x] **9 · A sheet title takes the voice face** — `src/ui/sheet.tsx`.
+- [x] **9 · A sheet title takes the voice face** — `apps/web/src/ui/sheet.tsx`.
   The settled rule, now in `tokens.md` §3: **the voice face names a surface; the
   structural face names a part of one.** A bottom sheet or dialog *is* the surface while
   it is open — it holds focus, Escape closes it, everything behind it is inert and
@@ -1078,7 +1078,7 @@ a `design:` row in `CONTEXT.md` Open Questions.
   **Answered — and your instinct is right while the rule implements it backwards for
   the case that matters. Thank you for surfacing it instead of drawing it.**
 
-  I checked it against `src/core/budget/budget.ts` rather than reasoning about it. A
+  I checked it against `packages/core/src/budget/budget.ts` rather than reasoning about it. A
   planned amount reaches safe-to-spend through **`protectedRemaining`**, which counts
   **only protected categories** — anything whose type is not `Expense` (**D1**).
 
@@ -1348,10 +1348,10 @@ a `design:` row in `CONTEXT.md` Open Questions.
 
 ## What is already complete — do not redo
 
-- `tokens.md` → `src/design/tokens.ts` and `tokens.css`: all 33 colours match, and
+- `tokens.md` → `apps/web/src/design/tokens.ts` and `tokens.css`: all 33 colours match, and
   `tokens.test.ts` fails the build if the two copies drift.
-- About twenty primitives in `src/ui/` with their states, and the gallery at
-  `src/app/primitives-page.tsx`; 44px targets audited.
+- About twenty primitives in `apps/web/src/ui/` with their states, and the gallery at
+  `apps/web/src/app/primitives-page.tsx`; 44px targets audited.
 - Every screen at 360 and 1440, light and dark, every state — 69 artboards in
   `docs/design/canvas/`. **Partly superseded on 25 September:** every 360 board still
   stands, and so do all the forms, sheets and dialogs at 1440. Four 1440 screens are

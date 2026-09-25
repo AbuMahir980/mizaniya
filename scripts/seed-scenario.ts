@@ -1,4 +1,4 @@
-import { naira } from '../src/core/money/money'
+import { naira } from '@mizaniya/core/money/money'
 import type {
   Category,
   Debt,
@@ -12,8 +12,8 @@ import type {
   Snapshot,
   Transaction,
   Unstamped,
-} from '../src/core/types'
-import { stamp, stampAll } from '../src/core/sync/stamp'
+} from '@mizaniya/core/types'
+import { stamp, stampAll } from '@mizaniya/core/sync/stamp'
 
 /** Every figure below is transcribed from `docs/seed-data.md`. None is invented here. */
 

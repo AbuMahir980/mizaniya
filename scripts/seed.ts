@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
-import { buildExportFile, serialiseExport } from '../src/data/export-file'
-import type { Instant } from '../src/core/types'
+import { buildExportFile, serialiseExport } from '@/data/export-file'
+import type { Instant } from '@mizaniya/core/types'
 import {
   ANCHOR_CYCLE_START,
   build,

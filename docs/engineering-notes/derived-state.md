@@ -23,10 +23,10 @@ these are stored. Each is worked out from the transaction list every time it's n
 
 | Word | What it means | Where |
 |---|---|---|
-| **Derived** | Calculated from something else, not stored. Cash left is derived. | `src/core/` |
-| **Fact** | Something recorded because it happened. A transaction is a fact. | `src/core/types.ts` |
+| **Derived** | Calculated from something else, not stored. Cash left is derived. | `packages/core/src/` |
+| **Fact** | Something recorded because it happened. A transaction is a fact. | `packages/core/src/types.ts` |
 | **Source of truth** | The one thing you'd trust if two records disagreed. Here: the transactions. | — |
-| **Pure function** | Same inputs, same answer, every time. No clock, no database, no surprises. | `src/core/` |
+| **Pure function** | Same inputs, same answer, every time. No clock, no database, no surprises. | `packages/core/src/` |
 
 ---
 
@@ -105,7 +105,7 @@ debt go?" is answered by the movements, every time, and cannot be stale.
 One place, and it always rounds in the safe direction.
 
 Safe-to-spend divides what's left by the days remaining. That division almost never
-comes out even, so it **rounds down** — `perUnitFloor` in `src/core/money/money.ts`.
+comes out even, so it **rounds down** — `perUnitFloor` in `packages/core/src/money/money.ts`.
 
 Rounding up by even one kobo per day tells someone they can spend money that isn't
 there. Rounding down understates by a few kobo, which nobody is harmed by. See
@@ -125,7 +125,7 @@ Three real costs, worth saying out loud rather than pretending there were none:
 
 ### 1. Decide what a fact is, and store only that
 
-`src/core/types.ts` — six entities. Every one of them is something the user did or
+`packages/core/src/types.ts` — six entities. Every one of them is something the user did or
 decided. None of them is a result.
 
 The test: **could this be worked out from something else I already store?** If yes, it
@@ -133,7 +133,7 @@ is not a fact, and storing it creates a second version of a truth.
 
 ### 2. Put the calculations somewhere they cannot cheat
 
-`src/core/` is plain TypeScript. No React, no database, no `Date.now()`. It cannot read
+`packages/core/src/` is plain TypeScript. No React, no database, no `Date.now()`. It cannot read
 the clock or the storage even by accident — ESLint fails the build if it tries.
 
 ```ts
@@ -157,7 +157,7 @@ changes, and a stored total isn't.
 
 ### 4. Then test the property, not just the examples
 
-`src/core/budget/budget.test.ts` — 24 tests. They check the worked day from
+`packages/core/src/budget/budget.test.ts` — 24 tests. They check the worked day from
 `docs/seed-data.md`, and they check the awkward cases: overspending, no plan at all, a
 category that rolls over, a cycle one day long.
 
@@ -167,13 +167,13 @@ category that rolls over, a cycle one day long.
 
 | File | What's in it |
 |---|---|
-| `src/core/budget/budget.ts` | Cash left, safe to spend, spending per category. Start here. |
-| `src/core/budget/rollover.ts` | What unspent allowance carries into the next cycle. |
-| `src/core/debt/debt.ts` | Balances derived from movements — the no-direction-field decision. |
-| `src/core/goal/goal.ts` | Progress, and whether you'll hit a target by its due date. |
-| `src/core/zakat/zakat.ts` | The zakat estimate. |
-| `src/store/selectors.ts` | Where those calculations get memoised for the screens. |
-| `src/core/types.ts` | The six things that *are* stored. |
+| `packages/core/src/budget/budget.ts` | Cash left, safe to spend, spending per category. Start here. |
+| `packages/core/src/budget/rollover.ts` | What unspent allowance carries into the next cycle. |
+| `packages/core/src/debt/debt.ts` | Balances derived from movements — the no-direction-field decision. |
+| `packages/core/src/goal/goal.ts` | Progress, and whether you'll hit a target by its due date. |
+| `packages/core/src/zakat/zakat.ts` | The zakat estimate. |
+| `apps/web/src/store/selectors.ts` | Where those calculations get memoised for the screens. |
+| `packages/core/src/types.ts` | The six things that *are* stored. |
 
 ## Related
 
