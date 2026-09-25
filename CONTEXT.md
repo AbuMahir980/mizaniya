@@ -88,10 +88,17 @@ brings two requirements that are easy to miss:
   and the seed path is excluded from the production bundle entirely. A guard,
   because a convention here would eventually be forgotten once.
 
-**Rule 7 — drafted 2026-09-24 at the stakeholder's request, awaiting their
-approval or rewrite.** Rule 6 covers how we build; nothing yet covers what the
-server is allowed to *hold*. Rule 2 forbids real financial figures **in the
-repository** and is silent about a database, because there was none.
+**Rule 7 — binding from 25 September.** Rule 6 covers how we build; this covers
+what the server is allowed to *hold*. Rule 2 forbids real financial figures **in
+the repository** and is silent about a database, because there was none.
+
+**On provenance, because it matters for the no-paraphrasing rule.** Rules 1–5 are
+the stakeholder's own words and must never be reworded. **Rules 6 and 7 were
+drafted here and approved by the stakeholder** — rule 6 on 25 September once they
+confirmed the mechanism is the `.env` switch, rule 7 the same day after the
+judgement calls inside it were laid out. They are **equally binding** and they are
+**not verbatim**, so unlike 1–5 they may be improved in wording — but only
+deliberately, and only with the stakeholder, never in passing.
 
 > 7. Other people's money data is held in trust, and the app holds as little of it
 >    as it can. The sensitive figures are **encrypted with keys kept outside the
