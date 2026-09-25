@@ -1,11 +1,11 @@
 {
-  "currentPhase": "spec-system",
+  "currentPhase": "spec-endpoints",
   "currentStep": 1,
-  "phaseFile": "peer-ai/shared/03-spec-system.md",
+  "phaseFile": "peer-ai/backend/01-spec-endpoints.md",
   "cycle": "Repositioning — v1 is a hosted webapp with a server (ADR-009)",
   "milestoneBranch": "",
   "ticket": "",
-  "ticketTitle": "Re-spec: new stories, then the endpoint spec",
+  "ticketTitle": "Re-spec: endpoint spec written; design brief next",
   "ticketsCompleted": [
     "#8",
     "#9",

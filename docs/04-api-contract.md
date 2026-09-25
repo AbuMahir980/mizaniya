@@ -221,26 +221,36 @@ over live data is recoverable rather than final (ADR-005).
 
 ---
 
-## 8 · Where a v3 API would slot in
+## 8 · Where the API slots in
 
 Behind the same interface, and nowhere else.
+
+**Amended 2026-09-25 by [ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md).**
+This section described a v3 server in a separate private repository. **There is no
+v3** — the server is v1, public, in this repository at `services/api`. The route
+details are in [09-endpoint-specs.md](09-endpoint-specs.md).
 
 ```
                       v1  ──▶  DexieRepository      ──▶  IndexedDB
   screens ──▶ Repository ──▶  SqliteRepository      ──▶  SQLite      (v2)
-                      v3  ──▶  HttpRepository       ──▶  API + Postgres
+                      v1  ──▶  HttpRepository       ──▶  API + Postgres
 ```
 
-No screen and nothing in `core/` changes. What v3 adds, in the **separate
-private repository**:
+**The HTTP implementation wraps the local one rather than replacing it**
+([ADR-010](adr/ADR-010-sync-model.md)): writes land on the device first, so the app
+keeps working with no signal. No screen and nothing in `core/` changes.
+
+What the server adds:
 
 | Concern | Note |
 |---|---|
-| **Auth** | The first time **A6** stops being dormant — every request carries its session scope explicitly |
-| **Conflict resolution** | The first genuinely hard problem this project will have. Two devices editing one cycle offline need more than last-write-wins, and the answer belongs in its own ADR |
-| **Sync boundary** | `load()` becomes a fetch; `put` becomes a queued mutation. The snapshot model survives, which is why it was chosen |
-| **Household sharing** | Introduces `OWNER` / `MEMBER` audiences, and **C5** applies |
+| **Auth** | **A6** is no longer dormant — every request carries its session scope explicitly. Email and password; details in §5a of the endpoint spec |
+| **Conflict resolution** | Answered in **ADR-010**, and it was the hard problem predicted here. Per-row last-write-wins for one owner; **keep both and ask** for a shared household budget, because a spouse's edit vanishing silently is not a merge rule anyone would accept |
+| **Sync metadata** | Needed a schema change, since no entity carried `updatedAt` and nothing recorded a deletion — so last-write-wins was not merely unbuilt but *impossible*, and a delete could never propagate. Done as `SCHEMA_VERSION` 2 |
+| **Sync boundary** | `load()` stays local. Sync is a separate exchange of changes, not a fetch — the device remains the source of truth. The snapshot model survives, which is why it was chosen |
+| **Household sharing** | Introduces `OWNER` / `MEMBER` audiences, and **C5** applies. Designed in v1, built after launch |
 | **Schema** | `schemaVersion` already exists and already migrates. The server inherits the same chain |
+| **Encryption** | Sensitive fields encrypted with keys held outside the database; end-to-end deliberately deferred (**ADR-011**) |
 
 **What must not happen:** the HTTP implementation must not add methods to
 `Repository` that only it can serve. If v3 needs something new, it goes on the
