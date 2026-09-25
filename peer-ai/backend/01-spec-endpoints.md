@@ -2,7 +2,9 @@
 
 > **Model: Fable.**
 
-> **Dormant until v3.** There is no server in v1 or v2; sync, household sharing and payments arrive as a separate private repository. Do not run this phase now. When v3 starts, `docs/standards/backend-engineering-standards.md` governs it, and the `Repository` interface from `core/` is the contract it must honour.
+> **Live as of 2026-09-25.** This phase was marked dormant until v3. **There is no v3** — [ADR-009](../../docs/adr/ADR-009-repositioning-v1-hosted-webapp.md) moved the server into v1, public, in this repository at `services/api`. `docs/standards/backend-engineering-standards.md` now governs it, standards **§A6** wakes up and **§C5** applies, and the `Repository` interface in `src/core/repository.ts` is the contract it must honour.
+>
+> **Two questions are parked here on purpose**, left open by [ADR-010](../../docs/adr/ADR-010-sync-model.md) for this phase to settle: how long tombstones are retained (and what happens to a device away longer than that), and the clock-skew rule — the plan being that a client's `updatedAt` records intent while a server-assigned sequence decides order. Do not treat either as already decided.
 
 # 01 — Endpoint Specs (Backend)
 
