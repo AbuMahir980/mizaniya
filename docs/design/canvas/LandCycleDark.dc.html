@@ -90,6 +90,10 @@ body{margin:0}
      vertical-align:middle}
 .mz .dtbl tr:last-child td{border-bottom:0}
 
+.mz .rest{transition:transform 180ms cubic-bezier(.2,0,0,1),box-shadow 180ms cubic-bezier(.2,0,0,1)}
+.mz .rest:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+@media (prefers-reduced-motion:reduce){.mz .rest{transition:none}.mz .rest:hover{transform:none}}
+
 .mz .lnav{display:flex;align-items:center;gap:14px;height:76px}
 .mz .lnav .sp{flex:1}
 .mz .lbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;

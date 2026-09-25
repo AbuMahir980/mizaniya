@@ -1899,3 +1899,83 @@ The landing page shows Home, so these waited on the decision above and are next:
 - **`LandDemo` is off the canvas.** It drew the demo marker on phone frames, so the
   landing page for a web app was showing a product that does not exist yet. It comes
   back when it is redrawn on Web Home.
+
+---
+
+## M · The landing page, rebuilt from references — 25 September
+
+Jamiu sent two: the Flutterwave animated card stack, and the Essential Blocks
+hero. Between them they solved something I had failed at twice.
+
+### M·1 — Why the cascade kept failing, and what fixed it
+
+A cascade hides part of every card behind the one in front, so the cut has to
+land where nothing is drawn. **A vertical stack cuts a sentence in half. A
+horizontal one cuts a money figure in half.** I spent two rounds measuring gaps
+to cut in — first element bottoms (wrong: those are not gaps), then empty pixel
+scanlines (right, but fragile), then text-node bounding boxes for a vertical cut
+(and found that `day`, `chart`, `zakat` and `web_pace` have **no** vertical line
+you can cut along at all, because every row is a name on the left and a figure on
+the right).
+
+**In both references the cards behind the front one show nothing but their
+edge.** No label, no figure, no sliced sentence. There is no cut. That is the
+whole trick, and it is why the deck is legible by construction rather than by
+measurement. The interest comes from movement instead: the front card drops to
+the back and the next comes forward.
+
+### M·2 — Where each one is used
+
+| Section | Arrangement | What moves it |
+|---|---|---|
+| Hero | Cards squarely behind one another, each a little narrower and higher — a pile of paper not quite squared up. **No tilt**, because the front card carries ₦7,500.00 and a tilted card sets every figure on it at an angle. | A 4s timer, pausing on hover and on focus within |
+| §2.3 Safe to spend | A **pile on the floor**: three sheets showing only their edges beneath the figure card, "3 more underneath". Each lift stands one sheet up beside it, whole. | Click, or a timer if nobody touches it |
+
+Under `prefers-reduced-motion` neither cycles and the front card stands. That is
+a complete section, not a broken one, and nothing on the page is reachable only
+by waiting (`motion.md` §5, inherited by §9).
+
+### M·3 — The hero has no seam
+
+There was a hard vertical rule and a background change at 50%, which drew the
+hero as two panels that happen to be adjacent. Both are gone: the wash runs
+across the whole band and warms toward the right rather than switching there.
+The copy column went from half the page to 620px, because at 560px the headline
+broke after four words.
+
+**The photograph left the hero.** `image-brief.md` already says photography
+belongs in the *problem*, never beside a figure, and a photo behind a moving deck
+is two things fighting for one corner. The slot moves to §2.2.
+
+### M·4 — Cards take their own height
+
+The four cards in *The rest of it* were forced to one height, which left a band
+of paper under the short ones and clipped the tall one. They now end where their
+contents end. **This is a decision, not a lapse** — they still share a width, a
+top edge, a grid and a type ramp, which is what makes a ragged bottom read as
+designed. Their component visuals are scaled to fit rather than clipped: a
+component shown smaller is honest, one with its bottom sawn off is not.
+
+### M·5 — Behaviour I drew and do not own — **spec, please rule**
+
+| # | What I drew | Why | Confirm or correct |
+|---|---|---|---|
+| 68 | *See the whole screen* on each **rest of it** card opens that screen full size **on the landing page** and closes again | It previously went nowhere, which is the dead control §I calls **L2**. There is no features page in v1 and inventing one is scope | ☐ |
+| 69 | The hero deck cycles every **4s**, pausing on hover and on focus within | A deck that keeps moving while you are reading a card is a deck you cannot read | ☐ |
+| 70 | The §2.3 pile lifts on **click**, and on a timer only if nobody touches it | Click is the honest affordance for "lift a card off the pile"; the timer is there so the section is not inert to someone who never tries | ☐ |
+
+### M·6 — Two corrections to my own earlier work
+
+- **`₦—` is gone from the price panel.** At 52px the naira's two crossbars land
+  on the em dash and the whole thing reads as a struck-through N — an error, not
+  a placeholder. The gap is stated in words: *"A monthly price, not yet set."*
+- **The price panel was 320px** beside eight inches of prose on a 1440 page: the
+  most important commercial statement on the site, drawn smaller than a movement
+  row. It is 440px and leads with what is free forever.
+
+### M·7 — Next
+
+The 1440 landing page is settled. **The 390 phone-browser landing page is
+next**, and it is a different composition rather than the same one narrowed —
+the deck, the pile and the four cards all need their own arrangement at that
+width.

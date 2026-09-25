@@ -93,6 +93,10 @@ body{margin:0}
 .mz .ar{font-family:Amiri,"Noto Naskh Arabic",serif;direction:rtl}
 .mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
 
+.mz .rest{transition:transform 180ms cubic-bezier(.2,0,0,1),box-shadow 180ms cubic-bezier(.2,0,0,1)}
+.mz .rest:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+@media (prefers-reduced-motion:reduce){.mz .rest{transition:none}.mz .rest:hover{transform:none}}
+
 .mz .lnav{display:flex;align-items:center;gap:14px;height:76px}
 .mz .lnav .sp{flex:1}
 .mz .lbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;

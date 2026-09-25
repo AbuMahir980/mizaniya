@@ -55,7 +55,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 6764,
+   "h": 6788,
    "title": "Landing page \u00b7 1440 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -65,7 +65,7 @@
    "x": 1652,
    "y": 0,
    "w": 1512,
-   "h": 6764,
+   "h": 6788,
    "title": "Landing page \u00b7 1440 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -75,7 +75,7 @@
    "x": 3304,
    "y": 0,
    "w": 832,
-   "h": 6749,
+   "h": 7207,
    "title": "Landing page \u00b7 390 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -85,7 +85,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 6749,
+   "h": 7207,
    "title": "Landing page \u00b7 390 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -94,26 +94,26 @@
    "file": "LandMotionLight.dc.html",
    "x": 5248,
    "y": 0,
-   "w": 972,
-   "h": 2091,
+   "w": 1708,
+   "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 light",
    "page": "page-land",
    "print": "fixed"
   },
   {
    "file": "LandMotionDark.dc.html",
-   "x": 6360,
+   "x": 7096,
    "y": 0,
-   "w": 972,
-   "h": 2091,
+   "w": 1708,
+   "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
   },
   {
    "file": "LandCycleLight.dc.html",
-   "x": 7472,
-   "y": 0,
+   "x": 0,
+   "y": 7397,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 light",
@@ -122,8 +122,8 @@
   },
   {
    "file": "LandCycleDark.dc.html",
-   "x": 0,
-   "y": 6954,
+   "x": 1360,
+   "y": 7397,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
@@ -475,7 +475,7 @@
    "x": 3304,
    "y": 0,
    "w": 1512,
-   "h": 1506,
+   "h": 1269,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -485,7 +485,7 @@
    "x": 4956,
    "y": 0,
    "w": 1512,
-   "h": 1506,
+   "h": 1269,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -495,7 +495,7 @@
    "x": 6608,
    "y": 0,
    "w": 1512,
-   "h": 1530,
+   "h": 1269,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -503,9 +503,9 @@
   {
    "file": "WebHomeRedDark.dc.html",
    "x": 0,
-   "y": 1720,
+   "y": 1485,
    "w": 1512,
-   "h": 1530,
+   "h": 1269,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -513,9 +513,9 @@
   {
    "file": "WebHomeNoplanLight.dc.html",
    "x": 1652,
-   "y": 1720,
+   "y": 1485,
    "w": 1512,
-   "h": 1153,
+   "h": 1178,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -523,9 +523,9 @@
   {
    "file": "WebHomeNoplanDark.dc.html",
    "x": 3304,
-   "y": 1720,
+   "y": 1485,
    "w": 1512,
-   "h": 1153,
+   "h": 1178,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -533,9 +533,9 @@
   {
    "file": "WebHomeEmptyLight.dc.html",
    "x": 4956,
-   "y": 1720,
+   "y": 1485,
    "w": 1512,
-   "h": 1421,
+   "h": 1269,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -543,9 +543,9 @@
   {
    "file": "WebHomeEmptyDark.dc.html",
    "x": 6608,
-   "y": 1720,
+   "y": 1485,
    "w": 1512,
-   "h": 1421,
+   "h": 1269,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -553,9 +553,9 @@
   {
    "file": "WebHomeOfflineLight.dc.html",
    "x": 0,
-   "y": 3440,
+   "y": 2944,
    "w": 1512,
-   "h": 1573,
+   "h": 1371,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -563,9 +563,9 @@
   {
    "file": "WebHomeOfflineDark.dc.html",
    "x": 1652,
-   "y": 3440,
+   "y": 2944,
    "w": 1512,
-   "h": 1573,
+   "h": 1371,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -655,7 +655,7 @@
    "x": 3304,
    "y": 2911,
    "w": 1512,
-   "h": 1467,
+   "h": 1269,
    "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 light",
    "page": "page-w-money",
    "print": "fixed"
@@ -665,7 +665,7 @@
    "x": 4956,
    "y": 2911,
    "w": 1512,
-   "h": 1467,
+   "h": 1269,
    "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 dark",
    "page": "page-w-money",
    "print": "fixed"
@@ -683,7 +683,7 @@
   {
    "file": "WebDebtsDark.dc.html",
    "x": 0,
-   "y": 4568,
+   "y": 4370,
    "w": 1512,
    "h": 1227,
    "title": "Debts & Goals \u00b7 one screen, no tabs \u00b7 1440 \u00b7 dark",
@@ -693,7 +693,7 @@
   {
    "file": "WebAddDebtLight.dc.html",
    "x": 1652,
-   "y": 4568,
+   "y": 4370,
    "w": 1512,
    "h": 1173,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 light",
@@ -703,7 +703,7 @@
   {
    "file": "WebAddDebtDark.dc.html",
    "x": 3304,
-   "y": 4568,
+   "y": 4370,
    "w": 1512,
    "h": 1173,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 dark",
@@ -713,7 +713,7 @@
   {
    "file": "WebAddGoalLight.dc.html",
    "x": 4956,
-   "y": 4568,
+   "y": 4370,
    "w": 1512,
    "h": 1191,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 light",
@@ -723,7 +723,7 @@
   {
    "file": "WebAddGoalDark.dc.html",
    "x": 6608,
-   "y": 4568,
+   "y": 4370,
    "w": 1512,
    "h": 1191,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
@@ -733,7 +733,7 @@
   {
    "file": "WebRecordLight.dc.html",
    "x": 0,
-   "y": 5985,
+   "y": 5787,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 light",
@@ -743,7 +743,7 @@
   {
    "file": "WebRecordDark.dc.html",
    "x": 1652,
-   "y": 5985,
+   "y": 5787,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 dark",
@@ -753,7 +753,7 @@
   {
    "file": "WebMonthsLight.dc.html",
    "x": 3304,
-   "y": 5985,
+   "y": 5787,
    "w": 2986,
    "h": 648,
    "title": "Months \u00b7 1440 \u00b7 light",
@@ -763,7 +763,7 @@
   {
    "file": "WebMonthsDark.dc.html",
    "x": 0,
-   "y": 7044,
+   "y": 6846,
    "w": 2986,
    "h": 648,
    "title": "Months \u00b7 1440 \u00b7 dark",
@@ -773,7 +773,7 @@
   {
    "file": "WebZakatLight.dc.html",
    "x": 3126,
-   "y": 7044,
+   "y": 6846,
    "w": 1512,
    "h": 792,
    "title": "Zakat \u00b7 1440 \u00b7 light",
@@ -783,7 +783,7 @@
   {
    "file": "WebZakatDark.dc.html",
    "x": 4778,
-   "y": 7044,
+   "y": 6846,
    "w": 1512,
    "h": 792,
    "title": "Zakat \u00b7 1440 \u00b7 dark",
