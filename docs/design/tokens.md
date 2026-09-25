@@ -418,10 +418,17 @@ salary.
 
 > **We never store your bank data in readable form.**
 
-That exact string appears on the landing page and on the sign-up trust panel, and
-the two must be **character-identical** — two slightly different privacy claims read
-as a company that is not sure, which is worse than one plain one. It lives here so
-there is one copy of it; a screen or a page quotes this line rather than rewriting it.
+That exact string appears on the landing page and on **sign-up**, and the two must
+be **character-identical** — two slightly different privacy claims read as a company
+that is not sure, which is worse than one plain one. It lives here so there is one
+copy of it; a screen or a page quotes this line rather than rewriting it.
+
+**Amended 25 September:** it used to say *the sign-up trust panel*. That panel is
+gone. It carried four claim blocks on every auth screen, and a fixed wording repeated
+in five places is a wording that will eventually differ in one of them — which it
+did: the forbidden sentence got into that panel twice. Sign-up now carries this claim
+and a link; the three supporting claims below live in **one** modal behind that link.
+The claim itself did not change, and it is still required on sign-up.
 
 The three supporting claims travel with it and are also fixed wording:
 

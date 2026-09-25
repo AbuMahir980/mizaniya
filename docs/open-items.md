@@ -2470,3 +2470,57 @@ come back. ☐
 savings pot* at step 4 is drawn as a button. What it opens is the spec's:
 presumably the same sheet as *Add a category* with the type fixed to Savings,
 but the protection default for a user-made pot is not stated anywhere. ☐
+
+### M·25 — One screen, one row, two widths
+
+The phone pages are gone as pages. A screen now appears **once**, as a row:
+1440 light · 360 light · 1440 dark · 360 dark. Eleven pages become seven.
+
+**The argument is a day old.** The 1440 setting-up flow was wrong on four of six
+steps, and on every one of those four the 360 screen had been right since the day
+it was drawn — ₦85,000.00 on the desktop and ₦83,333.34 on the phone, for
+the same sum, in the same repo, for days. That is what two sections buy: a
+discrepancy nobody can see without opening two pages and remembering. `10-design-
+brief.md` had already asked for it this way — *"360 and 1440, light and dark,
+for anything built now"*.
+
+It is still **one responsive web app with two designed views**, not one design
+shown at two sizes. The pairing rule is the naming: `Web<X>` and `Mw<X>` are the
+same screen; `Land` / `LandPhone` is the one exception. A phone screen with no
+1440 partner — the salary-day sheet, the More sheet, the import refusals —
+keeps its own row, placed after the screen it follows rather than swept to the end.
+
+**The trust panel is gone from every auth screen.** It carried four claim blocks
+in front of a two-field form; at 390 it pushed the button most of a screen away
+from the fields. The stronger reason is that `tokens.md` §10.1 **fixes** that
+wording, and a fixed wording repeated in five places is a wording that will
+eventually differ in one of them. It did: the forbidden sentence reached that
+panel twice. So sign-up keeps the one §10.1 claim — required there, character-
+identical to the landing page — with a link; the three supporting claims live in
+**one** modal behind it. Sign-in and the resets get the link and no claim: nothing
+new is handed over by someone who already has an account. §10.1 is amended in
+`tokens.md` accordingly — the claim did not change, only where it says it lives.
+
+**The modal keeps the form visible behind it.** A modal that blacks out what you
+were doing is a page, and a page you have to come back from. Nobody is sent away
+mid-sign-up to read a privacy page and expected to find their way back.
+
+**Consent is a tick now.** It read *"creating an account means you have read what
+we hold and why"* — a claim about the reader, made on their behalf, in grey
+text above a button. Consent you have to reach for is consent.
+
+**83 — first launch, and what decides it.** v1 is a PWA (spec §G: *the app is
+installable*), and an installed copy opens cold: no address bar, no landing page,
+nothing to have scrolled past. So the Welcome screen removed in M·23 was right
+to go from the **browser** and wrong to go entirely — it is what an installed
+copy shows on a device with **no budget on it yet**. Drawn at both widths, on page
+1. **What the spec owns:** launching an installed copy that already has a budget
+should go straight to Home and never show this; and whether “installed”
+is the condition at all, or simply “no budget on this device”, which
+would also cover a first visit in a plain browser tab. ☐
+
+**84 — the consent tick needs its wording and its record.** The screen shows a
+ticked box reading *I have read the security and privacy*. Whether that text is
+the legally intended wording, whether the tick must be stored against the account
+with a timestamp and a policy version, and what happens to an account created
+before a later policy version — all spec, and all of it sits next to item 77. ☐

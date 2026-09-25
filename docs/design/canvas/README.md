@@ -5,8 +5,8 @@ plus `canvas.json` describing the pages, positions and notes.
 
 **Re-cut 25 September: one screen, one artboard.** A board used to be able to hold
 six onboarding steps, or sign-up beside sign-in, or five states of Home in a row.
-Every file here is now one screen, named for the screen. 183 artboards across
-11 pages — landing page first, then the web app at 1440 in four pages, the same app
+Every file here is now one screen, named for the screen. 191 artboards across
+7 pages — landing page first, then the web app at 1440 in four pages, the same app
 at 360 in four more, then the mark and the foundations.
 
 Two surfaces, and they stay apart. `Web*` is the web app on a laptop; `Mw*` is the
@@ -20,7 +20,7 @@ time someone skimmed the canvas.
   `<style>` block at the top of each file, and the screen is the markup under it.
   No build step, no framework, no assets — the only external reference is the Google
   Fonts link (Inter, EB Garamond, JetBrains Mono).
-- **`canvas.json`** — the layout: eleven pages, each artboard's `x`/`y`/`w`/`h`, its
+- **`canvas.json`** — the layout: seven pages, each artboard's `x`/`y`/`w`/`h`, its
   title, and the note that sits above each page.
 
 `.dc.html` files open with an `<x-dc>` wrapper and a `./support.js` reference for the
