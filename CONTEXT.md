@@ -351,6 +351,14 @@ guarded by comparing emitted `px` values, felt conclusive, and let three broken
 file headers had exactly three fields never asked whether they had *extra* lines, so it
 passed while `@vitest-environment` was being deleted out of nine test files.
 
+**Two records of the same fact will disagree, and nothing will tell you.** The state
+file and the issue tracker both say which tickets are done. On 25 September they
+disagreed three ways at once: **#93** was closed and not recorded, **#74** had been
+closed on 23 September and never recorded, and **#79** was recorded as complete while
+still open. Each looked authoritative on its own. The fix is not more care — it is
+**comparing them on purpose**, which is a three-line script, and doing it at every
+context save rather than when something feels wrong.
+
 **Absence in the place you looked is not absence.** Three separate checks concluded the
 ten skills were uninstallable, each having looked in exactly one place. The install
 command was in the plugin's README the whole time.
