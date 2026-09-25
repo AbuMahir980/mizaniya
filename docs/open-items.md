@@ -2640,3 +2640,25 @@ that will catch the fourth is a build guard. Proposed: fail the build on
 and *no sync* outside a file that is explicitly about the free single-device
 tier. ☐ (The replacement, *Works with no signal*, is true and is the better
 promise anyway.)
+
+### M·29 — The Arabic starts at the *h*, and it was not in Amiri
+
+**Alignment: right, and it always should have been.** Left was tried and the
+owner sent it back with the reason: ميزانية **starts at the right**, so its first
+letter belongs under the Latin's last one — under the *h* of Mīzāniyah, running
+back towards the *M*. Each script begins at its own reading edge and the block
+is justified to both outer edges. The leading and the size were the whole
+problem; the alignment never was.
+
+**And it was not rendering in Amiri.** Chasing the alignment turned up the real
+fault: `.ar` — the rule that sets Amiri *and* `direction: rtl` — lived in
+`brand.AR_CSS`, which **every builder had to remember to append**, and
+`build_land.py` did not. So on the landing page ميزانية has been setting in
+Inter's Arabic fallback, in a left-to-right block, for as long as it has been
+there. Measured, not guessed: `getComputedStyle` reported `direction: ltr` and
+`font-family: Inter`.
+
+It is in **`ui.ALL_CSS`** now, so no builder can omit it, and **Amiri is in the
+global font link** rather than assumed. A stylesheet you have to remember is a
+stylesheet that will be forgotten — the same lesson as the lockup itself, one
+layer down.

@@ -463,7 +463,8 @@ were making it two objects instead of one.
 
 | | Was | Is | Why |
 |---|---|---|---|
-| Alignment | right (RTL default) | **left** | `direction: rtl` is right for the glyphs and wrong for the block — it pushed the Arabic to the far end of the Latin and opened an empty wedge next to the mark. `text-align` does not reorder Arabic; `direction` does, and it is untouched |
+| Alignment | right | **right — unchanged** | Left was tried and sent back. ميزانية starts at the RIGHT, so its first letter sits under the Latin's last one — under the *h*, running back towards the *M*. Each script begins at its own reading edge |
+| Font | Inter's fallback | **Amiri** | `.ar` lived in `brand.AR_CSS`, which every builder had to remember to append, and `build_land.py` did not. It is in `ui.ALL_CSS` now, and Amiri is in the global font link |
 | Leading | `line-height: 1.5` | **1.05, with a −10% pull** | Amiri sits low in its own box, so 1.5 on top of that put most of a blank line between them |
 | Size | 0.68 of the Latin | **0.5** | At 0.68 it competed; at 0.5 it is clearly the smaller of two things that belong together |
 

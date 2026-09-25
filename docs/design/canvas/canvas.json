@@ -115,7 +115,7 @@
    "x": 0,
    "y": 17922,
    "w": 1512,
-   "h": 1048,
+   "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -125,7 +125,7 @@
    "x": 1652,
    "y": 17922,
    "w": 462,
-   "h": 1088,
+   "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -135,7 +135,7 @@
    "x": 2254,
    "y": 17922,
    "w": 1512,
-   "h": 1048,
+   "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -145,7 +145,7 @@
    "x": 3906,
    "y": 17922,
    "w": 462,
-   "h": 1088,
+   "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -153,7 +153,7 @@
   {
    "file": "WebPrivacyModalLight.dc.html",
    "x": 0,
-   "y": 19200,
+   "y": 19286,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 light",
@@ -163,7 +163,7 @@
   {
    "file": "MwPrivacyModalLight.dc.html",
    "x": 1652,
-   "y": 19200,
+   "y": 19286,
    "w": 523,
    "h": 930,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 light",
@@ -173,7 +173,7 @@
   {
    "file": "WebPrivacyModalDark.dc.html",
    "x": 2315,
-   "y": 19200,
+   "y": 19286,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 dark",
@@ -183,7 +183,7 @@
   {
    "file": "MwPrivacyModalDark.dc.html",
    "x": 3967,
-   "y": 19200,
+   "y": 19286,
    "w": 519,
    "h": 930,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 dark",
@@ -193,7 +193,7 @@
   {
    "file": "WebSecurityLight.dc.html",
    "x": 0,
-   "y": 20422,
+   "y": 20508,
    "w": 1512,
    "h": 2735,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
@@ -203,7 +203,7 @@
   {
    "file": "MwSecurityLight.dc.html",
    "x": 1652,
-   "y": 20422,
+   "y": 20508,
    "w": 832,
    "h": 2952,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
@@ -213,7 +213,7 @@
   {
    "file": "WebSecurityDark.dc.html",
    "x": 2624,
-   "y": 20422,
+   "y": 20508,
    "w": 1512,
    "h": 2735,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
@@ -223,7 +223,7 @@
   {
    "file": "MwSecurityDark.dc.html",
    "x": 4276,
-   "y": 20422,
+   "y": 20508,
    "w": 832,
    "h": 2952,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
