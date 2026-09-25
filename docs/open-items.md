@@ -563,7 +563,7 @@ than in a message, so they sit next to their answers.*
 
 ---
 
-## H · The repositioning round — asked 25 September
+## H · The repositioning round — asked 25 September, answered 25 September
 
 > **UPDATED 25 September, and one earlier statement is withdrawn.** This section
 > originally said *"the 69 artboards you have all still stand."* **That is no longer
@@ -595,11 +595,71 @@ is not reopened.** What follows is additive.
   figure, and a sync badge competing with it may cost more than it earns. Your call,
   and it is the only one of these that touches a screen you have already drawn.
 
+
+  **Answered.** Home carries it in **one state only**, and it attaches to the figure
+  rather than competing with it.
+
+  The distinction §J3 needs is between two different worries that a single badge
+  blurs. **Durability** — your changes have not reached the server — is real even on
+  one device, but it is also the *normal* state of an offline-first app, so putting it
+  on Home would light a warning up on a good day. **Accuracy** — another device has
+  changes you have not got — is the only one that makes the figure itself doubtful,
+  and it cannot happen on a single-device account at all, which is most of the free
+  tier.
+
+  So:
+
+  | State | Home | Elsewhere |
+  |---|---|---|
+  | Up to date | nothing | Settings |
+  | Unsynced changes, **one** device | nothing | Settings |
+  | Unsynced changes, **two or more** devices | **a `small` line in `soft` directly under the hero** | Settings |
+  | Offline | nothing new — the offline state is already drawn | top bar |
+  | Failed · cursor expired | a `danger`/`action` banner, because these need a decision | Settings |
+
+  The line reads *"Not synced since 09:14 — another device may have newer figures."*
+  It sits under the figure because a caveat about a number belongs next to the number,
+  not in a corner where it becomes chrome. A permanent badge is worse than none: it
+  trains people to stop seeing it, and then it cannot work on the day it matters.
+
 - [ ] **24 · Is a locked paid feature a separate screen or an inline treatment?**
   It has to say what the feature is and what it costs — a dead control with no
   explanation is a bug (**L2**). The risk is tone: a lock that feels punitive on a
   **budgeting** app is worse than having no paid tier. This is the hardest copy
   problem in the brief.
+
+
+  **Answered: inline, and it is not a lock.** No padlock, no grey-out, no diagonal
+  hatching, no crown, and the word *unlock* appears nowhere.
+
+  The padlock **is** the punitive signal. It says *you are not allowed*, which is the
+  wrong sentence to show someone managing scarcity, and it is also inaccurate — the
+  free tier is a complete product, not a damaged one. What is paid for is **reach**:
+  a second device, a second person, a bank connection. None of those are things the
+  app is withholding; they are things that are not set up yet.
+
+  So the treatment is an **empty state for a capability that is not turned on**, drawn
+  in place, using components that already exist:
+
+  - A normal row or card where the feature would be, carrying the feature's **own
+    name**, one line of what it does, and what it costs. `card` fill, `line` border —
+    the same as any other row.
+  - **The control is live.** It opens the explanation. A dead control with no
+    explanation is **L2**; a live control that explains itself is not a lock at all.
+  - The verb is **"Turn on"** or **"Add"**, never "Unlock" or "Upgrade".
+  - No rose, no ochre. This is not a warning or an error. `slate` at most.
+
+  **Nothing anywhere depicts the free product as broken.** That is the rule the tone
+  floor turns into, and it is checkable: if a screenshot of the free tier would make
+  someone think something had failed, it is wrong.
+
+  A separate screen exists only for the **tier comparison**, reached *from* those
+  rows — never as an interstitial that gets in the way of something the person was
+  already doing.
+
+  **Lapsed** uses the same treatment as never-subscribed, with one added line naming
+  what stopped. It must be indistinguishable in tone from the free tier, because it
+  **is** the free tier.
 
 - [ ] **25 · Can "which budget do you keep?" be answered in one screen?** §I3:
   someone signs in on a device that already holds a different local budget. They
@@ -607,11 +667,64 @@ is not reopened.** What follows is additive.
   are destructive** and the person has to understand which is which. One screen, or
   a short flow?
 
+
+  **Answered: two steps, and a third door that is not destructive at all.**
+
+  One screen is wrong — two destructive buttons side by side is a misclick waiting to
+  happen, and there is no room to show what is being lost. A long flow is also wrong;
+  this is rare and the person is mid-sign-in.
+
+  **Before either choice, offer the export.** This is the actual design move, and it
+  costs nothing because export already exists and already produces a real file. It
+  turns an irreversible decision into a reversible one:
+
+  > *Before you choose — save the budget on this device to a file. You can restore it
+  > later, or on another device.*  **[ Export this device's budget ]**
+
+  **Step 1 — recognise, do not label.** Both budgets side by side, identified by facts
+  the person will recognise rather than by A and B: the number of movements, the date
+  range, the current safe-to-spend, when it was last opened. Nobody can choose between
+  *"local"* and *"remote"*; everybody can choose between *"23 movements since
+  24 September"* and *"2 movements, started yesterday"*.
+
+  **Step 2 — confirm what goes, by name and count.** *"The budget on this device —
+  23 movements, 3 debts, 2 goals, since 24 September — will be replaced. This cannot
+  be undone."* Explicit acknowledgement, not a second identical button.
+
+  Neither option is styled as the safe one, because neither is.
+
 - [ ] **26 · The reconciliation queue — the centre of the paid product, drawn
   nowhere.** *"₦12,000 left your account — which envelope?"* A list of detected bank
   movements each needing a category. It should feel like clearing a small inbox
   rather than doing data entry. Built as v1.1, so a single state is enough for now —
   but it is the interaction the subscription is actually selling.
+
+
+  **Answered: one item at a time, never a list of forms.**
+
+  A list of twelve rows each carrying a dropdown **is** data entry, whatever it is
+  called. An inbox is one thing in front of you, a decision, and then the next thing.
+  So the queue shows a single movement:
+
+  - **The amount is the hero** — this is a money screen and the figure is what is
+    being asked about. Payee and date beneath it in `small`/`soft`.
+  - **Categories as chips, ordered by likelihood**, and **never pre-selected.**
+    A pre-selected chip means someone tapping through quickly files things wrongly,
+    and a wrongly filed movement is worse than an unfiled one because it is silent.
+  - Escapes on the same surface: **Not mine** and **Already recorded** (which hands
+    off to the duplicate flow, §M5).
+  - **A count that falls.** *"3 of 8"* — the falling number is the reward, and it is
+    why this feels like clearing something rather than feeding something.
+  - Empty state: *"Nothing to sort."* That sentence is the whole point of the feature.
+
+  **The queue never blocks anything.** It is a row on Home — *"8 movements to sort"* —
+  that opens its own surface. A modal queue would make the paid feature feel like a
+  toll gate on the free product.
+
+  Motion is `motion.md` §3.11, and it is the one place the app is allowed a rhythm:
+  the filed item leaves, the next arrives, exactly one thing moving at a time.
+
+  **Blocked on figures** — see item 30.
 
 - [ ] **27 · The disagreement screen must read as two people agreeing, not as
   software refereeing.** *"You set Food to ₦40,000. Your wife set it to ₦35,000. Do
@@ -619,17 +732,90 @@ is not reopened.** What follows is additive.
   a disagreement about it is a conversation. Both amounts are kept until someone
   settles it. Built after launch; drawn now.
 
+
+  **Answered.** Four decisions, and the fourth is the one that keeps it honest.
+
+  **1 · Both figures are drawn as equals.** Same size, same weight, same colour, same
+  distance from the edge. The instant one is styled as correct and the other as a
+  conflict, software has refereed. No rose anywhere on this screen — a disagreement
+  between two people about groceries is not an error state.
+
+  **2 · Names, not roles.** *"You"* and the other person's name — never *yours* versus
+  *theirs*, which frames one as the owner of the truth. The heading is the situation,
+  not a verdict: **"You and <name> set Food differently."**
+
+  **3 · Leaving it unsettled is a first-class choice**, not a failure to act. Three
+  actions, and the third is not smaller than the others: keep ₦X · keep ₦Y ·
+  **leave it for now**. Two people agreeing sometimes needs a conversation that does
+  not happen in an app, and a screen that will not let you close it until you have
+  overruled your wife is a screen that picks a fight.
+
+  **4 · Say which figure the app is using meanwhile, and why.** Something has to be
+  computed with. The honest and defensible choice is **the lower of the two**, stated
+  in plain words on the screen:
+
+  > *Until you agree, Mizaniya uses ₦35,000 — the lower of the two, so it never tells
+  > you there is more to spend than there might be.*
+
+  That is a real decision with a real reason, it is conservative in the direction that
+  protects the household, and it removes the suspicion that the app quietly preferred
+  one person.
+
+  **Blocked on figures** — see item 30.
+
 - [ ] **28 · The landing page** — done properly, not assembled from leftovers. The
   problem first (salary gone before the month ends, debts both ways, rent once a
   year), then the screenshots, then free vs paid honestly.
 
-- [ ] **29 · One sentence that must never appear anywhere**, and it needs saying to
+
+  **Answered — the brief's story order is right and I am not changing it.** What I am
+  adding is the design decision that makes it hold together, because a landing page
+  assembled from good sections still reads as leftovers without one.
+
+  **The page is built from real screens at real size, and nothing else.** No device
+  frames drifting in space, no abstract illustration of a phone, no gradient mesh. The
+  argument of §2.2 — *the apps you tried do not work this way* — can only be made by
+  showing a thing that does. Every screenshot comes from the canvas at its drawn size,
+  in the light theme, with `seed-data.md` figures.
+
+  **One structural idea carries §2.1 → §2.3:** the page opens on the reader's problem
+  in words, and the first thing they see after it is the answer as a **screen**, not
+  as a sentence about a screen. Recognition, then why the others failed, then the one
+  number — the argument is that the third thing resolves the first, and putting a
+  stock image between them breaks it.
+
+  Sections 4 through 7 are evidence, and evidence gets **quieter** treatment than the
+  opening, not louder. The trust section (§2.7) is the one most landing pages dress up
+  and the one that should be plainest: prose, no icons, no badges. Fixed wording from
+  `tokens.md` §10.1 — see item 29.
+
+  Sequenced after the app work; the app's 1440 rework (item 31) produces the
+  screenshots this page is made of, so it has to come first.
+
+- [x] **29 · One sentence that must never appear anywhere**, and it needs saying to
   whoever writes marketing copy as much as to you: ~~*"your bank data never touches
   our servers"*~~. It is **false** — movement arrives at the server before it is
   encrypted. The true claim is strong enough: *"we never store your bank data in
   readable form."* The wording on the landing page and on sign-up must be
   **identical**, because two slightly different privacy claims is worse than one
   plain one.
+
+
+  **Recorded, and structurally, not as a note.** The exact approved string now lives in
+  **`tokens.md` §10.1** — one copy, in the file that already wins on conflict:
+
+  > **We never store your bank data in readable form.**
+
+  The landing page and the sign-up trust panel **quote that line** rather than each
+  writing their own, which is the only way two places stay character-identical over
+  time. The false sentence is named there as never-write, with the reason — movement
+  reaches the server before it is encrypted — so that whoever finds it later
+  understands why rather than just obeying. The three supporting claims (keys outside
+  the database, access logged and askable-for, bank access read-only) are fixed
+  wording in the same place.
+
+  It is in §10 rather than in a brief because briefs get finished and closed, and this
+  has to still be true in a year when someone is writing an app-store description.
 
 - [ ] **31 · Which 1440 screens genuinely need rework, and what earns the width?**
   The central question of the desktop decision. Home at 1440 should not be a 360
@@ -638,17 +824,107 @@ is not reopened.** What follows is additive.
   redrawn.** Likely candidates: Home, Transactions, Plan, Debts & Goals. The forms and
   sheets may be fine as they are.
 
-- [ ] **32 · `docs/design/motion.md`** — a sibling to `tokens.md`, authoritative the
+
+  **Answered. Four screens, and the principle is not "more fits".**
+
+  The test a second column has to pass: **is this something you want to look at *while*
+  looking at the first column?** Anything that fails it is a scroll, and a scroll is
+  fine — that is what the phone does.
+
+  **Home — the width holds the workings.** *Safe to spend* answers *can I spend?* The
+  question every person asks next is *why is it that number?*, and today they have to
+  scroll to find out. So: **left, the answer** — gauge, figure, today's chart. **Right,
+  the reason** — *Where your money is*, then the categories worst-first, full table, no
+  *Show all*. The relationship between the two columns **is** the insight the product
+  sells, and on a phone it is the one thing the layout cannot show.
+
+  **Transactions — the width buys a filter rail that does not move.** Filters currently
+  stack above the list, so changing one scrolls the list away. At 1440 they become a
+  persistent left rail; the list keeps its place; and the rows become real columns
+  (date · category · note · amount · balance) instead of stacked cards.
+
+  **Plan — the width buys editing without covering the total.** On a phone, editing an
+  envelope is a sheet, which hides the figure the edit is changing. At 1440 the envelope
+  list sits left and the one being edited sits right, with the cycle total visible
+  throughout. You watch *unallocated* fall as you type. That is genuinely better, not
+  merely wider.
+
+  **Debts & Goals — the width buys the removal of a control.** Both lists fit side by
+  side, so **the tabs go away entirely at 1440.** The best thing width can buy is
+  sometimes one less thing to navigate.
+
+  **Not reworked, and correct as drawn:** every form, sheet and dialog (480–620px —
+  they take the 360 step per §3's surface rule and are already right), onboarding,
+  welcome, the printed record, Settings, Zakat, Import, and every 360 board.
+
+  That is **eight boards redrawn** (four screens × light and dark), plus their states.
+
+- [x] **32 · `docs/design/motion.md`** — a sibling to `tokens.md`, authoritative the
   same way. Named durations (a small scale, two or three values), named easings and
   when each applies, an explicit list of what animates, and a **reduced-motion
   fallback for every entry**. Two constraints from our side: nothing animates on the
   path to a figure, and **money never counts up on first paint** — a number mid-count
   is a number nobody can read, and reading it is the product.
 
+
+  **Delivered: [`docs/design/motion.md`](design/motion.md).**
+
+  Three durations (`fast` 120 · `base` 180 · `sheet` 240 in / 160 out), two curves, an
+  **exhaustive** table of what animates with a reduced-motion fallback on every row,
+  an explicit never-animates list, and the pointer and keyboard states from item 35.
+
+  Both of your constraints are **§0**, above everything else, and one of them extended
+  further than you asked: *nothing animates on the path to a figure* also rules out the
+  **gauge arc sweeping on first paint**, because an arc mid-sweep is a wrong figure
+  shown with a right one's confidence — the same fault as a counting number, in a
+  different medium. The arc animates only when a value changes under the eye, which is
+  after the figure has been read.
+
+  The §3.9 entry is the one you flagged as the app's most valuable motion, and it is
+  built to obey §0: **the figure replaces instantly and never tweens**; what animates is
+  a wash behind it that says *this is what moved*.
+
+  One structural change: **`tokens.md` §5's motion block now points here.** The values
+  stayed in `tokens.md` because they are tokens and `tokens.css` reads them; everything
+  that is a decision rather than a number moved. Two sources for motion would have
+  drifted the way `Free`/`Unallocated` did.
+
+  §5 gives the rule that makes every future fallback derivable without asking:
+  **remove movement and scaling, keep opacity and colour, never remove information.**
+
 - [ ] **33 · The demo's "these are not your figures" marker.** Promoted to a Must. It
   must be **visible on every screen and not dismissable** — someone mistaking demo
   numbers for their own budget is a genuine hazard, not a design nicety. Also needs a
   state for *demo that has been edited*, because people will.
+
+
+  **Answered: a bar in the frame, not a badge in the content.**
+
+  Anything inside the page can scroll away, and a marker that scrolls away fails on the
+  screen where someone finally forgets. So it is **part of the app frame, above the top
+  bar**, present on every route including sheets and dialogs, with no dismiss control
+  at all — not a small one, none.
+
+  > **Sample figures — not your money.**   *[ Start with my own figures ]*
+
+  **Colour: `slate` on `sl2`.** Not rose — nothing has gone wrong. Not ochre — this is
+  not a warning about their money. Not emerald — it is not a success. `slate` is the
+  system's one genuinely neutral informational tone and it is load-bearing for nothing
+  else, so it can carry this.
+
+  **Edited state:** the same bar, one word longer — *"Sample figures, edited by you —
+  still not your money."* The bar never changes place, colour or shape, because a
+  marker that moves when you touch it teaches people it is negotiable.
+
+  **Two places it must survive that are easy to miss:**
+
+  - **The printed debt record.** It leaves the app and is read by someone who was never
+    in it. A demo record must carry the marker in the document itself — the same
+    scrupulousness as *"stated by the owner, not witnessed by Mizaniya"* in item 22.
+  - **The export file.** A demo export restoring silently as real data is the same
+    hazard one step removed. That is behaviour rather than drawing, so it is flagged
+    here rather than decided: the export needs a demo flag and the import needs to say
+    so.
 
 - [ ] **34 · The landing page's strongest moment.** The suggestion to argue with: the
   money figure counting down as the reader scrolls through a cycle — the product's
@@ -656,15 +932,172 @@ is not reopened.** What follows is additive.
   and a debt crossing zero (the ajo case no other app can represent). **No
   scroll-jacking**, and the page must read completely with motion off.
 
+
+  **Answered, and I am arguing with it — the instinct is right and the mechanism
+  breaks our own rule.**
+
+  A figure counting down as the reader scrolls is a figure that is unreadable at every
+  scroll position except the ends. `motion.md` §0.2 forbids exactly that, and the
+  landing page inherits it (§9), because the hero figure is the product's central
+  claim and showing it unreadable is showing the product badly. It would also be the
+  one moment on the page where the craft argument — the thing that convinces the third
+  reader — visibly fails.
+
+  **What is right underneath it:** show the cycle rather than describe it. Keep that.
+
+  **The counter-proposal — the number steps, the cycle sweeps.**
+
+  As the reader scrolls, the **day advances** through the cycle: 25 Sep → 5 Oct →
+  12 Oct → 24 Oct. At every position the figure is a **real value from that real day
+  in `seed-data.md`, fully rendered and readable** — it *snaps* between days, it never
+  tweens. What moves continuously is everything around it: the gauge arc sweeping down,
+  the daily-spend bars filling in one at a time behind it, the date changing. All
+  transform and opacity, all cheap.
+
+  So the reader watches a month happen and can read the number at every instant. It
+  makes the same argument more strongly, because a number you can read is a claim and a
+  number you cannot is a motion graphic.
+
+  **Rent fund and the debt crossing zero:** both yes, both the same mechanism — the
+  rail fills and the figure steps. The debt crossing zero is the best of the three and
+  is worth the most space; it is the case no other app can represent, and it needs no
+  explanation once seen.
+
+  **With motion off**, the section renders as a **small multiple** — three days side by
+  side, the same argument told statically, complete. That is the test: the page must
+  make its case to someone who never sees it move.
+
 - [ ] **35 · Pointer and keyboard states, which barely existed before.** Hover,
   focus-visible, active, and drag where it applies. On a phone these hardly matter; on
   a laptop their absence is exactly what makes a page feel like a port. And someone
   entering ten movements on a laptop should never need the mouse.
 
+
+  **Answered in [`motion.md`](design/motion.md) §6**, because these are the same system
+  as the motion and splitting them would have made a fifth file to keep in step.
+
+  The decisions worth naming here:
+
+  - **`:focus-visible`, not `:focus`.** A mouse click must never paint a ring. The ring
+    itself is unchanged — `tokens.md` §5's 2px `emerald` at 2px offset, fields keeping
+    their 3px `em2` halo — so nothing is reopened, it is scoped correctly.
+  - **Hover has no new colours.** Rows take `card2`, which already exists; buttons take
+    the 90% opacity already used for pressed; links underline. I removed invented hover
+    hexes from the primitives sheet on 22 September and did not want to reintroduce
+    them by the back door.
+  - **`@media (hover: hover)`**, so a touch device never gets a stuck hover state.
+  - **Hover is never the only signal** (**J3**) — every hover state has a non-hover
+    counterpart.
+  - **Chip groups are radio groups**: arrow keys within, Tab out. Tabbing through eight
+    categories to reach the ninth is precisely why someone reaches for the mouse.
+  - **Four shortcuts, no more** — `n` new movement, `/` filter, `Esc` close, `?` the
+    list — and they are shown on a surface rather than hidden for the initiated.
+  - **Focus is never lost**: a sheet traps it, closing returns it to the control that
+    opened it, a deleted row passes it to its neighbour.
+
+  One thing that falls out of the desktop decision: **the 44px target minimum is a
+  touch rule.** On a pointer device rows may be denser, and that is part of what
+  "density is a choice per page" means in §2 of the brief.
+
 - [ ] **30 · Anything here that needs a figure `docs/seed-data.md` does not have** —
   say so rather than inventing one (repo rule 2). Likely candidates: a part-paid
   debt for the reconciliation screens, and a second person's name for the household
   drawings.
+
+
+  **Answered: five gaps, none invented.**
+
+  | # | What is needed | For | Note |
+  |---|---|---|---|
+  | 1 | **A second household member's name** | §12 invite, members, disagreement | `Spouse` exists only as a *debt counterparty*. A co-budgeter is a different role and reusing the word would imply the person you owe ₦60,000 is the person editing your budget. A given name is better than a role here — the disagreement screen reads as two people precisely because it uses names |
+  | 2 | **Two figures for the disagreement** | §12 | The brief's *Food ₦40,000 / ₦35,000* is illustrative — `seed-data.md` plans **Food and groceries at ₦90,000**. Two figures are needed that are consistent with the seeded plan, plus which of the two is the owner's |
+  | 3 | **Detected bank movements** | §13 reconciliation, the queue in item 26 | The seed has no uncategorised movements at all. Needed: **how many** (the *3 of 8* counter is part of the design), and for each an amount, a payee string as a bank would send it, and a date. At least one should plausibly match an existing manual entry, for the duplicate case (§M5) |
+  | 4 | **Device names and last-sync times** | §08a devices (**I7**), and item 23's two-device state | Item 23's Home line quotes a time; the devices list needs at least two entries |
+  | 5 | **Price and billing period** | §09, and the landing page's pricing section | **Not settled, per your instruction** — I will draw around a placeholder. It appears in exactly three places: the tier comparison, the locked-row line *"what it costs"*, and the landing page pricing section. Those are the three strings to change when it lands, and I will name them where they are drawn |
+
+  Items **26** and **27** cannot be drawn faithfully until 1–3 exist. Everything else
+  in §H is unblocked.
+
+---
+
+## I · Back to the build side — asked 25 September, from the design side
+
+*Same convention in reverse: answer in place, change this heading to `answered
+<date>`. Nothing here blocks §H's answers, which are final as written — but three of
+the items below decide whether two of them can be **drawn**, and four are decisions I
+reached that are not mine to make alone.*
+
+### I·a — Figures. Blocking.
+
+§H item 30 lists five gaps in `docs/seed-data.md`. **Items 26 (reconciliation) and 27
+(disagreement) cannot be drawn faithfully until the first three exist**, and repo
+rule 2 says I do not invent them. In priority order:
+
+- [ ] **36 · Detected bank movements.** The seed has no uncategorised movements at
+  all. Needed: **how many** — the *3 of 8* counter is part of the queue's design and a
+  made-up count would draw the wrong screen — and for each, an amount, a payee string
+  *as a bank would actually send it* (that ugliness is the design problem), and a date.
+  **At least one should plausibly match an existing manual entry**, so the duplicate
+  case (§M5) has something to show.
+- [ ] **37 · A second household member's given name.** `Spouse` exists only as a debt
+  counterparty; reusing it would say the person you owe ₦60,000 is the person editing
+  your budget. §H item 27 turns on using names rather than roles, so this is not
+  cosmetic.
+- [ ] **38 · Two figures for the disagreement**, consistent with the seeded plan —
+  `Food and groceries` is planned at **₦90,000**, so the brief's ₦40,000 / ₦35,000 is
+  illustrative. Also which of the two is the owner's.
+- [ ] **39 · Device names and last-sync times.** §H item 23's Home line quotes a time,
+  and the devices list (**I7**) needs at least two rows.
+
+### I·b — Decisions I reached that belong to the spec, not to design
+
+Per `peer-ai/shared/design-data-contract.md`: design owns layout, spacing, type,
+colour and motion; **behaviour, states and data are yours.** Each of these is a
+behaviour I had to assume to finish a drawing. **I am naming them rather than letting
+them arrive disguised as a picture** — please agree, amend or reject, and log each as
+a `design:` row in `CONTEXT.md` Open Questions.
+
+- [ ] **40 · The disagreement uses the lower of the two figures until it is settled**
+  (§H item 27). Something must be computed with while two amounts are both live. Lower
+  is the conservative direction for a budgeting app — it never says there is more to
+  spend than there might be — and the screen states it in words so the app is not
+  suspected of quietly preferring one person. **But which figure the engine uses is
+  behaviour, and it is your call.**
+- [ ] **41 · The reconciliation queue never blocks anything.** It is a row on Home that
+  opens its own surface, not a modal and not an interstitial. A queue that must be
+  cleared would make a paid feature into a toll gate on the free product. Placement is
+  mine; **being non-blocking is a behaviour decision.**
+- [ ] **42 · A demo export must not restore silently as real data** (§H item 33). The
+  on-screen marker is drawn, but an export leaving the app and coming back carries the
+  hazard one step removed. Needs a flag on the export and a sentence on import. **Pure
+  behaviour — flagged, not designed.** Worth an issue in `08-issue-plan.md`.
+- [ ] **43 · Export must be reachable while signing in** (§H item 25). The whole
+  design of the two-budget choice rests on offering *"save this device's budget to a
+  file"* **before** either destructive option, which turns an irreversible decision
+  into a reversible one. If export is not available at that point in the flow, tell me
+  — the screen needs redesigning around a worse set of options, and I would rather know
+  now.
+
+### I·c — Assumptions that would invalidate a drawing if wrong
+
+- [ ] **44 · Can the client know how many devices are on the account, without a
+  blocking round trip, at the moment Home paints?** §H item 23 shows the sync line on
+  Home **only** when there are unsynced changes *and* more than one device — because
+  on a single-device account the figure cannot be stale, and a badge that is always
+  there stops being read. **If that count is not available locally at paint time, the
+  rule collapses** and I need to redesign it — probably to the last-known count with an
+  honest stale caveat, but I would rather you tell me than have me guess.
+- [ ] **45 · Does the 1440 shell keep its 1180px content area** once account and sync
+  chrome exist? §H item 31's two-column maths for Home, Transactions, Plan and
+  Debts & Goals is built on it, and `tokens.md` §3's surface rule uses 1180 as the
+  threshold that decides which type step a surface takes. A new sidebar or top bar
+  moves both.
+- [ ] **46 · Does CSS plus the Web Animations API cover `motion.md` §3.11?** The queue
+  — one item leaving, the next arriving — is the only entry with real orchestration.
+  `motion.md` §7 asserts no motion library is needed and that the 594KB bundle (**N1**)
+  should not grow for this. **Bundle weight is yours**; if you disagree after trying
+  it, say so and I will simplify the motion rather than buy a library for it.
+
 
 ---
 
@@ -674,8 +1107,10 @@ is not reopened.** What follows is additive.
   `tokens.test.ts` fails the build if the two copies drift.
 - About twenty primitives in `src/ui/` with their states, and the gallery at
   `src/app/primitives-page.tsx`; 44px targets audited.
-- Every screen at 360 and 1440, light and dark, every state — 67 artboards in
-  `docs/design/canvas/`.
+- Every screen at 360 and 1440, light and dark, every state — 69 artboards in
+  `docs/design/canvas/`. **Partly superseded on 25 September:** every 360 board still
+  stands, and so do all the forms, sheets and dialogs at 1440. Four 1440 screens are
+  being redrawn — see §H item 31.
 - The four stale figures the design stop found (₦8,666.66, the bare minus sign) —
   fixed on 10 September.
 - `PROPOSED-seed-additions.md` — merged into `docs/seed-data.md`, kept as the record.
