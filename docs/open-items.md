@@ -2237,3 +2237,54 @@ dated, because an undated privacy page is a promise with no expiry.
 backup window, that deleting the account deletes the data rather than only the
 login, and that the access log names person, time and object. Plausible, drawn
 because the page is unreadable without them, and **not written down anywhere**. ☐
+
+### M·19 — The Security page, rewritten the same day. Two faults, both mine.
+
+**It was drawn inside the app shell** — sidebar, date bar, an Add button. But
+whoever clicks *Security and privacy* in the landing page footer has no account,
+no budget and no data. Dropping them into a dashboard frame with a navigation
+they cannot use is a screen that does not know who is reading it. It is a
+**public page** now, in the landing page's frame: same nav, same footer, one
+column. You can reach it before you exist to us.
+
+**And it explained the database.** *"Encrypted at rest, keys held outside the
+database." "People can read production data." "Backups persist 30 days."* All of
+that is architecture, and the owner had already ruled on architecture in public
+once — *you still don't need to explain to people how your data is being
+stored*. I wrote it anyway and dressed it as candour. **Telling someone the
+shape of your storage is not honesty. It is a map.**
+
+**The frame that replaced it is the owner's**, from a conversation with a friend
+who works in this, and it is the right one:
+
+> Compliance does not ask how you store it. It asks **what you hold and why**.
+> An auditor points at a customer's phone number and says: what is this for? If
+> you cannot name the purpose, you should not be holding it. A stored card
+> number is a red flag on its own — which is why the sites that do it well keep
+> four digits and nothing else.
+
+So the page is now three lists:
+
+| Section | What is in it |
+|---|---|
+| **What we hold, and what for** | Email (sign-in and reset) · the budget (it is the product) · a bank connection, only if turned on · the device list (so a lost phone can be signed out). Each with how long it is kept. |
+| **What we do not hold at all** | **No card number — not even the last four.** No phone number, address, date of birth, BVN or NIN. No contacts, no location, nothing for advertising. |
+| **How we decide** | We keep only what we can name a use for · nobody builds Mizaniya against your figures · deleting the account deletes the data, not just the login. |
+
+**Item 76 is withdrawn.** The three facts I invented — the 30-day backup window,
+the access-log contents, the deletion detail — went with the architecture that
+needed them. Nothing on the page now is a promise nobody has agreed to.
+
+**77 — the sign-up screen now carries the notice, not a link to it.** Above the
+button, not below: *"Creating an account means you have read what we hold and
+why — four things, each with its reason, and a list of what we never ask for."*
+This is the moment a person hands something over, and it is where the owner said
+the detail belongs. **Confirm this is the consent wording you want**, because
+consent wording is legal, not design. ☐
+
+**78 — two things the owner's friend raised that are NOT on the page and should
+not be, but which the BUILD side needs anyway:** development must run against a
+separate database that developers cannot read production from, and backups need
+to exist. Both are real requirements. Neither belongs on a public page — that is
+exactly the architecture disclosure this rewrite removed. They belong in
+`02-architecture.md`. ☐
