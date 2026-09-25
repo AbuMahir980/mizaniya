@@ -1067,7 +1067,7 @@ behaviour I had to assume to finish a drawing. **I am naming them rather than le
 them arrive disguised as a picture** — please agree, amend or reject, and log each as
 a `design:` row in `CONTEXT.md` Open Questions.
 
-- [ ] **40 · The disagreement uses the lower of the two figures until it is settled**
+- [x] **40 · The disagreement uses the lower of the two figures until it is settled**
   (§H item 27). Something must be computed with while two amounts are both live. Lower
   is the conservative direction for a budgeting app — it never says there is more to
   spend than there might be — and the screen states it in words so the app is not
@@ -1191,7 +1191,7 @@ a `design:` row in `CONTEXT.md` Open Questions.
   **Your call on whether that is a nudge, a line on the Plan screen, or nothing at all.**
   I would rather flag the mechanism than have it discovered as a wrong figure two cycles
   later.
-- [ ] **41 · The reconciliation queue never blocks anything.** It is a row on Home that
+- [x] **41 · The reconciliation queue never blocks anything.** It is a row on Home that
   opens its own surface, not a modal and not an interstitial. A queue that must be
   cleared would make a paid feature into a toll gate on the free product. Placement is
   mine; **being non-blocking is a behaviour decision.**
@@ -1206,7 +1206,7 @@ a `design:` row in `CONTEXT.md` Open Questions.
   that nags.** *"8 movements to sort"* is information; a red dot that grows is pressure
   to use a feature they are paying for, applied to a screen about money they are short
   of. Same reasoning as your item 24.
-- [ ] **42 · A demo export must not restore silently as real data** (§H item 33). The
+- [x] **42 · A demo export must not restore silently as real data** (§H item 33). The
   on-screen marker is drawn, but an export leaving the app and coming back carries the
   hazard one step removed. Needs a flag on the export and a sentence on import. **Pure
   behaviour — flagged, not designed.** Worth an issue in `08-issue-plan.md`.
@@ -1230,7 +1230,7 @@ a `design:` row in `CONTEXT.md` Open Questions.
 
   Needs an issue and a test that a demo file cannot reach a real account. Both being
   raised now.
-- [ ] **43 · Export must be reachable while signing in** (§H item 25). The whole
+- [x] **43 · Export must be reachable while signing in** (§H item 25). The whole
   design of the two-budget choice rests on offering *"save this device's budget to a
   file"* **before** either destructive option, which turns an irreversible decision
   into a reversible one. If export is not available at that point in the flow, tell me
@@ -1398,7 +1398,41 @@ you produce is protected without anyone remembering to add it.
 | **Item 42 is issue #106** | The demo export hazard you flagged. Includes one thing you did not name and it is worse: the demo flag has to survive every schema migration, or it is lost exactly when the file is oldest |
 | **`packages/tokens` was not created** | ADR-008 called for it. Skipped: nothing imports `tokens.ts` but two tests, so the package would have had one consumer in another package. It arrives at v2 when React Native needs the values and cannot use CSS. **No effect on you** |
 
-### J·4 — What is waiting on you
+### J·4 — Nothing is waiting on us. The design is now the critical path.
+
+**Checked item by item on 25 September.** Everything you asked for is answered or
+supplied, and **the build side is stopped on purpose until the design is complete** —
+no screens are being built, and the server is planned on paper only and now parked. So
+nothing you are waiting on is with us, and nothing we are doing can move under you
+while you draw.
+
+| We owed you | Status |
+|---|---|
+| The four figure gaps (§I 36–39) | **Supplied** — `seed-data.md`, *Added 25 September* |
+| The disagreement rule (§I 40) | **Answered** — the higher of the two. Only the copy on your screen changes, and it gets shorter |
+| Is the queue blocking? (§I 41) | **Answered** — no, and it is a requirement now rather than a preference |
+| The demo-export hazard (§I 42) | **Answered**, and issue #106 raised |
+| Is export reachable at sign-in? (§I 43) | **Answered** — yes, no work needed. Draw it |
+| Device count at paint time (§I 44) | **Answered** — cached and sticky. Your one drawn state stands |
+| Does 1180 hold? (§I 45) | **Answered** — yes. No new persistent chrome |
+| CSS and WAAPI for §3.11 (§I 46) | **Answered** — yes, no library. Your one-item-moving design removed the orchestration |
+| Price for §09 | **A settled placeholder.** Draw the subscribe flow |
+
+**What is outstanding is all yours:** the drawings behind §H items 23–28 and 31–35,
+and one small new question — **§I item 47** (a lingering disagreement leaking into the
+next cycle through rollover, and whether that wants a nudge at cycle close, a line on
+Plan, or nothing).
+
+**When the drawings land, tick the §H boxes.** That is what those boxes mean, and it is
+how both sides will know the design is *finished* rather than delivered in parts.
+
+### J·5 — What the build side is doing meanwhile: nothing
+
+Deliberately. Screen building is stopped, and the server is planned on paper and
+parked. **After the design is finished the next step is a planning pass, not a build**
+— so there is no risk of code arriving underneath your drawings.
+
+### J·6 — Previously: what is waiting on you
 
 Nothing new. §H items 26 and 27 were blocked on figures; **those figures now exist** in
 `docs/seed-data.md` — eight detected bank movements, the second household name, two

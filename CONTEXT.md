@@ -1298,7 +1298,24 @@ full reasoning; this is the summary and what it means for the code.*
 open issue is accurate, scoped and either actionable or explicitly conditional. Nothing
 is carried informally any more — if it is not an issue, it is not outstanding.
 
-### The next build work: accounts and sync
+### The design is the critical path — nothing is being built
+
+**Agreed 25 September.** The order is: **finish the design → confirm it is done →
+plan properly → then build.** Not in parallel, and not the other way round.
+
+So as of now:
+
+- **No screens are being built.** #72 is parked and re-scoped.
+- **No server exists.** There is no `services/` folder. [ADR-012](docs/adr/ADR-012-server-stack.md) chose a stack on paper and is **parked** — its first action item is *revisit this at all*, because it was written before any server existed and some of it may not survive contact. #119 is parked with it.
+- **Nothing on the build side blocks the designer**, checked item by item — `docs/open-items.md` §J·4 lists every answer we owed and its status.
+
+**The design is finished when the §H boxes in `open-items.md` are ticked.** That is
+what those boxes mean, and it is the signal both sides agreed on — delivered in parts
+is not the same as done.
+
+**Then, and only then:** a planning pass, and after it the build.
+
+### Afterwards: accounts and sync
 
 Stories **I** and **J** in `docs/03-system-spec.md`, endpoints in
 `docs/09-endpoint-specs.md` §5a and §5b. This is the first code in `services/api/`,
