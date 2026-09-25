@@ -2164,3 +2164,70 @@ limits what this PAGE says, not what the product says inside a picture of
 itself. `web_screen` now wraps its output in `<!--appshot-->` sentinels and the
 counter cuts those out before counting. Balanced comments are trivial to strip;
 a regex over nested `<div>`s is not.
+
+### M·17 — The demo is dropped, and item 74 is withdrawn
+
+The owner's ruling, 25 September, and the reasoning is better than mine:
+
+> *"Since a user can use their own data and they don't necessarily have to sign
+> up — if they had to sign up before they could do that, then yes, friction is a
+> concern."*
+
+**That is right.** The demo existed to let someone look before committing. But
+the thing they would have been committing to is *typing their own figures into a
+free product that needs no account* — which is not a commitment. The demo was
+solving friction that the free tier had already removed, and it cost a whole
+mode to do it.
+
+**The stronger claim was there all along, and the page says it now:** *you do not
+need an account to use this.* Not a trial, not a preview, not a sample — the
+real product, real figures, no sign-up. An account buys reach: a second device,
+a second person, a bank. That claim stays true after the visitor starts, which
+the demo pitch only was for as long as they stayed in the demo.
+
+**What changed on the page:**
+
+| Was | Now |
+|---|---|
+| Nav: *See it with sample data* | *Start with my own figures*, with *Sign in* beside it |
+| Hero: *Look around first — no sign-up to try it* | *No account needed. Sign up only for a second device or a second person.* |
+| Closing: *Look at it with someone else's money first* | *You do not need an account.* |
+| Footer bottom: *Every figure on this page is sample data* | *Every figure on this page comes from one worked example* |
+
+**74 is withdrawn** — demo mode needed a spec section only while demo mode
+existed.
+
+**75 — §H items 33 and 42 now have no subject, and that is the build side's
+call, not mine.** Item 33 (the demo marker, promoted to a **Must**) and item 42
+(a demo export must not restore silently as real data) both answer questions
+about a mode this ruling removes. If demo mode is gone from the product as well
+as from the landing page, both should be closed as withdrawn rather than left
+standing as Musts nobody can satisfy. **The `LandDemo` board is already off the
+canvas.** ☐
+
+### M·18 — Item 72 done: Security and privacy is drawn
+
+**Screen 20**, at 1440 and 390, on page 6 and page 10. It carries what came off
+the landing page and it is **reachable only from the footer** — not the nav, not
+a hero link, not a banner. A cautious reader goes looking for it by name and
+finds it; nobody else is made to walk past it. The sign-up trust panel links
+straight to it, which is the one moment it matters.
+
+**Every answer carries its caveat in the same size as the answer.** A caveat set
+smaller than the promise it qualifies is a caveat being hidden. So the page
+says, in the same type as the reassurance beside it:
+
+- without an account the browser copy is **not encrypted at all**, and that is
+  the trade the free tier makes;
+- the movement **reaches the server before it is encrypted**;
+- **people can read production data**, and anyone claiming otherwise is
+  describing a company that cannot fix a bug;
+- a copy **persists in encrypted backups for up to 30 days**.
+
+The one absolute claim is `tokens.md` §10.1, character-identical. The page is
+dated, because an undated privacy page is a promise with no expiry.
+
+**76 — three facts on this page are mine and belong to the spec:** the 30-day
+backup window, that deleting the account deletes the data rather than only the
+login, and that the access log names person, time and object. Plausible, drawn
+because the page is unreadable without them, and **not written down anywhere**. ☐
