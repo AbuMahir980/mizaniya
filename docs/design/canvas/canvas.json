@@ -745,7 +745,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 8305,
+   "h": 6764,
    "title": "Landing page \u00b7 1440 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -755,7 +755,7 @@
    "x": 1652,
    "y": 0,
    "w": 1512,
-   "h": 8305,
+   "h": 6764,
    "title": "Landing page \u00b7 1440 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -765,7 +765,7 @@
    "x": 3304,
    "y": 0,
    "w": 832,
-   "h": 8363,
+   "h": 6749,
    "title": "Landing page \u00b7 390 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -775,7 +775,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 8363,
+   "h": 6749,
    "title": "Landing page \u00b7 390 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -785,7 +785,7 @@
    "x": 5248,
    "y": 0,
    "w": 972,
-   "h": 1792,
+   "h": 2091,
    "title": "Landing page \u00b7 pointer states \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -795,7 +795,7 @@
    "x": 6360,
    "y": 0,
    "w": 972,
-   "h": 1792,
+   "h": 2091,
    "title": "Landing page \u00b7 pointer states \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -813,7 +813,7 @@
   {
    "file": "LandCycleDark.dc.html",
    "x": 0,
-   "y": 8553,
+   "y": 6954,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
@@ -823,7 +823,7 @@
   {
    "file": "LandDemoLight.dc.html",
    "x": 1360,
-   "y": 8553,
+   "y": 6954,
    "w": 1512,
    "h": 3471,
    "title": "The demo marker \u00b7 item 33 \u00b7 light",
@@ -833,7 +833,7 @@
   {
    "file": "LandDemoDark.dc.html",
    "x": 3012,
-   "y": 8553,
+   "y": 6954,
    "w": 1512,
    "h": 2875,
    "title": "The demo marker \u00b7 item 33 \u00b7 dark",
