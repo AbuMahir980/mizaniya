@@ -2,7 +2,7 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | **Proposed — awaiting the stakeholder** |
+| **Status** | **Parked 2026-09-25 — not being decided yet.** Written while planning ahead, then deferred: the design is the critical path, and the server is not started until it is finished and a proper planning pass has happened. **Nothing is waiting on this.** It is on the record so the reasoning is not re-derived later |
 | **Date** | 2026-09-25 |
 | **Deciders** | Qudus Lawal (stakeholder and owner) |
 
@@ -138,6 +138,7 @@ knows that.
 
 ## Action Items
 
+0. [ ] **Revisit this at all.** Parked until the design is finished. When it is picked up, it is reviewed rather than assumed — the reasoning below was written before any server existed, and some of it may not survive contact.
 1. [ ] **Stakeholder confirms**, or names a different stack.
 2. [ ] `services/api` as a workspace package importing `@mizaniya/core`.
 3. [ ] Postgres schema, and the migration chain — numbered and forward-only, per ADR-005's discipline.
