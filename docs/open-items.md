@@ -2570,3 +2570,36 @@ Read our security and privacy"*, because the link was treated as a fixed string
 rather than a phrase; it takes a label now. And sign-up carried **two lockups**,
 one in the form column and one in the rail — a screen that says its own name
 twice is a screen that is not sure you saw it the first time. The rail's is gone.
+
+### M·27 — Mīzāniyah, and the Arabic beside every logo
+
+Two instructions from the owner, 25 September.
+
+**1 · Wherever the logo appears on a public-facing screen, ميزانية goes with
+it.** That is stronger than the rule §10.2 carried yesterday, which allowed the
+Arabic to be dropped in bars. It now stacks in the landing nav at both widths,
+on security and privacy, on first launch, on every account and setting-up
+screen, on splash and on the cover. The landing nav is 76px tall and has room
+for two lines — which is the test. It stays dropped only once someone is
+*inside* the app, on the sidebar and the phone header, where a 28px bar cannot
+carry two lines and shrinking is the one thing never to do.
+
+**2 · The name is romanised properly.** ميزانية is m-ī-z-ā-n-i-y-a-h, so the
+wordmark reads **Mīzāniyah**. The long vowels are the alif and the ya the Arabic
+actually has; *Mizaniya* threw both away and the ta marbuta with them. Set with
+ī (U+012B) and ā (U+0101) — real characters, not combining marks and not tildes.
+EB Garamond has both and Google Fonts serves them from latin-ext.
+
+Changed in **one place**, `brand.NAME`, and every lockup reads it from there.
+After two drift incidents in four days that is the only way it is allowed to be
+written.
+
+**85 — does prose follow the wordmark?** Right now the drawn name is
+*Mīzāniyah* and running copy, the repo, the domain and the package name still
+say *Mizaniya*. That split is deliberate and it is how transliterated brands
+normally work — the wordmark is lettering, a URL is something a person types —
+but it is the **owner's** call, not a design one, because it reaches the domain,
+the app listing, search and word of mouth. Worth knowing before deciding: almost
+nobody will type ī or ā, so a name that requires them to find us costs reach;
+and `© 2026 Mizaniya` in the footer is a legal entity, which changes only if the
+entity does. ☐

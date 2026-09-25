@@ -438,19 +438,34 @@ The three supporting claims travel with it and are also fixed wording:
 
 ### 10.2 · The wordmark — when ميزانية appears, and when it does not
 
-The name is **Mizaniya** set in EB Garamond 600 with **ميزانية** in Amiri beneath
-it, never above, never larger, and never carrying a figure. The brand page has
-said this since it was drawn. It is written here because saying it on the brand
-page was not enough.
+The name is **Mīzāniyah** set in EB Garamond 600 with **ميزانية** in Amiri
+beneath it, never above, never larger, and never carrying a figure.
+
+### The romanisation — owner's call, 25 September
+
+ميزانية transliterates letter for letter as **m-ī-z-ā-n-i-y-a-h**, and the long
+vowels are the point: they are the alif and the ya the Arabic actually has.
+*Mizaniya* threw both away, and the ta marbuta with them.
+
+**The wordmark is lettering; prose is text.** The macrons belong in the drawn
+name — the lockup, the cover, first launch, the sidebar — and not in a URL, a
+filename, a package name, an email address or anything a person in Lagos has to
+type in order to find us. Running copy still reads *Mizaniya* (item 85 asks the
+owner whether it should follow). Set ī (U+012B) and ā (U+0101), never ī/ā built
+from combining marks, and never a tilde: EB Garamond has both characters and
+Google Fonts serves them from the latin-ext subset without a second request.
+
+### Where the Arabic appears
 
 | Where | The Arabic |
 |---|---|
-| First launch, splash, the auth masthead, the landing footer, the cover | **Stacked.** The mark is being presented and there is room |
-| The nav bar, the app sidebar, the phone header, a tab | **Dropped.** Never shrunk to fit |
+| **Every public-facing screen**: the landing page and its nav, first launch, the account and setting-up screens, security and privacy, splash, the cover | **Stacked, always.** The owner's instruction, 25 September: *wherever we have the logo, the Arabic must accompany it* |
+| The app's own sidebar and the phone header, once someone is inside | **Dropped**, never shrunk |
 
-**Dropped, not shrunk** is the whole rule. A 28px bar cannot carry two lines, and
-Amiri at 9px is not the Arabic — it is a smudge that happens to be the right
-shape.
+**Dropped, not shrunk** still holds wherever it is dropped. Amiri at 9px is not
+the Arabic — it is a smudge that happens to be the right shape. The landing nav
+is 76px tall and has room for two lines, which is why it stacks there; a 28px
+toolbar does not, which is why it does not.
 
 **How it went missing, 25 September.** `brand.wordmark()` has always set it
 correctly, and the owner had to point out that the name had lost half of itself
