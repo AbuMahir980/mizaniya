@@ -1,13 +1,3 @@
-/**
- * WHAT: The toast, and the single live region every screen announces through.
- * WHY:  Two channels for one fact (page specs §6). A toast is silent to a screen
- *       reader; a live region leaves a sighted owner unsure the save landed. Each
- *       channel has someone who only has that one, so both ship together.
- * INTERVIEW: I paired the visible confirmation with one polite live region per
- *       screen, and announced only the figure the user came for rather than every
- *       number that changed.
- */
-
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { cx } from './cx'

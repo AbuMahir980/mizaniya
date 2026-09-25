@@ -1,14 +1,3 @@
-/**
- * WHAT: The only door between the app and wherever its data actually lives —
- *       IndexedDB today, SQLite on mobile, an HTTP API when sync exists.
- * WHY:  Plain async CRUD, deliberately boring, because three implementations
- *       have to honour it. Anything clever here — a query language, a live
- *       subscription — would be a promise one of those three could not keep.
- * INTERVIEW: I kept the repository interface to operations every backing store
- *       can implement honestly, so the storage engine stays a detail the
- *       screens never learn about.
- */
-
 import type {
   Category,
   Debt,

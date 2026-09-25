@@ -1,12 +1,3 @@
-/**
- * WHAT: The loading mark.
- * WHY:  It keeps turning under `prefers-reduced-motion`, which is the one
- *       deliberate exception in the whole system — a still spinner conveys
- *       nothing, so stopping it would remove information rather than motion.
- * INTERVIEW: I honoured reduced-motion everywhere except the spinner, because
- *       the point of that setting is to remove decoration, not meaning.
- */
-
 import { cx } from './cx'
 
 export function Spinner({ className }: { className?: string }) {

@@ -1,16 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: The whole first run — welcome, restore, the six steps, and what lands
- *       in storage at the end.
- * WHY:  The acceptance criterion asks that the seeded owner onboards and Home
- *       reads ₦7,500.00. Onboarding supplies only half of that: it writes
- *       settings, categories, opening balances, debts and the goal, but **not
- *       the plan and not this cycle's movements**, which are the owner's own
- *       later. So the test adds those and asserts the figure — proving
- *       onboarding's half rather than pretending it produced all of it.
- * INTERVIEW: I made the end-to-end test say which half it was proving, because
- *       a test that quietly seeds the answer proves nothing about the code.
  */
 
 import 'fake-indexeddb/auto'

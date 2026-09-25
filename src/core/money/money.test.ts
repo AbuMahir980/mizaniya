@@ -1,13 +1,3 @@
-/**
- * WHAT: The money module's tests, including every figure the documentation and
- *       the designs publish.
- * WHY:  H4 requires a test on every money path before it merges. These also pin
- *       the worked scenario, so an edit that moves ₦7,500.00 fails here rather
- *       than silently contradicting `docs/seed-data.md` and 67 artboards.
- * INTERVIEW: I tested the published figures, not just the functions, so the docs
- *       and the code cannot drift apart without something going red.
- */
-
 import { describe, expect, it } from 'vitest'
 import {
   addMoney,

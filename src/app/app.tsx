@@ -1,12 +1,3 @@
-/**
- * WHAT: The application root — providers, router, error boundary.
- * WHY:  The store bundle is created **once**, outside React, and handed in.
- *       What it is built on is chosen in `store/`, because `app/` may not
- *       import `data/` — the shell has no business knowing where records live.
- * INTERVIEW: I assembled the providers in one root so the order is visible in
- *       a single file rather than inferred from four.
- */
-
 import { BrowserRouter } from 'react-router'
 import { createAppStore } from '@/store/create-app-store'
 import { ErrorBoundary } from './error-boundary'

@@ -1,14 +1,3 @@
-/**
- * WHAT: The goal projection, pinned to the worked rent fund in
- *       `docs/seed-data.md` — ₦475,000.00 of ₦900,000.00, ₦50,000.00 short,
- *       needing ₦85,000.00 a payday.
- * WHY:  The rent fund is seeded **behind schedule on purpose**. A demo where
- *       everything is fine demonstrates nothing, and this is the figure that
- *       proves the warning works.
- * INTERVIEW: I tested the case the feature exists for — a goal quietly falling
- *       short — rather than the happy path, which would have passed either way.
- */
-
 import { describe, expect, it } from 'vitest'
 import {
   paydaysRemaining,

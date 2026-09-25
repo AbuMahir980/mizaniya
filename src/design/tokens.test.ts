@@ -1,12 +1,3 @@
-/**
- * WHAT: Fails the build when `tokens.css` and `tokens.ts` disagree about any value.
- * WHY:  The tokens exist in two forms because two consumers need them — CSS for
- *       styling, typed data for charts, tests and the contrast audit. Two copies
- *       will drift; this is the thing that makes the drift loud instead of silent.
- * INTERVIEW: Where I could not avoid two representations of one fact, I wrote the
- *       test that fails when they disagree, rather than relying on discipline.
- */
-
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'

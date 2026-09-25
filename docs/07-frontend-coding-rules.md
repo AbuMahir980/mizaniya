@@ -13,7 +13,7 @@ to the same ESLint config.
 
 Two documents describing one enforcement setup is the drift this project keeps
 designing against — and the readable copy is the one that goes stale
-(`docs/concepts/one-source-of-truth.md`). So `05` holds the map, with an honest
+(`docs/engineering-notes/derived-state.md`). So `05` holds the map, with an honest
 **Enforced / Partial / Not yet** status against every rule, and this file points
 at it.
 

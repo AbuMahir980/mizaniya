@@ -1,12 +1,3 @@
-/**
- * WHAT: The three buttons — primary, secondary, quiet — each with every state.
- * WHY:  There is deliberately **no danger variant**. Deleting a transaction is an
- *       ordinary action, and the addendum reserves the danger colour for money
- *       going wrong; a red Delete button would spend that signal on a routine tap.
- * INTERVIEW: I left the destructive-button variant out on purpose, because the
- *       warning colour only works if it means one thing.
- */
-
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { cx } from './cx'
 import { Spinner } from './spinner'

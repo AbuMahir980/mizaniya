@@ -1,12 +1,3 @@
-/**
- * WHAT: The scratch page — every primitive, in every state, in both themes.
- * WHY:  F6 says a primitive ships with its states. This is where that is checked
- *       by looking, and where a missing disabled or error state is obvious before
- *       a screen depends on it.
- * INTERVIEW: I built the component gallery before the screens, so the states were
- *       designed once rather than improvised eight times.
- */
-
 import { useState } from 'react'
 import {
   AmountInput,

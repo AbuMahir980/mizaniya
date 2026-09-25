@@ -1,14 +1,3 @@
-/**
- * WHAT: The one store holding the whole snapshot, and the single path every
- *       write takes.
- * WHY:  **Storage first, memory second.** If memory went first, a rejected save
- *       would leave the screen showing a figure the database does not have, and
- *       nothing in the system could tell. This ordering makes a failed save
- *       visible instead of silent (ADR-001).
- * INTERVIEW: I routed every write through one function that commits to storage
- *       before touching memory, so the screen and the database cannot disagree.
- */
-
 import { createStore } from 'zustand/vanilla'
 import type { Repository, ChangeNotifier } from '@/core/repository'
 import type { Snapshot } from '@/core/types'

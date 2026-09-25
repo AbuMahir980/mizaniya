@@ -1,14 +1,3 @@
-/**
- * WHAT: Fails the build on an off-grid spacing value.
- * WHY:  `tokens.md` §5 is **a 2px grid** since 23 September. The theme's scale
- *       only has even keys, so `p-11` cannot be written — but an arbitrary
- *       `p-[11px]` slips straight past it, and that is the hole the scale was
- *       replaced to close.
- * INTERVIEW: I guarded the design system's grid against Tailwind's arbitrary
- *       values, because the token scale can only enforce what someone chooses
- *       to spell as a token.
- */
-
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { extname, join, relative } from 'node:path'
 

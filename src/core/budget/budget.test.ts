@@ -1,12 +1,3 @@
-/**
- * WHAT: The budget maths, pinned to every figure `docs/seed-data.md` publishes.
- * WHY:  These numbers are in the documentation and on 67 design artboards. A test
- *       that only checks the function works would let the app and the documents
- *       drift apart silently; these fail the moment they disagree.
- * INTERVIEW: I tested the published figures rather than just the functions, so the
- *       code and the specification cannot part company without something going red.
- */
-
 import { describe, expect, it } from 'vitest'
 import {
   totalMoved,

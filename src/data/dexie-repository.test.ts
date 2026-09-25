@@ -1,14 +1,3 @@
-/**
- * WHAT: The Dexie repository against a real IndexedDB implementation
- *       (fake-indexeddb), including an import that is **rejected part-way**.
- * WHY:  Atomicity is the one property that cannot be checked by reading the
- *       code. A rollback either happens or it does not, and the only way to
- *       know is to break a write on purpose and look at what survived.
- * INTERVIEW: I tested the failure path of the import transaction rather than
- *       the happy path, because a half-written import is the silent fault the
- *       whole design is arranged against.
- */
-
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createDexieRepository } from './dexie-repository'

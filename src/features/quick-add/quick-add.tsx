@@ -1,13 +1,3 @@
-/**
- * WHAT: Quick Add — the sheet that records a movement in three taps.
- * WHY:  **The most-used interaction in the app** (story G2). Type defaults to
- *       Expense and the date to today, so the common case is ⊕ → a chip → Save.
- *       Everything else costs an extra tap, deliberately.
- * INTERVIEW: I made the defaults do the work rather than asking eight questions,
- *           because the interaction people repeat daily is the one that has to
- *           cost nothing.
- */
-
 import { useEffect, useMemo, useState } from 'react'
 import { AmountInput, Field } from '@/ui/field'
 import { Button } from '@/ui/button'

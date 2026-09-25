@@ -1,13 +1,3 @@
-/**
- * WHAT: Every route in the app (page specs §1), and the placeholders standing
- *       in for screens that have not been built yet.
- * WHY:  The routes exist before the screens so navigation, the redirect and the
- *       keyboard order can be tested now. A placeholder says plainly that it is
- *       one — it never renders an empty screen that looks finished.
- * INTERVIEW: I stood the routing up ahead of the screens so the shell's
- *       behaviour had tests before there was anything to look at.
- */
-
 import type { ReactNode } from 'react'
 import { Route, Routes } from 'react-router'
 import { ShellWithAnnouncer } from './app-shell'

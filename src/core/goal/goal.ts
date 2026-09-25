@@ -1,13 +1,3 @@
-/**
- * WHAT: How much a goal has saved, what it will have by its due date, and what
- *       rate would close the gap.
- * WHY:  The projection counts **paydays**, not elapsed time — money arrives in
- *       lumps on payday, and pro-rating a part cycle models a flow that does not
- *       exist and counts a contribution not yet made (D5).
- * INTERVIEW: I projected against paydays rather than days, because the smooth
- *       version raises a false alarm in the one case the feature exists for.
- */
-
 import { addMoney, clampToZero, perUnitCeil, subtractMoney } from '../money/money'
 import type { Goal, IsoDate, Kobo, Snapshot, Transaction } from '../types'
 import { compareDates, paydaysBetween } from '../cycle/cycle'

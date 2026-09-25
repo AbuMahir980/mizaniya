@@ -95,10 +95,9 @@ to show.
 was made* and is immutable history. A topic note explains the **system as it now
 is** and is rewritten whenever that changes. A note links its ADRs.
 
-**`docs/concepts/` is being deleted**, not kept alongside — the engineering note
-replaces it, and two folders explaining the same things is how documentation starts
-contradicting itself. Its content is harvested into the notes first, and the seven
-files that link into it are repointed. Do not add to it.
+**`docs/concepts/` is gone**, deleted 2026-09-25 once its content had been harvested
+into the notes. The engineering note replaced it: two folders explaining the same things
+is how documentation starts contradicting itself. **Do not recreate it.**
 
 ---
 

@@ -1,14 +1,3 @@
-/**
- * WHAT: The only place money is formatted, spoken or divided — kobo in, strings
- *       and rounded kobo out.
- * WHY:  One formatter (H2) and one rounding rule, because money formatted in two
- *       places eventually disagrees, and a figure rounded the wrong way tells
- *       someone they can spend money that is not there.
- * INTERVIEW: I put every money operation behind one module with the rounding
- *       direction encoded in the function name, so a caller has to choose
- *       deliberately between rounding down and rounding up.
- */
-
 // Relative, not aliased, and deliberately so: both files live inside core/
 // and move together, so this relationship never changes (ADR-008).
 import type { Kobo } from '../types'

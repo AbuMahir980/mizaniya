@@ -1,14 +1,3 @@
-/**
- * WHAT: The icon set — one geometric family on a 24px grid at 1.8–1.9px stroke.
- * WHY:  Taken from `docs/design/canvas/HomeLight.dc.html`, path for path, rather
- *       than drawn again or pulled from a library. A second set that is nearly
- *       the same is worse than no set: the eye reads the inconsistency long
- *       before it can name it.
- * INTERVIEW: I lifted the icon paths from the design canvas instead of adding an
- *       icon dependency, because the design already had a coherent set and the
- *       library would have been a second one.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 

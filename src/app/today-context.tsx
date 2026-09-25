@@ -1,13 +1,3 @@
-/**
- * WHAT: The one place the app reads the clock.
- * WHY:  ADR-003 makes time a parameter — but only inside `core/`. A route still
- *       has to get "today" from somewhere, and four routes each calling
- *       `new Date()` is four places that cannot be pinned, and four tests that
- *       quietly assert against whatever day they are run on.
- * INTERVIEW: I extended "time is a parameter" to the app boundary, so the clock
- *       is read once and every screen below it is testable on a fixed date.
- */
-
 import { createContext, useContext, useMemo, type ReactNode } from 'react'
 import type { Instant, IsoDate } from '@/core/types'
 

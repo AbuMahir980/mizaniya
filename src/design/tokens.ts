@@ -1,16 +1,3 @@
-/**
- * WHAT: Every design token — colour for both themes, type, space, radius,
- *       elevation, motion and target — exactly as `docs/design/tokens.md` sets them.
- * WHY:  One source in TypeScript rather than values typed into CSS as well, because
- *       charts, tests and the contrast audit need them as data. `tokens.css` is
- *       generated from this file and CI fails if the two drift.
- * INTERVIEW: I kept design tokens in one typed module and generated the stylesheet
- *       from it, so a colour can never be right in the CSS and wrong in a chart.
- *
- * Source of record: docs/design/tokens.md (54 gated contrast pairs, 0 failures).
- * Semantic names only — never a literal like `green500` (frontend F4).
- */
-
 /** The colour tokens, one value per theme. Names describe role, never appearance. */
 export const colour = {
   light: {

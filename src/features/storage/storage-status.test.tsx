@@ -1,14 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: The storage panel in every state it can be in — pending, granted,
- *       refused, and a browser that will not say.
- * WHY:  The pending state is the one worth testing hardest. A panel that shows
- *       "Protected" for a moment before the answer arrives has told the owner
- *       something false about their financial history, and it is exactly the
- *       kind of flash nobody catches by hand.
- * INTERVIEW: I tested the moment before the answer arrives, because that is
- *       where an optimistic default does its damage.
  */
 
 import { afterEach, describe, expect, it } from 'vitest'

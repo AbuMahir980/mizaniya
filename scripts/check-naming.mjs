@@ -1,13 +1,3 @@
-/**
- * WHAT: Fails if a source file is not kebab-case, or a React component file does
- *       not export a PascalCase component, or a hook is not named `useThing`.
- * WHY:  Ten lines instead of a plugin. `eslint-plugin-unicorn` would give the
- *       first check and needs ESLint 10, which we are not on — and N1 asks why
- *       not the platform before adding a dependency for one rule.
- * INTERVIEW: I enforced the naming standard with a small script rather than a
- *       plugin, because I only needed one rule out of a large package.
- */
-
 import { readdirSync, statSync } from 'node:fs'
 import { join, relative, basename, extname } from 'node:path'
 

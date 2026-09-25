@@ -1,12 +1,3 @@
-/**
- * WHAT: What Quick Add is holding, and the movement it becomes.
- * WHY:  Pure, so the rules that matter — which types need a category, which
- *       need a counterparty, what counts as valid — are tested with plain
- *       values rather than through a sheet and a keyboard.
- * INTERVIEW: I separated what the form holds from how it looks, so the eight
- *       movement types and their differing requirements had one place to live.
- */
-
 import { CATEGORY_TYPES, DEBT_TYPES } from '@/core/types'
 import type {
   Id,

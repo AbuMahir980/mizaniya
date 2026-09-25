@@ -1,13 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: The whole Quick Add flow — ⊕, a chip, Save — through the real store and
- *       a real IndexedDB.
- * WHY:  **Three taps plus the amount** is the acceptance criterion and the
- *       reason the bottom bar is shaped the way it is. Counting them in a test
- *       is the only way that claim stays true as fields are added.
- * INTERVIEW: I made the tap count an assertion rather than an intention, because
- *           every new field is one tap, and nobody notices the fourth.
  */
 
 import 'fake-indexeddb/auto'

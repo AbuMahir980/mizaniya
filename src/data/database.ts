@@ -1,13 +1,3 @@
-/**
- * WHAT: The Dexie database — its tables, its indexes, and its migration chain.
- * WHY:  The **only** file besides the repository that names Dexie, and ESLint
- *       fails the build if that spreads (A4). Everything above it sees the
- *       `Repository` interface and never learns what is underneath.
- * INTERVIEW: I kept the storage library inside one folder behind an interface,
- *       so swapping IndexedDB for SQLite at v2 touches two files rather than
- *       every screen.
- */
-
 import Dexie, { type Table } from 'dexie'
 import type {
   Category,

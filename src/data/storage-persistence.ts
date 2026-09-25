@@ -1,15 +1,4 @@
 /**
- * WHAT: Whether the browser has promised to keep this app's data, how much
- *       space it holds, and the request that asks for that promise.
- * WHY:  IndexedDB is not permanent (A5). Until v3 sync exists the owner's whole
- *       financial history can be evicted to free space, with no warning to
- *       anyone — so the app asks for protection, and then **reports the truth
- *       about the answer** rather than a green tick that means nothing (D12).
- * INTERVIEW: I made the storage status a state with a "checking" member, because
- *       the honest answer to "is your data safe" is sometimes "asking".
- */
-
-/**
  * What the browser says about keeping the data.
  *
  * `unsupported` is separate from `refused` on purpose. A browser that cannot be

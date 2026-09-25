@@ -1,13 +1,3 @@
-/**
- * WHAT: Switch, Slider, Segmented and ChipGroup — the four controls that change
- *       a setting or a choice rather than submitting something.
- * WHY:  ChipGroup is a radio group, not a row of buttons, because the owner is
- *       picking **one of a set**. A screen reader then says "Food, 1 of 8"
- *       instead of announcing eight unrelated buttons.
- * INTERVIEW: I matched each control to the semantics of the choice it represents,
- *       so assistive technology describes the decision rather than the widget.
- */
-
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import * as SwitchPrimitive from '@radix-ui/react-switch'

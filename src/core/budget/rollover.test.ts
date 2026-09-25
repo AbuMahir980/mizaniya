@@ -1,12 +1,3 @@
-/**
- * WHAT: Rollover, and the one test that matters most — cash left is identical
- *       whether a category rolls over or not.
- * WHY:  If that test ever fails, the same naira is spendable twice: once as cash
- *       and again as allowance. Every other test here is detail beside it.
- * INTERVIEW: I wrote the test for the failure I was most afraid of first, and let
- *       the rest of the suite fill in around it.
- */
-
 import { describe, expect, it } from 'vitest'
 import { cashLeft, spendingByCategory, cycleAt, plannedFor } from './budget'
 import { allowanceFor, carriedIn, carriedInLookup, leftoverFrom, previousCycle } from './rollover'

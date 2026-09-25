@@ -1,14 +1,3 @@
-/**
- * WHAT: The "Your data" panel — whether the browser has promised to keep these
- *       records, and how much space they take.
- * WHY:  **It says "Checking…" until it knows, and never guesses.** The honest
- *       answer to "is my financial history safe" is sometimes "asking", and a
- *       green tick shown before the answer arrives is worse than no panel at
- *       all (D12, story G3).
- * INTERVIEW: I gave the status a pending state instead of defaulting to the
- *       optimistic one, because the default is the answer people remember.
- */
-
 import { useEffect, useState } from 'react'
 import { readStorageReport, type PersistenceStatus, type StorageUsage } from '@/store/storage'
 import { Banner } from '@/ui/banner'

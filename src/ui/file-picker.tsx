@@ -1,15 +1,3 @@
-/**
- * WHAT: A button that opens the file chooser, with the input it drives kept out
- *       of sight.
- * WHY:  A bare `<input type="file">` cannot be styled to match anything, so the
- *       pattern everywhere is a visible button and a hidden input. That pattern
- *       belongs in one primitive rather than repeated on the welcome screen and
- *       again in Settings (F5, and E1 before the third copy appears).
- * INTERVIEW: I wrapped the hidden-input file pattern in a primitive, because
- *       the alternative is the same six lines of DOM plumbing on every screen
- *       that accepts a file.
- */
-
 import { useRef, type ReactNode } from 'react'
 import { Button, type ButtonVariant } from './button'
 

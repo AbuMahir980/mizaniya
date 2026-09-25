@@ -1,12 +1,3 @@
-/**
- * WHAT: The public surface of the design system. Screens import from here.
- * WHY:  A5 — a module exposes its surface through one file, so a screen cannot
- *       reach past a primitive into its internals, and a primitive can be
- *       rewritten without hunting for every deep import.
- * INTERVIEW: I gave the component library one entry point, so "screens may only
- *       use these primitives" became something a lint rule can check.
- */
-
 export { cx, type ClassValue } from './cx'
 
 export { Button, type ButtonProps, type ButtonVariant } from './button'

@@ -1,13 +1,3 @@
-/**
- * WHAT: The arc gauge — today's safe-to-spend against the planned daily
- *       allowance, with the amber threshold marked.
- * WHY:  **The figure sits inside the opening and never overlaps the arc**
- *       (tokens.md §6). A number printed over its own chart is unreadable at
- *       the exact moment it matters most, which is when the arc is nearly full.
- * INTERVIEW: I put the value in the gap rather than on the arc, because a
- *       semicircle leaves a hole and the alternative is text on a curve.
- */
-
 import { cx } from './cx'
 
 const SIZE = 200

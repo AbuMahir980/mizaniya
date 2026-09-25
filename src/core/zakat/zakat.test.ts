@@ -1,14 +1,3 @@
-/**
- * WHAT: The zakat estimate, pinned to the seeded scenario — which is
- *       deliberately the **below-nisab** case — and to both above-nisab
- *       variants, ₦62,250.00 and ₦63,250.00.
- * WHY:  The seeded state is the one the owner will actually be in, and the one
- *       most likely to be got wrong: an app that always shows a figure will
- *       happily show one when none is due.
- * INTERVIEW: I tested that the app stays silent when nothing is owed, because
- *           that is the case a happy-path test would never have caught.
- */
-
 import { describe, expect, it } from 'vitest'
 import { estimate, hawlStart, receivables, zakatDue, zakatableSavings } from './zakat'
 import { formatMoney, naira } from '../money/money'

@@ -1,15 +1,3 @@
-/**
- * WHAT: The seeded household from `docs/seed-data.md`, and the assertions that
- *       prove it still matches that document.
- * WHY:  **An export file rather than a dev-only seeding route.** v1 has no
- *       server and the repository is IndexedDB, which a Node script cannot
- *       reach — and CLAUDE.md forbids a mock-data layer. Writing the documented
- *       export format means the demo data arrives through the code T9 already
- *       built and tested, and nothing ships in the production bundle.
- * INTERVIEW: I kept the seed's data and its assertions in a module with no
- *       side effects, so a test could run the assertions without writing files.
- */
-
 import { naira } from '../src/core/money/money'
 import type {
   Category,

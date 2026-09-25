@@ -1,14 +1,3 @@
-/**
- * WHAT: The derived figures, memoised on the snapshot they were computed from.
- * WHY:  **Nothing derived is stored** (B3). Every figure is recomputed from the
- *       snapshot, so a displayed number cannot be stale — and memoising on the
- *       snapshot's identity means recording one expense does not recompute the
- *       screens it did not touch (ADR-001).
- * INTERVIEW: I derived every figure on read and memoised by snapshot identity,
- *       so a stale number is structurally impossible rather than a bug class to
- *       watch for.
- */
-
 import type { IsoDate, Snapshot } from '@/core/types'
 import { cycleAt, safeToSpend, cashLeft, spendingByCategory } from '@/core/budget/budget'
 import { debtsByDirection } from '@/core/debt/debt'

@@ -1,12 +1,3 @@
-/**
- * WHAT: The overlay — a bottom sheet on a phone, a centred dialog at 1440.
- * WHY:  Built on Radix Dialog rather than hand-rolled, because focus trapping,
- *       Escape, `aria-modal`, scroll locking and returning focus to the trigger
- *       are five things that are easy to half-do and invisible when you do.
- * INTERVIEW: I used a headless primitive for the modal so the accessibility
- *       behaviour came from a library that has already got it right.
- */
-
 import * as Dialog from '@radix-ui/react-dialog'
 import type { ReactNode } from 'react'
 import { cx } from './cx'

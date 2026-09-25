@@ -1,14 +1,3 @@
-/**
- * WHAT: What Quick Add will and will not save, and what each of the eight
- *       movement types requires.
- * WHY:  The sheet has one amount field and eight types behind it, each needing
- *       something different. Testing that here rather than through the form
- *       means the rules are checked once with plain values instead of eight
- *       times with a keyboard.
- * INTERVIEW: I tested the form's rules as a pure function, so adding a ninth
- *       movement type would fail here rather than in a screenshot.
- */
-
 import { describe, expect, it } from 'vitest'
 import {
   MOVEMENT_LABELS,

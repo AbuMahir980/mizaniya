@@ -1,13 +1,3 @@
-/**
- * WHAT: The status marks — On track · Low · Short · Overdue · Overspent — and the
- *       neutral pills that label a movement type.
- * WHY:  The word is the signal and the colour is the reinforcement, never the
- *       other way round. A colourblind owner reading "Overspent" loses nothing,
- *       which is what "colour is never alone" means in practice (J, 1.4.1).
- * INTERVIEW: I built the status component around its text, so the colour is a
- *       second channel rather than the only one.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 

@@ -1,13 +1,3 @@
-/**
- * WHAT: Runtime validation for every type in `types.ts`, and the guard an
- *       imported file must pass before a single row of it is written.
- * WHY:  TypeScript vanishes at compile time. A file chosen from disk is data
- *       from outside the app, so the only thing standing between a corrupt or
- *       hand-edited file and the owner's records is a check that actually runs.
- * INTERVIEW: I validated imported data at the boundary with a runtime schema,
- *       because static types cannot protect you from a file a user picks.
- */
-
 import { z } from 'zod'
 import { SCHEMA_VERSION, DEBT_TYPES, CATEGORY_TYPES } from './types'
 

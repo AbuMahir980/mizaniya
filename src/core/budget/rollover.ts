@@ -1,14 +1,3 @@
-/**
- * WHAT: How much unspent allowance a rolling category carries into the next
- *       cycle, and what a whole cycle leaves behind.
- * WHY:  Rollover carries **permission, not money**. The unspent naira never left
- *       the account, so it is already in cash left — adding it again would make
- *       the same money spendable twice.
- * INTERVIEW: I kept the envelope allowance and the actual cash in separate
- *       columns that never meet, which is what stops a rollover being counted
- *       once as cash and again as allowance.
- */
-
 import { addMoney, clampToZero, subtractMoney } from '../money/money'
 import type { Category, Kobo, Snapshot } from '../types'
 import { addDays, cycleFor, type Cycle } from '../cycle/cycle'

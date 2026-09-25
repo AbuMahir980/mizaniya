@@ -1,13 +1,3 @@
-/**
- * WHAT: The six steps, the progress dots, and the one save at the end.
- * WHY:  **Only step 2 is required** (story A5). Everything else is skippable,
- *       because the goal is a correct Home in about two minutes, and a form
- *       that insists on six answers gets abandoned at the third.
- * INTERVIEW: I made five of six steps skippable and saved once at the end, so a
- *       failed save loses nothing and a hurried owner still lands on a Home
- *       with real figures.
- */
-
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/ui/button'
 import { Banner } from '@/ui/banner'

@@ -1,13 +1,3 @@
-/**
- * WHAT: Renders an amount — naira at full size, kobo smaller and lighter — and
- *       attaches the words a screen reader says instead.
- * WHY:  The only component that formats money (H2), so `₦7,500.00` cannot be
- *       assembled by hand anywhere else and drift. The two spans exist because
- *       the hero's width problem is typographic, not numeric.
- * INTERVIEW: I made one component the sole renderer of money, so the display
- *       rule and the spoken rule are defined once and cannot disagree.
- */
-
 import { formatMoney, speakMoney, splitMoney } from '@/core/money/money'
 import type { Kobo } from '@/core/types'
 import { cx } from './cx'

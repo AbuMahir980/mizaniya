@@ -1,14 +1,3 @@
-/**
- * WHAT: Every domain type in Mizaniya — money, dates, the eight movement types,
- *       and the six entities that make up a saved budget.
- * WHY:  Branded primitives instead of plain `number` and `string`, so an amount
- *       in naira cannot be passed where kobo is expected and a timestamp cannot
- *       be passed where a calendar date is expected. The compiler catches the
- *       two mistakes that would silently corrupt someone's money.
- * INTERVIEW: I used branded types for money and dates so the two most dangerous
- *       mix-ups in a finance app fail to compile rather than fail in production.
- */
-
 // ---------------------------------------------------------------------------
 // Primitives
 // ---------------------------------------------------------------------------

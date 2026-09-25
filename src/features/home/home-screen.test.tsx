@@ -1,13 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: Home rendering the worked day from `docs/seed-data.md`, every figure
- *       pinned, and the amber variant flipping the state.
- * WHY:  These numbers are in the documentation and on 67 artboards. A test that
- *       only checked the screen renders would let the app and the specification
- *       drift apart silently — and the drift would look like a working screen.
- * INTERVIEW: I asserted the published figures on the screen itself, so the
- *       design, the docs and the code cannot part company without going red.
  */
 
 import { afterEach, describe, expect, it, vi } from 'vitest'

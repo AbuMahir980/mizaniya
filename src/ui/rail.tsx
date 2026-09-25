@@ -1,13 +1,3 @@
-/**
- * WHAT: The progress rail — a category against its allowance, a goal against its
- *       target — always beside a figure, never alone.
- * WHY:  A bar is a comparison you can misread by a few percent. The percentage
- *       sits next to it because the bar is the impression and the number is the
- *       fact, and on a money screen the fact has to be available.
- * INTERVIEW: I never let a chart be the only way to read a value — every bar
- *       ships with its number, which is also what makes it screen-readable.
- */
-
 import { cx } from './cx'
 
 export type RailTone = 'positive' | 'warning' | 'danger' | 'neutral'

@@ -1,16 +1,3 @@
-/**
- * WHAT: Writes the seeded household as a real export file, which the app
- *       restores through its ordinary import path.
- * WHY:  **An export file rather than a dev-only seeding route.** v1 has no
- *       server and the repository is IndexedDB, which a Node script cannot
- *       reach — and CLAUDE.md forbids a mock-data layer. Writing the documented
- *       export format means demo data arrives through the code T9 already built
- *       and tested, and nothing ships in the production bundle.
- * INTERVIEW: I seeded the app by generating a real export file instead of
- *       adding a demo path, so sample data travels the same route a real
- *       owner's restored backup does.
- */
-
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { buildExportFile, serialiseExport } from '../src/data/export-file'
 import type { Instant } from '../src/core/types'

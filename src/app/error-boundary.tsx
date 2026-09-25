@@ -1,12 +1,3 @@
-/**
- * WHAT: The last thing standing between a thrown error and a white screen.
- * WHY:  A blank page tells the owner their money records are gone. They are
- *       not — the data is in IndexedDB and untouched — so the fallback says so
- *       explicitly, because the fear is the problem, not the stack trace.
- * INTERVIEW: I wrote the crash screen to answer the question the user actually
- *       has, which is whether their data survived, not what went wrong.
- */
-
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { Button } from '@/ui/button'
 

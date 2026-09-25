@@ -1,14 +1,3 @@
-/**
- * WHAT: That the service worker precaches the **shell only**, and never the
- *       owner's records.
- * WHY:  Every figure in this app is derived from IndexedDB. A runtime cache
- *       would be a second copy of someone's money, with its own staleness and
- *       nothing able to say which copy was right — the silent disagreement the
- *       whole architecture is arranged against (ADR-007, ADR-001).
- * INTERVIEW: I tested that a cache does *not* exist, because the dangerous
- *       change here is one somebody adds later for a good-sounding reason.
- */
-
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 

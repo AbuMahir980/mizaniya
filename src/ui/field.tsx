@@ -1,12 +1,3 @@
-/**
- * WHAT: The text field and the amount field, with label, helper text and error.
- * WHY:  An error here is styled **neutrally**, not in the danger colour. Typing a
- *       letter into an amount box is not money going wrong; it is an ordinary
- *       correction, and the message carries the consequence (tokens.md §2).
- * INTERVIEW: I kept validation styling neutral so the danger colour still means
- *       something when a real figure goes wrong.
- */
-
 import { forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react'
 import { cx } from './cx'
 

@@ -1,14 +1,3 @@
-/**
- * WHAT: Building an export file, naming it, and bringing an older one forward.
- * WHY:  Until v3 sync exists, **an exported file is the only real backup** —
- *       IndexedDB can be cleared by the browser without telling anyone (D12).
- *       So the file carries its own version and is read back through a check
- *       that runs, not through types that vanish at compile time.
- * INTERVIEW: I versioned the export file from the first release and shipped the
- *       migration chain empty, because the alternative is inventing one later
- *       against files already on people's disks.
- */
-
 import { SCHEMA_VERSION } from '@/core/types'
 import type { Instant, IsoDate, Snapshot } from '@/core/types'
 import { checkImport, validateSnapshot, type ImportRefusal } from '@/core/schema'
