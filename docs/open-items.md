@@ -1999,3 +1999,43 @@ width.
   height** — so it over-pulled and sawed the bottom off the component. Both
   widths now use `zoom`, which scales the layout box too, so the wrapper's
   height follows the component and no correction is needed at all.
+
+### M·9 — Three 390 corrections, and one question back
+
+**The rail under the pile is gone.** It showed the pile's own three sheets a
+second time, full size, directly beneath the pile they lift out of — so the
+section said the same thing twice and the first card read as a leftover
+component rather than as a reveal. The pile plus the three points is the whole
+section, which is what 1440 does: the stack, and the content beside it.
+
+**§2.2 at 390 was already right, and now says so.** There is no pointer on a
+phone, so both states are shown at once — the app you tried in rose, Mizaniya's
+answer under it in emerald — rather than one being hidden behind an interaction
+that cannot happen. `motion.md` §5: nothing may depend on a gesture the device
+does not have. The caption now names both colours instead of only the red one.
+
+**The cycle band animates at 390.** It was a list of rows with opacity on them
+— a *fallback layout*, which is the one thing §5 forbids. It is the same
+`_series` treatment as 1440 now: the same four real paydays, the same rail
+sweep, with only the type size and rail height changing with the width.
+
+### M·10 — **Pricing and Security in the nav — spec, please rule**
+
+Asked by the owner, and it is a real gap: both words are in the nav and the
+footer and neither has a destination.
+
+My reading, and the reasoning rather than the answer:
+
+| Link | What I would do | Why |
+|---|---|---|
+| **Security** | **A real page.** | ADR-011 action 6 and the owner's 25 September decision moved the detail off the landing page — encryption, where the keys live, what the server can see. That detail still has to live somewhere a person can read before they hand over a salary, and the sign-up trust panel links to it on every visit. It needs a stable URL, and it is the page a cautious reader goes looking for by name. |
+| **Pricing** | **An anchor to the section already on the landing page**, not a page. | A pricing PAGE earns its place when there are tiers to compare. There are not: the model is one free product and a set of paid extras whose price is not settled. A separate page would be the same three paragraphs at a different URL, and it would be the second place a price has to be changed when it is settled. |
+
+**71 — Confirm or correct both.** If Pricing becomes a page later (when the
+number is settled, or when a second tier appears), the landing section becomes
+its summary and the anchor becomes a link — that change is cheap. Making it a
+page now is the expensive direction. ☐
+
+**72 — Neither page is drawn.** Security in particular is a screen with real
+content, and it is not in `docs/10-design-brief.md` §4. If it is in scope for
+v1 it needs a line in the brief and I will draw it. ☐
