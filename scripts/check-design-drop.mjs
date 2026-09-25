@@ -28,8 +28,41 @@ const theirs = changed.filter(
     path.startsWith('docs/design/canvas/') ||
     path.startsWith('docs/design/brand/') ||
     path === 'docs/design/tokens.md' ||
+    // Added 2026-09-25. `motion.md` is authoritative design output the same way
+    // `tokens.md` is, and it was missing from this list on the day it arrived —
+    // so the guard would have stayed silent while a drop was swept into a
+    // feature commit. The list itself is the hole: anything named individually
+    // has to be added by hand and nobody remembers. Hence the check below.
+    path === 'docs/design/motion.md' ||
     (path.startsWith('docs/design/') && path.endsWith('.png')),
 )
+
+/**
+ * The list above names files one by one, so it goes stale every time the
+ * designer produces something new. `motion.md` proved that on the day it landed.
+ *
+ * So this fails when a markdown file appears directly in `docs/design/` and is
+ * not accounted for — either as theirs above, or as one of ours below. It turns
+ * a silent hole into a build failure that says what to do.
+ */
+const ours = new Set(['README.md'])
+const unlisted = changed.filter((path) => {
+  if (!/^docs\/design\/[^/]+\.md$/.test(path)) return false
+  if (theirs.includes(path)) return false
+  const name = path.slice('docs/design/'.length)
+  return !ours.has(name) && !name.startsWith('PROPOSED-')
+})
+
+if (unlisted.length > 0) {
+  console.error('\nA design file is not covered by this guard.\n')
+  for (const path of unlisted) console.error(`    ${path}`)
+  console.error(
+    '\n  Add it to `theirs` in scripts/check-design-drop.mjs, or to `ours` if it\n' +
+      '  is not the designer\'s. Until then the guard is silent about it, which\n' +
+      '  is worse than not having a guard at all.\n',
+  )
+  process.exit(1)
+}
 
 if (theirs.length === 0) {
   console.log('Design drop: no design files touched.')

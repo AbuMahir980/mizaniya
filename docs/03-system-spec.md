@@ -612,6 +612,15 @@ Two hard rules:
 expense in a queue half a second, it goes. Selling the product must not cost the
 product.
 
+### Three behaviours the design round settled *(25 September)*
+
+Design surfaced these rather than letting them arrive disguised as pictures
+(`open-items.md` §I·b, §I·c). They are behaviour, so they are recorded here:
+
+- **The reconciliation queue never blocks anything.** A row on Home that opens its own surface — never a modal, never an interstitial. This is **K1** applied: no upsell interrupts the core journey, and a paid queue standing between someone and their safe-to-spend figure would do exactly that. The row's count is information, not a badge that grows.
+- **The multi-device flag is sticky and one-way.** The sync line on Home shows only when there are unsynced changes *and* more than one device — but device count is server state, and Home paints from the local snapshot with no network call. So the count is the last one a sync reported, and **once an account has ever been seen with more than one device the flag stays set** until a sync confirms otherwise. The two errors are not equal: a caveat shown unnecessarily costs one quiet line, while a caveat missing means someone reads a stale figure believing it current.
+- **While a planned amount is unsettled in a shared household, the engine uses whichever figure produces the smaller safe-to-spend** — the higher amount for a protected category, the lower for an expense. Design proposed *the lower of the two* as conservative; that is backwards for protected categories, where reserving less makes safe-to-spend go **up**. **Awaiting the owner's confirmation.**
+
 **Engineering consequence:** the bundle already warns at 594KB. A motion library must
 justify its weight under **N1**; CSS transitions and the Web Animations API are
 preferred. Animate `transform` and `opacity` — animating layout properties drops frames
