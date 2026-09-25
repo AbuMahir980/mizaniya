@@ -47,11 +47,12 @@ network, and is never sent anywhere.
 | Not doing | Why |
 |---|---|
 | **Advising.** No "you should move ₦X", no suggested budgets | The app reports; the owner decides. A wrong suggestion about someone's money is worse than no suggestion (assumption A1). Restating a target as a rate — *"needs ₦85,000 a payday"* — is arithmetic, not advice, and is allowed |
-| **Bank connections, accounts, sync, sharing** | v3, and they need a server and a private repo. Manual entry is the whole trust model in v1 |
-| **Multi-currency** | ₦ only. Rate handling is a v3 problem and the addendum defers it |
-| **Notifications or reminders** | No server to send them and no background process to schedule them. The export nudge is in-app only |
+| ~~**Bank connections, accounts, sync, sharing**~~ | **Superseded 2026-09-25 by [ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md).** These are v1 now, behind a paid tier; see §11a. Manual entry remains the whole trust model on the **free** tier, and it is never the thing that gets taken away |
+| **Multi-currency** | ₦ only. Still deferred — a rate feed is a running cost and a new class of wrongness, and nothing in the product asks for it yet |
+| **Notifications or reminders** | Still not doing them. A server now exists, which removes the excuse but not the reason: an app that messages you about your money unprompted has to be right every time, and the export nudge in-app is enough |
 | **Zakat rulings** | The panel estimates and says so. It is not a fatwa and must never read as one |
-| **Analytics of any kind** | Nothing leaves the device (**M2**) |
+| **Analytics of content** | Counts and timings only, never figures or categories. Rule 7 forbids financial values reaching any monitoring tool, and the free tier still sends nothing at all |
+| **Advice dressed as a feature on the paid tier** | Paying does not buy suggestions. The paid tier buys *reach* — sync, sharing, bank movement — never opinions about someone's money |
 
 ---
 
@@ -59,13 +60,26 @@ network, and is never sent anywhere.
 
 | Role | Description | Can see and do | Cannot |
 |---|---|---|---|
-| **Owner** | The one person using the app on their own device | Everything: onboard, plan, record, edit, delete, export, import, change settings | Nothing is withheld — there is no second party, no server and no privileged action |
+| **Owner, no account** | Someone using the free tier on one device. **The default, and a complete product** | Everything the app does locally: onboard, plan, record, edit, delete, export, import, settings | Sync to another device, share a budget, read bank movement |
+| **Account holder** | An owner who signed up. Free to create; needed before anything can be paid for | As above, plus their own data on the server, and a second device | See anyone else's data. There is no cross-account read, ever |
+| **Household member** *(designed v1, built later)* | A second person invited into one budget | Read and write the shared budget, and settle a disagreement about a planned amount | Change the account's billing, or remove the account holder |
+| **Support / admin** *(v1.1)* | Us, in `apps/admin` | Account state: exists, tier, last sync, storage used | **Read anyone's financial records.** Rule 7, and ADR-011 §audit — every access is logged and users are told it is |
 
-There is **no authentication**, because there is no account and no remote data.
-Anyone holding the unlocked device can open the app; that is stated plainly in
-the README rather than papered over with a lock that protects nothing
-(**D12**). Standard **A6** (session scope on every request) stays dormant until
-household sharing in v3.
+**Authentication now exists, and it is an upgrade rather than a gate.** The free
+tier has no account, no login screen and no locked door: someone who never signs
+up gets the whole budgeting app, exactly as before. Signing in is what makes data
+follow you to a second device.
+
+That has a consequence worth stating for the design brief: **there is no
+"signed-out state" to draw for the main screens.** Signed out is not a degraded
+app, it is the app. The only new signed-out surface is the handful of screens
+about the account itself.
+
+**Standard §A6 wakes up** — every request to `services/api` carries its session
+scope, and **§C5** applies the moment a household has two people in it. On the
+device, the old statement still holds and is still in the README: anyone holding
+the unlocked phone can open the app (**D12**). A passcode on top of the device's
+own lock protects nothing and implies a promise we would not be keeping.
 
 ---
 
@@ -211,11 +225,86 @@ MoSCoW. **Must** = v1 cannot ship without it.
 | H3 | As the owner, I want to say when my lunar year started rather than have it guessed | Should |
 | H4 | As the owner, I want to choose whether money owed to me counts | Should |
 
+### I · Account and sign-in *(new — ADR-009)*
+
+An account is **never required to use the app**. It is what makes data follow you.
+
+| # | Story | Priority |
+|:-:|---|:-:|
+| I1 | As someone using the app happily on one device, I want to keep using it without an account, so signing up is a choice and not a toll gate | **Must** |
+| I2 | As an owner with a second device, I want to create an account with my email and a password, so my budget can follow me | **Must** |
+| I3 | As an account holder, I want to sign in on another device and find my budget already there, rather than starting again | **Must** |
+| I4 | As someone who forgot their password, I want to reset it by email and not lose a year of records | **Must** |
+| I5 | As an account holder, I want to sign out, and to be told plainly what happens to the data on this device when I do | **Must** |
+| I6 | As an account holder, I want to delete my account and have it mean deleted, with a stated grace period first | **Must** |
+| I7 | As an account holder, I want to see which devices are signed in, and sign one out remotely if I lost it | Should |
+| I8 | As someone signing up, I want to be told what you can and cannot see of my data before I hand any over | **Must** |
+
+### J · Sync *(new — ADR-010)*
+
+| # | Story | Priority |
+|:-:|---|:-:|
+| J1 | As an account holder, I want changes on one device to appear on the other, without doing anything | **Must** |
+| J2 | As someone with no signal, I want to keep recording spending and have it sync later, because that is when I actually record it | **Must** |
+| J3 | As an account holder, I want to see whether I am up to date, so I know whether to trust the figure in front of me | **Must** |
+| J4 | As an account holder who deleted a category on my phone, I want it gone from my laptop too, and to stay gone | **Must** |
+| J5 | As an account holder, I want a restored backup not to overwrite newer data I had already synced | **Must** |
+| J6 | As an account holder, I want to know when a sync last failed and why, rather than quietly being out of date | Should |
+
+### K · Tiers and billing *(new — ADR-009)*
+
+| # | Story | Priority |
+|:-:|---|:-:|
+| K1 | As a free user, I want to see what paying would add, without being nagged in the middle of budgeting | **Must** |
+| K2 | As a free user, I want a locked feature to say what it is and what it costs — never a dead button | **Must** |
+| K3 | As someone convinced, I want to subscribe and have the feature work immediately | **Must** |
+| K4 | As a subscriber, I want to cancel without contacting anyone, and keep my data | **Must** |
+| K5 | As a lapsed subscriber, I want my budget intact and still usable on this device — only the reach stops | **Must** |
+| K6 | As a subscriber, I want a receipt and to see when I am next billed | Should |
+
+**K5 is the one that matters.** Lapsing must never make someone's records
+unreadable or their history disappear. What stops is sync, sharing and bank
+movement. The app they had before paying is the app they have after.
+
+### L · Household sharing *(designed this phase, built after launch)*
+
+| # | Story | Priority |
+|:-:|---|:-:|
+| L1 | As an account holder, I want to invite my spouse into one budget, so we stop keeping two versions of the same plan | Should |
+| L2 | As an invited person, I want to accept and see the shared budget, without creating a second copy of it | Should |
+| L3 | As either of us, I want to be asked when we have set the same category to different amounts, rather than one of us silently losing | Should |
+| L4 | As either of us, I want to see who recorded a movement | Should |
+| L5 | As the account holder, I want to remove someone, and for them to keep nothing | Should |
+
+### M · Bank movement *(designed this phase, built as v1.1)*
+
+| # | Story | Priority |
+|:-:|---|:-:|
+| M1 | As a subscriber, I want to link my bank so movements appear without typing them | Should |
+| M2 | As a subscriber, I want to be asked which envelope a detected movement belongs to, because only I know | Should |
+| M3 | As a subscriber, I want to be certain the app can only read, never move money — and to see that said plainly before I link | Should |
+| M4 | As a subscriber, I want to unlink at any time and have the access destroyed, not just hidden | Should |
+| M5 | As a subscriber, I want a detected movement I have already typed in myself to be matched, not duplicated | Should |
+
+**M2 is the product's centre and is drawn nowhere yet.** *"₦12,000 left your
+account — which envelope?"* is the interaction the paid tier is actually selling.
+**M5 is the one that will be underestimated:** manual entry does not stop when
+bank sync starts, so the same expense arrives twice and something has to notice.
+
+---
+
 ### Won't have — this phase
 
-Bank sync · household sharing · multi-currency · zakat PDF · ajo group
-management · CSV export · notifications · any server, account or login ·
-telemetry · **any interest-bearing suggestion, ever**.
+**Amended 2026-09-25.** Accounts, sync and a server moved *into* this phase
+(ADR-009). What is still out:
+
+Multi-currency · zakat PDF · ajo group management · CSV export · notifications ·
+content analytics · **any interest-bearing suggestion, ever**.
+
+**Designed in this phase, built after launch:** household sharing (§L) and bank
+movement (§M). Drawn now so the design set is cut once; not built now so launch
+does not wait on an aggregator contract or on conflict-resolution work that a
+single person on two devices never touches.
 
 ---
 
@@ -352,6 +441,68 @@ Given / When / Then. All **Must** stories; **Should** stories abbreviated.
 - **Given** a supported browser, **then** the app is installable, and Settings explains that installing makes the data far less likely to be cleared.
 - **Given** iOS, **then** the wording does not promise safety it cannot deliver (**D14**).
 
+### I1–I2 · An account is an upgrade, not a gate
+
+- **Given** a first run, **when** onboarding completes, **then** the owner reaches Home with **no account, no sign-up prompt and no locked feature in their path** — the free tier is the whole budgeting app.
+- **Given** a free user on Home, **when** they use the app for a month, **then** they are asked to sign up **at most** where a paid feature is actually being reached for (**K1**) — never on Home, never mid-entry, never as a modal on open.
+- **Given** an email already registered, **when** someone signs up with it, **then** the message does not reveal whether that email has an account (it says a link has been sent); an enumeration oracle on a money app is a real harm.
+- **Given** a password below the minimum, **when** they submit, **then** it is refused with what is wrong and what to do (**L2**), and the requirement is stated **before** they type rather than after.
+- **Given** sign-up succeeds, **when** the account is created, **then** the local data already on the device is what gets uploaded — signing up **never** starts them empty (**J5**).
+
+### I3 · A second device finds the budget
+
+- **Given** an account holder with data synced, **when** they sign in on a second device, **then** the budget arrives and they reach Home without onboarding.
+- **Given** a second device that already had its own local budget, **when** they sign in, **then** they are **asked** which to keep, and nothing is merged silently — merging two budgets has no correct answer (see `import-and-export.md`).
+
+### I4 · Password reset does not cost the records
+
+- **Given** a forgotten password, **when** they reset by email, **then** they sign in and **all data is intact**.
+- **Given** a reset link, **when** it is used twice or after expiry, **then** it is refused.
+- **Note, and it is load-bearing:** this works because ADR-011 deferred end-to-end encryption. **If end-to-end is ever turned on, this criterion cannot hold** — the password becomes the key and no reset can recover the data. That is the recovery question ADR-011 parked, and it must be answered before that feature, not after.
+
+### I5 · Signing out says what it does
+
+- **Given** an account holder signing out, **when** they confirm, **then** they are told plainly whether the data stays on this device or is removed, and the wording matches what actually happens.
+- **Given** they sign out, **when** unsynced changes exist, **then** they are warned before, not after.
+
+### I6 · Deletion means deleted
+
+- **Given** an account holder deleting their account, **when** they confirm, **then** the account is deactivated and the data retained for **30 days**, stated in the confirmation, then destroyed.
+- **Given** the grace period has passed, **when** they try to return, **then** the data is genuinely gone — and a sync tombstone is **not** a deletion (rule 7).
+- **Given** deletion, **when** it completes, **then** any bank access token is destroyed rather than orphaned.
+
+### I8 · Say what you can see, before they hand it over
+
+- **Given** the sign-up screen, **when** it is shown, **then** it states what is encrypted, that keys are held separately from the database, and that every access to production data is logged.
+- **Given** bank linking, **when** it is offered, **then** it says the movement passes through the server before being encrypted — it must **not** claim the data never touches our servers, because it does (ADR-011).
+
+### J1–J3 · Sync, and knowing whether to trust the number
+
+- **Given** two signed-in devices, **when** a movement is recorded on one, **then** it appears on the other without user action.
+- **Given** no network, **when** a movement is recorded, **then** it saves locally and the screen updates — **offline writes are never blocked** (ADR-010, and it is the selling point).
+- **Given** unsynced changes, **when** the owner looks at Home, **then the sync state is visible**, because a figure the app cannot vouch for must not be presented as if it can.
+- **Given** one owner editing the same planned amount on two devices, **when** both sync, **then** the later edit wins and **no prompt is shown** — being asked to arbitrate with yourself is noise.
+
+### J4 · A delete stays deleted
+
+- **Given** a category deleted on device A, **when** device B syncs, **then** it is removed there too and **does not reappear** — the tombstone is what makes this possible.
+- **Given** a device offline longer than the tombstone retention period, **when** it syncs, **then** the behaviour is whatever the endpoint spec decides — **this is an open question, not an assumption** (ADR-010).
+
+### J5 · A restore must not beat newer data
+
+- **Given** a restored backup, **when** it syncs, **then** the file's own timestamps are used and rows that are genuinely newer on the server are **not** overwritten. Re-stamping on import would make a restore look like the newest edit in the account.
+
+### K1–K2 · A lock explains itself
+
+- **Given** a free user reaching a paid feature, **when** they reach it, **then** it says what the feature does and what it costs. **A disabled control with no explanation is a bug** (**L2**).
+- **Given** a free user, **when** they are anywhere in the core journey (**K1** in the addendum), **then** no upsell interrupts them.
+
+### K3–K5 · Paying, and stopping
+
+- **Given** a completed subscription, **when** payment confirms, **then** the feature is available without a restart or a re-sign-in.
+- **Given** entitlement, **when** it is checked, **then** it is **decided by the server**, never by the client (ADR-008: hiding payment code protects nothing; the server deciding is what protects it).
+- **Given** a cancelled or lapsed subscription, **when** the period ends, **then** sync, sharing and bank movement stop — **and every record stays readable and editable on the device**. Nothing is hidden, nothing is truncated, export still works in full.
+
 ### Should stories, in brief
 
 **B6** every tile and table row opens its records · **B7** Hijri date from
@@ -458,6 +609,38 @@ one.
 
 ---
 
+## 11a · Tiers — what each one buys
+
+Settled 2026-09-25. The principle: **you pay for reach, never for the budgeting
+itself.**
+
+| | Free — no account | Paid |
+|---|---|---|
+| The whole budgeting app, one device | ✓ | ✓ |
+| Cycles, plan, safe-to-spend, rollover | ✓ | ✓ |
+| Debts both ways, the printed record | ✓ | ✓ |
+| Rent sinking fund, goals, projected gap | ✓ | ✓ |
+| Zakat estimate | ✓ | ✓ |
+| Full history, no cycle limit | ✓ | ✓ |
+| Export and import | ✓ | ✓ |
+| **Sync to another device** | — | ✓ |
+| **Household sharing** *(built after launch)* | — | ✓ |
+| **Bank movement** *(built as v1.1)* | — | ✓ |
+
+**Why this line and not a more generous or a meaner one.**
+
+- **The differentiators stay free.** Debts in both directions and the annual-rent sinking fund are why this is not a bank's budget tab. Charging for them would paywall the reason to use it.
+- **The paid features are the ones that cost money to run.** Bank movement bills per linked account through the aggregator. Sync costs storage and bandwidth. That makes the price honest rather than arbitrary.
+- **No history limit, deliberately.** It is the conventional SaaS lever and it is wrong here: cutting off past cycles breaks the rent fund and the debt history, which are exactly the long-lived records this app exists to keep.
+- **Nothing is taken away when someone lapses** (**K5**). Sync stops; the app does not.
+
+**Entitlement is decided by the server, never the client.** A client-side check is
+a suggestion. This is not about hiding code — ADR-008 is explicit that hiding
+payment logic protects nothing — it is that the server is the only place the answer
+can be trusted.
+
+---
+
 ## 12 · Open questions
 
 | Question | Who | Blocking? |
@@ -465,6 +648,12 @@ one.
 | Exact copy for the offline and storage-status lines — they must inform without alarming | Stakeholder, at PAGE SPECS with `design:ux-copy` | No |
 | Should archiving a category hide it from past cycles, or only from new plans? Leaning: only from new plans, so history stays truthful | Stakeholder | No — needed before C7 is built |
 | Does the debt record need the owner's own name on it, and where does that come from — onboarding? | Stakeholder | No — needed before E5 |
+| **Price, and billing period.** Needed before the billing screens can be designed, not before the endpoint spec | Stakeholder | No — blocks design of **K3** |
+| **Payment provider.** Nigerian cards and transfers point at Paystack or Flutterwave; the webhook signature and idempotency rules follow from the choice | Stakeholder | No — blocks **K3** build |
+| **Tombstone retention**, and what a device absent longer than that does on its next sync | Endpoint spec (**deliberately parked there** by ADR-010) | **Yes — blocks J4** |
+| **Clock skew.** Plan: the client's `updatedAt` records intent, a server sequence decides order. Needs settling rather than assuming | Endpoint spec (ADR-010) | **Yes — blocks J1** |
+| **Rules 6 and 7** are drafted in `CONTEXT.md` awaiting the stakeholder's own wording | Stakeholder | **Rule 7 blocks the first real user** |
+| What a device does when it signs in and already holds a *different* local budget — **I3** says ask, but the wording of that question is real design work | Design brief | No — blocks **I3** build |
 
 ---
 
@@ -476,3 +665,16 @@ Debts & Goals, Months, Settings, export/import, seed script.
 
 If time runs short, **Months ships and Zakat waits** (**D13**) — and screenshots
 are taken as soon as the design lands, not at the end.
+
+**Amended 2026-09-25 by ADR-009.** The order above is the free tier, and it is
+mostly built. What follows it:
+
+1. **The endpoint spec**, which settles the two parked questions above.
+2. **One design brief** — the new and changed screens, and the landing page, which is done properly rather than assembled from leftovers.
+3. **The workspace extraction** (ADR-008 item 2), before `services/api` has a line in it.
+4. **Accounts and sync** (§I, §J), then **tiers and billing** (§K).
+5. **Bank movement** as v1.1 (§M), then **household sharing** (§L).
+
+Bank movement is designed now and built after launch, so the calendar time an
+aggregator takes to onboard a registered business is not time the build sits
+inside.
