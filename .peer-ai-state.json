@@ -5,7 +5,7 @@
   "cycle": "Repositioning — v1 is a hosted webapp with a server (ADR-009)",
   "milestoneBranch": "",
   "ticket": "",
-  "ticketTitle": "Next: the cleanup sweep (#93), then the re-spec",
+  "ticketTitle": "Next: the re-spec — new stories, then the endpoint spec",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -30,7 +30,8 @@
     "#62",
     "#71",
     "#79",
-    "#94"
+    "#94",
+    "#93"
   ],
   "ticketsCancelled": [],
   "ticketsInProgress": [],
@@ -48,8 +49,8 @@
   ],
   "pendingAgents": [],
   "lastVerifyResult": "green — naming, spacing, lint, typecheck, 416 tests, build",
-  "lastVerifyTimestamp": "2026-09-24",
+  "lastVerifyTimestamp": "2026-09-25",
   "pdfExportOffered": "",
-  "lastUpdated": "2026-09-24",
-  "notes": "REPOSITIONED 2026-09-24 — v1 is a hosted webapp with a public server; mobile is v2; no v3. Read CONTEXT.md and ADR-009/010/011. Schema v2 is in (#94/#95): every entity has updatedAt, deletions are tombstones in their own table, and put() takes Unstamped<T> plus the instant. SCREEN BUILDING IS STOPPED: #72 parked half-done; #68/#70/#69/#85/#23-#29 to be re-specced before building. Order: (1) #93 cleanup — harvest the WHY lines and docs/concepts/ into docs/engineering-notes/, then delete both and repoint the seven files linking to concepts/; (2) re-spec, incl. peer-ai/backend/01-spec-endpoints.md; (3) ONE design brief for new+changed screens and the landing page; (4) workspace extraction; then build. Rules 6 and 7 are DRAFTS awaiting the owner's wording — not binding yet. Never git add -A."
+  "lastUpdated": "2026-09-25",
+  "notes": "REPOSITIONED — v1 is a hosted webapp with a public server; mobile is v2; no v3 (ADR-009). Read CONTEXT.md first. DONE: schema v2 (#94), and the cleanup sweep (#93) — file headers are gone from src/, docs/concepts/ is deleted, and explanation now lives in docs/engineering-notes/ (ten notes). Do not recreate either. SCREEN BUILDING IS STILL STOPPED: #72 parked half-done; #68/#70/#69/#85/#23-#29 are to be re-specced before building. NEXT: (1) the re-spec — new stories for sign-up, sign-in, sync state, the free/paid boundary and household sharing, then peer-ai/backend/01-spec-endpoints.md, which is also where ADR-010 leaves the tombstone retention number and the clock-skew rule to be settled; (2) ONE design brief for new+changed screens and the landing page; (3) workspace extraction (ADR-008 item 2); then build. Rules 6 and 7 are DRAFTS awaiting the owner's own wording — not binding. Never git add -A."
 }
