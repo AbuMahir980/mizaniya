@@ -2142,3 +2142,25 @@ exists without the question it answers being written down anywhere. ☐
 `seed-data.md`, explaining why the overspent row is Health rather than Food — is
 folded into `seed-data.md` beside the figure it explains. The three other documents
 that pointed at it are updated.
+
+### M·16 — The hero deck cycles the app's own views
+
+Jamiu, 25 September: the deck should be **Home, then Plan, then Transactions**
+— whole screens with the navigation on them — not single components.
+
+He is right, and the reason is that it makes the hero **distinguishable from
+§2.3**. The hero says *here is the product*; §2.3 says *here is what sits
+underneath one figure*. Building both from the same component cards made them
+the same device used twice. The hero now carries five real 1440 screens at 42%
+(`zoom`, so the layout box scales with them), cropped to the top band — the
+sidebar, the date bar, the Add button and the first row of content. A window
+onto a real screen, never a redrawing of one at a size it is never used at.
+
+**This broke the text budget, and the guard was right to stop me.** A whole
+screen carries the app's own headings — *Plan*, *Transactions*, every category
+name — and the counter looks for `.ser` blocks wherever they are, so five
+screens pushed the page to 194/190 on copy it does not contain. The budget
+limits what this PAGE says, not what the product says inside a picture of
+itself. `web_screen` now wraps its output in `<!--appshot-->` sentinels and the
+counter cuts those out before counting. Balanced comments are trivial to strip;
+a regex over nested `<div>`s is not.

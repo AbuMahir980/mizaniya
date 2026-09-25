@@ -75,7 +75,7 @@
    "x": 3304,
    "y": 0,
    "w": 832,
-   "h": 7319,
+   "h": 7233,
    "title": "Landing page \u00b7 390 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -85,7 +85,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 7319,
+   "h": 7233,
    "title": "Landing page \u00b7 390 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -113,7 +113,7 @@
   {
    "file": "LandCycleLight.dc.html",
    "x": 0,
-   "y": 7509,
+   "y": 7423,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 light",
@@ -123,7 +123,7 @@
   {
    "file": "LandCycleDark.dc.html",
    "x": 1360,
-   "y": 7509,
+   "y": 7423,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
