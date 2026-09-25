@@ -410,7 +410,18 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: BUILD — stopped 2026-09-24 for the repositioning.** v1 is no longer a
+**Phase: the repositioning's own sequence, and it is nearly through.** As of
+25 September: schema v2 is in, the cleanup sweep is done, both specs are written and
+the design brief is out. **What remains before the server work is the workspace
+extraction** (ADR-008 item 2) — `src/` → `apps/web/`, and `packages/core` and
+`packages/tokens` extracted — which is independent of the designer and can run while
+they draw. Then accounts and sync.
+
+**Screen building is still stopped**, and for the original reason: #72's conformance
+pass is parked half-done, and #68/#70/#69/#85/#23–#29 are to be re-specced against
+the new stories rather than built as written.
+
+**Phase before that: BUILD — stopped 2026-09-24 for the repositioning.** v1 is no longer a
 local-first single-owner web app; it is a **hosted webapp with a server**, and
 mobile moves to v2. See [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md)
 and [ADR-010](docs/adr/ADR-010-sync-model.md). **No further screen building until
@@ -579,6 +590,83 @@ rather than left to be rediscovered.)*
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-09-25 (Friday) — the repositioning became real: schema, sweep, spec, brief
+
+Seven pull requests, and no screen was built. That was correct: the day's work was
+making the repositioning true in the repo rather than acting on it.
+
+**Schema v2 landed (#94 / #95)** — every entity carries `updatedAt`, deletions leave
+tombstones in their own table, and writes take `Unstamped<T>` plus the instant to
+stamp with. Three things about it are worth keeping:
+
+- **Tombstones are a table, not a column.** A `deletedAt` column would have put deleted rows into `Snapshot`, and then every derivation and selector would need a filter — where the one that forgot would count deleted money. With a separate table **nothing in `core/` changed at all**.
+- **Callers cannot pass `updatedAt`.** `{ ...category, name: 'Food' }` is how everyone edits an object and it carries the old timestamp forward. Nothing fails; the row quietly stops winning comparisons it should win. The type refuses it instead.
+- **A bug was found that would have broken every existing backup.** `readExportText` validated against the current schema *before* migrating, so the moment schema 2 required a field schema 1 lacked, every export file on disk would be refused as malformed — by the check standing in front of the migration written to add that field. Reordered to envelope → migrate → validate → write.
+
+**Learning mode was replaced, and the code was cleared (#93 / #97).** The owner's
+version: explanation comes out of the source and goes into one note per topic, with
+the why-chain pushed until it rests on a constraint. Ten notes written in
+`docs/engineering-notes/`, then the three-line header removed from 105 files —
+**1,083 deletions, zero insertions** — and `docs/concepts/` deleted once each of its
+files had somewhere to go.
+
+The notes went through three drafts before the style was right, and the owner's
+diagnosis of the second was the useful one: *"everything is just talking about
+concepts, it's not storytelling of somebody that knows what they are doing."* Asked
+*why IndexedDB*, the draft described IndexedDB and then listed alternatives. The
+causality ran backwards. It now starts where the decision started — the app had to
+work offline on a phone, which means no network call to read your own budget, which
+means the data lives on the device, **which is what leaves IndexedDB as the answer
+rather than the preference.**
+
+**Two invented details were caught by checking against the code**, and both are
+recorded in the notes README as the reason rule 6 is *verify claims against the
+code*: a test guarding `types.ts` against `schema.ts` drift that does not exist, and
+guessed money test names. The real gap turned out to be more useful than the
+invention — Zod strips unknown keys, so a field added to the types and forgotten in
+the schema is **silently dropped** from any imported file.
+
+**The re-spec (#99 / #100).** Five new story groups, and three decisions taken
+first: email and password; free is the whole app on one device with paid adding
+sync, household and bank; household designed now and built after launch.
+
+The free/paid answer simplified more than expected. **An account is an upgrade, not
+a gate** — so onboarding is untouched and **there is no signed-out state to draw for
+the main screens**. Signed out is not a degraded Home, it is Home.
+
+The endpoint spec settled the two questions ADR-010 parked there, and in both cases
+the reasoning outlives the number:
+
+- **Tombstone retention is 180 days, and correctness does not rest on that.** It rests on an expired cursor producing a *full* resync rather than a partial one — so the figure is a storage choice that can be retuned safely. A design whose correctness depends on a tuning constant is one that will eventually be broken by somebody tuning it. The resync order is the part that bites: push local changes first, then replace local state, because a resync that pulls first is data loss with a progress bar.
+- **Clock skew:** a server sequence gives the order, the client's timestamp breaks ties only, and a timestamp more than five minutes in the future is clamped — because a device whose clock reads 2027 would otherwise win every conflict permanently with no way to correct it. Past timestamps are deliberately not clamped: an edit genuinely made offline three days ago should keep its time.
+
+**Two clauses flagged for whoever implements them.** A lapsed account must still be
+able to retrieve its own data — sync stops, portability does not, and anything else
+holds someone's financial history hostage to a failed card payment. That is the
+clause a blanket entitlement middleware would silently drop. And the password reset
+flow must not be built in a way that becomes a lie if end-to-end encryption is ever
+enabled, since the password becomes the key at that point.
+
+**The design brief (#101)** went out as one document rather than a drip of requests,
+leading with what is *not* changing because that is the larger half. Section H of
+`open-items.md` carries eight questions, three of them things the designer is
+expected to argue with. Item 29 reaches beyond design: the sentence *"your bank data
+never touches our servers"* must never appear, because it is false, and the wording
+at sign-up and on the landing page has to be identical.
+
+**The lesson repeated twice in two days.** The header sweep's first attempt deleted
+`@vitest-environment jsdom` out of nine test files and 80 tests lost their DOM. The
+check meant to make it safe confirmed each header had exactly three fields and never
+asked whether it had *extra* lines — **a check with a hole in it**, which is #84's
+percentage utilities wearing a different hat. Both instances are now named in *The
+principles this project keeps returning to*, near the top of this file, along with
+*what breaks and who finds out* — which moved here when `docs/concepts/` was deleted.
+
+**Verify green all day: 416 tests, up from 384.** The new ones were checked by
+breaking the code on purpose — a wrong backfill value, the old validate-then-migrate
+order, and the settings singleton left out of the upgrade loop each fail a named
+test rather than passing quietly.
 
 ### 2026-09-24 (Thursday, the turn) — the product was repositioned, and the build stopped to let it
 
