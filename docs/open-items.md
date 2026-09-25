@@ -1810,3 +1810,92 @@ delete account. Spec §I accounts should say what belongs there; then I draw it.
   *linking* flow, and **09**'s subscribe flow — all still undrawn.
 - The **360 versions** of the new web surfaces (auth, tiers, reconciliation, household).
   The 1440 set is drawn; the brief requires both widths.
+
+---
+
+## L · Web Home rebuilt — 25 September
+
+### L·1 — The gauge leaves 1440. It stays at 360.
+
+Jamiu's call, and the reasoning is worth keeping because it generalises.
+
+The arc gauge is a poor chart for a dashboard — gauges waste space, carry no
+context, and compare badly, because people do not read angles as quickly or as
+accurately as they read lengths against a common baseline. **But that is not why it
+went.** It went because it answers a question nobody asks at a desk.
+
+> *"Can I spend this, right now?"* is asked standing in a shop with a phone in your
+> hand, and a dial is a good answer to it — one glance, no reading.
+> *"Am I on pace, and what is pulling me off it?"* is asked at a laptop, eleven days
+> into a cycle. **A dial has no memory of yesterday and no opinion about tomorrow.**
+
+The 1440 screen was answering the 360 screen's question at four times the size. The
+gauge is still correct at 360 and is unchanged there.
+
+**Home at 1440 is now three bands, and the order is the argument:**
+
+| Band | What it is |
+|---|---|
+| 1 · The answer and the trajectory | The figure set as type, and the cycle over time: what has been spent against what the plan expected, plus where today's rate lands. The only thing on this screen a phone physically cannot show. |
+| 2 · The diagnosis | Every category as a bullet graph with a tick at *expected by now*. **This replaces the category table outright** — 85% used is alarming on day 11 and unremarkable on day 26, and the table made the reader do that arithmetic themselves. |
+| 3 · Where the money is | The breakdown, the goals, the debts. None of it is what you ask first. |
+
+Every bar runs **0 to 150% of its own allowance**, so the *expected* tick sits at
+24.4% and the *allowance* tick at two-thirds on every row. The first draft scaled each
+bar to its own maximum, which put those ticks in eight different places and let
+Health's ₦14,000.00 draw a longer bar than Food's ₦40,000.00 with nothing to say why.
+
+### L·2 — Derived figures that need to be in the seed — **please add and assert**
+
+All of these are arithmetic on rows that are already in `docs/seed-data.md` — the
+nineteen dated expenses and the ₦260,000.00 expense plan. **None is invented, and none
+is currently written down**, which means nothing asserts them and a future edit to one
+movement would silently break the screen.
+
+| # | Figure | Working | Value |
+|---|---|---|---|
+| 58 | Daily expense totals, days 1–11 | the nineteen expenses grouped by date | 20,500 · 5,700 · 0 · 7,750 · 13,400 · 6,250 · 18,800 · 12,600 · 8,000 · 10,000 · 7,000 |
+| 59 | Spent to date | sums to the seeded total | **₦110,000.00** |
+| 60 | Expected by day 11 | 260,000 × 11 ÷ 30, **in kobo** | **₦95,333.33** |
+| 61 | Ahead of pace | 110,000 − 95,333.33 | **₦14,666.67** |
+| 62 | Projected cycle total | 110,000 ÷ 11 × 30 | **₦300,000.00** |
+| 63 | Projected overshoot | 300,000 − 260,000 | **₦40,000.00** |
+| 64 | Days over the allowance | daily total > 8,666.66… | **5** — 25 Sep, 29 Sep, 1 Oct, 2 Oct, 4 Oct |
+| 65 | Expected-by-now, per category | allowance × 11 ÷ 30 | Health 3,667 · Transport 16,500 · Food 37,400 · Utilities 6,600 · Misc 8,067 · Family 14,667 · Apartment 9,167 · Sadaqah 3,667 |
+
+**Note on 60.** The displayed daily allowance is floored to ₦8,666.66, but seed-data.md
+already computes the amber threshold from the **exact** allowance in kobo. Every
+derivation above does the same. 8,666.66 × 11 and 260,000 × 11 ÷ 30 differ by 7 kobo,
+and a figure the seed script asserts cannot be 7 kobo out. My first draft used the
+floored figure and produced ₦95,333.26.
+
+### L·3 — The amber variant has totals and no daily series
+
+So **the daily path is left out of its chart, not flattened.** A line drawn through days
+the seed does not have would be invented; the same rule `cycle.py` already follows for
+its missing anchors — a gap, never closed up. The board says so on its face.
+
+**66 — If the amber variant is meant to have a day-by-day series, please add one that
+sums to ₦160,000.00.** Otherwise the omission stands and is correct. ☐
+
+### L·4 — A gap the rebuild made visible — **not introduced by it**
+
+**67 — `money_bar()` is not state-aware.** It is fixed to the worked day's split, so on
+the amber board its ₦110,000.00 spent sits beside a ₦160,000.00 headline. This was true
+before the rebuild and was simply less visible. The amber figures are all derivable
+(spent 160,000 · saved 90,000 · debt paid 30,000 · protected 70,000 · free 100,000), so
+this is a small fix rather than a new question — but it is behaviour and data, so it is
+named rather than changed quietly. ☐
+
+### L·5 — Outstanding on the landing page
+
+The landing page shows Home, so these waited on the decision above and are next:
+
+- The **safe-to-spend cascade** keeps its small components. Adding the big card was not
+  licence to drop them.
+- The **quincunx becomes product discovery** — a row of cards, each a real component
+  with a heading and one line of 15–20 words, in the manner of `dot.ai` and
+  `dotlabs.africa`, rather than five components arranged in a square.
+- **`LandDemo` is off the canvas.** It drew the demo marker on phone frames, so the
+  landing page for a web app was showing a product that does not exist yet. It comes
+  back when it is redrawn on Web Home.
