@@ -358,7 +358,11 @@ guarded by comparing emitted `px` values, felt conclusive, and let three broken
 file headers had exactly three fields never asked whether they had *extra* lines, so it
 passed while `@vitest-environment` was being deleted out of nine test files.
 
-**Two records of the same fact will disagree, and nothing will tell you.** The state
+**Two records of the same fact will disagree, and nothing will tell you.** The fourth
+instance found on 25 September was the worst of them, because work was on the wrong
+side of it: `CONTEXT.md` said `core/movement` was merged, and it had never reached
+`main` at all. A prose claim about the state of the code is the least reliable kind of
+record there is, and the cheapest to check — `ls` would have done it. The state
 file and the issue tracker both say which tickets are done. On 25 September they
 disagreed three ways at once: **#93** was closed and not recorded, **#74** had been
 closed on 23 September and never recorded, and **#79** was recorded as complete while
@@ -450,8 +454,21 @@ thing being avoided.
   Every one of those screens changes under the repositioning (sign-up, signed-out
   states, sync state, account and billing), so rebuilding them now means
   rebuilding them twice.
-- **T16 (#23) — started and parked.** `core/movement` is merged; its screen is not
-  built; the branch `feature/transactions-and-editing` is unmerged.
+- **T16 (#23) — started and parked, and the record of it was wrong until 25 September.**
+  This said *"`core/movement` is merged"*. **It is not, and never was.** The module —
+  181 lines, the eight movements and the list's derivations — exists only on the
+  unmerged branch `feature/transactions-and-editing`, at commit `c11c872`. Nothing of
+  T16 has ever reached `main`.
+
+  **Two things now stand between that work and `main`:** its paths are all `src/…`,
+  which the workspace extraction replaced, and its `movement-draft.ts` predates schema
+  v2 — `main`'s version takes `Unstamped<Transaction>` and the branch's does not. So
+  landing it is a port plus a reconciliation, not a merge. Recorded on #23 with the SHA
+  so it is inventory rather than a rumour.
+
+  **The branch is kept deliberately.** Deleting it would make the commit unreachable
+  and eventually collectable, and 181 lines of worked-through domain logic is worth more
+  than a tidy branch list.
 - **T17–T22 (#24–#27, #29) — not started, and now to be re-specced** before they
   are built, not built as written.
 
