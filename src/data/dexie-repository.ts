@@ -1,14 +1,3 @@
-/**
- * WHAT: The `Repository` implemented over IndexedDB, via Dexie.
- * WHY:  Returns and accepts **only** domain types — no Dexie `Table`,
- *       `Collection` or `PromiseExtended` crosses the boundary (A4). The seam
- *       is real because the types either side of it are the app's, not the
- *       library's.
- * INTERVIEW: I made the repository return plain domain objects and promises, so
- *       the interface is one a React Native or HTTP implementation could honour
- *       without pretending.
- */
-
 import type { Repository, DateRange } from '@/core/repository'
 import type {
   Category,

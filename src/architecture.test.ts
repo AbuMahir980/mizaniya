@@ -1,15 +1,3 @@
-/**
- * WHAT: Proof that the architecture boundaries actually fail the build, by
- *       injecting a violation into each layer and requiring ESLint to report it.
- * WHY:  The rule was configured for two weeks and enforced nothing — the
- *       elements classified no files and no import target resolved, so every
- *       dependency was "unknown" and silently permitted. A green lint said
- *       nothing about whether the boundaries held.
- * INTERVIEW: I wrote a test that breaks the lint rules on purpose, because a
- *       rule that has only ever passed is indistinguishable from one that is
- *       switched off.
- */
-
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { afterEach, describe, expect, it } from 'vitest'

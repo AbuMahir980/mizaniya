@@ -1,13 +1,3 @@
-/**
- * WHAT: The design tokens as CSS custom properties, light and dark.
- * WHY:  Written by hand beside `tokens.ts` rather than generated, and guarded by
- *       `tokens.test.ts`, which fails if a value here disagrees with the module.
- *       A build-time generator would have been one more thing to keep working;
- *       a test that fails loudly does the same job with tooling that already runs.
- * INTERVIEW: I held design tokens in two places on purpose — typed data and CSS —
- *       and wrote a test that fails when they disagree, rather than trusting care.
- */
-
 :root {
   color-scheme: light;
 

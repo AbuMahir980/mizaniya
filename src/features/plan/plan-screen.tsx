@@ -1,12 +1,3 @@
-/**
- * WHAT: Plan — give every naira a job. Zero-based: the target is ₦0 free.
- * WHY:  **No Save button.** Each row saves on blur, because a plan half-typed
- *       and abandoned should still be there tomorrow — and a Save button turns
- *       every interruption into lost work.
- * INTERVIEW: I autosaved per row rather than adding a Save button, so the screen
- *       people leave halfway through keeps what they entered.
- */
-
 import { useMemo, useState } from 'react'
 import {
   cycleAt,

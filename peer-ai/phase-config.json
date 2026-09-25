@@ -63,7 +63,7 @@
       "> **Skills to use here.** Invoke inside this phase, not alongside it.",
       "> - `engineering:documentation` — structure and audience for the docs produced here",
       ">",
-      "> README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/concepts/` is part of the documentation set."
+      "> README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/engineering-notes/` is part of the documentation set (it replaced `docs/concepts/` on 2026-09-25)."
     ]
   },
   "shared/08-dev-journal.md": {
@@ -99,7 +99,7 @@
   "frontend/03-build.md": {
     "model": "> **Model: Opus** — implementation.",
     "block": [
-      "> **Learning mode applies while building** (see `CONTEXT.md`): before non-trivial logic, state the reasoning in steps — inputs, rule, edge cases — then write the code; every file carries the three-line header; a new concept gets a file in `docs/concepts/`. Build order and one-commit-per-item are in `CONTEXT.md`."
+      "> **Learning mode was replaced on 2026-09-24 — see `CLAUDE.md` §4.** There is no three-line file header and no `docs/concepts/`; both were removed. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one-commit-per-item are in `CONTEXT.md`."
     ]
   },
   "frontend/04-review.md": {

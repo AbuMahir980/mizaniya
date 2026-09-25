@@ -1,13 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: The shell's behaviour — the redirect to onboarding, every state it can
- *       be in, and the keyboard reaching every nav item.
- * WHY:  The environment is set here rather than globally so `core/` keeps
- *       running in plain node. Its tests need no DOM, and paying for one on
- *       every run would make the fast suite slow for the sake of this file.
- * INTERVIEW: I scoped the browser environment to the tests that need a DOM, so
- *       the domain suite stays a pure-function test run.
  */
 
 import 'fake-indexeddb/auto'

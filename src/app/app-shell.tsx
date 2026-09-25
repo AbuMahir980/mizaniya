@@ -1,14 +1,3 @@
-/**
- * WHAT: The frame every screen sits in — navigation, the live region, the
- *       offline note, and the redirect to onboarding.
- * WHY:  **One live region per screen**, mounted once here. A save changes a
- *       dozen numbers, and announcing each of them would tell a screen-reader
- *       user nothing (page specs §3).
- * INTERVIEW: I mounted a single polite live region at the shell rather than one
- *           per figure, because announcing everything is the same as announcing
- *           nothing.
- */
-
 import { Suspense, useState, type ReactNode } from 'react'
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
 import { AnnounceProvider } from '@/ui/announce'

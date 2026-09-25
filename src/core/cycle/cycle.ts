@@ -1,14 +1,3 @@
-/**
- * WHAT: The salary cycle — where it starts and ends, how many days are left, and
- *       how many paydays fall between two dates.
- * WHY:  Calendar dates rather than instants, and `now` passed in rather than read,
- *       so a timezone can never shift a cycle boundary by a day and every figure
- *       can be tested against a fixed date.
- * INTERVIEW: I modelled the budgeting period as calendar arithmetic with the
- *       current date injected, because a cycle that moves with the device's clock
- *       or timezone is one nobody can reproduce a bug in.
- */
-
 import type { IsoDate, Settings, TransactionType } from '../types'
 
 /** A cycle is identified by its start date. Never by a bare month name (D4). */

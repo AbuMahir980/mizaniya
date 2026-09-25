@@ -1,14 +1,3 @@
-/**
- * WHAT: Exporting the current data, and replacing it with a file — safety copy
- *       first, then one transaction, then a reload.
- * WHY:  Import is **the most dangerous action in the app** (page specs §7.9).
- *       Everything here is arranged so that the only two possible endings are
- *       "it all landed" and "nothing has changed" — never anything between.
- * INTERVIEW: I made the import take a backup of what it was about to overwrite
- *       before overwriting it, because the alternative asks the owner to trust
- *       a file they have not read.
- */
-
 import type { ImportRefusal } from '@/core/schema'
 import type { Instant, IsoDate, Snapshot } from '@/core/types'
 import {

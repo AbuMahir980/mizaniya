@@ -1,13 +1,3 @@
-/**
- * WHAT: The figures Home is built on — cash left, what is already promised, and
- *       how much of the rest is safe to spend today.
- * WHY:  All of it is computed on read and stored nowhere, so a figure on screen
- *       cannot quietly disagree with the transactions that produced it.
- * INTERVIEW: I derived every headline figure from the transaction list rather than
- *       storing running totals, because a stored total drifts and nothing in the
- *       system can detect that it has.
- */
-
 import { addMoney, clampToZero, perUnitFloor, proportionOf, subtractMoney } from '../money/money'
 import type { Category, IsoDate, Kobo, PlanEntry, Snapshot, Transaction, TransactionType } from '../types'
 import { addDays, cycleFor, cycleForTransaction, daysLeft, type Cycle } from '../cycle/cycle'

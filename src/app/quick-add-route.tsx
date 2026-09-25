@@ -1,12 +1,3 @@
-/**
- * WHAT: Quick Add, joined to the store and the live region.
- * WHY:  **A save confirms twice** (§6): a toast for someone looking at the
- *       screen, and one polite announcement for someone who is not — carrying
- *       the figure they came for rather than the dozen that changed.
- * INTERVIEW: I announced the one number the owner came for rather than every
- *       figure a save touches, because announcing everything says nothing.
- */
-
 import { safeToSpend } from '@/core/budget/budget'
 import { speakMoney } from '@/core/money/money'
 import type { Transaction, Unstamped } from '@/core/types'

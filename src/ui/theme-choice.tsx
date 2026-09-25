@@ -1,12 +1,3 @@
-/**
- * WHAT: Auto · Light · Dark, as a compact three-way control.
- * WHY:  Text, not sun-and-moon glyphs. The icon set comes from the design and
- *       has no theme icons in it; drawing two more would be inventing
- *       vocabulary again, which is how a Settings gear became a sun.
- * INTERVIEW: I labelled a control in words rather than adding icons that were
- *       not in the design system, because a wrong icon is a wrong word.
- */
-
 import * as Tabs from '@radix-ui/react-tabs'
 import { cx } from './cx'
 

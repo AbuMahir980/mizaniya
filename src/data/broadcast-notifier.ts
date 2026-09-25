@@ -1,13 +1,3 @@
-/**
- * WHAT: Tells other open tabs that this one has written, so they reload.
- * WHY:  Two tabs each hold their own snapshot in memory (ADR-001). Without a
- *       message between them they drift apart silently — one shows a figure the
- *       other has already changed, and neither can tell.
- * INTERVIEW: I closed multi-tab drift with one broadcast rather than polling,
- *       because the alternative is a timer that is either too slow to help or
- *       too fast to be free.
- */
-
 import type { ChangeNotifier } from '@/core/repository'
 
 const CHANNEL = 'mizaniya-changes'

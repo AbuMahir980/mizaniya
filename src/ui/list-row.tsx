@@ -1,12 +1,3 @@
-/**
- * WHAT: A row in a list — a transaction, a category, a setting — tappable or not.
- * WHY:  When it is tappable it renders a real `<button>`, not a div with a click
- *       handler. That is the whole of keyboard support, focus and the correct
- *       announcement, for free, and it is the thing most often got wrong.
- * INTERVIEW: I made interactive rows real buttons rather than clickable divs, so
- *       keyboard and screen-reader behaviour came from the platform.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 

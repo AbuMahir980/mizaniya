@@ -1,16 +1,3 @@
-/**
- * WHAT: The launch screen — the mark, the name, and one line of reassurance.
- * WHY:  **It is the moment the app is reading IndexedDB**, not a timed splash.
- *       The artboards draw it as the left panel of `01-welcome-*`, before the
- *       screen with the content on it, and the app already had that moment: it
- *       was rendering a spinner in a row. No artificial delay is added — if the
- *       read is instant the screen is instant, because a splash that exists to
- *       be looked at is a cost with nothing behind it.
- * INTERVIEW: I mapped the designed launch screen onto the real moment the app
- *       spends opening its database, rather than inventing a timed splash to
- *       justify showing it.
- */
-
 import { Mark } from '@/ui/mark'
 import { WordmarkArabic } from '@/ui/wordmark-arabic'
 

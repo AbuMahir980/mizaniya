@@ -1,13 +1,3 @@
-/**
- * WHAT: The zakat estimate — what is held, whether it reaches the nisab, and
- *       2.5% of it if it does.
- * WHY:  Every "no figure" case is its own state, because an app that always
- *       shows a number will happily show one when none is due. Missing a nisab
- *       is not ₦0.00; it is *not knowing*, and the two must not look alike.
- * INTERVIEW: I made the absence of an answer a state rather than a zero, because
- *       in a religious obligation a confident wrong figure is worse than none.
- */
-
 import { addMoney, perUnitCeil, subtractMoney } from '../money/money'
 import type { Category, IsoDate, Kobo, Snapshot, Transaction } from '../types'
 import { compareDates } from '../cycle/cycle'

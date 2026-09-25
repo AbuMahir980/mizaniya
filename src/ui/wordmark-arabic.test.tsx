@@ -1,16 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: That the Arabic wordmark renders at the size the artboards ask for.
- * WHY:  The word ships as **outlines, not text**, and its outline spans 1.76 em
- *       — 1.124 above the baseline for the dots and the alif, 0.636 below for
- *       the tail of the yāʾ. So an SVG height is not a font size, and passing
- *       one for the other draws the word at 57% of its drawn size. **That was
- *       shipped twice**, which is why the prop is now a font size and why this
- *       pins the conversion.
- * INTERVIEW: I made the component take the font size the design specifies
- *           rather than a pixel height, because the two are not the same for an
- *           outlined glyph and the difference had already shipped twice.
  */
 
 import { afterEach, describe, expect, it } from 'vitest'

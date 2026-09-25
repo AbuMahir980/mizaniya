@@ -1,15 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: Plan — autosave per row, the unallocated figure, carried-in, and what
- *       happens when a row will not save.
- * WHY:  The failure case is the one that matters. **Unallocated must not move
- *       when a row is rejected** — if it did, the screen would show a plan that
- *       adds up while storage holds one that does not, and nothing would say so
- *       (ADR-001).
- * INTERVIEW: I tested that a rejected save leaves the running total alone,
- *           because a total that moved would make the screen a more convincing
- *           liar than a blank one.
  */
 
 import 'fake-indexeddb/auto'

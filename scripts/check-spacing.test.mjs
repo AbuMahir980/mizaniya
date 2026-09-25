@@ -1,13 +1,3 @@
-/**
- * WHAT: Proves the grid guard actually fails on an off-grid value.
- * WHY:  It will spend its whole life finding nothing, which is the shape of a
- *       check that has quietly stopped working. So it is pointed at a planted
- *       file and required to refuse.
- * INTERVIEW: I tested the guard by breaking the rule on purpose, because a
- *           check that has only ever passed is indistinguishable from one that
- *           is switched off.
- */
-
 import { afterEach, describe, expect, it } from 'vitest'
 import { spawnSync } from 'node:child_process'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'

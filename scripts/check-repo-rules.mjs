@@ -1,15 +1,3 @@
-/**
- * WHAT: Fails the build if a forbidden third-party name appears in a tracked
- *       file, a tracked path, or a commit message on this branch (repo rule 3).
- * WHY:  **The names cannot live in this file.** Writing the list down here
- *       would commit the exact breach the check exists to catch, so the terms
- *       arrive from the environment — a repository secret in CI — the way rule
- *       1 says every credential does.
- * INTERVIEW: I enforced a rule whose subject matter cannot be written down by
- *       reading the terms from the environment and reporting only line numbers,
- *       because this repo is public and so are its CI logs.
- */
-
 import { execFileSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 import { extname } from 'node:path'

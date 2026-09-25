@@ -1,14 +1,3 @@
-/**
- * WHAT: Proves the repo-rule guard actually fails on a planted term.
- * WHY:  Rule 3 has been breached once already, and the guard spends most of its
- *       life finding nothing — which is exactly the shape of a check that has
- *       quietly stopped working. **A check that has only ever passed is
- *       indistinguishable from one that is switched off**, so this plants a
- *       term in a throwaway repository and requires a non-zero exit.
- * INTERVIEW: I tested the guard by breaking the rule on purpose, because it
- *           cannot be trusted on the strength of never having fired.
- */
-
 import { afterEach, describe, expect, it } from 'vitest'
 import { execFileSync, spawnSync } from 'node:child_process'
 import { mkdtempSync, rmSync, writeFileSync, mkdirSync } from 'node:fs'

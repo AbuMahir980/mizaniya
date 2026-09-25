@@ -1,15 +1,3 @@
-/**
- * WHAT: Fails a pull request that changes `docs/design/` without being a design
- *       drop.
- * WHY:  The designer works in the same worktree, and `git add -A` has twice
- *       swept a whole design drop into a feature commit — `tokens.md`, 67
- *       artboards and the open-items reply, filed under "feat(core)" and then
- *       "fix(onboarding)". Both times the designer noticed and I did not.
- *       Discipline failed twice, so this is the mechanical version of it.
- * INTERVIEW: After making the same staging mistake twice, I replaced the
- *       resolution to be careful with a check that fails the build.
- */
-
 import { execFileSync } from 'node:child_process'
 
 const title = process.env.PR_TITLE ?? ''

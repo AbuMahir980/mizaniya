@@ -1,15 +1,3 @@
-/**
- * WHAT: What a debt is worth right now, which way it points, and how many
- *       paydays it takes to clear.
- * WHY:  The balance is **signed and derived**, never a stored direction — a
- *       rotating ajo is one relationship that passes through zero, and a stored
- *       direction would have to be corrected at the crossing with nothing to
- *       notice if it were not (D9).
- * INTERVIEW: I let the balance carry its own sign instead of storing which way a
- *       debt points, so the case that breaks the obvious design — a debt that
- *       crosses zero — needs no special handling at all.
- */
-
 import { addMoney, subtractMoney } from '../money/money'
 import type { Debt, Id, IsoDate, Kobo, Snapshot, Transaction } from '../types'
 import { compareDates, nextCycleStart } from '../cycle/cycle'

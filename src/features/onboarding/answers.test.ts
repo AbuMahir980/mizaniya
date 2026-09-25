@@ -1,14 +1,3 @@
-/**
- * WHAT: The answers-to-snapshot conversion, and above all **the date an opening
- *       balance carries**.
- * WHY:  Dating them today would put a lifetime of savings inside the running
- *       cycle, and Home's Saved tile would read ₦490,000.00 instead of
- *       ₦90,000.00. The figure looks entirely plausible; nothing would flag it.
- *       That is the whole reason this is a pure function with its own test.
- * INTERVIEW: I isolated the one rule that fails silently into a pure function,
- *       so it is tested with plain values rather than through six form screens.
- */
-
 import { describe, expect, it } from 'vitest'
 import { buildSnapshot, emptyAnswers, starterCategories, type OnboardingAnswers } from './answers'
 import { cycleFor } from '@/core/cycle/cycle'

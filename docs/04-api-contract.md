@@ -107,7 +107,7 @@ What follows is what a reader needs to know that the types cannot say.
 No entity above stores cash left, safe-to-spend, a what is left, a balance or a
 projected gap. Every one is a pure function of `(Snapshot, now)` (**B3**,
 ADR-001). **A field for any of them would be a bug in the contract**, not a
-convenience — see [docs/concepts/derived-state.md](concepts/derived-state.md).
+convenience — see [docs/engineering-notes/derived-state.md](engineering-notes/derived-state.md).
 
 **Debt balance**, since it is the one people expect to be stored — positive
 means the owner owes:

@@ -1,13 +1,3 @@
-/**
- * WHAT: The card surface, and the states every list and panel needs — loading,
- *       empty and error.
- * WHY:  L1 says every async surface handles loading, empty and error explicitly.
- *       Shipping them as part of the card is what stops a screen quietly
- *       rendering nothing and calling it an empty state.
- * INTERVIEW: I made the three awkward states part of the container component, so
- *       a screen has to pass something for each rather than forgetting one.
- */
-
 import type { ReactNode } from 'react'
 import { Button } from './button'
 import { cx } from './cx'

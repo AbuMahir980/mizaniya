@@ -1,16 +1,3 @@
-/**
- * WHAT: The first screen — one promise, three things the app does, and a route
- *       in for someone restoring an export.
- * WHY:  **Built from `01-welcome-360-*.png` and `01-welcome-1440-*.png`**, not
- *       from fragments of the markup. 360 and 1440 are different layouts rather
- *       than one layout that reflows: at 1440 the three points move *beside*
- *       the promise as cards, and each carries a longer line, which is what the
- *       artboards draw.
- * INTERVIEW: I rebuilt this screen against the artboards after shipping a
- *       version assembled from grepped markup, which had invented the tones,
- *       the mark and the layout.
- */
-
 import { useState } from 'react'
 import { Button } from '@/ui/button'
 import { FilePicker } from '@/ui/file-picker'

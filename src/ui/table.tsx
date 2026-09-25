@@ -1,13 +1,3 @@
-/**
- * WHAT: The desktop table — mono uppercase headers, hairline rows, money columns
- *       right-aligned and tabular.
- * WHY:  It scrolls inside its own container, never the page. A money table that
- *       makes the whole page slide sideways loses the column you were reading
- *       against the figure you were reading.
- * INTERVIEW: I scoped horizontal scrolling to the table itself so wide data never
- *       makes the page scroll sideways on a phone.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 

@@ -1,12 +1,3 @@
-/**
- * WHAT: Plan, joined to the store.
- * WHY:  Each row is its own write, so a failure is local to the row that failed
- *       — the rest of the plan is already saved, and unallocated still reflects
- *       what actually reached storage (ADR-001).
- * INTERVIEW: I saved the plan row by row rather than as one document, so a
- *       rejected write costs one figure rather than the whole screen.
- */
-
 import { cycleAt, plannedFor } from '@/core/budget/budget'
 import { previousCycle } from '@/core/budget/rollover'
 import { stamp, stampAll } from '@/core/sync/stamp'

@@ -1,14 +1,3 @@
-/**
- * WHAT: The mizan beam — a set of scales, drawn a notch off level.
- * WHY:  Inlined rather than an `<img>`, because the strokes are `currentColor`:
- *       the component takes the colour of whatever it sits in, so one file
- *       serves the sidebar, the welcome screen and the printed record without
- *       three exports that can drift apart.
- * INTERVIEW: I inlined the logo as an SVG component so it inherits its colour,
- *       which is what let the same mark work on paper, on emerald and in dark
- *       mode from one source.
- */
-
 import { cx } from './cx'
 
 export interface MarkProps {

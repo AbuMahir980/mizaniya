@@ -1,15 +1,3 @@
-/**
- * WHAT: Proves the seed still matches `docs/seed-data.md`, and that its
- *       assertions actually fire when it does not.
- * WHY:  The document says it plainly: *"The seed script must assert both, so a
- *       future edit to one row cannot quietly break every figure in the
- *       documentation and the designs."* So this parses the movement table out
- *       of the markdown and compares it row for row — **the document is the
- *       source, and the code is checked against it**, not the other way round.
- * INTERVIEW: I tested the seed by parsing the specification it came from, so a
- *           figure edited in one place and not the other fails the build.
- */
-
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import {

@@ -1,14 +1,3 @@
-/**
- * WHAT: A figure that opens the records behind it, set inline in a sentence.
- * WHY:  **No figure is a dead end** — every number on a screen can be traced to
- *       the movements that produced it. That makes an inline, text-weight
- *       control a recurring need, and a `Button` is the wrong shape for it: a
- *       button in the middle of a sentence breaks the line.
- * INTERVIEW: I made "open the records behind this number" a primitive, because
- *       it appears on every screen and a styled div would have lost the
- *       keyboard for all of them.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 

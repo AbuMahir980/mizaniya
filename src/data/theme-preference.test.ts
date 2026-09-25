@@ -1,12 +1,5 @@
 /**
  * @vitest-environment jsdom
- *
- * WHAT: The theme choice — three states, and what each one does to the document.
- * WHY:  "Auto" has to be a real state that can be returned to. A two-way toggle
- *       leaves the app permanently overridden after one press, with no way back
- *       to following the device short of clearing storage.
- * INTERVIEW: I tested that the default is reachable again, because that is the
- *       half of a preference people forget to implement.
  */
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'

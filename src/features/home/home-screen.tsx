@@ -1,14 +1,3 @@
-/**
- * WHAT: Home — the screen the app exists for.
- * WHY:  **Ranked, not a grid** (D8). One hero answers the question the owner
- *       came with; everything else is subordinate to it. Eight equal tiles is
- *       the spreadsheet rendered smaller, and the spreadsheet is what this app
- *       replaces.
- * INTERVIEW: I ranked the screen around a single figure instead of a dashboard,
- *       because the question people actually open a budget app with has one
- *       answer, not eight.
- */
-
 import { useState, type ReactNode } from 'react'
 import {
   cashLeft,

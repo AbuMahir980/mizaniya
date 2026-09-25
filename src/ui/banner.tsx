@@ -1,12 +1,3 @@
-/**
- * WHAT: The inline banners — offline, unallocated, over-allocated, storage.
- * WHY:  Three of the four are **neutral**, and only the over-allocated one is
- *       danger. Being offline is the normal condition for a local-first app, not
- *       a fault, and colouring it red would teach the owner to ignore red.
- * INTERVIEW: I treated offline as a state rather than an error, which changed
- *       both the wording and the colour of the thing that reports it.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 

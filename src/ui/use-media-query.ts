@@ -1,16 +1,3 @@
-/**
- * WHAT: Subscribes to a CSS media query, so a component can render one thing or
- *       another rather than rendering both and hiding one.
- * WHY:  `desktop:hidden` is right when the two variants say the same thing — the
- *       nav and the rail. It is wrong when they differ: Home's categories are a
- *       ranked subset at 360 and a full table at 1440, and rendering both puts
- *       **two identical headings and eight duplicated rows** in one document,
- *       which `display: none` hides from the eye but not from the markup.
- * INTERVIEW: I reached for a media-query hook only where the two layouts carry
- *       different content, because CSS-hiding a duplicate is cheaper right up
- *       until the duplicate is a second copy of the page's own headings.
- */
-
 import { useEffect, useState } from 'react'
 
 export function useMediaQuery(query: string): boolean {

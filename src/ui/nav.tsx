@@ -1,12 +1,3 @@
-/**
- * WHAT: The bottom bar on a phone, the sidebar at 1440, and the ⊕ Add button.
- * WHY:  The bar keeps its text labels at 360px. Icon-only navigation saves about
- *       fourteen pixels and costs every person who does not already know what the
- *       icons mean — which, on first run, is everybody.
- * INTERVIEW: I kept labels beside the icons in the bottom bar, because an icon is
- *       a reminder for people who already know, not an explanation.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 import { Icon } from './icon'

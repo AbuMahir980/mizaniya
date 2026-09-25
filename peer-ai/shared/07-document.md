@@ -7,7 +7,7 @@
 > **Skills to use here.** Invoke inside this phase, not alongside it.
 > - `engineering:documentation` — structure and audience for the docs produced here
 >
-> README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/concepts/` is part of the documentation set.
+> README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/engineering-notes/` is part of the documentation set (it replaced `docs/concepts/` on 2026-09-25).
 
 Context: a cycle or milestone is complete. Update living docs, record what shipped, and communicate with stakeholders or handoff recipients.
 

@@ -1,14 +1,3 @@
-/**
- * WHAT: ميزانية — the word "Mizaniya" in Arabic, as outlined paths.
- * WHY:  **Outlined, not typeset.** The only Arabic in the whole app is this one
- *       word, and loading a complete Arabic typeface to render it would be the
- *       most expensive glyph in the bundle. `currentColor` so the caller sets
- *       the colour — `soft`, under the Latin, never above it and never carrying
- *       a figure (brand/README.md).
- * INTERVIEW: I shipped a single word of Arabic as outlines rather than pulling
- *       in a font for it, which kept a whole typeface out of the bundle.
- */
-
 import { cx } from './cx'
 
 /**

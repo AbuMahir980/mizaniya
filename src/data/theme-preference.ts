@@ -1,13 +1,3 @@
-/**
- * WHAT: Whether the owner has chosen a theme, or left it to their device.
- * WHY:  Three states, not two. A two-way toggle quietly stops the app following
- *       the system — which is what most people want most of the time — and
- *       there is then no way back to it short of clearing storage.
- * INTERVIEW: I made "follow the system" a real option rather than the absence of
- *       a choice, so turning the toggle once does not opt someone out of it
- *       permanently.
- */
-
 const KEY = 'mizaniya.theme'
 
 export type ThemeChoice = 'system' | 'light' | 'dark'

@@ -1,14 +1,3 @@
-/**
- * WHAT: That the browser is asked to keep the data **after the first successful
- *       write**, once, and never before.
- * WHY:  D12 is specific about the timing, and the reason is not cosmetic:
- *       browsers weigh genuine engagement, so asking an empty app is asking to
- *       be turned down once and remembered. A test that only checked "it asks"
- *       would pass on the version that asks too early.
- * INTERVIEW: I tested when the permission is requested rather than whether,
- *       because the timing is the whole decision.
- */
-
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { withPersistenceRequest } from './create-app-store'

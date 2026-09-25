@@ -1,13 +1,3 @@
-/**
- * WHAT: The cycle maths, tested at its boundaries rather than in its middle.
- * WHY:  Every case here is a place the arithmetic can be quietly wrong — a short
- *       month, a leap year, the first and last day of a cycle, the exact edge of
- *       the early-income window. The middle of a range never catches anything.
- * INTERVIEW: I tested the boundaries and the awkward calendar cases, because a
- *       date bug that only appears on 29 February is one nobody reproduces by
- *       accident.
- */
-
 import { describe, expect, it } from 'vitest'
 import {
   addDays,

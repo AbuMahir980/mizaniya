@@ -1,13 +1,3 @@
-/**
- * WHAT: The debt maths, pinned to the figures `docs/seed-data.md` and page specs
- *       §7.6 publish, plus the ajo round trip through zero.
- * WHY:  The crossing is the case that breaks the obvious design, so it is tested
- *       as a journey rather than as a state — a balance that is correct either
- *       side of zero but wrong at the crossing would pass a state-by-state test.
- * INTERVIEW: I tested the ajo as a sequence of movements through zero, because
- *       the bug I was designing against only exists between two valid states.
- */
-
 import { describe, expect, it } from 'vitest'
 import {
   amountOwed,

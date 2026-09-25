@@ -1,15 +1,3 @@
-/**
- * WHAT: The store's write ordering, its states, and multi-tab drift — against a
- *       real IndexedDB (fake-indexeddb) and a real `BroadcastChannel`.
- * WHY:  The ordering rule is load-bearing: every write in the app goes through
- *       it. A rejected write that quietly updated memory would leave the screen
- *       and the database disagreeing with nothing able to detect it, which is
- *       the exact fault ADR-001 is arranged against.
- * INTERVIEW: I tested the failure path of the write, because the ordering only
- *       matters when something goes wrong and that is the case nobody exercises
- *       by hand.
- */
-
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createSnapshotStore } from './snapshot-store'

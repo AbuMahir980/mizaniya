@@ -1,14 +1,3 @@
-/**
- * WHAT: The one snapshot store, made available to React, and the hooks that
- *       read it.
- * WHY:  The store is deliberately framework-free vanilla Zustand (T8), so it
- *       can be tested without React and reused by the Expo app at v2. This file
- *       is the only place the two are joined.
- * INTERVIEW: I kept the store outside React and bound it in one file, so the
- *       state logic is testable with plain values and portable to another
- *       renderer.
- */
-
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { useStore } from 'zustand'
 import type { createSnapshotStore, SnapshotState, SnapshotStore } from '@/store/snapshot-store'

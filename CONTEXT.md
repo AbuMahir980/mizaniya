@@ -199,7 +199,7 @@ nothing, and concluded something about the whole system — first
 `~/.claude/plugins/repos/`, then the wrong marketplace, then a cached feature
 flag that seemed to explain everything. **Absence in the place you looked is not
 absence.** This is the same failure the project already has a name for in
-[what-breaks-who-finds-out](docs/concepts/what-breaks-who-finds-out.md): the
+*What breaks — and who finds out?* (see the principles above): the
 check was silent about its own blind spot, so three wrong answers all looked
 confident.
 
@@ -257,28 +257,35 @@ shows.
 was made* and is immutable. A note explains the **system as it is now** and is
 rewritten when that changes. A note links its ADRs.
 
-**`docs/concepts/` is deleted once its content has moved.** The stakeholder's
+**`docs/concepts/` was deleted on 2026-09-25**, once its content had moved. The stakeholder's
 call, 2026-09-24: two folders explaining the same things is confusing, and the
 engineering note is the format that is actually useful — *"I can even easily talk
 about it in gatherings, in interviews."* The concept note was written to teach a
 concept; the engineering note answers a question someone asks you. The second
 replaces the first.
 
-**Harvest first, delete second** — 907 lines of real content across ten files, and
-seven other files link into it (`docs/04-api-contract.md`,
-`docs/07-frontend-coding-rules.md`, `docs/Mizaniya_Kickoff_Pack.md`, three
-`peer-ai/` files, and this one). Each concept file has an obvious destination:
-repository-pattern and indexeddb into **Storage**; derived-state and
-one-source-of-truth into **Derived state**; types-vs-runtime-validation into
-**Validation**; all-or-nothing into **Import and export**; hierarchy-and-attention
-into a design note.
+**Done as harvest first, delete second.** The ten notes in `docs/engineering-notes/`
+were written before anything was removed, and the links in `docs/04-api-contract.md`,
+`docs/07-frontend-coding-rules.md` and three `peer-ai/` files were repointed. The
+`peer-ai/` ones mattered most: they instructed future sessions to write concept notes,
+so leaving them would have had the folder recreated by the next session that read them.
 
-Two need a decision rather than a move: **`review-questions.md` and `revisit.md`
-are artefacts of the five-questions ritual**, which no longer exists — but
-`revisit.md` holds genuinely open threads, and those belong in Open Questions here
-rather than being deleted with the file. And **`what-breaks-who-finds-out.md` is
-cited as a named principle** elsewhere in this document; it needs a home before the
-reference can be repointed. Tracked on the sweep ticket.
+Three files needed a decision rather than a move:
+
+- **`what-breaks-who-finds-out.md`** was cited as a named principle, so it became one —
+  see *The principles this project keeps returning to*, above.
+- **`review-questions.md`** was an artefact of the five-questions ritual, which no
+  longer exists. Deleted.
+- **`revisit.md`**'s two open threads are both closed rather than carried forward. Its
+  detectability thread said *revisit when building safe-to-spend and Home* — both are
+  built, and `derived-state.md` now makes that argument in full. Its "API-contract five"
+  thread was about being taught rather than tested under the old ritual, and the five
+  topics it listed are now covered by the notes on derived state, validation, import and
+  export, and data storage.
+
+**`docs/Mizaniya_Kickoff_Pack.md` is deliberately left alone.** It is the stakeholder's
+original instructions, and rewriting it would falsify the record of what was asked for.
+Its learning-mode paragraphs are superseded by `CLAUDE.md` §4.
 
 <details>
 <summary>The replaced contract, kept as history</summary>
@@ -318,6 +325,35 @@ the code. Do not slow down to make them type.
 still laid out with both sides, the stakeholder still chooses, and the choice and
 its reason still go into Key Decisions. That is how this project makes decisions,
 not a teaching device — it is why ADRs exist.
+
+---
+
+## The principles this project keeps returning to
+
+Short, named, and cited by the notes and the day log rather than re-explained each
+time. They came out of real mistakes in this repo, not from a book.
+
+**What breaks — and who finds out?** Every failure has two halves: what goes wrong,
+and whether anyone learns about it. Most answers stop at the first. *Loud problems are
+cheap; silent ones are expensive.* Run both questions over any decision — if the
+answer to the second is "nobody, ever", the design is not finished. This is why no
+derived figure is stored (a stored total and its records can disagree with both looking
+correct), why a newer import file is refused outright rather than partially read, and
+why the app saves before it updates the screen.
+
+**A check that has only ever passed is indistinguishable from one that is switched
+off.** So guards are broken on purpose to prove they fire — the architecture
+boundaries, the repo-rule guard, the spacing grid, and the schema migration.
+
+**A check scoped to one unit is a check with a hole in it.** The 2px-grid migration was
+guarded by comparing emitted `px` values, felt conclusive, and let three broken
+*percentage* utilities through. Learned again on 25 September: a check confirming the
+file headers had exactly three fields never asked whether they had *extra* lines, so it
+passed while `@vitest-environment` was being deleted out of nine test files.
+
+**Absence in the place you looked is not absence.** Three separate checks concluded the
+ten skills were uninstallable, each having looked in exactly one place. The install
+command was in the plugin's README the whole time.
 
 ---
 
@@ -1101,7 +1137,7 @@ full reasoning; this is the summary and what it means for the code.*
 ### 2026-09-10 (Thursday)
 
 - **First learning-mode stop.** Worked through the review questions from SETUP. Two answers landed on the symptom but stopped short of the mechanism: the stored safe-to-spend field would be too high (B3), and copying rules means editing five places instead of one (E1/E2). Both missed the same half — that nothing would report the fault.
-- **Named the pattern and gave it a method.** *What breaks — and who finds out?* Loud problems are cheap; silent ones are expensive. Written up as [docs/concepts/what-breaks-who-finds-out.md](docs/concepts/what-breaks-who-finds-out.md), the first concept note. It reframes B3, E2 and K4 as one rule about detectability wearing three hats.
+- **Named the pattern and gave it a method.** *What breaks — and who finds out?* Loud problems are cheap; silent ones are expensive. Written up as the first concept note; it now lives as a named principle near the top of this file, `docs/concepts/` having been replaced by `docs/engineering-notes/`. It reframes B3, E2 and K4 as one rule about detectability wearing three hats.
 - **Opened [docs/concepts/revisit.md](docs/concepts/revisit.md)** with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
 - **Recorded a standing writing preference:** intelligent but plain — the test is whether the least technical reader could understand and remember it. Applies to docs, file headers, commit messages and the app's own copy.
 - **Added `docs/Mizaniya_Kickoff_Pack.md`**, the instructions this build actually runs on. The product brief's §6 had declared itself superseded by a file that was not in the repo.

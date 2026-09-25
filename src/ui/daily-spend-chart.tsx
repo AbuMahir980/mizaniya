@@ -1,13 +1,3 @@
-/**
- * WHAT: One bar per day of the cycle, against the dashed allowance line.
- * WHY:  **Never a gradient, never a curve fit** (tokens.md §6). A smoothed line
- *       implies days between the days, and there are none — money moves on the
- *       day it moves. Bars above the line are `ochre`, below are `faint`, today
- *       is `emerald`.
- * INTERVIEW: I drew discrete bars rather than a line chart, because interpolating
- *       between two days invents spending that never happened.
- */
-
 import { cx } from './cx'
 
 export interface DayBar {

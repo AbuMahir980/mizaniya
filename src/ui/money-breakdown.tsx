@@ -1,13 +1,3 @@
-/**
- * WHAT: Where the whole cycle's take-home went — a gapped segmented rail with a
- *       mono key beneath it.
- * WHY:  **Every diagram carries a text key** (tokens.md §6). The rail is a
- *       summary, not the record: a segment two pixels wide is unreadable, and
- *       the row beside it says the figure in words and numbers.
- * INTERVIEW: I gave every diagram a text key, because a chart that is the only
- *       way to read a figure excludes anyone who cannot see it.
- */
-
 import type { ReactNode } from 'react'
 import { cx } from './cx'
 

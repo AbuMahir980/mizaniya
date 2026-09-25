@@ -1,15 +1,3 @@
-/**
- * WHAT: What onboarding collects, and the pure function that turns it into the
- *       app's first snapshot.
- * WHY:  **Opening balances become dated transactions, never stored totals**
- *       (D3, A3) — and the date is the whole decision. Dated today they would
- *       fall inside the running cycle and overstate this cycle's saving by
- *       everything the owner has ever saved. The figure would look entirely
- *       plausible and nothing would flag it.
- * INTERVIEW: I made the form's output a pure function of its answers, so the
- *       rule that matters is tested with plain values and no browser at all.
- */
-
 import { addDays, cycleFor } from '@/core/cycle/cycle'
 import { stampAll } from '@/core/sync/stamp'
 import type {

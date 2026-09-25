@@ -1,14 +1,3 @@
-/**
- * WHAT: The round trip — export, import into an empty database, every figure
- *       identical — and every way an import can be refused.
- * WHY:  An exported file is the only real backup until v3 sync exists, so the
- *       round trip is tested on the **derived figures**, not on row counts.
- *       Identical rows that produce a different safe-to-spend would be a passing
- *       test and a broken backup.
- * INTERVIEW: I asserted the round trip on the numbers the owner actually sees,
- *       because matching row counts is not the same as matching money.
- */
-
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createImportExport, type SaveableFile } from './import-export'

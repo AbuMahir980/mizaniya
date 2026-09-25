@@ -4,7 +4,7 @@
 
 > **Model: Opus** — implementation.
 
-> **Learning mode applies while building** (see `CONTEXT.md`): before non-trivial logic, state the reasoning in steps — inputs, rule, edge cases — then write the code; every file carries the three-line header; a new concept gets a file in `docs/concepts/`. Build order and one-commit-per-item are in `CONTEXT.md`.
+> **Learning mode was replaced on 2026-09-24 — see `CLAUDE.md` §4.** There is no three-line file header and no `docs/concepts/`; both were removed. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one-commit-per-item are in `CONTEXT.md`.
 
 **Context:** Page specs and frontend rules should be in place (`docs/06-page-specs.md`, `docs/07-frontend-coding-rules.md`). This workflow is about **writing and integrating code**.
 

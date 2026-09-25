@@ -1,12 +1,3 @@
-/**
- * WHAT: The first run — the welcome screen, then onboarding, then Home.
- * WHY:  It lives in `app/` because it joins a feature to the store, and a
- *       feature may not import `app/store-context` (A2). That constraint is the
- *       right shape anyway: the screens stay ignorant of how anything is saved.
- * INTERVIEW: I kept the wiring in the app layer and the screens pure, so the
- *       onboarding form can be tested without a database behind it.
- */
-
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { WelcomeScreen } from '@/features/onboarding/welcome-screen'
