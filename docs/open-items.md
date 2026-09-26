@@ -2874,3 +2874,28 @@ missing. Now that the gauge is gone there is room for a compact one. ☐
 **92 — the landing page needs a *how to use* section.** The owner asked for one
 alongside the install decision: what it is, that it works in a browser, and how
 to add it to a home screen on both platforms. Not drawn yet. ☐
+
+### M·34 — Plain, then short
+
+Same day, second correction, and the right one. The plain-English pass fixed the
+words and **broke the cards**: the projection ran four lines, the two figures sat
+crammed on one line, and every category row grew a third. The owner: *“it
+makes the UI too busy … it's a budget app, all those long long things are not
+needed.”*
+
+**A design canvas flatters long copy; a phone does not.** Four lines of prose on
+a 1440 card looks considered; the same four lines at 360 are the whole fold.
+
+| | Now |
+|---|---|
+| Spent so far / Fair share | a **labelled list**, figures right-aligned — not a crammed line |
+| The projection | **one short line and an (i)**: *At this speed the cycle ends ₦40,000.00 over*. The full working is correct and belongs behind a control |
+| Each category row | **two short halves**: *₦10,000 planned · ₦4,000 over* — the bar already carries the precision |
+| Where your money is | *That leaves ₦7,500.00 a day for the 20 days left.* One sentence |
+
+**Nothing is shown less** — every figure is still on the screen. `tokens.md`
+§10.4 carries both halves of the rule now, because either one alone produces a
+wrong screen: jargon, or a wall.
+
+`ui.info()` is new — a circled *i*, the only one in the system, for the case of
+a card with a correct explanation too long to put on it.

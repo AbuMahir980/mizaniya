@@ -565,6 +565,27 @@ show less: **every figure stays, and gets named in words a person already uses.*
 | *Worst pace first* | *Worst first* | |
 | *Expected by day 11 · The whole allowance · Past the allowance, not just the pace* | *Fair share by today · The whole cycle's plan · Already spent more than the whole plan* | A legend nobody can read is a legend that is not there |
 
+### Plain, then SHORT — the second half of the rule
+
+The table above is only half of it. The first pass fixed the words and **broke
+the cards**: the projection ran four lines, the two figures sat crammed on one
+line, and every category row grew a third. The owner sent that back the same
+day: *“it makes the UI too busy … it's a budget app, all those long long
+things are not needed.”*
+
+He is right, and doubly so at 360, where four lines of prose is the whole fold.
+**A design canvas flatters long copy; a phone does not.** So:
+
+| | |
+|---|---|
+| Two figures that belong together | a **labelled list**, not a crammed line — the eye compares two numbers instead of parsing a string |
+| An explanation longer than a line | **one short line and an (i)** — correct, and behind a control rather than on the card |
+| A row that already has a chart | **two short halves** — *₦10,000 planned · ₦4,000 over*. The bar carries the precision; the text says what was planned and whether this one is a problem |
+
+**Nothing is shown less.** Every figure is still on the screen. The rule is the
+pair: **name it in words a person uses, then say it in as few as possible.**
+Either half alone gives you a screen that is wrong — jargon, or a wall.
+
 **“Fair share by today” is the phrase that does the most work.** It says
 pro-rata without the word, and it is the same idea on every screen — the plan
 card, each category row, and the legend — so learning it once is enough.
