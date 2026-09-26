@@ -141,27 +141,29 @@ body{margin:0}
       background:var(--card)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><rect x="3.5" y="5.5" width="17" height="15" rx="2.5"/><path d="M3.5 10.5h17M8 3.5v4M16 3.5v4"/></svg></span>
   </div>
 
-  <div style="padding:14px 20px 0;text-align:center;position:relative">
-    <div style="display:flex;justify-content:center">
-      <svg width="344" height="184" viewBox="0 0 344 184" style="display:block">
-  <path d="M36.0 166.0 A136 136 0 0 1 308.0 166.0" fill="none"
-        stroke="var(--track)" stroke-width="16" stroke-linecap="round"/>
-  <path d="M36.0 166.0 A136 136 0 0 1 296.0 110.2" fill="none"
-        stroke="var(--emerald)" stroke-width="16" stroke-linecap="round"/>
-  <line x1="210.6" y1="47.1" x2="217.4" y2="26.2"
-        stroke="var(--ochre)" stroke-width="2.5" stroke-linecap="round"/>
-</svg></div>
-    <div style="position:absolute;left:0;right:0;top:92px">
-      <div class="lab">Safe to spend today</div>
-      <div class="disp" style="font-size:42px;line-height:48px;margin-top:3px">
-        ₦7,500<span style="font-size:21px;font-weight:500;opacity:.6">.00</span></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;margin-top:-10px;padding:0 4px">
-      <span class="lab" style="font-size:10px">₦0</span>
-      <span class="lab" style="font-size:10px;color:var(--ochre)">₦5,200 low</span>
-      <span class="lab" style="font-size:10px">₦8,666</span></div>
-    <div style="font-size:13px;color:var(--soft);margin-top:10px">
+  <!-- THE GAUGE IS GONE FROM 360 TOO — owner's decision, 26 September.
+
+       It was kept here on 25 September on the argument that "can I spend this,
+       right now?" is a phone question and a dial answers it. The board then
+       argued against itself: the card DIRECTLY BENEATH it shows the same
+       comparison and more of it — today's bar against the dashed allowance
+       line, plus ten days of history. The gauge had today against the
+       allowance and nothing else, and it cost ~200px of the most valuable
+       space on the screen to say less.
+
+       So the figure is set large, the way it is at 1440, and the two numbers
+       the arc carried — the ceiling and the amber threshold — are a line of
+       type under it, where they can be read rather than estimated from an
+       angle. Everything below comes up the screen by about 200px, which puts
+       "Needs attention" within reach of the fold. -->
+  <div style="padding:20px 20px 0">
+    <div class="lab">Safe to spend today</div>
+    <div class="disp" style="font-size:52px;line-height:58px;margin-top:4px">
+      ₦7,500<span style="font-size:25px;font-weight:500;opacity:.6">.00</span></div>
+    <div style="font-size:13.5px;line-height:21px;color:var(--soft);margin-top:10px">
       ₦220,000.00 left · 20 days to 25 Oct</div>
+    <div style="font-size:13px;line-height:21px;color:var(--soft);margin-top:3px">
+      of ₦8,666.66 a day · <b style="color:var(--ochre)">amber below ₦5,200.00</b></div>
     <div class="seg" style="margin-top:16px">
       <span class="on">Today</span>
       <span class="">This cycle</span></div>
@@ -238,7 +240,7 @@ body{margin:0}
     <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M16.5 20.5v-2a3.4 3.4 0 0 0-3.4-3.4H6.9a3.4 3.4 0 0 0-3.4 3.4v2"/><circle cx="10" cy="7.6" r="3.6"/><path d="M20.5 20.5v-2a3.4 3.4 0 0 0-2.6-3.3M15.6 4.3a3.6 3.6 0 0 1 0 6.6"/></svg><span>Debts</span></div>
     <div class="nav-i"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>More</span></div>
   </div>
-</div></div><!--note--><div style="font-size:12.5px;line-height:18px;color:#5A564A;margin-top:16px;max-width:760px">The gauge scales today's figure against the planned daily allowance with the ₦5,200.00 amber threshold marked. Bars above the dashed allowance line are ochre, today is emerald. Only two categories are shown; the rest sit behind a control, which is the one thing 1440 does differently.</div><!--/note--></div>
+</div></div><!--note--><div style="font-size:12.5px;line-height:18px;color:#5A564A;margin-top:16px;max-width:760px"><b>The gauge is gone from this width too</b> — the owner’s call, 26 September, and the board had been arguing against itself. The card directly beneath it showed the same comparison and more of it: today’s bar against the dashed allowance line, <i>plus ten days of history</i>. The gauge had today against the allowance and nothing else, and it cost about 200px of the most valuable space on the screen to say less. So the figure is set large, the way it is at 1440, and the two numbers the arc carried — the ceiling and the amber threshold — are a line of type under it, where they can be read rather than estimated from an angle. Everything below comes up the screen. Bars above the dashed allowance line are ochre, today is emerald. Only two categories are shown; the rest sit behind a control, which is the one thing 1440 does differently.</div><!--/note--></div>
 </x-dc>
 </body>
 </html>

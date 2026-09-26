@@ -2775,15 +2775,45 @@ surprise.
 The missing one is the only debt that runs the other way, which is the direction
 the whole screen claims to handle.
 
-**87 — the gauge at 360, reopened.** The owner asked whether it stays. It was
-settled on 25 September, and the board now argues against itself: **the card
-directly beneath the gauge shows the same comparison better.** The daily-spend
-chart has today's bar against the dashed allowance line *and* ten days of
-history; the gauge has today against the allowance and nothing else. One of them
-is strictly more informative and it is not the gauge, which also costs ~200px of
-the most valuable space on the screen. Against that: the arc carries the amber
-threshold and the headroom in one glyph, and it is the app's signature on a
-phone. Nothing changed at 360 yet. **Owner's call.** ☐
+**87 — the gauge is off 360. Owner's decision, 26 September.** ☑
+
+It was kept here on 25 September on the argument that *“can I spend this,
+right now?”* is a phone question and a dial answers it. The board then argued
+against itself: **the card directly beneath it showed the same comparison and
+more of it** — today's bar against the dashed allowance line *plus ten days of
+history*. The gauge had today against the allowance and nothing else, and it
+cost about 200px of the most valuable space on the screen to say less.
+
+The figure is set large, the way it is at 1440, and the two numbers the arc
+carried — the ceiling and the amber threshold — are a line of type under it,
+where they can be read rather than estimated from an angle. Everything below
+comes up the screen.
+
+**It appeared in seven places**, each with its own hand-typed absolute-positioned
+figure inside it: Home, the five Home states, the offline banner, the More sheet,
+the two sheets drawn over Home, the quick-add backdrop, and **both landing-page
+hero fragments** — which would otherwise have gone on advertising a control the
+app no longer has. There is one `combined.hero_block` now and all seven call it.
+`gauge()` stays in the file, unused, until the build side has read this.
+
+**89 — I destroyed 90 lines of `extra.py` and rebuilt them.** Removing the gauge
+from the two “behind” screens, I used a line-splicing loop instead of an
+exact string replace, and its end-marker search ran past the end of the block:
+**ten functions gone** — the add-debt and add-goal sheets, the quick-add
+variants, the five Home states, the offline banner, the debt record, the More
+sheet and both sheet-over-Home screens.
+
+Recovered in full from `__pycache__/extra.cpython-311.pyc`, which still held the
+intact version, by reading the bytecode back into source. **Verified rather than
+assumed:** the previously rendered HTML for all 276 boards was kept, and after
+the rebuild **235 render byte-identical and all 41 that differ are gauge
+removals** — including `debt_record`, the most complex of the ten, which came
+back exact.
+
+**The rule, and it was already the rule:** source is edited with exact string
+replacements that assert they matched once. The one time I reached for a line
+loop, it ate ninety lines. ☑
+
 
 **88 — `.drop/` is ignored now, and here is why.** A failed `rm` broke the
 extract chain, so a drop landed nothing and then committed its own 55MB of
