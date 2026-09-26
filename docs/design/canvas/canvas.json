@@ -915,7 +915,7 @@
    "x": 0,
    "y": 7018,
    "w": 1512,
-   "h": 1251,
+   "h": 999,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -925,7 +925,7 @@
    "x": 1652,
    "y": 7018,
    "w": 462,
-   "h": 622,
+   "h": 519,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -935,7 +935,7 @@
    "x": 2254,
    "y": 7018,
    "w": 1512,
-   "h": 1251,
+   "h": 999,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -945,7 +945,7 @@
    "x": 3906,
    "y": 7018,
    "w": 462,
-   "h": 622,
+   "h": 519,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -953,7 +953,7 @@
   {
    "file": "WebHomeEmptyLight.dc.html",
    "x": 0,
-   "y": 8459,
+   "y": 8207,
    "w": 1512,
    "h": 1336,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 light",
@@ -963,7 +963,7 @@
   {
    "file": "MwHomeEmptyLight.dc.html",
    "x": 1652,
-   "y": 8459,
+   "y": 8207,
    "w": 462,
    "h": 593,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 light",
@@ -973,7 +973,7 @@
   {
    "file": "WebHomeEmptyDark.dc.html",
    "x": 2254,
-   "y": 8459,
+   "y": 8207,
    "w": 1512,
    "h": 1336,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 dark",
@@ -983,7 +983,7 @@
   {
    "file": "MwHomeEmptyDark.dc.html",
    "x": 3906,
-   "y": 8459,
+   "y": 8207,
    "w": 462,
    "h": 593,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 dark",
@@ -993,7 +993,7 @@
   {
    "file": "WebHomeOfflineLight.dc.html",
    "x": 0,
-   "y": 9985,
+   "y": 9733,
    "w": 1512,
    "h": 1384,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 light",
@@ -1003,7 +1003,7 @@
   {
    "file": "MwHomeOfflineLight.dc.html",
    "x": 1652,
-   "y": 9985,
+   "y": 9733,
    "w": 462,
    "h": 1552,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 light",
@@ -1013,7 +1013,7 @@
   {
    "file": "WebHomeOfflineDark.dc.html",
    "x": 2254,
-   "y": 9985,
+   "y": 9733,
    "w": 1512,
    "h": 1384,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 dark",
@@ -1023,7 +1023,7 @@
   {
    "file": "MwHomeOfflineDark.dc.html",
    "x": 3906,
-   "y": 9985,
+   "y": 9733,
    "w": 462,
    "h": 1552,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 dark",
@@ -1033,7 +1033,7 @@
   {
    "file": "MwMoreLight.dc.html",
    "x": 0,
-   "y": 11727,
+   "y": 11475,
    "w": 832,
    "h": 814,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 light",
@@ -1043,7 +1043,7 @@
   {
    "file": "MwMoreDark.dc.html",
    "x": 972,
-   "y": 11727,
+   "y": 11475,
    "w": 832,
    "h": 814,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 dark",

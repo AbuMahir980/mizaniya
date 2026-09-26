@@ -643,6 +643,22 @@ when the money is gone; a plan with nothing recorded against it is the opposite
 situation and reads ₦13,000.00. Reaching for zero because a state is called
 *empty* is how a screen ends up saying the reverse of what is true.
 
+**And sometimes the answer is no figure at all.** The owner, on *no plan yet*:
+*“Obviously there should be no figure showing. Are you telling me that once this
+goes to production you'll be showing a figure for them? It has to appear the way
+it's supposed to appear in production.”* Safe-to-spend is cash left minus what
+the **plan** protects, over the days left — with no plan there is no protected
+set, so the quantity does not exist. **A number in a hero slot is a promise that
+the app knows something.** When it does not, the block goes: an empty slot is
+worse than none, because a label with a dash under it draws the eye to an
+absence and still has to be read before it can be dismissed.
+
+What replaces it is not a third apology. **One invitation, and the facts the
+person actually gave you.** *No plan yet* had reached three cards all saying
+there was nothing to show — the figure's explanation, the money card's, and the
+category column's — each pointing at the same single action. Three ways of
+saying nothing is not an empty state; it is clutter with no content.
+
 **A rounding bug fell out of the rewrite.** The headline figure printed
 `f"{abs(gap):,.0f}"` naira with `":02.0f"` kobo stapled on, so ₦14,666.67 came
 out as **₦14,667.67** — a figure that exists nowhere in the arithmetic. **Money

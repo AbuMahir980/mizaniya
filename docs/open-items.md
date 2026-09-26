@@ -3053,23 +3053,79 @@ drawn in every state. The gauge was defined six times; the Arabic was missing
 from one lockup; the ceiling line survived in five states after Home lost it.
 `combined.SEGS_DAY1` exists so that the split follows the state.
 
-**94 — the *no plan* hero figure cannot be right, and I have not changed it.**
+**94 — ☑ ANSWERED BY THE OWNER, SAME DAY: no plan, no figure.**
+
+> *“If a user does not have a plan, obviously there should be no figure
+> showing. So are you telling me that once something goes to production and the
+> user has no plan, you'll be showing a figure for them? It does not make sense.
+> We are trying to build for each state, and it has to appear the way it's
+> supposed to appear in production.”*
+
+**He is right, and I should not have left it open.** I filed it as *spec owns
+behaviour, so I do not pick a side* — but the spec is not a party to a dispute
+with its owner; it is a document he owns, and a design drawn against a figure
+that cannot exist is not neutrality, it is shipping the wrong screen while
+waiting for permission not to. The contract's rule — *name it and log it, never
+silently pick a side* — is about not **silently** choosing. Saying it out loud
+and being overruled is the system working. Logging it and carrying on drawing
+the impossible figure is not.
+
+The reason it cannot exist, kept because it is the argument:
+
+---
+
+**The original entry.** ₦8,666.66 is the **spendable** total ÷ 30, and there is
+no spendable total until there is a plan — that split is exactly what a plan
+produces. The label under it says *“based on your take-home”*, and take-home ÷
+30 is **₦15,000.00**. So the figure and its own caption disagreed.
 ₦8,666.66 is the **spendable** total ÷ 30, and there is no spendable total until
 there is a plan — that split is exactly what a plan produces. The label under it
 says *“based on your take-home”*, and take-home ÷ 30 is **₦15,000.00**. So the
 figure and its own caption disagree.
 
-There are three answers and only one of them is mine to pick, which is none:
+Three answers were on the table — ₦8,666.66 (page specs §973), ₦15,000.00 (what
+the caption describes), and none at all. **The third is the answer**, and the
+reason is not presentational. *Safe to spend* is defined as cash left minus what
+the **plan** protects, over the days left. With no plan there is no protected
+set, so the quantity does not exist. Both figures were answers to a question
+this person has not asked yet, and **a number in the hero slot is a promise that
+the app knows something.** Here it does not.
 
-1. **₦8,666.66** — what page specs §973 asks for today.
-2. **₦15,000.00** — what the caption describes, and the only figure available
-   before a plan exists.
-3. **No figure at all** — the owner's position: *“everything should be an empty
-   state.”* Spec §B1 says the opposite (*“given no plan, the figure shows with
-   no amber or red state”*), so this is owner against spec, not owner against
-   design.
+**An empty slot would have been worse than none.** A label with a dash under it
+draws the eye to an absence and still has to be read before it can be dismissed.
+So the whole block goes, at both widths, and the screen leads with the one thing
+that is true — *your take-home is ₦450,000.00 a cycle*, which they typed in
+themselves — and the one thing there is to do.
 
-The board carries the question so nobody reads it as settled. **Spec's call.**
+**And there is no right column at 1440 any more.** It held a second invitation
+(*“Every category, against its own pace · See the suggestion”*) pointing at the
+same single action as the card on the left, and the money card made a third.
+**Three ways of saying nothing is not an empty state; it is clutter with no
+content.** One invitation, then the two tables of what the person actually
+entered at onboarding. The two-column layout exists to put the figure beside its
+reason, and here there is neither.
+
+### ⚠ TWO SPEC LINES NOW CONTRADICT THE OWNER'S DECISION
+
+Design does not edit the authoritative spec, so these are named rather than
+changed. Both say a figure shows when there is no plan:
+
+| File | Says |
+|---|---|
+| `docs/03-system-spec.md` §B1 | *“Given no plan, then the figure shows with **no** amber or red state and the finish-your-plan banner is visible.”* |
+| `docs/06-page-specs.md`, Home copy table | *“No plan · **Safe to spend today** · ₦8,666.66 · ‘Based on your take-home. Set a plan to make this exact.’”* — and the states table, *“Empty — no plan: hero shows the full planned allowance”* |
+
+The second one also carries the arithmetic error on its own: a *planned*
+allowance with no plan.
+
+**96 — what a state costs is not what it shows.** The rule that came out of
+this, now in `tokens.md` §10.4: an empty state is a **whole screen**, not a card.
+Every figure on a screen is downstream of the same facts, so the test is one
+question asked of each in turn — *what would have had to happen for this number
+to exist?* Spent, Saved, Free, every projection and safe-to-spend itself are
+consequences of a plan and of movements. Balances and agreed schedules are not:
+they were typed in at onboarding and they stay. **And an empty figure is rarely
+zero** — ₦0.00 safe to spend is what Home says when the money is gone.
 
 **95 — *a plan, no movements* is day 11, and that is a choice worth naming.**
 The board is dated 5 October, so it is not *“I have just finished planning”* —
