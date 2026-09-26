@@ -156,6 +156,30 @@ body{margin:0}
        type under it, where they can be read rather than estimated from an
        angle. Everything below comes up the screen by about 200px, which puts
        "Needs attention" within reach of the fold. -->
+  <!-- THE INSTALL INVITATION — offered, never compulsory. Owner's call, 26
+       September. A PWA cannot force installation: the prompt is the browser's
+       to show, it is Chromium-only, and on iOS there is none at all — the
+       person has to find Share → Add to Home Screen themselves. A wall would
+       lock out most iPhone users from a product that works perfectly in a
+       browser tab.
+
+       So it is a row, dismissible, with the REASON rather than the ask. Spec
+       §G: installing makes the data far less likely to be cleared. That is
+       true, it is the thing a person actually cares about, and it is the only
+       honest argument for installing an app that already works. -->
+  <div style="padding:16px 20px 0">
+    <div class="card" style="padding:14px 16px;display:flex;align-items:center;
+      gap:12px;border-color:var(--em2);background:var(--em2)">
+      <span style="color:var(--emerald);display:flex;flex:0 0 auto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M12 3.4 20 6.2v5.9c0 4.4-3.2 7.6-8 8.7-4.8-1.1-8-4.3-8-8.7V6.2z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg></span>
+      <div style="flex:1;font-size:12.5px;line-height:18px">
+        <b>Add Mizaniya to your home screen.</b> Your budget is far less likely
+        to be cleared, and it opens without the browser bar.</div>
+      <span style="color:var(--soft);font-size:15px">✕</span>
+    </div>
+    <div style="font-size:11.5px;color:var(--soft);margin-top:8px">
+      It works here either way — nothing is locked behind installing.</div>
+  </div>
+
   <div style="padding:0 20px 4px"><div class="card" style="padding:14px;"><div style="display:flex;align-items:flex-start;gap:12px"><span class="tile" style="background:var(--sl2);color:var(--slate)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;display:block"><path d="M12 4.6 20.8 20H3.2z"/><path d="M12 10.2v4.1M12 17h.02"/></svg></span><div style="flex:1;font-size:13px">You’re offline. Record as usual — anything new goes up when you’re back.</div><span style="color:var(--faint)">✕</span></div></div></div><div style="padding:20px 20px 0">
     <div class="lab">Safe to spend today</div>
     <div class="disp" style="font-size:52px;line-height:58px;margin-top:4px">
@@ -163,7 +187,7 @@ body{margin:0}
     <div style="font-size:13.5px;line-height:21px;color:var(--soft);margin-top:10px">
       ₦220,000.00 left · 20 days to 25 Oct</div>
     <div style="font-size:13px;line-height:21px;color:var(--soft);margin-top:3px">
-      of ₦8,666.66 a day · <b style="color:var(--ochre)">amber below ₦5,200.00</b></div>
+      Your share for a day is ₦8,666.66. We colour the figure if it drops under <b style="color:var(--ochre)">₦5,200.00</b>.</div>
     <div class="seg" style="margin-top:16px">
       <span class="on">Today</span>
       <span class="">This cycle</span></div>
@@ -183,7 +207,7 @@ body{margin:0}
 </svg></div>
       <div style="display:flex;justify-content:space-between;margin-top:10px">
         <span class="mlab" style="font-size:9px">25 Sep</span>
-        <span class="mlab" style="font-size:9px;color:var(--slate)">┈ allowance ₦8,666.66</span>
+        <span class="mlab" style="font-size:9px;color:var(--slate)">┈ your daily share ₦8,666.66</span>
         <span class="mlab" style="font-size:9px">Today</span></div>
     </div>
   </div>

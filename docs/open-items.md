@@ -2820,3 +2820,57 @@ extract chain, so a drop landed nothing and then committed its own 55MB of
 transfer tarballs instead. The commit was undone before it went anywhere.
 `.gitignore` carries `.drop/` so the tarballs can never be committed again even
 when the clean-up fails. ☑
+
+### M·33 — Home in plain English, and the install is offered
+
+**“Let's assume we are building for dummies.”** The owner walked Home line
+by line and every line he named was fair. `tokens.md` **§10.4** carries the
+before/after table and the rule: **nothing is shown less — every figure stays
+and gets named in words a person already uses.** *“Fair share by today”* is
+the phrase doing most of the work: it says pro-rata without the word, and it is
+the same phrase on the plan card, every category row and the legend, so learning
+it once is enough.
+
+**A rounding bug fell out of the rewrite.** The headline figure rounded the naira
+part and then stapled the kobo on, so ₦14,666.67 printed as **₦14,667.67** —
+a figure that exists nowhere in the arithmetic. Money is floored to the naira and
+the kobo carried. Worth a build-side check: **any figure built from two separately
+formatted halves.**
+
+**ميزانية is in the app now too**, on the sidebar — and it fits precisely
+because it sits ON the word rather than under it. §10.2's *“dropped in bars,
+never shrunk”* existed because a two-LINE lockup cannot fit a bar. This one is
+barely taller than the word, so the reason for the exception has gone. §10.2 is
+updated.
+
+**90 — installing is offered, never compulsory. Owner's decision, 26 September.**
+He asked whether to force it, on the grounds that the phone's bottom tab bar
+looks like an installed app. The technical answer settles it: **a PWA cannot
+force installation.** The prompt belongs to the browser, it is Chromium-only, and
+**on iOS there is none at all** — the person must find Share → Add to Home
+Screen themselves. A wall would lock most iPhone users out of a product that
+works perfectly in a browser tab.
+
+So Home carries a dismissible row with the **reason rather than the ask** —
+spec §G's own argument, that installing makes the data far less likely to be
+cleared — and a line under it saying nothing is locked behind installing. ☑
+
+**91 — what 360 still lacks, and the owner spotted it.** He asked which phone
+card corresponds to which 1440 card. The honest mapping:
+
+| 1440 | 360 |
+|---|---|
+| *How your spending is going* | — **nothing** |
+| *Where your money is* | the same card |
+| *This cycle · where each category stands* | *Needs attention*, 2 of 8 |
+| — | *Daily spend*, which 1440 does not have |
+
+**Daily spend is not the plan card.** It shows each day against the daily share;
+the plan card shows the cycle's running total against where it should be. They
+answer the same question at different grain, and the phone has **no equivalent of
+the plan card at all** — which is exactly the reasoning the owner said was
+missing. Now that the gauge is gone there is room for a compact one. ☐
+
+**92 — the landing page needs a *how to use* section.** The owner asked for one
+alongside the install decision: what it is, that it works in a browser, and how
+to add it to a home screen on both platforms. Not drawn yet. ☐

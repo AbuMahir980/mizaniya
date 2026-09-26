@@ -486,7 +486,7 @@ A −25% pull starts to crowd the *y* descender. −10% is the value.
 | Where | The Arabic |
 |---|---|
 | **Every public-facing screen**: the landing page and its nav, first launch, the account and setting-up screens, security and privacy, splash, the cover | **Stacked, always.** The owner's instruction, 25 September: *wherever we have the logo, the Arabic must accompany it* |
-| The app's own sidebar and the phone header, once someone is inside | **Dropped**, never shrunk |
+| **The app's own sidebar and the phone header too** — owner, 26 September | **Stacked.** It fits: ميزانية sits ON the word now, so the lockup is barely taller than the word itself, and the reason for the exception has gone |
 
 **Dropped, not shrunk** still holds wherever it is dropped. Amiri at 9px is not
 the Arabic — it is a smudge that happens to be the right shape. The landing nav
@@ -547,3 +547,30 @@ single-device tier wraps the claim in `<!--tier-local-->` … `<!--/tier-local--
 exempt (they are wrapped in `<!--note-->` by the board component), because a note
 that quotes a banned sentence in order to explain the ban is the correct use of
 it. **§10.1's forbidden sentence has no hatch at all.**
+
+### 10.4 · Say it the way a person would
+
+The owner, 26 September, on Home: *“for an average user this is not
+understandable — I have to start racking my head. Let's assume we are building
+for dummies.”* He was right about every line he named, and the fix is never to
+show less: **every figure stays, and gets named in words a person already uses.**
+
+| Was | Is | What was wrong |
+|---|---|---|
+| *₦14,667.67 ahead of pace* | *₦14,666.67 — more than you should have by now* | **“Ahead” means good in English** and meant *spending too fast* here. (And the figure was wrong: see below.) |
+| *Spent ₦110,000.00 · Expected ₦95,333.33* | *Spent so far · Fair share by day 11* | “Expected” by whom, and of what? |
+| *Carry on at this rate and the cycle ends at ₦300,000.00 — ₦40,000.00 past the plan* | *Keep spending at this speed and you will have spent ₦300,000.00 by the end of the cycle on 24 October. Your plan for the cycle is ₦260,000.00, so that is ₦40,000.00 too much.* | Three figures to hold at once, and **“the plan” was a number the card had never shown** |
+| *÷ 20 days, rounded down → ₦7,500.00* | *That is where today's figure comes from: ₦150,000.00 free shared over the 20 days left — ₦7,500.00 a day* | An operation with no named operand, so ₦7,500 read as a fourth mystery figure instead of the one at the top of the screen |
+| *Expected by now ₦3,667 · of ₦10,000* | *Fair share by today ₦3,667 · Planned ₦10,000 for the cycle* | Asks the reader to work out that one is a pro-rata slice of the other |
+| *Worst pace first* | *Worst first* | |
+| *Expected by day 11 · The whole allowance · Past the allowance, not just the pace* | *Fair share by today · The whole cycle's plan · Already spent more than the whole plan* | A legend nobody can read is a legend that is not there |
+
+**“Fair share by today” is the phrase that does the most work.** It says
+pro-rata without the word, and it is the same idea on every screen — the plan
+card, each category row, and the legend — so learning it once is enough.
+
+**A rounding bug fell out of the rewrite.** The headline figure printed
+`f"{abs(gap):,.0f}"` naira with `":02.0f"` kobo stapled on, so ₦14,666.67 came
+out as **₦14,667.67** — a figure that exists nowhere in the arithmetic. **Money
+is floored to the naira and the kobo carried; it is never rounded and then given
+kobo.**
