@@ -2930,3 +2930,88 @@ to use it* is **instructions, not argument**, and the page took on that job on
 26 September when installing was settled as offered rather than forced. Raising
 a guard is allowed once you can say what changed; raising it because the number
 is inconvenient is how a guard dies. The reason is written at the cap.
+
+### M·36 — One missing verb, and three things that left Home
+
+**The verb.** *Should have by now* went back one more time. The owner: *“Is it
+what the user is supposed to have if they had not spent more than, or what they
+currently have now because they've spent more?”* Both readings fit the words,
+and on a budget screen they are **opposites** — one is a pace, the other is
+money in hand. *Should have **spent** by now.* Changed at both widths, in the
+row label and under the big figure. Three earlier passes fixed the vocabulary;
+this one was grammar, and **a phrase can use only common words and still be
+ambiguous**.
+
+**93 — the daily-spend card is gone from 360.** The owner asked whether it was
+still needed now that the plan card is there, and it was not. *Daily spend* was
+brought in to replace the gauge, which had shown today against the allowance;
+the plan card makes that same comparison a third time, in words, and is the card
+1440 carries. **Two cards answering one question is how the screen got
+crowded.** What the chart alone carried — the SHAPE of a cycle, day after day —
+is a Transactions question and is logged there, not drawn here. Home is now
+figure → comparison → breakdown → attention, and every card on it has a 1440
+counterpart.
+
+**The ceiling line is gone, and so is the way to draw it.** *of ₦8,666.66 a day
+· amber below ₦5,200.00* put five figures around one figure, two of them only
+explaining the first. The owner: *“you call out the figure, it's not needed,
+take it out.”* `tokens.md` §10.4 now carries the rule: **a figure is called out
+once**, and a colour explains itself at the moment it changes.
+
+**Then the follow-on, which is the part worth writing down.** The line was
+removed from Home and left as a `ceiling=True` default on the shared hero, so
+for one build **Home had no ceiling line and Home-amber, Home-over,
+Home-offline and every sheet drawn over Home still did** — one screen, two
+heroes. The function's own docstring had been written three weeks earlier to
+stop exactly this. Taking away the default would only have made the wrong
+version harder to reach; **the parameter is gone, so there is no way to reach
+it.** Fourth time this project has paid for one thing defined twice.
+
+**Today / This cycle is centred.** It is the only thing on its line, so
+left-aligning it left a long empty run beside it. (`.seg` is `inline-flex`, so
+auto margins do nothing; it needed a flex parent.)
+
+**The landing page's image slot sits between its neighbours, not on one.** It
+had 96px above and nothing below, so the next section's `card2` band began at
+the image's bottom edge and the slot **sat on** *How to use it* — invisible in
+light, obvious in dark, which is where the owner found it. Equal space top and
+bottom, at each width's own rhythm: 96px at 1440, 44px at 390. Measured, not
+eyeballed.
+
+**The two mappings the owner asked me to confirm: yes to both.** *Needs
+attention* at 360 is the counterpart of *This cycle · where each category
+stands* at 1440 — the same list, showing the two worst with the rest behind a
+control, which is the one thing the widths do differently. *Goals & debts* at
+360 is the two 1440 tables combined.
+
+### M·37 — Two wrong calls about dead code, in one hour
+
+Not design, but it nearly cost published work, and both mistakes were the same
+mistake.
+
+The build loop was throwing two tracebacks on every run: `build_boards`'s guard
+prune deletes renders that no manifest claims, and two old builders name their
+manifest something other than `*-meta.json`, so their output was deleted out
+from under their own screenshot step. The prune was right — those boards are
+dead — but **a loop that fails twice every run is a loop people stop reading**,
+which is the failure `guards.py` was written to avoid in the first place. So the
+dead builders were retired to `attic/`.
+
+**Both judgements about what was dead were wrong, and neither was checked
+against the thing itself.**
+
+1. `screens2.py` looked unreferenced. `webonb.py` imports it **inside a
+   function**, to draw the printed debt record on onboarding step 5 rather than
+   re-type it, and a function-body import is invisible to a grep for imports at
+   the top of a file. `python3 -c "import webonb"` found it in one second.
+
+2. The cover boards looked absent from the canvas. The check asked each
+   `canvas.json` artboard for its `id` and `name`; **an artboard entry carries
+   neither, only `file`** — so all 191 boards came back absent, and the two that
+   really were absent were indistinguishable from the 189 that were not.
+   `Main.dc.html` and `CoverDark.dc.html` are the title cards that open page 6.
+   It took a publish refusal, which handed over the live version, to catch it.
+
+**The rule, written at the top of `attic/README.md`: before retiring anything,
+extract what is published and diff against it.** That is the only list of what
+ships. A question asked of the shape of the source answers a different question.

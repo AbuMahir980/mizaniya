@@ -557,7 +557,7 @@ show less: **every figure stays, and gets named in words a person already uses.*
 
 | Was | Is | What was wrong |
 |---|---|---|
-| *₦14,667.67 ahead of pace* | *₦14,666.67 — more than you should have by now* | **“Ahead” means good in English** and meant *spending too fast* here. (And the figure was wrong: see below.) |
+| *₦14,667.67 ahead of pace* | *₦14,666.67 — more than you should have spent by now* | **“Ahead” means good in English** and meant *spending too fast* here. (And the figure was wrong: see below.) |
 | *Spent ₦110,000.00 · Expected ₦95,333.33* | *Spent so far · Fair share by day 11* | “Expected” by whom, and of what? |
 | *Carry on at this rate and the cycle ends at ₦300,000.00 — ₦40,000.00 past the plan* | *Keep spending at this speed and you will have spent ₦300,000.00 by the end of the cycle on 24 October. Your plan for the cycle is ₦260,000.00, so that is ₦40,000.00 too much.* | Three figures to hold at once, and **“the plan” was a number the card had never shown** |
 | *÷ 20 days, rounded down → ₦7,500.00* | *That is where today's figure comes from: ₦150,000.00 free shared over the 20 days left — ₦7,500.00 a day* | An operation with no named operand, so ₦7,500 read as a fourth mystery figure instead of the one at the top of the screen |
@@ -586,16 +586,40 @@ He is right, and doubly so at 360, where four lines of prose is the whole fold.
 pair: **name it in words a person uses, then say it in as few as possible.**
 Either half alone gives you a screen that is wrong — jargon, or a wall.
 
-**“Should have by now” is the phrase, and it took three goes.**
-*Expected* → *fair share by day 11* → **should have by now**. The middle one was
-plainer than the first and **still a phrase you have to be taught** — the owner
-sent it back twice. The last one needs no teaching, and it repeats the words
-already under the big figure, so the card says one thing in one vocabulary. The
-tick on every category bar is *where you should be today*, which is the same
-idea in the same words.
+**“Should have spent by now” is the phrase, and it took four goes.**
+*Expected* → *fair share by day 11* → *should have by now* → **should have spent
+by now**. The owner sent the second back twice — plainer than the first and
+**still a phrase you have to be taught** — and then read the third and asked:
+*“Is it what the user is supposed to have if they had not spent more than, or
+what they currently have now because they've spent more?”* **The verb was
+missing, so the sentence had two readings and one of them was money in hand.**
+On a budget screen those two readings are opposites. One word fixed it. The
+final phrase repeats the words already under the big figure, so the card says
+one thing in one vocabulary; the tick on every category bar is *where you
+should be today*, the same idea in the same words.
 
-**Three passes on four words is not waste.** It is the difference between a
-screen a person reads and a screen a person decodes.
+**Four passes on five words is not waste.** It is the difference between a
+screen a person reads and a screen a person decodes. And the last pass is the
+one worth remembering: the first three were about vocabulary, the fourth about
+**grammar** — a phrase can use only common words and still be ambiguous.
+
+### A figure is called out once
+
+26 September, the hero at 360. Under **₦7,500.00** sat *₦220,000.00 left · 20
+days to 25 Oct*, and under that *of ₦8,666.66 a day · amber below ₦5,200.00*.
+Every one of those figures is true and each was added to help. Together they
+put **five numbers around one number**, two of them existing only to explain
+the first. The owner: *“you call out the figure — it's not needed, take it
+out.”*
+
+**An explanation of a figure is not a reading of it.** The second line earns
+its place because it says what the figure is *made of* and when it runs out.
+The third only restated the same money at a different granularity, and named a
+threshold for a colour change — **and a colour explains itself at the moment it
+changes**, which is the only moment it matters.
+
+This is the same rule as *plain, then short*, one level up: not *say it in
+fewer words* but **say it once**.
 
 **A rounding bug fell out of the rewrite.** The headline figure printed
 `f"{abs(gap):,.0f}"` naira with `":02.0f"` kobo stapled on, so ₦14,666.67 came
