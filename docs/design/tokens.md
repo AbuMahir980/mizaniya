@@ -621,6 +621,28 @@ changes**, which is the only moment it matters.
 This is the same rule as *plain, then short*, one level up: not *say it in
 fewer words* but **say it once**.
 
+### An empty state is a whole screen, not a card
+
+26 September. *No plan yet* and *a plan, no movements* were both **the working
+screen with one card swapped**, so every other figure on them was the worked
+day's: ₦110,000.00 spent on a screen that says nothing has been planned, a rent
+fund of ₦475,000.00 that only reaches that figure through a plan this person has
+not made, and — on the screen that says ₦0.00 spent — ₦150,000.00 free. The
+owner: *“if a user has not set any plan, every figure, every component should be
+an empty state. It's contradictory.”*
+
+**Every figure on a screen is downstream of the same facts.** Swapping the card
+that names the state and leaving the rest is not an empty state; it is a working
+screen wearing a label. The test is one question asked of each figure in turn:
+*what would have had to happen for this number to exist?* Spent, Saved, Free and
+every projection are consequences of a plan and of movements. Balances and
+agreed schedules are not — they were typed in at onboarding and they stay.
+
+And **an empty figure is rarely zero.** ₦0.00 safe to spend is what Home says
+when the money is gone; a plan with nothing recorded against it is the opposite
+situation and reads ₦13,000.00. Reaching for zero because a state is called
+*empty* is how a screen ends up saying the reverse of what is true.
+
 **A rounding bug fell out of the rewrite.** The headline figure printed
 `f"{abs(gap):,.0f}"` naira with `":02.0f"` kobo stapled on, so ₦14,666.67 came
 out as **₦14,667.67** — a figure that exists nowhere in the arithmetic. **Money

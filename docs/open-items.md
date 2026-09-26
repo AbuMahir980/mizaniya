@@ -3015,3 +3015,120 @@ against the thing itself.**
 **The rule, written at the top of `attic/README.md`: before retiring anything,
 extract what is published and diff against it.** That is the only list of what
 ships. A question asked of the shape of the source answers a different question.
+
+### M·38 — The states were the live screen with one card swapped
+
+The owner read *no plan yet* and *a plan, no movements* properly for the first
+time, and they do not survive it. His words: **“if a user has not set any plan,
+every figure, every component should be an empty state. Why are you showing
+₦450,000 in *Where your money is*, and safe to spend ₦8,666? It's
+contradictory.”**
+
+It was. Both boards were **the working Home with one card replaced**, so every
+other figure on them was the worked day's:
+
+| Showed | On a screen that says | Now |
+|---|---|---|
+| Spent ₦110,000.00 · Free ₦150,000.00 | nothing has been planned, or ₦0.00 spent | *no plan*: the card says there is nothing to divide. *no movements*: Spent/Saved/Debt paid ₦0.00, Protected ₦190,000, Free ₦260,000 |
+| Rent fund ₦475,000.00, 53%, **Short** | no plan | ₦400,000.00, 44%, **No plan yet** — 475,000 was 400,000 + this cycle's planned 75,000, and *Short* is a projection with no rate to project from |
+| Emergency fund ₦15,000.00, 10% | no plan | ₦0.00, 0% |
+| A. Friend ₦90,000.00 | no plan | ₦120,000.00 — 90,000 was after this cycle's planned repayment |
+| Safe to spend **₦0.00** | a plan and nothing spent | **₦13,000.00** |
+
+**Not one of those replacements is invented.** They are `seed-data.md`'s own
+onboarding figures — *“At onboarding, 24 September”*, *“Opening balances entered
+at onboarding”*, *“Debts owed by the owner”* — and the ₦13,000.00 is the spec's
+own formula (B1, D1): cash left minus what is still owed to protected pots, over
+the days left. 450,000 − 190,000 = 260,000, over 20 = ₦13,000.00 exactly. The
+repayment schedules do **not** change: *“₦30,000 a month”* is what was agreed
+with A. Friend and typed in at onboarding, not something the plan decides.
+
+**₦0.00 was the worst of them.** It is what Home shows when the money is *gone*
+— the opposite state — and it sat directly above a card reading ₦260,000.00
+free.
+
+**The root cause is the one this project keeps paying for**, now in its third
+costume: `money_bar()` took no argument. One component, one hard-coded seed,
+drawn in every state. The gauge was defined six times; the Arabic was missing
+from one lockup; the ceiling line survived in five states after Home lost it.
+`combined.SEGS_DAY1` exists so that the split follows the state.
+
+**94 — the *no plan* hero figure cannot be right, and I have not changed it.**
+₦8,666.66 is the **spendable** total ÷ 30, and there is no spendable total until
+there is a plan — that split is exactly what a plan produces. The label under it
+says *“based on your take-home”*, and take-home ÷ 30 is **₦15,000.00**. So the
+figure and its own caption disagree.
+
+There are three answers and only one of them is mine to pick, which is none:
+
+1. **₦8,666.66** — what page specs §973 asks for today.
+2. **₦15,000.00** — what the caption describes, and the only figure available
+   before a plan exists.
+3. **No figure at all** — the owner's position: *“everything should be an empty
+   state.”* Spec §B1 says the opposite (*“given no plan, the figure shows with
+   no amber or red state”*), so this is owner against spec, not owner against
+   design.
+
+The board carries the question so nobody reads it as settled. **Spec's call.**
+
+**95 — *a plan, no movements* is day 11, and that is a choice worth naming.**
+The board is dated 5 October, so it is not *“I have just finished planning”* —
+it is *“I planned eleven days ago and have recorded nothing since.”* Both are
+real and they want different screens: the first is a send-off, the second is a
+nudge. The figures now drawn are the second one's, and they are coherent. If the
+spec wants the first as well it is a separate board, not a re-label.
+
+### M·39 — The landing page was advertising a screen the app no longer has
+
+Found while fixing the above. `frag.web_pace` and `frag.web_answer` — the plan
+card in the landing page's hero deck and in its cascade — were **hand-typed
+copies** of Home's card, and every part of them had been left behind:
+
+| Landing page said | App says | Fixed on |
+|---|---|---|
+| *Against your plan* | *How your spending is going* | 25 Sep |
+| *ahead of pace* / *ahead* | *more than you should have spent by now* | 25 Sep — “ahead” means **good** in English |
+| *Spent* · *Expected* | *Spent so far* · *Should have spent by now* | 26 Sep |
+| **₦14,667.67** | **₦14,666.67** | 25 Sep — the rounding bug, a figure that exists nowhere |
+
+A landing page carrying a number the product never computes is the worst version
+of this: it is the one page a stranger checks the product against.
+
+**The comment sitting six lines above it reads:** *“This is
+`combined.hero_block`, the same component the app uses, so the two cannot drift
+again.”* True of the hero. The card immediately below the hero was typed out.
+**A rule that covers the piece you were thinking about and not the piece beside
+it is not a rule.**
+
+So the card moved to `pace.plan_card_inner`, beside the arithmetic it draws, and
+both callers ask for it. The landing page's sparkline went with the copy — the
+app's card does not have one, and §6 of the brief says each card in the cascade
+is a **whole component at its real size**; an embellishment is a slice in the
+other direction.
+
+Two more lines of the same vintage went: the landing page's own gloss (*“whether
+it is ahead of day 11”*) and the options board's caption (*“₦14,666.74 ahead of
+pace”* — a fourth spelling of the figure).
+
+### M·40 — The hero is centred, all of it
+
+The Today / This cycle switch was centred on its own, and the owner sent that
+back: **“everything there — safe to spend, the seven five, the subtitle — is
+supposed to be centred, not to the left.”** He is right, and one centred child
+under a left-aligned label is worse than none: it reads as a mistake rather than
+a choice. At 390 the figure **is** the screen, and a screen has no margin to
+hang things off.
+
+Which exposed the same fault as the ceiling line: **Home drew its own hero** and
+the five states and the sheets called the shared one. Home now calls
+`hero_block` too, so there is one hero and the states cannot fall behind it
+again. The one caller that stays left-aligned is the landing page's 1440 panel,
+and it says why — at that width the block sits in a 420px column beside two
+others, and centring would break the column's left edge. That is a real
+difference between widths, not a second opinion about the same thing, which is
+what the `ceiling` flag was.
+
+`home_offline` broke on the move, because it found its insertion point by
+matching the hero wrapper's padding — the second time that string has moved
+under it. It now looks for a named seam. Both times the assert caught it, which
+is the only reason this is a footnote.

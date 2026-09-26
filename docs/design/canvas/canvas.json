@@ -55,7 +55,7 @@
    "x": 0,
    "y": 7325,
    "w": 832,
-   "h": 7702,
+   "h": 7736,
    "title": "Landing page \u00b7 390 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -65,7 +65,7 @@
    "x": 972,
    "y": 7325,
    "w": 832,
-   "h": 7702,
+   "h": 7736,
    "title": "Landing page \u00b7 390 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -73,7 +73,7 @@
   {
    "file": "LandMotionLight.dc.html",
    "x": 0,
-   "y": 15217,
+   "y": 15251,
    "w": 1708,
    "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 light",
@@ -83,7 +83,7 @@
   {
    "file": "LandMotionDark.dc.html",
    "x": 1848,
-   "y": 15217,
+   "y": 15251,
    "w": 1708,
    "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 dark",
@@ -93,7 +93,7 @@
   {
    "file": "LandCycleLight.dc.html",
    "x": 0,
-   "y": 16970,
+   "y": 17004,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 light",
@@ -103,7 +103,7 @@
   {
    "file": "LandCycleDark.dc.html",
    "x": 1360,
-   "y": 16970,
+   "y": 17004,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
@@ -113,7 +113,7 @@
   {
    "file": "WebFirstRunLight.dc.html",
    "x": 0,
-   "y": 18894,
+   "y": 18928,
    "w": 1512,
    "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 light",
@@ -123,7 +123,7 @@
   {
    "file": "MwFirstRunLight.dc.html",
    "x": 1652,
-   "y": 18894,
+   "y": 18928,
    "w": 462,
    "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 light",
@@ -133,7 +133,7 @@
   {
    "file": "WebFirstRunDark.dc.html",
    "x": 2254,
-   "y": 18894,
+   "y": 18928,
    "w": 1512,
    "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 dark",
@@ -143,7 +143,7 @@
   {
    "file": "MwFirstRunDark.dc.html",
    "x": 3906,
-   "y": 18894,
+   "y": 18928,
    "w": 462,
    "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 dark",
@@ -153,7 +153,7 @@
   {
    "file": "WebPrivacyModalLight.dc.html",
    "x": 0,
-   "y": 20258,
+   "y": 20292,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 light",
@@ -163,7 +163,7 @@
   {
    "file": "MwPrivacyModalLight.dc.html",
    "x": 1652,
-   "y": 20258,
+   "y": 20292,
    "w": 523,
    "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 light",
@@ -173,7 +173,7 @@
   {
    "file": "WebPrivacyModalDark.dc.html",
    "x": 2315,
-   "y": 20258,
+   "y": 20292,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 dark",
@@ -183,7 +183,7 @@
   {
    "file": "MwPrivacyModalDark.dc.html",
    "x": 3967,
-   "y": 20258,
+   "y": 20292,
    "w": 519,
    "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 dark",
@@ -193,7 +193,7 @@
   {
    "file": "WebSecurityLight.dc.html",
    "x": 0,
-   "y": 21480,
+   "y": 21514,
    "w": 1512,
    "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
@@ -203,7 +203,7 @@
   {
    "file": "MwSecurityLight.dc.html",
    "x": 1652,
-   "y": 21480,
+   "y": 21514,
    "w": 832,
    "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
@@ -213,7 +213,7 @@
   {
    "file": "WebSecurityDark.dc.html",
    "x": 2624,
-   "y": 21480,
+   "y": 21514,
    "w": 1512,
    "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
@@ -223,7 +223,7 @@
   {
    "file": "MwSecurityDark.dc.html",
    "x": 4276,
-   "y": 21480,
+   "y": 21514,
    "w": 832,
    "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
@@ -915,7 +915,7 @@
    "x": 0,
    "y": 7018,
    "w": 1512,
-   "h": 1218,
+   "h": 1251,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -935,7 +935,7 @@
    "x": 2254,
    "y": 7018,
    "w": 1512,
-   "h": 1218,
+   "h": 1251,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -953,9 +953,9 @@
   {
    "file": "WebHomeEmptyLight.dc.html",
    "x": 0,
-   "y": 8426,
+   "y": 8459,
    "w": 1512,
-   "h": 1282,
+   "h": 1336,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -963,7 +963,7 @@
   {
    "file": "MwHomeEmptyLight.dc.html",
    "x": 1652,
-   "y": 8426,
+   "y": 8459,
    "w": 462,
    "h": 593,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 light",
@@ -973,9 +973,9 @@
   {
    "file": "WebHomeEmptyDark.dc.html",
    "x": 2254,
-   "y": 8426,
+   "y": 8459,
    "w": 1512,
-   "h": 1282,
+   "h": 1336,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -983,7 +983,7 @@
   {
    "file": "MwHomeEmptyDark.dc.html",
    "x": 3906,
-   "y": 8426,
+   "y": 8459,
    "w": 462,
    "h": 593,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 dark",
@@ -993,7 +993,7 @@
   {
    "file": "WebHomeOfflineLight.dc.html",
    "x": 0,
-   "y": 9898,
+   "y": 9985,
    "w": 1512,
    "h": 1384,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 light",
@@ -1003,7 +1003,7 @@
   {
    "file": "MwHomeOfflineLight.dc.html",
    "x": 1652,
-   "y": 9898,
+   "y": 9985,
    "w": 462,
    "h": 1552,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 light",
@@ -1013,7 +1013,7 @@
   {
    "file": "WebHomeOfflineDark.dc.html",
    "x": 2254,
-   "y": 9898,
+   "y": 9985,
    "w": 1512,
    "h": 1384,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 dark",
@@ -1023,7 +1023,7 @@
   {
    "file": "MwHomeOfflineDark.dc.html",
    "x": 3906,
-   "y": 9898,
+   "y": 9985,
    "w": 462,
    "h": 1552,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 dark",
@@ -1033,7 +1033,7 @@
   {
    "file": "MwMoreLight.dc.html",
    "x": 0,
-   "y": 11640,
+   "y": 11727,
    "w": 832,
    "h": 814,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 light",
@@ -1043,7 +1043,7 @@
   {
    "file": "MwMoreDark.dc.html",
    "x": 972,
-   "y": 11640,
+   "y": 11727,
    "w": 832,
    "h": 814,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 dark",
