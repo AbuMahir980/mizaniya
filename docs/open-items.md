@@ -2899,3 +2899,34 @@ wrong screen: jargon, or a wall.
 
 `ui.info()` is new — a circled *i*, the only one in the system, for the case of
 a card with a correct explanation too long to put on it.
+
+### M·35 — *Should have by now*, and the two items that were owed
+
+**The phrase took three goes.** *Expected* → *fair share by day 11* → **should
+have by now**. The owner sent the middle one back: plainer than the first, and
+**still a phrase you have to be taught.** The last needs no teaching and repeats
+the words already under the big figure, so the card speaks one vocabulary. The
+tick on each bar is *where you should be today* — same idea, same words. At 360,
+*your share for a day* became *₦8,666.66 a day if you spread it evenly*.
+
+**91 — the phone has a plan card now.** ☑ It was the one 1440 card with no
+counterpart, and the owner found it by asking which matched which. *Daily spend*
+shows each day against an even day; the plan card shows the cycle's running
+total against where it should be. Two rows, one short line, an (i) for the
+working — the same shape as 1440 at phone size. There is room because the gauge
+went.
+
+**92 — the landing page says how to install.** ☑ Three steps across at 1440,
+stacked at 390: open it in any browser · add it to your home screen, with the
+**actual menu path on each platform** · set your salary day. Step 2 names the
+paths because the install prompt is the browser's to show — Chromium-only, and
+absent on iOS — so *“install it”* without *how* is asking for something most
+people cannot do. It carries the honest reason too, which is the spec's own
+(§G): installed, the data is far less likely to be cleared.
+
+**The word budget went 190 → 240, once, with a reason.** The cap exists to stop
+the page ARGUING with itself — the same claim restated in three sections. *How
+to use it* is **instructions, not argument**, and the page took on that job on
+26 September when installing was settled as offered rather than forced. Raising
+a guard is allowed once you can say what changed; raising it because the number
+is inconvenient is how a guard dies. The reason is written at the cap.

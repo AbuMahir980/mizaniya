@@ -35,7 +35,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 6625,
+   "h": 7039,
    "title": "Landing page \u00b7 1440 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -45,7 +45,7 @@
    "x": 1652,
    "y": 0,
    "w": 1512,
-   "h": 6625,
+   "h": 7039,
    "title": "Landing page \u00b7 1440 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -53,9 +53,9 @@
   {
    "file": "LandPhoneLight.dc.html",
    "x": 0,
-   "y": 6815,
+   "y": 7229,
    "w": 832,
-   "h": 7232,
+   "h": 7658,
    "title": "Landing page \u00b7 390 \u00b7 light",
    "page": "page-land",
    "print": "fixed"
@@ -63,9 +63,9 @@
   {
    "file": "LandPhoneDark.dc.html",
    "x": 972,
-   "y": 6815,
+   "y": 7229,
    "w": 832,
-   "h": 7232,
+   "h": 7658,
    "title": "Landing page \u00b7 390 \u00b7 dark",
    "page": "page-land",
    "print": "fixed"
@@ -73,7 +73,7 @@
   {
    "file": "LandMotionLight.dc.html",
    "x": 0,
-   "y": 14237,
+   "y": 15077,
    "w": 1708,
    "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 light",
@@ -83,7 +83,7 @@
   {
    "file": "LandMotionDark.dc.html",
    "x": 1848,
-   "y": 14237,
+   "y": 15077,
    "w": 1708,
    "h": 1563,
    "title": "Landing page \u00b7 pointer states \u00b7 dark",
@@ -93,7 +93,7 @@
   {
    "file": "LandCycleLight.dc.html",
    "x": 0,
-   "y": 15990,
+   "y": 16830,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 light",
@@ -103,7 +103,7 @@
   {
    "file": "LandCycleDark.dc.html",
    "x": 1360,
-   "y": 15990,
+   "y": 16830,
    "w": 1220,
    "h": 1734,
    "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
@@ -113,7 +113,7 @@
   {
    "file": "WebFirstRunLight.dc.html",
    "x": 0,
-   "y": 17914,
+   "y": 18754,
    "w": 1512,
    "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 light",
@@ -123,7 +123,7 @@
   {
    "file": "MwFirstRunLight.dc.html",
    "x": 1652,
-   "y": 17914,
+   "y": 18754,
    "w": 462,
    "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 light",
@@ -133,7 +133,7 @@
   {
    "file": "WebFirstRunDark.dc.html",
    "x": 2254,
-   "y": 17914,
+   "y": 18754,
    "w": 1512,
    "h": 1174,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 dark",
@@ -143,7 +143,7 @@
   {
    "file": "MwFirstRunDark.dc.html",
    "x": 3906,
-   "y": 17914,
+   "y": 18754,
    "w": 462,
    "h": 1003,
    "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 dark",
@@ -153,7 +153,7 @@
   {
    "file": "WebPrivacyModalLight.dc.html",
    "x": 0,
-   "y": 19278,
+   "y": 20118,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 light",
@@ -163,7 +163,7 @@
   {
    "file": "MwPrivacyModalLight.dc.html",
    "x": 1652,
-   "y": 19278,
+   "y": 20118,
    "w": 523,
    "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 light",
@@ -173,7 +173,7 @@
   {
    "file": "WebPrivacyModalDark.dc.html",
    "x": 2315,
-   "y": 19278,
+   "y": 20118,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 dark",
@@ -183,7 +183,7 @@
   {
    "file": "MwPrivacyModalDark.dc.html",
    "x": 3967,
-   "y": 19278,
+   "y": 20118,
    "w": 519,
    "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 dark",
@@ -193,7 +193,7 @@
   {
    "file": "WebSecurityLight.dc.html",
    "x": 0,
-   "y": 20500,
+   "y": 21340,
    "w": 1512,
    "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
@@ -203,7 +203,7 @@
   {
    "file": "MwSecurityLight.dc.html",
    "x": 1652,
-   "y": 20500,
+   "y": 21340,
    "w": 832,
    "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
@@ -213,7 +213,7 @@
   {
    "file": "WebSecurityDark.dc.html",
    "x": 2624,
-   "y": 20500,
+   "y": 21340,
    "w": 1512,
    "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
@@ -223,7 +223,7 @@
   {
    "file": "MwSecurityDark.dc.html",
    "x": 4276,
-   "y": 20500,
+   "y": 21340,
    "w": 832,
    "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
@@ -785,7 +785,7 @@
    "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 1620,
+   "h": 1888,
    "title": "07 \u00b7 Home \u00b7 360 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -805,7 +805,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 1620,
+   "h": 1888,
    "title": "07 \u00b7 Home \u00b7 360 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -815,7 +815,7 @@
    "x": 0,
    "y": 2282,
    "w": 691,
-   "h": 1470,
+   "h": 1738,
    "title": "07f \u00b7 Home \u00b7 this cycle \u00b7 360 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -825,7 +825,7 @@
    "x": 831,
    "y": 2282,
    "w": 691,
-   "h": 1470,
+   "h": 1738,
    "title": "07f \u00b7 Home \u00b7 this cycle \u00b7 360 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -833,7 +833,7 @@
   {
    "file": "WebHomeAmberLight.dc.html",
    "x": 0,
-   "y": 3942,
+   "y": 4210,
    "w": 1512,
    "h": 1339,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 light",
@@ -843,7 +843,7 @@
   {
    "file": "MwHomeAmberLight.dc.html",
    "x": 1652,
-   "y": 3942,
+   "y": 4210,
    "w": 462,
    "h": 654,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 360 \u00b7 light",
@@ -853,7 +853,7 @@
   {
    "file": "WebHomeAmberDark.dc.html",
    "x": 2254,
-   "y": 3942,
+   "y": 4210,
    "w": 1512,
    "h": 1339,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 dark",
@@ -863,7 +863,7 @@
   {
    "file": "MwHomeAmberDark.dc.html",
    "x": 3906,
-   "y": 3942,
+   "y": 4210,
    "w": 462,
    "h": 654,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 360 \u00b7 dark",
@@ -873,7 +873,7 @@
   {
    "file": "WebHomeRedLight.dc.html",
    "x": 0,
-   "y": 5471,
+   "y": 5739,
    "w": 1512,
    "h": 1323,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 light",
@@ -883,7 +883,7 @@
   {
    "file": "MwHomeRedLight.dc.html",
    "x": 1652,
-   "y": 5471,
+   "y": 5739,
    "w": 462,
    "h": 656,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 360 \u00b7 light",
@@ -893,7 +893,7 @@
   {
    "file": "WebHomeRedDark.dc.html",
    "x": 2254,
-   "y": 5471,
+   "y": 5739,
    "w": 1512,
    "h": 1323,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 dark",
@@ -903,7 +903,7 @@
   {
    "file": "MwHomeRedDark.dc.html",
    "x": 3906,
-   "y": 5471,
+   "y": 5739,
    "w": 462,
    "h": 656,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 360 \u00b7 dark",
@@ -913,7 +913,7 @@
   {
    "file": "WebHomeNoplanLight.dc.html",
    "x": 0,
-   "y": 6984,
+   "y": 7252,
    "w": 1512,
    "h": 1218,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 light",
@@ -923,7 +923,7 @@
   {
    "file": "MwHomeNoplanLight.dc.html",
    "x": 1652,
-   "y": 6984,
+   "y": 7252,
    "w": 462,
    "h": 622,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 light",
@@ -933,7 +933,7 @@
   {
    "file": "WebHomeNoplanDark.dc.html",
    "x": 2254,
-   "y": 6984,
+   "y": 7252,
    "w": 1512,
    "h": 1218,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 dark",
@@ -943,7 +943,7 @@
   {
    "file": "MwHomeNoplanDark.dc.html",
    "x": 3906,
-   "y": 6984,
+   "y": 7252,
    "w": 462,
    "h": 622,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 dark",
@@ -953,7 +953,7 @@
   {
    "file": "WebHomeEmptyLight.dc.html",
    "x": 0,
-   "y": 8392,
+   "y": 8660,
    "w": 1512,
    "h": 1282,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 light",
@@ -963,7 +963,7 @@
   {
    "file": "MwHomeEmptyLight.dc.html",
    "x": 1652,
-   "y": 8392,
+   "y": 8660,
    "w": 462,
    "h": 593,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 light",
@@ -973,7 +973,7 @@
   {
    "file": "WebHomeEmptyDark.dc.html",
    "x": 2254,
-   "y": 8392,
+   "y": 8660,
    "w": 1512,
    "h": 1282,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 dark",
@@ -983,7 +983,7 @@
   {
    "file": "MwHomeEmptyDark.dc.html",
    "x": 3906,
-   "y": 8392,
+   "y": 8660,
    "w": 462,
    "h": 593,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 dark",
@@ -993,7 +993,7 @@
   {
    "file": "WebHomeOfflineLight.dc.html",
    "x": 0,
-   "y": 9864,
+   "y": 10132,
    "w": 1512,
    "h": 1384,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 light",
@@ -1003,9 +1003,9 @@
   {
    "file": "MwHomeOfflineLight.dc.html",
    "x": 1652,
-   "y": 9864,
+   "y": 10132,
    "w": 462,
-   "h": 1560,
+   "h": 1828,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -1013,7 +1013,7 @@
   {
    "file": "WebHomeOfflineDark.dc.html",
    "x": 2254,
-   "y": 9864,
+   "y": 10132,
    "w": 1512,
    "h": 1384,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 dark",
@@ -1023,9 +1023,9 @@
   {
    "file": "MwHomeOfflineDark.dc.html",
    "x": 3906,
-   "y": 9864,
+   "y": 10132,
    "w": 462,
-   "h": 1560,
+   "h": 1828,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -1033,7 +1033,7 @@
   {
    "file": "MwMoreLight.dc.html",
    "x": 0,
-   "y": 11614,
+   "y": 12150,
    "w": 832,
    "h": 838,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 light",
@@ -1043,7 +1043,7 @@
   {
    "file": "MwMoreDark.dc.html",
    "x": 972,
-   "y": 11614,
+   "y": 12150,
    "w": 832,
    "h": 838,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 dark",

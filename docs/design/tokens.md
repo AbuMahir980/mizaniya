@@ -586,9 +586,16 @@ He is right, and doubly so at 360, where four lines of prose is the whole fold.
 pair: **name it in words a person uses, then say it in as few as possible.**
 Either half alone gives you a screen that is wrong — jargon, or a wall.
 
-**“Fair share by today” is the phrase that does the most work.** It says
-pro-rata without the word, and it is the same idea on every screen — the plan
-card, each category row, and the legend — so learning it once is enough.
+**“Should have by now” is the phrase, and it took three goes.**
+*Expected* → *fair share by day 11* → **should have by now**. The middle one was
+plainer than the first and **still a phrase you have to be taught** — the owner
+sent it back twice. The last one needs no teaching, and it repeats the words
+already under the big figure, so the card says one thing in one vocabulary. The
+tick on every category bar is *where you should be today*, which is the same
+idea in the same words.
+
+**Three passes on four words is not waste.** It is the difference between a
+screen a person reads and a screen a person decodes.
 
 **A rounding bug fell out of the rewrite.** The headline figure printed
 `f"{abs(gap):,.0f}"` naira with `":02.0f"` kobo stapled on, so ₦14,666.67 came
