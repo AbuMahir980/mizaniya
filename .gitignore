@@ -149,3 +149,6 @@ Claude outputs/
 
 # Generated demo data — build it with `npm run seed`, never commit it.
 seed/
+
+# design drop tarballs — transfer artefacts, never committed
+.drop/

@@ -775,7 +775,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 1538,
+   "h": 1736,
    "title": "07 \u00b7 Home \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -795,7 +795,7 @@
    "x": 2624,
    "y": 0,
    "w": 1512,
-   "h": 1538,
+   "h": 1736,
    "title": "07 \u00b7 Home \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -813,7 +813,7 @@
   {
    "file": "MwHomeCycleLight.dc.html",
    "x": 0,
-   "y": 1728,
+   "y": 1926,
    "w": 691,
    "h": 1435,
    "title": "07f \u00b7 Home \u00b7 this cycle \u00b7 360 \u00b7 light",
@@ -823,7 +823,7 @@
   {
    "file": "MwHomeCycleDark.dc.html",
    "x": 831,
-   "y": 1728,
+   "y": 1926,
    "w": 691,
    "h": 1435,
    "title": "07f \u00b7 Home \u00b7 this cycle \u00b7 360 \u00b7 dark",
@@ -833,9 +833,9 @@
   {
    "file": "WebHomeAmberLight.dc.html",
    "x": 0,
-   "y": 3353,
+   "y": 3551,
    "w": 1512,
-   "h": 1268,
+   "h": 1253,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -843,7 +843,7 @@
   {
    "file": "MwHomeAmberLight.dc.html",
    "x": 1652,
-   "y": 3353,
+   "y": 3551,
    "w": 462,
    "h": 720,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 360 \u00b7 light",
@@ -853,9 +853,9 @@
   {
    "file": "WebHomeAmberDark.dc.html",
    "x": 2254,
-   "y": 3353,
+   "y": 3551,
    "w": 1512,
-   "h": 1268,
+   "h": 1253,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -863,7 +863,7 @@
   {
    "file": "MwHomeAmberDark.dc.html",
    "x": 3906,
-   "y": 3353,
+   "y": 3551,
    "w": 462,
    "h": 720,
    "title": "07a \u00b7 Home \u00b7 amber \u00b7 360 \u00b7 dark",
@@ -873,9 +873,9 @@
   {
    "file": "WebHomeRedLight.dc.html",
    "x": 0,
-   "y": 4811,
+   "y": 4994,
    "w": 1512,
-   "h": 1268,
+   "h": 1237,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -883,7 +883,7 @@
   {
    "file": "MwHomeRedLight.dc.html",
    "x": 1652,
-   "y": 4811,
+   "y": 4994,
    "w": 462,
    "h": 720,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 360 \u00b7 light",
@@ -893,9 +893,9 @@
   {
    "file": "WebHomeRedDark.dc.html",
    "x": 2254,
-   "y": 4811,
+   "y": 4994,
    "w": 1512,
-   "h": 1268,
+   "h": 1237,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -903,7 +903,7 @@
   {
    "file": "MwHomeRedDark.dc.html",
    "x": 3906,
-   "y": 4811,
+   "y": 4994,
    "w": 462,
    "h": 720,
    "title": "07b \u00b7 Home \u00b7 over \u00b7 360 \u00b7 dark",
@@ -913,9 +913,9 @@
   {
    "file": "WebHomeNoplanLight.dc.html",
    "x": 0,
-   "y": 6269,
+   "y": 6421,
    "w": 1512,
-   "h": 1176,
+   "h": 1218,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -923,7 +923,7 @@
   {
    "file": "MwHomeNoplanLight.dc.html",
    "x": 1652,
-   "y": 6269,
+   "y": 6421,
    "w": 462,
    "h": 691,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 light",
@@ -933,9 +933,9 @@
   {
    "file": "WebHomeNoplanDark.dc.html",
    "x": 2254,
-   "y": 6269,
+   "y": 6421,
    "w": 1512,
-   "h": 1176,
+   "h": 1218,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -943,7 +943,7 @@
   {
    "file": "MwHomeNoplanDark.dc.html",
    "x": 3906,
-   "y": 6269,
+   "y": 6421,
    "w": 462,
    "h": 691,
    "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 dark",
@@ -953,9 +953,9 @@
   {
    "file": "WebHomeEmptyLight.dc.html",
    "x": 0,
-   "y": 7635,
+   "y": 7829,
    "w": 1512,
-   "h": 1268,
+   "h": 1196,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -963,7 +963,7 @@
   {
    "file": "MwHomeEmptyLight.dc.html",
    "x": 1652,
-   "y": 7635,
+   "y": 7829,
    "w": 462,
    "h": 683,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 light",
@@ -973,9 +973,9 @@
   {
    "file": "WebHomeEmptyDark.dc.html",
    "x": 2254,
-   "y": 7635,
+   "y": 7829,
    "w": 1512,
-   "h": 1268,
+   "h": 1196,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -983,7 +983,7 @@
   {
    "file": "MwHomeEmptyDark.dc.html",
    "x": 3906,
-   "y": 7635,
+   "y": 7829,
    "w": 462,
    "h": 683,
    "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 dark",
@@ -993,9 +993,9 @@
   {
    "file": "WebHomeOfflineLight.dc.html",
    "x": 0,
-   "y": 9093,
+   "y": 9215,
    "w": 1512,
-   "h": 1370,
+   "h": 1298,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 light",
    "page": "page-w-home",
    "print": "fixed"
@@ -1003,7 +1003,7 @@
   {
    "file": "MwHomeOfflineLight.dc.html",
    "x": 1652,
-   "y": 9093,
+   "y": 9215,
    "w": 462,
    "h": 1483,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 light",
@@ -1013,9 +1013,9 @@
   {
    "file": "WebHomeOfflineDark.dc.html",
    "x": 2254,
-   "y": 9093,
+   "y": 9215,
    "w": 1512,
-   "h": 1370,
+   "h": 1298,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 dark",
    "page": "page-w-home",
    "print": "fixed"
@@ -1023,7 +1023,7 @@
   {
    "file": "MwHomeOfflineDark.dc.html",
    "x": 3906,
-   "y": 9093,
+   "y": 9215,
    "w": 462,
    "h": 1483,
    "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 dark",
@@ -1033,7 +1033,7 @@
   {
    "file": "MwMoreLight.dc.html",
    "x": 0,
-   "y": 10766,
+   "y": 10888,
    "w": 832,
    "h": 907,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 light",
@@ -1043,7 +1043,7 @@
   {
    "file": "MwMoreDark.dc.html",
    "x": 972,
-   "y": 10766,
+   "y": 10888,
    "w": 832,
    "h": 907,
    "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 dark",
@@ -1235,7 +1235,7 @@
    "x": 0,
    "y": 6258,
    "w": 1512,
-   "h": 1268,
+   "h": 1196,
    "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 light",
    "page": "page-w-money",
    "print": "fixed"
@@ -1255,7 +1255,7 @@
    "x": 2520,
    "y": 6258,
    "w": 1512,
-   "h": 1268,
+   "h": 1196,
    "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 dark",
    "page": "page-w-money",
    "print": "fixed"
@@ -1273,7 +1273,7 @@
   {
    "file": "MwQuickAddRecordLight.dc.html",
    "x": 0,
-   "y": 7716,
+   "y": 7644,
    "w": 462,
    "h": 866,
    "title": "10a \u00b7 Quick Add \u00b7 record a payment \u00b7 360 \u00b7 light",
@@ -1283,7 +1283,7 @@
   {
    "file": "MwQuickAddRecordDark.dc.html",
    "x": 602,
-   "y": 7716,
+   "y": 7644,
    "w": 462,
    "h": 866,
    "title": "10a \u00b7 Quick Add \u00b7 record a payment \u00b7 360 \u00b7 dark",
@@ -1293,7 +1293,7 @@
   {
    "file": "MwQuickAddEditLight.dc.html",
    "x": 0,
-   "y": 8772,
+   "y": 8700,
    "w": 530,
    "h": 935,
    "title": "10b \u00b7 Quick Add \u00b7 edit a movement \u00b7 360 \u00b7 light",
@@ -1303,7 +1303,7 @@
   {
    "file": "MwQuickAddEditDark.dc.html",
    "x": 670,
-   "y": 8772,
+   "y": 8700,
    "w": 530,
    "h": 935,
    "title": "10b \u00b7 Quick Add \u00b7 edit a movement \u00b7 360 \u00b7 dark",
@@ -1313,7 +1313,7 @@
   {
    "file": "WebDebtsLight.dc.html",
    "x": 0,
-   "y": 9897,
+   "y": 9825,
    "w": 1512,
    "h": 1191,
    "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 light",
@@ -1323,7 +1323,7 @@
   {
    "file": "MwDebtsLight.dc.html",
    "x": 1652,
-   "y": 9897,
+   "y": 9825,
    "w": 662,
    "h": 1071,
    "title": "11 \u00b7 Debts \u00b7 360 \u00b7 light",
@@ -1333,7 +1333,7 @@
   {
    "file": "WebDebtsDark.dc.html",
    "x": 2454,
-   "y": 9897,
+   "y": 9825,
    "w": 1512,
    "h": 1191,
    "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 dark",
@@ -1343,7 +1343,7 @@
   {
    "file": "MwDebtsDark.dc.html",
    "x": 4106,
-   "y": 9897,
+   "y": 9825,
    "w": 662,
    "h": 1071,
    "title": "11 \u00b7 Debts \u00b7 360 \u00b7 dark",
@@ -1353,7 +1353,7 @@
   {
    "file": "MwGoalsLight.dc.html",
    "x": 0,
-   "y": 11278,
+   "y": 11206,
    "w": 462,
    "h": 817,
    "title": "11c \u00b7 Goals \u00b7 360 \u00b7 light",
@@ -1363,7 +1363,7 @@
   {
    "file": "MwGoalsDark.dc.html",
    "x": 602,
-   "y": 11278,
+   "y": 11206,
    "w": 462,
    "h": 817,
    "title": "11c \u00b7 Goals \u00b7 360 \u00b7 dark",
@@ -1373,7 +1373,7 @@
   {
    "file": "WebAddDebtLight.dc.html",
    "x": 0,
-   "y": 12285,
+   "y": 12213,
    "w": 1512,
    "h": 1173,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 light",
@@ -1383,7 +1383,7 @@
   {
    "file": "MwAddDebtLight.dc.html",
    "x": 1652,
-   "y": 12285,
+   "y": 12213,
    "w": 462,
    "h": 1513,
    "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 light",
@@ -1393,7 +1393,7 @@
   {
    "file": "WebAddDebtDark.dc.html",
    "x": 2254,
-   "y": 12285,
+   "y": 12213,
    "w": 1512,
    "h": 1173,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 dark",
@@ -1403,7 +1403,7 @@
   {
    "file": "MwAddDebtDark.dc.html",
    "x": 3906,
-   "y": 12285,
+   "y": 12213,
    "w": 462,
    "h": 1513,
    "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 dark",
@@ -1413,7 +1413,7 @@
   {
    "file": "WebAddGoalLight.dc.html",
    "x": 0,
-   "y": 13988,
+   "y": 13916,
    "w": 1512,
    "h": 1191,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 light",
@@ -1423,7 +1423,7 @@
   {
    "file": "MwAddGoalLight.dc.html",
    "x": 1652,
-   "y": 13988,
+   "y": 13916,
    "w": 462,
    "h": 1134,
    "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 light",
@@ -1433,7 +1433,7 @@
   {
    "file": "WebAddGoalDark.dc.html",
    "x": 2254,
-   "y": 13988,
+   "y": 13916,
    "w": 1512,
    "h": 1191,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
@@ -1443,7 +1443,7 @@
   {
    "file": "MwAddGoalDark.dc.html",
    "x": 3906,
-   "y": 13988,
+   "y": 13916,
    "w": 462,
    "h": 1134,
    "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 dark",
@@ -1453,7 +1453,7 @@
   {
    "file": "WebRecordLight.dc.html",
    "x": 0,
-   "y": 15369,
+   "y": 15297,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 light",
@@ -1463,7 +1463,7 @@
   {
    "file": "MwRecordLight.dc.html",
    "x": 1652,
-   "y": 15369,
+   "y": 15297,
    "w": 462,
    "h": 985,
    "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 light",
@@ -1473,7 +1473,7 @@
   {
    "file": "WebRecordDark.dc.html",
    "x": 2254,
-   "y": 15369,
+   "y": 15297,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 dark",
@@ -1483,7 +1483,7 @@
   {
    "file": "MwRecordDark.dc.html",
    "x": 3906,
-   "y": 15369,
+   "y": 15297,
    "w": 462,
    "h": 985,
    "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 dark",
@@ -1493,7 +1493,7 @@
   {
    "file": "WebMonthsLight.dc.html",
    "x": 0,
-   "y": 16544,
+   "y": 16472,
    "w": 1512,
    "h": 607,
    "title": "13 \u00b7 Months \u00b7 1440 \u00b7 light",
@@ -1503,7 +1503,7 @@
   {
    "file": "MwMonthsLight.dc.html",
    "x": 1652,
-   "y": 16544,
+   "y": 16472,
    "w": 538,
    "h": 459,
    "title": "13 \u00b7 Months \u00b7 360 \u00b7 light",
@@ -1513,7 +1513,7 @@
   {
    "file": "WebMonthsDark.dc.html",
    "x": 2330,
-   "y": 16544,
+   "y": 16472,
    "w": 1512,
    "h": 607,
    "title": "13 \u00b7 Months \u00b7 1440 \u00b7 dark",
@@ -1523,7 +1523,7 @@
   {
    "file": "MwMonthsDark.dc.html",
    "x": 3982,
-   "y": 16544,
+   "y": 16472,
    "w": 538,
    "h": 459,
    "title": "13 \u00b7 Months \u00b7 360 \u00b7 dark",
@@ -1533,7 +1533,7 @@
   {
    "file": "MwMonthsPopulatedLight.dc.html",
    "x": 0,
-   "y": 17341,
+   "y": 17269,
    "w": 462,
    "h": 467,
    "title": "13a \u00b7 Months \u00b7 with history \u00b7 360 \u00b7 light",
@@ -1543,7 +1543,7 @@
   {
    "file": "MwMonthsPopulatedDark.dc.html",
    "x": 602,
-   "y": 17341,
+   "y": 17269,
    "w": 462,
    "h": 467,
    "title": "13a \u00b7 Months \u00b7 with history \u00b7 360 \u00b7 dark",
@@ -1553,7 +1553,7 @@
   {
    "file": "WebZakatLight.dc.html",
    "x": 0,
-   "y": 17998,
+   "y": 17926,
    "w": 1512,
    "h": 810,
    "title": "14 \u00b7 Zakat \u00b7 1440 \u00b7 light",
@@ -1563,7 +1563,7 @@
   {
    "file": "MwZakatLight.dc.html",
    "x": 1652,
-   "y": 17998,
+   "y": 17926,
    "w": 462,
    "h": 1043,
    "title": "14 \u00b7 Zakat \u00b7 360 \u00b7 light",
@@ -1573,7 +1573,7 @@
   {
    "file": "WebZakatDark.dc.html",
    "x": 2254,
-   "y": 17998,
+   "y": 17926,
    "w": 1512,
    "h": 810,
    "title": "14 \u00b7 Zakat \u00b7 1440 \u00b7 dark",
@@ -1583,7 +1583,7 @@
   {
    "file": "MwZakatDark.dc.html",
    "x": 3906,
-   "y": 17998,
+   "y": 17926,
    "w": 462,
    "h": 1043,
    "title": "14 \u00b7 Zakat \u00b7 360 \u00b7 dark",

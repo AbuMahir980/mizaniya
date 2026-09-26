@@ -2737,3 +2737,56 @@ removes nothing.
 boards deleted on 25 September whose HTML was still on disk, because `render/`
 had never been pruned by anything. Both faults are the same shape: **a guard is
 only as trustworthy as its idea of what is live.**
+
+### M·32 — Home at 1440: the right card gives way, and two seed errors with it
+
+The owner: *“the This cycle component is longer than the ones on the left —
+their height should be the same, and Goals and Debts take the remaining
+space.”* Goals and Debts were already a full-width band; the row above it was
+the problem. **Measured, not guessed: 655px against 757px — 102px apart**, not
+the wall of paper it looked like.
+
+**Two wrong answers came first, and both are worth recording.** Stretching
+*Where your money is* to close the gap put the whole 102px **inside one card**,
+as a single hole — the same fault moved indoors. Spreading it across the left
+column's three gaps stretched the column out, and the owner sent that back too:
+*“I didn't say stretch them out — let them be compact within their own
+listing.”* He is right. Those three blocks have a rhythm of their own, and
+padding it to match something else is not a reason.
+
+**The right card gives way instead.** The left column sets the height and
+nothing in it is touched; the category card is absolutely positioned inside its
+shell, which takes it out of the row's height calculation entirely, so it fills
+exactly what the left column made. **The eight rows scroll inside it**, header
+and key pinned — which is the better behaviour regardless, because the order is
+worst pace first, so what fits is what matters and the rest is there for whoever
+wants it. The last row clipping mid-bar is the affordance: a static board cannot
+draw a scrollbar, and a list ending flush at the card edge looks like a list that
+ended. The header now says **8 · worst pace first**, so the count is not a
+surprise.
+
+**Goals and Debts come up the page, and two seed errors surfaced when they did.**
+
+| | Was | Is | Source |
+|---|---|---|---|
+| Emergency fund, saved | ₦0.00, 0% | **₦15,000.00, 10%** | ₦15,000 moved to it this cycle, named again in the zakat working on 5 October |
+| Debts | two rows | **three** — B. Colleague, ₦40,000, *owes you* | the seed has three debts |
+
+The missing one is the only debt that runs the other way, which is the direction
+the whole screen claims to handle.
+
+**87 — the gauge at 360, reopened.** The owner asked whether it stays. It was
+settled on 25 September, and the board now argues against itself: **the card
+directly beneath the gauge shows the same comparison better.** The daily-spend
+chart has today's bar against the dashed allowance line *and* ten days of
+history; the gauge has today against the allowance and nothing else. One of them
+is strictly more informative and it is not the gauge, which also costs ~200px of
+the most valuable space on the screen. Against that: the arc carries the amber
+threshold and the headroom in one glyph, and it is the app's signature on a
+phone. Nothing changed at 360 yet. **Owner's call.** ☐
+
+**88 — `.drop/` is ignored now, and here is why.** A failed `rm` broke the
+extract chain, so a drop landed nothing and then committed its own 55MB of
+transfer tarballs instead. The commit was undone before it went anywhere.
+`.gitignore` carries `.drop/` so the tarballs can never be committed again even
+when the clean-up fails. ☑
