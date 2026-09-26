@@ -471,7 +471,7 @@ is arithmetic, not advice (system spec §3).
 | | |
 |---|---|
 | Loading | Skeletons in the hero and tile shapes. Roughly one frame — the snapshot is in memory (ADR-001) |
-| Empty — no plan | Hero shows the full planned allowance with **no amber or red**; unallocated banner reads the full take-home |
+| Empty — no plan | ⚠ **Superseded 26 Sep — see the hero table below.** ~~Hero shows the full planned allowance~~ — there is no *planned* allowance without a plan. **No hero at all**: one invitation card, then the goals and debts the owner entered at onboarding. No right column at 1440 |
 | Empty — plan, no transactions | Tiles read ₦0 of their planned figures. Category rows show full allowances. This is a correct screen, not an empty one |
 | Error | *"Couldn't open your data."* + Retry. Never a blank screen |
 | Offline | Normal. `OfflineNote` under the date row, dismissible, neutral-coloured |
@@ -973,7 +973,7 @@ do with their money.
 | Normal | **Safe to spend today** · `₦7,500.00` · "₦220,000.00 left · 20 days to 25 Oct" |
 | Amber | same, plus badge **"Low"** |
 | Red | **"₦2,300.00 over"** plus badge **"Overspent"** · "You've spent more than you have left for this cycle." |
-| No plan | **Safe to spend today** · `₦8,666.66` · "Based on your take-home. Set a plan to make this exact." |
+| No plan | ⚠ **SUPERSEDED BY THE OWNER, 26 Sep — do not build this row.** ~~**Safe to spend today** · `₦8,666.66` · "Based on your take-home. Set a plan to make this exact."~~ ₦8,666.66 is the **spendable** total ÷ 30 and there is no spendable total until there is a plan; its own caption says *based on your take-home*, and take-home ÷ 30 is ₦15,000.00 — the figure and its caption disagreed. **There is no hero here.** The screen reads *“Nothing is planned yet.”* · *“Your take-home is ₦450,000.00 a cycle. Decide what each naira is for and this screen starts working — what is safe to spend today, how that stands against your plan, and where the money went.”* · **Set your plan**. An empty slot would be worse than none. See `docs/open-items.md` item 94. |
 
 Every amount above is rendered by `MoneyText` per §3a — naira at full size, kobo
 smaller and lighter. The word "over" carries the direction; a bare minus sign is

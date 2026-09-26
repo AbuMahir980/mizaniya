@@ -3,14 +3,32 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-67 artboards over eleven pages — every screen at 360 **and** 1440, light **and**
-dark. Merged 10 September (PR #7); brand files and a corrected primitives sheet added 22 September.
+**191 artboards over seven pages**, as of 26 September — every screen at 360 **and**
+1440, light **and** dark, the two widths of one screen on the same page. Merged
+10 September (PR #7); rebuilt many times since, most heavily in the landing-page
+and 1440 rework of 25–26 September.
+
+> ### ⚠ Three spec lines are currently wrong
+>
+> The owner overruled `03-system-spec.md` §B1 and two rows of `06-page-specs.md`
+> on 26 September: **with no plan there is no hero figure.** Each line is flagged
+> at the line itself; `docs/open-items.md` **§N** is the list.
 
 ## If you are the build agent, read this and stop
 
-Four things, in this order. Do not read the PNGs — they carry no information the
-source does not, and they cost far more to look at than to read.
+Five things, in this order.
 
+> **This list used to open with “do not read the PNGs — they carry no information
+> the source does not.”** That was meant as *take values from the markup rather
+> than eyeballing pixels*, and it was read as licence never to open the screens.
+> **Every rebuilt screen paid for it**, which is why `CLAUDE.md` now says the
+> opposite outright. **Open the PNG first.** It is the only place you see the
+> screen as a screen — what sits beside what, what is missing, and the board note
+> printed under it, which carries the decision and the argument for it. Then read
+> the markup for exact values.
+
+0. **The PNG for the screen you are building** — `<n>-<screen>-1440-light.png`,
+   then `-dark`, then the 360 pair. Read the note under it before you start.
 1. **`tokens.md`** — every value, light and dark, with its measured contrast. This is
    the authority. Where anything here disagrees with it, it wins.
 2. **`canvas/PrimLight.dc.html`** and **`canvas/PrimDark.dc.html`** — the primitives:
@@ -53,8 +71,16 @@ mark is one, drawn a notch off level, because the app exists to say whether toda
 is in balance and most days it is not quite. Locked at your pick; the meem
 monogram and the balance bar are retired. It carries the app icon, the favicon,
 the sidebar lockup, the welcome screen and the letterhead on the printed debt
-record. Latin is EB Garamond 600, Arabic is Amiri, and the Arabic is always
-secondary — under the Latin, never above it, and never carrying a figure.
+record. Latin is EB Garamond 600, Arabic is Amiri.
+
+**The Arabic sits ON TOP of the Latin**, dropped into the valley the *i* and *h*
+make in the wordmark's skyline, right-aligned and at half the Latin's size. It
+took four rounds to place — below, then left, then right, then on top, then
+nestled into the valley — and the earlier wording here ("always secondary — under
+the Latin, never above it") is the first of those rounds and has been wrong since
+25 September. It is still secondary in weight and size, and it still never carries
+a figure. `brand.lockup()` is the one definition; there is no second way to draw
+it.
 
 ## What is here
 

@@ -5,6 +5,14 @@
 tick each box as it lands, and when every box is ticked fold anything worth keeping into
 `CONTEXT.md` and delete this file in the same PR.*
 
+> **If you are the build agent and you read nothing else here: [§N](#n--spec-corrections-the-design-rounds-produced--for-the-spec-owner).**
+> Three lines in `03-system-spec.md` and `06-page-specs.md` are now wrong — the
+> owner overruled them on 26 September. Each is flagged at the line with a ⚠
+> block, so you will hit them anyway; §N is the list and the reasoning.
+> Sections E onward are per-round logs of what changed in the design and why,
+> newest last. **§M·36–M·40 cover 26 September**, which re-cut Home's two empty
+> states, the whole 360 hero, and the landing page's plan card.
+
 **Nothing in `docs/design/` needs regenerating.** Every file an item below needs is
 already there — this list is about wiring it up, not making it. Section D came out of
 the two questions #56 correctly logged instead of deciding; the artboards, `tokens.md`
@@ -1904,6 +1912,50 @@ The landing page shows Home, so these waited on the decision above and are next:
 
 ---
 
+## N · Spec corrections the design rounds produced — for the spec owner
+
+*Added 26 September. **These are the only items in this file that are not the
+designer's to close.** Everything above is either a question answered in place or
+a note about the drawing; the three below are lines in the authoritative specs
+that are now wrong, each flagged at the line itself with a ⚠ block so nobody can
+read the old wording without seeing it. The flags are deliberately ugly. Delete
+them when you rewrite the lines.*
+
+*The contract (`peer-ai/shared/design-data-contract.md`) says: name the conflict,
+log it, get agreement, then update the canonical doc. Agreement exists — the
+owner decided all three. What is left is the rewrite, and the wording of a
+behaviour line is the spec's to write, not the design's.*
+
+- [ ] **N1 · `docs/03-system-spec.md` §B1 — “given no plan, then the figure shows”.**
+  Superseded 26 September: **no plan, no figure.** Safe-to-spend is cash left
+  minus what the *plan* protects, over the days left; with no plan there is no
+  protected set and the quantity does not exist. The struck line and its
+  replacement are both in place — confirm the replacement says what you want and
+  remove the ⚠ block. Full reasoning: item **94**, and §M·38 for the rest of the
+  state. Drawn at `07c-home-no-plan-yet-{360,1440}-{light,dark}.png`.
+
+- [ ] **N2 · `docs/06-page-specs.md`, Home states table — “Empty — no plan: hero
+  shows the full planned allowance”.** Two faults in one line: the decision above,
+  and an arithmetic one it carries on its own — **a *planned* allowance where
+  there is no plan.** Flagged in place.
+
+- [ ] **N3 · `docs/06-page-specs.md`, the hero copy table — the *No plan* row,
+  `₦8,666.66`.** Same decision. The figure is the spendable total ÷ 30; its own
+  caption says *based on your take-home*, and take-home ÷ 30 is ₦15,000.00, so the
+  figure and its caption disagreed before anything else was wrong with it. The
+  replacement copy is written into the flag, taken from the drawn screens.
+
+**One thing that is NOT a spec change but reads like one.** *A plan, no
+movements* now shows **₦13,000.00**, not ₦0.00 — 450,000 cash left minus 190,000
+still owed to protected pots, over the 20 days left. That is the spec's own
+formula (§B1, §D1) applied to a state the spec's tables never listed, so nothing
+in the spec is wrong; the ₦0.00 was mine. See item **95** for the one judgement
+inside it: this board is **day 11**, so it is *“I planned and have recorded
+nothing since”*, not *“I have just finished planning”*. If you want the second as
+well it is a separate board, not a re-label.
+
+---
+
 ## M · The landing page, rebuilt from references — 25 September
 
 Jamiu sent two: the Flutterwave animated card stack, and the Essential Blocks
@@ -3105,18 +3157,20 @@ content.** One invitation, then the two tables of what the person actually
 entered at onboarding. The two-column layout exists to put the figure beside its
 reason, and here there is neither.
 
-### ⚠ TWO SPEC LINES NOW CONTRADICT THE OWNER'S DECISION
+### ⚠ THREE SPEC LINES NOW CONTRADICT THE OWNER'S DECISION → [§N](#n--spec-corrections-the-design-rounds-produced--for-the-spec-owner)
 
-Design does not edit the authoritative spec, so these are named rather than
-changed. Both say a figure shows when there is no plan:
+One in `docs/03-system-spec.md` (§B1) and two in `docs/06-page-specs.md` (the
+Home states table and the hero copy table). All three say a figure shows when
+there is no plan, and the page-specs ones carry an arithmetic error on their own:
+a **planned** allowance where there is no plan.
 
-| File | Says |
-|---|---|
-| `docs/03-system-spec.md` §B1 | *“Given no plan, then the figure shows with **no** amber or red state and the finish-your-plan banner is visible.”* |
-| `docs/06-page-specs.md`, Home copy table | *“No plan · **Safe to spend today** · ₦8,666.66 · ‘Based on your take-home. Set a plan to make this exact.’”* — and the states table, *“Empty — no plan: hero shows the full planned allowance”* |
-
-The second one also carries the arithmetic error on its own: a *planned*
-allowance with no plan.
+**Each is flagged at the line itself**, in the shape §11a already uses for
+ADR-009 — the old wording struck through, a ⚠ block above it saying what
+replaced it and why, and a pointer here. Nobody can read the old line without
+seeing it. **§N carries them as unticked boxes**, because they are the only items
+in this file that are not the designer's to close: the contract says name it, log
+it, get agreement, then update the canonical doc — agreement exists, and the
+wording of a behaviour line is the spec's to write.
 
 **96 — what a state costs is not what it shows.** The rule that came out of
 this, now in `tokens.md` §10.4: an empty state is a **whole screen**, not a card.
