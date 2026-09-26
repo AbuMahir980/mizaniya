@@ -45,7 +45,7 @@ the same thing nine times. It is stated once here instead.
 | 5 | **Debts & Goals** | `/debts` | P0 | Nav, Home goals table |
 | 5a | **Debt record** | `/debts/:id/record` | P1 | A debt card |
 | 6 | **Months** | `/months` | P1 | Nav (under More on mobile) |
-| 7 | **Settings** | `/settings` | P0 | Nav (under More on mobile) |
+| 7 | **Settings** | `/settings` | P0 | Nav — **the sidebar's bottom group at 1440**, under More on mobile (§2) |
 | 7a | **Zakat** | `/zakat` | P1 | Settings; **may slip past v1** (D13) |
 
 ---
@@ -63,8 +63,25 @@ the same thing nine times. It is stated once here instead.
 - Transactions is not a bottom-bar item. Quick Add covers the common case;
   browsing the list is the rarer one.
 
-**Desktop (1440px)** — a left sidebar with every destination listed flat, no
-More. Quick Add becomes a button in the header.
+**Desktop (1440px)** — a left sidebar, Quick Add as a button in the header, and
+**two groups, not one flat list.**
+
+`Home · Plan · Transactions · Debts & Goals · Months · Zakat` — then the rest of
+the column's height — then `Settings`, on the bottom edge.
+
+> **Amended 26 September, the owner's call.** It was one flat list of seven with
+> Settings sitting between Months and Zakat, as though it were a seventh place
+> the money is. *“Settings should not be part of the main navigation — it should
+> be at the bottom of that nav, separate from the other main navigations.”*
+> **The six above are destinations; Settings is where you change how the app
+> behaves.** Sorting that list by nothing gives a utility equal billing with the
+> thing the product is for.
+>
+> The separator is the **remaining height of the column**, not a rule: the
+> sidebar already has a border on its right edge, and a second line across it
+> would be the third horizontal division in 252px. 360 had this right all along
+> — Settings lives in the More sheet, behind a control, because a five-slot bar
+> has no room for a utility. The two widths now agree.
 
 ---
 

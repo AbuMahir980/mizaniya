@@ -659,6 +659,30 @@ there was nothing to show — the figure's explanation, the money card's, and th
 category column's — each pointing at the same single action. Three ways of
 saying nothing is not an empty state; it is clutter with no content.
 
+### One empty state per region — and a region is what reads as one thing
+
+The owner's rule, 26 September, stated as a rule rather than as a fix:
+
+> *“If they are together, that means there is one empty state. If they are not
+> together, you create empty states for them.”*
+
+Home's top row is **one** region — the figure and its reason, read left to right,
+which is the whole argument for having two columns. So when it is empty it is
+**one card at the row's full width**. The first attempt left a 560px card with a
+wide bare margin beside it, which is the silhouette of a two-column layout that
+lost a column: **an empty state that keeps the furniture of the state it
+replaces reads as a failure to load.**
+
+Goals and Debts are **two** regions, side by side, and either can be absent on
+its own — saving for something and owing someone are different facts about a
+person. So they get one card each.
+
+**A heading with nothing under it is not an empty state; it is a hole.** Each
+card occupies the space its list would have, says what goes there in the
+person's own terms, and carries the one action that fills it. Nothing else: an
+empty state is the cheapest place in an app to start explaining and the most
+expensive place to be read.
+
 **A rounding bug fell out of the rewrite.** The headline figure printed
 `f"{abs(gap):,.0f}"` naira with `":02.0f"` kobo stapled on, so ₦14,666.67 came
 out as **₦14,667.67** — a figure that exists nowhere in the arithmetic. **Money

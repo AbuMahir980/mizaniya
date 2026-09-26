@@ -3242,3 +3242,56 @@ what the `ceiling` flag was.
 matching the hero wrapper's padding — the second time that string has moved
 under it. It now looks for a named seam. Both times the assert caught it, which
 is the only reason this is a footnote.
+
+### M·41 — One empty state per region, and Settings leaves the nav
+
+**The rule, in the owner's words:** *“If they are together, that means there is
+one empty state. If they are not together, you create empty states for them.”*
+It is a rule about structure, not about this screen, and it is now in
+`tokens.md` §10.4.
+
+**Home's top row is one region** — the figure and its reason, read left to right,
+which is the entire argument for having two columns there. So when it is empty
+it is **one card at the row's full width**. Yesterday's fix left a 560px card
+with a wide bare margin beside it, which is the silhouette of a two-column
+layout that lost a column: **an empty state that keeps the furniture of the
+state it replaces reads as a failure to load.** The *see the twelve suggested*
+action, which had been a whole card in the right column, is a second button in
+that one card — it is the same action one step shorter, not a separate idea.
+
+**Goals and Debts are two regions**, so they get one card each. Saving for
+something and owing someone are different facts and either can be absent alone.
+
+**97 — a new board: `07c2 · Home · a brand-new account`, at both widths.**
+Onboarding's step 4 (what you have already saved) and step 5 (debts) are **both
+optional**, so *no plan* and *nothing entered at all* are two different first
+screens and only one of them was drawn. `07c` is a person who filled in their
+pots and debts and has not planned; `07c2` is one who skipped everything. **The
+second is the one with the bare space in it**, which is why it exists and where
+the two new empty cards are shown.
+
+**And 360's no-plan screen was missing the goals and debts entirely** — 1440
+carried them, 360 showed the invitation and then the nav, as though those facts
+stopped being true on a narrow screen. Fixed; the widths agree. The rent fund
+reads ₦400,000.00 of ₦900,000.00, 44%, **No plan yet** — the same onboarding
+figures 1440's table shows, with no projection, because *Short* is a rate
+against a plan.
+
+**98 — Settings is out of the main navigation, on the owner's call.** *“Settings
+should not be part of the main navigation — it should be at the bottom of that
+nav, separate from the other main navigations.”* It had been sitting between
+Months and Zakat in a flat list of seven, as though it were a seventh place the
+money is. **The six above it are destinations; Settings is where you change how
+the app behaves**, and sorting that list by nothing gives a utility equal billing
+with the thing the product is for.
+
+The separator is the **remaining height of the column**, not a rule — the sidebar
+already has a border on its right edge and a second line across 252px would be
+the third horizontal division in it. `docs/06-page-specs.md` §2 is amended in
+place, since it is a statement about the design's own layout rather than about
+behaviour; §1's route table now points at it.
+
+**360 had this right from the start**: Settings lives in the More sheet, behind
+a control, because a five-slot bar has no room for a utility. The width that was
+constrained got it right and the width with room to spare did not, which is the
+usual direction.
