@@ -1,0 +1,350 @@
+{
+ "pages": [
+  {
+   "id": "page-land",
+   "name": "1 \u00b7 Landing page and first launch"
+  },
+  {
+   "id": "page-sec",
+   "name": "2 \u00b7 Security and privacy"
+  },
+  {
+   "id": "page-brand",
+   "name": "16 \u00b7 Mark"
+  },
+  {
+   "id": "page-found",
+   "name": "17 \u00b7 Foundations"
+  }
+ ],
+ "artboards": [
+  {
+   "file": "LandLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 7135,
+   "title": "Landing page \u00b7 1440 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandDark.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 1512,
+   "h": 7135,
+   "title": "Landing page \u00b7 1440 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandPhoneLight.dc.html",
+   "x": 0,
+   "y": 7325,
+   "w": 832,
+   "h": 7736,
+   "title": "Landing page \u00b7 390 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandPhoneDark.dc.html",
+   "x": 972,
+   "y": 7325,
+   "w": 832,
+   "h": 7736,
+   "title": "Landing page \u00b7 390 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandMotionLight.dc.html",
+   "x": 0,
+   "y": 15251,
+   "w": 1708,
+   "h": 1563,
+   "title": "Landing page \u00b7 pointer states \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandMotionDark.dc.html",
+   "x": 1848,
+   "y": 15251,
+   "w": 1708,
+   "h": 1563,
+   "title": "Landing page \u00b7 pointer states \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandCycleLight.dc.html",
+   "x": 0,
+   "y": 17004,
+   "w": 1220,
+   "h": 1734,
+   "title": "The strongest moment \u00b7 item 34 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "LandCycleDark.dc.html",
+   "x": 1360,
+   "y": 17004,
+   "w": 1220,
+   "h": 1734,
+   "title": "The strongest moment \u00b7 item 34 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "WebFirstRunLight.dc.html",
+   "x": 0,
+   "y": 18928,
+   "w": 1512,
+   "h": 1174,
+   "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "MwFirstRunLight.dc.html",
+   "x": 1652,
+   "y": 18928,
+   "w": 462,
+   "h": 1003,
+   "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 light",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "WebFirstRunDark.dc.html",
+   "x": 2254,
+   "y": 18928,
+   "w": 1512,
+   "h": 1174,
+   "title": "01 \u00b7 First launch \u00b7 installed \u00b7 1440 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "MwFirstRunDark.dc.html",
+   "x": 3906,
+   "y": 18928,
+   "w": 462,
+   "h": 1003,
+   "title": "01 \u00b7 First launch \u00b7 installed \u00b7 360 \u00b7 dark",
+   "page": "page-land",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPrivacyModalLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 1032,
+   "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 light",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPrivacyModalLight.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 523,
+   "h": 927,
+   "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 light",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPrivacyModalDark.dc.html",
+   "x": 2315,
+   "y": 0,
+   "w": 1512,
+   "h": 1032,
+   "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 dark",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPrivacyModalDark.dc.html",
+   "x": 3967,
+   "y": 0,
+   "w": 519,
+   "h": 927,
+   "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 dark",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "WebSecurityLight.dc.html",
+   "x": 0,
+   "y": 1222,
+   "w": 1512,
+   "h": 2731,
+   "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSecurityLight.dc.html",
+   "x": 1652,
+   "y": 1222,
+   "w": 832,
+   "h": 2948,
+   "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "WebSecurityDark.dc.html",
+   "x": 2624,
+   "y": 1222,
+   "w": 1512,
+   "h": 2731,
+   "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "MwSecurityDark.dc.html",
+   "x": 4276,
+   "y": 1222,
+   "w": 832,
+   "h": 2948,
+   "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
+   "page": "page-sec",
+   "print": "fixed"
+  },
+  {
+   "file": "Main.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1072,
+   "h": 1001,
+   "title": "Design stop \u00b7 light",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "CoverDark.dc.html",
+   "x": 0,
+   "y": 1191,
+   "w": 1072,
+   "h": 1001,
+   "title": "Design stop \u00b7 dark",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "LogoLight.dc.html",
+   "x": 0,
+   "y": 2382,
+   "w": 1046,
+   "h": 1088,
+   "title": "Mark & wordmark \u00b7 light",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "LogoDark.dc.html",
+   "x": 0,
+   "y": 3660,
+   "w": 1046,
+   "h": 1088,
+   "title": "Mark & wordmark \u00b7 dark",
+   "page": "page-brand",
+   "print": "fixed"
+  },
+  {
+   "file": "PrimLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1804,
+   "h": 2416,
+   "title": "Primitives \u00b7 light",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "PrimDark.dc.html",
+   "x": 0,
+   "y": 2606,
+   "w": 1804,
+   "h": 2416,
+   "title": "Primitives \u00b7 dark",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "StyleLight.dc.html",
+   "x": 0,
+   "y": 5212,
+   "w": 462,
+   "h": 640,
+   "title": "Style \u00b7 light",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "StyleDark.dc.html",
+   "x": 0,
+   "y": 6042,
+   "w": 462,
+   "h": 640,
+   "title": "Style \u00b7 dark",
+   "page": "page-found",
+   "print": "fixed"
+  },
+  {
+   "file": "Print.dc.html",
+   "x": 0,
+   "y": 6872,
+   "w": 1696,
+   "h": 1227,
+   "title": "Debt record \u2014 print, A4",
+   "page": "page-found",
+   "print": "fixed"
+  }
+ ],
+ "annotations": [
+  {
+   "id": "n-land",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-land",
+   "text": "First, because it is the first thing anyone meets \u2014 and <b>every row below is one screen at both widths</b>: 1440 light, 360 light, 1440 dark, 360 dark. Built from real components at their real size, fragments rather than whole screens, and on the 1440 board from the WEB app's own components, because a laptop reader must see the tables and the dashboard they will actually get. <b>First launch</b> is the screen an <i>installed</i> app shows: v1 is a PWA (spec \u00a7G, <i>the app is installable</i>), and an installed app opens cold \u2014 no address bar, no landing page, nothing to have scrolled. It is not a mobile screen; it is what any installed copy shows on a device with no budget on it yet. `LandMotion` draws the pointer states, because a static artboard cannot show motion and the build cannot implement from a description. Two image slots are specified and not filled \u2014 `docs/design/image-brief.md` carries the shot list, the licences and the reject list."
+  },
+  {
+   "id": "n-sec",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-sec",
+   "text": "<b>Off page 1, 27 September.</b> It has a route, it is reached from three places \u2014 the landing page, the sign-up tick-box and Settings \u2014 and it was living inside the landing page only because that is where it was first drawn. <b>\u00a710.1\u2019s sentence is here once</b> and nowhere else composes its own version of it: <i>We never store your bank data in readable form.</i> The row below it is the same page as a modal, which is what sign-up opens rather than repeating the wording inline \u2014 five copies of a promise is five chances to get it wrong. <b>The build guard fails on the sentence this replaced</b>, which was false the day ADR-009 gave v1 a server."
+  },
+  {
+   "id": "n-brand",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-brand",
+   "text": "The mark is the mizan beam \u2014 a set of scales, tipped, because the app exists to say whether today is in balance. Locked. It is the app icon, the favicon, the sidebar lockup and the letterhead on the printed debt record."
+  },
+  {
+   "id": "n-found",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-found",
+   "text": "The primitives sheet \u2014 every component in every state, both themes \u2014 then the palette and type tile, and the printed debt record: A4, black and white, no app chrome, because it leaves the app and is read by someone who was never in it."
+  }
+ ],
+ "launch": {
+  "view": "canvas",
+  "page": "page-land"
+ }
+}

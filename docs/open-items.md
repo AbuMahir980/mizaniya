@@ -3343,3 +3343,83 @@ described that structure, four days and two re-cuts later; its page table is
 rewritten. **That is the third stale claim found in that one file this week**,
 after *do not read the PNGs* and *the Arabic is always under the Latin*. A file
 that is only read by someone starting out is a file nobody proofreads.
+
+### M·44 — Plan: one table, two empty states, and the form that was never there
+
+**The owner read Plan properly for the first time and found three things.**
+
+**100 — the trailing CATEGORY under *Personal savings*.** His words: *“there's a
+trailing 'category' underneath Personal savings, and the table line runs to it as
+well.”* Plan drew its three groups — Savings, Debt payment, Expense — as **three
+separate tables**. So the column header repeated under every group, which puts a
+heading that belongs at the *top* of a table into the middle of one, where it
+reads as a row that came loose. And the rule under it belonged to the next
+table's header, not to the row above.
+
+**The worse half is what the seam was hiding.** Three tables size their columns
+independently: Savings put PROTECTION at 340px, Debt payment at 385, so the
+PROTECTED pills stepped sideways at every group boundary. **Three tables
+pretending to be one always tell on themselves.** It is now one table with the
+group as a band inside it — one cell spanning every column — plus a `<colgroup>`
+so the browser is told the ratio rather than inferring it from whichever cell is
+longest. `dtable` carries the band; anything else with groups gets it free.
+
+**101 — Quick Add is not Plan's add, and the owner was right to expect one.**
+*“Is Quick Add the component for adding no matter which section one is in? I was
+expecting a form component in Plan where a user adds.”*
+
+**Quick Add records a MOVEMENT** — money spent, received or moved — which is why
+it is the ⊕ in the centre of the bar and a button in the 1440 header, reachable
+from anywhere (§2, story G2). **A category is not a movement.** It is a decision
+about what money is *for*, and it belongs to the screen that owns categories for
+the rest of the cycle.
+
+It existed, and only in the wrong place: **`add a category` was drawn for
+onboarding step 3 and never carried over to Plan.** Somebody who wants a
+thirteenth category after onboarding had no way to make one at either width. Now
+in Plan's header at 1440 and at the foot of the list at 360 — at the foot there
+because the 360 header already carries the cycle, the title and the figure, and a
+fourth thing in it would push the first row below the fold. `08d` draws the form
+over Plan at both widths. Type is chips rather than a dropdown: three choices,
+and it decides whether the money is protected, which is too consequential to hide
+behind a control you have to open.
+
+**102 — Plan's two empty states, which §7.3 names and the canvas did not have.**
+*“I couldn't see the empty state component for Plan as well.”* The spec gives
+two, and they are different screens with different fixes:
+
+| `08b` no categories yet | the seeded twelve, offered as **one action** — asking somebody to invent a budget's categories from nothing is the step people abandon, and the step onboarding exists to remove. *Add my own instead* is a quiet link, not a second button |
+| `08c` nothing allocated yet | **not blank**: every category present at ₦0.00, with the whole take-home in *Free*. That figure is the screen's entire subject — it is what the person came to spend down to zero — so a placeholder card would hide the only thing on it that matters |
+
+`08c` is the clearest case yet of the rule from M·38: **an empty state is not
+always an empty screen.**
+
+### M·45 — Two canvases, because the editor caps one at 200 files
+
+**103 — the canvas hit a hard ceiling and had to be split.** Plan's three new
+screens took it to 207 artboards plus the manifest — 208 — and the seeding tool
+says exactly what happens next: **the editor loads at most 200 file entries and
+silently drops the rest**, then the first Save republishes without them. A canvas
+that quietly loses eight boards is worse than a canvas that is split, so it is
+split.
+
+| | Pages | Files |
+|---|---|---|
+| **The app** — keeps the existing link | 3–15 | 179 |
+| **Front and foundations** — a new link | 1–2, 16–17 | 30 |
+
+**The cut follows a seam that was already there.** The landing page and the
+security page are the front door; the mark and the primitives are the materials
+both are built from; all four are read rather than re-cut most weeks. Everything
+between them is the app — reviewed daily, and still owed sync states, the
+household invite and the bank-linking flow, which is where the next twenty
+boards will come from.
+
+**Splitting by count rather than by meaning** would have bought the same headroom
+and left both halves unnameable, which is the version of this that gets undone in
+a week.
+
+`layout.py` now asserts the cap per canvas, so the next overflow **fails the
+build** rather than losing boards. And `docs/design/` is not split: every board
+and every preview stays in one place, because which canvas a board is published
+on is a fact about the editor, not about the design.
