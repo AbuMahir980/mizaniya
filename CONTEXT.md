@@ -1371,6 +1371,11 @@ exists, so the next piece is the sync endpoints themselves.
 
 ### The thirteen open issues, by what they are
 
+**Thirteen on GitHub, twelve in the table below.** The thirteenth is **#119**, parked with
+ADR-012 — a count that does not reconcile is how a tracker starts being ignored, so the
+difference is named rather than quietly absorbed.
+
+
 | | |
 |---|---|
 | **Actionable now** | **#106** a demo export must not restore as real data |
