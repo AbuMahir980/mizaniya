@@ -592,7 +592,7 @@ repositioning sequence is finished and #92 is closed; the tracker was tidied on
 | 2026-09-12 | **Names the owner would say (O4).** `categoryVariance` became `spendingByCategory`, `actualFor` became `movedInto`, `transactionsIn` became `movementsIn`. Four names were deliberately left alone — *protected*, *allowance*, *unallocated*, *safe to spend* — because they are the documented decisions and the words on the switches, and renaming them would cut the thread between the code and the spec for no gain | refactor |
 | 2026-09-23 | **CI brought forward from phase 11b to now** (#52), because the phase file asks for exactly that: *"if you are starting a project and reading ahead, run this early."* Sixteen pull requests had merged saying no checks ran. **Only the checks** — branch protection, templates and the AI review workflow stay in 11b | #52 |
 | 2026-09-23 | **The verify job runs `npm run verify` and nothing else.** Re-listing lint, typecheck and tests as separate CI steps would create a second opinion about what "passing" means, and the two would drift — the one that is easier to keep green wins, and it is never the real one. **Cost:** no per-step timing in the UI, and one red job rather than a precise one. Worth it for `green here` and `green there` being the same sentence | #52 |
-| 2026-09-23 | **Repo rule 3 is enforced by a guard that cannot contain its own subject.** The forbidden names would breach the rule by being written down, so they arrive from the environment as a secret (rule 1's mechanism), and the guard reports `path:line` and **never the match** — this repository is public and so are its Actions logs. Unconfigured, it exits 0 but prints **NOT ENFORCED**; its own test plants a term and requires a non-zero exit, so the mechanism is proved live even when no terms are loaded | #52 |
+| 2026-09-23 | **Repo rule 3 is enforced by a guard that cannot contain its own subject.** The forbidden names would breach the rule by being written down, so they arrive from the environment as a secret (rule 1's mechanism), and the guard reports `path:line` and **never the match** — this repository is public and so are its Actions logs. Its own test plants an invented term and requires a non-zero exit, so the mechanism is proved live even when no terms are loaded. ~~Unconfigured, it exits 0 but prints **NOT ENFORCED**~~ — **superseded 2026-09-27: unconfigured now fails**, see that row | #52, #111 |
 | 2026-09-23 | **A heading inside a screen takes the label step, not the voice face.** EB Garamond is for screen titles, hero statements and the printed record (`tokens.md` §3), and the type table names it on the `title` step only. Home's two section headings were `font-voice text-h2` — Garamond at 22px where the design draws Inter at 10.5px uppercase. **Not a house-style preference:** the design-data contract gives typography to the design, and this was the code disagreeing with it silently | #55 |
 | 2026-09-24 | **The lift shadow is on every primary button, not the Add action alone.** `tokens.md` §7 said one thing and every artboard drew another — `.btn-p` carries `var(--lift)` on Continue, Save, Finish and Get started alike. **The rulebook was the one that was wrong**, so §7 and §5 were corrected rather than the drawings. A disabled primary drops it: the lift says *press this*, and saying that of something which cannot be pressed is worse than saying nothing. The `lifted` prop is gone — a per-call-site opt-in is how half the buttons end up without it | owner, #73 |
 | 2026-09-24 | **Questions for the designer go in `docs/open-items.md`, not in a message.** The designer already writes their answers there — their sections C through F each answer one round — so the questions now sit next to the answers instead of in chat history, and nothing has to be relayed by hand. A lettered section per round, answered in place. `check-design-drop.mjs` deliberately exempts that one file: guarding it would make asking a question require a design pull request | owner |
@@ -613,10 +613,54 @@ repositioning sequence is finished and #92 is closed; the tracker was tidied on
 | 2026-09-24 | **The middle option is the one with no reason to exist.** End-to-end encryption *with* a spare key held for recovery costs nearly as much engineering as the real thing while delivering only the weak guarantee, because the server can still decrypt. If that is where the reasoning lands, ordinary encryption is nearly as good for a fraction of the work. Recorded because it is the option that looks like prudence and is actually the worst trade in the set | ADR-011 |
 | 2026-09-24 | **End-to-end encryption returns as an opt-in, probably paid.** *"Nobody, including us, can read your data — and nobody can recover it for you"* is an honest premium feature, because the person accepts the trade-off themselves. Forcing it on everyone at launch makes that choice on their behalf, and it is not ours to make | ADR-011 |
 | 2026-09-24 | **The one thing encryption cannot claim, written down before anyone is tempted to claim it.** Bank movement arrives by webhook **to the server** — a browser cannot hold aggregator credentials — so the server necessarily sees it in plaintext for the length of one request before encrypting it to the person's public key. *"We never store your bank data readable"* is true. *"Your bank data never touches our servers"* is **false**, and writing it would be the most damaging thing this project could do to its own credibility. True under any encryption choice, which is why **the most sensitive data in the product was always the least protectable** | ADR-011 |
-| 2026-09-24 | **The landing page is in scope and done properly, not a stub.** It is the first thing an investor, an employer or a user sees, so it is designed and briefed with the rest — not improvised from leftover components once the app works | owner |
+| 2026-09-24 | **The landing page is in scope and done properly, not a stub.** It is the first thing an investor, an employer or a user sees, so it is designed and briefed with the rest — not improvised from leftover components once the app works | owner || 2026-09-27 | **An unconfigured rule-3 guard now fails the build.** It exited 0 with a `NOT ENFORCED` warning for the first month of this repository — and the day the secret was finally set, the very first real run found a live violation that had been sitting there the whole time. The warning was correct and useless: it scrolled past inside a green run. **A check that could not run has not passed.** The guard now exits 1 and annotates the run as an error. **Cost, accepted:** a pull request from a fork goes red here, because GitHub gives forks no secrets — which is the honest outcome, since the names genuinely were not checked. The guard is not in `npm run verify`, so nothing about working locally changes | #111 |
+
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-09-27 (Sunday) — the design landed, and rule 3 stopped being decorative
+
+Three pull requests. Two of them were the design finally arriving; the third was the
+project's own principle collecting on a debt a month old.
+
+- **The design drop merged (#122).** 263 artboards over seventeen pages — every screen
+  at 360 **and** 1440, light **and** dark. With it came five places in
+  `docs/06-page-specs.md` **annotated where they are now wrong** rather than rewritten:
+  navigation's 1440 header action is contextual and labelled, `§2a getting back` is new,
+  Transactions is two segments, Settings is an index with routes under it, and the zakat
+  nisab is **fetched, not owner-entered**. Design does not quietly rewrite behaviour
+  prose — the flag makes the conflict impossible to miss and the rewrite belongs to
+  whoever owns the spec. What is *not* drawn is listed in `open-items.md`, deliberately,
+  as questions rather than gaps somebody fills in passing.
+
+- **Sign-up exists — and the documents now say so unmistakably (#123).** The designer
+  read the specs and concluded there was no sign-up at all. They were reading correctly:
+  the repositioning to a hosted webapp was recorded in ADR-009 and in the stories, and
+  nowhere in `03-system-spec.md` §4 did a table actually name an account. **A decision
+  that lives only in an ADR is a decision the people downstream do not have.** §4 gained
+  the table, and §3a of the design brief gained a whole-flow diagram, so the landing page
+  → sign-up → setting-up → Home path can be read in one go.
+
+- **Repo rule 3 was enforced for the first time, and failed immediately (#124).** The
+  `FORBIDDEN_TERMS` secret was set — read from a scratch file outside the repo and then
+  deleted, so the names never touched git. The first real run found **one live violation**
+  in `peer-ai/docs/peer-ai-feedback.md`. The paragraph around it had already been
+  sanitised by hand on 22 September; one naming survived the sweep, which is the ordinary
+  fate of a manual sweep and precisely the argument for the guard.
+
+  Two things came out of it that matter more than the fix:
+
+  1. **The guard's unconfigured path now fails (#111).** See the decision row. Exiting 0
+     with a warning is how this hid in plain sight for a month.
+  2. **The names are still in the history, and a clean tree does not change that.** Two
+     forbidden terms appear in past commits — one of them in about ten lines across
+     `CONTEXT.md` and the feedback document before the 22 September sweep removed it.
+     `git log -p` still shows all of it. **Raised for the owner rather than decided:**
+     rewriting the history of a public repository is their call, and it reduces future
+     discoverability rather than undoing publication — the commits are already cloned,
+     mirrored and indexed. Recorded here so the next session does not rediscover it and
+     assume nobody noticed.
 
 ### 2026-09-25 (Friday) — the repositioning became real: schema, sweep, spec, brief
 
@@ -1330,15 +1374,18 @@ exists, so the next piece is the sync endpoints themselves.
 | | |
 |---|---|
 | **Actionable now** | **#106** a demo export must not restore as real data |
-| **Needs the owner's hands** | **#111** rule 3 is unenforced — `FORBIDDEN_TERMS` has never been set · **#112** branch protection off, gitleaks on a mutable tag · **#113** hosting, and verify the free tier's retention *before* committing |
+| **Needs the owner's hands** | **#112** branch protection off, gitleaks on a mutable tag · **#113** hosting, and verify the free tier's retention *before* committing |
 | **Blocked on the designer** | **#72** the conformance pass, re-scoped — 360 work still valid, four 1440 screens being redrawn |
 | **`blocked:respec`** | **#23–#27, #29, #85** — real product need, acceptance criteria written for a different product. Re-read the specs before building |
 | **Conditional** | **#58** first-cycle movements, needed only if story F2 is built |
 
-**#111 is the one to read.** Repo rule 3 — one of the five the stakeholder wrote
-verbatim — has been unenforced for the entire life of the repository. The guard exists,
-runs, and announces that it is doing nothing, in a green CI run nobody reads further.
-It is the project's own principle in its purest form.
+**#111 is closed, and it is the one to read anyway.** Repo rule 3 — one of the five the
+stakeholder wrote verbatim — was unenforced for the entire life of the repository. The
+guard existed, ran, and announced that it was doing nothing, in a green CI run nobody
+read further. The day it was switched on it found a live violation. The project's own
+principle in its purest form: **a check that has only ever passed is indistinguishable
+from one that is switched off.** What is left of it is the owner's call on the git
+history — see 2026-09-27 below.
 
 ### What was closed, and why closing was right
 

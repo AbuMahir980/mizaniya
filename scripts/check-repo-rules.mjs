@@ -22,20 +22,38 @@ const terms = (process.env[ENV_VAR] ?? '')
 
 if (terms.length === 0) {
   /**
-   * Loud, never silent.
+   * Nothing loaded is a failure, not a warning.
    *
-   * The mechanism below is proved on every run by
-   * `scripts/check-repo-rules.test.mjs`, which plants a term and requires a
-   * non-zero exit. So this state is not "the check is switched off" — it is
-   * "the check has nothing loaded", and the difference is worth saying out
-   * loud rather than exiting 0 with a tick beside it.
+   * This exited 0 with a warning for the first month of the repository's life,
+   * and the warning scrolled past inside a green run nobody read to the end —
+   * so rule 3 went unenforced from the first commit until the day the secret
+   * was finally set, and there was a live violation waiting the whole time.
+   * That is issue #111, and the lesson is that the degrade-to-warning path is
+   * what hid it. A check that could not run did not pass.
+   *
+   * The mechanism itself is proved on every run by
+   * `scripts/check-repo-rules.test.mjs`, which plants an invented term and
+   * requires a non-zero exit. So this branch is not guarding against a broken
+   * scanner — it is guarding against a scanner with nothing to scan for.
+   *
+   * Two ways to reach here legitimately, and both should stop the merge:
+   *   - the secret was renamed or deleted, which is the regression worth
+   *     catching loudly;
+   *   - the pull request comes from a fork, which GitHub deliberately gives no
+   *     secrets. The check genuinely cannot run there, and the honest outcome
+   *     is a red mark a maintainer has to clear, not a green one that implies
+   *     the names were checked.
    */
-  const how = `Set ${ENV_VAR} (comma-separated) — in CI, a repository secret.`
+  const how = `Set ${ENV_VAR} (comma-separated) — in CI, the FORBIDDEN_TERMS repository secret.`
   if (process.env.GITHUB_ACTIONS) {
-    console.log(`::warning title=Repo rule 3 unenforced::No terms configured. ${how}`)
+    console.log(`::error title=Repo rule 3 cannot run::No terms configured. ${how}`)
   }
-  console.warn(`\nRepo rule 3: NOT ENFORCED — no terms configured.\n  ${how}\n`)
-  process.exit(0)
+  console.error(
+    `\nRepo rule 3: CANNOT RUN — no terms configured.\n  ${how}\n` +
+      '  This is a failure, not a warning: a check with nothing loaded has not\n' +
+      '  passed, it has been skipped, and the two look identical in a green run.\n',
+  )
+  process.exit(1)
 }
 
 /** Only the position, never the match: this repo is public and so are its logs. */
