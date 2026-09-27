@@ -261,6 +261,22 @@ elevation.lift   every primary button, and the Add action —
                  light  0 8px 20px -8px rgba(15,92,60,.55)
                  dark   0 8px 20px -8px rgba(78,203,139,.4)
 
+**There are two elevation values and there is no third.** `08e`'s pinned header had
+its own — `0 10px 18px -12px rgba(0,0,0,.28)`, typed into one builder for one board
+— and the owner saw the result before anyone saw the cause: *"what is being elevated
+is not properly shown."*
+
+**The fix was not a stronger shadow. It was a surface.** The block was `background:
+var(--bg)`, the same colour as the page behind it, and `elevation.card` is soft by
+design — it reads against a different colour, not against its own. A raised thing is
+`card`; what it is raised above is `bg`. **If an elevation is not reading, check which
+two surfaces are involved before reaching for a new number.**
+
+One more rule the same board settled: **a nested frame is a step down the radius
+scale, never equal to its parent.** The clipped viewport sits inside the 22px desktop
+frame, so it is `radius.lg` (16px). Two 22px corners nested inside each other read as
+a rendering error rather than as two surfaces.
+
 motion.fast    120ms    press, focus, hover, chip and pill selection
 motion.base    180ms    expand, tab change, banner, chart and rail fills
 motion.sheet   240ms in / 160ms out    sheets, dialogs, the scrim
@@ -487,6 +503,37 @@ A −25% pull starts to crowd the *y* descender. −10% is the value.
 |---|---|
 | **Every public-facing screen**: the landing page and its nav, first launch, the account and setting-up screens, security and privacy, splash, the cover | **Stacked, always.** The owner's instruction, 25 September: *wherever we have the logo, the Arabic must accompany it* |
 | **The app's own sidebar and the phone header too** — owner, 26 September | **Stacked.** It fits: ميزانية sits ON the word now, so the lockup is barely taller than the word itself, and the reason for the exception has gone |
+
+**The phone header was written down here on 26 September and drawn on the 27th,
+and the owner had to ask for it.** *"On mobile, there's a mobile web for every
+this thing — the logo has to be showing, it's not showing."* The sidebar got
+`br.lockup(25, 24)` the day the rule was written; the phone header got the rule
+and no drawing, so **this file carried the instruction for a day while 56 boards
+shipped without it.** A rule in the token file is not a drawing, and nothing was
+checking.
+
+It matters more at 360 than at 1440, and the reason is the PWA. At 1440 the
+sidebar is 252px of standing chrome. At 360 there is no sidebar, so nothing on
+the screen said which app you were in — in a browser tab the domain was doing
+the whole job, and **installed to a home screen there is no address bar at all**
+(spec §G: *the app is installable*).
+
+**The 360 app bar** — 48px, `lockup(20, 16)` stacked, left, a `hair` rule under
+it, and **nothing on the right**. No back arrow: the nav is the way back. No
+screen title: every screen carries its own, one size up. A bar that has to earn
+48px of a phone screen should not also become the place things get put — if a
+sync indicator ever needs a global slot, that is a decision to make, not a place
+to drift into.
+
+**It is applied at one point, not eleven.** There are eleven hand-built 390px
+frames across six files, and hand-adding the bar to each would have been a
+twelfth way to get it wrong plus a silent omission on every frame written after
+that day. `ui.with_appbar` inserts it once per finished 360 board, on any frame
+**containing the bottom nav** (or marked `<!--appbar-->`, for the scrimmed
+sheet-over-Home boards whose screen behind is clipped above its nav). Sheets,
+dialogs and row menus have no nav and are skipped; the sign-up screens carry
+their own stacked lockup already. **The counts are a build guard**: navs and
+bars must match, or a screen has shipped without the product's name on it.
 
 **Dropped, not shrunk** still holds wherever it is dropped. Amiri at 9px is not
 the Arabic — it is a smudge that happens to be the right shape. The landing nav

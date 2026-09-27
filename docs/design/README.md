@@ -3,7 +3,7 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-**219 artboards over seventeen pages**, as of 27 September — every screen at 360
+**251 artboards over seventeen pages**, as of 27 September — every screen at 360
 **and** 1440, light **and** dark, the two widths of one screen on the same row,
 and **one page per screen**.
 
@@ -14,16 +14,29 @@ and **one page per screen**.
 > the first Save then republishes without them. A canvas that quietly loses
 > boards is worse than a canvas that is split.
 >
-> | | Pages | Files | Manifest |
+> | | Holds | Files | Manifest |
 > |---|---|---|---|
-> | **The app** — the canvas under review | 3–15 | **191 of 200** | `canvas/canvas.json` |
-> | **Front and foundations** | 1–2, 16–17 | 30 | `canvas/canvas-front.json` |
+> | **The app** — the canvas under review | pages 4–10, 13 | **125 of 200** | `canvas/canvas.json` |
+> | **Around the app** | pages 1–3, 11–12, 14–17 | **128 of 200** | `canvas/canvas-front.json` |
 >
-> The cut follows a seam that was already there: the landing page and the
-> security page are the front door, the mark and the primitives are the
-> materials both are built from, and all four are read rather than re-cut most
-> weeks. Everything between them is the app — reviewed daily, and still owed sync
-> states, the household invite and the bank-linking flow.
+> **Re-cut on 27 September, along the owner's own line.** The first cut put the
+> front door and the materials on the second canvas, and the owner asked — fairly
+> — *“why did you move page 1, 2, 16 and 17?”*, a question that had not been
+> answered before they were moved. It bought 30 files and the app canvas went
+> straight back to 191.
+>
+> **The line is the navigation.** On 26 September the owner ruled that *“Settings
+> should not be part of the main navigation”* — the six destinations are where the
+> money is, and everything else is how the app is set up. So:
+>
+> - **the app canvas holds what is in the nav**: Home, Plan, Transactions, Quick
+>   Add, Debts & Goals, Months, Zakat, Bank movements — the screens reviewed daily;
+> - **the second holds what is not**: the landing page, security, signing up and
+>   setting up, Settings and its pages, what an account adds, household, import
+>   and export, the mark and the primitives.
+>
+> **Nothing in the daily loop moved.** What crossed over was pages 3, 11, 12, 14
+> and 15. It is one line in `layout.py` to put back.
 >
 > **`docs/design/` is not split.** Every board and every preview is in one place;
 > which canvas a board is published on is a fact about the editor, not about the

@@ -315,6 +315,23 @@ will be, and they belong here when that happens.
 
 ### The zakat scenario
 
+> ⚠ **The nisab is no longer owner-entered — owner's call, 27 Sep.** Mizaniya
+> fetches it from the silver price (595 g). The figure below stays as it is and
+> **is close to real**: published country tables put Nigeria's silver nisab near
+> ₦2,378,000 in February 2026, within 3% of it. What this section now owes, and
+> **only the owner adds figures here** (§Adding to this file):
+>
+> - the **silver price per gram and the date it was read**, so the arithmetic
+>   runs forwards. The boards currently derive ₦4,117.65/g as ₦2,450,000 ÷ 595 g
+>   — legal under rule 2, since it is arithmetic on a seeded figure, but
+>   backwards;
+> - the **naira rate it was converted at**, and which one (official or parallel);
+> - a **gold-standard nisab (85 g)**, so the *use the gold standard instead*
+>   sheet can be drawn. Until it exists the screen names the alternative in
+>   words and gives no number for it, deliberately.
+>
+> `docs/open-items.md` **O1** and M·56.
+
 **The nisab figure below is invented, like every other figure here.** It is not a
 reference value and must never be used as one — the app requires the owner to
 enter their own and says where to check it.

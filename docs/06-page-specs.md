@@ -708,6 +708,31 @@ Filter changes announce the result count: *"14 movements."*
 **The three taps:** ⊕ → a category chip → Save. Type defaults to `Expense`, date
 to today. Anything else is an extra tap, deliberately.
 
+> **The add contract, written down here because it was asked about and lived in
+> three places** (§2, this section, §7.6). The owner, 27 Sep: *"that add works
+> depending on which screen it is… and the Quick Add section is for the home
+> screen, right?"*
+>
+> **There is one ⊕ and it does not change meaning.** 360: the centre of the
+> bottom bar, on every screen. 1440: the **Add** button in the header, on every
+> screen. It is **not Home's** — it belongs to the app, not to a screen — and it
+> always records a **movement**.
+>
+> **What is per-screen is a second, NAMED button**: *Add a category* on Plan,
+> *Add a debt* / *Add a goal* on Debts & Goals, *Invite someone* on Household.
+> **⊕ records money moving; a named button creates the thing the money moves
+> into.** Every screen's controls follow from that one sentence.
+>
+> The two meet in exactly one place, and it is not an exception: §7.6's *Record a
+> payment* opens **this sheet, pre-set** — counterparty fixed, amount pre-filled,
+> type following the balance. That is ⊕ with context.
+>
+> **Open question — `open-items.md` O3, not decided.** At 360 the ⊕ also sits on
+> the Debts screen, where someone may well press it expecting *add a debt*.
+> Should the sheet's *type* default follow the screen it was opened from? It
+> removes a tap where the wrong guess is likeliest, and costs the property that
+> makes the sheet learnable. **No side taken.**
+
 **Fields.** Amount (required, > 0) · type (default Expense) · category *or*
 counterparty depending on type (§`04-api-contract` §3) · date (default today) ·
 savings destination (savings types only) · payment method (optional) · note
@@ -897,6 +922,31 @@ table.
 
 ### 7.9 · Settings — `/settings`
 
+> ⚠ **STRUCTURE CHANGED BY THE OWNER, 27 Sep. The six sections below are
+> correct; drawing them on one screen is not.** *"When you are building a
+> settings screen you firstly build out everything that a setting will contain,
+> then before you now start building out the subsection… when they are scattered
+> about, for a builder it makes no sense; they will start wondering, under what
+> should we link this to."*
+>
+> **`/settings` is an index. Each section is a route under it.** The index has
+> eight rows in the order below, with **the account inserted second** (§08a: the
+> account is a setting) and **import and export given a row of its own**, and
+> **every row carries its own state** — *Protected · 47 unexported changes*,
+> *25th · ₦450,000.00*, *12 · 4 protected*. A row that is a name and a chevron
+> makes you open it to find out where you are; most visits should end on the
+> index.
+>
+> **Zakat is the one row that leaves settings** — it is a nav destination (§2),
+> so the row links to `/zakat` and says so.
+>
+> **Rollover and protection are NOT set here.** They are per-row controls on
+> Plan, beside the figure they change (§7.3 Actions). The categories page says
+> where they are. Two places to change one thing is how the two disagree.
+>
+> Drawn at both widths: the index, `· your data`, `· your cycle`,
+> `· categories`, and `· import and export`. See `docs/open-items.md` M·59.
+
 **Sections, in this order** — data safety first, because it is the thing the
 owner most needs to act on.
 
@@ -962,8 +1012,21 @@ export and import both work. Success: as above.
 footnote. Then the workings, openly: savings counted, nisab used, hawl start,
 whether receivables are included.
 
-**Numbers.** Savings balance over the hawl · nisab (owner-entered) · 2.5% of the
-zakatable amount · the hawl start date and its source.
+**Numbers.** Savings balance over the hawl · ~~nisab (owner-entered)~~ · 2.5% of
+the zakatable amount · the hawl start date and its source.
+
+> ⚠ **`nisab (owner-entered)` SUPERSEDED BY THE OWNER, 27 Sep — do not build
+> it.** *"If you are telling an individual to actually look it up and enter it
+> today, I think we should be the one searching that up."* **The nisab is
+> fetched**, from the silver price (595 g, the standard most zakat bodies apply
+> to money), converted at a **named** exchange rate, and the screen carries the
+> time it was read. Three consequences that are requirements, not polish:
+> the screen **states which standard is in use** and offers the other; it names
+> **which naira rate** it converted at, because official and parallel differ by
+> about 4% and a threshold is exactly where 4% decides the answer; and it is
+> **the first figure in the product that needs the network to be correct**, so a
+> stale price still answers, from the last known value, labelled with its age.
+> See `docs/open-items.md` **O2** and M·56.
 
 **Three things this screen must do.**
 
@@ -971,8 +1034,19 @@ zakatable amount · the hawl start date and its source.
 2. **Ask once whether money owed to you counts**, defaulting to neither position, with a note to check with someone qualified (D3).
 3. **Never read as a ruling.** The caveat is part of the figure, not decoration.
 
-**States.** Empty — no nisab: the panel explains what is missing and where to
-look it up, rather than showing ₦0. Empty — no hawl: asks. Others as standard.
+**States.** ~~Empty — no nisab: the panel explains what is missing and where to
+look it up, rather than showing ₦0.~~ Empty — no hawl: asks. Others as standard.
+
+> ⚠ **`Empty — no nisab` SUPERSEDED, 27 Sep.** There is no such state once the
+> threshold is fetched. What replaces it is a **stale or unavailable price**,
+> which is a different screen and a better one: it answers from the last known
+> value and says how old that value is. The caveat must also **name the three
+> choices the app made** — which standard, whether money owed to the owner
+> counts, whether their own debts come off first — because *check with someone
+> qualified* without *about what* is a disclaimer written for us rather than for
+> them. Drawn at both widths: `14 · below the nisab`, `14a · above the nisab`,
+> `14b · no year set`. **`14b` is §7.10's no-hawl state, which was drawn
+> nowhere until now.**
 
 **Danger colour.** Never. Zakat is an obligation, not an error.
 
