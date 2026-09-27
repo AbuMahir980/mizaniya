@@ -3,7 +3,7 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-**251 artboards over seventeen pages**, as of 27 September — every screen at 360
+**263 artboards over seventeen pages**, as of 27 September — every screen at 360
 **and** 1440, light **and** dark, the two widths of one screen on the same row,
 and **one page per screen**.
 
@@ -16,7 +16,7 @@ and **one page per screen**.
 >
 > | | Holds | Files | Manifest |
 > |---|---|---|---|
-> | **The app** — the canvas under review | pages 4–10, 13 | **125 of 200** | `canvas/canvas.json` |
+> | **The app** — the canvas under review | pages 4–10, 13 | **137 of 200** | `canvas/canvas.json` |
 > | **Around the app** | pages 1–3, 11–12, 14–17 | **128 of 200** | `canvas/canvas-front.json` |
 >
 > **Re-cut on 27 September, along the owner's own line.** The first cut put the
@@ -37,6 +37,14 @@ and **one page per screen**.
 >
 > **Nothing in the daily loop moved.** What crossed over was pages 3, 11, 12, 14
 > and 15. It is one line in `layout.py` to put back.
+>
+> **Page 13 is a section, not a destination — 27 September.** *Bank movements* was
+> a seventh nav item for one day; the owner moved it inside **Transactions**, so
+> the page is named *13 · Bank movements — inside Transactions* and its boards
+> stayed where they are. The two section screens a reviewer would look for on
+> Transactions (`09d`, `09e`) are on **page 6** with the rest of that screen;
+> the sorting flow is on page 13. `10-design-brief.md` §4.13 still calls it a
+> screen of its own and is superseded — `docs/open-items.md` M·62.
 >
 > **`docs/design/` is not split.** Every board and every preview is in one place;
 > which canvas a board is published on is a fact about the editor, not about the
