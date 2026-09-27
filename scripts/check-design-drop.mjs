@@ -34,6 +34,16 @@ const theirs = changed.filter(
     // feature commit. The list itself is the hole: anything named individually
     // has to be added by hand and nobody remembers. Hence the check below.
     path === 'docs/design/motion.md' ||
+    // Added 2026-09-27, by the self-check below doing its job on a real drop.
+    // `DESIGN-BRIEF.md` was in neither list, so the guard was silent about the
+    // designer's own brief.
+    path === 'docs/design/DESIGN-BRIEF.md' ||
+    // Moved out of `ours` the same day. `README.md` here is the designer's
+    // document describing their own drop, and classifying it as ours meant the
+    // guard would not have protected it -- a quieter hole than an unlisted file,
+    // because the self-check only catches what is *missing* from both lists, not
+    // what is in the wrong one.
+    path === 'docs/design/README.md' ||
     // Added 2026-09-25. The landing page's two photographs are specified but
     // not sourced -- the image CDNs are unreachable from the designer's
     // sandbox -- so the shot list, licences and file names live here.
@@ -50,7 +60,13 @@ const theirs = changed.filter(
  * not accounted for — either as theirs above, or as one of ours below. It turns
  * a silent hole into a build failure that says what to do.
  */
-const ours = new Set(['README.md'])
+/**
+ * Ours, at the top level of `docs/design/`. `PROPOSED-` files are handled by the
+ * prefix test below — they are records of figures merged into `seed-data.md`.
+ *
+ * Deliberately empty of `README.md` since 2026-09-27: see the note above.
+ */
+const ours = new Set()
 const unlisted = changed.filter((path) => {
   if (!/^docs\/design\/[^/]+\.md$/.test(path)) return false
   if (theirs.includes(path)) return false
