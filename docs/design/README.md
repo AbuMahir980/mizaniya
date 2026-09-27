@@ -3,7 +3,7 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-**209 artboards over seventeen pages**, as of 27 September — every screen at 360
+**215 artboards over seventeen pages**, as of 27 September — every screen at 360
 **and** 1440, light **and** dark, the two widths of one screen on the same row,
 and **one page per screen**.
 
@@ -16,7 +16,7 @@ and **one page per screen**.
 >
 > | | Pages | Files | Manifest |
 > |---|---|---|---|
-> | **The app** — the canvas under review | 3–15 | 181 | `canvas/canvas.json` |
+> | **The app** — the canvas under review | 3–15 | 187 | `canvas/canvas.json` |
 > | **Front and foundations** | 1–2, 16–17 | 30 | `canvas/canvas-front.json` |
 >
 > The cut follows a seam that was already there: the landing page and the
@@ -114,7 +114,7 @@ fine flipping through and is useless for review — you cannot point at "the sig
 screen" if sign-in is the right-hand half of a board called Auth. So every file below is
 one screen, and its name says which.
 
-**209 artboards across 17 pages, on two canvases.** File names are `NN-what-it-is-WIDTH-theme.png`,
+**215 artboards across 17 pages, on two canvases.** File names are `NN-what-it-is-WIDTH-theme.png`,
 numbered in flow order, and the same stem names the `.dc.html` beside it in `canvas/`.
 
 > **Re-cut 27 September, one page per screen.** It was five pages, two of which
@@ -142,7 +142,7 @@ numbered in flow order, and the same stem names the `.dc.html` beside it in `can
 | 10 · Zakat | `14-*` | The estimate and its workings. |
 | 11 · Settings | `15-*` | Settings, and signed out. **The sidebar's bottom group at 1440** (§2). |
 | 12 · What an account adds | `16-*` | Free and lapsed. **No padlock anywhere** — item 24, and `build_boards.py` fails if the word appears. |
-| 13 · Bank movements | `17-*` | The reconciliation queue, the duplicate case, and nothing to sort. |
+| 13 · Bank movements | `17-*` | The queue, the duplicate case, nothing to sort, **a cash withdrawal** (`17c`) and **Cash in hand** (`17d`, both widths). A withdrawal is a *move*, not a spend — the one row the queue asks no category for, because there is none to ask. **Its own nav destination**, shown only when a bank is linked. |
 | 14 · Household | `18-*` | Two amounts for one expense, and for a savings target. |
 | 15 · Import and export | `19-*` | The three-stage flow — spec §7.9, the most dangerous action in the app. |
 | 16 · Mark | `00-cover-*`, `00-logo-*` | The design-stop cover, and the mark: construction grid, sizes, app icon, favicon, wordmark lockups, misuses. |

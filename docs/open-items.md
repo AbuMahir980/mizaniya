@@ -3581,3 +3581,136 @@ here than it would elsewhere; the aggregator bills **per linked account**, which
 is what makes the tier honest (§11a); and ADR-011 means movements pass through
 the server, so the wording at sign-up is the approved one and **never** the
 sentence §10.1 forbids.
+
+### M·49 — The cash case, drawn; and Bank movements becomes its own destination
+
+**109 — a withdrawal is a move, not a spend.** Owner approved the M·48 proposal
+on 27 September and asked for it under **Bank movements** rather than
+Transactions, which is the better home.
+
+**`17c · Reconciliation · a cash withdrawal`.** The one row in the queue that
+gets no envelope question, because there is no envelope to name. Every other
+movement has one answer a person can give; ₦6,500.00 left the account and became
+an unknown number of things in a market, and no narration string will ever say
+which. `seed-data.md` already knew — movement 8, *"cash out, so the category is
+genuinely unknowable from the feed."*
+
+The owner's test was **"every naira can be accounted for."** A question with no
+answer cannot meet it. A different question can:
+
+| ✗ | *what was this ₦6,500 for?* | unanswerable, so it gets guessed |
+| :-: | --- | --- |
+| **✓** | ***how much of it is still unspent?*** | **answerable, by subtraction** |
+
+**No envelope chips on that row.** Offering them would be the app asking a
+question it cannot check, which is exactly how a wrongly filed movement gets
+made — and §A1 is that a wrong answer about someone's money is worse than no
+answer.
+
+**`17d · Cash in hand`, at both widths.** Where the withdrawal lands, and the
+arithmetic that replaces the guess: *taken out · recorded so far · not accounted
+for yet*. Today ₦6,500.00 / ₦0.00 / ₦6,500.00, because nothing has been recorded
+against it — the state a person is in the moment the queue moves the money
+across. **Both widths, because this is the rare surface that belongs to both**:
+the money is moved at a desk, through the queue, and it is *spent* in a market
+with a phone in your hand. One body, two frames.
+
+**Not amber, not rose.** Unaccounted cash is not a mistake and not a warning; it
+is money you still have. Colouring it would make the honest act of withdrawing
+look like a failure, and §7.4 already says a large expense is not an error.
+
+**No partly-spent board, deliberately.** It needs cash spends the seed does not
+have, and **repo rule 2** says a figure that does not exist is asked for, not
+invented. → proposed seed addition below.
+
+#### 110 — Bank movements is its own destination
+
+The owner: *"is it clear which is sectioned, or should we separate it out of
+Transactions and make it a separate nav called Bank movements, only visible for
+paid subscribers?"* He is right, and the ambiguity was real: **the queue rendered
+with *Transactions* lit in the sidebar**, so an inbox of things that are *not yet
+in your record* looked like part of the record.
+
+**Two different jobs.** Transactions is your **ledger**. This is an **inbox** —
+it has a count, it empties, and an inbox with a count does not belong buried
+inside another screen.
+
+**The item appears only when a bank is linked** — not greyed, not locked, not
+there at all. Item 24 and the build guard: no padlock, no crown, *unlock* appears
+nowhere. **A disabled nav item for a thing you have not paid for is an
+advertisement wearing a control's clothes**, and the free tier is a complete
+product whose nav should look like one.
+
+**§636 stands**: the Home row is still how you learn there is anything to sort,
+and it *"never blocks anything."* This is where that row goes — not a second way
+to be told.
+
+#### Proposed seed addition — cash spends against movement 8
+
+Needed for the partly-spent board, and for the figure that makes the feature
+worth paying for. **Owner's call; nothing is drawn from it until it is in
+`seed-data.md`.**
+
+| Date | Amount | Recorded as | Category |
+|---|---:|---|---|
+| Sun 12 Oct | ₦1,200.00 | Bus fare, hand-entered | Transport, data and airtime |
+| Mon 13 Oct | ₦2,000.00 | Market, hand-entered | Food and groceries |
+| **Left** | **₦3,300.00** | — | *not accounted for* |
+
+₦6,500.00 − ₦3,200.00 = **₦3,300.00**. Two rows is enough to show the
+arithmetic; more would only make the board taller.
+
+**Also needed from the spec**, both named in M·48 and neither decided:
+a **`Moved to cash`** type label — §7.4's list has eight and this is a ninth —
+and whether **Cash in hand** exists as a holding object at all. Without the
+second, the withdrawal has nowhere to go.
+
+### M·50 — What the numbers actually say about a ₦1,000 tier
+
+The owner, thinking aloud: *"maybe for subscription we can charge as little as
+₦1,000 … 100 users × ₦1,000 is ₦100,000. And how much do these platforms that
+use the API charge? That is also another question to check."*
+
+Checked, 27 September. **Four findings, and one of them is good news.**
+
+**1 · Payment fees are not the problem.** Paystack's Nigerian rate is
+**1.5% + ₦100, and the ₦100 is waived under ₦2,500**. So a ₦1,000 subscription
+costs **₦15**, not ₦115. At 100 subscribers: ₦100,000 gross, **₦98,500 net**.
+This was the thing most likely to kill a low price point and it does not.
+
+**2 · ₦1,000 is about 72 US cents.** The naira sits around **₦1,390** parallel /
+**₦1,328.50** CBN. So ₦100,000 a month at 100 users is roughly **\$72 in total**
+— and that \$72 has to cover the server, the aggregator, and everything else.
+
+**3 · No Nigerian aggregator publishes a price.** Mono, Okra and Stitch all say
+*"flexible pricing — contact sales"*; Okra's public figure is 100 free sandbox
+calls. **The number the whole tier depends on is one nobody will quote in
+public**, which makes getting a written quote a *gating item*, not a detail. The
+margin cannot be known until it exists.
+
+**4 · Mono was acquired by Flutterwave on 6 January 2026** — all-stock, reported
+at \$25–40m, with Mono continuing to operate independently. Worth knowing before
+building on it: the aggregator is now owned by a payments company, and pricing
+terms can move after an acquisition.
+
+#### The design consequence, which is mine to raise
+
+If the aggregator bills **per linked account per month**, then every subscriber
+who links a bank carries a recurring dollar cost against a ₦1,000 ceiling. At
+\$0.72 of headroom *in total*, a per-account fee of even \$0.40 leaves almost
+nothing for hosting.
+
+So: **make the linked account the thing that is counted, not the subscriber.**
+One linked account included in the tier; a second costs more. That keeps a
+per-account cost from being unbounded per head, and it is honest — §11a already
+says *"the paid features are the ones that cost money to run … that makes the
+price honest rather than arbitrary."* Pricing the tier per *person* while paying
+per *account* is the one shape that breaks that sentence.
+
+**Not a design decision** — it is a pricing decision and it is the owner's. But
+the screens differ depending on the answer (`16 · What an account adds` would
+have to say what "one account included" means), so it is logged here rather than
+left to be discovered at build time.
+
+**Sources:** Paystack pricing · nairatoday.com FX · Okra pricing page ·
+openbankingtracker.com · fintechfutures.com on the Flutterwave–Mono deal.
