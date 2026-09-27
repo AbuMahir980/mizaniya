@@ -3474,3 +3474,110 @@ So the header sticks and the list scrolls under it — which is what §7.3 asked
 all along: *“it must stay visible while typing, because it is the only feedback
 that the plan is finished.”* **Length is not the problem; losing the figure would
 be.**
+
+### M·47 — Two gaps on Transactions, and one of them is not Transactions'
+
+The owner asked whether anything is missing. Two things, and the second is
+bigger than the screen he asked about.
+
+**107 — the savings subtotal per destination is drawn nowhere.** §7.4 is
+explicit that when the filter is set to the two savings types — *which is where
+Home's "Saved" tile lands* — the filter bar carries a subtotal **per
+destination**, and that this *"is the whole of 'savings by destination'. It
+needs no screen of its own."* It has no screen of its own **and it is not on the
+one it belongs to**, so as things stand it will not be built. `09` and `09b`
+between them draw the filter bar twice and neither shows it.
+
+*One snag to settle first:* the spec's own worked example names a real Nigerian
+savings company as a destination. **Repo rule 3** keeps third-party names out, so
+the drawn version needs an invented destination, the way the bank payee strings
+already are.
+
+**108 — no screen on this canvas shows a failure. Not one.** Every page spec has
+an Error row — *"Couldn't load your movements." + Retry*, *"Couldn't open your
+data." + Retry*, **"never a blank screen"** — and there are **zero** Retry states
+across 209 artboards. Loading is fine: the primitives sheet carries the skeleton
+rule (*"the skeleton of the row it will become — never a spinner over a blank
+screen"*) and a per-screen board would add nothing. **An error is not like
+that**: the copy differs per screen, the retry target differs, and what stays on
+screen while it fails differs. A build with no drawn error state invents one,
+and the one it invents is a centred grey message on white.
+
+This is a canvas-wide gap, not Transactions'. It is listed here because this is
+where it was found.
+
+### M·48 — What bank linking is for, and the one thing it can never tell you
+
+The owner: *"When a user takes out money, how do we capture it in Transactions
+and know what it was actually used for? Do users need to add descriptions? That
+is the only use case I can see for linking a bank — or is there another?"*
+Asked for a view, so this is one. **Everything below is a proposal to the spec,
+not a design decision** — §M is behaviour.
+
+**The part that is already settled.** §M2: *"As a subscriber, I want to be asked
+which envelope a detected movement belongs to, **because only I know**."* The app
+never guesses a category. That is the reconciliation queue, and it is drawn
+(`17`, `17a`, `17b`).
+
+**The part that is not, and cannot be.** A feed says money left the account. It
+never says what it was *for*. For card and transfer payments the narration is a
+strong hint. **For cash it is unknowable, and no amount of engineering changes
+that** — the seed already says so about movement 8, `ATM WDL LEKKI BR 0041`:
+*"cash out, so the category is genuinely unknowable from the feed."*
+
+**So no, descriptions are not the answer.** Asking people to annotate their own
+withdrawals reintroduces exactly the typing the feed exists to remove, and
+depends on the habit that fails: people stop recording around week two. That is
+*why* manual budgeting apps die, and designing the paid feature to depend on it
+would be building the failure in on purpose.
+
+#### The proposal: a withdrawal is a move, not a spend
+
+**₦20,000 out of an ATM is money changing LOCATION, not purpose.** Treat it that
+way and the unanswerable question becomes an answerable one:
+
+1. The feed records it as **Moved to cash** — a holding of its own, not a
+   category. §7.4's type list already has *moved* types; this is one more.
+2. **Safe-to-spend does not move when you withdraw**, because nothing has been
+   spent. (Categorise a withdrawal as an expense and taking out ₦20,000 makes the
+   day look catastrophic — on a screen whose whole job is one honest figure.)
+3. Cash spends are recorded by hand against that holding. This is the **one**
+   place manual entry is genuinely unavoidable, and saying so plainly is better
+   than pretending otherwise everywhere.
+4. And the app can then say the one useful thing no bank can:
+   **"₦6,500 of the ₦20,000 you took out on 12 October is not accounted for."**
+   A question with an answer, and no guess anywhere in it.
+
+**Open question for the spec:** does a *Cash in hand* holding exist as an
+object? It needs one — otherwise the withdrawal has nowhere to go. Related: what
+happens to unaccounted cash at cycle end.
+
+#### Remember the answer, never invent one
+
+Add to M2: **the queue remembers the payee.** `MKTSQUARE ILUPEJU POS 8801` →
+Groceries, answered once, never asked again. That is a rule **the person made**,
+not advice the app invented, so **A1 survives intact** — and it is the only way a
+queue stays usable, because one that asks the same eight questions every month
+is one people abandon.
+
+#### Tracking is not the main use case
+
+Four more, and the first is the one people pay for:
+
+| | |
+|---|---|
+| **Completeness** | Every manual budgeting app dies the week the owner stops typing. The feed is the safety net: *these eight happened and you recorded none of them* |
+| **A cash-left figure that is real** | Not derived from what somebody remembered to enter |
+| **Things you would never catch** | The seed's `CARD MAINTENANCE FEE` is exactly this — a ₦900 charge nobody chose. Duplicate charges, forgotten subscriptions, reversals |
+| **Debt matching** | A transfer to A. Friend's account lands against the debt without being told twice |
+
+And what it is **not** for, which the spec already states: *"Paying does not buy
+suggestions. The paid tier buys **reach** — sync, sharing, bank movement — never
+opinions about someone's money."*
+
+**Three constraints worth writing down** before this gets built: Nigerian
+narration quality is poor and differs by bank, so the payee memory matters more
+here than it would elsewhere; the aggregator bills **per linked account**, which
+is what makes the tier honest (§11a); and ADR-011 means movements pass through
+the server, so the wording at sign-up is the approved one and **never** the
+sentence §10.1 forbids.
