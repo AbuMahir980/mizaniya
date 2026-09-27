@@ -929,7 +929,7 @@
    "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 1655,
+   "h": 1674,
    "title": "08 \u00b7 Plan \u00b7 360 \u00b7 light",
    "page": "page-plan",
    "print": "fixed"
@@ -949,7 +949,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 1655,
+   "h": 1674,
    "title": "08 \u00b7 Plan \u00b7 360 \u00b7 dark",
    "page": "page-plan",
    "print": "fixed"
@@ -969,7 +969,7 @@
    "x": 1652,
    "y": 1897,
    "w": 462,
-   "h": 708,
+   "h": 728,
    "title": "08b \u00b7 Plan \u00b7 no categories yet \u00b7 360 \u00b7 light",
    "page": "page-plan",
    "print": "fixed"
@@ -989,7 +989,7 @@
    "x": 3906,
    "y": 1897,
    "w": 462,
-   "h": 708,
+   "h": 728,
    "title": "08b \u00b7 Plan \u00b7 no categories yet \u00b7 360 \u00b7 dark",
    "page": "page-plan",
    "print": "fixed"
@@ -1009,7 +1009,7 @@
    "x": 1652,
    "y": 2902,
    "w": 462,
-   "h": 1570,
+   "h": 1609,
    "title": "08c \u00b7 Plan \u00b7 nothing allocated yet \u00b7 360 \u00b7 light",
    "page": "page-plan",
    "print": "fixed"
@@ -1029,15 +1029,35 @@
    "x": 3906,
    "y": 2902,
    "w": 462,
-   "h": 1570,
+   "h": 1609,
    "title": "08c \u00b7 Plan \u00b7 nothing allocated yet \u00b7 360 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanScrolledLight.dc.html",
+   "x": 0,
+   "y": 4701,
+   "w": 1512,
+   "h": 1173,
+   "title": "08e \u00b7 Plan \u00b7 scrolled, header pinned \u00b7 1440 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanScrolledDark.dc.html",
+   "x": 1652,
+   "y": 4701,
+   "w": 1512,
+   "h": 1173,
+   "title": "08e \u00b7 Plan \u00b7 scrolled, header pinned \u00b7 1440 \u00b7 dark",
    "page": "page-plan",
    "print": "fixed"
   },
   {
    "file": "WebPlanAddCategoryLight.dc.html",
    "x": 0,
-   "y": 4691,
+   "y": 6064,
    "w": 1512,
    "h": 1599,
    "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 1440 \u00b7 light",
@@ -1047,7 +1067,7 @@
   {
    "file": "MwPlanAddCategoryLight.dc.html",
    "x": 1652,
-   "y": 4691,
+   "y": 6064,
    "w": 462,
    "h": 774,
    "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 360 \u00b7 light",
@@ -1057,7 +1077,7 @@
   {
    "file": "WebPlanAddCategoryDark.dc.html",
    "x": 2254,
-   "y": 4691,
+   "y": 6064,
    "w": 1512,
    "h": 1599,
    "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 1440 \u00b7 dark",
@@ -1067,7 +1087,7 @@
   {
    "file": "MwPlanAddCategoryDark.dc.html",
    "x": 3906,
-   "y": 4691,
+   "y": 6064,
    "w": 462,
    "h": 774,
    "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 360 \u00b7 dark",
@@ -1077,7 +1097,7 @@
   {
    "file": "MwPlanMenuLight.dc.html",
    "x": 0,
-   "y": 6480,
+   "y": 7853,
    "w": 462,
    "h": 469,
    "title": "08a \u00b7 Plan \u00b7 row menu \u00b7 360 \u00b7 light",
@@ -1087,7 +1107,7 @@
   {
    "file": "MwPlanMenuDark.dc.html",
    "x": 602,
-   "y": 6480,
+   "y": 7853,
    "w": 462,
    "h": 469,
    "title": "08a \u00b7 Plan \u00b7 row menu \u00b7 360 \u00b7 dark",

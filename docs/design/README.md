@@ -3,7 +3,7 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-**207 artboards over seventeen pages**, as of 27 September — every screen at 360
+**209 artboards over seventeen pages**, as of 27 September — every screen at 360
 **and** 1440, light **and** dark, the two widths of one screen on the same row,
 and **one page per screen**.
 
@@ -16,7 +16,7 @@ and **one page per screen**.
 >
 > | | Pages | Files | Manifest |
 > |---|---|---|---|
-> | **The app** — the canvas under review | 3–15 | 179 | `canvas/canvas.json` |
+> | **The app** — the canvas under review | 3–15 | 181 | `canvas/canvas.json` |
 > | **Front and foundations** | 1–2, 16–17 | 30 | `canvas/canvas-front.json` |
 >
 > The cut follows a seam that was already there: the landing page and the
@@ -114,7 +114,7 @@ fine flipping through and is useless for review — you cannot point at "the sig
 screen" if sign-in is the right-hand half of a board called Auth. So every file below is
 one screen, and its name says which.
 
-**207 artboards across 17 pages, on two canvases.** File names are `NN-what-it-is-WIDTH-theme.png`,
+**209 artboards across 17 pages, on two canvases.** File names are `NN-what-it-is-WIDTH-theme.png`,
 numbered in flow order, and the same stem names the `.dc.html` beside it in `canvas/`.
 
 > **Re-cut 27 September, one page per screen.** It was five pages, two of which
@@ -134,7 +134,7 @@ numbered in flow order, and the same stem names the `.dc.html` beside it in `can
 | 2 · Security and privacy | `20-*`, `21-*` | The page, and the same page as the modal sign-up opens. §10.1's sentence lives here **once**. |
 | 3 · Account and setting up | `01-*` … `05.6-*` | Sign up · address already taken · sign in · forgot · check your email · set a new password, then the six setting-up steps and the three pickers 360 needs. |
 | 4 · Home | `07-*` | Home, amber, over, **no plan**, **a brand-new account** (`07c2`), a plan with no movements, offline, this cycle, the More sheet. `07c` and `07c2` are two different first screens: onboarding's saved-pots and debts steps are optional. |
-| 5 · Plan | `08-*` | Plan · the 360 row menu · **no categories yet** · **nothing allocated yet** · **add a category**. The last three are new on 27 September: §7.3 names two empty states and the canvas had neither, and the add form existed only in onboarding. |
+| 5 · Plan | `08-*` | Plan · the row menu · no categories yet · nothing allocated yet · add a category · **scrolled, header pinned** (`08e`). `08e` is the one board clipped to a viewport, because a board has no fold and is therefore a bad guide to how tall a screen feels. |
 | 6 · Transactions | `09-*` | The list, and **both** empty states — they want opposite things. |
 | 7 · Quick Add | `10-*` | The sheet at 360, the dialog at 1440, record a payment, edit a movement. |
 | 8 · Debts and goals | `11-*`, `12-*` | Debts and Goals (no tabs at 1440) · Goals at 360 · add a debt · add a goal · the debt record. |

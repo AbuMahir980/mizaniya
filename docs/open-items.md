@@ -3423,3 +3423,54 @@ a week.
 build** rather than losing boards. And `docs/design/` is not split: every board
 and every preview stays in one place, because which canvas a board is published
 on is a fact about the editor, not about the design.
+
+### M·46 — Three controls nothing opened, and an action that only existed at 360
+
+**104 — the row menu had no way in.** The owner: *“How does a user get to the
+Plan row menu? Is it that they click on a category like Rent fund and it pops
+out?”* The honest answer was **nothing opened it.** `08a` drew the menu as a
+floating card and neither width had an affordance, so the three controls §7.3
+*Actions* requires — **rolls over · protect from safe to spend · archive** — were
+unreachable on the screen that owns them.
+
+**Not the row, and not the name.** The row's own control is the amount field,
+which is what a person is there to type in; a row that is both a text input and a
+button is a row where every missed tap opens a menu you did not want. So it gets
+its own target at the end of the row — a column of its own at 1440, after the
+field at 360, 40px square so it clears the 44px minimum with the row's padding.
+
+**105 — *Copy last cycle's plan* was only at 360, greyed, and silent.** Three
+faults in one control:
+
+1. **Missing at 1440.** §7.3 puts it top right. It was never drawn there.
+2. **Disabled with no reason**, which the spec forbids in as many words:
+   *“disabled with a reason when there is no previous cycle — **never silently
+   inert**.”* A greyed control that will not say why is one a person taps twice
+   and then stops trusting.
+3. **Disabled on a seed where it should not be.** `seed-data.md` has cycle 1
+   (25 Aug – 24 Sep) **completed**, so on the worked day there *is* a plan to
+   copy. It is live on `08`, and disabled *with its reason* — “This is your first
+   cycle” — on `08b` and `08c`, which is the only place the disabled state is
+   true.
+
+**106 — how long Plan is, and why it is not shortened.** The owner asked whether
+each group should scroll in its own box, or show three rows behind a *view more*,
+because the screen gets long. **`08e` is the answer, drawn**: the one board on the
+canvas clipped to a viewport.
+
+**The board is long because a board has no fold.** It draws the whole screen at
+once, which is what makes it useful for review and a bad guide to how tall the
+screen feels.
+
+**One scroller, and nothing hidden behind a control.** Plan is a **completion
+task** — you are driving *Free* to ₦0.00 — and you cannot see what is left to
+give a job to if a third of the rows are behind *view more*; you would expand all
+three groups every time before you could start. **Three scroll boxes on one
+screen is worse again**: you never know which one has the wheel, and each box
+would size its own columns, which is the fault this screen was fixed for one
+commit ago.
+
+So the header sticks and the list scrolls under it — which is what §7.3 asked for
+all along: *“it must stay visible while typing, because it is the only feedback
+that the plan is finished.”* **Length is not the problem; losing the figure would
+be.**
