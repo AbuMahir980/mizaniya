@@ -30,7 +30,7 @@
   },
   {
    "id": "page-bank",
-   "name": "13 \u00b7 Bank movements"
+   "name": "13 \u00b7 Bank movements \u2014 inside Transactions"
   }
  ],
  "artboards": [
@@ -555,11 +555,91 @@
    "print": "fixed"
   },
   {
-   "file": "WebTransactionsLight.dc.html",
+   "file": "WebBankLight.dc.html",
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 840,
+   "h": 1293,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankLight.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 832,
+   "h": 1280,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebBankDark.dc.html",
+   "x": 2624,
+   "y": 0,
+   "w": 1512,
+   "h": 1293,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankDark.dc.html",
+   "x": 4276,
+   "y": 0,
+   "w": 832,
+   "h": 1280,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebBankLockedLight.dc.html",
+   "x": 0,
+   "y": 1483,
+   "w": 1512,
+   "h": 962,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankLockedLight.dc.html",
+   "x": 1652,
+   "y": 1483,
+   "w": 574,
+   "h": 926,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebBankLockedDark.dc.html",
+   "x": 2366,
+   "y": 1483,
+   "w": 1512,
+   "h": 962,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankLockedDark.dc.html",
+   "x": 4018,
+   "y": 1483,
+   "w": 570,
+   "h": 926,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsLight.dc.html",
+   "x": 0,
+   "y": 2635,
+   "w": 1512,
+   "h": 900,
    "title": "09 \u00b7 Transactions \u00b7 1440 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -567,9 +647,9 @@
   {
    "file": "MwTransactionsLight.dc.html",
    "x": 1652,
-   "y": 0,
+   "y": 2635,
    "w": 832,
-   "h": 1511,
+   "h": 1593,
    "title": "09 \u00b7 Transactions \u00b7 360 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -577,9 +657,9 @@
   {
    "file": "WebTransactionsDark.dc.html",
    "x": 2624,
-   "y": 0,
+   "y": 2635,
    "w": 1512,
-   "h": 840,
+   "h": 900,
    "title": "09 \u00b7 Transactions \u00b7 1440 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -587,9 +667,9 @@
   {
    "file": "MwTransactionsDark.dc.html",
    "x": 4276,
-   "y": 0,
+   "y": 2635,
    "w": 832,
-   "h": 1511,
+   "h": 1593,
    "title": "09 \u00b7 Transactions \u00b7 360 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -597,9 +677,9 @@
   {
    "file": "WebTransactionsEmptyLight.dc.html",
    "x": 0,
-   "y": 1701,
+   "y": 4418,
    "w": 1512,
-   "h": 822,
+   "h": 882,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 1440 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -607,9 +687,9 @@
   {
    "file": "MwTransactionsEmptyLight.dc.html",
    "x": 1652,
-   "y": 1701,
+   "y": 4418,
    "w": 468,
-   "h": 636,
+   "h": 718,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 360 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -617,9 +697,9 @@
   {
    "file": "WebTransactionsEmptyDark.dc.html",
    "x": 2260,
-   "y": 1701,
+   "y": 4418,
    "w": 1512,
-   "h": 822,
+   "h": 882,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 1440 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -627,9 +707,9 @@
   {
    "file": "MwTransactionsEmptyDark.dc.html",
    "x": 3912,
-   "y": 1701,
+   "y": 4418,
    "w": 463,
-   "h": 636,
+   "h": 718,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 360 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -637,9 +717,9 @@
   {
    "file": "WebTransactionsSavingsLight.dc.html",
    "x": 0,
-   "y": 2713,
+   "y": 5490,
    "w": 1512,
-   "h": 1228,
+   "h": 1288,
    "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 1440 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -647,9 +727,9 @@
   {
    "file": "MwTransactionsSavingsLight.dc.html",
    "x": 1652,
-   "y": 2713,
+   "y": 5490,
    "w": 507,
-   "h": 698,
+   "h": 780,
    "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 360 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -657,9 +737,9 @@
   {
    "file": "WebTransactionsSavingsDark.dc.html",
    "x": 2299,
-   "y": 2713,
+   "y": 5490,
    "w": 1512,
-   "h": 1228,
+   "h": 1288,
    "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 1440 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -667,9 +747,9 @@
   {
    "file": "MwTransactionsSavingsDark.dc.html",
    "x": 3951,
-   "y": 2713,
+   "y": 5490,
    "w": 503,
-   "h": 698,
+   "h": 780,
    "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 360 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -677,9 +757,9 @@
   {
    "file": "WebTransactionsFilteredLight.dc.html",
    "x": 0,
-   "y": 4131,
+   "y": 6968,
    "w": 1512,
-   "h": 892,
+   "h": 952,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -687,9 +767,9 @@
   {
    "file": "MwTransactionsFilteredLight.dc.html",
    "x": 1652,
-   "y": 4131,
+   "y": 6968,
    "w": 500,
-   "h": 636,
+   "h": 718,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 light",
    "page": "page-tx",
    "print": "fixed"
@@ -697,9 +777,9 @@
   {
    "file": "WebTransactionsFilteredDark.dc.html",
    "x": 2292,
-   "y": 4131,
+   "y": 6968,
    "w": 1512,
-   "h": 892,
+   "h": 952,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -707,9 +787,9 @@
   {
    "file": "MwTransactionsFilteredDark.dc.html",
    "x": 3944,
-   "y": 4131,
+   "y": 6968,
    "w": 496,
-   "h": 636,
+   "h": 718,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 dark",
    "page": "page-tx",
    "print": "fixed"
@@ -799,7 +879,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 1191,
+   "h": 1214,
    "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 light",
    "page": "page-dg",
    "print": "fixed"
@@ -819,7 +899,7 @@
    "x": 2454,
    "y": 0,
    "w": 1512,
-   "h": 1191,
+   "h": 1214,
    "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 dark",
    "page": "page-dg",
    "print": "fixed"
@@ -837,7 +917,7 @@
   {
    "file": "MwGoalsLight.dc.html",
    "x": 0,
-   "y": 1381,
+   "y": 1404,
    "w": 462,
    "h": 864,
    "title": "11c \u00b7 Goals \u00b7 360 \u00b7 light",
@@ -847,7 +927,7 @@
   {
    "file": "MwGoalsDark.dc.html",
    "x": 602,
-   "y": 1381,
+   "y": 1404,
    "w": 462,
    "h": 864,
    "title": "11c \u00b7 Goals \u00b7 360 \u00b7 dark",
@@ -857,9 +937,9 @@
   {
    "file": "WebAddDebtLight.dc.html",
    "x": 0,
-   "y": 2435,
+   "y": 2458,
    "w": 1512,
-   "h": 1173,
+   "h": 1196,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 light",
    "page": "page-dg",
    "print": "fixed"
@@ -867,7 +947,7 @@
   {
    "file": "MwAddDebtLight.dc.html",
    "x": 1652,
-   "y": 2435,
+   "y": 2458,
    "w": 462,
    "h": 1467,
    "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 light",
@@ -877,9 +957,9 @@
   {
    "file": "WebAddDebtDark.dc.html",
    "x": 2254,
-   "y": 2435,
+   "y": 2458,
    "w": 1512,
-   "h": 1173,
+   "h": 1196,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 dark",
    "page": "page-dg",
    "print": "fixed"
@@ -887,7 +967,7 @@
   {
    "file": "MwAddDebtDark.dc.html",
    "x": 3906,
-   "y": 2435,
+   "y": 2458,
    "w": 462,
    "h": 1467,
    "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 dark",
@@ -897,9 +977,9 @@
   {
    "file": "WebAddGoalLight.dc.html",
    "x": 0,
-   "y": 4092,
+   "y": 4115,
    "w": 1512,
-   "h": 1191,
+   "h": 1214,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 light",
    "page": "page-dg",
    "print": "fixed"
@@ -907,7 +987,7 @@
   {
    "file": "MwAddGoalLight.dc.html",
    "x": 1652,
-   "y": 4092,
+   "y": 4115,
    "w": 462,
    "h": 1088,
    "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 light",
@@ -917,9 +997,9 @@
   {
    "file": "WebAddGoalDark.dc.html",
    "x": 2254,
-   "y": 4092,
+   "y": 4115,
    "w": 1512,
-   "h": 1191,
+   "h": 1214,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
    "page": "page-dg",
    "print": "fixed"
@@ -927,7 +1007,7 @@
   {
    "file": "MwAddGoalDark.dc.html",
    "x": 3906,
-   "y": 4092,
+   "y": 4115,
    "w": 462,
    "h": 1088,
    "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 dark",
@@ -937,7 +1017,7 @@
   {
    "file": "WebRecordLight.dc.html",
    "x": 0,
-   "y": 5473,
+   "y": 5519,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 light",
@@ -947,7 +1027,7 @@
   {
    "file": "MwRecordLight.dc.html",
    "x": 1652,
-   "y": 5473,
+   "y": 5519,
    "w": 462,
    "h": 1032,
    "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 light",
@@ -957,7 +1037,7 @@
   {
    "file": "WebRecordDark.dc.html",
    "x": 2254,
-   "y": 5473,
+   "y": 5519,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 dark",
@@ -967,7 +1047,7 @@
   {
    "file": "MwRecordDark.dc.html",
    "x": 3906,
-   "y": 5473,
+   "y": 5519,
    "w": 462,
    "h": 1032,
    "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 dark",
@@ -1115,11 +1195,51 @@
    "print": "fixed"
   },
   {
-   "file": "WebZakatNoHawlLight.dc.html",
+   "file": "WebZakatPickLight.dc.html",
    "x": 0,
    "y": 4712,
    "w": 1512,
-   "h": 1154,
+   "h": 1232,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 1440 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatPickLight.dc.html",
+   "x": 1652,
+   "y": 4712,
+   "w": 462,
+   "h": 1241,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 360 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatPickDark.dc.html",
+   "x": 2254,
+   "y": 4712,
+   "w": 1512,
+   "h": 1232,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 1440 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatPickDark.dc.html",
+   "x": 3906,
+   "y": 4712,
+   "w": 462,
+   "h": 1241,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 360 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatNoHawlLight.dc.html",
+   "x": 0,
+   "y": 6143,
+   "w": 1512,
+   "h": 1259,
    "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 1440 \u00b7 light",
    "page": "page-zk",
    "print": "fixed"
@@ -1127,9 +1247,9 @@
   {
    "file": "MwZakatNoHawlLight.dc.html",
    "x": 1652,
-   "y": 4712,
+   "y": 6143,
    "w": 462,
-   "h": 1223,
+   "h": 1307,
    "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 360 \u00b7 light",
    "page": "page-zk",
    "print": "fixed"
@@ -1137,9 +1257,9 @@
   {
    "file": "WebZakatNoHawlDark.dc.html",
    "x": 2254,
-   "y": 4712,
+   "y": 6143,
    "w": 1512,
-   "h": 1154,
+   "h": 1259,
    "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 1440 \u00b7 dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1147,9 +1267,9 @@
   {
    "file": "MwZakatNoHawlDark.dc.html",
    "x": 3906,
-   "y": 4712,
+   "y": 6143,
    "w": 462,
-   "h": 1223,
+   "h": 1307,
    "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 360 \u00b7 dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1159,7 +1279,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 993,
+   "h": 1113,
    "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 light",
    "page": "page-bank",
    "print": "fixed"
@@ -1169,7 +1289,7 @@
    "x": 1652,
    "y": 0,
    "w": 1512,
-   "h": 993,
+   "h": 1113,
    "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 dark",
    "page": "page-bank",
    "print": "fixed"
@@ -1177,9 +1297,9 @@
   {
    "file": "WebQueueDuplicateLight.dc.html",
    "x": 0,
-   "y": 1183,
+   "y": 1303,
    "w": 1512,
-   "h": 814,
+   "h": 934,
    "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 light",
    "page": "page-bank",
    "print": "fixed"
@@ -1187,9 +1307,9 @@
   {
    "file": "WebQueueDuplicateDark.dc.html",
    "x": 1652,
-   "y": 1183,
+   "y": 1303,
    "w": 1512,
-   "h": 814,
+   "h": 934,
    "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 dark",
    "page": "page-bank",
    "print": "fixed"
@@ -1197,9 +1317,9 @@
   {
    "file": "WebQueueCashLight.dc.html",
    "x": 0,
-   "y": 2187,
+   "y": 2427,
    "w": 1512,
-   "h": 1312,
+   "h": 1432,
    "title": "17c \u00b7 Reconciliation \u00b7 a cash withdrawal \u00b7 1440 \u00b7 light",
    "page": "page-bank",
    "print": "fixed"
@@ -1207,9 +1327,9 @@
   {
    "file": "WebQueueCashDark.dc.html",
    "x": 1652,
-   "y": 2187,
+   "y": 2427,
    "w": 1512,
-   "h": 1312,
+   "h": 1432,
    "title": "17c \u00b7 Reconciliation \u00b7 a cash withdrawal \u00b7 1440 \u00b7 dark",
    "page": "page-bank",
    "print": "fixed"
@@ -1217,9 +1337,9 @@
   {
    "file": "WebCashLight.dc.html",
    "x": 0,
-   "y": 3689,
+   "y": 4049,
    "w": 1512,
-   "h": 1004,
+   "h": 1124,
    "title": "17d \u00b7 Cash in hand \u00b7 1440 \u00b7 light",
    "page": "page-bank",
    "print": "fixed"
@@ -1227,7 +1347,7 @@
   {
    "file": "MwCashLight.dc.html",
    "x": 1652,
-   "y": 3689,
+   "y": 4049,
    "w": 462,
    "h": 840,
    "title": "17d \u00b7 Cash in hand \u00b7 360 \u00b7 light",
@@ -1237,9 +1357,9 @@
   {
    "file": "WebCashDark.dc.html",
    "x": 2254,
-   "y": 3689,
+   "y": 4049,
    "w": 1512,
-   "h": 1004,
+   "h": 1124,
    "title": "17d \u00b7 Cash in hand \u00b7 1440 \u00b7 dark",
    "page": "page-bank",
    "print": "fixed"
@@ -1247,7 +1367,7 @@
   {
    "file": "MwCashDark.dc.html",
    "x": 3906,
-   "y": 3689,
+   "y": 4049,
    "w": 462,
    "h": 840,
    "title": "17d \u00b7 Cash in hand \u00b7 360 \u00b7 dark",
@@ -1257,9 +1377,9 @@
   {
    "file": "WebQueueEmptyLight.dc.html",
    "x": 0,
-   "y": 4883,
+   "y": 5363,
    "w": 1512,
-   "h": 693,
+   "h": 763,
    "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 light",
    "page": "page-bank",
    "print": "fixed"
@@ -1267,9 +1387,9 @@
   {
    "file": "WebQueueEmptyDark.dc.html",
    "x": 1652,
-   "y": 4883,
+   "y": 5363,
    "w": 1512,
-   "h": 693,
+   "h": 763,
    "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 dark",
    "page": "page-bank",
    "print": "fixed"

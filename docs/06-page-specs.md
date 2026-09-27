@@ -63,8 +63,36 @@ the same thing nine times. It is stated once here instead.
 - Transactions is not a bottom-bar item. Quick Add covers the common case;
   browsing the list is the rarer one.
 
-**Desktop (1440px)** — a left sidebar, Quick Add as a button in the header, and
+**Desktop (1440px)** — a left sidebar, a **labelled action** in the header, and
 **two groups, not one flat list.**
+
+> ⚠ **THE HEADER ACTION IS CONTEXTUAL — owner's call, 27 Sep.** It is not Quick
+> Add on every screen. **It is the screen's own create action, labelled with what
+> it makes**; a screen with nothing of its own to create adds a movement.
+>
+> | Screen | The top bar reads |
+> |---|---|
+> | Home · Transactions · Months · Zakat · Settings and its pages | **Add a movement** |
+> | Plan | **Add a category** |
+> | Debts & Goals | **Add a debt** — and *Add a goal* on the Goals heading |
+> | Household | **Invite someone** |
+>
+> **And the screen does not repeat it.** Plan's *Add a category* moved out of its
+> page header, which was carrying three things beside a figure §7.3 says must not
+> be competed with. An empty state's own button is not a duplicate — that is the
+> empty state being a call to action.
+>
+> **The ⊕ at 360 is the opposite and stays global.** It has no label, it sits
+> under the thumb, and story G2 is a spend recorded at a counter: a control that
+> changes meaning per screen cannot be learned by muscle memory. A **labelled**
+> button can, which is the whole difference. `open-items.md` M·61.
+
+> ⚠ **BANK MOVEMENTS IS NOT A NAV ITEM — owner's call, 27 Sep, reversing the
+> morning's call the same day.** It is **a section of Transactions** (§7.4).
+> A nav item that is absent until you pay is invisible, so nobody on the free
+> tier ever learns the feature exists — which makes the thing the paid tier sells
+> the thing nobody can see. `10-design-brief.md` §4.13 still calls it a screen of
+> its own; that is superseded. `open-items.md` M·62.
 
 `Home · Plan · Transactions · Debts & Goals · Months · Zakat` — then the rest of
 the column's height — then `Settings`, on the bottom edge.
@@ -82,6 +110,39 @@ the column's height — then `Settings`, on the bottom edge.
 > would be the third horizontal division in 252px. 360 had this right all along
 > — Settings lives in the More sheet, behind a control, because a five-slot bar
 > has no room for a utility. The two widths now agree.
+
+---
+
+## 2a · Getting back — binding on every page *(added 27 Sep, owner's call)*
+
+> *"You should add it for every screen — just like how you have at the top your
+> Settings, then the chevron, and Import and export, so the user can click it and
+> go back. Because it does not make sense that if I'm in Transactions and then I
+> go to Household, for me to go back I have to click Transactions on the nav bar."*
+
+**Every screen you ENTER carries a way back. The six you NAVIGATE to do not.**
+
+Home, Plan, Transactions, Debts & Goals, Months and Zakat are **places**: the nav
+is how you move between them, and a back control on a place is a control with
+nothing to do. Everything reached from inside one of them — Household, a debt
+record, every page under Settings, *what an account adds* — is a page you
+**entered**, and it owes you the door.
+
+**Labelled, not a bare arrow.** At 1440 a crumb (`Plan › Household`); at 360 a
+real target with the parent's name beside the title. A bare ‹ asks you to
+remember where you came from; a crumb answers before you press it — which matters
+most in the case the owner named, arriving somewhere from an unusual direction,
+because a history arrow lands you somewhere different each time.
+
+**The browser's own back still works and is not a substitute.** This is a web app
+(ADR-009), so the browser button, the trackpad swipe and the phone's back gesture
+already do true history at no cost to us. What the app owes is what they cannot
+give: a way back that **says where it goes**, and one that still exists when the
+app is installed to a home screen and there is no browser chrome at all (§G).
+
+**The Zakat row in Settings is not this pattern.** It opens the Zakat
+**destination** and the nav lights up Zakat — a move, not a descent — so there is
+no crumb. The row says *Opens the Zakat screen* so the move is not a surprise.
 
 ---
 
@@ -633,6 +694,31 @@ keystroke.
 
 ### 7.4 · Transactions — `/transactions`
 
+> ⚠ **ADDED 27 Sep, owner's call. This screen has two sections now.** A
+> two-segment control sits **under the title and above the filters**: *Your
+> record* · *Bank movements · 3*. They are two accounts of the same month — the
+> ledger you have decided about, and the feed the bank sent — and the value of
+> the feature is reading one against the other. A control that changes the whole
+> screen goes above one that changes part of it. **The count lives on the
+> segment**; an inbox with a count should not need opening to see.
+>
+> **`/transactions/bank` lands on ALL movements, not on the queue.** The owner:
+> *"where is the view that shows them all their movements at first?"* The queue
+> is an inbox — it shows what is unsorted and it empties — so a movement that
+> was **skipped**, marked **not mine**, or **merged as a duplicate** went nowhere
+> a person could look. The unsorted count is a **banner on top of** the full
+> list, not a screen in front of it. Five states per row: *same as one you
+> entered* · a category · *to sort* · *left out — not mine* · *moved to cash in
+> hand*. Two of them are reversible decisions made in a hurry, and **this is the
+> only screen on which a person can see they made them**.
+>
+> **The state a non-subscriber sees is a DESCRIPTION, not a disabled control.**
+> Item 24 forbids a padlock, a crown and the word *unlock*, and the build fails
+> on any of them — its actual fault is a control that will not work, dressed as
+> one that will. This has no dead button in it, carries §10.1's sentence, and
+> **shows no count**, because a count of work you cannot do is a nag.
+> `open-items.md` M·62–M·63, and item 134 logs it as a cost.
+
 **Layout.** Filter bar (cycle selector, category, type, date range) → grouped
 list, newest first, day headers. Infinite list; no pagination controls.
 
@@ -946,6 +1032,26 @@ table.
 >
 > Drawn at both widths: the index, `· your data`, `· your cycle`,
 > `· categories`, and `· import and export`. See `docs/open-items.md` M·59.
+>
+> **The tree, complete — owner's question, 27 Sep: *"what an account adds —
+> under what settings category is it from?"*** The honest answer was *nowhere*,
+> which was the fault: it had a page of its own, rendered inside the Settings
+> frame, and no screen said which section it belonged to. **It is under *Your
+> account*** — an account is a setting (§08a), and this is the page that says
+> what having one gets you.
+>
+> ```
+> Settings
+> ├── Your data                 storage · space · unexported changes · install
+> ├── Your account
+> │   └── What it adds          the tier page
+> ├── Your cycle                salary day · take-home · the amber threshold
+> ├── Categories                add · rename · archive · reorder
+> ├── Savings destinations      the fixed five
+> ├── Import and export         export · import · the three flow screens
+> ├── Zakat                     → opens /zakat. Leaves settings, and says so
+> └── About                     version · licence · how the data is held
+> ```
 
 **Sections, in this order** — data safety first, because it is the thing the
 owner most needs to act on.
@@ -1031,6 +1137,25 @@ the zakatable amount · the hawl start date and its source.
 **Three things this screen must do.**
 
 1. **Ask for the hawl start once**, and if unknown, say what it fell back to: *"Tracking from 25 September 2026, your first record."* (D6)
+
+> ⚠ **HOW IT IS ASKED — added 27 Sep.** The owner: *"how does the zakat screen
+> start operating? For a user that has not set the year, how do they start? I
+> can't see that here."* He could not, because two chips with no consequence
+> written on either is not a flow. **Both options state what they would do before
+> either is chosen**, which is the rule above applied one step earlier:
+> *Choose a date* opens a picker; *Track from my first record* commits at once,
+> to a date **named on the screen**, not discovered afterwards.
+>
+> **The picker is Gregorian, deliberately.** The hawl is lunar, so every instinct
+> says pick it in the hijri calendar — and that is exactly wrong for the person
+> doing it. Nobody remembers *my savings passed the nisab on 3 Safar*; they
+> remember a month and a rough week of an ordinary year. **Pick in the calendar
+> you think in; the app shows its working** — what the date is in the other
+> calendar, and the date the year completes.
+>
+> **Only the chosen day carries a hijri date.** Mapping a whole month means
+> asserting the length of Muharram 1448, which is settled by sighting. Repo
+> rule 2 applies to calendars too.
 2. **Ask once whether money owed to you counts**, defaulting to neither position, with a note to check with someone qualified (D3).
 3. **Never read as a ruling.** The caveat is part of the figure, not decoration.
 

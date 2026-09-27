@@ -343,6 +343,8 @@ Every diagram carries a text key. None of them is the only way to read a figure.
 | **Icon tile** | 38px, `radius.md`, `*2` tint fill, matching hue icon | one per row that needs an identity |
 | **Card** | `card`, `line`, `radius.lg`, `elevation.card` | default · hover · focused · loading · error · empty |
 | **Sheet / Dialog** | `card`, `radius.xl`, `elevation.card`, `scrim` | mobile: bottom sheet · desktop: centred 480px dialog. Focus trapped, Escape closes |
+| **Crumb / back** | 1440: `lab` parts joined by a `faint` chevron. 360: a 38px `radius.md` target with the parent's name above the title | **On every screen you ENTER; on none of the six you navigate to.** `ui.crumb` / `ui.backbar` — one definition. §2a of `06-page-specs.md` has the rule |
+| **Segmented section** | `card` in a `line` frame, `radius.md`; active segment `ink` fill, `bg` text; a count rides the label at 55% opacity | Sits **above** any filter on the same screen: a control that changes the whole screen goes above one that changes part of it |
 | **Rail (ProgressBar)** | `track` bed, hue fill, `radius.sm`, 5–6px | default · complete · over (`rose`) · indeterminate. Always beside a text percentage in tables |
 | **ListRow** | `hair` bottom border, 52–56px, `chev` mark | default · hover · focused · disabled |
 | **Switch** | `track`/`line` off, `emerald` on, `radius.full` knob | off · on · focused · disabled |
@@ -552,6 +554,14 @@ One consequence for the build, since the landing page has a prose budget: the
 Arabic is a **mark, not copy**, and the word counter skips it. A budget meant to
 stop a page arguing with itself should not be the thing that decides whether the
 product's name appears in full.
+
+**The running tally of one-thing-drawn-twice, because it keeps happening.** The
+gauge, the ceiling line, the plan card, the money bar, `08e`'s shadow — and on
+27 September **the way back**, which existed in `settings2.py` and nowhere else,
+so the debt record and the tier page never got it and nothing was going to catch
+the next screen that forgot. Six in a month. **The pattern is always the same:
+the second copy is cheaper to type than the shared one is to extract, and the
+drift is invisible until somebody reviews two screens side by side.**
 
 ### 10.3 · Sentences that were true once — a build guard, not a habit
 

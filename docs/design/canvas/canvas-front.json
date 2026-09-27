@@ -833,7 +833,7 @@
    "x": 1652,
    "y": 1458,
    "w": 462,
-   "h": 806,
+   "h": 817,
    "title": "15a \u00b7 Settings \u00b7 your data \u00b7 360 \u00b7 light",
    "page": "page-set",
    "print": "fixed"
@@ -853,7 +853,7 @@
    "x": 3906,
    "y": 1458,
    "w": 462,
-   "h": 806,
+   "h": 817,
    "title": "15a \u00b7 Settings \u00b7 your data \u00b7 360 \u00b7 dark",
    "page": "page-set",
    "print": "fixed"
@@ -873,7 +873,7 @@
    "x": 1652,
    "y": 2543,
    "w": 462,
-   "h": 723,
+   "h": 734,
    "title": "15b \u00b7 Settings \u00b7 your cycle \u00b7 360 \u00b7 light",
    "page": "page-set",
    "print": "fixed"
@@ -893,7 +893,7 @@
    "x": 3906,
    "y": 2543,
    "w": 462,
-   "h": 723,
+   "h": 734,
    "title": "15b \u00b7 Settings \u00b7 your cycle \u00b7 360 \u00b7 dark",
    "page": "page-set",
    "print": "fixed"
@@ -913,7 +913,7 @@
    "x": 1652,
    "y": 3576,
    "w": 462,
-   "h": 885,
+   "h": 896,
    "title": "15c \u00b7 Settings \u00b7 categories \u00b7 360 \u00b7 light",
    "page": "page-set",
    "print": "fixed"
@@ -933,7 +933,7 @@
    "x": 3906,
    "y": 3576,
    "w": 462,
-   "h": 885,
+   "h": 896,
    "title": "15c \u00b7 Settings \u00b7 categories \u00b7 360 \u00b7 dark",
    "page": "page-set",
    "print": "fixed"
@@ -963,7 +963,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 960,
+   "h": 995,
    "title": "16 \u00b7 What an account adds \u00b7 1440 \u00b7 light",
    "page": "page-tier",
    "print": "fixed"
@@ -973,7 +973,7 @@
    "x": 1652,
    "y": 0,
    "w": 1512,
-   "h": 960,
+   "h": 995,
    "title": "16 \u00b7 What an account adds \u00b7 1440 \u00b7 dark",
    "page": "page-tier",
    "print": "fixed"
@@ -981,9 +981,9 @@
   {
    "file": "WebTiersLapsedLight.dc.html",
    "x": 0,
-   "y": 1150,
+   "y": 1185,
    "w": 1512,
-   "h": 1061,
+   "h": 1096,
    "title": "16a \u00b7 What an account adds \u00b7 lapsed \u00b7 1440 \u00b7 light",
    "page": "page-tier",
    "print": "fixed"
@@ -991,9 +991,9 @@
   {
    "file": "WebTiersLapsedDark.dc.html",
    "x": 1652,
-   "y": 1150,
+   "y": 1185,
    "w": 1512,
-   "h": 1061,
+   "h": 1096,
    "title": "16a \u00b7 What an account adds \u00b7 lapsed \u00b7 1440 \u00b7 dark",
    "page": "page-tier",
    "print": "fixed"
@@ -1013,7 +1013,7 @@
    "x": 1652,
    "y": 0,
    "w": 462,
-   "h": 1010,
+   "h": 1021,
    "title": "18 \u00b7 Household \u00b7 just you \u00b7 360 \u00b7 light",
    "page": "page-hh",
    "print": "fixed"
@@ -1033,7 +1033,7 @@
    "x": 3906,
    "y": 0,
    "w": 462,
-   "h": 1010,
+   "h": 1021,
    "title": "18 \u00b7 Household \u00b7 just you \u00b7 360 \u00b7 dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1053,7 +1053,7 @@
    "x": 1652,
    "y": 1429,
    "w": 462,
-   "h": 1189,
+   "h": 1200,
    "title": "18a \u00b7 Household \u00b7 shared with Aisha \u00b7 360 \u00b7 light",
    "page": "page-hh",
    "print": "fixed"
@@ -1073,7 +1073,7 @@
    "x": 3906,
    "y": 1429,
    "w": 462,
-   "h": 1189,
+   "h": 1200,
    "title": "18a \u00b7 Household \u00b7 shared with Aisha \u00b7 360 \u00b7 dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1081,7 +1081,7 @@
   {
    "file": "WebDisagreeALight.dc.html",
    "x": 0,
-   "y": 2808,
+   "y": 2819,
    "w": 1512,
    "h": 935,
    "title": "18b \u00b7 Household \u00b7 two amounts for one expense \u00b7 1440 \u00b7 light",
@@ -1091,7 +1091,7 @@
   {
    "file": "WebDisagreeADark.dc.html",
    "x": 1652,
-   "y": 2808,
+   "y": 2819,
    "w": 1512,
    "h": 935,
    "title": "18b \u00b7 Household \u00b7 two amounts for one expense \u00b7 1440 \u00b7 dark",
@@ -1101,7 +1101,7 @@
   {
    "file": "WebDisagreeBLight.dc.html",
    "x": 0,
-   "y": 3933,
+   "y": 3944,
    "w": 1512,
    "h": 881,
    "title": "18c \u00b7 Household \u00b7 two amounts for a savings target \u00b7 1440 \u00b7 light",
@@ -1111,7 +1111,7 @@
   {
    "file": "WebDisagreeBDark.dc.html",
    "x": 1652,
-   "y": 3933,
+   "y": 3944,
    "w": 1512,
    "h": 881,
    "title": "18c \u00b7 Household \u00b7 two amounts for a savings target \u00b7 1440 \u00b7 dark",
@@ -1133,7 +1133,7 @@
    "x": 1652,
    "y": 0,
    "w": 462,
-   "h": 1037,
+   "h": 1048,
    "title": "19 \u00b7 Import and export \u00b7 360 \u00b7 light",
    "page": "page-imp",
    "print": "fixed"
@@ -1153,7 +1153,7 @@
    "x": 3906,
    "y": 0,
    "w": 462,
-   "h": 1037,
+   "h": 1048,
    "title": "19 \u00b7 Import and export \u00b7 360 \u00b7 dark",
    "page": "page-imp",
    "print": "fixed"
