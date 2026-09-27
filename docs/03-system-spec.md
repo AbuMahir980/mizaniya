@@ -354,7 +354,23 @@ Given / When / Then. All **Must** stories; **Should** stories abbreviated.
 - **Given** the seeded worked day (5 October), **when** Home opens, **then** the hero reads **₦7,500** with *"₦220,000 left · 20 days to 25 October"* beneath it, in green.
 - **Given** the amber variant, **then** the hero reads **₦5,000** in amber — below the ₦5,200 threshold (**D15**).
 - **Given** spending that exceeds cash left, **then** the figure is negative and red.
-- **Given** no plan, **then** the figure shows with **no** amber or red state and the *finish your plan* banner is visible.
+> ⚠ **SUPERSEDED BY THE OWNER, 26 September 2026 — no plan, no figure.**
+> The line below is kept until the spec owner rewrites it, so the change is
+> visible rather than silent. **Do not build the line below.**
+>
+> Owner: *“If a user does not have a plan, obviously there should be no figure
+> showing. Are you telling me that once something goes to production and the
+> user has no plan, you'll be showing a figure for them?”*
+>
+> Safe-to-spend is cash left minus what the **plan** protects, over the days
+> left. With no plan there is no protected set, so the quantity does not exist.
+> ₦8,666.66 is the *spendable* total ÷ 30 — a figure a plan produces. The hero
+> block is absent at both widths; the screen leads with the invitation.
+> See `docs/open-items.md` item 94 and §N, and the drawn screens
+> `07c-home-no-plan-yet-{360,1440}-{light,dark}.png`.
+
+- ~~**Given** no plan, **then** the figure shows with **no** amber or red state and the *finish your plan* banner is visible.~~
+- **Given** no plan, **then** there is **no hero figure at all**; Home leads with *“Nothing is planned yet”*, the take-home the owner entered, and **Set your plan**. The *finish your plan* prompt is that card, not a banner under a number.
 - **Given** it is the last day of the cycle, **then** `daysLeft` is 1 and the app never divides by zero.
 - **Given** ₦75,000 already moved to the rent fund, **when** protection is calculated, **then** rent contributes **₦0**, not ₦75,000 — protection counts *planned minus actual*, so money already moved is not subtracted twice (**D1**).
 

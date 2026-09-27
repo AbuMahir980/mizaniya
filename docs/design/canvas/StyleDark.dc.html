@@ -7,7 +7,7 @@
 <body>
 <x-dc>
 <helmet>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600&family=Amiri:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
   <style>
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0}
@@ -80,6 +80,13 @@ body{margin:0}
 .mz .sw.on>i{left:auto;right:2px;background:var(--onEmerald);border-color:transparent}
 .mz .sk{background:var(--track);border-radius:6px;height:12px;display:block}
 
+.mz .ar{font-family:Amiri,"Noto Naskh Arabic",serif;direction:rtl}
+.mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
+
+.mz .rowmenu{width:40px;height:40px;border-radius:11px;display:inline-flex;
+     align-items:center;justify-content:center;color:var(--soft);flex:0 0 auto;
+     border:1px solid var(--line);margin-left:10px}
+
 .mz .dtbl{width:100%;border-collapse:collapse;font-size:14.5px}
 .mz .dtbl th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;
      text-transform:uppercase;color:var(--soft);font-weight:400;text-align:left;
@@ -89,6 +96,16 @@ body{margin:0}
 .mz .dtbl td{padding:16px 22px 16px 0;border-bottom:1px solid var(--hair);
      vertical-align:middle}
 .mz .dtbl tr:last-child td{border-bottom:0}
+/* The row menu's target. 40px square, so it clears the 44px minimum with the
+   cell padding, and it is the LAST thing in the row so it is never between
+   the category name and its amount. */
+.mz .rowmenu{width:40px;height:40px;border-radius:10px;display:inline-flex;
+     align-items:center;justify-content:center;color:var(--soft);
+     border:1px solid var(--line)}
+/* A GROUP BAND INSIDE ONE TABLE, not a table of its own - see `dtable`. */
+.mz .dtbl td.grp{font-family:"JetBrains Mono",monospace;font-size:10px;
+     letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+     padding:34px 0 12px;border-bottom:0}
 </style>
 </helmet>
 <div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">Style · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--serw:600;--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:390px;background:var(--card);

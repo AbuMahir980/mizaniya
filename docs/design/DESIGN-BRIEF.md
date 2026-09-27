@@ -195,7 +195,7 @@ dark** — 65 artboards over eleven pages.
 ```
 docs/design/README.md                    what is here, which spec commit, the date
 docs/design/tokens.md                    the complete token set, both themes
-docs/design/PROPOSED-seed-additions.md   figures the design needed; NOT yet in seed-data
+docs/seed-data.md                        the only source of figures (repo rule 2)
 docs/design/canvas/                      the editable source: one .dc.html per artboard
                                          plus canvas.json — re-seed a Claude Design canvas
 docs/design/html/                        the same artboards as standalone pages; open any

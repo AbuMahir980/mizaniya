@@ -176,6 +176,49 @@ The bookish register is the design, not a decoration on it.
 
 ---
 
+### 3.2 · A figure inside a line of the voice face
+
+§3 already says **money never uses EB Garamond**, and that rule held across all 69
+app boards because no app screen puts a figure in a title. The landing page does —
+*"You owe A. Friend ₦90,000.00. Three paydays from now you do not."* — and the first
+drawing of it set the whole line in EB Garamond, which is how the gap in the rule was
+found: the rule says what face money may not take, not what to do when money has to
+sit **inside** a sentence that is in that face.
+
+What it looks like when you get it wrong, because both faults are the face behaving
+correctly:
+
+- **Its figures are old-style.** Measured from the outlines: `0` is 0.434em and sits
+  at x-height, `9` is 0.573em and descends 0.143em below the baseline. So
+  ₦90,000.00 sets as ₦9o,ooo.oo — lowercase money.
+- **Its naira glyph reads as a strikethrough.** The bars are wide enough to look like
+  a rule drawn through the figure, and on a line about a debt that is precisely the
+  mark a reader expects to see over a number that has been settled.
+
+**The rule: the words stay in the voice face, the figure switches to Inter, at
+`0.88em` of the surrounding size and weight 500.**
+
+`0.88` is measured, not chosen by eye: EB Garamond's cap height is 0.658em and Inter's
+lining figures are 0.747em, so 0.658 ÷ 0.747 = 0.881 sets the figure exactly as tall
+as the capitals beside it. Weight 500 rather than the money default of 600, because
+Inter 600 out-colours EB Garamond 500 and the line reads as two documents spliced
+together.
+
+Applied as one class so it cannot drift:
+
+```css
+.ser .ngn, .h2 .ngn {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: .88em; font-weight: 500; letter-spacing: -.018em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+```
+
+**Dates and ordinals in prose are not money and stay in the voice face** — *"Your
+salary lands on the 25th. By the 12th…"* is exactly what old-style figures are for,
+and it is better set than it would be in Inter. The switch is for money only.
+
+
 ## 4 · Money
 
 ```html
@@ -217,6 +260,22 @@ elevation.card   light  0 1px 2px rgba(23,26,23,.05), 0 12px 30px -16px rgba(23,
 elevation.lift   every primary button, and the Add action —
                  light  0 8px 20px -8px rgba(15,92,60,.55)
                  dark   0 8px 20px -8px rgba(78,203,139,.4)
+
+**There are two elevation values and there is no third.** `08e`'s pinned header had
+its own — `0 10px 18px -12px rgba(0,0,0,.28)`, typed into one builder for one board
+— and the owner saw the result before anyone saw the cause: *"what is being elevated
+is not properly shown."*
+
+**The fix was not a stronger shadow. It was a surface.** The block was `background:
+var(--bg)`, the same colour as the page behind it, and `elevation.card` is soft by
+design — it reads against a different colour, not against its own. A raised thing is
+`card`; what it is raised above is `bg`. **If an elevation is not reading, check which
+two surfaces are involved before reaching for a new number.**
+
+One more rule the same board settled: **a nested frame is a step down the radius
+scale, never equal to its parent.** The clipped viewport sits inside the 22px desktop
+frame, so it is `radius.lg` (16px). Two 22px corners nested inside each other read as
+a rendering error rather than as two surfaces.
 
 motion.fast    120ms    press, focus, hover, chip and pill selection
 motion.base    180ms    expand, tab change, banner, chart and rail fills
@@ -284,6 +343,8 @@ Every diagram carries a text key. None of them is the only way to read a figure.
 | **Icon tile** | 38px, `radius.md`, `*2` tint fill, matching hue icon | one per row that needs an identity |
 | **Card** | `card`, `line`, `radius.lg`, `elevation.card` | default · hover · focused · loading · error · empty |
 | **Sheet / Dialog** | `card`, `radius.xl`, `elevation.card`, `scrim` | mobile: bottom sheet · desktop: centred 480px dialog. Focus trapped, Escape closes |
+| **Crumb / back** | 1440: `lab` parts joined by a `faint` chevron. 360: a 38px `radius.md` target with the parent's name above the title | **On every screen you ENTER; on none of the six you navigate to.** `ui.crumb` / `ui.backbar` — one definition. §2a of `06-page-specs.md` has the rule |
+| **Segmented section** | `card` in a `line` frame, `radius.md`; active segment `ink` fill, `bg` text; a count rides the label at 55% opacity | Sits **above** any filter on the same screen: a control that changes the whole screen goes above one that changes part of it |
 | **Rail (ProgressBar)** | `track` bed, hue fill, `radius.sm`, 5–6px | default · complete · over (`rose`) · indeterminate. Always beside a text percentage in tables |
 | **ListRow** | `hair` bottom border, 52–56px, `chev` mark | default · hover · focused · disabled |
 | **Switch** | `track`/`line` off, `emerald` on, `radius.full` knob | off · on · focused · disabled |
@@ -375,13 +436,312 @@ salary.
 
 > **We never store your bank data in readable form.**
 
-That exact string appears on the landing page and on the sign-up trust panel, and
-the two must be **character-identical** — two slightly different privacy claims read
-as a company that is not sure, which is worse than one plain one. It lives here so
-there is one copy of it; a screen or a page quotes this line rather than rewriting it.
+That exact string appears on the landing page and on **sign-up**, and the two must
+be **character-identical** — two slightly different privacy claims read as a company
+that is not sure, which is worse than one plain one. It lives here so there is one
+copy of it; a screen or a page quotes this line rather than rewriting it.
+
+**Amended 25 September:** it used to say *the sign-up trust panel*. That panel is
+gone. It carried four claim blocks on every auth screen, and a fixed wording repeated
+in five places is a wording that will eventually differ in one of them — which it
+did: the forbidden sentence got into that panel twice. Sign-up now carries this claim
+and a link; the three supporting claims below live in **one** modal behind that link.
+The claim itself did not change, and it is still required on sign-up.
 
 The three supporting claims travel with it and are also fixed wording:
 
 - Encrypted, with the keys held outside the database.
 - Every access to production data is logged, and you can ask for that record.
 - Bank access is **read-only** — it can see money move, it cannot move money.
+
+### 10.2 · The wordmark — when ميزانية appears, and when it does not
+
+The name is **Mīzāniyah** set in EB Garamond 600 with **ميزانية** in Amiri
+**above** it, half its size, never larger, and never carrying a figure.
+
+The brand sheet used to carry a DON'T tile reading *never set the Arabic above
+the Latin*. It was drawn when the Arabic was two-thirds the size of the Latin —
+and at that size, above does read as a competing headline, so the tile was right
+about the real fault and wrong about the cause. At half the size, pulled onto the
+cap line, it accompanies rather than competes. **The tile now says what is
+actually true: never let the Arabic match or outweigh the Latin.** A DON'T that
+contradicts the lockup beside it is worse than no DON'T at all.
+
+### The romanisation — owner's call, 25 September
+
+ميزانية transliterates letter for letter as **m-ī-z-ā-n-i-y-a-h**, and the long
+vowels are the point: they are the alif and the ya the Arabic actually has.
+*Mizaniya* threw both away, and the ta marbuta with them.
+
+**The wordmark is lettering; prose is text.** The macrons belong in the drawn
+name — the lockup, the cover, first launch, the sidebar — and not in a URL, a
+filename, a package name, an email address or anything a person in Lagos has to
+type in order to find us. Running copy still reads *Mizaniya* (item 85 asks the
+owner whether it should follow). Set ī (U+012B) and ā (U+0101), never ī/ā built
+from combining marks, and never a tilde: EB Garamond has both characters and
+Google Fonts serves them from the latin-ext subset without a second request.
+
+### How the two lines sit together
+
+The owner, on the first attempt: *“it should look like a child on a parent —
+written tiny, but part of the main name, not sitting separately.”* Three things
+were making it two objects instead of one.
+
+| | Was | Is | Why |
+|---|---|---|---|
+| Position | under the Latin | **above it** | Owner's call, third pass: *“it sits on top of it, like a child on the head of a parent, in its tiny form.”* |
+| Alignment | right | **right — unchanged** | Left was tried and sent back. ميزانية starts at the RIGHT, so its first letter sits over the Latin's last one — over the *h*, running back towards the *M*. Each script begins at its own reading edge |
+| Horizontal | flush right | **shifted left 30%** of the Latin size | Flush right put it over the *h*, the tallest thing in the word and the one place with no room. `-iya-` is four x-height letters with nothing above them but the *i*'s dot, so the skyline has a valley between the ā's macron and the *h*'s ascender. The Arabic drops into it |
+| Pull | top margin | **bottom margin, −28%** | Deeper than it could sit over the *h*, precisely because there is nothing under it now. Much past that and the tails of the *ya* and the *ta marbuta* reach the *i*'s dot |
+| Font | Inter's fallback | **Amiri** | `.ar` lived in `brand.AR_CSS`, which every builder had to remember to append, and `build_land.py` did not. It is in `ui.ALL_CSS` now, and Amiri is in the global font link |
+| Leading | `line-height: 1.5` | **1.05, with a −10% pull** | Amiri sits low in its own box, so 1.5 on top of that put most of a blank line between them |
+| Size | 0.68 of the Latin | **0.5** | At 0.68 it competed; at 0.5 it is clearly the smaller of two things that belong together |
+
+A −25% pull starts to crowd the *y* descender. −10% is the value.
+
+### Where the Arabic appears
+
+| Where | The Arabic |
+|---|---|
+| **Every public-facing screen**: the landing page and its nav, first launch, the account and setting-up screens, security and privacy, splash, the cover | **Stacked, always.** The owner's instruction, 25 September: *wherever we have the logo, the Arabic must accompany it* |
+| **The app's own sidebar and the phone header too** — owner, 26 September | **Stacked.** It fits: ميزانية sits ON the word now, so the lockup is barely taller than the word itself, and the reason for the exception has gone |
+
+**The phone header was written down here on 26 September and drawn on the 27th,
+and the owner had to ask for it.** *"On mobile, there's a mobile web for every
+this thing — the logo has to be showing, it's not showing."* The sidebar got
+`br.lockup(25, 24)` the day the rule was written; the phone header got the rule
+and no drawing, so **this file carried the instruction for a day while 56 boards
+shipped without it.** A rule in the token file is not a drawing, and nothing was
+checking.
+
+It matters more at 360 than at 1440, and the reason is the PWA. At 1440 the
+sidebar is 252px of standing chrome. At 360 there is no sidebar, so nothing on
+the screen said which app you were in — in a browser tab the domain was doing
+the whole job, and **installed to a home screen there is no address bar at all**
+(spec §G: *the app is installable*).
+
+**The 360 app bar** — 48px, `lockup(20, 16)` stacked, left, a `hair` rule under
+it, and **nothing on the right**. No back arrow: the nav is the way back. No
+screen title: every screen carries its own, one size up. A bar that has to earn
+48px of a phone screen should not also become the place things get put — if a
+sync indicator ever needs a global slot, that is a decision to make, not a place
+to drift into.
+
+**It is applied at one point, not eleven.** There are eleven hand-built 390px
+frames across six files, and hand-adding the bar to each would have been a
+twelfth way to get it wrong plus a silent omission on every frame written after
+that day. `ui.with_appbar` inserts it once per finished 360 board, on any frame
+**containing the bottom nav** (or marked `<!--appbar-->`, for the scrimmed
+sheet-over-Home boards whose screen behind is clipped above its nav). Sheets,
+dialogs and row menus have no nav and are skipped; the sign-up screens carry
+their own stacked lockup already. **The counts are a build guard**: navs and
+bars must match, or a screen has shipped without the product's name on it.
+
+**Dropped, not shrunk** still holds wherever it is dropped. Amiri at 9px is not
+the Arabic — it is a smudge that happens to be the right shape. The landing nav
+is 76px tall and has room for two lines, which is why it stacks there; a 28px
+toolbar does not, which is why it does not.
+
+**How it went missing, 25 September.** `brand.wordmark()` has always set it
+correctly, and the owner had to point out that the name had lost half of itself
+on the landing page, on sign-up and on first launch. Every one of those screens
+had **hand-typed its own lockup** instead of calling the component, and a
+hand-typed lockup has no Arabic in it. Same failure as §10.1's trust panel, four
+days apart: one thing defined once and re-typed five times drifts in five
+directions. **A lockup is a component call. There is no second way to draw it.**
+
+One consequence for the build, since the landing page has a prose budget: the
+Arabic is a **mark, not copy**, and the word counter skips it. A budget meant to
+stop a page arguing with itself should not be the thing that decides whether the
+product's name appears in full.
+
+**The running tally of one-thing-drawn-twice, because it keeps happening.** The
+gauge, the ceiling line, the plan card, the money bar, `08e`'s shadow — and on
+27 September **the way back**, which existed in `settings2.py` and nowhere else,
+so the debt record and the tier page never got it and nothing was going to catch
+the next screen that forgot. Six in a month. **The pattern is always the same:
+the second copy is cheaper to type than the shared one is to extract, and the
+drift is invisible until somebody reviews two screens side by side.**
+
+### 10.3 · Sentences that were true once — a build guard, not a habit
+
+**Three lines of the same shape were found in four days**, each written when it
+was true and none re-read when it stopped:
+
+| Where | What it said |
+|---|---|
+| Home, offline banner | *your data is on this device and was never sent anywhere* |
+| Onboarding at 390 | *everything you enter stays on this device* |
+| First launch, third tile | *Nothing leaves this device — no account, no server, no sync.* |
+
+**ADR-009** (24 September) gave v1 a server, accounts and sync. Every one of
+those was correct before it and false after it, and all three survived rewrites
+of the screens around them — because **nobody re-reads a reassurance.**
+
+Three independent finds is a class, not a slip. Owner's call, 25 September: make
+it a guard. `guards.py` in the design sources runs it over every rendered board;
+**the app build should run the same list over its own strings.**
+
+```
+never leaves this device     never sent anywhere        nothing leaves
+never leaves your device     never sent to a server     never uploaded
+leaves this device           no server                  only on this device
+stays on this device         no sync
+stays on your device
+```
+
+**What the list is for, so it is not widened into uselessness.** It catches one
+narrow, recurring, expensive family: **an absolute claim about where the owner's
+data does not go.** Those are load-bearing for trust, cheap to write, and
+silently invalidated by an architecture decision taken in another file. It is
+not a general honesty checker and must not grow into one — *“We never see
+it and never store it”*, on the Security page about a card number, is true,
+is the point of that page, and is deliberately **not** on the list.
+
+**The escape hatch is narrow and visible.** A screen genuinely about the free
+single-device tier wraps the claim in `<!--tier-local-->` … `<!--/tier-local-->`
+— a decision someone made on purpose, which shows up in a diff. Board notes are
+exempt (they are wrapped in `<!--note-->` by the board component), because a note
+that quotes a banned sentence in order to explain the ban is the correct use of
+it. **§10.1's forbidden sentence has no hatch at all.**
+
+### 10.4 · Say it the way a person would
+
+The owner, 26 September, on Home: *“for an average user this is not
+understandable — I have to start racking my head. Let's assume we are building
+for dummies.”* He was right about every line he named, and the fix is never to
+show less: **every figure stays, and gets named in words a person already uses.**
+
+| Was | Is | What was wrong |
+|---|---|---|
+| *₦14,667.67 ahead of pace* | *₦14,666.67 — more than you should have spent by now* | **“Ahead” means good in English** and meant *spending too fast* here. (And the figure was wrong: see below.) |
+| *Spent ₦110,000.00 · Expected ₦95,333.33* | *Spent so far · Fair share by day 11* | “Expected” by whom, and of what? |
+| *Carry on at this rate and the cycle ends at ₦300,000.00 — ₦40,000.00 past the plan* | *Keep spending at this speed and you will have spent ₦300,000.00 by the end of the cycle on 24 October. Your plan for the cycle is ₦260,000.00, so that is ₦40,000.00 too much.* | Three figures to hold at once, and **“the plan” was a number the card had never shown** |
+| *÷ 20 days, rounded down → ₦7,500.00* | *That is where today's figure comes from: ₦150,000.00 free shared over the 20 days left — ₦7,500.00 a day* | An operation with no named operand, so ₦7,500 read as a fourth mystery figure instead of the one at the top of the screen |
+| *Expected by now ₦3,667 · of ₦10,000* | *Fair share by today ₦3,667 · Planned ₦10,000 for the cycle* | Asks the reader to work out that one is a pro-rata slice of the other |
+| *Worst pace first* | *Worst first* | |
+| *Expected by day 11 · The whole allowance · Past the allowance, not just the pace* | *Fair share by today · The whole cycle's plan · Already spent more than the whole plan* | A legend nobody can read is a legend that is not there |
+
+### Plain, then SHORT — the second half of the rule
+
+The table above is only half of it. The first pass fixed the words and **broke
+the cards**: the projection ran four lines, the two figures sat crammed on one
+line, and every category row grew a third. The owner sent that back the same
+day: *“it makes the UI too busy … it's a budget app, all those long long
+things are not needed.”*
+
+He is right, and doubly so at 360, where four lines of prose is the whole fold.
+**A design canvas flatters long copy; a phone does not.** So:
+
+| | |
+|---|---|
+| Two figures that belong together | a **labelled list**, not a crammed line — the eye compares two numbers instead of parsing a string |
+| An explanation longer than a line | **one short line and an (i)** — correct, and behind a control rather than on the card |
+| A row that already has a chart | **two short halves** — *₦10,000 planned · ₦4,000 over*. The bar carries the precision; the text says what was planned and whether this one is a problem |
+
+**Nothing is shown less.** Every figure is still on the screen. The rule is the
+pair: **name it in words a person uses, then say it in as few as possible.**
+Either half alone gives you a screen that is wrong — jargon, or a wall.
+
+**“Should have spent by now” is the phrase, and it took four goes.**
+*Expected* → *fair share by day 11* → *should have by now* → **should have spent
+by now**. The owner sent the second back twice — plainer than the first and
+**still a phrase you have to be taught** — and then read the third and asked:
+*“Is it what the user is supposed to have if they had not spent more than, or
+what they currently have now because they've spent more?”* **The verb was
+missing, so the sentence had two readings and one of them was money in hand.**
+On a budget screen those two readings are opposites. One word fixed it. The
+final phrase repeats the words already under the big figure, so the card says
+one thing in one vocabulary; the tick on every category bar is *where you
+should be today*, the same idea in the same words.
+
+**Four passes on five words is not waste.** It is the difference between a
+screen a person reads and a screen a person decodes. And the last pass is the
+one worth remembering: the first three were about vocabulary, the fourth about
+**grammar** — a phrase can use only common words and still be ambiguous.
+
+### A figure is called out once
+
+26 September, the hero at 360. Under **₦7,500.00** sat *₦220,000.00 left · 20
+days to 25 Oct*, and under that *of ₦8,666.66 a day · amber below ₦5,200.00*.
+Every one of those figures is true and each was added to help. Together they
+put **five numbers around one number**, two of them existing only to explain
+the first. The owner: *“you call out the figure — it's not needed, take it
+out.”*
+
+**An explanation of a figure is not a reading of it.** The second line earns
+its place because it says what the figure is *made of* and when it runs out.
+The third only restated the same money at a different granularity, and named a
+threshold for a colour change — **and a colour explains itself at the moment it
+changes**, which is the only moment it matters.
+
+This is the same rule as *plain, then short*, one level up: not *say it in
+fewer words* but **say it once**.
+
+### An empty state is a whole screen, not a card
+
+26 September. *No plan yet* and *a plan, no movements* were both **the working
+screen with one card swapped**, so every other figure on them was the worked
+day's: ₦110,000.00 spent on a screen that says nothing has been planned, a rent
+fund of ₦475,000.00 that only reaches that figure through a plan this person has
+not made, and — on the screen that says ₦0.00 spent — ₦150,000.00 free. The
+owner: *“if a user has not set any plan, every figure, every component should be
+an empty state. It's contradictory.”*
+
+**Every figure on a screen is downstream of the same facts.** Swapping the card
+that names the state and leaving the rest is not an empty state; it is a working
+screen wearing a label. The test is one question asked of each figure in turn:
+*what would have had to happen for this number to exist?* Spent, Saved, Free and
+every projection are consequences of a plan and of movements. Balances and
+agreed schedules are not — they were typed in at onboarding and they stay.
+
+And **an empty figure is rarely zero.** ₦0.00 safe to spend is what Home says
+when the money is gone; a plan with nothing recorded against it is the opposite
+situation and reads ₦13,000.00. Reaching for zero because a state is called
+*empty* is how a screen ends up saying the reverse of what is true.
+
+**And sometimes the answer is no figure at all.** The owner, on *no plan yet*:
+*“Obviously there should be no figure showing. Are you telling me that once this
+goes to production you'll be showing a figure for them? It has to appear the way
+it's supposed to appear in production.”* Safe-to-spend is cash left minus what
+the **plan** protects, over the days left — with no plan there is no protected
+set, so the quantity does not exist. **A number in a hero slot is a promise that
+the app knows something.** When it does not, the block goes: an empty slot is
+worse than none, because a label with a dash under it draws the eye to an
+absence and still has to be read before it can be dismissed.
+
+What replaces it is not a third apology. **One invitation, and the facts the
+person actually gave you.** *No plan yet* had reached three cards all saying
+there was nothing to show — the figure's explanation, the money card's, and the
+category column's — each pointing at the same single action. Three ways of
+saying nothing is not an empty state; it is clutter with no content.
+
+### One empty state per region — and a region is what reads as one thing
+
+The owner's rule, 26 September, stated as a rule rather than as a fix:
+
+> *“If they are together, that means there is one empty state. If they are not
+> together, you create empty states for them.”*
+
+Home's top row is **one** region — the figure and its reason, read left to right,
+which is the whole argument for having two columns. So when it is empty it is
+**one card at the row's full width**. The first attempt left a 560px card with a
+wide bare margin beside it, which is the silhouette of a two-column layout that
+lost a column: **an empty state that keeps the furniture of the state it
+replaces reads as a failure to load.**
+
+Goals and Debts are **two** regions, side by side, and either can be absent on
+its own — saving for something and owing someone are different facts about a
+person. So they get one card each.
+
+**A heading with nothing under it is not an empty state; it is a hole.** Each
+card occupies the space its list would have, says what goes there in the
+person's own terms, and carries the one action that fills it. Nothing else: an
+empty state is the cheapest place in an app to start explaining and the most
+expensive place to be read.
+
+**A rounding bug fell out of the rewrite.** The headline figure printed
+`f"{abs(gap):,.0f}"` naira with `":02.0f"` kobo stapled on, so ₦14,666.67 came
+out as **₦14,667.67** — a figure that exists nowhere in the arithmetic. **Money
+is floored to the naira and the kobo carried; it is never rounded and then given
+kobo.**

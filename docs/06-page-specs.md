@@ -45,7 +45,7 @@ the same thing nine times. It is stated once here instead.
 | 5 | **Debts & Goals** | `/debts` | P0 | Nav, Home goals table |
 | 5a | **Debt record** | `/debts/:id/record` | P1 | A debt card |
 | 6 | **Months** | `/months` | P1 | Nav (under More on mobile) |
-| 7 | **Settings** | `/settings` | P0 | Nav (under More on mobile) |
+| 7 | **Settings** | `/settings` | P0 | Nav — **the sidebar's bottom group at 1440**, under More on mobile (§2) |
 | 7a | **Zakat** | `/zakat` | P1 | Settings; **may slip past v1** (D13) |
 
 ---
@@ -63,8 +63,86 @@ the same thing nine times. It is stated once here instead.
 - Transactions is not a bottom-bar item. Quick Add covers the common case;
   browsing the list is the rarer one.
 
-**Desktop (1440px)** — a left sidebar with every destination listed flat, no
-More. Quick Add becomes a button in the header.
+**Desktop (1440px)** — a left sidebar, a **labelled action** in the header, and
+**two groups, not one flat list.**
+
+> ⚠ **THE HEADER ACTION IS CONTEXTUAL — owner's call, 27 Sep.** It is not Quick
+> Add on every screen. **It is the screen's own create action, labelled with what
+> it makes**; a screen with nothing of its own to create adds a movement.
+>
+> | Screen | The top bar reads |
+> |---|---|
+> | Home · Transactions · Months · Zakat · Settings and its pages | **Add a movement** |
+> | Plan | **Add a category** |
+> | Debts & Goals | **Add a debt** — and *Add a goal* on the Goals heading |
+> | Household | **Invite someone** |
+>
+> **And the screen does not repeat it.** Plan's *Add a category* moved out of its
+> page header, which was carrying three things beside a figure §7.3 says must not
+> be competed with. An empty state's own button is not a duplicate — that is the
+> empty state being a call to action.
+>
+> **The ⊕ at 360 is the opposite and stays global.** It has no label, it sits
+> under the thumb, and story G2 is a spend recorded at a counter: a control that
+> changes meaning per screen cannot be learned by muscle memory. A **labelled**
+> button can, which is the whole difference. `open-items.md` M·61.
+
+> ⚠ **BANK MOVEMENTS IS NOT A NAV ITEM — owner's call, 27 Sep, reversing the
+> morning's call the same day.** It is **a section of Transactions** (§7.4).
+> A nav item that is absent until you pay is invisible, so nobody on the free
+> tier ever learns the feature exists — which makes the thing the paid tier sells
+> the thing nobody can see. `10-design-brief.md` §4.13 still calls it a screen of
+> its own; that is superseded. `open-items.md` M·62.
+
+`Home · Plan · Transactions · Debts & Goals · Months · Zakat` — then the rest of
+the column's height — then `Settings`, on the bottom edge.
+
+> **Amended 26 September, the owner's call.** It was one flat list of seven with
+> Settings sitting between Months and Zakat, as though it were a seventh place
+> the money is. *“Settings should not be part of the main navigation — it should
+> be at the bottom of that nav, separate from the other main navigations.”*
+> **The six above are destinations; Settings is where you change how the app
+> behaves.** Sorting that list by nothing gives a utility equal billing with the
+> thing the product is for.
+>
+> The separator is the **remaining height of the column**, not a rule: the
+> sidebar already has a border on its right edge, and a second line across it
+> would be the third horizontal division in 252px. 360 had this right all along
+> — Settings lives in the More sheet, behind a control, because a five-slot bar
+> has no room for a utility. The two widths now agree.
+
+---
+
+## 2a · Getting back — binding on every page *(added 27 Sep, owner's call)*
+
+> *"You should add it for every screen — just like how you have at the top your
+> Settings, then the chevron, and Import and export, so the user can click it and
+> go back. Because it does not make sense that if I'm in Transactions and then I
+> go to Household, for me to go back I have to click Transactions on the nav bar."*
+
+**Every screen you ENTER carries a way back. The six you NAVIGATE to do not.**
+
+Home, Plan, Transactions, Debts & Goals, Months and Zakat are **places**: the nav
+is how you move between them, and a back control on a place is a control with
+nothing to do. Everything reached from inside one of them — Household, a debt
+record, every page under Settings, *what an account adds* — is a page you
+**entered**, and it owes you the door.
+
+**Labelled, not a bare arrow.** At 1440 a crumb (`Plan › Household`); at 360 a
+real target with the parent's name beside the title. A bare ‹ asks you to
+remember where you came from; a crumb answers before you press it — which matters
+most in the case the owner named, arriving somewhere from an unusual direction,
+because a history arrow lands you somewhere different each time.
+
+**The browser's own back still works and is not a substitute.** This is a web app
+(ADR-009), so the browser button, the trackpad swipe and the phone's back gesture
+already do true history at no cost to us. What the app owes is what they cannot
+give: a way back that **says where it goes**, and one that still exists when the
+app is installed to a home screen and there is no browser chrome at all (§G).
+
+**The Zakat row in Settings is not this pattern.** It opens the Zakat
+**destination** and the nav lights up Zakat — a move, not a descent — so there is
+no crumb. The row says *Opens the Zakat screen* so the move is not a surprise.
 
 ---
 
@@ -364,7 +442,7 @@ snapshot. **Opening balances become dated transactions, never a stored total**
 | Loading | None. Nothing to load on a first run |
 | Empty | This screen *is* the empty state for the whole app |
 | Error | Field-level, inline, below the field. A failed save **keeps every entered value** and offers Retry — the owner never re-types |
-| Offline | Normal. Step 1 carries the line: *"Everything you enter stays on this device."* |
+| Offline | ⚠ **SUPERSEDED — do not build this line.** Normal. ~~Step 1 carries the line: *"Everything you enter stays on this device."*~~ **That sentence is false and has been since ADR-009 gave v1 a server on 24 September**, and it is on `guards.py`'s forbidden list — the build guard fails any board carrying it. It is the sixth false-comfort line found, and the first in the spec rather than in a drawing, which is worse because the build reads the spec. Step 1 carries no such claim; the only approved wording about data is `tokens.md` §10.1. See `docs/open-items.md` item 118 and §N. |
 | Success | Land on Home with correct figures already showing — never an empty Home |
 
 **Validation.**
@@ -471,7 +549,7 @@ is arithmetic, not advice (system spec §3).
 | | |
 |---|---|
 | Loading | Skeletons in the hero and tile shapes. Roughly one frame — the snapshot is in memory (ADR-001) |
-| Empty — no plan | Hero shows the full planned allowance with **no amber or red**; unallocated banner reads the full take-home |
+| Empty — no plan | ⚠ **Superseded 26 Sep — see the hero table below.** ~~Hero shows the full planned allowance~~ — there is no *planned* allowance without a plan. **No hero at all**: one invitation card, then the goals and debts the owner entered at onboarding. No right column at 1440 |
 | Empty — plan, no transactions | Tiles read ₦0 of their planned figures. Category rows show full allowances. This is a correct screen, not an empty one |
 | Error | *"Couldn't open your data."* + Retry. Never a blank screen |
 | Offline | Normal. `OfflineNote` under the date row, dismissible, neutral-coloured |
@@ -616,6 +694,31 @@ keystroke.
 
 ### 7.4 · Transactions — `/transactions`
 
+> ⚠ **ADDED 27 Sep, owner's call. This screen has two sections now.** A
+> two-segment control sits **under the title and above the filters**: *Your
+> record* · *Bank movements · 3*. They are two accounts of the same month — the
+> ledger you have decided about, and the feed the bank sent — and the value of
+> the feature is reading one against the other. A control that changes the whole
+> screen goes above one that changes part of it. **The count lives on the
+> segment**; an inbox with a count should not need opening to see.
+>
+> **`/transactions/bank` lands on ALL movements, not on the queue.** The owner:
+> *"where is the view that shows them all their movements at first?"* The queue
+> is an inbox — it shows what is unsorted and it empties — so a movement that
+> was **skipped**, marked **not mine**, or **merged as a duplicate** went nowhere
+> a person could look. The unsorted count is a **banner on top of** the full
+> list, not a screen in front of it. Five states per row: *same as one you
+> entered* · a category · *to sort* · *left out — not mine* · *moved to cash in
+> hand*. Two of them are reversible decisions made in a hurry, and **this is the
+> only screen on which a person can see they made them**.
+>
+> **The state a non-subscriber sees is a DESCRIPTION, not a disabled control.**
+> Item 24 forbids a padlock, a crown and the word *unlock*, and the build fails
+> on any of them — its actual fault is a control that will not work, dressed as
+> one that will. This has no dead button in it, carries §10.1's sentence, and
+> **shows no count**, because a count of work you cannot do is a nag.
+> `open-items.md` M·62–M·63, and item 134 logs it as a cost.
+
 **Layout.** Filter bar (cycle selector, category, type, date range) → grouped
 list, newest first, day headers. Infinite list; no pagination controls.
 
@@ -690,6 +793,31 @@ Filter changes announce the result count: *"14 movements."*
 
 **The three taps:** ⊕ → a category chip → Save. Type defaults to `Expense`, date
 to today. Anything else is an extra tap, deliberately.
+
+> **The add contract, written down here because it was asked about and lived in
+> three places** (§2, this section, §7.6). The owner, 27 Sep: *"that add works
+> depending on which screen it is… and the Quick Add section is for the home
+> screen, right?"*
+>
+> **There is one ⊕ and it does not change meaning.** 360: the centre of the
+> bottom bar, on every screen. 1440: the **Add** button in the header, on every
+> screen. It is **not Home's** — it belongs to the app, not to a screen — and it
+> always records a **movement**.
+>
+> **What is per-screen is a second, NAMED button**: *Add a category* on Plan,
+> *Add a debt* / *Add a goal* on Debts & Goals, *Invite someone* on Household.
+> **⊕ records money moving; a named button creates the thing the money moves
+> into.** Every screen's controls follow from that one sentence.
+>
+> The two meet in exactly one place, and it is not an exception: §7.6's *Record a
+> payment* opens **this sheet, pre-set** — counterparty fixed, amount pre-filled,
+> type following the balance. That is ⊕ with context.
+>
+> **Open question — `open-items.md` O3, not decided.** At 360 the ⊕ also sits on
+> the Debts screen, where someone may well press it expecting *add a debt*.
+> Should the sheet's *type* default follow the screen it was opened from? It
+> removes a tap where the wrong guess is likeliest, and costs the property that
+> makes the sheet learnable. **No side taken.**
 
 **Fields.** Amount (required, > 0) · type (default Expense) · category *or*
 counterparty depending on type (§`04-api-contract` §3) · date (default today) ·
@@ -880,6 +1008,51 @@ table.
 
 ### 7.9 · Settings — `/settings`
 
+> ⚠ **STRUCTURE CHANGED BY THE OWNER, 27 Sep. The six sections below are
+> correct; drawing them on one screen is not.** *"When you are building a
+> settings screen you firstly build out everything that a setting will contain,
+> then before you now start building out the subsection… when they are scattered
+> about, for a builder it makes no sense; they will start wondering, under what
+> should we link this to."*
+>
+> **`/settings` is an index. Each section is a route under it.** The index has
+> eight rows in the order below, with **the account inserted second** (§08a: the
+> account is a setting) and **import and export given a row of its own**, and
+> **every row carries its own state** — *Protected · 47 unexported changes*,
+> *25th · ₦450,000.00*, *12 · 4 protected*. A row that is a name and a chevron
+> makes you open it to find out where you are; most visits should end on the
+> index.
+>
+> **Zakat is the one row that leaves settings** — it is a nav destination (§2),
+> so the row links to `/zakat` and says so.
+>
+> **Rollover and protection are NOT set here.** They are per-row controls on
+> Plan, beside the figure they change (§7.3 Actions). The categories page says
+> where they are. Two places to change one thing is how the two disagree.
+>
+> Drawn at both widths: the index, `· your data`, `· your cycle`,
+> `· categories`, and `· import and export`. See `docs/open-items.md` M·59.
+>
+> **The tree, complete — owner's question, 27 Sep: *"what an account adds —
+> under what settings category is it from?"*** The honest answer was *nowhere*,
+> which was the fault: it had a page of its own, rendered inside the Settings
+> frame, and no screen said which section it belonged to. **It is under *Your
+> account*** — an account is a setting (§08a), and this is the page that says
+> what having one gets you.
+>
+> ```
+> Settings
+> ├── Your data                 storage · space · unexported changes · install
+> ├── Your account
+> │   └── What it adds          the tier page
+> ├── Your cycle                salary day · take-home · the amber threshold
+> ├── Categories                add · rename · archive · reorder
+> ├── Savings destinations      the fixed five
+> ├── Import and export         export · import · the three flow screens
+> ├── Zakat                     → opens /zakat. Leaves settings, and says so
+> └── About                     version · licence · how the data is held
+> ```
+
 **Sections, in this order** — data safety first, because it is the thing the
 owner most needs to act on.
 
@@ -945,17 +1118,60 @@ export and import both work. Success: as above.
 footnote. Then the workings, openly: savings counted, nisab used, hawl start,
 whether receivables are included.
 
-**Numbers.** Savings balance over the hawl · nisab (owner-entered) · 2.5% of the
-zakatable amount · the hawl start date and its source.
+**Numbers.** Savings balance over the hawl · ~~nisab (owner-entered)~~ · 2.5% of
+the zakatable amount · the hawl start date and its source.
+
+> ⚠ **`nisab (owner-entered)` SUPERSEDED BY THE OWNER, 27 Sep — do not build
+> it.** *"If you are telling an individual to actually look it up and enter it
+> today, I think we should be the one searching that up."* **The nisab is
+> fetched**, from the silver price (595 g, the standard most zakat bodies apply
+> to money), converted at a **named** exchange rate, and the screen carries the
+> time it was read. Three consequences that are requirements, not polish:
+> the screen **states which standard is in use** and offers the other; it names
+> **which naira rate** it converted at, because official and parallel differ by
+> about 4% and a threshold is exactly where 4% decides the answer; and it is
+> **the first figure in the product that needs the network to be correct**, so a
+> stale price still answers, from the last known value, labelled with its age.
+> See `docs/open-items.md` **O2** and M·56.
 
 **Three things this screen must do.**
 
 1. **Ask for the hawl start once**, and if unknown, say what it fell back to: *"Tracking from 25 September 2026, your first record."* (D6)
+
+> ⚠ **HOW IT IS ASKED — added 27 Sep.** The owner: *"how does the zakat screen
+> start operating? For a user that has not set the year, how do they start? I
+> can't see that here."* He could not, because two chips with no consequence
+> written on either is not a flow. **Both options state what they would do before
+> either is chosen**, which is the rule above applied one step earlier:
+> *Choose a date* opens a picker; *Track from my first record* commits at once,
+> to a date **named on the screen**, not discovered afterwards.
+>
+> **The picker is Gregorian, deliberately.** The hawl is lunar, so every instinct
+> says pick it in the hijri calendar — and that is exactly wrong for the person
+> doing it. Nobody remembers *my savings passed the nisab on 3 Safar*; they
+> remember a month and a rough week of an ordinary year. **Pick in the calendar
+> you think in; the app shows its working** — what the date is in the other
+> calendar, and the date the year completes.
+>
+> **Only the chosen day carries a hijri date.** Mapping a whole month means
+> asserting the length of Muharram 1448, which is settled by sighting. Repo
+> rule 2 applies to calendars too.
 2. **Ask once whether money owed to you counts**, defaulting to neither position, with a note to check with someone qualified (D3).
 3. **Never read as a ruling.** The caveat is part of the figure, not decoration.
 
-**States.** Empty — no nisab: the panel explains what is missing and where to
-look it up, rather than showing ₦0. Empty — no hawl: asks. Others as standard.
+**States.** ~~Empty — no nisab: the panel explains what is missing and where to
+look it up, rather than showing ₦0.~~ Empty — no hawl: asks. Others as standard.
+
+> ⚠ **`Empty — no nisab` SUPERSEDED, 27 Sep.** There is no such state once the
+> threshold is fetched. What replaces it is a **stale or unavailable price**,
+> which is a different screen and a better one: it answers from the last known
+> value and says how old that value is. The caveat must also **name the three
+> choices the app made** — which standard, whether money owed to the owner
+> counts, whether their own debts come off first — because *check with someone
+> qualified* without *about what* is a disclaimer written for us rather than for
+> them. Drawn at both widths: `14 · below the nisab`, `14a · above the nisab`,
+> `14b · no year set`. **`14b` is §7.10's no-hawl state, which was drawn
+> nowhere until now.**
 
 **Danger colour.** Never. Zakat is an obligation, not an error.
 
@@ -973,7 +1189,7 @@ do with their money.
 | Normal | **Safe to spend today** · `₦7,500.00` · "₦220,000.00 left · 20 days to 25 Oct" |
 | Amber | same, plus badge **"Low"** |
 | Red | **"₦2,300.00 over"** plus badge **"Overspent"** · "You've spent more than you have left for this cycle." |
-| No plan | **Safe to spend today** · `₦8,666.66` · "Based on your take-home. Set a plan to make this exact." |
+| No plan | ⚠ **SUPERSEDED BY THE OWNER, 26 Sep — do not build this row.** ~~**Safe to spend today** · `₦8,666.66` · "Based on your take-home. Set a plan to make this exact."~~ ₦8,666.66 is the **spendable** total ÷ 30 and there is no spendable total until there is a plan; its own caption says *based on your take-home*, and take-home ÷ 30 is ₦15,000.00 — the figure and its caption disagreed. **There is no hero here.** The screen reads *“Nothing is planned yet.”* · *“Your take-home is ₦450,000.00 a cycle. Decide what each naira is for and this screen starts working — what is safe to spend today, how that stands against your plan, and where the money went.”* · **Set your plan**. An empty slot would be worse than none. See `docs/open-items.md` item 94. |
 
 Every amount above is rendered by `MoneyText` per §3a — naira at full size, kobo
 smaller and lighter. The word "over" carries the direction; a bare minus sign is

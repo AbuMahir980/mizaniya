@@ -5,6 +5,14 @@
 tick each box as it lands, and when every box is ticked fold anything worth keeping into
 `CONTEXT.md` and delete this file in the same PR.*
 
+> **If you are the build agent and you read nothing else here: [§N](#n--spec-corrections-the-design-rounds-produced--for-the-spec-owner).**
+> Three lines in `03-system-spec.md` and `06-page-specs.md` are now wrong — the
+> owner overruled them on 26 September. Each is flagged at the line with a ⚠
+> block, so you will hit them anyway; §N is the list and the reasoning.
+> Sections E onward are per-round logs of what changed in the design and why,
+> newest last. **§M·36–M·40 cover 26 September**, which re-cut Home's two empty
+> states, the whole 360 hero, and the landing page's plan card.
+
 **Nothing in `docs/design/` needs regenerating.** Every file an item below needs is
 already there — this list is about wiring it up, not making it. Section D came out of
 the two questions #56 correctly logged instead of deciding; the artboards, `tokens.md`
@@ -754,16 +762,24 @@ is not reopened.** What follows is additive.
   computed with. The honest and defensible choice is **the lower of the two**, stated
   in plain words on the screen:
 
-  > *Until you agree, Mizaniya uses ₦35,000 — the lower of the two, so it never tells
-  > you there is more to spend than there might be.*
+  > *Until you agree, Mizaniya uses ₦90,000 — the larger of the two, so it never assumes
+  > less is promised than might be.*
 
-  That is a real decision with a real reason, it is conservative in the direction that
-  protects the household, and it removes the suspicion that the app quietly preferred
-  one person.
+  **Corrected 25 September.** My original rule said *lower*, and §I item 40 showed it
+  was backwards for a protected category: taking the lower figure for a Rent fund
+  disagreement reserves less, which pushes safe-to-spend **up** — the exact harm the
+  rule existed to prevent. The settled rule is **the higher of the two, with no
+  exceptions**, and the sentence above is the only thing that changes on the screen.
+
+  Worth recording why *no exceptions* rather than a per-type rule: a rule that switched
+  on category type would decide which of two people "wins" on a property neither of them
+  is thinking about while they disagree about groceries. That collides with the fourth
+  decision above — the app must not look as though it prefers someone. One rule, said
+  once, in both cases.
 
   **Blocked on figures** — see item 30.
 
-- [ ] **28 · The landing page** — done properly, not assembled from leftovers. The
+- [x] **28 · The landing page** — done properly, not assembled from leftovers. The
   problem first (salary gone before the month ends, debts both ways, rent once a
   year), then the screenshots, then free vs paid honestly.
 
@@ -792,6 +808,27 @@ is not reopened.** What follows is additive.
   Sequenced after the app work; the app's 1440 rework (item 31) produces the
   screenshots this page is made of, so it has to come first.
 
+  **Delivered 25 September — four boards.** `Land` and `LandPhone`, light and dark.
+
+  | Board | What it is |
+  |---|---|
+  | `Land` · 1440 | The nine sections in the brief's order, on alternating `bg`/`card2` bands |
+  | `LandPhone` · 390 | Designed, not adapted. The three-column sections stack against hairlines; the proof screenshots stack at 88% rather than becoming a clipped carousel, because a strip of a screen is not proof of anything |
+
+  **What is deliberately not in the hero: any picture at all.** §2.1 and §2.2 are words
+  only, so the first image on the page is the answer as a screen — the real Home at its
+  drawn size with `seed-data.md` figures. That is the one structural idea the page has,
+  and a stock image between the problem and the answer would break it.
+
+  The trust section quotes `tokens.md` §10.1 rather than restating it, and the build
+  asserts the approved string appears **and** that the false sentence does not — in the
+  rendered markup, rather than in my memory of having avoided it. It also asserts no
+  *unlock* / *upgrade* / *premium* vocabulary anywhere, per item 24.
+
+  **Pricing is a placeholder**, per item 30 #5: the space is drawn, the figure is
+  ₦—, and the card says in plain words that the price is not settled rather than
+  leaving a blank that reads as a bug.
+
 - [x] **29 · One sentence that must never appear anywhere**, and it needs saying to
   whoever writes marketing copy as much as to you: ~~*"your bank data never touches
   our servers"*~~. It is **false** — movement arrives at the server before it is
@@ -817,7 +854,7 @@ is not reopened.** What follows is additive.
   It is in §10 rather than in a brief because briefs get finished and closed, and this
   has to still be true in a year when someone is writing an app-store description.
 
-- [ ] **31 · Which 1440 screens genuinely need rework, and what earns the width?**
+- [x] **31 · Which 1440 screens genuinely need rework, and what earns the width?**
   The central question of the desktop decision. Home at 1440 should not be a 360
   column centred in grey — but what fills it? The category table beside the gauge? The
   debt list beside the goals? **Your call, and it decides how much of the set is
@@ -843,11 +880,21 @@ is not reopened.** What follows is additive.
   persistent left rail; the list keeps its place; and the rows become real columns
   (date · category · note · amount · balance) instead of stacked cards.
 
-  **Plan — the width buys editing without covering the total.** On a phone, editing an
-  envelope is a sheet, which hides the figure the edit is changing. At 1440 the envelope
-  list sits left and the one being edited sits right, with the cycle total visible
-  throughout. You watch *unallocated* fall as you type. That is genuinely better, not
-  merely wider.
+  **Plan — withdrawn on 25 September. It does not need rework.** I said the width would
+  buy *editing without covering the total*, on the premise that editing an envelope is a
+  sheet that hides the figure it changes. **That premise is false at 1440** — the desktop
+  Plan already edits inline, with the amount as a field in each row and *Free* standing in
+  the header, so the fault I proposed to fix does not exist at this width. It exists at
+  360, where it is correct as drawn. Changing Plan to prove a point in this answer would
+  have been the rework equivalent of a flourish.
+
+  **What *would* earn Plan's width is a column it cannot have yet:** last cycle's actual
+  beside this cycle's planned. *"You planned ₦90,000, you spent ₦78,000"* is the single
+  most useful thing to see while deciding an amount, and it passes the test above — you
+  want it **while** looking at the planned figure, not on another screen. `seed-data.md`
+  carries that pair for **Food and groceries only**; the other seven categories have no
+  cycle-1 actual, and repo rule 2 says I do not invent them. **Raised as §I item 48.**
+  Until it exists, Plan stays as drawn.
 
   **Debts & Goals — the width buys the removal of a control.** Both lists fit side by
   side, so **the tabs go away entirely at 1440.** The best thing width can buy is
@@ -857,7 +904,16 @@ is not reopened.** What follows is additive.
   they take the 360 step per §3's surface rule and are already right), onboarding,
   welcome, the printed record, Settings, Zakat, Import, and every 360 board.
 
-  That is **eight boards redrawn** (four screens × light and dark), plus their states.
+  **Delivered 25 September — six boards, not eight,** because Plan was withdrawn:
+
+  | Board | What changed |
+  |---|---|
+  | `DHome` · light and dark | The figure and the daily chart move to a 420px left column; *Where your money is* and the **full categories table** move up beside them. Goals and debts drop below as a two-up. What you see without scrolling is now the figure **and why it is that figure** — Health at 140% sits beside the number it explains |
+  | `DHomeStates` · light and dark | The same composition across ok · amber · red · no-plan · empty · offline |
+  | `DTransactions` · light and dark | The filters become a **standing 236px rail**; the whole filter set is visible at once instead of behind three chevrons, and changing one no longer scrolls the list away. All three states |
+  | `DDebts` · light and dark | **The tabs are gone.** Both lists side by side, goals below as a table. The board is one screen now, not two |
+
+  Every 360 board, every form, sheet and dialog, and Plan at both widths are untouched.
 
 - [x] **32 · `docs/design/motion.md`** — a sibling to `tokens.md`, authoritative the
   same way. Named durations (a small scale, two or three values), named easings and
@@ -892,7 +948,30 @@ is not reopened.** What follows is additive.
   §5 gives the rule that makes every future fallback derivable without asking:
   **remove movement and scaling, keep opacity and colour, never remove information.**
 
-- [ ] **33 · The demo's "these are not your figures" marker.** Promoted to a Must. It
+  **Delivered 25 September — `LandDemo`, light and dark.** Fresh, edited, over a sheet,
+  at 1440, and the printed record.
+
+  **Two things changed once it was drawn**, and both were the drawing catching the
+  writing:
+
+  1. **No icon.** I had it leading with the `warn` triangle. This item says explicitly
+     that nothing has gone wrong — and a warning glyph says one has, whatever colour it
+     is painted. A triangle in `slate` is still a triangle. The bold lead-in *"Sample
+     figures"* does the work and reads faster.
+  2. **The height is reserved, not fitted.** The edited string is longer, and at 390 it
+     wrapped to a third line and made the bar taller — pushing the whole app down. That
+     is exactly what *"never changes place or shape"* exists to prevent, and my first
+     drawing broke it. Both states now sit in one fixed height.
+
+  **One contrast finding, and it is why a safety control is worth auditing on its own.**
+  `sl2` against the screen below it is a **1.09** luminance step in light and 1.26 in
+  dark — it separates by *hue*, which is the one thing WCAG says not to rely on. The
+  text passes comfortably (`slate` on `sl2` is 7.49); the bar's presence as a distinct
+  region did not. So it carries a **2px `slate` bottom rule** instead of the usual 1px
+  `line` — unmistakable at any brightness, no new token, and no borrowing of rose or
+  ochre.
+
+- [x] **33 · The demo's "these are not your figures" marker.** Promoted to a Must. It
   must be **visible on every screen and not dismissable** — someone mistaking demo
   numbers for their own budget is a genuine hazard, not a design nicety. Also needs a
   state for *demo that has been edited*, because people will.
@@ -926,7 +1005,27 @@ is not reopened.** What follows is additive.
     here rather than decided: the export needs a demo flag and the import needs to say
     so.
 
-- [ ] **34 · The landing page's strongest moment.** The suggestion to argue with: the
+  **Delivered 25 September — `LandCycle`, light and dark.** Five panels.
+
+  The first three are **one section at three scroll positions**, the third with motion
+  off — and that is the part worth looking at, because there is **no fallback layout.**
+  Every anchor is drawn at every scroll position; motion changes only which one is
+  emphasised and how far the rail has filled. So `prefers-reduced-motion` gets the
+  identical markup with emphasis removed, which is already a complete small multiple.
+  Nothing is gated behind the animation because there is nothing the animation creates.
+
+  One thing that only appeared once it was drawn: **with motion off the rail must show
+  today's position, not the last step's.** A rail filled to the end beside a series
+  ending at ₦0.00 says the debt is already cleared. Removing motion may not change
+  what a figure claims — §5's *"never remove information"*, read the other way round.
+
+  **The rent fund runs end to end** (six anchors, ₦475,000.00 → ₦850,000.00 against
+  the ₦900,000.00 target, ending short, which is the point). **Safe to spend does
+  not**, and that is item 49: the seed carries it for two days. The two missing anchors
+  are drawn **as gaps, in sequence**, rather than closed up — a series that quietly
+  shortens itself tells the reader the wrong shape.
+
+- [x] **34 · The landing page's strongest moment.** The suggestion to argue with: the
   money figure counting down as the reader scrolls through a cycle — the product's
   central idea shown rather than described. Also the rent fund filling toward ₦900,000,
   and a debt crossing zero (the ajo case no other app can represent). **No
@@ -1174,7 +1273,7 @@ a `design:` row in `CONTEXT.md` Open Questions.
   Still awaiting the owner's confirmation, and **nothing is blocked** — the copy above is
   the only thing that changes on your screen, and it is shorter.
 
-- [ ] **47 · A lingering disagreement leaks into the next cycle, and the fix is a nudge
+- [x] **47 · A lingering disagreement leaks into the next cycle, and the fix is a nudge
   rather than a rule.** Raised from the build side, and neither of us named it.
 
   `Food and groceries` **rolls over** — unspent allowance carries into the next cycle. So
@@ -1191,6 +1290,48 @@ a `design:` row in `CONTEXT.md` Open Questions.
   **Your call on whether that is a nudge, a line on the Plan screen, or nothing at all.**
   I would rather flag the mechanism than have it discovered as a wrong figure two cycles
   later.
+
+  **Answered: a line at cycle close, attached to the carried figure. Not a nudge, not
+  a line on Plan, and not nothing.**
+
+  You are right that it needs something, and right about where — the leak happens at
+  the close, so that is where it can be named. The other two placements both fail in
+  ways this project has now hit three times:
+
+  - **A standing line on Plan** becomes chrome. Plan is where amounts get set, so a
+    permanent notice about an unsettled one is read twice and then never again — the
+    same failure as a permanent sync badge (§H item 23) and a permanent demo badge that
+    could be dismissed (item 33).
+  - **A notification-style nudge** is software refereeing, which §H item 27 exists to
+    avoid. Being chased about a disagreement with your wife is precisely the tone floor
+    it set.
+
+  **What I would draw instead.** At cycle close the app already shows what carried in.
+  The carried figure is the number the leak lives in, so the explanation belongs against
+  it — a caveat about a number goes next to the number:
+
+  > **Food and groceries** carried **₦12,000.00** in, worked out from ₦90,000.00 — the
+  > figure you and Aisha have not agreed yet.   **[ Settle it ]**
+
+  Three properties that keep it from becoming the thing it is trying not to be:
+
+  1. **It only appears if the disagreement actually changed the carried figure.** If the
+     category was fully spent, both amounts would have carried the same nothing and
+     there is no leak to report. Rare by construction, so it keeps its force.
+  2. **It escalates by naming duration, not by getting louder.** Second cycle: the same
+     line, plus *"the second cycle it has carried."* No rose, no badge, no growth.
+     Saying how long is the entire nudge — it makes *leave it for now* feel less
+     permanent without ever refusing to let them leave it.
+  3. **It states a fact, never a fault.** It says what the number was worked out from,
+     which is information the person is owed about a figure already on their screen. It
+     does not say anyone should have done something by now.
+
+  That is the third appearance of one rule, so it is worth naming as a pattern rather
+  than re-deriving it next time: **a caveat about a figure lives against that figure, at
+  the moment the figure is shown — never as a standing indicator somewhere else.**
+  `tokens.md` §10 is where it will go if it comes up a fourth time.
+
+  Drawn with §H item 27, since it is the same screen's consequence.
 - [x] **41 · The reconciliation queue never blocks anything.** It is a row on Home that
   opens its own surface, not a modal and not an interstitial. A queue that must be
   cleared would make a paid feature into a toll gate on the free product. Placement is
@@ -1247,6 +1388,141 @@ a `design:` row in `CONTEXT.md` Open Questions.
 
   Your instinct is better than the architecture deserved credit for: **the escape hatch
   already existed and nobody had thought to put it at the one moment it is worth most.**
+
+- [ ] **48 · Per-category actuals for the first cycle** — would unlock a real desktop
+  improvement to Plan, and nothing is blocked without it.
+
+  §H item 31 originally named Plan as needing rework. **It does not** — the premise was
+  wrong and I have withdrawn it in place rather than quietly dropping it. But the thing
+  that *would* earn Plan's width is one column: **last cycle's actual beside this cycle's
+  planned.** *"You planned ₦90,000, you spent ₦78,000"* is the most useful thing to have
+  in view while deciding an amount, and it is exactly the kind of thing a phone has to
+  send you to another screen for.
+
+  `seed-data.md` §"The first cycle" carries that pair for **Food and groceries only**
+  (₦78,000.00 against ₦90,000.00 planned, which is where the ₦12,000.00 rollover comes
+  from). The other seven categories have no cycle-1 actual.
+
+  **What is needed:** a spent figure for each of the remaining seven, summing to the
+  ₦355,000.00 that cycle already records — so the existing total stays true and nothing
+  downstream moves. If that sum is awkward to divide credibly, say so and Plan stays as
+  it is; this is an improvement, not a gap.
+
+- [ ] **49 · Safe to spend has two anchors in the seed, and §H item 34's section
+  wants four.** Drawn with what exists; nothing is blocked.
+
+  The mechanism is settled and delivered. The debt crossing zero and the rent fund both
+  run end to end, because `seed-data.md` states their rate and their outstanding and the
+  rest is the app's own arithmetic. **Safe to spend does not.** The file carries it for
+  exactly two days — 25 September (₦8,666.66, the opening allowance) and 5 October
+  (₦7,500.00, the worked day).
+
+  There is no third and I have not invented one. The 23 movements stop at 5 October by
+  design, and the eight detected bank movements added on 25 September are explicitly
+  *"not yet transactions at all"* precisely so the ₦110,000.00 still sums. Anything
+  between 5 and 24 October is **spending** — a figure, not arithmetic. Repo rule 2.
+
+  **What is needed:** a cash-left figure for two more days in the cycle, one mid-cycle
+  (~12 Oct) and one at the close (24 Oct), consistent with ₦220,000.00 cash left on
+  5 October and with a cycle that ends at ₦0.00 under D16.
+
+  **If that is awkward to divide credibly, say so and the section keeps two anchors.**
+  A weaker argument, not a broken one — and the debt leads the band anyway, because it
+  is the better story. This is an improvement, like item 48, not a gap.
+
+- [x] **50 · `tokens.md` gained a §3.2, and it adds one CSS class.** Recorded rather
+  than asked, but it touches `tokens.css`, so it needs to be seen.
+
+  §3 has always said *"Money never uses EB Garamond"*, and it held across all 69 app
+  boards because no app screen puts a figure in a title. **The landing page does**, and
+  my first drawing of it set the whole line in the voice face. What caught it was
+  looking at the render, not remembering the rule — which is the uncomfortable part,
+  because the rule was already written down.
+
+  The gap in §3 was real, though: it says what face money may not take, not what to do
+  when money sits **inside** a sentence in that face. §3.2 answers that, with the ratio
+  measured from the outlines rather than chosen by eye — EB Garamond's cap height
+  0.658em over Inter's lining figures 0.747em gives **0.88em**, at weight 500 rather
+  than money's usual 600, because Inter 600 out-colours EB Garamond 500 and the line
+  reads as two documents spliced together.
+
+  **For the build: one class, `.ngn`, scoped to `.ser` and `.h2`.** The CSS is in
+  §3.2 verbatim. Dates and ordinals in prose stay in the voice face and are better for
+  it — *"by the 12th"* is what old-style figures are for. The switch is for money only.
+
+- [ ] **51 · Does v1 want people signed in, or does it want them not to have to be?**
+  The landing page cannot answer this and I should not pick.
+
+  Raised by the owner, 25 September, and it is the right question. I had written
+  *"no account needed"* on the page as a headline benefit. It is **supported** —
+  [ADR-010](adr/ADR-010-sync-model.md) makes IndexedDB authoritative and the server a
+  sync target, and §08a of the brief draws **signed out** as a first-class state, one
+  row, *"not a banner, not a nag"*. So the app genuinely works without an account and
+  the claim is not false.
+
+  **But it may still be the wrong thing to sell**, and that is a product decision, not
+  a design one (`design-data-contract.md`: spec owns behaviour, name it and log it).
+  Three things pull against it:
+
+  1. **Billing cannot be anonymous.** A subscription needs something to attach to and
+     something to restore from. Someone who pays, clears their browser and comes back
+     has no way to prove they are the same person without an account. §09's **lapsed**
+     state is not even reachable without one.
+  2. **Nothing can be learnt from an anonymous install.** [ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)
+     repositioned v1 precisely because *"people the owner spoke to may want to use
+     Mizaniya"* is the weakest signal in product and needs testing. An anonymous
+     free tier cannot tell you whether anyone came back on day 14, which is the one
+     number that would settle it.
+  3. **ADR-009 already rejected the shape once.** Its discarded alternative — ship the
+     PWA first — was marked down for *"onboards users onto a single-device store with
+     no account, then asks them to migrate"*. A free tier sold as accountless
+     reproduces that, one step later.
+
+  **What I need is which of these v1 is:**
+
+  | | The offer | What the page leads with |
+  |---|---|---|
+  | **A — account-first** | An account is the normal path; working offline and signed out is a *property* you are told about, not the pitch | *Start with your own figures* — sign-up is step one, and offline is a trust claim further down |
+  | **B — anonymous-first** | No account until you pay; the account appears at the tier boundary | *No account needed* stays where it was, and v1 accepts that it learns nothing about retention |
+
+  **I have drawn A's copy in the meantime**, because it is reversible and B is not:
+  the page now says the app *works* without an account rather than offering that as
+  the deal, and it says plainly that an account is what carries sync, a second person
+  and billing. If the answer is B, one line changes back.
+
+  **One thing I fixed rather than asked about.** The trust section closed with
+  *"everything on the free tier never leaves your device at all."* **I wrote that
+  sentence and I had not verified it** — it is not in `tokens.md` §10.1, not in any
+  brief, and whether a free *account holder's* rows reach the server is exactly the
+  question above. It is the same failure §10.1 exists to prevent, one step removed:
+  the guard caught the sentence we inherited and missed the one I invented. It is gone,
+  and `build_land.py` now fails on any absolute privacy claim that is not the §10.1
+  string.
+
+- [x] **52 · The landing page's photographs — specified, not sourced.** Recorded so
+  nobody waits on me for them.
+
+  You are right that a page made only of type and UI reads as unfinished, and §6 of
+  the landing brief already contemplates images. **I cannot fetch them.** The image
+  CDNs are not on the allow-list of either environment I can reach —
+  `images.unsplash.com` and `images.pexels.com` both fail to connect from the cloud
+  sandbox *and* from the desktop VM. That is not a thing that will resolve by trying
+  again.
+
+  So the artboards carry **specified slots**: exact dimensions, a weight budget, and
+  art direction. [`docs/design/image-brief.md`](design/image-brief.md) has the rest —
+  search terms, what to reject and why, the licences, the `convert` line that hits
+  the budget, and the file names the slots expect. Dropping two files into
+  `docs/design/img/` is the whole job.
+
+  **Two, not more, and the reasoning is in the file.** Photography helps the first of
+  the brief's three readers and actively costs us the other two once it becomes
+  decoration — a person smiling at a phone is the same failure as a device frame
+  drifting in space, which §2.3 of the landing brief already rules out. And **no
+  photograph goes near a figure**, anywhere on the page.
+
+  `scripts/check-design-drop.mjs` now accounts for `image-brief.md` and
+  `docs/design/img/`, per its own instruction to add rather than leave a hole.
 
 ### I·c — Assumptions that would invalidate a drawing if wrong
 
@@ -1455,4 +1731,3069 @@ outstanding, and item **47** in §I is new and small.
   being redrawn — see §H item 31.
 - The four stale figures the design stop found (₦8,666.66, the bare minus sign) —
   fixed on 10 September.
-- `PROPOSED-seed-additions.md` — merged into `docs/seed-data.md`, kept as the record.
+- `PROPOSED-seed-additions.md` — merged into `docs/seed-data.md` and **deleted**
+  on 25 September (item 73). Its last unmerged section, the reasoning behind Health
+  rather than Food as the overspent row, now sits in `seed-data.md` beside the figure.
+
+---
+
+## K · The canvas re-cut — 25 September
+
+### K·1 — One screen, one artboard
+
+The owner's instruction: *"separate them, sign up, sign in, forgot password, reset
+password, home, transaction, plan, transactions, separate everything. Let them be
+listed out in the file picker."*
+
+Until now a board could hold six onboarding steps, or sign-up beside sign-in, or five
+states of Home in a row. That reads fine flipping through and is useless for review —
+you cannot point at "the sign-in screen" if sign-in is the right-hand half of a board
+called Auth. **Every artboard is now one screen**, numbered and named for what it is.
+
+**77 screens · 173 artboards · 11 pages.** Landing page first, then Web 1440 in four
+pages (Getting in · Home · The month's money · Account, sync and household), then the
+same app at 360 in four more, then Mark and Foundations.
+
+**Onboarding and sign-up sit under Web, and that is deliberate.** v1 is the web app and
+it is the only place anyone can sign up (ADR-009, spec §4). The Expo mobile app is v2
+and nothing on this canvas is drawn for it.
+
+### K·2 — Three copy faults the re-cut exposed
+
+All three were true before ADR-009 and false after it, and all three survived because
+the screen carrying them was never looked at on its own.
+
+| Where | Was | Now |
+|---|---|---|
+| Home · offline, 1440 and 360 | "your data is on this device and was never sent anywhere" | "Record as usual — anything new goes up when you're back." |
+| Settings · About, 1440 | "stored on this device… anyone who can unlock this phone" — *phone*, on a laptop board | "Without an account your data is stored in this browser… anyone who can sign in to this computer" |
+| Settings · About, 360 | "Your data is stored on this device" | "**Without an account** your data is stored in this browser" |
+
+The first is the exact shape `tokens.md` §10.1 exists to stop — an absolute claim about
+where data does not go — and it was sitting inside the product rather than on the
+landing page, where the guard was looking. **The landing-page guard now runs over every
+app board too.**
+
+Two structural faults came with them: `desktop.plan()` left three `<div>`s unclosed and
+the offline banner one, invisible while those screens shared a board with neighbours
+that absorbed the imbalance.
+
+### K·3 — Answered: the divergence from ADR-011 action 6 and doc 11 §7 — **logged, not resolved**
+
+Both documents say the landing page carries a security section. **It no longer does.**
+That was the owner's decision on 25 September, in these words: *"we shouldn't put our
+most secure thing out there for hackers to know… you just make them more like a privacy
+policy… shown to real users."*
+
+So the landing page keeps **one** sentence — the §10.1 string, character-identical —
+and everything else (encryption, where the keys live, what the server can see, the
+caveat that movement reaches the server before it is encrypted) moved to the **sign-up
+trust panel**, which §I8 already required, and to the privacy notice.
+
+**This is design diverging from two written documents, so it is named rather than
+chosen silently.** ADR-011 action 6 and `11-landing-page-brief.md` §7 both need
+amending, and that is the build side's to do, not mine.
+
+### K·4 — New behaviour I drew and did not own — **spec, please rule**
+
+`design-data-contract.md`: design owns layout, spacing, type, colour, motion; **spec
+owns behaviour, states and data.** Splitting *forgot password* into three screens needed
+four behavioural facts I had no document for. I drew them and I am naming all four.
+
+| # | What I drew | Why | Confirm or correct |
+|---|---|---|---|
+| 53 | The reset link **works once** and **expires in an hour** | Stated on screen, so it cannot be vague | ☐ |
+| 54 | Setting a new password **signs out every other device** | It is the only thing that makes a reset useful after a device is lost, and the screen says so plainly | ☐ |
+| 55 | **No confirm-password field.** One field with a *Show* control | A second field catches typos the person cannot see and nothing else; the reset link is still in their inbox if it goes wrong. Doubling the typing on a phone keyboard costs more than it saves | ☐ |
+| 56 | **Resend is available after 60 seconds** | So a mistyped address is not a locked account, without handing anyone an email cannon | ☐ |
+
+### K·5 — A gap the separation made visible — **not drawn**
+
+**57 — Settings has no signed-in account section.** `WebAccount` draws Settings *signed
+out*: one row, no banner. There is no signed-in counterpart, so nothing says what that
+row becomes once there is an account — email address, plan, the device list, sign out,
+delete account. Spec §I accounts should say what belongs there; then I draw it. ☐
+
+### K·6 — Still outstanding, unchanged
+
+- Screen **10** (sync states), **12** (household invite / accept / members), **13**'s bank
+  *linking* flow, and **09**'s subscribe flow — all still undrawn.
+- The **360 versions** of the new web surfaces (auth, tiers, reconciliation, household).
+  The 1440 set is drawn; the brief requires both widths.
+
+---
+
+## L · Web Home rebuilt — 25 September
+
+### L·1 — The gauge leaves 1440. It stays at 360.
+
+Jamiu's call, and the reasoning is worth keeping because it generalises.
+
+The arc gauge is a poor chart for a dashboard — gauges waste space, carry no
+context, and compare badly, because people do not read angles as quickly or as
+accurately as they read lengths against a common baseline. **But that is not why it
+went.** It went because it answers a question nobody asks at a desk.
+
+> *"Can I spend this, right now?"* is asked standing in a shop with a phone in your
+> hand, and a dial is a good answer to it — one glance, no reading.
+> *"Am I on pace, and what is pulling me off it?"* is asked at a laptop, eleven days
+> into a cycle. **A dial has no memory of yesterday and no opinion about tomorrow.**
+
+The 1440 screen was answering the 360 screen's question at four times the size. The
+gauge is still correct at 360 and is unchanged there.
+
+**Home at 1440 is now three bands, and the order is the argument:**
+
+| Band | What it is |
+|---|---|
+| 1 · The answer and the trajectory | The figure set as type, and the cycle over time: what has been spent against what the plan expected, plus where today's rate lands. The only thing on this screen a phone physically cannot show. |
+| 2 · The diagnosis | Every category as a bullet graph with a tick at *expected by now*. **This replaces the category table outright** — 85% used is alarming on day 11 and unremarkable on day 26, and the table made the reader do that arithmetic themselves. |
+| 3 · Where the money is | The breakdown, the goals, the debts. None of it is what you ask first. |
+
+Every bar runs **0 to 150% of its own allowance**, so the *expected* tick sits at
+24.4% and the *allowance* tick at two-thirds on every row. The first draft scaled each
+bar to its own maximum, which put those ticks in eight different places and let
+Health's ₦14,000.00 draw a longer bar than Food's ₦40,000.00 with nothing to say why.
+
+### L·2 — Derived figures that need to be in the seed — **please add and assert**
+
+All of these are arithmetic on rows that are already in `docs/seed-data.md` — the
+nineteen dated expenses and the ₦260,000.00 expense plan. **None is invented, and none
+is currently written down**, which means nothing asserts them and a future edit to one
+movement would silently break the screen.
+
+| # | Figure | Working | Value |
+|---|---|---|---|
+| 58 | Daily expense totals, days 1–11 | the nineteen expenses grouped by date | 20,500 · 5,700 · 0 · 7,750 · 13,400 · 6,250 · 18,800 · 12,600 · 8,000 · 10,000 · 7,000 |
+| 59 | Spent to date | sums to the seeded total | **₦110,000.00** |
+| 60 | Expected by day 11 | 260,000 × 11 ÷ 30, **in kobo** | **₦95,333.33** |
+| 61 | Ahead of pace | 110,000 − 95,333.33 | **₦14,666.67** |
+| 62 | Projected cycle total | 110,000 ÷ 11 × 30 | **₦300,000.00** |
+| 63 | Projected overshoot | 300,000 − 260,000 | **₦40,000.00** |
+| 64 | Days over the allowance | daily total > 8,666.66… | **5** — 25 Sep, 29 Sep, 1 Oct, 2 Oct, 4 Oct |
+| 65 | Expected-by-now, per category | allowance × 11 ÷ 30 | Health 3,667 · Transport 16,500 · Food 37,400 · Utilities 6,600 · Misc 8,067 · Family 14,667 · Apartment 9,167 · Sadaqah 3,667 |
+
+**Note on 60.** The displayed daily allowance is floored to ₦8,666.66, but seed-data.md
+already computes the amber threshold from the **exact** allowance in kobo. Every
+derivation above does the same. 8,666.66 × 11 and 260,000 × 11 ÷ 30 differ by 7 kobo,
+and a figure the seed script asserts cannot be 7 kobo out. My first draft used the
+floored figure and produced ₦95,333.26.
+
+### L·3 — The amber variant has totals and no daily series
+
+So **the daily path is left out of its chart, not flattened.** A line drawn through days
+the seed does not have would be invented; the same rule `cycle.py` already follows for
+its missing anchors — a gap, never closed up. The board says so on its face.
+
+**66 — If the amber variant is meant to have a day-by-day series, please add one that
+sums to ₦160,000.00.** Otherwise the omission stands and is correct. ☐
+
+### L·4 — A gap the rebuild made visible — **not introduced by it**
+
+**67 — `money_bar()` is not state-aware.** It is fixed to the worked day's split, so on
+the amber board its ₦110,000.00 spent sits beside a ₦160,000.00 headline. This was true
+before the rebuild and was simply less visible. The amber figures are all derivable
+(spent 160,000 · saved 90,000 · debt paid 30,000 · protected 70,000 · free 100,000), so
+this is a small fix rather than a new question — but it is behaviour and data, so it is
+named rather than changed quietly. ☐
+
+### L·5 — Outstanding on the landing page
+
+The landing page shows Home, so these waited on the decision above and are next:
+
+- The **safe-to-spend cascade** keeps its small components. Adding the big card was not
+  licence to drop them.
+- The **quincunx becomes product discovery** — a row of cards, each a real component
+  with a heading and one line of 15–20 words, in the manner of `dot.ai` and
+  `dotlabs.africa`, rather than five components arranged in a square.
+- **`LandDemo` is off the canvas.** It drew the demo marker on phone frames, so the
+  landing page for a web app was showing a product that does not exist yet. It comes
+  back when it is redrawn on Web Home.
+
+---
+
+## N · Spec corrections the design rounds produced — for the spec owner
+
+*Added 26 September. **These are the only items in this file that are not the
+designer's to close.** Everything above is either a question answered in place or
+a note about the drawing; the three below are lines in the authoritative specs
+that are now wrong, each flagged at the line itself with a ⚠ block so nobody can
+read the old wording without seeing it. The flags are deliberately ugly. Delete
+them when you rewrite the lines.*
+
+*The contract (`peer-ai/shared/design-data-contract.md`) says: name the conflict,
+log it, get agreement, then update the canonical doc. Agreement exists — the
+owner decided all three. What is left is the rewrite, and the wording of a
+behaviour line is the spec's to write, not the design's.*
+
+- [ ] **N1 · `docs/03-system-spec.md` §B1 — “given no plan, then the figure shows”.**
+  Superseded 26 September: **no plan, no figure.** Safe-to-spend is cash left
+  minus what the *plan* protects, over the days left; with no plan there is no
+  protected set and the quantity does not exist. The struck line and its
+  replacement are both in place — confirm the replacement says what you want and
+  remove the ⚠ block. Full reasoning: item **94**, and §M·38 for the rest of the
+  state. Drawn at `07c-home-no-plan-yet-{360,1440}-{light,dark}.png`.
+
+- [ ] **N2 · `docs/06-page-specs.md`, Home states table — “Empty — no plan: hero
+  shows the full planned allowance”.** Two faults in one line: the decision above,
+  and an arithmetic one it carries on its own — **a *planned* allowance where
+  there is no plan.** Flagged in place.
+
+- [ ] **N4 · `docs/06-page-specs.md` §7.1, the Onboarding States table — the
+  Offline row.** *"Step 1 carries the line: 'Everything you enter stays on this
+  device.'"* **False since ADR-009**, and on `guards.py`'s forbidden list, so the
+  build guard fails any board carrying it. The **sixth** false-comfort sentence
+  found and the **first in the spec rather than in a drawing** — worse, because
+  the build reads the spec. Flagged in place. Item 118.
+
+- [ ] **N3 · `docs/06-page-specs.md`, the hero copy table — the *No plan* row,
+  `₦8,666.66`.** Same decision. The figure is the spendable total ÷ 30; its own
+  caption says *based on your take-home*, and take-home ÷ 30 is ₦15,000.00, so the
+  figure and its caption disagreed before anything else was wrong with it. The
+  replacement copy is written into the flag, taken from the drawn screens.
+
+**One thing that is NOT a spec change but reads like one.** *A plan, no
+movements* now shows **₦13,000.00**, not ₦0.00 — 450,000 cash left minus 190,000
+still owed to protected pots, over the 20 days left. That is the spec's own
+formula (§B1, §D1) applied to a state the spec's tables never listed, so nothing
+in the spec is wrong; the ₦0.00 was mine. See item **95** for the one judgement
+inside it: this board is **day 11**, so it is *“I planned and have recorded
+nothing since”*, not *“I have just finished planning”*. If you want the second as
+well it is a separate board, not a re-label.
+
+---
+
+## M · The landing page, rebuilt from references — 25 September
+
+Jamiu sent two: the Flutterwave animated card stack, and the Essential Blocks
+hero. Between them they solved something I had failed at twice.
+
+### M·1 — Why the cascade kept failing, and what fixed it
+
+A cascade hides part of every card behind the one in front, so the cut has to
+land where nothing is drawn. **A vertical stack cuts a sentence in half. A
+horizontal one cuts a money figure in half.** I spent two rounds measuring gaps
+to cut in — first element bottoms (wrong: those are not gaps), then empty pixel
+scanlines (right, but fragile), then text-node bounding boxes for a vertical cut
+(and found that `day`, `chart`, `zakat` and `web_pace` have **no** vertical line
+you can cut along at all, because every row is a name on the left and a figure on
+the right).
+
+**In both references the cards behind the front one show nothing but their
+edge.** No label, no figure, no sliced sentence. There is no cut. That is the
+whole trick, and it is why the deck is legible by construction rather than by
+measurement. The interest comes from movement instead: the front card drops to
+the back and the next comes forward.
+
+### M·2 — Where each one is used
+
+| Section | Arrangement | What moves it |
+|---|---|---|
+| Hero | Cards squarely behind one another, each a little narrower and higher — a pile of paper not quite squared up. **No tilt**, because the front card carries ₦7,500.00 and a tilted card sets every figure on it at an angle. | A 4s timer, pausing on hover and on focus within |
+| §2.3 Safe to spend | A **pile on the floor**: three sheets showing only their edges beneath the figure card, "3 more underneath". Each lift stands one sheet up beside it, whole. | Click, or a timer if nobody touches it |
+
+Under `prefers-reduced-motion` neither cycles and the front card stands. That is
+a complete section, not a broken one, and nothing on the page is reachable only
+by waiting (`motion.md` §5, inherited by §9).
+
+### M·3 — The hero has no seam
+
+There was a hard vertical rule and a background change at 50%, which drew the
+hero as two panels that happen to be adjacent. Both are gone: the wash runs
+across the whole band and warms toward the right rather than switching there.
+The copy column went from half the page to 620px, because at 560px the headline
+broke after four words.
+
+**The photograph left the hero.** `image-brief.md` already says photography
+belongs in the *problem*, never beside a figure, and a photo behind a moving deck
+is two things fighting for one corner. The slot moves to §2.2.
+
+### M·4 — Cards take their own height
+
+The four cards in *The rest of it* were forced to one height, which left a band
+of paper under the short ones and clipped the tall one. They now end where their
+contents end. **This is a decision, not a lapse** — they still share a width, a
+top edge, a grid and a type ramp, which is what makes a ragged bottom read as
+designed. Their component visuals are scaled to fit rather than clipped: a
+component shown smaller is honest, one with its bottom sawn off is not.
+
+### M·5 — Behaviour I drew and do not own — **spec, please rule**
+
+| # | What I drew | Why | Confirm or correct |
+|---|---|---|---|
+| 68 | *See the whole screen* on each **rest of it** card opens that screen full size **on the landing page** and closes again | It previously went nowhere, which is the dead control §I calls **L2**. There is no features page in v1 and inventing one is scope | ☐ |
+| 69 | The hero deck cycles every **4s**, pausing on hover and on focus within | A deck that keeps moving while you are reading a card is a deck you cannot read | ☐ |
+| 70 | The §2.3 pile lifts on **click**, and on a timer only if nobody touches it | Click is the honest affordance for "lift a card off the pile"; the timer is there so the section is not inert to someone who never tries | ☐ |
+
+### M·6 — Two corrections to my own earlier work
+
+- **`₦—` is gone from the price panel.** At 52px the naira's two crossbars land
+  on the em dash and the whole thing reads as a struck-through N — an error, not
+  a placeholder. The gap is stated in words: *"A monthly price, not yet set."*
+- **The price panel was 320px** beside eight inches of prose on a 1440 page: the
+  most important commercial statement on the site, drawn smaller than a movement
+  row. It is 440px and leads with what is free forever.
+
+### M·7 — Next
+
+The 1440 landing page is settled. **The 390 phone-browser landing page is
+next**, and it is a different composition rather than the same one narrowed —
+the deck, the pile and the four cards all need their own arrangement at that
+width.
+
+### M·8 — The 390 landing page, designed rather than narrowed
+
+| Section | 1440 | 390 | Why it changes |
+|---|---|---|---|
+| Hero | copy and deck side by side, the eye moves across | copy, then the deck beneath it | There is no *across* at 390. Same two elements, same order of reading, no overlap to go wrong. The fan tightens from 16px a sheet to 9px — at 16, five sheets leave the back card 128px narrower than a 326px front card, which reads as a mistake rather than a pile. |
+| §2.3 Safe to spend | pile on the floor, sheets stand up **beside** the figure | pile unchanged, sheets lift into a **rail beneath** it | The pile is a vertical idea and needs no width. What cannot survive the narrowing is *beside* — there is no beside. The three points move under the rail. |
+| The rest of it | four cards in a row, each its own height | the same card on a rail | Each still takes the height its contents need; a rail does not need them levelled, and levelling them is what put empty paper under the short ones. |
+
+**Two faults found by drawing it:**
+
+- The hero deck's sheets were 240px against a 250px front card, so they hid
+  behind it entirely and the pile rendered as a single card. The sheet height
+  has to exceed the front card's own height or there is nothing to see.
+- The card visuals used `transform: scale()` with a negative margin to pull the
+  following content up. `transform` does not change the layout box, and **a
+  percentage margin resolves against the container's width, not the scaled
+  height** — so it over-pulled and sawed the bottom off the component. Both
+  widths now use `zoom`, which scales the layout box too, so the wrapper's
+  height follows the component and no correction is needed at all.
+
+### M·9 — Three 390 corrections, and one question back
+
+**The rail under the pile is gone.** It showed the pile's own three sheets a
+second time, full size, directly beneath the pile they lift out of — so the
+section said the same thing twice and the first card read as a leftover
+component rather than as a reveal. The pile plus the three points is the whole
+section, which is what 1440 does: the stack, and the content beside it.
+
+**§2.2 at 390 was already right, and now says so.** There is no pointer on a
+phone, so both states are shown at once — the app you tried in rose, Mizaniya's
+answer under it in emerald — rather than one being hidden behind an interaction
+that cannot happen. `motion.md` §5: nothing may depend on a gesture the device
+does not have. The caption now names both colours instead of only the red one.
+
+**The cycle band animates at 390.** It was a list of rows with opacity on them
+— a *fallback layout*, which is the one thing §5 forbids. It is the same
+`_series` treatment as 1440 now: the same four real paydays, the same rail
+sweep, with only the type size and rail height changing with the width.
+
+### M·10 — **Pricing and Security in the nav — spec, please rule**
+
+Asked by the owner, and it is a real gap: both words are in the nav and the
+footer and neither has a destination.
+
+My reading, and the reasoning rather than the answer:
+
+| Link | What I would do | Why |
+|---|---|---|
+| **Security** | **A real page.** | ADR-011 action 6 and the owner's 25 September decision moved the detail off the landing page — encryption, where the keys live, what the server can see. That detail still has to live somewhere a person can read before they hand over a salary, and the sign-up trust panel links to it on every visit. It needs a stable URL, and it is the page a cautious reader goes looking for by name. |
+| **Pricing** | **An anchor to the section already on the landing page**, not a page. | A pricing PAGE earns its place when there are tiers to compare. There are not: the model is one free product and a set of paid extras whose price is not settled. A separate page would be the same three paragraphs at a different URL, and it would be the second place a price has to be changed when it is settled. |
+
+**71 — Confirm or correct both.** If Pricing becomes a page later (when the
+number is settled, or when a second tier appears), the landing section becomes
+its summary and the anchor becomes a link — that change is cheap. Making it a
+page now is the expensive direction. ☐
+
+**72 — Neither page is drawn.** Security in particular is a screen with real
+content, and it is not in `docs/10-design-brief.md` §4. If it is in scope for
+v1 it needs a line in the brief and I will draw it. ☐
+
+### M·11 — The nav is two links, and §M·10 is answered
+
+The owner ruled, 25 September, and it settles items 71 and 72:
+
+- **Pricing leaves the nav and the footer entirely.** There is one product and
+  one set of paid extras — no tier to compare, so nothing for the link to take
+  you to that the page does not already say further down. The footer's Product
+  column now reads *What paying adds · Demo with sample data · What is free
+  forever*.
+- **Security leaves the nav and stays in the footer**, under *Security and
+  privacy*, where it already sat. It is still **a page of its own**, still
+  undrawn, and it now belongs in `10-design-brief.md` §4 as screen 20 — the
+  owner has said it will be built when we reach the footer's own contents.
+- **The nav is `Sign in` and `See it with sample data`.** Two links. In the nav
+  the other two competed with the only action that matters there.
+
+**Item 71: answered.** **Item 72 stands** — the Security page is in scope, and
+it needs a line in the brief before I draw it.
+
+### M·12 — Two more 390 corrections
+
+**The debt band was jam-packed.** Four money figures side by side across 310px
+is four figures none of which can be read. The anchors go back to a column —
+and what stacking them cost, the rail that shows the debt *crossing zero* rather
+than four separate balances, comes back as a **vertical loader down the left**,
+filling from one payday to the next. Same object, turned ninety degrees. Every
+anchor is fully drawn at rest, so with motion off it is a complete list of four
+real paydays ending at ₦0.00.
+
+**The price card was touching the §10.1 claim.** It had no top margin of its
+own — at 1440 it sits in a side column where it does not need one, and at 390
+it stacked straight onto *"We never store your bank data in readable form."*
+The most important sentence on the page was touching a card. 34px between them
+now.
+
+### M·13 — The cleanup, done and checked
+
+**`docs/design/` is 177 artboards and 177 previews, and nothing else.** Every
+file under the old naming (`DHome`, `02-home-1440-light.png` and the rest) is
+gone; the set on disk is exactly what `canvas.json` places, checked
+name-by-name against the build rather than by eye.
+
+Both READMEs still said *173 artboards · 11 pages* — written before the Home
+options page existed. Corrected to 177 and 12.
+
+**One file I have NOT removed, and it is a judgement call:**
+`PROPOSED-seed-additions.md`. Its own header says the figures were merged into
+`seed-data.md` on 10 September and **"do not read figures from this file"** —
+which makes it exactly the kind of stale document worth deleting. But it is kept
+deliberately, because §2 records *why* the overspent row is Health rather than
+Food, and that reasoning exists nowhere else. **73 — fold §2 into
+`seed-data.md` and delete the file, or leave it?** I would fold and delete: a
+document that has to warn you not to read half of it is a document someone will
+eventually read. ☐
+
+### M·14 — Every control on the landing page, and where it goes
+
+The owner asked the only question that matters about a button: *where does it take
+them?* Nine controls, and **six of them went nowhere.** A control with no
+destination is the dead control §I calls **L2**, and I had drawn six of them.
+
+**What stays, and its destination:**
+
+| Control | Where | Status |
+|---|---|---|
+| **See it with sample data** (nav, hero, closing) | The app, at Home, loaded with the seeded household and the demo marker bar across the frame | The marker is §H **item 33**, already a Must. **74 — but demo mode itself is in no spec section.** The marker cannot be the only written trace of a whole mode ☐ |
+| **Start with my own figures** | Onboarding step 1 | Drawn, page 3 |
+| **Sign in** | Sign in | Drawn, page 3 |
+| **Read the source** (closing) | `github.com/AbuMahir980/mizaniya` — public, source-available under PolyForm Noncommercial 1.0.0 | Real |
+| **Security and privacy** (footer) | The Security page | **Undrawn**, item 72 |
+| **Source · Open items · Licence** (footer) | The repo, `docs/open-items.md`, `LICENSE` | Real |
+
+**What came off, and why:**
+
+- **"Tell me when it is"** — I drew a button under the unsettled price. It implies
+  an email list: capture, consent, storage, a send. None of that is in v1 and all
+  of it I invented by drawing a control. The panel says the price is not settled;
+  that is the message, and a message needs no action.
+- **"See the whole screen"** on all four *rest of it* cards — I gave those cards a
+  way in twice, first *See it* and then *See the whole screen*, and neither ever had
+  anywhere to go. The page already has **one door**, at the top and again at the
+  bottom. Four more doors beside four screenshots is four more decisions for a
+  reader who has not made the first one.
+- **Footer: nine rows became four.** *What paying adds*, *What is free forever*,
+  *Export your data* and *What we can see* were headings from this page dressed as
+  links — a footer that scrolls you back up wastes a click. *Demo with sample data*
+  is the button already at the top and bottom. *About* had no page and no content
+  anyone had written.
+
+**74 — demo mode needs a spec section.** What it loads, whether it persists, what
+happens when a demo user signs up, and whether an edited demo can be kept. §H item
+42 already says a demo export must not restore silently as real data — that answer
+exists without the question it answers being written down anywhere. ☐
+
+### M·15 — Item 73: done
+
+`PROPOSED-seed-additions.md` is **deleted**. Its §2 — the only part not already in
+`seed-data.md`, explaining why the overspent row is Health rather than Food — is
+folded into `seed-data.md` beside the figure it explains. The three other documents
+that pointed at it are updated.
+
+### M·16 — The hero deck cycles the app's own views
+
+Jamiu, 25 September: the deck should be **Home, then Plan, then Transactions**
+— whole screens with the navigation on them — not single components.
+
+He is right, and the reason is that it makes the hero **distinguishable from
+§2.3**. The hero says *here is the product*; §2.3 says *here is what sits
+underneath one figure*. Building both from the same component cards made them
+the same device used twice. The hero now carries five real 1440 screens at 42%
+(`zoom`, so the layout box scales with them), cropped to the top band — the
+sidebar, the date bar, the Add button and the first row of content. A window
+onto a real screen, never a redrawing of one at a size it is never used at.
+
+**This broke the text budget, and the guard was right to stop me.** A whole
+screen carries the app's own headings — *Plan*, *Transactions*, every category
+name — and the counter looks for `.ser` blocks wherever they are, so five
+screens pushed the page to 194/190 on copy it does not contain. The budget
+limits what this PAGE says, not what the product says inside a picture of
+itself. `web_screen` now wraps its output in `<!--appshot-->` sentinels and the
+counter cuts those out before counting. Balanced comments are trivial to strip;
+a regex over nested `<div>`s is not.
+
+### M·17 — The demo is dropped, and item 74 is withdrawn
+
+> **THIS IS THE OWNER'S DECISION, NOT THE DESIGNER'S.** Recorded here at his
+> instruction so the build side knows where it came from. I argued for keeping
+> the demo in the same conversation and was overruled, on better reasoning than
+> mine. Anything downstream of this — §H items 33 and 42 especially — changes
+> because he decided it, not because a drawing changed.
+
+Jamiu, 25 September:
+
+> *"Since a user can use their own data and they don't necessarily have to sign
+> up — if they had to sign up before they could do that, then yes, friction is a
+> concern."*
+
+**That is right.** The demo existed to let someone look before committing. But
+the thing they would have been committing to is *typing their own figures into a
+free product that needs no account* — which is not a commitment. The demo was
+solving friction that the free tier had already removed, and it cost a whole
+mode to do it.
+
+**The stronger claim was there all along, and the page says it now:** *you do not
+need an account to use this.* Not a trial, not a preview, not a sample — the
+real product, real figures, no sign-up. An account buys reach: a second device,
+a second person, a bank. That claim stays true after the visitor starts, which
+the demo pitch only was for as long as they stayed in the demo.
+
+**What changed on the page:**
+
+| Was | Now |
+|---|---|
+| Nav: *See it with sample data* | *Start with my own figures*, with *Sign in* beside it |
+| Hero: *Look around first — no sign-up to try it* | *No account needed. Sign up only for a second device or a second person.* |
+| Closing: *Look at it with someone else's money first* | *You do not need an account.* |
+| Footer bottom: *Every figure on this page is sample data* | *Every figure on this page comes from one worked example* |
+
+**74 is withdrawn** — demo mode needed a spec section only while demo mode
+existed.
+
+**75 — §H items 33 and 42 now have no subject, and that is the build side's
+call, not mine.** Item 33 (the demo marker, promoted to a **Must**) and item 42
+(a demo export must not restore silently as real data) both answer questions
+about a mode this ruling removes. If demo mode is gone from the product as well
+as from the landing page, both should be closed as withdrawn rather than left
+standing as Musts nobody can satisfy. **The `LandDemo` board is already off the
+canvas.** ☐
+
+### M·18 — Item 72 done: Security and privacy is drawn
+
+**Screen 20**, at 1440 and 390, on page 6 and page 10. It carries what came off
+the landing page and it is **reachable only from the footer** — not the nav, not
+a hero link, not a banner. A cautious reader goes looking for it by name and
+finds it; nobody else is made to walk past it. The sign-up trust panel links
+straight to it, which is the one moment it matters.
+
+**Every answer carries its caveat in the same size as the answer.** A caveat set
+smaller than the promise it qualifies is a caveat being hidden. So the page
+says, in the same type as the reassurance beside it:
+
+- without an account the browser copy is **not encrypted at all**, and that is
+  the trade the free tier makes;
+- the movement **reaches the server before it is encrypted**;
+- **people can read production data**, and anyone claiming otherwise is
+  describing a company that cannot fix a bug;
+- a copy **persists in encrypted backups for up to 30 days**.
+
+The one absolute claim is `tokens.md` §10.1, character-identical. The page is
+dated, because an undated privacy page is a promise with no expiry.
+
+**76 — three facts on this page are mine and belong to the spec:** the 30-day
+backup window, that deleting the account deletes the data rather than only the
+login, and that the access log names person, time and object. Plausible, drawn
+because the page is unreadable without them, and **not written down anywhere**. ☐
+
+### M·19 — The Security page, rewritten the same day. Two faults, both mine.
+
+**It was drawn inside the app shell** — sidebar, date bar, an Add button. But
+whoever clicks *Security and privacy* in the landing page footer has no account,
+no budget and no data. Dropping them into a dashboard frame with a navigation
+they cannot use is a screen that does not know who is reading it. It is a
+**public page** now, in the landing page's frame: same nav, same footer, one
+column. You can reach it before you exist to us.
+
+**And it explained the database.** *"Encrypted at rest, keys held outside the
+database." "People can read production data." "Backups persist 30 days."* All of
+that is architecture, and the owner had already ruled on architecture in public
+once — *you still don't need to explain to people how your data is being
+stored*. I wrote it anyway and dressed it as candour. **Telling someone the
+shape of your storage is not honesty. It is a map.**
+
+**The frame that replaced it is the owner's**, from a conversation with a friend
+who works in this, and it is the right one:
+
+> Compliance does not ask how you store it. It asks **what you hold and why**.
+> An auditor points at a customer's phone number and says: what is this for? If
+> you cannot name the purpose, you should not be holding it. A stored card
+> number is a red flag on its own — which is why the sites that do it well keep
+> four digits and nothing else.
+
+So the page is now three lists:
+
+| Section | What is in it |
+|---|---|
+| **What we hold, and what for** | Email (sign-in and reset) · the budget (it is the product) · a bank connection, only if turned on · the device list (so a lost phone can be signed out). Each with how long it is kept. |
+| **What we do not hold at all** | **No card number — not even the last four.** No phone number, address, date of birth, BVN or NIN. No contacts, no location, nothing for advertising. |
+| **How we decide** | We keep only what we can name a use for · nobody builds Mizaniya against your figures · deleting the account deletes the data, not just the login. |
+
+**Item 76 is withdrawn.** The three facts I invented — the 30-day backup window,
+the access-log contents, the deletion detail — went with the architecture that
+needed them. Nothing on the page now is a promise nobody has agreed to.
+
+**77 — the sign-up screen now carries the notice, not a link to it.** Above the
+button, not below: *"Creating an account means you have read what we hold and
+why — four things, each with its reason, and a list of what we never ask for."*
+This is the moment a person hands something over, and it is where the owner said
+the detail belongs. **Confirm this is the consent wording you want**, because
+consent wording is legal, not design. ☐
+
+**78 — two things the owner's friend raised that are NOT on the page and should
+not be, but which the BUILD side needs anyway:** development must run against a
+separate database that developers cannot read production from, and backups need
+to exist. Both are real requirements. Neither belongs on a public page — that is
+exactly the architecture disclosure this rewrite removed. They belong in
+`02-architecture.md`. ☐
+
+### M·20 — Security and privacy moves to page 1
+
+It stopped being an app screen the moment it became public, so it stops sitting
+on an app page. **Page 1 · Landing page**, after the four landing boards, at
+both widths.
+
+It wears the landing page's nav and the landing page's footer and has no
+sidebar, it is reached only from that footer, and it is the only page on this
+canvas that is reached from the landing page and is not the landing page. Filing
+it under *Account, sync and household* was a leftover from the version that had
+a sidebar on it.
+
+### M·21 — The options page is gone, and the account flow is drawn at 390
+
+**Page 2, the three Home options, is off the canvas.** It was a *choosing* page
+— three answers to one question, kept only while the question was open. The
+owner picked A and B, Home is built from them, and a page that exists to be
+decided on is clutter once it has been. `build_opts.py` is untouched, so the
+argument is recoverable from git if the decision is ever reopened. **Eleven
+pages now.**
+
+**The account flow exists at 390.** The 1440 set has had it since this morning
+and the 390 set did not, which made *Getting in* the only place on the canvas
+where the two widths did not match. Six screens: sign up, sign up with the
+address taken, sign in, forgot password, check your email, set a new password.
+
+It is **a different composition, not the wide one narrowed.** At 1440 the form
+and the trust panel sit side by side, so you read the fields and the reasons at
+once and the panel is a wall you cannot miss. At 390 there is no *beside*, so
+they stack — form, then the same claims in the same order underneath. **The
+claims are not cut down for the phone.** A trust panel that says less to someone
+signing up on a phone says less to most of the people signing up.
+
+The three reset screens carry **no trust panel at all**. The panel is for
+someone deciding whether to hand something over; a person resetting a password
+decided that already, and repeating it there is furniture.
+
+### M·22 — The trust panel had the same fault as the Security page
+
+Two of its three claims described the **storage**: *"Encrypted, with the keys
+held outside the database"* and *"Every access to production data is logged."*
+Architecture, told to a stranger, at the one moment they are least able to judge
+it — and I had just removed exactly that from the Security page for exactly
+that reason. Finding it twice in one day is the point: **it is not a slip, it is
+a habit**, and the habit is reaching for the impressive-sounding truth instead
+of the useful one.
+
+The panel now says what the page says: we hold four things and each has a
+reason; we never ask for a card number, a BVN or a phone number; bank access is
+read-only. The headline caveat is reframed the same way — *our server sees the
+movement in order to pass it to you* rather than *the movement reaches our
+server before it is encrypted*. Same admission, no implementation detail.
+
+### M·23 — *Getting in* rebuilt: three faults, and the third is the old one
+
+The page is **Account and setting up** now, at both widths.
+
+**1 · The order ran backwards.** Welcome, six onboarding steps, then the account
+flow at the end — so the page opened in the middle of a journey and finished at
+its start. It is sign up · address taken · sign in · forgot · check your email ·
+set a new password, then the six setting-up steps.
+
+**2 · The Welcome screen is gone, at both widths.** It said *get started* to
+someone who had just clicked *Start with my own figures* on the landing page.
+That is the welcome. The second one was a door in front of a door.
+
+**3 · The 1440 onboarding was a phone screen.** `extra.onb_desktop` said so in
+its own docstring — *"the same step, centred as a card at 1440"* — a 390px
+column with 410px of paper either side of it. That is the fault the owner has
+named at every width on this project, and it was sitting in the first screen a
+new person ever sees.
+
+**What the width is actually for here.** A phone can show you the step you are
+on; **it cannot show you the path**. Six dots say there are six of something.
+They do not say that step 2 is the only one that matters, or that step 4 is
+about money you already have. So 1440 spends its width on a **rail** naming
+every step, what it is for, which are done and which can be skipped — and the
+pane beside it lays content out as a web screen would:
+
+| Step | What changes at 1440 |
+|---|---|
+| 2 | **The salary-day picker is inline.** At 360 thirty-one days do not fit beside a field, so tapping opens a sheet. At 1440 they fit. A sheet that exists only because a phone was narrow has no reason here. |
+| 3 | **A table, not a stacked list.** Type and protection are columns, because reading twelve categories down one column is how you miss that four of them are protected. |
+| 4, 5 | Tables with the figure and its date in columns, and the *dated 24 August* rule stated once beside them rather than repeated per row. |
+| 6 | The target and its date beside what it needs per payday — ₦85,000.00, derived from ₦305,000.00 saved and five paydays left. |
+
+`extra.onb_desktop` is unused now and stays in the file until the build side has
+read this, so the diff shows what replaced it.
+
+**79 — step 1, and the owner was right twice over.** *"Somebody already signed
+up — do we still need to call them anything? Or a username, a nickname, a
+kunya?"*
+
+**Is the step needed?** Yes, and the sign-up form is what settles it: it takes
+**an email address and a password, and nothing else**. There is no name to
+inherit, signed up or not, and the alternative is heading a paper record with an
+email address. Drawn and kept.
+
+**Was the question right?** No. It asked *"What should we call you?"* — which
+promises a greeting. Mizaniya never greets anybody: no name on Home, none in the
+sidebar, none in a report. A question implying a relationship the product does
+not have is a small lie told in the first thirty seconds. It now asks **"What
+should the debt record call you?"**, because the name has exactly one reader:
+the person on the other side of a debt, holding a sheet of paper.
+
+**And the kunya belongs in it.** The field's examples now say so plainly — a
+first name, a kunya, or the household — because for a debt between neighbours
+*Abu Mahir* identifies the borrower where a name off a form may not. It is one
+field with three examples, not three fields: one decision is being made.
+
+**And the owner then asked the better question: why is it here at all?** Step 1
+was explaining a field with a document nobody has met — debts are step 5, they
+are optional, and a person may never record one. So the record moved to step 5,
+where it is built from the debt just entered, and step 1 asks plainly. **Ask,
+then show.** ☑
+
+**What is still the spec's, and it is one question:** if someone signs up
+*first* and sets up after, is step 1 still asked, or is the account expected to
+carry a display name it currently has no field for? The screens assume setting
+up can happen with no account at all — which is the whole point of *no account
+needed* — and are correct for that order. ☐
+
+**80 — `seed-data.md` should name the owner.** The printed record says
+*A. Owner*; step 1 now shows *Abu Mahir* to demonstrate what the field does.
+Two screens, two names for one person, and neither is seeded. One owner display
+name in `seed-data.md` would let both read from it. Until then the mismatch is
+deliberate and this item is why. ☐
+
+### M·24 — Six screens that were six forms, read as a chain
+
+The owner walked the 1440 setting-up flow end to end and found six faults. Five
+of them are the same fault: **the 1440 screens were drawn without opening the
+360 screens they replaced**, and drifted. The 360 flow had it right on four of
+the six the whole time.
+
+| Step | What was wrong | Where the right answer already was |
+|---|---|---|
+| 1 | Explained the name with a debt record four steps early | — (new) |
+| 2 | A derived figure that cannot exist yet | 360 shows no figure |
+| 3 | Add a category, but **no way to remove one** | 360's row sheet removes |
+| 4 | ₦305,000 dated 24 August; **no way to add a pot** | 360: ₦400,000, 24 September |
+| 5 | A table of three debts and a button, **no form** | 360 has had the form since it was drawn |
+| 6 | ₦85,000 from "₦305,000 and five paydays" | 360: ₦83,333.34, correctly |
+
+**Step 2 is worth spelling out.** The panel read *₦8,666.66 a day, over 30
+days*. That is `PLAN ÷ 30` — and there is no plan at step 2; the categories do
+not exist until step 3 and the amounts until Plan. Sitting under a take-home of
+₦450,000.00 it also invited the reader to check it and find it wrong, since
+450,000 ÷ 30 is 15,000. **And that figure would have been a worse lie**, because
+take-home is not spendable: rent, savings and debt repayments come out of it
+first. What a salary day and a take-home genuinely produce is **a cycle**, so
+the cycle is what the panel shows — 25 September to 24 October, 30 days — and
+it says plainly that nothing is divided up yet.
+
+**Step 4 was the expensive one**, because step 6 reads it. Getting ₦400,000
+wrong made step 6 wrong as well, which is how ₦85,000.00 and *five paydays*
+appeared on a screen when `seed-data.md` solves that exact sum for that exact
+screen. The rule the flow now follows: **a figure a later step depends on is
+named as coming from the step that holds it.** Step 6's card has
+*Already saved, from step 4* as a line in the sum, not a number that arrived
+from nowhere.
+
+**Step 5 answers the owner's second question too** — *is the debt record
+separate from "who you owe, and who owes you"?* No. A debt recorded there **is**
+the record; printing is only how it leaves the screen. The form comes first
+because a person arriving here has no debts, and the thing they need is the
+thing they fill in; the table is what accumulates behind it, and adding one
+clears the form and leaves it ready. Outstanding stays derived — borrowed minus
+paid back — so no wrong balance has a field to go into.
+
+**81 — removing has two meanings and only one is drawn.** Step 3 and step 4 now
+offer *Remove*, which is correct while nothing has history. **After the first
+cycle a category with movements in it cannot simply vanish** — the past would
+stop adding up. The screens say "archived instead"; the spec owns what archived
+means, where archived categories are listed, and whether an archived one can
+come back. ☐
+
+**82 — a savings pot the user adds needs a type and a protection rule.** *Add a
+savings pot* at step 4 is drawn as a button. What it opens is the spec's:
+presumably the same sheet as *Add a category* with the type fixed to Savings,
+but the protection default for a user-made pot is not stated anywhere. ☐
+
+### M·25 — One screen, one row, two widths
+
+The phone pages are gone as pages. A screen now appears **once**, as a row:
+1440 light · 360 light · 1440 dark · 360 dark. Eleven pages become seven.
+
+**The argument is a day old.** The 1440 setting-up flow was wrong on four of six
+steps, and on every one of those four the 360 screen had been right since the day
+it was drawn — ₦85,000.00 on the desktop and ₦83,333.34 on the phone, for
+the same sum, in the same repo, for days. That is what two sections buy: a
+discrepancy nobody can see without opening two pages and remembering. `10-design-
+brief.md` had already asked for it this way — *"360 and 1440, light and dark,
+for anything built now"*.
+
+It is still **one responsive web app with two designed views**, not one design
+shown at two sizes. The pairing rule is the naming: `Web<X>` and `Mw<X>` are the
+same screen; `Land` / `LandPhone` is the one exception. A phone screen with no
+1440 partner — the salary-day sheet, the More sheet, the import refusals —
+keeps its own row, placed after the screen it follows rather than swept to the end.
+
+**The trust panel is gone from every auth screen.** It carried four claim blocks
+in front of a two-field form; at 390 it pushed the button most of a screen away
+from the fields. The stronger reason is that `tokens.md` §10.1 **fixes** that
+wording, and a fixed wording repeated in five places is a wording that will
+eventually differ in one of them. It did: the forbidden sentence reached that
+panel twice. So sign-up keeps the one §10.1 claim — required there, character-
+identical to the landing page — with a link; the three supporting claims live in
+**one** modal behind it. Sign-in and the resets get the link and no claim: nothing
+new is handed over by someone who already has an account. §10.1 is amended in
+`tokens.md` accordingly — the claim did not change, only where it says it lives.
+
+**The modal keeps the form visible behind it.** A modal that blacks out what you
+were doing is a page, and a page you have to come back from. Nobody is sent away
+mid-sign-up to read a privacy page and expected to find their way back.
+
+**Consent is a tick now.** It read *"creating an account means you have read what
+we hold and why"* — a claim about the reader, made on their behalf, in grey
+text above a button. Consent you have to reach for is consent.
+
+**83 — first launch, and what decides it.** v1 is a PWA (spec §G: *the app is
+installable*), and an installed copy opens cold: no address bar, no landing page,
+nothing to have scrolled past. So the Welcome screen removed in M·23 was right
+to go from the **browser** and wrong to go entirely — it is what an installed
+copy shows on a device with **no budget on it yet**. Drawn at both widths, on page
+1. **What the spec owns:** launching an installed copy that already has a budget
+should go straight to Home and never show this; and whether “installed”
+is the condition at all, or simply “no budget on this device”, which
+would also cover a first visit in a plain browser tab. ☐
+
+**84 — the consent tick needs its wording and its record.** The screen shows a
+ticked box reading *I have read the security and privacy*. Whether that text is
+the legally intended wording, whether the tick must be stored against the account
+with a timestamp and a policy version, and what happens to an account created
+before a later policy version — all spec, and all of it sits next to item 77. ☐
+
+### M·26 — ميزانية was missing, and the reason is the same one as last time
+
+The owner: *"I can't see the Arabic for Mizaniya anymore — not on the landing
+page, not on first launch. Why was it removed?"*
+
+**It was never removed. It was never called.** `brand.wordmark()` has set
+ميزانية under the Latin since the mark was drawn, and the brand page states the
+rule in full — *stacked when there is room; single-line in bars and on the
+sidebar, where the Arabic is dropped rather than shrunk.* The rule was right.
+What went wrong is that the landing page, the auth screens and first launch each
+**hand-typed their own lockup** instead of calling the component, and a
+hand-typed lockup has no Arabic in it.
+
+**That is the second time in four days**, and the first one was §10.1's trust
+panel: one thing defined once, re-typed in five places, drifting in five
+directions. The fix is the same both times — one definition, and no second way
+to draw it. `tokens.md` **§10.2** now carries the wordmark rule, with a table of
+where it stacks and where it is dropped, and with the failure written down so the
+next hand-typed lockup has something to be measured against.
+
+**Where it now appears:** first launch (both widths), the auth masthead, the
+landing footer, splash, the cover. **Where it is deliberately absent:** the nav
+bar, the app sidebar, the phone header. *Dropped, not shrunk* — Amiri at 9px is
+not the Arabic, it is a smudge of the right shape.
+
+**One build-guard change followed.** The landing page has a 190-word prose
+ceiling, and adding the Arabic to the footer took it to 191. The Arabic is a
+**mark, not copy** — it is the product's name, exactly as *Mizaniya* beside it
+is — so the counter skips it, the same way it already skips the app screens
+embedded in the hero. A budget meant to stop a page arguing with itself should
+not be the thing that decides whether the name appears in full.
+
+**First launch at 1440 was also wrong, and the owner named the shape.** The first
+pass centred one column in a 1440 frame — the fault this project has named at
+every width. He remembered the old `brand.welcome_desktop`: the name on the left,
+the Arabic under it, content on the right. It is two columns now. **What is on
+the right is not a sales argument** — someone who installed the app has already
+been convinced — it is the six setting-up steps with the one required marked,
+so the screen is continuous with step 1 rather than a door in front of it.
+
+**Two smaller faults the render caught.** The consent line read *"I have read the
+Read our security and privacy"*, because the link was treated as a fixed string
+rather than a phrase; it takes a label now. And sign-up carried **two lockups**,
+one in the form column and one in the rail — a screen that says its own name
+twice is a screen that is not sure you saw it the first time. The rail's is gone.
+
+### M·27 — Mīzāniyah, and the Arabic beside every logo
+
+Two instructions from the owner, 25 September.
+
+**1 · Wherever the logo appears on a public-facing screen, ميزانية goes with
+it.** That is stronger than the rule §10.2 carried yesterday, which allowed the
+Arabic to be dropped in bars. It now stacks in the landing nav at both widths,
+on security and privacy, on first launch, on every account and setting-up
+screen, on splash and on the cover. The landing nav is 76px tall and has room
+for two lines — which is the test. It stays dropped only once someone is
+*inside* the app, on the sidebar and the phone header, where a 28px bar cannot
+carry two lines and shrinking is the one thing never to do.
+
+**2 · The name is romanised properly.** ميزانية is m-ī-z-ā-n-i-y-a-h, so the
+wordmark reads **Mīzāniyah**. The long vowels are the alif and the ya the Arabic
+actually has; *Mizaniya* threw both away and the ta marbuta with them. Set with
+ī (U+012B) and ā (U+0101) — real characters, not combining marks and not tildes.
+EB Garamond has both and Google Fonts serves them from latin-ext.
+
+Changed in **one place**, `brand.NAME`, and every lockup reads it from there.
+After two drift incidents in four days that is the only way it is allowed to be
+written.
+
+**85 — does prose follow the wordmark?** Right now the drawn name is
+*Mīzāniyah* and running copy, the repo, the domain and the package name still
+say *Mizaniya*. That split is deliberate and it is how transliterated brands
+normally work — the wordmark is lettering, a URL is something a person types —
+but it is the **owner's** call, not a design one, because it reaches the domain,
+the app listing, search and word of mouth. Worth knowing before deciding: almost
+nobody will type ī or ā, so a name that requires them to find us costs reach;
+and `© 2026 Mizaniya` in the footer is a legal entity, which changes only if the
+entity does. ☐
+
+### M·28 — The lockup is one object, and first launch goes back to the screen that existed
+
+**ميزانية looked stuck on rather than part of the name.** The owner: *“it should
+look like a child on a parent — written tiny, but part of the main name, not
+sitting separately.”* Three causes, all now in `tokens.md` §10.2 with the values:
+the block was **right-aligned** (RTL is right for the glyphs, wrong for the
+block — it opened an empty wedge beside the mark), it had **a line and a half of
+leading** on a face that already sits low in its box, and at **0.68 of the Latin**
+it competed rather than accompanied. Left-aligned, 1.05 with a −10% pull, 0.5.
+
+**And there were still three copies of the lockup** — `landing.py`, `webnew.py`
+and `brand.wordmark()` — which is what let the Arabic go missing from two of
+them in the first place. There is one now, `brand.lockup()`, and everything else
+calls it. §10.2 already said *a lockup is a component call and there is no second
+way to draw it*; now that is true rather than aspirational.
+
+**First launch — two corrections, both of them drift from a screen that already
+existed.** `brand.welcome_desktop` is the composition the owner remembered and it
+was right: the name and the actions left, **three tiles with icons** right, the
+pair centred. My version listed the six setting-up steps — an agenda, where a
+new arrival wants a reason — and it sat hard against the left edge, because the
+columns were sized to a total narrower than the frame and every pixel of slack
+fell on one side. The inner row centres now.
+
+**86 — DONE on the design side, and it is the build side's turn.** The old third tile read
+*“Nothing leaves this device — no account, no server, no sync.”* ADR-009
+made every clause of that false on 24 September. It is the exact shape §10.1
+exists to stop: a comforting sentence about where data goes that stopped being
+true and nobody re-read. The other two were Home's offline banner and the phone
+onboarding's *“everything you enter stays on this device”*. **Three
+independent finds means this is not a slip, it is a class**, and the only thing
+that will catch the fourth is a build guard. **The owner approved it, so it is built**: `guards.py`
+runs the list over every rendered board, and `tokens.md` §10.3 carries the list,
+the reasoning and the escape hatch in prose. It found four more offenders on its
+first run — `brand.welcome`, `brand.welcome_desktop`, `brand.splash` and two
+more copies of the onboarding footer — none of which anyone had noticed. All
+fixed.
+
+**For the build side:** run the same list over the app's own strings. It is
+twelve substrings and a lower-case comparison; the escape hatch is a marker on
+the string, not an exemption list someone has to maintain. ☐
+
+One thing the first run taught: `render/` was never pruned, so the sweep failed
+on `WebWelcome` and `Onboarding` — boards deleted on 25 September whose HTML was
+still on disk. **A guard that fails on a file nobody ships teaches people to
+ignore the guard**, so the sweep now prunes anything absent from the `*-meta.json`
+manifests before it checks. (The replacement tile, *Works with no signal*, is
+true and is the better promise anyway.)
+
+### M·29 — The Arabic starts at the *h*, and it was not in Amiri
+
+**Alignment: right, and it always should have been.** Left was tried and the
+owner sent it back with the reason: ميزانية **starts at the right**, so its first
+letter belongs under the Latin's last one — under the *h* of Mīzāniyah, running
+back towards the *M*. Each script begins at its own reading edge and the block
+is justified to both outer edges. The leading and the size were the whole
+problem; the alignment never was.
+
+**And it was not rendering in Amiri.** Chasing the alignment turned up the real
+fault: `.ar` — the rule that sets Amiri *and* `direction: rtl` — lived in
+`brand.AR_CSS`, which **every builder had to remember to append**, and
+`build_land.py` did not. So on the landing page ميزانية has been setting in
+Inter's Arabic fallback, in a left-to-right block, for as long as it has been
+there. Measured, not guessed: `getComputedStyle` reported `direction: ltr` and
+`font-family: Inter`.
+
+It is in **`ui.ALL_CSS`** now, so no builder can omit it, and **Amiri is in the
+global font link** rather than assumed. A stylesheet you have to remember is a
+stylesheet that will be forgotten — the same lesson as the lockup itself, one
+layer down.
+
+### M·30 — The Arabic sits on top, and the guard is built
+
+**ميزانية is above the Latin now**, right-aligned so its first letter is over the
+*h* of Mīzāniyah, half the size, pulled −18% onto the cap line. The owner,
+third pass and the clearest statement of it: *“it sits on top of it, like a
+child on the head of a parent, in its tiny form.”*
+
+That **overrules the brand sheet's old DON'T tile**, which said never set the
+Arabic above the Latin. The tile was drawn when the Arabic was two-thirds the
+size of the Latin, and at that size above does read as a competing headline —
+right about the fault, wrong about the cause. It now says the true rule: never
+let the Arabic match or outweigh the Latin. A DON'T that contradicts the lockup
+beside it is worse than no DON'T at all.
+
+**And the false-comfort guard is built** (item 86, owner approved). `guards.py`
+sweeps every rendered board. On its first run it found **five more offenders
+nobody had noticed** — `brand.welcome`, `brand.welcome_desktop`,
+`brand.splash`, and two further copies of the onboarding footer in `mobile.py`
+and `screens2.py`. All fixed. `tokens.md` §10.3 carries the list, the reasoning
+and the escape hatch for the build side.
+
+Two things that run taught, both now fixed in the guard rather than worked
+around: a board **note** that quotes a banned sentence in order to explain the
+ban was tripping it, so notes are wrapped in `<!--note-->` by the board component
+and every text guard strips them (the lock-vocabulary check and the word counter
+had each solved this separately, badly). And `render/` was never pruned, so the
+sweep was reading the HTML of boards deleted on 25 September — **a guard that
+fails on a file nobody ships teaches people to ignore the guard**, so it prunes
+anything absent from the `*-meta.json` manifests first.
+
+### M·31 — The Arabic drops into the valley, and two guard bugs
+
+**ميزانية sits IN the word's skyline, not over its end.** Flush right put it above
+the *h* — the tallest thing in Mīzāniyah, and the one place with no room. The
+owner saw the actual gap: *“look at the i and the h, that space between
+them — y and a have flat heads, so there is a space there. Place the Arabic on
+top of that place so it looks like it's sitting in it.”*
+
+He is right and it is the whole trick. `-iya-` is four x-height letters with
+nothing above them but the *i*'s dot, so the word's skyline has a **valley**
+between the ā's macron and the *h*'s ascender. Shifting the block **30% of the
+Latin size left** drops the Arabic into it, with the *h* rising to its right and
+the macron to its left, and the pull deepens to **−28%** — deeper than it could
+sit over the *h*, precisely because there are no ascenders under it any more. It
+stops being balanced on top and becomes something the word makes room for.
+
+**Two bugs in yesterday's guard, both found by it breaking honest work**, and
+both fixed in the guard rather than worked around:
+
+**The prune deleted a builder's own output.** `build_combined` writes renders but
+its manifest was called `combined.json`, which nothing else could see — so the
+sweep counted three live pages as dead and removed them, and the screenshot step
+then failed on files that had existed ten seconds earlier. **A guard that deletes
+a builder's output is worse than the bug it was catching.** The manifest is
+`combined-meta.json` now, because the manifest name is the contract, and pruning
+is opt-in per builder so a builder with no manifest checks what it can see and
+removes nothing.
+
+**And it had already failed once on dead files** — `WebWelcome` and `Onboarding`,
+boards deleted on 25 September whose HTML was still on disk, because `render/`
+had never been pruned by anything. Both faults are the same shape: **a guard is
+only as trustworthy as its idea of what is live.**
+
+### M·32 — Home at 1440: the right card gives way, and two seed errors with it
+
+The owner: *“the This cycle component is longer than the ones on the left —
+their height should be the same, and Goals and Debts take the remaining
+space.”* Goals and Debts were already a full-width band; the row above it was
+the problem. **Measured, not guessed: 655px against 757px — 102px apart**, not
+the wall of paper it looked like.
+
+**Two wrong answers came first, and both are worth recording.** Stretching
+*Where your money is* to close the gap put the whole 102px **inside one card**,
+as a single hole — the same fault moved indoors. Spreading it across the left
+column's three gaps stretched the column out, and the owner sent that back too:
+*“I didn't say stretch them out — let them be compact within their own
+listing.”* He is right. Those three blocks have a rhythm of their own, and
+padding it to match something else is not a reason.
+
+**The right card gives way instead.** The left column sets the height and
+nothing in it is touched; the category card is absolutely positioned inside its
+shell, which takes it out of the row's height calculation entirely, so it fills
+exactly what the left column made. **The eight rows scroll inside it**, header
+and key pinned — which is the better behaviour regardless, because the order is
+worst pace first, so what fits is what matters and the rest is there for whoever
+wants it. The last row clipping mid-bar is the affordance: a static board cannot
+draw a scrollbar, and a list ending flush at the card edge looks like a list that
+ended. The header now says **8 · worst pace first**, so the count is not a
+surprise.
+
+**Goals and Debts come up the page, and two seed errors surfaced when they did.**
+
+| | Was | Is | Source |
+|---|---|---|---|
+| Emergency fund, saved | ₦0.00, 0% | **₦15,000.00, 10%** | ₦15,000 moved to it this cycle, named again in the zakat working on 5 October |
+| Debts | two rows | **three** — B. Colleague, ₦40,000, *owes you* | the seed has three debts |
+
+The missing one is the only debt that runs the other way, which is the direction
+the whole screen claims to handle.
+
+**87 — the gauge is off 360. Owner's decision, 26 September.** ☑
+
+It was kept here on 25 September on the argument that *“can I spend this,
+right now?”* is a phone question and a dial answers it. The board then argued
+against itself: **the card directly beneath it showed the same comparison and
+more of it** — today's bar against the dashed allowance line *plus ten days of
+history*. The gauge had today against the allowance and nothing else, and it
+cost about 200px of the most valuable space on the screen to say less.
+
+The figure is set large, the way it is at 1440, and the two numbers the arc
+carried — the ceiling and the amber threshold — are a line of type under it,
+where they can be read rather than estimated from an angle. Everything below
+comes up the screen.
+
+**It appeared in seven places**, each with its own hand-typed absolute-positioned
+figure inside it: Home, the five Home states, the offline banner, the More sheet,
+the two sheets drawn over Home, the quick-add backdrop, and **both landing-page
+hero fragments** — which would otherwise have gone on advertising a control the
+app no longer has. There is one `combined.hero_block` now and all seven call it.
+`gauge()` stays in the file, unused, until the build side has read this.
+
+**89 — I destroyed 90 lines of `extra.py` and rebuilt them.** Removing the gauge
+from the two “behind” screens, I used a line-splicing loop instead of an
+exact string replace, and its end-marker search ran past the end of the block:
+**ten functions gone** — the add-debt and add-goal sheets, the quick-add
+variants, the five Home states, the offline banner, the debt record, the More
+sheet and both sheet-over-Home screens.
+
+Recovered in full from `__pycache__/extra.cpython-311.pyc`, which still held the
+intact version, by reading the bytecode back into source. **Verified rather than
+assumed:** the previously rendered HTML for all 276 boards was kept, and after
+the rebuild **235 render byte-identical and all 41 that differ are gauge
+removals** — including `debt_record`, the most complex of the ten, which came
+back exact.
+
+**The rule, and it was already the rule:** source is edited with exact string
+replacements that assert they matched once. The one time I reached for a line
+loop, it ate ninety lines. ☑
+
+
+**88 — `.drop/` is ignored now, and here is why.** A failed `rm` broke the
+extract chain, so a drop landed nothing and then committed its own 55MB of
+transfer tarballs instead. The commit was undone before it went anywhere.
+`.gitignore` carries `.drop/` so the tarballs can never be committed again even
+when the clean-up fails. ☑
+
+### M·33 — Home in plain English, and the install is offered
+
+**“Let's assume we are building for dummies.”** The owner walked Home line
+by line and every line he named was fair. `tokens.md` **§10.4** carries the
+before/after table and the rule: **nothing is shown less — every figure stays
+and gets named in words a person already uses.** *“Fair share by today”* is
+the phrase doing most of the work: it says pro-rata without the word, and it is
+the same phrase on the plan card, every category row and the legend, so learning
+it once is enough.
+
+**A rounding bug fell out of the rewrite.** The headline figure rounded the naira
+part and then stapled the kobo on, so ₦14,666.67 printed as **₦14,667.67** —
+a figure that exists nowhere in the arithmetic. Money is floored to the naira and
+the kobo carried. Worth a build-side check: **any figure built from two separately
+formatted halves.**
+
+**ميزانية is in the app now too**, on the sidebar — and it fits precisely
+because it sits ON the word rather than under it. §10.2's *“dropped in bars,
+never shrunk”* existed because a two-LINE lockup cannot fit a bar. This one is
+barely taller than the word, so the reason for the exception has gone. §10.2 is
+updated.
+
+**90 — installing is offered, never compulsory. Owner's decision, 26 September.**
+He asked whether to force it, on the grounds that the phone's bottom tab bar
+looks like an installed app. The technical answer settles it: **a PWA cannot
+force installation.** The prompt belongs to the browser, it is Chromium-only, and
+**on iOS there is none at all** — the person must find Share → Add to Home
+Screen themselves. A wall would lock most iPhone users out of a product that
+works perfectly in a browser tab.
+
+So Home carries a dismissible row with the **reason rather than the ask** —
+spec §G's own argument, that installing makes the data far less likely to be
+cleared — and a line under it saying nothing is locked behind installing. ☑
+
+**91 — what 360 still lacks, and the owner spotted it.** He asked which phone
+card corresponds to which 1440 card. The honest mapping:
+
+| 1440 | 360 |
+|---|---|
+| *How your spending is going* | — **nothing** |
+| *Where your money is* | the same card |
+| *This cycle · where each category stands* | *Needs attention*, 2 of 8 |
+| — | *Daily spend*, which 1440 does not have |
+
+**Daily spend is not the plan card.** It shows each day against the daily share;
+the plan card shows the cycle's running total against where it should be. They
+answer the same question at different grain, and the phone has **no equivalent of
+the plan card at all** — which is exactly the reasoning the owner said was
+missing. Now that the gauge is gone there is room for a compact one. ☐
+
+**92 — the landing page needs a *how to use* section.** The owner asked for one
+alongside the install decision: what it is, that it works in a browser, and how
+to add it to a home screen on both platforms. Not drawn yet. ☐
+
+### M·34 — Plain, then short
+
+Same day, second correction, and the right one. The plain-English pass fixed the
+words and **broke the cards**: the projection ran four lines, the two figures sat
+crammed on one line, and every category row grew a third. The owner: *“it
+makes the UI too busy … it's a budget app, all those long long things are not
+needed.”*
+
+**A design canvas flatters long copy; a phone does not.** Four lines of prose on
+a 1440 card looks considered; the same four lines at 360 are the whole fold.
+
+| | Now |
+|---|---|
+| Spent so far / Fair share | a **labelled list**, figures right-aligned — not a crammed line |
+| The projection | **one short line and an (i)**: *At this speed the cycle ends ₦40,000.00 over*. The full working is correct and belongs behind a control |
+| Each category row | **two short halves**: *₦10,000 planned · ₦4,000 over* — the bar already carries the precision |
+| Where your money is | *That leaves ₦7,500.00 a day for the 20 days left.* One sentence |
+
+**Nothing is shown less** — every figure is still on the screen. `tokens.md`
+§10.4 carries both halves of the rule now, because either one alone produces a
+wrong screen: jargon, or a wall.
+
+`ui.info()` is new — a circled *i*, the only one in the system, for the case of
+a card with a correct explanation too long to put on it.
+
+### M·35 — *Should have by now*, and the two items that were owed
+
+**The phrase took three goes.** *Expected* → *fair share by day 11* → **should
+have by now**. The owner sent the middle one back: plainer than the first, and
+**still a phrase you have to be taught.** The last needs no teaching and repeats
+the words already under the big figure, so the card speaks one vocabulary. The
+tick on each bar is *where you should be today* — same idea, same words. At 360,
+*your share for a day* became *₦8,666.66 a day if you spread it evenly*.
+
+**91 — the phone has a plan card now.** ☑ It was the one 1440 card with no
+counterpart, and the owner found it by asking which matched which. *Daily spend*
+shows each day against an even day; the plan card shows the cycle's running
+total against where it should be. Two rows, one short line, an (i) for the
+working — the same shape as 1440 at phone size. There is room because the gauge
+went.
+
+**92 — the landing page says how to install.** ☑ Three steps across at 1440,
+stacked at 390: open it in any browser · add it to your home screen, with the
+**actual menu path on each platform** · set your salary day. Step 2 names the
+paths because the install prompt is the browser's to show — Chromium-only, and
+absent on iOS — so *“install it”* without *how* is asking for something most
+people cannot do. It carries the honest reason too, which is the spec's own
+(§G): installed, the data is far less likely to be cleared.
+
+**The word budget went 190 → 240, once, with a reason.** The cap exists to stop
+the page ARGUING with itself — the same claim restated in three sections. *How
+to use it* is **instructions, not argument**, and the page took on that job on
+26 September when installing was settled as offered rather than forced. Raising
+a guard is allowed once you can say what changed; raising it because the number
+is inconvenient is how a guard dies. The reason is written at the cap.
+
+### M·36 — One missing verb, and three things that left Home
+
+**The verb.** *Should have by now* went back one more time. The owner: *“Is it
+what the user is supposed to have if they had not spent more than, or what they
+currently have now because they've spent more?”* Both readings fit the words,
+and on a budget screen they are **opposites** — one is a pace, the other is
+money in hand. *Should have **spent** by now.* Changed at both widths, in the
+row label and under the big figure. Three earlier passes fixed the vocabulary;
+this one was grammar, and **a phrase can use only common words and still be
+ambiguous**.
+
+**93 — the daily-spend card is gone from 360.** The owner asked whether it was
+still needed now that the plan card is there, and it was not. *Daily spend* was
+brought in to replace the gauge, which had shown today against the allowance;
+the plan card makes that same comparison a third time, in words, and is the card
+1440 carries. **Two cards answering one question is how the screen got
+crowded.** What the chart alone carried — the SHAPE of a cycle, day after day —
+is a Transactions question and is logged there, not drawn here. Home is now
+figure → comparison → breakdown → attention, and every card on it has a 1440
+counterpart.
+
+**The ceiling line is gone, and so is the way to draw it.** *of ₦8,666.66 a day
+· amber below ₦5,200.00* put five figures around one figure, two of them only
+explaining the first. The owner: *“you call out the figure, it's not needed,
+take it out.”* `tokens.md` §10.4 now carries the rule: **a figure is called out
+once**, and a colour explains itself at the moment it changes.
+
+**Then the follow-on, which is the part worth writing down.** The line was
+removed from Home and left as a `ceiling=True` default on the shared hero, so
+for one build **Home had no ceiling line and Home-amber, Home-over,
+Home-offline and every sheet drawn over Home still did** — one screen, two
+heroes. The function's own docstring had been written three weeks earlier to
+stop exactly this. Taking away the default would only have made the wrong
+version harder to reach; **the parameter is gone, so there is no way to reach
+it.** Fourth time this project has paid for one thing defined twice.
+
+**Today / This cycle is centred.** It is the only thing on its line, so
+left-aligning it left a long empty run beside it. (`.seg` is `inline-flex`, so
+auto margins do nothing; it needed a flex parent.)
+
+**The landing page's image slot sits between its neighbours, not on one.** It
+had 96px above and nothing below, so the next section's `card2` band began at
+the image's bottom edge and the slot **sat on** *How to use it* — invisible in
+light, obvious in dark, which is where the owner found it. Equal space top and
+bottom, at each width's own rhythm: 96px at 1440, 44px at 390. Measured, not
+eyeballed.
+
+**The two mappings the owner asked me to confirm: yes to both.** *Needs
+attention* at 360 is the counterpart of *This cycle · where each category
+stands* at 1440 — the same list, showing the two worst with the rest behind a
+control, which is the one thing the widths do differently. *Goals & debts* at
+360 is the two 1440 tables combined.
+
+### M·37 — Two wrong calls about dead code, in one hour
+
+Not design, but it nearly cost published work, and both mistakes were the same
+mistake.
+
+The build loop was throwing two tracebacks on every run: `build_boards`'s guard
+prune deletes renders that no manifest claims, and two old builders name their
+manifest something other than `*-meta.json`, so their output was deleted out
+from under their own screenshot step. The prune was right — those boards are
+dead — but **a loop that fails twice every run is a loop people stop reading**,
+which is the failure `guards.py` was written to avoid in the first place. So the
+dead builders were retired to `attic/`.
+
+**Both judgements about what was dead were wrong, and neither was checked
+against the thing itself.**
+
+1. `screens2.py` looked unreferenced. `webonb.py` imports it **inside a
+   function**, to draw the printed debt record on onboarding step 5 rather than
+   re-type it, and a function-body import is invisible to a grep for imports at
+   the top of a file. `python3 -c "import webonb"` found it in one second.
+
+2. The cover boards looked absent from the canvas. The check asked each
+   `canvas.json` artboard for its `id` and `name`; **an artboard entry carries
+   neither, only `file`** — so all 191 boards came back absent, and the two that
+   really were absent were indistinguishable from the 189 that were not.
+   `Main.dc.html` and `CoverDark.dc.html` are the title cards that open page 6.
+   It took a publish refusal, which handed over the live version, to catch it.
+
+**The rule, written at the top of `attic/README.md`: before retiring anything,
+extract what is published and diff against it.** That is the only list of what
+ships. A question asked of the shape of the source answers a different question.
+
+### M·38 — The states were the live screen with one card swapped
+
+The owner read *no plan yet* and *a plan, no movements* properly for the first
+time, and they do not survive it. His words: **“if a user has not set any plan,
+every figure, every component should be an empty state. Why are you showing
+₦450,000 in *Where your money is*, and safe to spend ₦8,666? It's
+contradictory.”**
+
+It was. Both boards were **the working Home with one card replaced**, so every
+other figure on them was the worked day's:
+
+| Showed | On a screen that says | Now |
+|---|---|---|
+| Spent ₦110,000.00 · Free ₦150,000.00 | nothing has been planned, or ₦0.00 spent | *no plan*: the card says there is nothing to divide. *no movements*: Spent/Saved/Debt paid ₦0.00, Protected ₦190,000, Free ₦260,000 |
+| Rent fund ₦475,000.00, 53%, **Short** | no plan | ₦400,000.00, 44%, **No plan yet** — 475,000 was 400,000 + this cycle's planned 75,000, and *Short* is a projection with no rate to project from |
+| Emergency fund ₦15,000.00, 10% | no plan | ₦0.00, 0% |
+| A. Friend ₦90,000.00 | no plan | ₦120,000.00 — 90,000 was after this cycle's planned repayment |
+| Safe to spend **₦0.00** | a plan and nothing spent | **₦13,000.00** |
+
+**Not one of those replacements is invented.** They are `seed-data.md`'s own
+onboarding figures — *“At onboarding, 24 September”*, *“Opening balances entered
+at onboarding”*, *“Debts owed by the owner”* — and the ₦13,000.00 is the spec's
+own formula (B1, D1): cash left minus what is still owed to protected pots, over
+the days left. 450,000 − 190,000 = 260,000, over 20 = ₦13,000.00 exactly. The
+repayment schedules do **not** change: *“₦30,000 a month”* is what was agreed
+with A. Friend and typed in at onboarding, not something the plan decides.
+
+**₦0.00 was the worst of them.** It is what Home shows when the money is *gone*
+— the opposite state — and it sat directly above a card reading ₦260,000.00
+free.
+
+**The root cause is the one this project keeps paying for**, now in its third
+costume: `money_bar()` took no argument. One component, one hard-coded seed,
+drawn in every state. The gauge was defined six times; the Arabic was missing
+from one lockup; the ceiling line survived in five states after Home lost it.
+`combined.SEGS_DAY1` exists so that the split follows the state.
+
+**94 — ☑ ANSWERED BY THE OWNER, SAME DAY: no plan, no figure.**
+
+> *“If a user does not have a plan, obviously there should be no figure
+> showing. So are you telling me that once something goes to production and the
+> user has no plan, you'll be showing a figure for them? It does not make sense.
+> We are trying to build for each state, and it has to appear the way it's
+> supposed to appear in production.”*
+
+**He is right, and I should not have left it open.** I filed it as *spec owns
+behaviour, so I do not pick a side* — but the spec is not a party to a dispute
+with its owner; it is a document he owns, and a design drawn against a figure
+that cannot exist is not neutrality, it is shipping the wrong screen while
+waiting for permission not to. The contract's rule — *name it and log it, never
+silently pick a side* — is about not **silently** choosing. Saying it out loud
+and being overruled is the system working. Logging it and carrying on drawing
+the impossible figure is not.
+
+The reason it cannot exist, kept because it is the argument:
+
+---
+
+**The original entry.** ₦8,666.66 is the **spendable** total ÷ 30, and there is
+no spendable total until there is a plan — that split is exactly what a plan
+produces. The label under it says *“based on your take-home”*, and take-home ÷
+30 is **₦15,000.00**. So the figure and its own caption disagreed.
+₦8,666.66 is the **spendable** total ÷ 30, and there is no spendable total until
+there is a plan — that split is exactly what a plan produces. The label under it
+says *“based on your take-home”*, and take-home ÷ 30 is **₦15,000.00**. So the
+figure and its own caption disagree.
+
+Three answers were on the table — ₦8,666.66 (page specs §973), ₦15,000.00 (what
+the caption describes), and none at all. **The third is the answer**, and the
+reason is not presentational. *Safe to spend* is defined as cash left minus what
+the **plan** protects, over the days left. With no plan there is no protected
+set, so the quantity does not exist. Both figures were answers to a question
+this person has not asked yet, and **a number in the hero slot is a promise that
+the app knows something.** Here it does not.
+
+**An empty slot would have been worse than none.** A label with a dash under it
+draws the eye to an absence and still has to be read before it can be dismissed.
+So the whole block goes, at both widths, and the screen leads with the one thing
+that is true — *your take-home is ₦450,000.00 a cycle*, which they typed in
+themselves — and the one thing there is to do.
+
+**And there is no right column at 1440 any more.** It held a second invitation
+(*“Every category, against its own pace · See the suggestion”*) pointing at the
+same single action as the card on the left, and the money card made a third.
+**Three ways of saying nothing is not an empty state; it is clutter with no
+content.** One invitation, then the two tables of what the person actually
+entered at onboarding. The two-column layout exists to put the figure beside its
+reason, and here there is neither.
+
+### ⚠ THREE SPEC LINES NOW CONTRADICT THE OWNER'S DECISION → [§N](#n--spec-corrections-the-design-rounds-produced--for-the-spec-owner)
+
+One in `docs/03-system-spec.md` (§B1) and two in `docs/06-page-specs.md` (the
+Home states table and the hero copy table). All three say a figure shows when
+there is no plan, and the page-specs ones carry an arithmetic error on their own:
+a **planned** allowance where there is no plan.
+
+**Each is flagged at the line itself**, in the shape §11a already uses for
+ADR-009 — the old wording struck through, a ⚠ block above it saying what
+replaced it and why, and a pointer here. Nobody can read the old line without
+seeing it. **§N carries them as unticked boxes**, because they are the only items
+in this file that are not the designer's to close: the contract says name it, log
+it, get agreement, then update the canonical doc — agreement exists, and the
+wording of a behaviour line is the spec's to write.
+
+**96 — what a state costs is not what it shows.** The rule that came out of
+this, now in `tokens.md` §10.4: an empty state is a **whole screen**, not a card.
+Every figure on a screen is downstream of the same facts, so the test is one
+question asked of each in turn — *what would have had to happen for this number
+to exist?* Spent, Saved, Free, every projection and safe-to-spend itself are
+consequences of a plan and of movements. Balances and agreed schedules are not:
+they were typed in at onboarding and they stay. **And an empty figure is rarely
+zero** — ₦0.00 safe to spend is what Home says when the money is gone.
+
+**95 — *a plan, no movements* is day 11, and that is a choice worth naming.**
+The board is dated 5 October, so it is not *“I have just finished planning”* —
+it is *“I planned eleven days ago and have recorded nothing since.”* Both are
+real and they want different screens: the first is a send-off, the second is a
+nudge. The figures now drawn are the second one's, and they are coherent. If the
+spec wants the first as well it is a separate board, not a re-label.
+
+### M·39 — The landing page was advertising a screen the app no longer has
+
+Found while fixing the above. `frag.web_pace` and `frag.web_answer` — the plan
+card in the landing page's hero deck and in its cascade — were **hand-typed
+copies** of Home's card, and every part of them had been left behind:
+
+| Landing page said | App says | Fixed on |
+|---|---|---|
+| *Against your plan* | *How your spending is going* | 25 Sep |
+| *ahead of pace* / *ahead* | *more than you should have spent by now* | 25 Sep — “ahead” means **good** in English |
+| *Spent* · *Expected* | *Spent so far* · *Should have spent by now* | 26 Sep |
+| **₦14,667.67** | **₦14,666.67** | 25 Sep — the rounding bug, a figure that exists nowhere |
+
+A landing page carrying a number the product never computes is the worst version
+of this: it is the one page a stranger checks the product against.
+
+**The comment sitting six lines above it reads:** *“This is
+`combined.hero_block`, the same component the app uses, so the two cannot drift
+again.”* True of the hero. The card immediately below the hero was typed out.
+**A rule that covers the piece you were thinking about and not the piece beside
+it is not a rule.**
+
+So the card moved to `pace.plan_card_inner`, beside the arithmetic it draws, and
+both callers ask for it. The landing page's sparkline went with the copy — the
+app's card does not have one, and §6 of the brief says each card in the cascade
+is a **whole component at its real size**; an embellishment is a slice in the
+other direction.
+
+Two more lines of the same vintage went: the landing page's own gloss (*“whether
+it is ahead of day 11”*) and the options board's caption (*“₦14,666.74 ahead of
+pace”* — a fourth spelling of the figure).
+
+### M·40 — The hero is centred, all of it
+
+The Today / This cycle switch was centred on its own, and the owner sent that
+back: **“everything there — safe to spend, the seven five, the subtitle — is
+supposed to be centred, not to the left.”** He is right, and one centred child
+under a left-aligned label is worse than none: it reads as a mistake rather than
+a choice. At 390 the figure **is** the screen, and a screen has no margin to
+hang things off.
+
+Which exposed the same fault as the ceiling line: **Home drew its own hero** and
+the five states and the sheets called the shared one. Home now calls
+`hero_block` too, so there is one hero and the states cannot fall behind it
+again. The one caller that stays left-aligned is the landing page's 1440 panel,
+and it says why — at that width the block sits in a 420px column beside two
+others, and centring would break the column's left edge. That is a real
+difference between widths, not a second opinion about the same thing, which is
+what the `ceiling` flag was.
+
+`home_offline` broke on the move, because it found its insertion point by
+matching the hero wrapper's padding — the second time that string has moved
+under it. It now looks for a named seam. Both times the assert caught it, which
+is the only reason this is a footnote.
+
+### M·41 — One empty state per region, and Settings leaves the nav
+
+**The rule, in the owner's words:** *“If they are together, that means there is
+one empty state. If they are not together, you create empty states for them.”*
+It is a rule about structure, not about this screen, and it is now in
+`tokens.md` §10.4.
+
+**Home's top row is one region** — the figure and its reason, read left to right,
+which is the entire argument for having two columns there. So when it is empty
+it is **one card at the row's full width**. Yesterday's fix left a 560px card
+with a wide bare margin beside it, which is the silhouette of a two-column
+layout that lost a column: **an empty state that keeps the furniture of the
+state it replaces reads as a failure to load.** The *see the twelve suggested*
+action, which had been a whole card in the right column, is a second button in
+that one card — it is the same action one step shorter, not a separate idea.
+
+**Goals and Debts are two regions**, so they get one card each. Saving for
+something and owing someone are different facts and either can be absent alone.
+
+**97 — a new board: `07c2 · Home · a brand-new account`, at both widths.**
+Onboarding's step 4 (what you have already saved) and step 5 (debts) are **both
+optional**, so *no plan* and *nothing entered at all* are two different first
+screens and only one of them was drawn. `07c` is a person who filled in their
+pots and debts and has not planned; `07c2` is one who skipped everything. **The
+second is the one with the bare space in it**, which is why it exists and where
+the two new empty cards are shown.
+
+**And 360's no-plan screen was missing the goals and debts entirely** — 1440
+carried them, 360 showed the invitation and then the nav, as though those facts
+stopped being true on a narrow screen. Fixed; the widths agree. The rent fund
+reads ₦400,000.00 of ₦900,000.00, 44%, **No plan yet** — the same onboarding
+figures 1440's table shows, with no projection, because *Short* is a rate
+against a plan.
+
+**98 — Settings is out of the main navigation, on the owner's call.** *“Settings
+should not be part of the main navigation — it should be at the bottom of that
+nav, separate from the other main navigations.”* It had been sitting between
+Months and Zakat in a flat list of seven, as though it were a seventh place the
+money is. **The six above it are destinations; Settings is where you change how
+the app behaves**, and sorting that list by nothing gives a utility equal billing
+with the thing the product is for.
+
+The separator is the **remaining height of the column**, not a rule — the sidebar
+already has a border on its right edge and a second line across 252px would be
+the third horizontal division in it. `docs/06-page-specs.md` §2 is amended in
+place, since it is a statement about the design's own layout rather than about
+behaviour; §1's route table now points at it.
+
+**360 had this right from the start**: Settings lives in the More sheet, behind
+a control, because a five-slot bar has no room for a utility. The width that was
+constrained got it right and the width with room to spare did not, which is the
+usual direction.
+
+### M·43 — One page per screen
+
+**99 — the canvas is seventeen pages, one per screen.** The owner, 27 September:
+*“Let's proceed to Plan. Put it in its own section as you've done for Home, and
+do the same for the rest.”*
+
+It was five, and two of them were buckets. **The month's money** held Plan,
+Transactions, Quick Add, Debts & Goals, Months and Zakat — six destinations and
+fifty-four artboards. **Account, settings and household** held five more. Home
+had a page of its own from the start, and it is the only part of the canvas
+anybody could reliably find anything in, which is the whole argument.
+
+**A bucket page costs twice.** Nobody can link to a screen — *“it's on page 4”*
+is where the build agent starts scrolling — and **a page note that has to cover
+six screens says nothing about any of them.** That is not hypothetical: the old
+note for page 4 was one paragraph about Transactions and Debts, so **Plan, Quick
+Add, Months and Zakat had no note at all**. Each has one now, and writing them is
+how it became obvious they were missing.
+
+**The order is the app's own navigation**, because that is the order the screens
+are met in and the order tickets are picked up in.
+
+| | |
+|---|---|
+| 1–2 | Landing page and first launch · **Security and privacy** |
+| 3–4 | Account and setting up · Home |
+| 5–10 | Plan · Transactions · Quick Add · Debts and goals · Months · Zakat |
+| 11–15 | Settings · What an account adds · Bank movements · Household · Import and export |
+| 16–17 | Mark · Foundations |
+
+**Security and privacy left page 1.** It has a route, it is reached from three
+places — the landing page, the sign-up tick-box and Settings — and it was living
+inside the landing page only because that is where it was first drawn. §10.1's
+sentence is on that page once, and sign-up opens it as a modal rather than
+repeating the wording inline.
+
+**Nothing was redrawn.** Every `.dc.html` and every PNG is byte-identical; only
+`canvas.json` changed. Checked rather than assumed, by hashing the drop against
+the repo: one file differs.
+
+**A note on the shape this replaces.** Before the 25 September merge the pages
+were split by WIDTH — pages 2–5 at 1440, pages 6–9 the same screens at 360 —
+which is exactly how the two widths drifted apart. `docs/design/README.md` still
+described that structure, four days and two re-cuts later; its page table is
+rewritten. **That is the third stale claim found in that one file this week**,
+after *do not read the PNGs* and *the Arabic is always under the Latin*. A file
+that is only read by someone starting out is a file nobody proofreads.
+
+### M·44 — Plan: one table, two empty states, and the form that was never there
+
+**The owner read Plan properly for the first time and found three things.**
+
+**100 — the trailing CATEGORY under *Personal savings*.** His words: *“there's a
+trailing 'category' underneath Personal savings, and the table line runs to it as
+well.”* Plan drew its three groups — Savings, Debt payment, Expense — as **three
+separate tables**. So the column header repeated under every group, which puts a
+heading that belongs at the *top* of a table into the middle of one, where it
+reads as a row that came loose. And the rule under it belonged to the next
+table's header, not to the row above.
+
+**The worse half is what the seam was hiding.** Three tables size their columns
+independently: Savings put PROTECTION at 340px, Debt payment at 385, so the
+PROTECTED pills stepped sideways at every group boundary. **Three tables
+pretending to be one always tell on themselves.** It is now one table with the
+group as a band inside it — one cell spanning every column — plus a `<colgroup>`
+so the browser is told the ratio rather than inferring it from whichever cell is
+longest. `dtable` carries the band; anything else with groups gets it free.
+
+**101 — Quick Add is not Plan's add, and the owner was right to expect one.**
+*“Is Quick Add the component for adding no matter which section one is in? I was
+expecting a form component in Plan where a user adds.”*
+
+**Quick Add records a MOVEMENT** — money spent, received or moved — which is why
+it is the ⊕ in the centre of the bar and a button in the 1440 header, reachable
+from anywhere (§2, story G2). **A category is not a movement.** It is a decision
+about what money is *for*, and it belongs to the screen that owns categories for
+the rest of the cycle.
+
+It existed, and only in the wrong place: **`add a category` was drawn for
+onboarding step 3 and never carried over to Plan.** Somebody who wants a
+thirteenth category after onboarding had no way to make one at either width. Now
+in Plan's header at 1440 and at the foot of the list at 360 — at the foot there
+because the 360 header already carries the cycle, the title and the figure, and a
+fourth thing in it would push the first row below the fold. `08d` draws the form
+over Plan at both widths. Type is chips rather than a dropdown: three choices,
+and it decides whether the money is protected, which is too consequential to hide
+behind a control you have to open.
+
+**102 — Plan's two empty states, which §7.3 names and the canvas did not have.**
+*“I couldn't see the empty state component for Plan as well.”* The spec gives
+two, and they are different screens with different fixes:
+
+| `08b` no categories yet | the seeded twelve, offered as **one action** — asking somebody to invent a budget's categories from nothing is the step people abandon, and the step onboarding exists to remove. *Add my own instead* is a quiet link, not a second button |
+| `08c` nothing allocated yet | **not blank**: every category present at ₦0.00, with the whole take-home in *Free*. That figure is the screen's entire subject — it is what the person came to spend down to zero — so a placeholder card would hide the only thing on it that matters |
+
+`08c` is the clearest case yet of the rule from M·38: **an empty state is not
+always an empty screen.**
+
+### M·45 — Two canvases, because the editor caps one at 200 files
+
+**103 — the canvas hit a hard ceiling and had to be split.** Plan's three new
+screens took it to 207 artboards plus the manifest — 208 — and the seeding tool
+says exactly what happens next: **the editor loads at most 200 file entries and
+silently drops the rest**, then the first Save republishes without them. A canvas
+that quietly loses eight boards is worse than a canvas that is split, so it is
+split.
+
+| | Pages | Files |
+|---|---|---|
+| **The app** — keeps the existing link | 3–15 | 179 |
+| **Front and foundations** — a new link | 1–2, 16–17 | 30 |
+
+**The cut follows a seam that was already there.** The landing page and the
+security page are the front door; the mark and the primitives are the materials
+both are built from; all four are read rather than re-cut most weeks. Everything
+between them is the app — reviewed daily, and still owed sync states, the
+household invite and the bank-linking flow, which is where the next twenty
+boards will come from.
+
+**Splitting by count rather than by meaning** would have bought the same headroom
+and left both halves unnameable, which is the version of this that gets undone in
+a week.
+
+`layout.py` now asserts the cap per canvas, so the next overflow **fails the
+build** rather than losing boards. And `docs/design/` is not split: every board
+and every preview stays in one place, because which canvas a board is published
+on is a fact about the editor, not about the design.
+
+### M·46 — Three controls nothing opened, and an action that only existed at 360
+
+**104 — the row menu had no way in.** The owner: *“How does a user get to the
+Plan row menu? Is it that they click on a category like Rent fund and it pops
+out?”* The honest answer was **nothing opened it.** `08a` drew the menu as a
+floating card and neither width had an affordance, so the three controls §7.3
+*Actions* requires — **rolls over · protect from safe to spend · archive** — were
+unreachable on the screen that owns them.
+
+**Not the row, and not the name.** The row's own control is the amount field,
+which is what a person is there to type in; a row that is both a text input and a
+button is a row where every missed tap opens a menu you did not want. So it gets
+its own target at the end of the row — a column of its own at 1440, after the
+field at 360, 40px square so it clears the 44px minimum with the row's padding.
+
+**105 — *Copy last cycle's plan* was only at 360, greyed, and silent.** Three
+faults in one control:
+
+1. **Missing at 1440.** §7.3 puts it top right. It was never drawn there.
+2. **Disabled with no reason**, which the spec forbids in as many words:
+   *“disabled with a reason when there is no previous cycle — **never silently
+   inert**.”* A greyed control that will not say why is one a person taps twice
+   and then stops trusting.
+3. **Disabled on a seed where it should not be.** `seed-data.md` has cycle 1
+   (25 Aug – 24 Sep) **completed**, so on the worked day there *is* a plan to
+   copy. It is live on `08`, and disabled *with its reason* — “This is your first
+   cycle” — on `08b` and `08c`, which is the only place the disabled state is
+   true.
+
+**106 — how long Plan is, and why it is not shortened.** The owner asked whether
+each group should scroll in its own box, or show three rows behind a *view more*,
+because the screen gets long. **`08e` is the answer, drawn**: the one board on the
+canvas clipped to a viewport.
+
+**The board is long because a board has no fold.** It draws the whole screen at
+once, which is what makes it useful for review and a bad guide to how tall the
+screen feels.
+
+**One scroller, and nothing hidden behind a control.** Plan is a **completion
+task** — you are driving *Free* to ₦0.00 — and you cannot see what is left to
+give a job to if a third of the rows are behind *view more*; you would expand all
+three groups every time before you could start. **Three scroll boxes on one
+screen is worse again**: you never know which one has the wheel, and each box
+would size its own columns, which is the fault this screen was fixed for one
+commit ago.
+
+So the header sticks and the list scrolls under it — which is what §7.3 asked for
+all along: *“it must stay visible while typing, because it is the only feedback
+that the plan is finished.”* **Length is not the problem; losing the figure would
+be.**
+
+### M·47 — Two gaps on Transactions, and one of them is not Transactions'
+
+The owner asked whether anything is missing. Two things, and the second is
+bigger than the screen he asked about.
+
+**107 — the savings subtotal per destination is drawn nowhere.** §7.4 is
+explicit that when the filter is set to the two savings types — *which is where
+Home's "Saved" tile lands* — the filter bar carries a subtotal **per
+destination**, and that this *"is the whole of 'savings by destination'. It
+needs no screen of its own."* It has no screen of its own **and it is not on the
+one it belongs to**, so as things stand it will not be built. `09` and `09b`
+between them draw the filter bar twice and neither shows it.
+
+*One snag to settle first:* the spec's own worked example names a real Nigerian
+savings company as a destination. **Repo rule 3** keeps third-party names out, so
+the drawn version needs an invented destination, the way the bank payee strings
+already are.
+
+**108 — no screen on this canvas shows a failure. Not one.** Every page spec has
+an Error row — *"Couldn't load your movements." + Retry*, *"Couldn't open your
+data." + Retry*, **"never a blank screen"** — and there are **zero** Retry states
+across 209 artboards. Loading is fine: the primitives sheet carries the skeleton
+rule (*"the skeleton of the row it will become — never a spinner over a blank
+screen"*) and a per-screen board would add nothing. **An error is not like
+that**: the copy differs per screen, the retry target differs, and what stays on
+screen while it fails differs. A build with no drawn error state invents one,
+and the one it invents is a centred grey message on white.
+
+This is a canvas-wide gap, not Transactions'. It is listed here because this is
+where it was found.
+
+### M·48 — What bank linking is for, and the one thing it can never tell you
+
+The owner: *"When a user takes out money, how do we capture it in Transactions
+and know what it was actually used for? Do users need to add descriptions? That
+is the only use case I can see for linking a bank — or is there another?"*
+Asked for a view, so this is one. **Everything below is a proposal to the spec,
+not a design decision** — §M is behaviour.
+
+**The part that is already settled.** §M2: *"As a subscriber, I want to be asked
+which envelope a detected movement belongs to, **because only I know**."* The app
+never guesses a category. That is the reconciliation queue, and it is drawn
+(`17`, `17a`, `17b`).
+
+**The part that is not, and cannot be.** A feed says money left the account. It
+never says what it was *for*. For card and transfer payments the narration is a
+strong hint. **For cash it is unknowable, and no amount of engineering changes
+that** — the seed already says so about movement 8, `ATM WDL LEKKI BR 0041`:
+*"cash out, so the category is genuinely unknowable from the feed."*
+
+**So no, descriptions are not the answer.** Asking people to annotate their own
+withdrawals reintroduces exactly the typing the feed exists to remove, and
+depends on the habit that fails: people stop recording around week two. That is
+*why* manual budgeting apps die, and designing the paid feature to depend on it
+would be building the failure in on purpose.
+
+#### The proposal: a withdrawal is a move, not a spend
+
+**₦20,000 out of an ATM is money changing LOCATION, not purpose.** Treat it that
+way and the unanswerable question becomes an answerable one:
+
+1. The feed records it as **Moved to cash** — a holding of its own, not a
+   category. §7.4's type list already has *moved* types; this is one more.
+2. **Safe-to-spend does not move when you withdraw**, because nothing has been
+   spent. (Categorise a withdrawal as an expense and taking out ₦20,000 makes the
+   day look catastrophic — on a screen whose whole job is one honest figure.)
+3. Cash spends are recorded by hand against that holding. This is the **one**
+   place manual entry is genuinely unavoidable, and saying so plainly is better
+   than pretending otherwise everywhere.
+4. And the app can then say the one useful thing no bank can:
+   **"₦6,500 of the ₦20,000 you took out on 12 October is not accounted for."**
+   A question with an answer, and no guess anywhere in it.
+
+**Open question for the spec:** does a *Cash in hand* holding exist as an
+object? It needs one — otherwise the withdrawal has nowhere to go. Related: what
+happens to unaccounted cash at cycle end.
+
+#### Remember the answer, never invent one
+
+Add to M2: **the queue remembers the payee.** `MKTSQUARE ILUPEJU POS 8801` →
+Groceries, answered once, never asked again. That is a rule **the person made**,
+not advice the app invented, so **A1 survives intact** — and it is the only way a
+queue stays usable, because one that asks the same eight questions every month
+is one people abandon.
+
+#### Tracking is not the main use case
+
+Four more, and the first is the one people pay for:
+
+| | |
+|---|---|
+| **Completeness** | Every manual budgeting app dies the week the owner stops typing. The feed is the safety net: *these eight happened and you recorded none of them* |
+| **A cash-left figure that is real** | Not derived from what somebody remembered to enter |
+| **Things you would never catch** | The seed's `CARD MAINTENANCE FEE` is exactly this — a ₦900 charge nobody chose. Duplicate charges, forgotten subscriptions, reversals |
+| **Debt matching** | A transfer to A. Friend's account lands against the debt without being told twice |
+
+And what it is **not** for, which the spec already states: *"Paying does not buy
+suggestions. The paid tier buys **reach** — sync, sharing, bank movement — never
+opinions about someone's money."*
+
+**Three constraints worth writing down** before this gets built: Nigerian
+narration quality is poor and differs by bank, so the payee memory matters more
+here than it would elsewhere; the aggregator bills **per linked account**, which
+is what makes the tier honest (§11a); and ADR-011 means movements pass through
+the server, so the wording at sign-up is the approved one and **never** the
+sentence §10.1 forbids.
+
+### M·49 — The cash case, drawn; and Bank movements becomes its own destination
+
+**109 — a withdrawal is a move, not a spend.** Owner approved the M·48 proposal
+on 27 September and asked for it under **Bank movements** rather than
+Transactions, which is the better home.
+
+**`17c · Reconciliation · a cash withdrawal`.** The one row in the queue that
+gets no envelope question, because there is no envelope to name. Every other
+movement has one answer a person can give; ₦6,500.00 left the account and became
+an unknown number of things in a market, and no narration string will ever say
+which. `seed-data.md` already knew — movement 8, *"cash out, so the category is
+genuinely unknowable from the feed."*
+
+The owner's test was **"every naira can be accounted for."** A question with no
+answer cannot meet it. A different question can:
+
+| ✗ | *what was this ₦6,500 for?* | unanswerable, so it gets guessed |
+| :-: | --- | --- |
+| **✓** | ***how much of it is still unspent?*** | **answerable, by subtraction** |
+
+**No envelope chips on that row.** Offering them would be the app asking a
+question it cannot check, which is exactly how a wrongly filed movement gets
+made — and §A1 is that a wrong answer about someone's money is worse than no
+answer.
+
+**`17d · Cash in hand`, at both widths.** Where the withdrawal lands, and the
+arithmetic that replaces the guess: *taken out · recorded so far · not accounted
+for yet*. Today ₦6,500.00 / ₦0.00 / ₦6,500.00, because nothing has been recorded
+against it — the state a person is in the moment the queue moves the money
+across. **Both widths, because this is the rare surface that belongs to both**:
+the money is moved at a desk, through the queue, and it is *spent* in a market
+with a phone in your hand. One body, two frames.
+
+**Not amber, not rose.** Unaccounted cash is not a mistake and not a warning; it
+is money you still have. Colouring it would make the honest act of withdrawing
+look like a failure, and §7.4 already says a large expense is not an error.
+
+**No partly-spent board, deliberately.** It needs cash spends the seed does not
+have, and **repo rule 2** says a figure that does not exist is asked for, not
+invented. → proposed seed addition below.
+
+#### 110 — Bank movements is its own destination
+
+The owner: *"is it clear which is sectioned, or should we separate it out of
+Transactions and make it a separate nav called Bank movements, only visible for
+paid subscribers?"* He is right, and the ambiguity was real: **the queue rendered
+with *Transactions* lit in the sidebar**, so an inbox of things that are *not yet
+in your record* looked like part of the record.
+
+**Two different jobs.** Transactions is your **ledger**. This is an **inbox** —
+it has a count, it empties, and an inbox with a count does not belong buried
+inside another screen.
+
+**The item appears only when a bank is linked** — not greyed, not locked, not
+there at all. Item 24 and the build guard: no padlock, no crown, *unlock* appears
+nowhere. **A disabled nav item for a thing you have not paid for is an
+advertisement wearing a control's clothes**, and the free tier is a complete
+product whose nav should look like one.
+
+**§636 stands**: the Home row is still how you learn there is anything to sort,
+and it *"never blocks anything."* This is where that row goes — not a second way
+to be told.
+
+#### Proposed seed addition — cash spends against movement 8
+
+Needed for the partly-spent board, and for the figure that makes the feature
+worth paying for. **Owner's call; nothing is drawn from it until it is in
+`seed-data.md`.**
+
+| Date | Amount | Recorded as | Category |
+|---|---:|---|---|
+| Sun 12 Oct | ₦1,200.00 | Bus fare, hand-entered | Transport, data and airtime |
+| Mon 13 Oct | ₦2,000.00 | Market, hand-entered | Food and groceries |
+| **Left** | **₦3,300.00** | — | *not accounted for* |
+
+₦6,500.00 − ₦3,200.00 = **₦3,300.00**. Two rows is enough to show the
+arithmetic; more would only make the board taller.
+
+**Also needed from the spec**, both named in M·48 and neither decided:
+a **`Moved to cash`** type label — §7.4's list has eight and this is a ninth —
+and whether **Cash in hand** exists as a holding object at all. Without the
+second, the withdrawal has nowhere to go.
+
+### M·50 — What the numbers actually say about a ₦1,000 tier
+
+The owner, thinking aloud: *"maybe for subscription we can charge as little as
+₦1,000 … 100 users × ₦1,000 is ₦100,000. And how much do these platforms that
+use the API charge? That is also another question to check."*
+
+Checked, 27 September. **Four findings, and one of them is good news.**
+
+**1 · Payment fees are not the problem.** Paystack's Nigerian rate is
+**1.5% + ₦100, and the ₦100 is waived under ₦2,500**. So a ₦1,000 subscription
+costs **₦15**, not ₦115. At 100 subscribers: ₦100,000 gross, **₦98,500 net**.
+This was the thing most likely to kill a low price point and it does not.
+
+**2 · ₦1,000 is about 72 US cents.** The naira sits around **₦1,390** parallel /
+**₦1,328.50** CBN. So ₦100,000 a month at 100 users is roughly **\$72 in total**
+— and that \$72 has to cover the server, the aggregator, and everything else.
+
+**3 · No Nigerian aggregator publishes a price.** Mono, Okra and Stitch all say
+*"flexible pricing — contact sales"*; Okra's public figure is 100 free sandbox
+calls. **The number the whole tier depends on is one nobody will quote in
+public**, which makes getting a written quote a *gating item*, not a detail. The
+margin cannot be known until it exists.
+
+**4 · Mono was acquired by Flutterwave on 6 January 2026** — all-stock, reported
+at \$25–40m, with Mono continuing to operate independently. Worth knowing before
+building on it: the aggregator is now owned by a payments company, and pricing
+terms can move after an acquisition.
+
+#### The design consequence, which is mine to raise
+
+If the aggregator bills **per linked account per month**, then every subscriber
+who links a bank carries a recurring dollar cost against a ₦1,000 ceiling. At
+\$0.72 of headroom *in total*, a per-account fee of even \$0.40 leaves almost
+nothing for hosting.
+
+So: **make the linked account the thing that is counted, not the subscriber.**
+One linked account included in the tier; a second costs more. That keeps a
+per-account cost from being unbounded per head, and it is honest — §11a already
+says *"the paid features are the ones that cost money to run … that makes the
+price honest rather than arbitrary."* Pricing the tier per *person* while paying
+per *account* is the one shape that breaks that sentence.
+
+**Not a design decision** — it is a pricing decision and it is the owner's. But
+the screens differ depending on the answer (`16 · What an account adds` would
+have to say what "one account included" means), so it is logged here rather than
+left to be discovered at build time.
+
+**Sources:** Paystack pricing · nairatoday.com FX · Okra pricing page ·
+openbankingtracker.com · fintechfutures.com on the Flutterwave–Mono deal.
+
+### M·51 — The audit: every screen's spec states against what is drawn
+
+Asked for on 27 September: *"go through it thoroughly, ensure that there is
+nothing missing, then do the same for the remaining screens."* Done by pulling
+the **States** table out of every §7.x and checking it against the canvas.
+
+**Two are fixed in this pass. Six are not, and the reason is arithmetic.**
+
+#### ✅ Fixed
+
+**111 — the savings subtotal, `09c · Transactions · savings by destination`.**
+§7.4's behaviour that was drawn nowhere. Destinations are invented (repo rule 3
+— the spec's example names a real company); the figures are the seed's,
+₦75,000.00 and ₦15,000.00.
+
+*A fault of my own on the first cut of that board, caught before publishing:* the
+count read **"4 movements"**, and four is a figure that exists nowhere — the seed
+has two. It also left the **spent** rows in the list under a savings filter, so
+the board contradicted its own filter chips. Both fixed; `TX_SAVINGS` now
+carries the two seeded rows. **Repo rule 2 catches you drawing as readily as it
+catches you writing.**
+
+**112 — the error pattern, on the primitives sheet.** There was **not one Retry
+state on 219 artboards**, while every §7.x has an Error row and every one of them
+says *never a blank screen*. Three rules now drawn:
+
+- it says what failed, **in the words of the thing that failed** (the sentence is
+  per-screen; §7.x has each one)
+- **Retry is a real button, not a link** — it is the entire point of the state
+- **what already loaded stays on screen.** An error replaces the part that
+  failed, never the page. Blanking a screen to report a failure throws away
+  figures that were correct.
+
+Both forms are there: the whole surface, and **one row with the rest of the
+screen intact** — which is Plan's (§7.3), where the typed figure stays, the row
+is marked, and **unallocated does not move**, because memory updates only after
+storage confirms (ADR-001).
+
+*Why a pattern and not eight boards:* eight screens × two widths × two themes is
+**thirty-two artboards** for a treatment that differs only in its sentence. See
+the arithmetic below.
+
+#### ◻ Found, not drawn — and the cap is why
+
+| # | Screen | Spec says | Cost |
+|:-:|---|---|:-:|
+| **113** | Quick Add (§7.5) | Empty: *"Add a category first"* with a link to Plan | 4 |
+| **114** | Debts & Goals (§7.6) | Empty — debts: *"No debts recorded."* + Add · Empty — goals: *"No goals yet."* + Add | 4 |
+| **115** | Zakat (§7.10) | Empty — no nisab: *"the panel explains what is missing and where to look it up, rather than showing ₦0"* · Empty — no hawl: asks | 8 |
+| **116** | Debt record (§7.7) | Empty: a debt with no movements prints with an empty history and the opening entry, **rather than failing** | 4 |
+| **117** | Onboarding (§7.1) | Error: field-level, inline, **keeps every entered value**, offers Retry — *the owner never re-types* | 4 |
+
+**The arithmetic.** The app canvas is at **191 of the editor's 200 files**. Those
+five are **24 artboards** and there is room for **9**. They are not drawn because
+drawing them would silently drop boards, which is the failure M·45 exists to
+prevent — not because they are unimportant. **115 is the one I would draw first**:
+a zakat panel showing ₦0 where a nisab should be is the kind of wrong number this
+whole project is arranged against.
+
+#### The decision that is owed, and it is the owner's
+
+This will keep happening — sync states, the household invite and the bank-linking
+flow are still to come, and they are another twenty boards at least. Three ways
+out, and **I have not picked one**, because the last split was one I made
+unilaterally and you were right to ask why:
+
+1. **Re-cut the two canvases** — the app is 191 and the front is 30, so the split
+   is lopsided. Balanced by the app's own shape: *the daily app* (Home, Plan,
+   Transactions, Quick Add, Debts, Months, Zakat = ~107) and *getting in, paying
+   and the materials* (~116). Both then have 80+ of headroom.
+2. **A third canvas** — leaves the two links as they are and adds one more.
+3. **Draw fewer states** — cheapest, and the one that costs most later: an
+   undrawn state is a state the build invents.
+
+#### 118 — one more thing, and it is in the spec, not the drawing
+
+§7.1's States table still reads: *"Offline | Normal. Step 1 carries the line:
+**'Everything you enter stays on this device.'**"*
+
+**That sentence is on `guards.py`'s forbidden list**, and the guard would fail any
+board carrying it. ADR-009 gave v1 a server on 24 September; the line has been
+false since. It is a **sixth** false-comfort sentence, and the first one found in
+the authoritative spec rather than in a drawing — which is worse, because the
+build reads the spec. Flagged in §N alongside the other three superseded lines.
+
+---
+
+## 27 September, second round — the owner's review, item by item
+
+Everything below came out of one message. It is written as nine items because
+they are nine decisions, and four of them **change what the spec says**, which is
+the part the build has to read rather than skim. Those four are collected again
+at the end as §O.
+
+---
+
+### M·52 — `08e` redrawn: three faults on one board, all of them mine
+
+> *"For plan scrolled, header pinned — you should do the padding well, because
+> it's not presenting well. If you are adding a box shadow, there should be
+> padding to the left and to the right so the items are well displayed, and then
+> what is being elevated is properly shown, and there is some apportioned border
+> radius."*
+
+Three separate faults, and each one is an instance of something already written
+down.
+
+**1 · There was no surface to elevate.** The pinned block was
+`background: var(--bg)` — the page background. A shadow cast by a block the same
+colour as the thing behind it does not read as lifted; it reads as a smudge. It
+is `card` now, and the list beneath it sits on `bg`, exactly as it does on `08`.
+**The difference the owner asked for is a surface, not a stronger shadow.**
+
+**2 · The shadow was invented on that board.** `0 10px 18px -12px rgba(0,0,0,.28)`
+is a **fourth elevation value** in a system that has two. `tokens.md` §5 names
+`elevation.card` and `elevation.lift`; `var(--shadow)` is the first of them.
+Same fault as the gauge, the ceiling line, the plan card and the money bar —
+**one thing, drawn a second way** — and this is the fifth time this month.
+
+**3 · Nothing was inset.** The content ran to the edge of the column, so the
+elevated edge had nothing either side of it to be above. It is a **framed
+viewport** now at `radius.lg` — the card radius, a step down from the 22px
+desktop frame it sits inside, because a nested frame at the same radius as its
+parent reads as a rendering error. 28px of padding on both sides; the hairline
+under the pinned bar spans the **full** frame while its contents are inset,
+because a rule that stops short of the edge looks broken and type that touches
+the edge looks unfinished.
+
+**Two more things came out of the redraw.**
+
+**The scroll offset was guessed and it was wrong.** 236px sliced a row in half at
+the top edge, which reads as a broken render rather than as a scroll position.
+`tools/measure_scrolled.py` now prints every row boundary in the table; the value
+is one of them. *The first measurement was also wrong* — it took row tops from
+the content column, which includes the screen header, so every figure was ~155px
+too large and the edge still landed mid-row. The script measures against the
+element that **carries** the offset now, where the negative margin cancels out.
+**Measured, then looked at. Neither on its own would have found it.**
+
+**The board note said the column header pins. It does not, and should not.** §7.3
+asks for one thing to stay visible while typing and it is the figure, not the
+labels: the pills read *Protected* and *Rolls over* in words, and the amount sits
+in a field with a ₦ in it. Pinning a `thead` means splitting the table, and two
+tables sizing their own columns is the fault this screen was rebuilt to remove.
+The note now says so.
+
+**And one finding that is not a fault:** at this offset the band labels have
+scrolled away, so three rows sit with no *SAVINGS* above them. Harmless at three
+and four rows a group. **The first fix if a household ever has thirty categories
+is `position: sticky` on the band cell, under the pinned header.** Logged, not
+drawn.
+
+---
+
+### M·53 — The logo was missing from every 360 screen, and `tokens.md` had already said so
+
+> *"On mobile, there's a mobile web for every this thing. The logo has to be
+> showing — it's not showing."*
+
+He is right. **And it is worse than an omission, because my own authoritative
+file has carried the instruction for a day.** `tokens.md` §10.2, *Where the
+Arabic appears*, has read since 26 September:
+
+> **The app's own sidebar and the phone header too** — owner, 26 September |
+> **Stacked.** It fits: ميزانية sits ON the word now, so the lockup is barely
+> taller than the word itself, and the reason for the exception has gone.
+
+The sidebar got `br.lockup(25, 24)` that day. **The phone header was written down
+and never drawn.**
+
+**Why it matters more at 360 than at 1440.** This is a web app (ADR-009). At 1440
+the sidebar is 252px of standing chrome and the lockup lives in it. At 360 there
+is no sidebar, and there was nothing anywhere on the screen saying which app you
+were in — in a browser tab the domain in the URL bar was doing the whole job, and
+**installed to a home screen there is no URL bar at all**, so a PWA opened from
+the icon showed a figure, a nav, and no name. Spec §G: *the app is installable*.
+
+**One insertion point, not eleven.** There are eleven hand-built 390px frames
+across six files — the same duplication that cost the gauge and the plan card —
+so the bar is applied once, in `build_boards.py`, by `ui.with_appbar`. The rule
+is exact rather than a guess at which frames are screens: **a frame gets the bar
+if it contains the bottom nav**, or is marked `<!--appbar-->` (the scrimmed
+sheet-over-Home boards, whose screen behind is clipped above its nav). Sheets,
+dialogs, row menus and the sign-up screens are skipped — the auth screens carry
+their own stacked lockup already, §10.2's public-facing rule.
+
+**The invariant is a build guard**: navs counted, bars counted, and they must
+match. If those two ever part company a screen has shipped without the product's
+name on it.
+
+**What is in the bar and what is not.** Mark and wordmark, stacked, by component
+call. No back arrow (the nav is the way back), no screen title (every screen
+carries its own, one size up), and **nothing on the right** — a bar that has to
+earn 48px of a phone screen should not also become the place things get put. If
+a sync indicator ever needs a global slot, this is where it goes and it should be
+a decision, not a drift.
+
+---
+
+### M·54 — The add button: one control, and it does not change meaning
+
+> *"I want to understand something about this Quick Add. From where is it
+> accessed? Quick Add — is it for the home screen, that if they click that add
+> button at the top it brings out the Quick Add? Then let's assume you're in
+> Debts and Goals. If you click that add, it's for adding a debt, right? That add
+> works depending on which screen it is. And the Quick Add section is for the
+> home screen, right? I want to be sure on that."*
+
+**Half right, and the half that is wrong matters, so here is the contract in
+full.** Nothing below is new behaviour — it is §2, §7.5 and §7.6 stated in one
+place, because they were three places and that is why the question arose.
+
+| | |
+|---|---|
+| **Where ⊕ lives** | 360: the centre of the bottom bar, on **every** screen. 1440: the **Add** button in the header, on every screen. Same control, two frames |
+| **What it does** | Opens the Quick Add sheet. It records a **movement** — money that moved — and it never does anything else |
+| **Is it Home's?** | **No.** It is reachable from Home and from everywhere else. §7.5: *"bottom sheet, no route"* — it belongs to the app, not to a screen |
+| **Does it change per screen?** | **No, and that is deliberate** |
+
+**Why it does not change per screen.** It is the thing a person presses fifty
+times a cycle, standing at a counter with one hand (story G2), and §7.5 calls it
+*the most important interaction in the app*. A control that means something
+different depending on where you are standing cannot be learned by muscle memory
+— and the one screen where a wrong guess is expensive is the one where you are in
+a hurry.
+
+**What IS per screen is a second, named button**, and this is the distinction:
+
+| The control | What it makes |
+|---|---|
+| **⊕ / Add** | a **movement** — a spend, a receipt, a repayment, a transfer to savings |
+| **Add a category** (Plan) | a **thing** — a decision about what money is for |
+| **Add a debt** · **Add a goal** (Debts & Goals) | a **thing** |
+| **Invite someone** (Household) | a **person** |
+
+**⊕ records money moving. A named button creates the thing the money moves
+into.** Once that sentence is the rule, every screen's controls follow from it.
+
+**The one place the two meet, and it is not an exception.** §7.6: *"Record a
+payment"* on a debt card opens **the Quick Add sheet, pre-set** — counterparty
+fixed and not editable in that context, amount pre-filled with the schedule
+amount, date today, and the **type following the balance** (positive → `I
+repaid`; negative → `They repaid me`). That is ⊕ with context, not a different
+control.
+
+**The real risk the owner has put his finger on, and it is worth naming.** At 360
+the ⊕ sits in the bottom bar on the Debts screen too. Someone on Debts & Goals
+may well press it expecting *add a debt*. Today the mitigation is that
+**Add a debt** is a visible, named button on that screen. Whether that is enough
+is a behaviour question, so it goes to spec rather than being decided here
+(`peer-ai/shared/design-data-contract.md`: design owns layout, spec owns
+behaviour):
+
+> **→ spec, O3.** Should the Quick Add sheet's *type* default follow the screen
+> it was opened from — a debt type on Debts & Goals, a savings type on a goal
+> card — rather than always `Expense` (§7.5)? It would remove one tap in the
+> place the wrong guess is most likely. It would also mean the sheet is not
+> identical everywhere, which is the property that makes it learnable.
+> **I have not picked a side, and this is logged rather than drawn.**
+
+---
+
+### M·55 — 360 looks small on the board, and the one place it is not the board's fault
+
+> *"Under these Months now, this mobile, it looks small. Is that how it's going
+> to be on this thing — that the screen will now look very small — or will it fit
+> according to the viewports?"*
+
+**It fits the viewport.** Two separate things are true and only one of them is a
+finding.
+
+**The boards are frames that hug their content.** Every 360 artboard is 390px
+wide and **exactly as tall as what is on it** — there is no viewport, which is
+also why `08e` had to be built specially to show a fold. In production the screen
+fills the window, the bottom nav sits on the bottom edge, and a short screen has
+air between the two. **Nothing is fixed-height and nothing ships small**: v1 is
+one responsive web app (ADR-009; `02-architecture`: mobile-first at 360, correct
+at 1440), and 390 is a drawing width, not a layout.
+
+**But Months at 360 is genuinely thin, and that is a finding.** It looks small
+because that board is the *empty* state and the empty state is four lines:
+
+> Months · COMPLETED CYCLES 0 · *Your first cycle is still running.* · It ends on
+> 24 October.
+
+By the rule in `tokens.md` §10.4 — set down on 26 September at the owner's own
+instruction — **an empty state is a whole screen, not a card**, and this one is a
+card's worth of content with a screen around it. What it should say is what the
+screen will be *for*: that a cycle lands here when it closes, what a closed cycle
+gives you (what was planned against what happened, and what rolled over), and
+when the first one arrives. **Not drawn — logged, because it was not what was
+asked for and it changes a screen already reviewed.** Item 119.
+
+---
+
+### M·56 — Zakat: the nisab is ours to look up, and the screen was contradicting the seed
+
+> *"Regarding that nisab, it doesn't make sense that way. If you are telling an
+> individual to actually look it up and enter it today, I think we should be the
+> one searching that up. So how do we automate that? … and then when they see
+> this, they still need to confirm from a verified scholar — it's just an
+> estimate to guide them."*
+>
+> *"So is this everything about zakat? It looks too bland… I feel it should be a
+> very useful tool, especially for Muslims. So it must be sophisticated, not
+> bland, the way it is like this."*
+
+**The two complaints are one complaint.** The screen was thin *because* the nisab
+was the owner's homework. With no threshold there is no answer, so the screen
+could only ever be a form with a caveat attached — four rows of workings and a
+button asking for a number most people have never heard of. Automate the
+threshold and the screen has something to say.
+
+#### 120 — Two figures on the board contradicted `seed-data.md`
+
+Found while rebuilding, and worth more than the redesign:
+
+| The board said | The seed says |
+|---|---|
+| *Nisab — **Not entered***, and *"we can't work out an estimate yet"* | **₦2,450,000.00**, and a result: *below the nisab, no zakat estimated* — since 10 September |
+| *Hawl start — **25 Sep 2026***, *"tracking from 25 September, your first record"* | **16 June 2026 · 1 Muharram 1448.** 25 September is the **cycle** start, which is a different thing |
+
+Two wrong figures on a four-row table, and the worked screen was drawing an
+**empty state over a seed that is not empty**. Repo rule 2 is usually about
+inventing a number. **This is its other half — a number that exists and was not
+read**, and it is the more dangerous of the two because nothing about it looks
+invented.
+
+#### 121 — What the nisab actually is, so the build has the arithmetic
+
+Checked 27 September. Sources at the end of this item.
+
+| | |
+|---|---|
+| **Gold standard** | **85 g** of gold (20 dinar) |
+| **Silver standard** | **595 g** of silver (200 dirham). *612.36 g also circulates*; 595 g is the figure the majority of contemporary zakat bodies use and the one assumed here |
+| **Rate** | **2.5%** of zakatable wealth, on a **lunar** year |
+| **Conditions** | Muslim · wealth at or above nisab · **one full lunar year (hawl)** at or above it |
+| **Zakatable** | cash and savings, gold and silver, business stock, receivables *(disputed — see below)* |
+| **Never zakatable** | your home, your vehicle, clothes, furniture, stored food — what you live in and out of |
+
+**The gap between the two standards is the finding, and it is large enough to
+change the answer for almost everybody.** Gold roughly doubled over the past
+year — about \$2,900 to over \$5,100 an ounce — so the gold nisab moved from
+roughly \$8,000 to roughly **\$15,000**, while the silver nisab sits near
+**\$1,800**. That is **about eight times**. On the gold standard almost no
+Nigerian salary earner ever reaches the threshold; on the silver standard many
+do. Published country tables put Nigeria's silver nisab near **₦2,378,000** in
+February 2026, which is within 3% of the seeded ₦2,450,000 — **the seed is
+realistic.**
+
+**So the app has to take a position, and it takes the same one most zakat bodies
+take: silver.** It is the lower threshold, which means more people pay and the
+poor receive more, and it is the standard most commonly applied to money rather
+than to jewellery. **The screen states it as a position and offers the other
+one** — it does not present it as arithmetic.
+
+#### 122 — Two things automation costs, and neither is optional
+
+**It needs an FX rate, and Nigeria has two.** Metal prices are quoted in dollars.
+Converting to naira means choosing between the CBN/official window and the
+parallel rate, which sat around **₦1,326** and **₦1,380–1,390** in late September
+— a spread of about 4%. **The screen must say which rate it used**, for exactly
+the reason §7.10 already demands the hawl state its source. A nisab is a
+threshold: a 4% difference decides who is over it.
+
+**It breaks the offline promise, and it is the first thing in the product that
+does.** Everything else in Mizaniya is offline-first by construction and right by
+arithmetic. **The nisab is the first figure that needs the network to be
+correct.** Three consequences, and they are requirements rather than
+suggestions:
+
+1. **The panel carries its own age** — *checked this morning, 5 October* — on the
+   screen, not in a log.
+2. **A stale nisab still answers.** The last fetched value is used and labelled.
+   An estimate from last week's silver price is worth far more than a blank
+   screen, and it is what the caveat is for.
+3. **It is one number for every user**, not per-person data — one fetch a day
+   serves everybody. See M·57 for why that decides the pricing question.
+
+**→ seed, O1.** `seed-data.md` §the zakat scenario should record the nisab as
+**worked out from the silver price** rather than *"as entered by the owner"*, and
+should carry the **price per gram and the date it was read** so the arithmetic
+runs the intended way round. The boards currently derive ₦4,117.65/g from
+₦2,450,000 ÷ 595 g, which is arithmetic on a seeded figure and therefore legal
+under rule 2, but backwards. **A gold-standard figure is also needed** before the
+*use the gold standard instead* sheet can be drawn — at present the screen names
+the alternative in words and gives no number for it, deliberately.
+
+#### 123 — What the screen does now, and why it is not bland
+
+Six parts, in this order at both widths. The order **is** the argument at 360:
+somebody who stops reading after the first card still has a correct answer.
+
+1. **The answer, with its caveat attached to it** (§7.10: *the caveat is part of
+   the figure, not decoration*). Below the nisab the answer is **"No zakat is
+   due"** — a complete answer, not a failure — and it is the screen most people
+   open.
+2. **Where you stand.** A threshold drawn as a threshold. **Not a progress bar**:
+   the fill is neutral and the copy says so, because nobody is working towards
+   owing zakat and an emerald rail filling towards the nisab would say they were.
+   It earns its space because **the nisab moves** — *below* is a distance, not a
+   verdict.
+3. **What was counted** — and, the part that makes the rest believable,
+   **what was left out and why**. Three of those four lines are positions the app
+   took on the owner's behalf, and a person cannot check a decision they cannot
+   see. A zakat figure with no workings is a figure you take on trust from a
+   budgeting app.
+4. **The nisab, and where it came from** — standard, weight, price, and when it
+   was last checked.
+5. **The hawl, in lunar terms**, with the Gregorian date beside it and the date it
+   completes. It is the only date in Mizaniya that does not follow the salary, and
+   the screen says so.
+6. **What to ask someone qualified.** The caveat names **the three choices the app
+   made**: which standard, whether money owed to you counts, whether your own
+   debts come off first. A disclaimer that says *check with a scholar* without
+   saying *about what* is a disclaimer written for us rather than for them.
+
+**Danger colour: never**, in either state. §7.10, and it holds for the
+above-nisab board too — zakat due is an obligation, not an error and not an
+achievement.
+
+#### 124 — What is drawn, and what the spec now owes
+
+Drawn, both widths, six new artboards replacing two:
+`14 · below the nisab` (the worked seed) · `14a · above the nisab` (the seed's
+variant: ₦2,490,000.00 → **₦62,250.00**) · `14b · no year set` (§7.10's second
+empty state, drawn nowhere until now).
+
+**→ spec, O2.** §7.10's *Numbers* line still reads **"nisab (owner-entered)"**,
+and its *States* row still reads **"Empty — no nisab: the panel explains what is
+missing and where to look it up."** Both are superseded. The replacements:
+
+- **Nisab is fetched**, from the silver price, converted at a **named** rate, and
+  the screen carries the fetch time.
+- **"Empty — no nisab" is no longer an empty state.** It is a **stale or
+  unavailable price**, which is a different screen: it answers from the last
+  known value and says how old it is.
+- The screen must state **which standard is in use** and offer the other.
+- The caveat must **name the three open choices**, not merely exist.
+
+**Sources:** Al Jazeera on gold prices and the 2026 nisab · Joe Bradford on the
+595 g / 85 g weights and the choice of standard · Zakat Foundation on the
+conditions, the hawl and what is exempt · Transparent Hands' country table for
+the Nigerian silver figure · Arbiterz / NgnRates for the two naira rates.
+
+---
+
+### M·57 — What should actually be paid for, and the zakat question that comes with it
+
+> *"What other features can we add that can make it beneficial for Muslims, and
+> that may look premium — that will make the premium justifiable? Remember we are
+> not a full-blown fintech that is collecting money, we are mostly an app that is
+> just trying to make life easier for salary earners and Muslims."*
+
+§11a already holds the test, and it is a good one: *"the paid features are the
+ones that cost money to run… that makes the price honest rather than
+arbitrary."* Applied strictly, it sorts everything below by itself.
+
+#### 125 — The test, applied
+
+| Feature | Costs us, per user, per month? | Tier |
+|---|---|:-:|
+| Bank movements and reconciliation | **Yes** — the aggregator bills per linked account (M·50) | **Paid** |
+| Household sharing | **Yes** — a second person's server load and conflict resolution | **Paid** |
+| Sync beyond one extra device | **Yes** | **Paid** |
+| **The nisab feed** | **No** — see below | **Free** |
+| Anything computed on the device | No | **Free** |
+
+**The nisab is the case that decides the zakat question, and it decides it
+clearly.** It is **one number, the same for every user, fetched once a day** —
+not per-person data. A thousand subscribers and a hundred thousand free users
+cost the same single API call. By §11a's own test it therefore belongs in the
+free tier.
+
+**So: do not put zakat behind the paywall.** Not the estimate, not the nisab, not
+the workings. Two reasons, and the second is the one that matters:
+
+1. **It fails the pricing test.** Charging for something that costs nothing to
+   run is the arbitrary pricing §11a exists to avoid.
+2. **A person who cannot afford ₦1,000 a month is exactly the person for whom the
+   nisab question matters most** — because they are the person most likely to be
+   near the line and least likely to have anyone to ask. Charging them to find
+   out whether they owe zakat is the wrong side of the line this product has been
+   on since the first page of the brief.
+
+**This is a recommendation, and pricing is the owner's call**, as M·50 said. But
+it is the one recommendation in this file I would argue for.
+
+#### 126 — Five things that would make it genuinely useful for Muslim households
+
+None of these is a fintech feature and none of them holds anyone's money.
+
+**1 · The zakat record, year on year.** The calculator is the small part. The
+useful part is the **ledger**: what was due each year, what was actually paid,
+when, and when the next hawl completes. Zakat is annual, which is exactly long
+enough to forget. Nothing else in the app has a memory longer than a cycle, and
+this is the one thing that should.
+
+**2 · Ramadan, as something the plan knows is coming.** Food spending rises,
+sadaqah rises, and then Eid clothing and gifts land on top — and a household
+budgeting on a salary cycle meets all of it at once. The app already shows the
+hijri date. Using their **own history** — *"Ramadan starts in the cycle beginning
+12 February; last year you spent ₦X more on food"* — is useful, honest, and
+requires nothing but data they already have.
+
+**3 · The two Eids as sinking funds, and qurbani by name.** Eid al-Adha means a
+ram for a great many Nigerian households, and it is a large, known, annual,
+saved-for expense. Goals already exist; what is missing is that the two Eids move
+against the salary calendar every year, so a fixed monthly amount is the wrong
+shape. **A goal that knows its own lunar due date** is the feature.
+
+**4 · Sadaqah with an annual total.** It is a seeded category already. What it
+does not have is the one number people actually want at the end of a year: what
+they gave. Cheap, local, and it belongs beside the zakat record.
+
+**5 · The cycle marked with the hijri calendar it already displays.** Ramadan,
+the two Eids and the hawl on the Months view, so the year is visible rather than
+recalled.
+
+**Deliberately not proposed: marking savings destinations as interest-bearing or
+riba-free.** Two of the five named destinations are conventional products, and a
+budgeting app publishing a religious verdict on named third parties is both
+rule 3 and a legal exposure — and §8's *never preachy* rules out the softer
+version. **→ owner, O4:** if this is wanted, it has to come from the owner as a
+position, not from me as a feature.
+
+---
+
+### M·58 — The irregular-income case, and the one concept that would answer it
+
+> *"Somebody asked me — I said this app is for salary earners. What of people
+> that are not salary earners, like business owners, and their money is not tied
+> to salary, it depends on when the money comes?"*
+
+The honest starting point: **three things in the product assume a salary, and one
+of them breaks badly.**
+
+| | Assumes | With irregular income |
+|---|---|---|
+| **The cycle** | a salary day defines it (§5a, D16) | no boundary |
+| **The plan** | a take-home is the denominator | no denominator |
+| **Safe to spend today** | what is left ÷ days remaining | **divides money you have by a date that means nothing** |
+| Plan's *categories* | — | **fine.** What money is for does not depend on when it arrived |
+| Debts, goals, zakat | — | **fine.** All three are about what you hold |
+
+So it is not a rewrite. It is one broken figure and two missing boundaries.
+
+#### 127 — Two ways out, and I would take the second
+
+**A · A second cycle type.** A calendar month instead of a salary date, and the
+plan expressed as **percentages of whatever arrives** rather than fixed naira.
+Workable, and it forks the product: two kinds of cycle, two kinds of plan, two
+kinds of safe-to-spend, two sets of states to draw and test, forever.
+
+**B · One new concept — the float — and everything else stays.** A business
+owner's real problem is not budgeting, it is **smoothing**. Income lands in a
+holding place; on a chosen day the household **pays itself** a fixed amount out
+of it. From that moment the person *is* a salary earner — they have a pay day and
+a take-home — and every screen in the app works unchanged.
+
+**B reuses a shape that is already drawn.** *Cash in hand* (M·49, board `17d`) is
+exactly this: money that has arrived and has not yet been given a job, with the
+arithmetic *taken out · recorded so far · not accounted for*. A float is the same
+object pointing the other way.
+
+What B needs:
+
+- a holding balance for income received but not yet paid out
+- a **pay myself** action, and a date it happens on
+- **one figure, and it is the one a business owner actually wants:
+  *"your float covers 2.4 cycles"*** — how long the household keeps running if
+  nothing else comes in
+
+**The honest failure case has to be designed, not assumed away.** Somebody whose
+income is irregular very often does **not** have a float yet, and telling them to
+build one is advice they did not ask for. So: when the float is short,
+*take-home* becomes **what you have paid yourself so far this cycle**,
+safe-to-spend is computed on that and says so, and the screen does not pretend
+the rest is coming.
+
+**→ owner and spec, O5.** This is a product decision, not a design one. It
+touches onboarding, Home, Plan, Months and the whole of §5a/D16, and it is **v2
+scope at minimum**. Nothing is drawn. What is worth saying now is that the
+answer to *"is this for salary earners?"* need not be *"we will build a second
+app"* — **it can be *"it makes you one"***, and that is one concept rather than a
+fork.
+
+---
+
+### M·59 — Settings, Household and Import: three subjects that had no parent
+
+> *"For settings, you stated what will be contained in settings, but then you came
+> to what an account holds and you stated that, and it's as well under settings.
+> Normally I believe these are subsections of settings. So when you are building
+> a settings screen you firstly build out everything that a setting will contain,
+> then before you now start building out the subsection… when they are scattered
+> about, for a builder it makes no sense; they will start wondering, under what
+> should we link this to."*
+>
+> *"I saw where you had the import and export — they should have their own
+> section, and when the user clicks on it, it's a nested page that they enter
+> into. The same thing applies to household. Household is under Plan, but if I
+> should come to Plan itself, it does not look like if there's anything also
+> there… there's supposed to be kind of like a home component for household
+> before the sub items."*
+
+He is describing the canvas accurately in all three cases, and the shape of the
+fault is the same one three times: **a subject drawn by its parts, with no screen
+in front of them.** It is the same shape as the Plan row menu that nothing opened
+(M·46) and the Household disagreement drawn without an invite.
+
+#### 128 — Settings: an index, then pages
+
+**What it was.** §7.9's six sections drawn as **one screen with all six inline**;
+§08a's account states as a **separate board** called *Settings · signed out*;
+*What an account adds* on a **page of its own**; import and export as three phone
+screens on a **fourth page with nothing leading to them**. Four places, one
+subject, no parent.
+
+**What a long settings screen costs**, beyond the scrolling: room to grow. The
+account needs five states (§08a) and categories need six behaviours (§7.9), and
+neither can have them without making the screen longer for everybody who came to
+check one thing.
+
+**What it is now.** An index of eight rows in §7.9's order — **data first,
+because it is the thing the owner most needs to act on**, and the account, which
+is the more eye-catching row, still does not go above it. Each row opens a page
+that owns its subject.
+
+**Every row answers its own question.** An index whose rows are names with
+chevrons is a menu, and a menu makes you open things to find out where you are.
+*Protected · 47 unexported changes* · *Not signed in* · *25th · ₦450,000.00* ·
+*12 · 4 protected*. **Most visits end on the index, which is the point of
+building one.**
+
+**Zakat is the one row that leaves.** It is one of the six nav destinations (§2),
+so settings links to it and the row says so rather than pretending to be a
+section.
+
+Drawn at both widths: the **index**, and three pages under it — **your data**,
+**your cycle**, **categories**. Still to draw, and now with an obvious home:
+your account (the existing `15d` board is its content), savings destinations,
+about.
+
+**One rule the categories page establishes:** rollover and protection are set on
+**Plan**, on the row for the category, next to the figure they change. The
+settings page **says where they are rather than drawing a second way to set
+them** — two places to change one thing is how the two places end up disagreeing.
+
+**A nested page shows its way out, and the two widths do it differently** because
+you arrive differently: at 360 you pushed a screen, so the back control is in the
+title bar; at 1440 the sidebar never went away, so what is missing is *where
+inside Settings you are* — a crumb, not a button.
+
+#### 129 — Import and export: a section, and the door its flows were behind
+
+Three flow screens — confirm, done, refused — existed on their own page with
+**no entry point anywhere on the canvas**. Drawn at both widths now.
+
+**Export is above import, and they are not a pair of buttons.** §7.9 calls import
+**the most dangerous action in the app** because it replaces everything, so it
+gets its own block and its own wording instead of sitting one tap away from the
+harmless action it resembles. **Still not danger-coloured**: a refused file
+changes nothing, and §7.9 is explicit that a refusal is informational.
+
+#### 130 — Household: a parent, and a way in from Plan
+
+**Page 14 held two artboards and both of them were the disagreement** — the
+screen you only ever see on a day when two people have typed different numbers
+into the same row. The invite, the accept, the member list and the removal (§6L,
+stories L1–L5) were drawn nowhere. **The canvas described a feature by its edge
+case.**
+
+**And nothing on Plan led here.** Plan drew a budget that could only belong to
+one person, so the feature could only be found by somebody already looking for
+it. There is a **Household row at the end of the Plan table now, at both widths,
+from one definition** (`household.plan_entry`) — at the end rather than in the
+header, because the top of Plan belongs to *Free* and §7.3 requires that figure
+to stay visible while typing.
+
+**What the parent screen is for.** A household is not a setting you switch on; it
+is an agreement to stop keeping two versions of the same plan (L1). What somebody
+needs *before* inviting anyone is **what the other person will be able to do** —
+and §4 answers it exactly: a household member reads and writes the shared budget
+and settles a disagreement; they **cannot** change billing or remove the account
+holder. Those two exceptions are the whole difference between the roles, so they
+are on the screen in words.
+
+**The disagreement rule is stated before it happens.** *Both amounts are kept,
+nothing is overwritten, one of you chooses.* Somebody who first meets that idea
+in the middle of an argument about ₦15,000 of food money meets it too late.
+
+**The only urgent thing on the shared screen is a count, not a warning.** Two
+people setting different figures is the system working — nothing is broken and
+nothing is lost while it waits — so nothing on it is rose.
+
+---
+
+### M·60 — The canvases, re-cut along the owner's own line
+
+M·45 split the canvas and the owner asked, fairly, *"why did you move page 1, 2,
+16 and 17?"* — a question I had not answered before moving them. It bought 30
+files of headroom and the app canvas went straight back to **191 of 200**. This
+round's work is another forty boards, so the same wall arrives again.
+
+**The line this time is the navigation, and it is the owner's own.** On 26
+September he ruled that *"Settings should not be part of the main navigation"* —
+the six destinations are where the money is, everything else is how the app is
+set up. That is the cut:
+
+| Canvas | Holds | Files |
+|---|---|:-:|
+| **The app** — the existing link | What is **in the nav**: Home, Plan, Transactions, Quick Add, Debts & Goals, Months, Zakat, Bank movements | **125** of 200 |
+| **Around the app** — the second link | What is not: the landing page, security, signing up and setting up, Settings and its pages, what an account adds, household, import and export, the mark, the primitives | **128** of 200 |
+
+**What moved: pages 3, 11, 12, 14 and 15.** **Nothing in the daily loop moved** —
+Home, Plan, Transactions, Debts & Goals, Months, Zakat, Quick Add and Bank
+movements are all on the link already in use, in the same order. It is one line
+in `layout.py` to put back.
+
+---
+
+## §O · What the spec and the seed now owe
+
+Four of the items above change documents the build reads. They are repeated here
+so none of them has to be found inside a narrative.
+
+| # | Where | What changes | State |
+|:-:|---|---|:-:|
+| **O1** | `docs/seed-data.md` §the zakat scenario | Nisab is **worked out from the silver price**, not *"as entered by the owner"*. Add the **price per gram and the date read**, so the arithmetic runs forwards. Add a **gold-standard figure** so the alternative can be drawn | ☐ |
+| **O2** | `docs/06-page-specs.md` §7.10 | *Numbers*: **"nisab (owner-entered)"** is superseded — it is fetched. *States*: **"Empty — no nisab"** is superseded — the state is a **stale or unavailable price**, which answers from the last known value and says how old it is. Add: the screen states **which standard is in use**, and the caveat **names the three open choices** | ☐ |
+| **O3** | `docs/06-page-specs.md` §7.5 | **Question, not a correction.** Should Quick Add's *type* default follow the screen it was opened from, rather than always `Expense`? Removes a tap where the wrong guess is likeliest; costs the property that makes the sheet learnable. **No side taken** | ☐ |
+| **O4** | owner | Should savings destinations carry a **riba / interest-bearing** marker? Not proposed here — it is a religious position about named third parties (rule 3), and §8's *never preachy* rules out the soft version | ☐ |
+| **O5** | owner, then spec | **Irregular income.** The **float** model (M·58): one new concept instead of a second cycle type. Touches onboarding, Home, Plan, Months and §5a/D16. **v2 scope at minimum.** Nothing drawn | ☐ |
+
+**Still open from earlier rounds and unticked:** §N's N1–N4, including **N4** —
+§7.1's *"Everything you enter stays on this device"*, false since ADR-009 and on
+`guards.py`'s forbidden list. §M·49's `Moved to cash` type label and whether
+*Cash in hand* exists as a holding object. §M·50's aggregator quote, which gates
+the whole ₦1,000 tier.
+
+### Items opened in this round
+
+| # | What | Where |
+|:-:|---|---|
+| 119 | **Months' empty state is four lines** where the rule (tokens §10.4) says an empty state is a whole screen. Not drawn — it was not asked for and it changes a reviewed screen | design |
+| 120 | ✅ Two board figures contradicted the seed on Zakat — nisab and hawl start. Fixed | — |
+| 121 | ✅ The nisab arithmetic, both standards, and why silver | — |
+| 122 | The nisab needs an **FX rate named on screen**, and it is the first figure in the product that needs the network to be *correct* | spec + build |
+| 123 | ✅ Zakat rebuilt: six boards, three states, both widths | — |
+| 124 | §7.10 superseded in two places → **O2** | spec |
+| 125 | **Do not paywall zakat.** The nisab is one number for all users and fails §11a's own pricing test | owner |
+| 126 | Five Muslim-household features: the **zakat record**, **Ramadan anticipated from their own history**, **the two Eids as lunar-dated goals**, **a sadaqah annual total**, **the hijri year on Months** | product |
+| 127 | ✅ Irregular income worked out → **O5** | — |
+| 128 | ✅ Settings: index then pages. Still to draw: your account, savings destinations, about | design |
+| 129 | ✅ Import and export is a section with a door | — |
+| 130 | ✅ Household has a parent, and Plan has a way in | — |
+| 131 | **Band labels scroll away** on Plan. Harmless now; `position: sticky` on the band cell is the fix at thirty categories | design |
+
+---
+
+## 27 September, third round — six answers, and two of them reverse me
+
+Two of the items below are the owner overruling a call I made earlier the same
+day, and in both cases he is right. They are written as reversals rather than
+refinements, because a design file that quietly absorbs its own corrections
+teaches nobody anything.
+
+---
+
+### M·61 — The top-bar action is contextual after all, and I was arguing about the wrong control
+
+> *"I asked the question about this add button that is at the top — you know we
+> have the navigation, we have the main content, and we have that top that has
+> the calendar and the add button. I was asking: the add button, is it dynamic
+> for every page? Like, let's say when we are in Home, if you click on add it
+> opens the quick add tab. If you are in Plan, if you click on add it opens the
+> plan form. If you are in Transactions, it opens a form for you to input a
+> transaction. Or now we are currently in Debts and Goals — if I click on add, is
+> it that it opens the form for me to record the debt, or what?"*
+
+**Yesterday I said no, and the argument was sound about a control this is not.**
+
+M·54's reasoning: *a control that means something different depending on where
+you are standing cannot be learned by muscle memory.* That is exactly right —
+**about an unlabelled button.** It is why the ⊕ at 360 must stay global: no
+label, under the thumb, pressed fifty times a cycle while standing at a counter
+(story G2), and the one screen where a wrong guess is expensive is the one where
+you are in a hurry.
+
+**The 1440 header button carries a label.** A button that reads *Add a category*
+cannot be misread, so the learnability objection does not reach it, and what is
+left is a control that either does the useful thing on the screen you are on or
+does not. These are **two different controls, in two different places, doing two
+different jobs**, and saying so is more honest than making one of them worse for
+a symmetry nobody experiences.
+
+#### 132 — The rule, one line
+
+**The top-bar action is the screen's own create action, labelled with what it
+makes; a screen with nothing of its own to create adds a movement.**
+
+| Screen | The top bar reads |
+|---|---|
+| Home · Transactions · Months · Zakat · Settings and its pages | **Add a movement** |
+| Plan | **Add a category** |
+| Debts & Goals | **Add a debt** — and *Add a goal* on the Goals heading |
+| Household | **Invite someone** |
+
+**And the screen does not repeat it.** Plan's page header used to carry its own
+*Add a category* beside *Copy last cycle's plan* and the *Free* figure — three
+things in one row, one of them now duplicated — so it moved up. One action, one
+place, and **that place is the same place on every screen**, which is more
+learnable than what it replaced rather than less.
+
+An empty state's own button is **not** a duplicate: an empty state being a call
+to action is its whole job. Household's *just you* state keeps its big *Invite
+someone*, and so do Transactions' and Debts' empty states.
+
+**Debts & Goals is the case that decides how far this goes.** It is the one
+screen with two objects. At 360 the tabs settle it — the action follows the open
+tab. At 1440 both sections are on screen at once, so a single button has to pick
+one, and picking one silently demotes the other. So the bar takes *Add a debt*
+(debts are what the screen opens with) and **Goals carries its own labelled
+action on its heading**. The rule holds either way: one action, one place, and
+the two places are the two sections a person is actually looking at.
+
+**→ spec, O3 is now half-answered.** §7.5's *type defaults to `Expense`* stands
+at 360, where the ⊕ is global and unlabelled. At 1440 the question does not
+arise, because the button says what it will make before it is pressed.
+
+---
+
+### M·62 — Bank movements comes back into Transactions, and the honest cost of it
+
+> *"I was thinking, instead of leaving it as its own tab on the navigation,
+> let's bring it to Transactions, and on that Transactions we will have a
+> section — Bank movements. So for a paid subscriber it is open; for somebody
+> that is not paid it gets locked, and for somebody that is paid it opens and
+> they can click on it and it takes them to their bank movements."*
+
+**The second reversal in a day, and the second one he is right about.** M·49
+made it a seventh nav item on his own morning instruction, appearing only once a
+bank is linked. What changed between the two asks is **the free user**:
+
+> A nav item that is simply not there is **invisible**. Nobody on the free tier
+> ever learns the feature exists — which means **the thing the paid tier is
+> actually selling is the thing nobody can see.**
+
+Both arguments were real. Mine was about not nagging the person who has not
+paid; his is about the person who has not paid never finding out. His is the
+larger group, and a feature nobody discovers is not a feature.
+
+#### 133 — What it looks like
+
+Transactions grows a **two-segment control under its title**: *Your record* ·
+*Bank movements · 3*. They are **two accounts of the same month** — the ledger
+you have decided about, and the feed the bank sent — and the whole value of the
+feature is reading one against the other, which you can only do if they are one
+control apart.
+
+**The segments sit above the filters, not beside them**, because a control that
+changes the whole screen has to be above one that changes part of it, or the
+order on screen argues with the order in your head. **The count lives on the
+segment**, because an inbox with a count is the one thing that should not need
+opening to see.
+
+**At 360 this is not a compromise — it is the only shape there was room for.**
+The bottom bar is five slots and one of them is the ⊕; there was never a seventh
+anything.
+
+The reconciliation queue, the duplicate case, the cash withdrawal and *Cash in
+hand* all now render **inside Transactions**, with the title and the segments
+above them, so the way back to the ledger is on the screen rather than in the
+nav bar. The canvas page is renamed **13 · Bank movements — inside
+Transactions**; its boards did not move, because moving twelve boards a reviewer
+has already found is churn, and the page name carries the relationship.
+
+#### 134 — What it costs against item 24, said plainly
+
+**This is the first place in the product where a paid feature is shown to
+somebody who has not paid**, and item 24 exists precisely to stop that becoming
+an advertisement:
+
+> *no padlock, no crown, and the word `unlock` appears nowhere* — and
+> `build_boards.py` **fails the build** on `unlock*`, `upgrad*`, `premium`,
+> `padlock*` or `pro plan` anywhere on an artboard.
+
+**The distinction that lets both hold: item 24 is about a disabled control.** A
+greyed nav item is a control that will not work, dressed as one that will. What
+is drawn here is **a description of what the section is, where the section is**,
+with no dead button in it. Nothing greyed, nothing padlocked, none of the five
+forbidden words, and §10.1's sentence carried character for character. The one
+action on it opens the page that explains the plan.
+
+**The count is absent on the locked state, deliberately.** A count of work you
+cannot do is a nag.
+
+I am recording this as a **cost, not a free win**. The free tier's nav is still
+the nav of a complete product; one screen inside it now describes something that
+is not included. That is a change in kind, it was the owner's call, and if it
+ever starts to read as a sales page the place to look is this item.
+
+---
+
+### M·63 — The view that shows everything, which did not exist
+
+> *"You wrote 'movements to sort' — when the user clicks skip and the likes,
+> where is the view that shows them all their movements at first? There should
+> be that view that shows all the movements, maybe in a table or whatever it
+> is."*
+
+**A real hole, and a worse one than it sounds.** The queue is an **inbox**: it
+shows what is unsorted and it empties. A movement that was sorted became a
+transaction and lives in the record. A movement that was **skipped**, marked
+**not mine**, or **merged as a duplicate** went nowhere a person could look.
+
+Three consequences, all of them bad:
+
+1. **The *not mine* escape was one-way.** There was no screen on which to notice
+   you had used it wrongly, and `seed-data.md` calls movement 6 — a card
+   maintenance fee — exactly that case. A bank charge is money that left the
+   account; against the owner's own test, *every naira can be accounted for*, it
+   is arguably not a *not mine* at all. **→ open, item 137.**
+2. Nothing answered *did the bank actually send that?*, which is the question you
+   ask when a figure looks wrong.
+3. The counter **3 of 8** had no eight to point at.
+
+**All movements is the landing view**, with the unsorted count as a banner on
+top of it rather than a screen in front of it: everything the bank sent, what
+became of each one, and the work to do one action away. All eight seeded rows,
+five states — *same as one you entered* · a category · *to sort* · *left out —
+not mine* · *moved to cash in hand*.
+
+**Two of those five are reversible decisions made in a hurry, and this is the
+only screen on which a person can see they made them.** That is the line under
+the table: *anything left out or merged can be put back, which is the reason
+this list keeps them.*
+
+---
+
+### M·64 — Every screen you enter owes you a way back
+
+> *"The other thing you should add for every screen — just like how you have at
+> the top your Settings, then the chevron, and Import and export, so the user can
+> click it and go back to Settings. Or you add the back-history arrow. Because it
+> does not make sense that if I'm in Transactions and then I go to Household, for
+> me to go back I have to go and click Transactions on the nav bar."*
+
+#### 135 — The rule
+
+**Every screen you ENTER carries a way back. The six you NAVIGATE to do not.**
+
+Home, Plan, Transactions, Debts & Goals, Months and Zakat are **places** — the
+nav is how you move between them, and a back control on a place is a control
+with nothing to do. Everything reached from inside one of them — Household, a
+debt record, every page under Settings, *what an account adds* — is a page you
+**entered**, and it owes you the door.
+
+**Labelled, not just an arrow.** A bare ‹ asks you to remember where you came
+from; a crumb answers before you press it. That matters most in the exact case
+the owner named — arriving somewhere from an unusual direction — because a
+history arrow lands you somewhere different each time and a labelled one never
+does.
+
+**And the browser's own back still works.** This is a web app (ADR-009): the
+browser button, the trackpad swipe and the phone's back gesture already do true
+history, at no cost to us. What the app owes is the thing they cannot give — a
+way back that **says where it goes**, and one that still exists when the app is
+installed to a home screen and there is no browser chrome at all (spec §G).
+
+#### 136 — One definition, which is why it was missing
+
+The pattern existed — Settings' pages had it — and it was **typed into
+`settings2.py` and nowhere else**, so the debt record never got it, *what an
+account adds* never got it, and nothing was going to catch the next screen that
+forgot. It is `ui.crumb` and `ui.backbar` now; Settings, Household, the debt
+record and the tier page all call it. **Sixth time this month that one thing
+drawn twice has drifted** — the gauge, the ceiling line, the plan card, the
+money bar, `08e`'s shadow, and now this.
+
+**The Zakat row in Settings is not this pattern, and the difference is worth
+stating.** It opens the Zakat **destination** and the nav lights up Zakat — that
+is a move, not a descent, so there is no crumb and nothing to go back to. The
+row says *Opens the Zakat screen* so the move is not a surprise.
+
+---
+
+### M·65 — How the zakat year actually gets set
+
+> *"How does the zakat screen start operating? Is it when the user clicks
+> 'choose a date', a date component pops up, or what? Or 'track from my first
+> record', and the system automatically starts tracking? Because for a user that
+> has not set the year, how do they start? I can't see that here."*
+
+**He could not see it because it was not there.** `14b` had two chips, no
+consequence written on either, and nothing at all drawn behind the first one.
+
+**Both options now state what they would do, before either is chosen** — which
+is §7.10's own rule (*if unknown, say what it fell back to*) applied one step
+earlier:
+
+| | |
+|---|---|
+| **Choose a date** | opens the picker, `14c` |
+| **Track from my first record** | commits immediately — *"that would be 25 September 2026, the day you started recording"*, said **here**, not discovered afterwards |
+
+#### `14c` — Gregorian, and that is the design
+
+The hawl is a lunar year, so every instinct says pick it in the hijri calendar —
+and that is **exactly wrong for the person doing it**. Nobody remembers *my
+savings passed the nisab on 3 Safar*; they remember a month and a rough week of
+an ordinary year. So the picking happens in the calendar a person thinks in, and
+**the app shows its working**: what the chosen date is in the other calendar, and
+the date the year completes.
+
+**The grid is real.** 16 June 2026 is a Tuesday and the month lays out as drawn;
+the weeks are computed, not sketched. A calendar with the wrong weekday under a
+date is the kind of detail that makes a person distrust every other figure on
+the screen.
+
+**Only the chosen day carries a hijri date.** Mapping the whole month means
+asserting the length of Muharram 1448, which is settled by sighting and is not
+mine to invent. **Repo rule 2 applies to calendars too.**
+
+---
+
+### M·66 — *What an account adds* lives under *Your account*
+
+> *"So this is what an account adds — under what settings category is it from?"*
+
+**The honest answer was *nowhere*, and that was the fault.** It had a canvas page
+of its own, it rendered inside the Settings frame, and no screen anywhere said
+which section it belonged to.
+
+**It is under `Settings › Your account`.** An account *is* a setting (§08a: *the
+account lives beside the existing settings, because it is a setting*), and this
+is the page that says what having one gets you. The crumb is on the board now,
+and the same crumb names the account page itself.
+
+So the Settings tree, complete:
+
+```
+Settings
+├── Your data                 storage · space · unexported changes · install
+├── Your account             ← 15d
+│   └── What it adds         ← the tier page, page 12
+├── Your cycle                salary day · take-home · the amber threshold
+├── Categories                add · rename · archive · reorder
+├── Savings destinations      the fixed five
+├── Import and export         export · import · the three flow screens
+├── Zakat                     → opens /zakat. Leaves settings, and says so
+└── About                     version · licence · how the data is held
+```
+
+---
+
+### Items opened or changed in this round
+
+| # | What | Where |
+|:-:|---|---|
+| 132 | ✅ The top-bar action is the screen's own, labelled. §7.5's `Expense` default stands at 360 only | — |
+| 133 | ✅ Bank movements is a section of Transactions at both widths | — |
+| 134 | **The first paid-feature panel shown to a non-payer.** Passes item 24's guard on the letter — no dead control, none of the five words — and is logged as a **cost**. If it ever reads as a sales page, start here | owner |
+| 135 | ✅ Every entered screen carries a labelled way back. `ui.crumb` / `ui.backbar` | — |
+| 136 | ✅ Sixth instance of one thing drawn twice. The crumb is one definition now | — |
+| 137 | **Is a bank charge a *not mine*?** `seed-data.md` calls movement 6 that case, but it is money that left the account, and the owner's test is *every naira can be accounted for*. It may want a type of its own rather than the escape hatch | spec |
+| 138 | ✅ `14c`, and both no-year options state their consequence | — |
+| 139 | ✅ *What an account adds* sits under *Your account*; the full Settings tree is above | — |
+
+**Still owed, unchanged:** §O's **O1** (the seeded silver price, the FX rate, a
+gold figure), **O2** (§7.10's superseded lines), **O4** (the riba marker) and
+**O5** (irregular income / the float). §N's **N1–N4**. §M·49's `Moved to cash`
+type label. §M·50's aggregator quote.

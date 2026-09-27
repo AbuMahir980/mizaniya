@@ -1,766 +1,1408 @@
 {
  "pages": [
   {
-   "id": "page-brand",
-   "name": "Welcome & mark"
-  },
-  {
-   "id": "page-onb",
-   "name": "Onboarding"
-  },
-  {
-   "id": "page-home",
-   "name": "Home"
+   "id": "page-w-home",
+   "name": "4 \u00b7 Home"
   },
   {
    "id": "page-plan",
-   "name": "Plan"
+   "name": "5 \u00b7 Plan"
   },
   {
    "id": "page-tx",
-   "name": "Transactions"
+   "name": "6 \u00b7 Transactions"
   },
   {
    "id": "page-qa",
-   "name": "Quick Add"
+   "name": "7 \u00b7 Quick Add"
   },
   {
-   "id": "page-debts",
-   "name": "Debts & Goals"
+   "id": "page-dg",
+   "name": "8 \u00b7 Debts and goals"
   },
   {
-   "id": "page-months",
-   "name": "Months"
+   "id": "page-mo",
+   "name": "9 \u00b7 Months"
   },
   {
-   "id": "page-settings",
-   "name": "Settings"
+   "id": "page-zk",
+   "name": "10 \u00b7 Zakat"
   },
   {
-   "id": "page-zakat",
-   "name": "Zakat"
-  },
-  {
-   "id": "page-found",
-   "name": "Foundations"
+   "id": "page-bank",
+   "name": "13 \u00b7 Bank movements \u2014 inside Transactions"
   }
  ],
  "artboards": [
   {
-   "file": "Main.dc.html",
+   "file": "WebHomeLight.dc.html",
    "x": 0,
-   "y": 0,
-   "w": 1072,
-   "h": 1032,
-   "title": "Design stop \u00b7 light",
-   "page": "page-brand",
-   "print": "fixed"
-  },
-  {
-   "file": "CoverDark.dc.html",
-   "x": 1212,
-   "y": 0,
-   "w": 1072,
-   "h": 1032,
-   "title": "Design stop \u00b7 dark",
-   "page": "page-brand",
-   "print": "fixed"
-  },
-  {
-   "file": "WelcomeLight.dc.html",
-   "x": 2424,
-   "y": 0,
-   "w": 886,
-   "h": 1002,
-   "title": "Welcome \u00b7 360 \u00b7 light",
-   "page": "page-brand",
-   "print": "fixed"
-  },
-  {
-   "file": "WelcomeDark.dc.html",
-   "x": 3450,
-   "y": 0,
-   "w": 886,
-   "h": 1002,
-   "title": "Welcome \u00b7 360 \u00b7 dark",
-   "page": "page-brand",
-   "print": "fixed"
-  },
-  {
-   "file": "WelcomeDLight.dc.html",
-   "x": 4476,
    "y": 0,
    "w": 1512,
-   "h": 747,
-   "title": "Welcome \u00b7 1440 \u00b7 light",
-   "page": "page-brand",
+   "h": 2092,
+   "title": "07 \u00b7 Home \u00b7 1440 \u00b7 light",
+   "page": "page-w-home",
    "print": "fixed"
   },
   {
-   "file": "WelcomeDDark.dc.html",
-   "x": 6128,
-   "y": 0,
-   "w": 1512,
-   "h": 747,
-   "title": "Welcome \u00b7 1440 \u00b7 dark",
-   "page": "page-brand",
-   "print": "fixed"
-  },
-  {
-   "file": "LogoLight.dc.html",
-   "x": 7780,
-   "y": 0,
-   "w": 1046,
-   "h": 1086,
-   "title": "Mark & wordmark \u00b7 light",
-   "page": "page-brand",
-   "print": "fixed"
-  },
-  {
-   "file": "LogoDark.dc.html",
-   "x": 0,
-   "y": 1276,
-   "w": 1046,
-   "h": 1086,
-   "title": "Mark & wordmark \u00b7 dark",
-   "page": "page-brand",
-   "print": "fixed"
-  },
-  {
-   "file": "OnbLight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 2582,
-   "h": 1211,
-   "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 light",
-   "page": "page-onb",
-   "print": "fixed"
-  },
-  {
-   "file": "OnbDark.dc.html",
-   "x": 2722,
-   "y": 0,
-   "w": 2582,
-   "h": 1211,
-   "title": "Onboarding \u00b7 all six steps \u00b7 360 \u00b7 dark",
-   "page": "page-onb",
-   "print": "fixed"
-  },
-  {
-   "file": "OnbPickLight.dc.html",
-   "x": 5444,
-   "y": 0,
-   "w": 1310,
-   "h": 886,
-   "title": "Onboarding \u00b7 what the controls open \u00b7 360 \u00b7 light",
-   "page": "page-onb",
-   "print": "fixed"
-  },
-  {
-   "file": "OnbPickDark.dc.html",
-   "x": 6894,
-   "y": 0,
-   "w": 1310,
-   "h": 886,
-   "title": "Onboarding \u00b7 what the controls open \u00b7 360 \u00b7 dark",
-   "page": "page-onb",
-   "print": "fixed"
-  },
-  {
-   "file": "OnbDLight.dc.html",
-   "x": 0,
-   "y": 1401,
-   "w": 4460,
-   "h": 2250,
-   "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 light",
-   "page": "page-onb",
-   "print": "fixed"
-  },
-  {
-   "file": "OnbDDark.dc.html",
-   "x": 4600,
-   "y": 1401,
-   "w": 4460,
-   "h": 2250,
-   "title": "Onboarding \u00b7 all six steps \u00b7 1440 \u00b7 dark",
-   "page": "page-onb",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeLight.dc.html",
-   "x": 0,
+   "file": "MwHomeLight.dc.html",
+   "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 1471,
-   "title": "Home \u00b7 360 \u00b7 light",
-   "page": "page-home",
+   "h": 1695,
+   "title": "07 \u00b7 Home \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
    "print": "fixed"
   },
   {
-   "file": "HomeDark.dc.html",
-   "x": 972,
-   "y": 0,
-   "w": 832,
-   "h": 1471,
-   "title": "Home \u00b7 360 \u00b7 dark",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeCycleLight.dc.html",
-   "x": 1944,
-   "y": 0,
-   "w": 691,
-   "h": 1435,
-   "title": "Home \u00b7 this cycle \u00b7 light",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeCycleDark.dc.html",
-   "x": 2775,
-   "y": 0,
-   "w": 691,
-   "h": 1435,
-   "title": "Home \u00b7 this cycle \u00b7 dark",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeStatesLight.dc.html",
-   "x": 3606,
-   "y": 0,
-   "w": 2158,
-   "h": 1525,
-   "title": "Home \u00b7 every state \u00b7 360 \u00b7 light",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "HomeStatesDark.dc.html",
-   "x": 5904,
-   "y": 0,
-   "w": 2158,
-   "h": 1525,
-   "title": "Home \u00b7 every state \u00b7 360 \u00b7 dark",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "MoreLight.dc.html",
-   "x": 8202,
-   "y": 0,
-   "w": 832,
-   "h": 907,
-   "title": "More sheet \u00b7 360 \u00b7 light",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "MoreDark.dc.html",
-   "x": 0,
-   "y": 1715,
-   "w": 832,
-   "h": 907,
-   "title": "More sheet \u00b7 360 \u00b7 dark",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "DHomeLight.dc.html",
-   "x": 972,
-   "y": 1715,
-   "w": 1512,
-   "h": 1314,
-   "title": "Home \u00b7 1440 \u00b7 light",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "DHomeDark.dc.html",
+   "file": "WebHomeDark.dc.html",
    "x": 2624,
-   "y": 1715,
-   "w": 1512,
-   "h": 1314,
-   "title": "Home \u00b7 1440 \u00b7 dark",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "DHomeStatesLight.dc.html",
-   "x": 0,
-   "y": 3219,
-   "w": 7514,
-   "h": 1428,
-   "title": "Home \u00b7 every state \u00b7 1440 \u00b7 light",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "DHomeStatesDark.dc.html",
-   "x": 0,
-   "y": 4837,
-   "w": 7514,
-   "h": 1428,
-   "title": "Home \u00b7 every state \u00b7 1440 \u00b7 dark",
-   "page": "page-home",
-   "print": "fixed"
-  },
-  {
-   "file": "PlanLight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 886,
-   "h": 1551,
-   "title": "Plan \u00b7 360 \u00b7 light",
-   "page": "page-plan",
-   "print": "fixed"
-  },
-  {
-   "file": "PlanDark.dc.html",
-   "x": 1026,
-   "y": 0,
-   "w": 886,
-   "h": 1551,
-   "title": "Plan \u00b7 360 \u00b7 dark",
-   "page": "page-plan",
-   "print": "fixed"
-  },
-  {
-   "file": "DPlanLight.dc.html",
-   "x": 2052,
    "y": 0,
    "w": 1512,
-   "h": 1643,
-   "title": "Plan \u00b7 1440 \u00b7 light",
-   "page": "page-plan",
+   "h": 2092,
+   "title": "07 \u00b7 Home \u00b7 1440 \u00b7 dark",
+   "page": "page-w-home",
    "print": "fixed"
   },
   {
-   "file": "DPlanDark.dc.html",
-   "x": 3704,
-   "y": 0,
-   "w": 1512,
-   "h": 1643,
-   "title": "Plan \u00b7 1440 \u00b7 dark",
-   "page": "page-plan",
-   "print": "fixed"
-  },
-  {
-   "file": "TransactionsLight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 1310,
-   "h": 1464,
-   "title": "Transactions \u00b7 360 \u00b7 light",
-   "page": "page-tx",
-   "print": "fixed"
-  },
-  {
-   "file": "TransactionsDark.dc.html",
-   "x": 1450,
-   "y": 0,
-   "w": 1310,
-   "h": 1464,
-   "title": "Transactions \u00b7 360 \u00b7 dark",
-   "page": "page-tx",
-   "print": "fixed"
-  },
-  {
-   "file": "DTransactionsLight.dc.html",
-   "x": 2900,
-   "y": 0,
-   "w": 4460,
-   "h": 897,
-   "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 light",
-   "page": "page-tx",
-   "print": "fixed"
-  },
-  {
-   "file": "DTransactionsDark.dc.html",
-   "x": 0,
-   "y": 1654,
-   "w": 4460,
-   "h": 897,
-   "title": "Transactions \u00b7 every state \u00b7 1440 \u00b7 dark",
-   "page": "page-tx",
-   "print": "fixed"
-  },
-  {
-   "file": "QALight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 1310,
-   "h": 1046,
-   "title": "Quick Add \u00b7 every mode \u00b7 360 \u00b7 light",
-   "page": "page-qa",
-   "print": "fixed"
-  },
-  {
-   "file": "QADark.dc.html",
-   "x": 1450,
-   "y": 0,
-   "w": 1310,
-   "h": 1046,
-   "title": "Quick Add \u00b7 every mode \u00b7 360 \u00b7 dark",
-   "page": "page-qa",
-   "print": "fixed"
-  },
-  {
-   "file": "QADLight.dc.html",
-   "x": 2900,
-   "y": 0,
-   "w": 1512,
-   "h": 1296,
-   "title": "Quick Add \u00b7 1440 \u00b7 light",
-   "page": "page-qa",
-   "print": "fixed"
-  },
-  {
-   "file": "QADDark.dc.html",
-   "x": 4552,
-   "y": 0,
-   "w": 1512,
-   "h": 1296,
-   "title": "Quick Add \u00b7 1440 \u00b7 dark",
-   "page": "page-qa",
-   "print": "fixed"
-  },
-  {
-   "file": "DebtsLight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 886,
-   "h": 1071,
-   "title": "Debts & Goals \u00b7 360 \u00b7 light",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "DebtsDark.dc.html",
-   "x": 1026,
-   "y": 0,
-   "w": 886,
-   "h": 1071,
-   "title": "Debts & Goals \u00b7 360 \u00b7 dark",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "RecordLight.dc.html",
-   "x": 2052,
-   "y": 0,
-   "w": 727,
-   "h": 1019,
-   "title": "Debt record \u00b7 360 \u00b7 light",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "RecordDark.dc.html",
-   "x": 2919,
-   "y": 0,
-   "w": 727,
-   "h": 1019,
-   "title": "Debt record \u00b7 360 \u00b7 dark",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "FormsLight.dc.html",
-   "x": 3786,
-   "y": 0,
-   "w": 886,
-   "h": 1363,
-   "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 light",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "FormsDark.dc.html",
-   "x": 4812,
-   "y": 0,
-   "w": 886,
-   "h": 1363,
-   "title": "Add a debt \u00b7 Add a goal \u00b7 360 \u00b7 dark",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "RecordDLight.dc.html",
-   "x": 5838,
-   "y": 0,
-   "w": 1512,
-   "h": 835,
-   "title": "Debt record \u00b7 1440 \u00b7 light",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "RecordDDark.dc.html",
-   "x": 7490,
-   "y": 0,
-   "w": 1512,
-   "h": 835,
-   "title": "Debt record \u00b7 1440 \u00b7 dark",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "FormsDLight.dc.html",
-   "x": 0,
-   "y": 1553,
-   "w": 2986,
-   "h": 1166,
-   "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 light",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "FormsDDark.dc.html",
-   "x": 3126,
-   "y": 1553,
-   "w": 2986,
-   "h": 1166,
-   "title": "Add a debt \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "DDebtsLight.dc.html",
-   "x": 0,
-   "y": 2909,
-   "w": 2986,
-   "h": 869,
-   "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 light",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "DDebtsDark.dc.html",
-   "x": 3126,
-   "y": 2909,
-   "w": 2986,
-   "h": 869,
-   "title": "Debts & Goals \u00b7 both tabs \u00b7 1440 \u00b7 dark",
-   "page": "page-debts",
-   "print": "fixed"
-  },
-  {
-   "file": "MonthsLight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 886,
-   "h": 519,
-   "title": "Months \u00b7 360 \u00b7 light",
-   "page": "page-months",
-   "print": "fixed"
-  },
-  {
-   "file": "MonthsDark.dc.html",
-   "x": 1026,
-   "y": 0,
-   "w": 886,
-   "h": 519,
-   "title": "Months \u00b7 360 \u00b7 dark",
-   "page": "page-months",
-   "print": "fixed"
-  },
-  {
-   "file": "DMonthsLight.dc.html",
-   "x": 2052,
-   "y": 0,
-   "w": 2986,
-   "h": 648,
-   "title": "Months \u00b7 1440 \u00b7 light",
-   "page": "page-months",
-   "print": "fixed"
-  },
-  {
-   "file": "DMonthsDark.dc.html",
-   "x": 5178,
-   "y": 0,
-   "w": 2986,
-   "h": 648,
-   "title": "Months \u00b7 1440 \u00b7 dark",
-   "page": "page-months",
-   "print": "fixed"
-  },
-  {
-   "file": "SettingsLight.dc.html",
-   "x": 0,
-   "y": 0,
-   "w": 551,
-   "h": 1741,
-   "title": "Settings \u00b7 360 \u00b7 light",
-   "page": "page-settings",
-   "print": "fixed"
-  },
-  {
-   "file": "SettingsDark.dc.html",
-   "x": 691,
-   "y": 0,
-   "w": 551,
-   "h": 1741,
-   "title": "Settings \u00b7 360 \u00b7 dark",
-   "page": "page-settings",
-   "print": "fixed"
-  },
-  {
-   "file": "ImportLight.dc.html",
-   "x": 1382,
-   "y": 0,
-   "w": 1310,
-   "h": 784,
-   "title": "Import flow \u00b7 360 \u00b7 light",
-   "page": "page-settings",
-   "print": "fixed"
-  },
-  {
-   "file": "ImportDark.dc.html",
-   "x": 2832,
-   "y": 0,
-   "w": 1310,
-   "h": 784,
-   "title": "Import flow \u00b7 360 \u00b7 dark",
-   "page": "page-settings",
-   "print": "fixed"
-  },
-  {
-   "file": "DSettingsLight.dc.html",
-   "x": 4282,
-   "y": 0,
-   "w": 1512,
-   "h": 1202,
-   "title": "Settings \u00b7 1440 \u00b7 light",
-   "page": "page-settings",
-   "print": "fixed"
-  },
-  {
-   "file": "DSettingsDark.dc.html",
-   "x": 5934,
-   "y": 0,
-   "w": 1512,
-   "h": 1202,
-   "title": "Settings \u00b7 1440 \u00b7 dark",
-   "page": "page-settings",
-   "print": "fixed"
-  },
-  {
-   "file": "ZakatLight.dc.html",
-   "x": 0,
+   "file": "MwHomeDark.dc.html",
+   "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 1095,
-   "title": "Zakat \u00b7 360 \u00b7 light",
-   "page": "page-zakat",
+   "h": 1695,
+   "title": "07 \u00b7 Home \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
    "print": "fixed"
   },
   {
-   "file": "ZakatDark.dc.html",
+   "file": "MwHomeCycleLight.dc.html",
+   "x": 0,
+   "y": 2282,
+   "w": 691,
+   "h": 1551,
+   "title": "07f \u00b7 Home \u00b7 this cycle \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeCycleDark.dc.html",
+   "x": 831,
+   "y": 2282,
+   "w": 691,
+   "h": 1551,
+   "title": "07f \u00b7 Home \u00b7 this cycle \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeAmberLight.dc.html",
+   "x": 0,
+   "y": 4023,
+   "w": 1512,
+   "h": 1339,
+   "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeAmberLight.dc.html",
+   "x": 1652,
+   "y": 4023,
+   "w": 462,
+   "h": 677,
+   "title": "07a \u00b7 Home \u00b7 amber \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeAmberDark.dc.html",
+   "x": 2254,
+   "y": 4023,
+   "w": 1512,
+   "h": 1339,
+   "title": "07a \u00b7 Home \u00b7 amber \u00b7 1440 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeAmberDark.dc.html",
+   "x": 3906,
+   "y": 4023,
+   "w": 462,
+   "h": 677,
+   "title": "07a \u00b7 Home \u00b7 amber \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeRedLight.dc.html",
+   "x": 0,
+   "y": 5552,
+   "w": 1512,
+   "h": 1323,
+   "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeRedLight.dc.html",
+   "x": 1652,
+   "y": 5552,
+   "w": 462,
+   "h": 679,
+   "title": "07b \u00b7 Home \u00b7 over \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeRedDark.dc.html",
+   "x": 2254,
+   "y": 5552,
+   "w": 1512,
+   "h": 1323,
+   "title": "07b \u00b7 Home \u00b7 over \u00b7 1440 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeRedDark.dc.html",
+   "x": 3906,
+   "y": 5552,
+   "w": 462,
+   "h": 679,
+   "title": "07b \u00b7 Home \u00b7 over \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeNoplanLight.dc.html",
+   "x": 0,
+   "y": 7065,
+   "w": 1512,
+   "h": 1011,
+   "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeNoplanLight.dc.html",
+   "x": 1652,
+   "y": 7065,
+   "w": 462,
+   "h": 743,
+   "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeNoplanDark.dc.html",
+   "x": 2254,
+   "y": 7065,
+   "w": 1512,
+   "h": 1011,
+   "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 1440 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeNoplanDark.dc.html",
+   "x": 3906,
+   "y": 7065,
+   "w": 462,
+   "h": 743,
+   "title": "07c \u00b7 Home \u00b7 no plan yet \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeFreshLight.dc.html",
+   "x": 0,
+   "y": 8266,
+   "w": 1512,
+   "h": 931,
+   "title": "07c2 \u00b7 Home \u00b7 a brand-new account \u00b7 1440 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeFreshLight.dc.html",
+   "x": 1652,
+   "y": 8266,
+   "w": 462,
+   "h": 812,
+   "title": "07c2 \u00b7 Home \u00b7 a brand-new account \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeFreshDark.dc.html",
+   "x": 2254,
+   "y": 8266,
+   "w": 1512,
+   "h": 931,
+   "title": "07c2 \u00b7 Home \u00b7 a brand-new account \u00b7 1440 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeFreshDark.dc.html",
+   "x": 3906,
+   "y": 8266,
+   "w": 462,
+   "h": 812,
+   "title": "07c2 \u00b7 Home \u00b7 a brand-new account \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeEmptyLight.dc.html",
+   "x": 0,
+   "y": 9387,
+   "w": 1512,
+   "h": 1336,
+   "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeEmptyLight.dc.html",
+   "x": 1652,
+   "y": 9387,
+   "w": 462,
+   "h": 640,
+   "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeEmptyDark.dc.html",
+   "x": 2254,
+   "y": 9387,
+   "w": 1512,
+   "h": 1336,
+   "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 1440 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeEmptyDark.dc.html",
+   "x": 3906,
+   "y": 9387,
+   "w": 462,
+   "h": 640,
+   "title": "07d \u00b7 Home \u00b7 a plan, no movements \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeOfflineLight.dc.html",
+   "x": 0,
+   "y": 10913,
+   "w": 1512,
+   "h": 1384,
+   "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeOfflineLight.dc.html",
+   "x": 1652,
+   "y": 10913,
+   "w": 462,
+   "h": 1599,
+   "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeOfflineDark.dc.html",
+   "x": 2254,
+   "y": 10913,
+   "w": 1512,
+   "h": 1384,
+   "title": "07e \u00b7 Home \u00b7 offline \u00b7 1440 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeOfflineDark.dc.html",
+   "x": 3906,
+   "y": 10913,
+   "w": 462,
+   "h": 1599,
+   "title": "07e \u00b7 Home \u00b7 offline \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwMoreLight.dc.html",
+   "x": 0,
+   "y": 12702,
+   "w": 832,
+   "h": 814,
+   "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwMoreDark.dc.html",
    "x": 972,
-   "y": 0,
+   "y": 12702,
    "w": 832,
-   "h": 1095,
-   "title": "Zakat \u00b7 360 \u00b7 dark",
-   "page": "page-zakat",
+   "h": 814,
+   "title": "07g \u00b7 More sheet \u00b7 360 \u00b7 dark",
+   "page": "page-w-home",
    "print": "fixed"
   },
   {
-   "file": "DZakatLight.dc.html",
-   "x": 1944,
-   "y": 0,
-   "w": 1512,
-   "h": 792,
-   "title": "Zakat \u00b7 1440 \u00b7 light",
-   "page": "page-zakat",
-   "print": "fixed"
-  },
-  {
-   "file": "DZakatDark.dc.html",
-   "x": 3596,
-   "y": 0,
-   "w": 1512,
-   "h": 792,
-   "title": "Zakat \u00b7 1440 \u00b7 dark",
-   "page": "page-zakat",
-   "print": "fixed"
-  },
-  {
-   "file": "PrimLight.dc.html",
+   "file": "WebPlanLight.dc.html",
    "x": 0,
    "y": 0,
-   "w": 1804,
-   "h": 2416,
-   "title": "Primitives \u00b7 light",
-   "page": "page-found",
+   "w": 1512,
+   "h": 1812,
+   "title": "08 \u00b7 Plan \u00b7 1440 \u00b7 light",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
-   "file": "PrimDark.dc.html",
-   "x": 1944,
+   "file": "MwPlanLight.dc.html",
+   "x": 1652,
    "y": 0,
-   "w": 1804,
-   "h": 2416,
-   "title": "Primitives \u00b7 dark",
-   "page": "page-found",
+   "w": 832,
+   "h": 1828,
+   "title": "08 \u00b7 Plan \u00b7 360 \u00b7 light",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
-   "file": "StyleLight.dc.html",
-   "x": 3888,
+   "file": "WebPlanDark.dc.html",
+   "x": 2624,
    "y": 0,
+   "w": 1512,
+   "h": 1812,
+   "title": "08 \u00b7 Plan \u00b7 1440 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanDark.dc.html",
+   "x": 4276,
+   "y": 0,
+   "w": 832,
+   "h": 1828,
+   "title": "08 \u00b7 Plan \u00b7 360 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanNocatLight.dc.html",
+   "x": 0,
+   "y": 2018,
+   "w": 1512,
+   "h": 815,
+   "title": "08b \u00b7 Plan \u00b7 no categories yet \u00b7 1440 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanNocatLight.dc.html",
+   "x": 1652,
+   "y": 2018,
    "w": 462,
-   "h": 640,
-   "title": "Style \u00b7 light",
-   "page": "page-found",
+   "h": 775,
+   "title": "08b \u00b7 Plan \u00b7 no categories yet \u00b7 360 \u00b7 light",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
-   "file": "StyleDark.dc.html",
-   "x": 4490,
-   "y": 0,
+   "file": "WebPlanNocatDark.dc.html",
+   "x": 2254,
+   "y": 2018,
+   "w": 1512,
+   "h": 815,
+   "title": "08b \u00b7 Plan \u00b7 no categories yet \u00b7 1440 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanNocatDark.dc.html",
+   "x": 3906,
+   "y": 2018,
    "w": 462,
-   "h": 640,
-   "title": "Style \u00b7 dark",
-   "page": "page-found",
+   "h": 775,
+   "title": "08b \u00b7 Plan \u00b7 no categories yet \u00b7 360 \u00b7 dark",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
-   "file": "Print.dc.html",
-   "x": 5092,
+   "file": "WebPlanNoplanLight.dc.html",
+   "x": 0,
+   "y": 3023,
+   "w": 1512,
+   "h": 1704,
+   "title": "08c \u00b7 Plan \u00b7 nothing allocated yet \u00b7 1440 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanNoplanLight.dc.html",
+   "x": 1652,
+   "y": 3023,
+   "w": 462,
+   "h": 1763,
+   "title": "08c \u00b7 Plan \u00b7 nothing allocated yet \u00b7 360 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanNoplanDark.dc.html",
+   "x": 2254,
+   "y": 3023,
+   "w": 1512,
+   "h": 1704,
+   "title": "08c \u00b7 Plan \u00b7 nothing allocated yet \u00b7 1440 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanNoplanDark.dc.html",
+   "x": 3906,
+   "y": 3023,
+   "w": 462,
+   "h": 1763,
+   "title": "08c \u00b7 Plan \u00b7 nothing allocated yet \u00b7 360 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanScrolledLight.dc.html",
+   "x": 0,
+   "y": 4976,
+   "w": 1512,
+   "h": 1413,
+   "title": "08e \u00b7 Plan \u00b7 scrolled, header pinned \u00b7 1440 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanScrolledDark.dc.html",
+   "x": 1652,
+   "y": 4976,
+   "w": 1512,
+   "h": 1413,
+   "title": "08e \u00b7 Plan \u00b7 scrolled, header pinned \u00b7 1440 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanAddCategoryLight.dc.html",
+   "x": 0,
+   "y": 6579,
+   "w": 1512,
+   "h": 1704,
+   "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 1440 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanAddCategoryLight.dc.html",
+   "x": 1652,
+   "y": 6579,
+   "w": 462,
+   "h": 821,
+   "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 360 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebPlanAddCategoryDark.dc.html",
+   "x": 2254,
+   "y": 6579,
+   "w": 1512,
+   "h": 1704,
+   "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 1440 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanAddCategoryDark.dc.html",
+   "x": 3906,
+   "y": 6579,
+   "w": 462,
+   "h": 821,
+   "title": "08d \u00b7 Plan \u00b7 add a category \u00b7 360 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanMenuLight.dc.html",
+   "x": 0,
+   "y": 8473,
+   "w": 462,
+   "h": 469,
+   "title": "08a \u00b7 Plan \u00b7 row menu \u00b7 360 \u00b7 light",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "MwPlanMenuDark.dc.html",
+   "x": 602,
+   "y": 8473,
+   "w": 462,
+   "h": 469,
+   "title": "08a \u00b7 Plan \u00b7 row menu \u00b7 360 \u00b7 dark",
+   "page": "page-plan",
+   "print": "fixed"
+  },
+  {
+   "file": "WebBankLight.dc.html",
+   "x": 0,
    "y": 0,
-   "w": 1696,
-   "h": 1227,
-   "title": "Debt record \u2014 print, A4",
-   "page": "page-found",
+   "w": 1512,
+   "h": 1293,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankLight.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 832,
+   "h": 1280,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebBankDark.dc.html",
+   "x": 2624,
+   "y": 0,
+   "w": 1512,
+   "h": 1293,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankDark.dc.html",
+   "x": 4276,
+   "y": 0,
+   "w": 832,
+   "h": 1280,
+   "title": "09d \u00b7 Transactions \u00b7 bank movements \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebBankLockedLight.dc.html",
+   "x": 0,
+   "y": 1483,
+   "w": 1512,
+   "h": 962,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankLockedLight.dc.html",
+   "x": 1652,
+   "y": 1483,
+   "w": 574,
+   "h": 926,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebBankLockedDark.dc.html",
+   "x": 2366,
+   "y": 1483,
+   "w": 1512,
+   "h": 962,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwBankLockedDark.dc.html",
+   "x": 4018,
+   "y": 1483,
+   "w": 570,
+   "h": 926,
+   "title": "09e \u00b7 Transactions \u00b7 bank movements, not yours yet \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsLight.dc.html",
+   "x": 0,
+   "y": 2635,
+   "w": 1512,
+   "h": 900,
+   "title": "09 \u00b7 Transactions \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsLight.dc.html",
+   "x": 1652,
+   "y": 2635,
+   "w": 832,
+   "h": 1593,
+   "title": "09 \u00b7 Transactions \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsDark.dc.html",
+   "x": 2624,
+   "y": 2635,
+   "w": 1512,
+   "h": 900,
+   "title": "09 \u00b7 Transactions \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsDark.dc.html",
+   "x": 4276,
+   "y": 2635,
+   "w": 832,
+   "h": 1593,
+   "title": "09 \u00b7 Transactions \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsEmptyLight.dc.html",
+   "x": 0,
+   "y": 4418,
+   "w": 1512,
+   "h": 882,
+   "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsEmptyLight.dc.html",
+   "x": 1652,
+   "y": 4418,
+   "w": 468,
+   "h": 718,
+   "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsEmptyDark.dc.html",
+   "x": 2260,
+   "y": 4418,
+   "w": 1512,
+   "h": 882,
+   "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsEmptyDark.dc.html",
+   "x": 3912,
+   "y": 4418,
+   "w": 463,
+   "h": 718,
+   "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsSavingsLight.dc.html",
+   "x": 0,
+   "y": 5490,
+   "w": 1512,
+   "h": 1288,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsSavingsLight.dc.html",
+   "x": 1652,
+   "y": 5490,
+   "w": 507,
+   "h": 780,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsSavingsDark.dc.html",
+   "x": 2299,
+   "y": 5490,
+   "w": 1512,
+   "h": 1288,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsSavingsDark.dc.html",
+   "x": 3951,
+   "y": 5490,
+   "w": 503,
+   "h": 780,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsFilteredLight.dc.html",
+   "x": 0,
+   "y": 6968,
+   "w": 1512,
+   "h": 952,
+   "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsFilteredLight.dc.html",
+   "x": 1652,
+   "y": 6968,
+   "w": 500,
+   "h": 718,
+   "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsFilteredDark.dc.html",
+   "x": 2292,
+   "y": 6968,
+   "w": 1512,
+   "h": 952,
+   "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsFilteredDark.dc.html",
+   "x": 3944,
+   "y": 6968,
+   "w": 496,
+   "h": 718,
+   "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQuickAddLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 1282,
+   "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 light",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "MwQuickAddLight.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 728,
+   "h": 935,
+   "title": "10 \u00b7 Quick Add \u00b7 360 \u00b7 light",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQuickAddDark.dc.html",
+   "x": 2520,
+   "y": 0,
+   "w": 1512,
+   "h": 1282,
+   "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 dark",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "MwQuickAddDark.dc.html",
+   "x": 4172,
+   "y": 0,
+   "w": 728,
+   "h": 935,
+   "title": "10 \u00b7 Quick Add \u00b7 360 \u00b7 dark",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "MwQuickAddRecordLight.dc.html",
+   "x": 0,
+   "y": 1472,
+   "w": 462,
+   "h": 820,
+   "title": "10a \u00b7 Quick Add \u00b7 record a payment \u00b7 360 \u00b7 light",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "MwQuickAddRecordDark.dc.html",
+   "x": 602,
+   "y": 1472,
+   "w": 462,
+   "h": 820,
+   "title": "10a \u00b7 Quick Add \u00b7 record a payment \u00b7 360 \u00b7 dark",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "MwQuickAddEditLight.dc.html",
+   "x": 0,
+   "y": 2482,
+   "w": 530,
+   "h": 889,
+   "title": "10b \u00b7 Quick Add \u00b7 edit a movement \u00b7 360 \u00b7 light",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "MwQuickAddEditDark.dc.html",
+   "x": 670,
+   "y": 2482,
+   "w": 530,
+   "h": 889,
+   "title": "10b \u00b7 Quick Add \u00b7 edit a movement \u00b7 360 \u00b7 dark",
+   "page": "page-qa",
+   "print": "fixed"
+  },
+  {
+   "file": "WebDebtsLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 1214,
+   "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwDebtsLight.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 662,
+   "h": 1118,
+   "title": "11 \u00b7 Debts \u00b7 360 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebDebtsDark.dc.html",
+   "x": 2454,
+   "y": 0,
+   "w": 1512,
+   "h": 1214,
+   "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwDebtsDark.dc.html",
+   "x": 4106,
+   "y": 0,
+   "w": 662,
+   "h": 1118,
+   "title": "11 \u00b7 Debts \u00b7 360 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwGoalsLight.dc.html",
+   "x": 0,
+   "y": 1404,
+   "w": 462,
+   "h": 864,
+   "title": "11c \u00b7 Goals \u00b7 360 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwGoalsDark.dc.html",
+   "x": 602,
+   "y": 1404,
+   "w": 462,
+   "h": 864,
+   "title": "11c \u00b7 Goals \u00b7 360 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebAddDebtLight.dc.html",
+   "x": 0,
+   "y": 2458,
+   "w": 1512,
+   "h": 1196,
+   "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwAddDebtLight.dc.html",
+   "x": 1652,
+   "y": 2458,
+   "w": 462,
+   "h": 1467,
+   "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebAddDebtDark.dc.html",
+   "x": 2254,
+   "y": 2458,
+   "w": 1512,
+   "h": 1196,
+   "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwAddDebtDark.dc.html",
+   "x": 3906,
+   "y": 2458,
+   "w": 462,
+   "h": 1467,
+   "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebAddGoalLight.dc.html",
+   "x": 0,
+   "y": 4115,
+   "w": 1512,
+   "h": 1214,
+   "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwAddGoalLight.dc.html",
+   "x": 1652,
+   "y": 4115,
+   "w": 462,
+   "h": 1088,
+   "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebAddGoalDark.dc.html",
+   "x": 2254,
+   "y": 4115,
+   "w": 1512,
+   "h": 1214,
+   "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwAddGoalDark.dc.html",
+   "x": 3906,
+   "y": 4115,
+   "w": 462,
+   "h": 1088,
+   "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebRecordLight.dc.html",
+   "x": 0,
+   "y": 5519,
+   "w": 1512,
+   "h": 869,
+   "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwRecordLight.dc.html",
+   "x": 1652,
+   "y": 5519,
+   "w": 462,
+   "h": 1032,
+   "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 light",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebRecordDark.dc.html",
+   "x": 2254,
+   "y": 5519,
+   "w": 1512,
+   "h": 869,
+   "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "MwRecordDark.dc.html",
+   "x": 3906,
+   "y": 5519,
+   "w": 462,
+   "h": 1032,
+   "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 dark",
+   "page": "page-dg",
+   "print": "fixed"
+  },
+  {
+   "file": "WebMonthsLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 643,
+   "title": "13 \u00b7 Months \u00b7 1440 \u00b7 light",
+   "page": "page-mo",
+   "print": "fixed"
+  },
+  {
+   "file": "MwMonthsLight.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 538,
+   "h": 506,
+   "title": "13 \u00b7 Months \u00b7 360 \u00b7 light",
+   "page": "page-mo",
+   "print": "fixed"
+  },
+  {
+   "file": "WebMonthsDark.dc.html",
+   "x": 2330,
+   "y": 0,
+   "w": 1512,
+   "h": 643,
+   "title": "13 \u00b7 Months \u00b7 1440 \u00b7 dark",
+   "page": "page-mo",
+   "print": "fixed"
+  },
+  {
+   "file": "MwMonthsDark.dc.html",
+   "x": 3982,
+   "y": 0,
+   "w": 538,
+   "h": 506,
+   "title": "13 \u00b7 Months \u00b7 360 \u00b7 dark",
+   "page": "page-mo",
+   "print": "fixed"
+  },
+  {
+   "file": "MwMonthsPopulatedLight.dc.html",
+   "x": 0,
+   "y": 833,
+   "w": 462,
+   "h": 514,
+   "title": "13a \u00b7 Months \u00b7 with history \u00b7 360 \u00b7 light",
+   "page": "page-mo",
+   "print": "fixed"
+  },
+  {
+   "file": "MwMonthsPopulatedDark.dc.html",
+   "x": 602,
+   "y": 833,
+   "w": 462,
+   "h": 514,
+   "title": "13a \u00b7 Months \u00b7 with history \u00b7 360 \u00b7 dark",
+   "page": "page-mo",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 1632,
+   "title": "14 \u00b7 Zakat \u00b7 below the nisab \u00b7 1440 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatLight.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 832,
+   "h": 2210,
+   "title": "14 \u00b7 Zakat \u00b7 below the nisab \u00b7 360 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatDark.dc.html",
+   "x": 2624,
+   "y": 0,
+   "w": 1512,
+   "h": 1632,
+   "title": "14 \u00b7 Zakat \u00b7 below the nisab \u00b7 1440 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatDark.dc.html",
+   "x": 4276,
+   "y": 0,
+   "w": 832,
+   "h": 2210,
+   "title": "14 \u00b7 Zakat \u00b7 below the nisab \u00b7 360 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatDueLight.dc.html",
+   "x": 0,
+   "y": 2400,
+   "w": 1512,
+   "h": 1433,
+   "title": "14a \u00b7 Zakat \u00b7 above the nisab \u00b7 1440 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatDueLight.dc.html",
+   "x": 1652,
+   "y": 2400,
+   "w": 462,
+   "h": 2122,
+   "title": "14a \u00b7 Zakat \u00b7 above the nisab \u00b7 360 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatDueDark.dc.html",
+   "x": 2254,
+   "y": 2400,
+   "w": 1512,
+   "h": 1433,
+   "title": "14a \u00b7 Zakat \u00b7 above the nisab \u00b7 1440 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatDueDark.dc.html",
+   "x": 3906,
+   "y": 2400,
+   "w": 462,
+   "h": 2122,
+   "title": "14a \u00b7 Zakat \u00b7 above the nisab \u00b7 360 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatPickLight.dc.html",
+   "x": 0,
+   "y": 4712,
+   "w": 1512,
+   "h": 1232,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 1440 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatPickLight.dc.html",
+   "x": 1652,
+   "y": 4712,
+   "w": 462,
+   "h": 1241,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 360 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatPickDark.dc.html",
+   "x": 2254,
+   "y": 4712,
+   "w": 1512,
+   "h": 1232,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 1440 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatPickDark.dc.html",
+   "x": 3906,
+   "y": 4712,
+   "w": 462,
+   "h": 1241,
+   "title": "14c \u00b7 Zakat \u00b7 choosing the year start \u00b7 360 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatNoHawlLight.dc.html",
+   "x": 0,
+   "y": 6143,
+   "w": 1512,
+   "h": 1259,
+   "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 1440 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatNoHawlLight.dc.html",
+   "x": 1652,
+   "y": 6143,
+   "w": 462,
+   "h": 1307,
+   "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 360 \u00b7 light",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebZakatNoHawlDark.dc.html",
+   "x": 2254,
+   "y": 6143,
+   "w": 1512,
+   "h": 1259,
+   "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 1440 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "MwZakatNoHawlDark.dc.html",
+   "x": 3906,
+   "y": 6143,
+   "w": 462,
+   "h": 1307,
+   "title": "14b \u00b7 Zakat \u00b7 no year set \u00b7 360 \u00b7 dark",
+   "page": "page-zk",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 1512,
+   "h": 1113,
+   "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 light",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueDark.dc.html",
+   "x": 1652,
+   "y": 0,
+   "w": 1512,
+   "h": 1113,
+   "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 dark",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueDuplicateLight.dc.html",
+   "x": 0,
+   "y": 1303,
+   "w": 1512,
+   "h": 934,
+   "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 light",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueDuplicateDark.dc.html",
+   "x": 1652,
+   "y": 1303,
+   "w": 1512,
+   "h": 934,
+   "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 dark",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueCashLight.dc.html",
+   "x": 0,
+   "y": 2427,
+   "w": 1512,
+   "h": 1432,
+   "title": "17c \u00b7 Reconciliation \u00b7 a cash withdrawal \u00b7 1440 \u00b7 light",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueCashDark.dc.html",
+   "x": 1652,
+   "y": 2427,
+   "w": 1512,
+   "h": 1432,
+   "title": "17c \u00b7 Reconciliation \u00b7 a cash withdrawal \u00b7 1440 \u00b7 dark",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebCashLight.dc.html",
+   "x": 0,
+   "y": 4049,
+   "w": 1512,
+   "h": 1124,
+   "title": "17d \u00b7 Cash in hand \u00b7 1440 \u00b7 light",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "MwCashLight.dc.html",
+   "x": 1652,
+   "y": 4049,
+   "w": 462,
+   "h": 840,
+   "title": "17d \u00b7 Cash in hand \u00b7 360 \u00b7 light",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebCashDark.dc.html",
+   "x": 2254,
+   "y": 4049,
+   "w": 1512,
+   "h": 1124,
+   "title": "17d \u00b7 Cash in hand \u00b7 1440 \u00b7 dark",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "MwCashDark.dc.html",
+   "x": 3906,
+   "y": 4049,
+   "w": 462,
+   "h": 840,
+   "title": "17d \u00b7 Cash in hand \u00b7 360 \u00b7 dark",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueEmptyLight.dc.html",
+   "x": 0,
+   "y": 5363,
+   "w": 1512,
+   "h": 763,
+   "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 light",
+   "page": "page-bank",
+   "print": "fixed"
+  },
+  {
+   "file": "WebQueueEmptyDark.dc.html",
+   "x": 1652,
+   "y": 5363,
+   "w": 1512,
+   "h": 763,
+   "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 dark",
+   "page": "page-bank",
    "print": "fixed"
   }
  ],
  "annotations": [
   {
-   "id": "n-brand",
+   "id": "n-w-home",
    "x": 0,
    "y": -250,
    "w": 820,
-   "page": "page-brand",
-   "text": "The mark is the mizan beam \u2014 a set of scales, tipped, because the app exists to say whether today is in balance. Locked; the meem monogram and the balance bar are retired. It is the app icon, the favicon, the sidebar lockup and the letterhead on the printed debt record. Launch, then the welcome screen that sits before onboarding step 1."
-  },
-  {
-   "id": "n-onb",
-   "x": 0,
-   "y": -250,
-   "w": 820,
-   "page": "page-onb",
-   "text": "All six steps, mobile and desktop, plus the three sheets steps 2 and 3 open. Step 2 is the only required one. Opening balances and debts are dated 24 September \u2014 the day before the cycle \u2014 so they never count as this cycle's saving."
-  },
-  {
-   "id": "n-home",
-   "x": 0,
-   "y": -250,
-   "w": 820,
-   "page": "page-home",
-   "text": "Default, mid-cycle, the More sheet, and every state \u2014 amber, red, no plan, empty and offline \u2014 drawn at 360 and again at 1440. Nothing about a state is left for the implementer to infer from the other width."
+   "page": "page-w-home",
+   "text": "Home and its states, each at both widths on one row. The width holds the workings: the figure and its pace card left, the reason \u2014 where the money is, then every category worst-first \u2014 right, and reading one against the other is exactly what 360 cannot do. <b>The gauge lives at 360 only</b>, because <i>can I spend this, right now?</i> is asked in a shop with a phone in your hand; at a desk the question is whether you are on pace, and a dial has no memory of yesterday. Each state is its own row because each has its own fix."
   },
   {
    "id": "n-plan",
@@ -768,7 +1410,7 @@
    "y": -250,
    "w": 820,
    "page": "page-plan",
-   "text": "Envelopes at 360 and 1440, plus the row menu. Money moves between envelopes; it is never created."
+   "text": "Where each naira gets its job, and the only screen whose <i>hero</i> is a figure nobody wants to be large: <b>unallocated</b>. It takes the top slot because it is the number that decides whether the plan is finished, and it is meant to reach \u20a60.00 and disappear. Protection and rollover are their own columns at 1440 rather than marks on a row \u2014 both are decisions about a category, not decorations of it. The 360 row menu is the same two decisions on a screen with no room for columns."
   },
   {
    "id": "n-tx",
@@ -776,7 +1418,7 @@
    "y": -250,
    "w": 820,
    "page": "page-tx",
-   "text": "The ledger, grouped by day, at both widths. Every row carries its kobo."
+   "text": "The list, and the two ways of having nothing in it. <b>A standing filter rail at 1440, tabs at 360</b>: stacked filters scroll the list away, and losing your place is the one thing that matters on this screen. <b>Both empty states are their own row</b> because they want opposite things \u2014 <i>nothing recorded</i> wants a movement, <i>filters match nothing</i> wants the filters cleared, and a single \u201cno results\u201d covering both is how a person clears their data looking for a button. Opening balances and debts are dated 24 September, the day before the cycle, so they never count as this cycle\u2019s saving."
   },
   {
    "id": "n-qa",
@@ -784,51 +1426,43 @@
    "y": -250,
    "w": 820,
    "page": "page-qa",
-   "text": "The sheet and the full screen at 360, record and edit, and the dialog at 1440."
+   "text": "The persistent action, and <b>the reason the centre of the bottom bar is not a route</b>: story G2 wants a spend recorded while standing at a counter, so it is the largest target on the screen and it sits under the thumb. At 1440 it is a button in the header and a dialog, because a sheet sliding up a laptop is a phone gesture wearing a suit. <b>Delete is a quiet button, never a red one</b> \u2014 the same rule the primitives sheet sets, and the same one the category row follows."
   },
   {
-   "id": "n-debts",
+   "id": "n-dg",
    "x": 0,
    "y": -250,
    "w": 820,
-   "page": "page-debts",
-   "text": "Debts both ways and goals, the on-screen debt record, the add forms, and 1440. The printed record is on Foundations."
+   "page": "page-dg",
+   "text": "Both directions of money that is not this cycle\u2019s: what you are saving for, and what is owed either way. <b>Debts loses its tabs entirely at 1440</b>, because the best thing width buys is sometimes one less control \u2014 the two lists sit side by side instead. At 360 they are tabs, and <i>Goals</i> is its own row here for that reason. <b>B. Colleague goes the other way</b>, and the direction is carried by the words <i>owes you</i> rather than by a sign or a colour. The printed record is on Foundations, not here: it leaves the app."
   },
   {
-   "id": "n-months",
+   "id": "n-mo",
    "x": 0,
    "y": -250,
    "w": 820,
-   "page": "page-months",
-   "text": "Closed cycles and what carried over, at both widths."
+   "page": "page-mo",
+   "text": "Completed cycles, and the empty state that matters more than the populated one \u2014 a person meets this screen in month one, when there is nothing in it, and it has to say so without sounding broken. <b>A cycle is a salary month, 25th to 24th</b>, not a calendar month, which is the whole reason this screen exists under its own name rather than as \u201cHistory\u201d."
   },
   {
-   "id": "n-settings",
+   "id": "n-zk",
    "x": 0,
    "y": -250,
    "w": 820,
-   "page": "page-settings",
-   "text": "Settings, the three-stage import flow, and 1440."
+   "page": "page-zk",
+   "text": "The estimate and its workings, and <b>the workings are the point</b>: zakat is an obligation a person answers for, so every figure that goes into it is shown and named, and the nisab it is measured against is dated. <b>Nothing here advises.</b> The app reports what it can see and says plainly what it cannot \u2014 assets it does not hold, and the year it cannot witness. Sadaqah is a category of its own and is never counted as zakat."
   },
   {
-   "id": "n-zakat",
+   "id": "n-bank",
    "x": 0,
    "y": -250,
    "w": 820,
-   "page": "page-zakat",
-   "text": "An estimate with its workings shown, and the caveat attached to it."
-  },
-  {
-   "id": "n-found",
-   "x": 0,
-   "y": -250,
-   "w": 820,
-   "page": "page-found",
-   "text": "The primitives sheet \u2014 every component in every state, both themes \u2014 then the palette and type tile, and the printed debt record: A4, black and white, no app chrome."
+   "page": "page-bank",
+   "text": "Detected movements, sorted one at a time. <b>Never a list of forms</b>: each one is a decision about real money and a grid of dropdowns is how a person agrees to twelve things they did not read. The duplicate case is the one that earns the screen \u2014 someone who already typed it in by hand should not end up counting it twice \u2014 and <i>nothing to sort</i> is a finished state, not an empty one."
   }
  ],
  "launch": {
   "view": "canvas",
-  "page": "page-brand"
+  "page": "page-w-home"
  }
 }
