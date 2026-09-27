@@ -5,28 +5,68 @@
    "name": "1 \u00b7 Landing page and first launch"
   },
   {
+   "id": "page-sec",
+   "name": "2 \u00b7 Security and privacy"
+  },
+  {
    "id": "page-w-in",
-   "name": "2 \u00b7 Account and setting up"
+   "name": "3 \u00b7 Account and setting up"
   },
   {
    "id": "page-w-home",
-   "name": "3 \u00b7 Home"
+   "name": "4 \u00b7 Home"
   },
   {
-   "id": "page-w-money",
-   "name": "4 \u00b7 The month's money"
+   "id": "page-plan",
+   "name": "5 \u00b7 Plan"
   },
   {
-   "id": "page-w-acct",
-   "name": "5 \u00b7 Account, settings and household"
+   "id": "page-tx",
+   "name": "6 \u00b7 Transactions"
+  },
+  {
+   "id": "page-qa",
+   "name": "7 \u00b7 Quick Add"
+  },
+  {
+   "id": "page-dg",
+   "name": "8 \u00b7 Debts and goals"
+  },
+  {
+   "id": "page-mo",
+   "name": "9 \u00b7 Months"
+  },
+  {
+   "id": "page-zk",
+   "name": "10 \u00b7 Zakat"
+  },
+  {
+   "id": "page-set",
+   "name": "11 \u00b7 Settings"
+  },
+  {
+   "id": "page-tier",
+   "name": "12 \u00b7 What an account adds"
+  },
+  {
+   "id": "page-bank",
+   "name": "13 \u00b7 Bank movements"
+  },
+  {
+   "id": "page-hh",
+   "name": "14 \u00b7 Household"
+  },
+  {
+   "id": "page-imp",
+   "name": "15 \u00b7 Import and export"
   },
   {
    "id": "page-brand",
-   "name": "6 \u00b7 Mark"
+   "name": "16 \u00b7 Mark"
   },
   {
    "id": "page-found",
-   "name": "7 \u00b7 Foundations"
+   "name": "17 \u00b7 Foundations"
   }
  ],
  "artboards": [
@@ -153,81 +193,81 @@
   {
    "file": "WebPrivacyModalLight.dc.html",
    "x": 0,
-   "y": 20292,
+   "y": 0,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 light",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
    "file": "MwPrivacyModalLight.dc.html",
    "x": 1652,
-   "y": 20292,
+   "y": 0,
    "w": 523,
    "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 light",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
    "file": "WebPrivacyModalDark.dc.html",
    "x": 2315,
-   "y": 20292,
+   "y": 0,
    "w": 1512,
    "h": 1032,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 1440 \u00b7 dark",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
    "file": "MwPrivacyModalDark.dc.html",
    "x": 3967,
-   "y": 20292,
+   "y": 0,
    "w": 519,
    "h": 927,
    "title": "21 \u00b7 Security and privacy \u00b7 in front of sign-up \u00b7 360 \u00b7 dark",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
    "file": "WebSecurityLight.dc.html",
    "x": 0,
-   "y": 21514,
+   "y": 1222,
    "w": 1512,
    "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 light",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
    "file": "MwSecurityLight.dc.html",
    "x": 1652,
-   "y": 21514,
+   "y": 1222,
    "w": 832,
    "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 light",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
    "file": "WebSecurityDark.dc.html",
    "x": 2624,
-   "y": 21514,
+   "y": 1222,
    "w": 1512,
    "h": 2731,
    "title": "20 \u00b7 Security and privacy \u00b7 1440 \u00b7 dark",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
    "file": "MwSecurityDark.dc.html",
    "x": 4276,
-   "y": 21514,
+   "y": 1222,
    "w": 832,
    "h": 2948,
    "title": "20 \u00b7 Security and privacy \u00b7 360 \u00b7 dark",
-   "page": "page-land",
+   "page": "page-sec",
    "print": "fixed"
   },
   {
@@ -1097,7 +1137,7 @@
    "w": 1512,
    "h": 1661,
    "title": "08 \u00b7 Plan \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
@@ -1107,7 +1147,7 @@
    "w": 501,
    "h": 1551,
    "title": "08 \u00b7 Plan \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
@@ -1117,7 +1157,7 @@
    "w": 1512,
    "h": 1661,
    "title": "08 \u00b7 Plan \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
@@ -1127,7 +1167,7 @@
    "w": 501,
    "h": 1551,
    "title": "08 \u00b7 Plan \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
@@ -1137,7 +1177,7 @@
    "w": 462,
    "h": 469,
    "title": "08a \u00b7 Plan \u00b7 row menu \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
@@ -1147,487 +1187,487 @@
    "w": 462,
    "h": 469,
    "title": "08a \u00b7 Plan \u00b7 row menu \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-plan",
    "print": "fixed"
   },
   {
    "file": "WebTransactionsLight.dc.html",
    "x": 0,
-   "y": 2510,
+   "y": 0,
    "w": 1512,
    "h": 840,
    "title": "09 \u00b7 Transactions \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "MwTransactionsLight.dc.html",
    "x": 1652,
-   "y": 2510,
+   "y": 0,
    "w": 832,
    "h": 1464,
    "title": "09 \u00b7 Transactions \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "WebTransactionsDark.dc.html",
    "x": 2624,
-   "y": 2510,
+   "y": 0,
    "w": 1512,
    "h": 840,
    "title": "09 \u00b7 Transactions \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "MwTransactionsDark.dc.html",
    "x": 4276,
-   "y": 2510,
+   "y": 0,
    "w": 832,
    "h": 1464,
    "title": "09 \u00b7 Transactions \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "WebTransactionsEmptyLight.dc.html",
    "x": 0,
-   "y": 4164,
+   "y": 1654,
    "w": 1512,
    "h": 822,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "MwTransactionsEmptyLight.dc.html",
    "x": 1652,
-   "y": 4164,
+   "y": 1654,
    "w": 468,
    "h": 589,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "WebTransactionsEmptyDark.dc.html",
    "x": 2260,
-   "y": 4164,
+   "y": 1654,
    "w": 1512,
    "h": 822,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "MwTransactionsEmptyDark.dc.html",
    "x": 3912,
-   "y": 4164,
+   "y": 1654,
    "w": 463,
    "h": 589,
    "title": "09a \u00b7 Transactions \u00b7 nothing recorded \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "WebTransactionsFilteredLight.dc.html",
    "x": 0,
-   "y": 5176,
+   "y": 2666,
    "w": 1512,
    "h": 892,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "MwTransactionsFilteredLight.dc.html",
    "x": 1652,
-   "y": 5176,
+   "y": 2666,
    "w": 500,
    "h": 589,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "WebTransactionsFilteredDark.dc.html",
    "x": 2292,
-   "y": 5176,
+   "y": 2666,
    "w": 1512,
    "h": 892,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "MwTransactionsFilteredDark.dc.html",
    "x": 3944,
-   "y": 5176,
+   "y": 2666,
    "w": 496,
    "h": 589,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-tx",
    "print": "fixed"
   },
   {
    "file": "WebQuickAddLight.dc.html",
    "x": 0,
-   "y": 6258,
+   "y": 0,
    "w": 1512,
    "h": 1282,
    "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "MwQuickAddLight.dc.html",
    "x": 1652,
-   "y": 6258,
+   "y": 0,
    "w": 728,
    "h": 935,
    "title": "10 \u00b7 Quick Add \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "WebQuickAddDark.dc.html",
    "x": 2520,
-   "y": 6258,
+   "y": 0,
    "w": 1512,
    "h": 1282,
    "title": "10 \u00b7 Quick Add \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "MwQuickAddDark.dc.html",
    "x": 4172,
-   "y": 6258,
+   "y": 0,
    "w": 728,
    "h": 935,
    "title": "10 \u00b7 Quick Add \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "MwQuickAddRecordLight.dc.html",
    "x": 0,
-   "y": 7730,
+   "y": 1472,
    "w": 462,
    "h": 773,
    "title": "10a \u00b7 Quick Add \u00b7 record a payment \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "MwQuickAddRecordDark.dc.html",
    "x": 602,
-   "y": 7730,
+   "y": 1472,
    "w": 462,
    "h": 773,
    "title": "10a \u00b7 Quick Add \u00b7 record a payment \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "MwQuickAddEditLight.dc.html",
    "x": 0,
-   "y": 8693,
+   "y": 2435,
    "w": 530,
    "h": 842,
    "title": "10b \u00b7 Quick Add \u00b7 edit a movement \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "MwQuickAddEditDark.dc.html",
    "x": 670,
-   "y": 8693,
+   "y": 2435,
    "w": 530,
    "h": 842,
    "title": "10b \u00b7 Quick Add \u00b7 edit a movement \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-qa",
    "print": "fixed"
   },
   {
    "file": "WebDebtsLight.dc.html",
    "x": 0,
-   "y": 9725,
+   "y": 0,
    "w": 1512,
    "h": 1191,
    "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwDebtsLight.dc.html",
    "x": 1652,
-   "y": 9725,
+   "y": 0,
    "w": 662,
    "h": 1071,
    "title": "11 \u00b7 Debts \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebDebtsDark.dc.html",
    "x": 2454,
-   "y": 9725,
+   "y": 0,
    "w": 1512,
    "h": 1191,
    "title": "11 \u00b7 Debts and Goals \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwDebtsDark.dc.html",
    "x": 4106,
-   "y": 9725,
+   "y": 0,
    "w": 662,
    "h": 1071,
    "title": "11 \u00b7 Debts \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwGoalsLight.dc.html",
    "x": 0,
-   "y": 11106,
+   "y": 1381,
    "w": 462,
    "h": 817,
    "title": "11c \u00b7 Goals \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwGoalsDark.dc.html",
    "x": 602,
-   "y": 11106,
+   "y": 1381,
    "w": 462,
    "h": 817,
    "title": "11c \u00b7 Goals \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebAddDebtLight.dc.html",
    "x": 0,
-   "y": 12113,
+   "y": 2388,
    "w": 1512,
    "h": 1173,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwAddDebtLight.dc.html",
    "x": 1652,
-   "y": 12113,
+   "y": 2388,
    "w": 462,
    "h": 1420,
    "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebAddDebtDark.dc.html",
    "x": 2254,
-   "y": 12113,
+   "y": 2388,
    "w": 1512,
    "h": 1173,
    "title": "11a \u00b7 Add a debt \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwAddDebtDark.dc.html",
    "x": 3906,
-   "y": 12113,
+   "y": 2388,
    "w": 462,
    "h": 1420,
    "title": "11a \u00b7 Add a debt \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebAddGoalLight.dc.html",
    "x": 0,
-   "y": 13723,
+   "y": 3998,
    "w": 1512,
    "h": 1191,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwAddGoalLight.dc.html",
    "x": 1652,
-   "y": 13723,
+   "y": 3998,
    "w": 462,
    "h": 1041,
    "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebAddGoalDark.dc.html",
    "x": 2254,
-   "y": 13723,
+   "y": 3998,
    "w": 1512,
    "h": 1191,
    "title": "11b \u00b7 Add a goal \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwAddGoalDark.dc.html",
    "x": 3906,
-   "y": 13723,
+   "y": 3998,
    "w": 462,
    "h": 1041,
    "title": "11b \u00b7 Add a goal \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebRecordLight.dc.html",
    "x": 0,
-   "y": 15104,
+   "y": 5379,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwRecordLight.dc.html",
    "x": 1652,
-   "y": 15104,
+   "y": 5379,
    "w": 462,
    "h": 985,
    "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebRecordDark.dc.html",
    "x": 2254,
-   "y": 15104,
+   "y": 5379,
    "w": 1512,
    "h": 869,
    "title": "12 \u00b7 Debt record \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "MwRecordDark.dc.html",
    "x": 3906,
-   "y": 15104,
+   "y": 5379,
    "w": 462,
    "h": 985,
    "title": "12 \u00b7 Debt record \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-dg",
    "print": "fixed"
   },
   {
    "file": "WebMonthsLight.dc.html",
    "x": 0,
-   "y": 16279,
+   "y": 0,
    "w": 1512,
    "h": 643,
    "title": "13 \u00b7 Months \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-mo",
    "print": "fixed"
   },
   {
    "file": "MwMonthsLight.dc.html",
    "x": 1652,
-   "y": 16279,
+   "y": 0,
    "w": 538,
    "h": 459,
    "title": "13 \u00b7 Months \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-mo",
    "print": "fixed"
   },
   {
    "file": "WebMonthsDark.dc.html",
    "x": 2330,
-   "y": 16279,
+   "y": 0,
    "w": 1512,
    "h": 643,
    "title": "13 \u00b7 Months \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-mo",
    "print": "fixed"
   },
   {
    "file": "MwMonthsDark.dc.html",
    "x": 3982,
-   "y": 16279,
+   "y": 0,
    "w": 538,
    "h": 459,
    "title": "13 \u00b7 Months \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-mo",
    "print": "fixed"
   },
   {
    "file": "MwMonthsPopulatedLight.dc.html",
    "x": 0,
-   "y": 17112,
+   "y": 833,
    "w": 462,
    "h": 467,
    "title": "13a \u00b7 Months \u00b7 with history \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-mo",
    "print": "fixed"
   },
   {
    "file": "MwMonthsPopulatedDark.dc.html",
    "x": 602,
-   "y": 17112,
+   "y": 833,
    "w": 462,
    "h": 467,
    "title": "13a \u00b7 Months \u00b7 with history \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-mo",
    "print": "fixed"
   },
   {
    "file": "WebZakatLight.dc.html",
    "x": 0,
-   "y": 17769,
+   "y": 0,
    "w": 1512,
    "h": 810,
    "title": "14 \u00b7 Zakat \u00b7 1440 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-zk",
    "print": "fixed"
   },
   {
    "file": "MwZakatLight.dc.html",
    "x": 1652,
-   "y": 17769,
+   "y": 0,
    "w": 462,
    "h": 1043,
    "title": "14 \u00b7 Zakat \u00b7 360 \u00b7 light",
-   "page": "page-w-money",
+   "page": "page-zk",
    "print": "fixed"
   },
   {
    "file": "WebZakatDark.dc.html",
    "x": 2254,
-   "y": 17769,
+   "y": 0,
    "w": 1512,
    "h": 810,
    "title": "14 \u00b7 Zakat \u00b7 1440 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-zk",
    "print": "fixed"
   },
   {
    "file": "MwZakatDark.dc.html",
    "x": 3906,
-   "y": 17769,
+   "y": 0,
    "w": 462,
    "h": 1043,
    "title": "14 \u00b7 Zakat \u00b7 360 \u00b7 dark",
-   "page": "page-w-money",
+   "page": "page-zk",
    "print": "fixed"
   },
   {
@@ -1637,7 +1677,7 @@
    "w": 1512,
    "h": 1202,
    "title": "15 \u00b7 Settings \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-set",
    "print": "fixed"
   },
   {
@@ -1647,7 +1687,7 @@
    "w": 462,
    "h": 1722,
    "title": "15 \u00b7 Settings \u00b7 360 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-set",
    "print": "fixed"
   },
   {
@@ -1657,7 +1697,7 @@
    "w": 1512,
    "h": 1202,
    "title": "15 \u00b7 Settings \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-set",
    "print": "fixed"
   },
   {
@@ -1667,227 +1707,227 @@
    "w": 462,
    "h": 1722,
    "title": "15 \u00b7 Settings \u00b7 360 \u00b7 dark",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "MwImportConfirmLight.dc.html",
-   "x": 0,
-   "y": 1912,
-   "w": 462,
-   "h": 752,
-   "title": "19 \u00b7 Import \u00b7 confirm \u00b7 360 \u00b7 light",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "MwImportConfirmDark.dc.html",
-   "x": 602,
-   "y": 1912,
-   "w": 462,
-   "h": 752,
-   "title": "19 \u00b7 Import \u00b7 confirm \u00b7 360 \u00b7 dark",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "MwImportDoneLight.dc.html",
-   "x": 0,
-   "y": 2854,
-   "w": 462,
-   "h": 732,
-   "title": "19a \u00b7 Import \u00b7 done \u00b7 360 \u00b7 light",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "MwImportDoneDark.dc.html",
-   "x": 602,
-   "y": 2854,
-   "w": 462,
-   "h": 732,
-   "title": "19a \u00b7 Import \u00b7 done \u00b7 360 \u00b7 dark",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "MwImportRefuseLight.dc.html",
-   "x": 0,
-   "y": 3776,
-   "w": 793,
-   "h": 684,
-   "title": "19b \u00b7 Import \u00b7 refused \u00b7 360 \u00b7 light",
-   "page": "page-w-acct",
-   "print": "fixed"
-  },
-  {
-   "file": "MwImportRefuseDark.dc.html",
-   "x": 933,
-   "y": 3776,
-   "w": 793,
-   "h": 684,
-   "title": "19b \u00b7 Import \u00b7 refused \u00b7 360 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-set",
    "print": "fixed"
   },
   {
    "file": "WebAccountLight.dc.html",
    "x": 0,
-   "y": 4650,
+   "y": 1912,
    "w": 1512,
    "h": 808,
    "title": "15a \u00b7 Settings \u00b7 signed out \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-set",
    "print": "fixed"
   },
   {
    "file": "WebAccountDark.dc.html",
    "x": 1652,
-   "y": 4650,
+   "y": 1912,
    "w": 1512,
    "h": 808,
    "title": "15a \u00b7 Settings \u00b7 signed out \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-set",
    "print": "fixed"
   },
   {
    "file": "WebTiersLight.dc.html",
    "x": 0,
-   "y": 5648,
+   "y": 0,
    "w": 1512,
    "h": 960,
    "title": "16 \u00b7 What an account adds \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-tier",
    "print": "fixed"
   },
   {
    "file": "WebTiersDark.dc.html",
    "x": 1652,
-   "y": 5648,
+   "y": 0,
    "w": 1512,
    "h": 960,
    "title": "16 \u00b7 What an account adds \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-tier",
    "print": "fixed"
   },
   {
    "file": "WebTiersLapsedLight.dc.html",
    "x": 0,
-   "y": 6798,
+   "y": 1150,
    "w": 1512,
    "h": 1061,
    "title": "16a \u00b7 What an account adds \u00b7 lapsed \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-tier",
    "print": "fixed"
   },
   {
    "file": "WebTiersLapsedDark.dc.html",
    "x": 1652,
-   "y": 6798,
+   "y": 1150,
    "w": 1512,
    "h": 1061,
    "title": "16a \u00b7 What an account adds \u00b7 lapsed \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-tier",
    "print": "fixed"
   },
   {
    "file": "WebQueueLight.dc.html",
    "x": 0,
-   "y": 8049,
+   "y": 0,
    "w": 1512,
    "h": 993,
    "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-bank",
    "print": "fixed"
   },
   {
    "file": "WebQueueDark.dc.html",
    "x": 1652,
-   "y": 8049,
+   "y": 0,
    "w": 1512,
    "h": 993,
    "title": "17 \u00b7 Reconciliation queue \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-bank",
    "print": "fixed"
   },
   {
    "file": "WebQueueDuplicateLight.dc.html",
    "x": 0,
-   "y": 9232,
+   "y": 1183,
    "w": 1512,
    "h": 814,
    "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-bank",
    "print": "fixed"
   },
   {
    "file": "WebQueueDuplicateDark.dc.html",
    "x": 1652,
-   "y": 9232,
+   "y": 1183,
    "w": 1512,
    "h": 814,
    "title": "17a \u00b7 Reconciliation \u00b7 already entered by hand \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-bank",
    "print": "fixed"
   },
   {
    "file": "WebQueueEmptyLight.dc.html",
    "x": 0,
-   "y": 10236,
+   "y": 2187,
    "w": 1512,
    "h": 643,
    "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-bank",
    "print": "fixed"
   },
   {
    "file": "WebQueueEmptyDark.dc.html",
    "x": 1652,
-   "y": 10236,
+   "y": 2187,
    "w": 1512,
    "h": 643,
    "title": "17b \u00b7 Reconciliation \u00b7 nothing to sort \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-bank",
    "print": "fixed"
   },
   {
    "file": "WebDisagreeALight.dc.html",
    "x": 0,
-   "y": 11069,
+   "y": 0,
    "w": 1512,
    "h": 935,
    "title": "18 \u00b7 Household \u00b7 two amounts for one expense \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-hh",
    "print": "fixed"
   },
   {
    "file": "WebDisagreeADark.dc.html",
    "x": 1652,
-   "y": 11069,
+   "y": 0,
    "w": 1512,
    "h": 935,
    "title": "18 \u00b7 Household \u00b7 two amounts for one expense \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-hh",
    "print": "fixed"
   },
   {
    "file": "WebDisagreeBLight.dc.html",
    "x": 0,
-   "y": 12194,
+   "y": 1125,
    "w": 1512,
    "h": 881,
    "title": "18a \u00b7 Household \u00b7 two amounts for a savings target \u00b7 1440 \u00b7 light",
-   "page": "page-w-acct",
+   "page": "page-hh",
    "print": "fixed"
   },
   {
    "file": "WebDisagreeBDark.dc.html",
    "x": 1652,
-   "y": 12194,
+   "y": 1125,
    "w": 1512,
    "h": 881,
    "title": "18a \u00b7 Household \u00b7 two amounts for a savings target \u00b7 1440 \u00b7 dark",
-   "page": "page-w-acct",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "MwImportConfirmLight.dc.html",
+   "x": 0,
+   "y": 0,
+   "w": 462,
+   "h": 752,
+   "title": "19 \u00b7 Import \u00b7 confirm \u00b7 360 \u00b7 light",
+   "page": "page-imp",
+   "print": "fixed"
+  },
+  {
+   "file": "MwImportConfirmDark.dc.html",
+   "x": 602,
+   "y": 0,
+   "w": 462,
+   "h": 752,
+   "title": "19 \u00b7 Import \u00b7 confirm \u00b7 360 \u00b7 dark",
+   "page": "page-imp",
+   "print": "fixed"
+  },
+  {
+   "file": "MwImportDoneLight.dc.html",
+   "x": 0,
+   "y": 942,
+   "w": 462,
+   "h": 732,
+   "title": "19a \u00b7 Import \u00b7 done \u00b7 360 \u00b7 light",
+   "page": "page-imp",
+   "print": "fixed"
+  },
+  {
+   "file": "MwImportDoneDark.dc.html",
+   "x": 602,
+   "y": 942,
+   "w": 462,
+   "h": 732,
+   "title": "19a \u00b7 Import \u00b7 done \u00b7 360 \u00b7 dark",
+   "page": "page-imp",
+   "print": "fixed"
+  },
+  {
+   "file": "MwImportRefuseLight.dc.html",
+   "x": 0,
+   "y": 1864,
+   "w": 793,
+   "h": 684,
+   "title": "19b \u00b7 Import \u00b7 refused \u00b7 360 \u00b7 light",
+   "page": "page-imp",
+   "print": "fixed"
+  },
+  {
+   "file": "MwImportRefuseDark.dc.html",
+   "x": 933,
+   "y": 1864,
+   "w": 793,
+   "h": 684,
+   "title": "19b \u00b7 Import \u00b7 refused \u00b7 360 \u00b7 dark",
+   "page": "page-imp",
    "print": "fixed"
   },
   {
@@ -1991,6 +2031,14 @@
    "text": "First, because it is the first thing anyone meets \u2014 and <b>every row below is one screen at both widths</b>: 1440 light, 360 light, 1440 dark, 360 dark. Built from real components at their real size, fragments rather than whole screens, and on the 1440 board from the WEB app's own components, because a laptop reader must see the tables and the dashboard they will actually get. <b>First launch</b> is the screen an <i>installed</i> app shows: v1 is a PWA (spec \u00a7G, <i>the app is installable</i>), and an installed app opens cold \u2014 no address bar, no landing page, nothing to have scrolled. It is not a mobile screen; it is what any installed copy shows on a device with no budget on it yet. `LandMotion` draws the pointer states, because a static artboard cannot show motion and the build cannot implement from a description. Two image slots are specified and not filled \u2014 `docs/design/image-brief.md` carries the shot list, the licences and the reject list."
   },
   {
+   "id": "n-sec",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-sec",
+   "text": "<b>Off page 1, 27 September.</b> It has a route, it is reached from three places \u2014 the landing page, the sign-up tick-box and Settings \u2014 and it was living inside the landing page only because that is where it was first drawn. <b>\u00a710.1\u2019s sentence is here once</b> and nowhere else composes its own version of it: <i>We never store your bank data in readable form.</i> The row below it is the same page as a modal, which is what sign-up opens rather than repeating the wording inline \u2014 five copies of a promise is five chances to get it wrong. <b>The build guard fails on the sentence this replaced</b>, which was false the day ADR-009 gave v1 a server."
+  },
+  {
    "id": "n-w-in",
    "x": 0,
    "y": -250,
@@ -2007,20 +2055,92 @@
    "text": "Home and its states, each at both widths on one row. The width holds the workings: the figure and its pace card left, the reason \u2014 where the money is, then every category worst-first \u2014 right, and reading one against the other is exactly what 360 cannot do. <b>The gauge lives at 360 only</b>, because <i>can I spend this, right now?</i> is asked in a shop with a phone in your hand; at a desk the question is whether you are on pace, and a dial has no memory of yesterday. Each state is its own row because each has its own fix."
   },
   {
-   "id": "n-w-money",
+   "id": "n-plan",
    "x": 0,
    "y": -250,
    "w": 820,
-   "page": "page-w-money",
-   "text": "The month's money, both widths per row. Transactions gets a standing filter rail and real columns at 1440 \u2014 stacked filters scroll the list away, and losing your place is the one thing that matters here \u2014 and tabs at 360, where they earn their place. Debts loses its tabs entirely at 1440, because the best thing width buys is sometimes one less control. Both empty states of Transactions are separate rows: one wants a movement, the other wants the filters cleared. Opening balances and debts are dated 24 September, the day before the cycle, so they never count as this cycle's saving."
+   "page": "page-plan",
+   "text": "Where each naira gets its job, and the only screen whose <i>hero</i> is a figure nobody wants to be large: <b>unallocated</b>. It takes the top slot because it is the number that decides whether the plan is finished, and it is meant to reach \u20a60.00 and disappear. Protection and rollover are their own columns at 1440 rather than marks on a row \u2014 both are decisions about a category, not decorations of it. The 360 row menu is the same two decisions on a screen with no room for columns."
   },
   {
-   "id": "n-w-acct",
+   "id": "n-tx",
    "x": 0,
    "y": -250,
    "w": 820,
-   "page": "page-w-acct",
-   "text": "What an account is for, the three screens the paid tier exists to serve, and the import flow \u2014 spec \u00a77.9, the most dangerous action in the app. <b>There is no lock anywhere on this page</b>: no padlock, no grey-out, no crown, and the word <i>unlock</i> appears nowhere (item 24, and the build guard checks it). Reconciliation is one movement at a time, never a list of forms. The household disagreement is two people agreeing, not software refereeing: both figures drawn as equals, no rose, and <i>leave it for now</i> the same weight as the rest. Every import refusal ends with \u201cNothing has changed.\u201d and none of them is red \u2014 the file was wrong, the person was not."
+   "page": "page-tx",
+   "text": "The list, and the two ways of having nothing in it. <b>A standing filter rail at 1440, tabs at 360</b>: stacked filters scroll the list away, and losing your place is the one thing that matters on this screen. <b>Both empty states are their own row</b> because they want opposite things \u2014 <i>nothing recorded</i> wants a movement, <i>filters match nothing</i> wants the filters cleared, and a single \u201cno results\u201d covering both is how a person clears their data looking for a button. Opening balances and debts are dated 24 September, the day before the cycle, so they never count as this cycle\u2019s saving."
+  },
+  {
+   "id": "n-qa",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-qa",
+   "text": "The persistent action, and <b>the reason the centre of the bottom bar is not a route</b>: story G2 wants a spend recorded while standing at a counter, so it is the largest target on the screen and it sits under the thumb. At 1440 it is a button in the header and a dialog, because a sheet sliding up a laptop is a phone gesture wearing a suit. <b>Delete is a quiet button, never a red one</b> \u2014 the same rule the primitives sheet sets, and the same one the category row follows."
+  },
+  {
+   "id": "n-dg",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-dg",
+   "text": "Both directions of money that is not this cycle\u2019s: what you are saving for, and what is owed either way. <b>Debts loses its tabs entirely at 1440</b>, because the best thing width buys is sometimes one less control \u2014 the two lists sit side by side instead. At 360 they are tabs, and <i>Goals</i> is its own row here for that reason. <b>B. Colleague goes the other way</b>, and the direction is carried by the words <i>owes you</i> rather than by a sign or a colour. The printed record is on Foundations, not here: it leaves the app."
+  },
+  {
+   "id": "n-mo",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-mo",
+   "text": "Completed cycles, and the empty state that matters more than the populated one \u2014 a person meets this screen in month one, when there is nothing in it, and it has to say so without sounding broken. <b>A cycle is a salary month, 25th to 24th</b>, not a calendar month, which is the whole reason this screen exists under its own name rather than as \u201cHistory\u201d."
+  },
+  {
+   "id": "n-zk",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-zk",
+   "text": "The estimate and its workings, and <b>the workings are the point</b>: zakat is an obligation a person answers for, so every figure that goes into it is shown and named, and the nisab it is measured against is dated. <b>Nothing here advises.</b> The app reports what it can see and says plainly what it cannot \u2014 assets it does not hold, and the year it cannot witness. Sadaqah is a category of its own and is never counted as zakat."
+  },
+  {
+   "id": "n-set",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-set",
+   "text": "Data, cycle and categories, and <b>the signed-out row is the important one</b>: the free tier is not a trial, so the screen a person sees without an account is a working screen, not a wall. <b>Settings is the sidebar\u2019s bottom group at 1440</b> (\u00a72, amended 26 September) \u2014 the six above it are places the money is; this is where you change how the app behaves, and a flat list of seven gave a utility equal billing with the thing the product is for. 360 had it in the More sheet all along."
+  },
+  {
+   "id": "n-tier",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-tier",
+   "text": "What paying buys, in the two states a person meets it in. <b>There is no lock anywhere on this page</b>: no padlock, no grey-out, no crown, and the word <i>unlock</i> appears nowhere \u2014 item 24, and the build guard checks the vocabulary. Paying buys <b>reach</b> \u2014 a second device, a second person, bank movement \u2014 and never opinions about someone\u2019s money. <b>Lapsed keeps everything readable</b>: the data is theirs, and a product that holds a budget hostage has stopped being a budgeting app."
+  },
+  {
+   "id": "n-bank",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-bank",
+   "text": "Detected movements, sorted one at a time. <b>Never a list of forms</b>: each one is a decision about real money and a grid of dropdowns is how a person agrees to twelve things they did not read. The duplicate case is the one that earns the screen \u2014 someone who already typed it in by hand should not end up counting it twice \u2014 and <i>nothing to sort</i> is a finished state, not an empty one."
+  },
+  {
+   "id": "n-hh",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-hh",
+   "text": "Two people, one expense, two different figures \u2014 and the screen\u2019s job is to let them agree, not to referee. <b>Both figures are drawn as equals</b>: same size, same weight, no rose on either, no \u201ccorrect\u201d one. <b><i>Leave it for now</i> carries the same weight as the rest</b>, because the honest outcome is often that it waits for a conversation the app is not in."
+  },
+  {
+   "id": "n-imp",
+   "x": 0,
+   "y": -250,
+   "w": 820,
+   "page": "page-imp",
+   "text": "Spec \u00a77.9, <b>the most dangerous action in the app</b> \u2014 the one place a person can lose everything in one tap. Confirm names what is about to happen in figures before anything is written. <b>Every refusal ends with \u201cNothing has changed.\u201d</b> and <b>none of them is red</b>: the file was wrong, the person was not. 360 only, because export and restore are how a phone-first owner moves house."
   },
   {
    "id": "n-brand",

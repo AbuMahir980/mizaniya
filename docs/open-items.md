@@ -3295,3 +3295,51 @@ behaviour; §1's route table now points at it.
 a control, because a five-slot bar has no room for a utility. The width that was
 constrained got it right and the width with room to spare did not, which is the
 usual direction.
+
+### M·43 — One page per screen
+
+**99 — the canvas is seventeen pages, one per screen.** The owner, 27 September:
+*“Let's proceed to Plan. Put it in its own section as you've done for Home, and
+do the same for the rest.”*
+
+It was five, and two of them were buckets. **The month's money** held Plan,
+Transactions, Quick Add, Debts & Goals, Months and Zakat — six destinations and
+fifty-four artboards. **Account, settings and household** held five more. Home
+had a page of its own from the start, and it is the only part of the canvas
+anybody could reliably find anything in, which is the whole argument.
+
+**A bucket page costs twice.** Nobody can link to a screen — *“it's on page 4”*
+is where the build agent starts scrolling — and **a page note that has to cover
+six screens says nothing about any of them.** That is not hypothetical: the old
+note for page 4 was one paragraph about Transactions and Debts, so **Plan, Quick
+Add, Months and Zakat had no note at all**. Each has one now, and writing them is
+how it became obvious they were missing.
+
+**The order is the app's own navigation**, because that is the order the screens
+are met in and the order tickets are picked up in.
+
+| | |
+|---|---|
+| 1–2 | Landing page and first launch · **Security and privacy** |
+| 3–4 | Account and setting up · Home |
+| 5–10 | Plan · Transactions · Quick Add · Debts and goals · Months · Zakat |
+| 11–15 | Settings · What an account adds · Bank movements · Household · Import and export |
+| 16–17 | Mark · Foundations |
+
+**Security and privacy left page 1.** It has a route, it is reached from three
+places — the landing page, the sign-up tick-box and Settings — and it was living
+inside the landing page only because that is where it was first drawn. §10.1's
+sentence is on that page once, and sign-up opens it as a modal rather than
+repeating the wording inline.
+
+**Nothing was redrawn.** Every `.dc.html` and every PNG is byte-identical; only
+`canvas.json` changed. Checked rather than assumed, by hashing the drop against
+the repo: one file differs.
+
+**A note on the shape this replaces.** Before the 25 September merge the pages
+were split by WIDTH — pages 2–5 at 1440, pages 6–9 the same screens at 360 —
+which is exactly how the two widths drifted apart. `docs/design/README.md` still
+described that structure, four days and two re-cuts later; its page table is
+rewritten. **That is the third stale claim found in that one file this week**,
+after *do not read the PNGs* and *the Arabic is always under the Latin*. A file
+that is only read by someone starting out is a file nobody proofreads.

@@ -3,8 +3,9 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-**191 artboards over seven pages**, as of 26 September — every screen at 360 **and**
-1440, light **and** dark, the two widths of one screen on the same page. Merged
+**195 artboards over seventeen pages**, as of 27 September — every screen at 360
+**and** 1440, light **and** dark, the two widths of one screen on the same row,
+and **one page per screen**. Merged
 10 September (PR #7); rebuilt many times since, most heavily in the landing-page
 and 1440 rework of 25–26 September.
 
@@ -90,22 +91,39 @@ fine flipping through and is useless for review — you cannot point at "the sig
 screen" if sign-in is the right-hand half of a board called Auth. So every file below is
 one screen, and its name says which.
 
-**191 artboards across 7 pages.** File names are `NN-what-it-is-WIDTH-theme.png`,
+**195 artboards across 17 pages.** File names are `NN-what-it-is-WIDTH-theme.png`,
 numbered in flow order, and the same stem names the `.dc.html` beside it in `canvas/`.
+
+> **Re-cut 27 September, one page per screen.** It was five pages, two of which
+> were buckets: *The month's money* held six destinations and fifty-four
+> artboards, *Account, settings and household* five more. Home had a page of its
+> own from the start and was the only part of the canvas anyone could find
+> anything in. A bucket page costs twice — nobody can link to a screen, and a page
+> note that has to cover six screens says nothing about any of them.
+>
+> **Before that, the pages were split by WIDTH** — pages 2–5 at 1440, pages 6–9
+> the same screens at 360 — which is how the two widths drifted apart in the first
+> place. The two widths of one screen are now the same **row**.
 
 | Page | Files | What is on it |
 |---|---|---|
-| 1 · Landing page | `11-landing-*` | 1440 and 390, the pointer states, the strongest moment (item 34) and the demo marker (item 33). |
-| 2 · Web 1440 · Getting in | `01-*` … `06-*` | Welcome · the six onboarding steps, **one board each** · sign up · sign up with the address already taken · sign in · forgot password · check your email · set a new password. **These are web screens.** In v1 the web app is the only place to sign up; the Expo mobile app is v2 and is not drawn. |
-| 3 · Web 1440 · Home | `07-home-*` | Home, then amber, over, **no plan**, **a brand-new account** (`07c2`), a plan with no movements, offline — each its own board, because each has its own fix. `07c` and `07c2` are two different first screens: onboarding's saved-pots and debts steps are optional, so a person can arrive with balances and no plan, or with nothing at all. |
-| 4 · Web 1440 · The month's money | `08-*` … `14-*` | Plan · Transactions and both empty states · Quick Add · Debts and Goals (no tabs at this width) · add a debt · add a goal · the debt record · Months · Zakat. |
-| 5 · Web 1440 · Account, sync, household | `15-*` … `18a-*` | Settings · Settings signed out · what an account adds, free and lapsed · the reconciliation queue, the duplicate case and the empty state · the household disagreement, both cases. **No padlock anywhere** — item 24, and `build_boards.py` fails if the word appears. |
-| 6 · Phone browser 360 · Getting in | `01-*-360-*`, `02-*-360-*` | The same web app at 360: welcome, six onboarding steps, and the three pickers steps 2 and 3 refer to. |
-| 7 · Phone browser 360 · Home | `07-*-360-*` | Home, this cycle, four states, offline, and the More sheet — which is 360-only, because at 1440 everything in it is a sidebar item. |
-| 8 · Phone browser 360 · The month's money | `08-*-360-*` … `14-*-360-*` | Plan and its row menu · Transactions and both empty states · Quick Add, record and edit · Debts · Goals · the two forms · the debt record · Months empty and populated · Zakat. |
-| 9 · Phone browser 360 · Settings and data | `15-*-360-*`, `19-*` | Settings, and the three-stage import flow — spec §7.9, the most dangerous action in the app. |
-| 10 · Mark | `00-cover-*`, `00-logo-*` | The contents page, and the mark: construction grid, sizes 48→16, app icon, favicon, wordmark lockups, and the three misuses. |
-| 11 · Foundations | `00-primitives-*`, `00-style-*`, `05a-debt-record-print.png` | Every component in every state, the palette and type tile, and the printed record: A4, black and white, no app chrome. |
+| 1 · Landing page and first launch | `11-landing-*`, `01-first-launch-*` | 1440 and 390, the pointer states, the strongest moment (item 34), and the screen an **installed** copy opens cold. |
+| 2 · Security and privacy | `20-*`, `21-*` | The page, and the same page as the modal sign-up opens. §10.1's sentence lives here **once**. |
+| 3 · Account and setting up | `01-*` … `05.6-*` | Sign up · address already taken · sign in · forgot · check your email · set a new password, then the six setting-up steps and the three pickers 360 needs. |
+| 4 · Home | `07-*` | Home, amber, over, **no plan**, **a brand-new account** (`07c2`), a plan with no movements, offline, this cycle, the More sheet. `07c` and `07c2` are two different first screens: onboarding's saved-pots and debts steps are optional. |
+| 5 · Plan | `08-*` | Plan, and the 360 row menu. |
+| 6 · Transactions | `09-*` | The list, and **both** empty states — they want opposite things. |
+| 7 · Quick Add | `10-*` | The sheet at 360, the dialog at 1440, record a payment, edit a movement. |
+| 8 · Debts and goals | `11-*`, `12-*` | Debts and Goals (no tabs at 1440) · Goals at 360 · add a debt · add a goal · the debt record. |
+| 9 · Months | `13-*` | Empty and populated. A cycle is a salary month, not a calendar one. |
+| 10 · Zakat | `14-*` | The estimate and its workings. |
+| 11 · Settings | `15-*` | Settings, and signed out. **The sidebar's bottom group at 1440** (§2). |
+| 12 · What an account adds | `16-*` | Free and lapsed. **No padlock anywhere** — item 24, and `build_boards.py` fails if the word appears. |
+| 13 · Bank movements | `17-*` | The reconciliation queue, the duplicate case, and nothing to sort. |
+| 14 · Household | `18-*` | Two amounts for one expense, and for a savings target. |
+| 15 · Import and export | `19-*` | The three-stage flow — spec §7.9, the most dangerous action in the app. |
+| 16 · Mark | `00-cover-*`, `00-logo-*` | The design-stop cover, and the mark: construction grid, sizes, app icon, favicon, wordmark lockups, misuses. |
+| 17 · Foundations | `00-primitives-*`, `00-style-*`, `05a-debt-record-print.png` | Every component in every state, the palette and type tile, and the printed record: A4, black and white, no app chrome. |
 
 | Also here | What it is |
 |---|---|
