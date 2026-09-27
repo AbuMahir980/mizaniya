@@ -1195,9 +1195,49 @@
    "print": "fixed"
   },
   {
-   "file": "WebTransactionsFilteredLight.dc.html",
+   "file": "WebTransactionsSavingsLight.dc.html",
    "x": 0,
    "y": 2666,
+   "w": 1512,
+   "h": 1228,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 1440 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsSavingsLight.dc.html",
+   "x": 1652,
+   "y": 2666,
+   "w": 507,
+   "h": 651,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 360 \u00b7 light",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsSavingsDark.dc.html",
+   "x": 2299,
+   "y": 2666,
+   "w": 1512,
+   "h": 1228,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 1440 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "MwTransactionsSavingsDark.dc.html",
+   "x": 3951,
+   "y": 2666,
+   "w": 503,
+   "h": 651,
+   "title": "09c \u00b7 Transactions \u00b7 savings by destination \u00b7 360 \u00b7 dark",
+   "page": "page-tx",
+   "print": "fixed"
+  },
+  {
+   "file": "WebTransactionsFilteredLight.dc.html",
+   "x": 0,
+   "y": 4084,
    "w": 1512,
    "h": 892,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 light",
@@ -1207,7 +1247,7 @@
   {
    "file": "MwTransactionsFilteredLight.dc.html",
    "x": 1652,
-   "y": 2666,
+   "y": 4084,
    "w": 500,
    "h": 589,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 light",
@@ -1217,7 +1257,7 @@
   {
    "file": "WebTransactionsFilteredDark.dc.html",
    "x": 2292,
-   "y": 2666,
+   "y": 4084,
    "w": 1512,
    "h": 892,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 1440 \u00b7 dark",
@@ -1227,7 +1267,7 @@
   {
    "file": "MwTransactionsFilteredDark.dc.html",
    "x": 3944,
-   "y": 2666,
+   "y": 4084,
    "w": 496,
    "h": 589,
    "title": "09b \u00b7 Transactions \u00b7 filters match nothing \u00b7 360 \u00b7 dark",

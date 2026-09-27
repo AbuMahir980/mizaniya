@@ -381,7 +381,7 @@ snapshot. **Opening balances become dated transactions, never a stored total**
 | Loading | None. Nothing to load on a first run |
 | Empty | This screen *is* the empty state for the whole app |
 | Error | Field-level, inline, below the field. A failed save **keeps every entered value** and offers Retry — the owner never re-types |
-| Offline | Normal. Step 1 carries the line: *"Everything you enter stays on this device."* |
+| Offline | ⚠ **SUPERSEDED — do not build this line.** Normal. ~~Step 1 carries the line: *"Everything you enter stays on this device."*~~ **That sentence is false and has been since ADR-009 gave v1 a server on 24 September**, and it is on `guards.py`'s forbidden list — the build guard fails any board carrying it. It is the sixth false-comfort line found, and the first in the spec rather than in a drawing, which is worse because the build reads the spec. Step 1 carries no such claim; the only approved wording about data is `tokens.md` §10.1. See `docs/open-items.md` item 118 and §N. |
 | Success | Land on Home with correct figures already showing — never an empty Home |
 
 **Validation.**

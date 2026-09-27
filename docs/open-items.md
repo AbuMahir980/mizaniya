@@ -1939,6 +1939,13 @@ behaviour line is the spec's to write, not the design's.*
   and an arithmetic one it carries on its own — **a *planned* allowance where
   there is no plan.** Flagged in place.
 
+- [ ] **N4 · `docs/06-page-specs.md` §7.1, the Onboarding States table — the
+  Offline row.** *"Step 1 carries the line: 'Everything you enter stays on this
+  device.'"* **False since ADR-009**, and on `guards.py`'s forbidden list, so the
+  build guard fails any board carrying it. The **sixth** false-comfort sentence
+  found and the **first in the spec rather than in a drawing** — worse, because
+  the build reads the spec. Flagged in place. Item 118.
+
 - [ ] **N3 · `docs/06-page-specs.md`, the hero copy table — the *No plan* row,
   `₦8,666.66`.** Same decision. The figure is the spendable total ÷ 30; its own
   caption says *based on your take-home*, and take-home ÷ 30 is ₦15,000.00, so the
@@ -3714,3 +3721,88 @@ left to be discovered at build time.
 
 **Sources:** Paystack pricing · nairatoday.com FX · Okra pricing page ·
 openbankingtracker.com · fintechfutures.com on the Flutterwave–Mono deal.
+
+### M·51 — The audit: every screen's spec states against what is drawn
+
+Asked for on 27 September: *"go through it thoroughly, ensure that there is
+nothing missing, then do the same for the remaining screens."* Done by pulling
+the **States** table out of every §7.x and checking it against the canvas.
+
+**Two are fixed in this pass. Six are not, and the reason is arithmetic.**
+
+#### ✅ Fixed
+
+**111 — the savings subtotal, `09c · Transactions · savings by destination`.**
+§7.4's behaviour that was drawn nowhere. Destinations are invented (repo rule 3
+— the spec's example names a real company); the figures are the seed's,
+₦75,000.00 and ₦15,000.00.
+
+*A fault of my own on the first cut of that board, caught before publishing:* the
+count read **"4 movements"**, and four is a figure that exists nowhere — the seed
+has two. It also left the **spent** rows in the list under a savings filter, so
+the board contradicted its own filter chips. Both fixed; `TX_SAVINGS` now
+carries the two seeded rows. **Repo rule 2 catches you drawing as readily as it
+catches you writing.**
+
+**112 — the error pattern, on the primitives sheet.** There was **not one Retry
+state on 219 artboards**, while every §7.x has an Error row and every one of them
+says *never a blank screen*. Three rules now drawn:
+
+- it says what failed, **in the words of the thing that failed** (the sentence is
+  per-screen; §7.x has each one)
+- **Retry is a real button, not a link** — it is the entire point of the state
+- **what already loaded stays on screen.** An error replaces the part that
+  failed, never the page. Blanking a screen to report a failure throws away
+  figures that were correct.
+
+Both forms are there: the whole surface, and **one row with the rest of the
+screen intact** — which is Plan's (§7.3), where the typed figure stays, the row
+is marked, and **unallocated does not move**, because memory updates only after
+storage confirms (ADR-001).
+
+*Why a pattern and not eight boards:* eight screens × two widths × two themes is
+**thirty-two artboards** for a treatment that differs only in its sentence. See
+the arithmetic below.
+
+#### ◻ Found, not drawn — and the cap is why
+
+| # | Screen | Spec says | Cost |
+|:-:|---|---|:-:|
+| **113** | Quick Add (§7.5) | Empty: *"Add a category first"* with a link to Plan | 4 |
+| **114** | Debts & Goals (§7.6) | Empty — debts: *"No debts recorded."* + Add · Empty — goals: *"No goals yet."* + Add | 4 |
+| **115** | Zakat (§7.10) | Empty — no nisab: *"the panel explains what is missing and where to look it up, rather than showing ₦0"* · Empty — no hawl: asks | 8 |
+| **116** | Debt record (§7.7) | Empty: a debt with no movements prints with an empty history and the opening entry, **rather than failing** | 4 |
+| **117** | Onboarding (§7.1) | Error: field-level, inline, **keeps every entered value**, offers Retry — *the owner never re-types* | 4 |
+
+**The arithmetic.** The app canvas is at **191 of the editor's 200 files**. Those
+five are **24 artboards** and there is room for **9**. They are not drawn because
+drawing them would silently drop boards, which is the failure M·45 exists to
+prevent — not because they are unimportant. **115 is the one I would draw first**:
+a zakat panel showing ₦0 where a nisab should be is the kind of wrong number this
+whole project is arranged against.
+
+#### The decision that is owed, and it is the owner's
+
+This will keep happening — sync states, the household invite and the bank-linking
+flow are still to come, and they are another twenty boards at least. Three ways
+out, and **I have not picked one**, because the last split was one I made
+unilaterally and you were right to ask why:
+
+1. **Re-cut the two canvases** — the app is 191 and the front is 30, so the split
+   is lopsided. Balanced by the app's own shape: *the daily app* (Home, Plan,
+   Transactions, Quick Add, Debts, Months, Zakat = ~107) and *getting in, paying
+   and the materials* (~116). Both then have 80+ of headroom.
+2. **A third canvas** — leaves the two links as they are and adds one more.
+3. **Draw fewer states** — cheapest, and the one that costs most later: an
+   undrawn state is a state the build invents.
+
+#### 118 — one more thing, and it is in the spec, not the drawing
+
+§7.1's States table still reads: *"Offline | Normal. Step 1 carries the line:
+**'Everything you enter stays on this device.'**"*
+
+**That sentence is on `guards.py`'s forbidden list**, and the guard would fail any
+board carrying it. ADR-009 gave v1 a server on 24 September; the line has been
+false since. It is a **sixth** false-comfort sentence, and the first one found in
+the authoritative spec rather than in a drawing — which is worse, because the
+build reads the spec. Flagged in §N alongside the other three superseded lines.

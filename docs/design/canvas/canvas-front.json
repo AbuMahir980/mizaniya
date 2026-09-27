@@ -263,7 +263,7 @@
    "x": 0,
    "y": 0,
    "w": 1804,
-   "h": 2416,
+   "h": 2750,
    "title": "Primitives \u00b7 light",
    "page": "page-found",
    "print": "fixed"
@@ -271,9 +271,9 @@
   {
    "file": "PrimDark.dc.html",
    "x": 0,
-   "y": 2606,
+   "y": 2940,
    "w": 1804,
-   "h": 2416,
+   "h": 2750,
    "title": "Primitives \u00b7 dark",
    "page": "page-found",
    "print": "fixed"
@@ -281,7 +281,7 @@
   {
    "file": "StyleLight.dc.html",
    "x": 0,
-   "y": 5212,
+   "y": 5880,
    "w": 462,
    "h": 640,
    "title": "Style \u00b7 light",
@@ -291,7 +291,7 @@
   {
    "file": "StyleDark.dc.html",
    "x": 0,
-   "y": 6042,
+   "y": 6710,
    "w": 462,
    "h": 640,
    "title": "Style \u00b7 dark",
@@ -301,7 +301,7 @@
   {
    "file": "Print.dc.html",
    "x": 0,
-   "y": 6872,
+   "y": 7540,
    "w": 1696,
    "h": 1227,
    "title": "Debt record \u2014 print, A4",

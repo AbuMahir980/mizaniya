@@ -3,7 +3,7 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-**215 artboards over seventeen pages**, as of 27 September — every screen at 360
+**219 artboards over seventeen pages**, as of 27 September — every screen at 360
 **and** 1440, light **and** dark, the two widths of one screen on the same row,
 and **one page per screen**.
 
@@ -16,7 +16,7 @@ and **one page per screen**.
 >
 > | | Pages | Files | Manifest |
 > |---|---|---|---|
-> | **The app** — the canvas under review | 3–15 | 187 | `canvas/canvas.json` |
+> | **The app** — the canvas under review | 3–15 | **191 of 200** | `canvas/canvas.json` |
 > | **Front and foundations** | 1–2, 16–17 | 30 | `canvas/canvas-front.json` |
 >
 > The cut follows a seam that was already there: the landing page and the
@@ -114,7 +114,7 @@ fine flipping through and is useless for review — you cannot point at "the sig
 screen" if sign-in is the right-hand half of a board called Auth. So every file below is
 one screen, and its name says which.
 
-**215 artboards across 17 pages, on two canvases.** File names are `NN-what-it-is-WIDTH-theme.png`,
+**219 artboards across 17 pages, on two canvases.** File names are `NN-what-it-is-WIDTH-theme.png`,
 numbered in flow order, and the same stem names the `.dc.html` beside it in `canvas/`.
 
 > **Re-cut 27 September, one page per screen.** It was five pages, two of which
@@ -135,7 +135,7 @@ numbered in flow order, and the same stem names the `.dc.html` beside it in `can
 | 3 · Account and setting up | `01-*` … `05.6-*` | Sign up · address already taken · sign in · forgot · check your email · set a new password, then the six setting-up steps and the three pickers 360 needs. |
 | 4 · Home | `07-*` | Home, amber, over, **no plan**, **a brand-new account** (`07c2`), a plan with no movements, offline, this cycle, the More sheet. `07c` and `07c2` are two different first screens: onboarding's saved-pots and debts steps are optional. |
 | 5 · Plan | `08-*` | Plan · the row menu · no categories yet · nothing allocated yet · add a category · **scrolled, header pinned** (`08e`). `08e` is the one board clipped to a viewport, because a board has no fold and is therefore a bad guide to how tall a screen feels. |
-| 6 · Transactions | `09-*` | The list, and **both** empty states — they want opposite things. |
+| 6 · Transactions | `09-*` | The list, **both** empty states — they want opposite things — and **savings by destination** (`09c`), §7.4's subtotal, which the spec says needs no screen of its own and was therefore on none. |
 | 7 · Quick Add | `10-*` | The sheet at 360, the dialog at 1440, record a payment, edit a movement. |
 | 8 · Debts and goals | `11-*`, `12-*` | Debts and Goals (no tabs at 1440) · Goals at 360 · add a debt · add a goal · the debt record. |
 | 9 · Months | `13-*` | Empty and populated. A cycle is a salary month, not a calendar one. |
@@ -146,7 +146,7 @@ numbered in flow order, and the same stem names the `.dc.html` beside it in `can
 | 14 · Household | `18-*` | Two amounts for one expense, and for a savings target. |
 | 15 · Import and export | `19-*` | The three-stage flow — spec §7.9, the most dangerous action in the app. |
 | 16 · Mark | `00-cover-*`, `00-logo-*` | The design-stop cover, and the mark: construction grid, sizes, app icon, favicon, wordmark lockups, misuses. |
-| 17 · Foundations | `00-primitives-*`, `00-style-*`, `05a-debt-record-print.png` | Every component in every state, the palette and type tile, and the printed record: A4, black and white, no app chrome. |
+| 17 · Foundations | `00-primitives-*`, `00-style-*`, `05a-debt-record-print.png` | Every component in every state — including **loading, empty and error**, the last added 27 September because there was not one Retry state on the whole canvas — the palette and type tile, and the printed record: A4, black and white, no app chrome. |
 
 | Also here | What it is |
 |---|---|
