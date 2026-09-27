@@ -272,7 +272,7 @@ app the project cannot use.
     **Fix:** `$root = $PSScriptRoot`. A script that customises the playbook
     should operate on the playbook it ships with, always.
     **Scope — checked, not assumed:** this was **that project's copy only**. Mizaniya
-    and Baytak Clean already use `Split-Path -Parent $MyInvocation.MyCommand.Path`
+    and a sibling project already use `Split-Path -Parent $MyInvocation.MyCommand.Path`
     in both scripts, and the scripts do not exist in the peer-ai repository at
     all — they are a per-project customisation layer. That project's copy was written
     first and kept the literal path the other two had already replaced. Nothing
