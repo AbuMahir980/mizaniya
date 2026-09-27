@@ -70,9 +70,22 @@ tier has no account, no login screen and no locked door: someone who never signs
 up gets the whole budgeting app, exactly as before. Signing in is what makes data
 follow you to a second device.
 
-That has a consequence worth stating for the design brief: **there is no
-"signed-out state" to draw for the main screens.** Signed out is not a degraded
-app, it is the app. The only new signed-out surface is the handful of screens
+**To be unmistakable, because this wording has already been misread once:
+sign-up and sign-in both exist, are both `Must`, and are both drawn.** Stories
+**I2** and **I3**, screen **08**. *Not a gate* means an account is not **required**
+to use the app — it does not mean there is no way to create one.
+
+| | |
+|---|---|
+| Is there a sign-up screen? | **Yes.** Email and password, story I2, screen 08 |
+| Is there a sign-in screen? | **Yes.** Story I3, screen 08 |
+| Is one required to use the app? | **No.** The free tier is the whole app on one device |
+| What does an account buy? | Sync, household sharing, bank movement (§11a) |
+
+The consequence for the design brief is narrower than it sounds: **the main
+screens — Home, Plan, Transactions, Debts — have no separate signed-out state to
+draw**, because a signed-out user sees the ordinary app rather than a degraded one.
+The account screens themselves obviously have one. The only new signed-out surface is the handful of screens
 about the account itself.
 
 **Standard §A6 wakes up** — every request to `services/api` carries its session
