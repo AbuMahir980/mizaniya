@@ -429,96 +429,111 @@ rules are dormant until v3** (separate private repo) and are not listed here.
 
 ## Current State
 
-**Phase: the repositioning's own sequence, and it is nearly through.** As of
-25 September: schema v2 is in, the cleanup sweep is done, both specs are written and
-the design brief is out. **What remains before the server work is the workspace
-extraction** (ADR-008 item 2) — `src/` → `apps/web/`, and `packages/core` and
-`packages/tokens` extracted — which is independent of the designer and can run while
-they draw. Then accounts and sync.
+*Rewritten 2026-09-27. The previous text had gone stale in four separate ways at once —
+it still listed the workspace extraction as remaining, counted 384 tests, described the
+design as 67 artboards, and named "accounts and sync" as the next action after that order
+had been deliberately reversed. It is kept nowhere: a stale status section is worse than
+none, because it is read first and trusted.*
 
-**Screen building is still stopped**, and for the original reason: #72's conformance
-pass is parked half-done, and #68/#70/#69/#85/#23–#29 are to be re-specced against
-the new stories rather than built as written.
+### Where the project is
 
-**Phase before that: BUILD — stopped 2026-09-24 for the repositioning.** v1 is no longer a
-local-first single-owner web app; it is a **hosted webapp with a server**, and
-mobile moves to v2. See [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md)
-and [ADR-010](docs/adr/ADR-010-sync-model.md). **No further screen building until
-the re-spec and the design brief are done** — the reason to reposition now is that
-little has been built, and building more against single-owner assumptions is the
-thing being avoided.
+**The design has landed, and the specs have not caught up with it yet.** That gap is the
+whole of the near-term work. Nothing is being built.
 
-**What is parked, and why each:**
+**The agreed order, from 25 September, unchanged:** finish the design → confirm it is
+done → plan properly → then build. Not in parallel, and not the other way round.
 
-- **#72's design-conformance pass — parked half-done.** Home stays incomplete.
-  Every one of those screens changes under the repositioning (sign-up, signed-out
-  states, sync state, account and billing), so rebuilding them now means
-  rebuilding them twice.
-- **T16 (#23) — started and parked, and the record of it was wrong until 25 September.**
-  This said *"`core/movement` is merged"*. **It is not, and never was.** The module —
-  181 lines, the eight movements and the list's derivations — exists only on the
-  unmerged branch `feature/transactions-and-editing`, at commit `c11c872`. Nothing of
-  T16 has ever reached `main`.
+### What is true as of 27 September
 
-  **Two things now stand between that work and `main`:** its paths are all `src/…`,
-  which the workspace extraction replaced, and its `movement-draft.ts` predates schema
-  v2 — `main`'s version takes `Unstamped<Transaction>` and the branch's does not. So
-  landing it is a port plus a reconciliation, not a merge. Recorded on #23 with the SHA
-  so it is inventory rather than a rumour.
+- **`main` runs end to end as a local-first app**, from cycles 1 and 2 (T1–T15).
+  `npm run verify` runs naming, spacing, lint, typecheck, **418 tests** and a build.
+- **The repo is an npm workspace.** `apps/web/src` is the app, `packages/core/src` is the
+  domain logic published as `@mizaniya/core/<module>`, and `@/` means `apps/web/src`.
+  Root commands are unchanged. (ADR-008 item 2 — **done**, #110.)
+- **Schema v2 is in**, which is what made sync possible at all: every entity carries
+  `updatedAt`, deletions are tombstones in their own table, and `Unstamped<T>` keeps the
+  clock out of `core`.
+- **The design drop is merged** — **263 artboards over seventeen pages**, every screen at
+  360 **and** 1440, light **and** dark, one page per screen. Plus `motion.md`, the brand
+  files, and `tokens.md` as the authority on values.
+- **CI is live and all three jobs mean something.** As of today that is literally true of
+  the third for the first time: **repo rule 3 was unenforced for the entire life of the
+  repository until 27 September**, and on its first real run it found a live violation.
+  An unconfigured guard now **fails** (#111, #124, #125).
 
-  **The branch is kept deliberately.** Deleting it would make the commit unreachable
-  and eventually collectable, and 181 lines of worked-through domain logic is worth more
-  than a tidy branch list.
-- **T17–T22 (#24–#27, #29) — not started, and now to be re-specced** before they
-  are built, not built as written.
+### What is NOT done, and is the next work
 
-Cycles 1 and 2 are closed (T1–T15) and `main` runs end to end as a local-first
-app. That build is not wasted: `core/` is unchanged by the repositioning, the
-`Repository` seam is exactly what the server slots behind, and the local
-implementation stays the offline path under ADR-010.
+**1. The specs contradict the design in named places.** The drop annotated them rather
+than rewriting them — old wording struck through, replacement beneath, in the same ⚠
+shape §8's hero table already used. Design does not quietly rewrite behaviour prose. The
+open ones are **§N's N1–N4** and **§O's O1–O5** in `docs/open-items.md`:
 
-**What the last day was actually about.** The owner ran the app and found it had
-deviated from the design badly. Every built screen had been assembled from
-fragments grepped out of the canvas rather than from the artboards. **#72 tracks
-rebuilding all of them**, one at a time, PNG first.
+| | |
+|---|---|
+| **N1** | `03-system-spec.md` §B1 — a plan with no figure |
+| **N2** | Home's states table |
+| **N3** | the hero copy table — `₦8,666.66` |
+| **N4** | `06-page-specs.md` §7.1 — *"Everything you enter stays on this device"*, **false since ADR-009** and on `guards.py`'s forbidden list. The most urgent of the four, because it is a promise, not a detail |
+| **O1** | `seed-data.md` owes three figures: the silver price per gram **with the date read**, the naira rate used, and a **gold-standard nisab**. Only the owner adds figures to that file |
+| **O2** | `06-page-specs.md` §7.10 — the nisab is **fetched**, not owner-entered, and there is no *empty* state, only a **stale** one |
+
+Plus `§2` navigation, `§2a` getting back, `§7.4` Transactions and `§7.9` Settings, each
+annotated in `06-page-specs.md`.
+
+**2. Six things are still not drawn**, listed in `open-items.md` rather than filled in:
+sync states · the household **invite and accept** · the bank **linking** flow · Settings'
+*savings destinations* and *about* pages · the gold-standard comparison sheet (was blocked
+on **O1**; the standards decision of 27 September unblocks the requirement, the figure
+still has to be added) · Months' empty state, which is four lines against the rule that an
+empty state is a whole screen.
+
+**3. Screen building stays stopped.** #72's conformance pass is parked half-done, and
+#23–#27, #29 and #85 are `blocked:respec` — real product need, acceptance criteria written
+for a different product.
+
+**4. No server exists.** There is no `services/` folder. ADR-012 chose a stack **on paper**
+and is **parked**; its first action item is *revisit this at all*. #119 is parked with it.
+
+### The screen-by-screen rebuild (#72)
 
 | Screen | State |
 |---|---|
-| Welcome + launch | **Rebuilt**, confirmed pixel-perfect by the owner |
-| Onboarding | **Rebuilt**, confirmed pixel-perfect by the owner |
-| Home | **Half done** — #88 landed the date header, the gauge's scale and the card words. The rest is on #68 |
-| Plan | Not started — #70 |
-| Quick Add | Not started — #69 |
+| Welcome + launch | **Rebuilt**, confirmed by the owner |
+| Onboarding | **Rebuilt**, confirmed by the owner |
+| Home | **Half done** — #88 landed the date header, the gauge's scale and the card words |
+| Plan · Quick Add | Not started |
 | Transactions and later | Build from the artboards from the start |
 
-**What the repo holds now.** `npm run verify` runs naming, **spacing**, lint,
-typecheck, **384 tests** and a build. CI is live on every pull request — verify,
-repo rules, secret scanning — and three guards exist that did not on 23
-September: the 2px grid, the design-drop staging check, and the fraction-offset
-check. `npm run seed` writes a real export file the app restores through its
-ordinary import path.
+**All of it is now against 263 new artboards rather than the ones it was parked against**,
+which is the reason parking it was right.
 
-**Two guarantees are held by tests that break them on purpose**: the
-architecture boundaries and the repo-rule guard. A third is now the spacing
-grid. The rule this project keeps relearning is that **a check which has only
-ever passed is indistinguishable from one that is switched off** — and, learned
-the hard way on 24 September, **a check scoped to one unit is a check with a
-hole in it.**
+### T16 (#23) — started, parked, and the record of it was wrong until 25 September
 
-**The design is complete and all of its files have landed** — 67 artboards,
-`tokens.md` with 54 gated contrast pairs and no failures, the canvas as `.dc.html`
-so the build agent reads markup rather than pixels, and since 22 September the
-production brand files in `docs/design/brand/`.
+`core/movement` — 181 lines, the eight movements and the list's derivations — **has never
+reached `main`.** It exists only on the unmerged branch
+`feature/transactions-and-editing`, at commit `c11c872`. CONTEXT claimed for two days that
+it was merged.
 
-**Read [docs/open-items.md](docs/open-items.md) before building a screen.** It is
-the designer's list of what the design has that the code does not — the three
-typefaces nothing loads yet, the brand files, the welcome screen that was drawn
-after PAGE SPECS and so appears in no ticket, and a Tabs primitive — each against
-the ticket that takes it. The file is deleted once every box is ticked.
+**Two things stand between it and `main`:** its paths are all `src/…`, which the workspace
+extraction replaced, and its `movement-draft.ts` predates schema v2. Landing it is a port
+plus a reconciliation, not a merge. **The branch is kept deliberately** — deleting it makes
+the commit unreachable, and 181 lines of worked-through domain logic beats a tidy branch
+list.
 
-**Next action: accounts and sync** — stories I and J, endpoints §5a and §5b. The
-repositioning sequence is finished and #92 is closed; the tracker was tidied on
-25 September so every remaining item is an issue with an honest scope.
+### Three guarantees are held by tests that break them on purpose
+
+The architecture boundaries, the repo-rule-3 guard, and the 2px spacing grid. The rule
+this project keeps relearning is that **a check which has only ever passed is
+indistinguishable from one that is switched off** — and, learned the hard way on 24
+September, **a check scoped to one unit is a check with a hole in it.** Rule 3 spent a
+month proving the first half.
+
+### Read before touching a screen
+
+**[docs/open-items.md](docs/open-items.md)** — the designer channel, a lettered section
+per round, answered in place. §M·52–M·66 are the 27 September decisions with the reasoning
+kept; §N and §O are what the spec and the seed now owe. **Questions there are recorded as
+questions on purpose. Do not invent answers to them.**
 
 ---
 
@@ -614,6 +629,9 @@ repositioning sequence is finished and #92 is closed; the tracker was tidied on
 | 2026-09-24 | **End-to-end encryption returns as an opt-in, probably paid.** *"Nobody, including us, can read your data — and nobody can recover it for you"* is an honest premium feature, because the person accepts the trade-off themselves. Forcing it on everyone at launch makes that choice on their behalf, and it is not ours to make | ADR-011 |
 | 2026-09-24 | **The one thing encryption cannot claim, written down before anyone is tempted to claim it.** Bank movement arrives by webhook **to the server** — a browser cannot hold aggregator credentials — so the server necessarily sees it in plaintext for the length of one request before encrypting it to the person's public key. *"We never store your bank data readable"* is true. *"Your bank data never touches our servers"* is **false**, and writing it would be the most damaging thing this project could do to its own credibility. True under any encryption choice, which is why **the most sensitive data in the product was always the least protectable** | ADR-011 |
 | 2026-09-24 | **The landing page is in scope and done properly, not a stub.** It is the first thing an investor, an employer or a user sees, so it is designed and briefed with the rest — not improvised from leftover components once the app works | owner || 2026-09-27 | **An unconfigured rule-3 guard now fails the build.** It exited 0 with a `NOT ENFORCED` warning for the first month of this repository — and the day the secret was finally set, the very first real run found a live violation that had been sitting there the whole time. The warning was correct and useless: it scrolled past inside a green run. **A check that could not run has not passed.** The guard now exits 1 and annotates the run as an error. **Cost, accepted:** a pull request from a fork goes red here, because GitHub gives forks no secrets — which is the honest outcome, since the names genuinely were not checked. The guard is not in `npm run verify`, so nothing about working locally changes | #111 |
+| 2026-09-27 | **Zakat supports both nisab standards, and the user picks.** The owner's call: *"I was thinking we use the two, so whichever anyone wants to pick — you can measure with silver or you measure with gold."* **Silver is the default**, because it is the lower threshold, so it catches more people into paying — the cautious reading of an obligation. Gold is a Settings choice, not a hidden preference, and the screen **states which standard is in use** rather than presenting a figure with no provenance. Consequence: **both figures are needed**, which is what O1 in `open-items.md` is asking for, and the gold-standard comparison sheet stops being blocked | owner, O1, O2 |
+| 2026-09-27 | **The nisab is fetched, never typed in by the user.** *"Manually coming to come and be typing in the figure does not make sense."* The shape: **a scheduled job on our side** reads a metal-price API, validates the figure, and serves it from **our own public endpoint**; the client **caches it, works offline from the last known value, and says how old that value is**; the job **fails loudly** rather than serving a stale number as current. Two things deliberately not chosen: **not scraping** the committee's WhatsApp/X posts — an unstable source for a religious figure — and **no per-client call to a third party**, which would leak every user to a vendor and break offline. The owner keeps an **override** for the National Moonsighting Committee's published figure, because the authority on the number is a person, not an API. **Cost, named:** this is the first figure in the product that needs the network to be *correct* rather than merely current (item 122), and an FX rate has to be shown on screen beside it | owner, O2, #122 |
+| 2026-09-27 | **Quick Add's type follows the screen it was opened from**, as the design labelled it — O3 asked the question with no side taken and the owner took design's. It removes a tap where the wrong guess is likeliest. Accepted cost, which is the real one: the sheet is slightly **less learnable**, because the same control no longer opens in the same state every time | owner, O3 |
 
 ## What Was Done — By Day
 
@@ -661,6 +679,26 @@ project's own principle collecting on a debt a month old.
      discoverability rather than undoing publication — the commits are already cloned,
      mirrored and indexed. Recorded here so the next session does not rediscover it and
      assume nobody noticed.
+
+     **The recommendation given, so the next session does not re-argue it: leave it.**
+     These are ordinary company and project names, not a key and not a figure — nothing
+     exposed, only something named. The rule's real job is stopping *new* mentions, and
+     that is now automated. The cost of a rewrite is certain — every commit hash changes,
+     so every issue and pull request that cites one points at nothing, and every existing
+     clone breaks — while the benefit is speculative. **Not yet answered.**
+
+- **Two decisions were taken on zakat and one on Quick Add**, all three in Key Decisions
+  above: **both nisab standards with the user choosing** and silver as the default, **the
+  nisab fetched by a scheduled job on our side** rather than typed in or scraped, and
+  **Quick Add's type following the screen it opened from**. None of the three had been
+  written down anywhere before this entry — they existed only in conversation, which is
+  the failure mode #123 was about earlier the same day. They are recorded now, and the
+  documents that have to change are O1, O2 and O3 in `open-items.md`.
+
+- **The issue count reconciles again (#126).** With #111 closed, `CONTEXT.md` said
+  thirteen and listed twelve while the state file said twelve and GitHub said thirteen.
+  The missing one is #119, parked with ADR-012. Named rather than absorbed — a count that
+  does not reconcile is how a tracker starts being ignored.
 
 ### 2026-09-25 (Friday) — the repositioning became real: schema, sweep, spec, brief
 
@@ -1338,36 +1376,64 @@ full reasoning; this is the summary and what it means for the code.*
 
 ## What's Next
 
-**The repositioning is complete and the tracker was tidied on 25 September.** Every
-open issue is accurate, scoped and either actionable or explicitly conditional. Nothing
-is carried informally any more — if it is not an issue, it is not outstanding.
+*Refreshed 2026-09-27.*
 
-### The design is the critical path — nothing is being built
+### The immediate work: make the specs say what the design says
 
-**Agreed 25 September.** The order is: **finish the design → confirm it is done →
-plan properly → then build.** Not in parallel, and not the other way round.
+The design drop annotated every place the specs are now wrong instead of rewriting them,
+so the next session's job is the rewrite. **In this order**, because the first is a false
+promise and the rest are details:
 
-So as of now:
+1. **N4 first — `06-page-specs.md` §7.1.** *"Everything you enter stays on this device"*
+   has been **false since ADR-009** and is on `guards.py`'s forbidden list. A sentence that
+   promises something the product no longer does outranks four sentences that are merely
+   out of date.
+2. **O2 — §7.10 zakat.** The nisab is **fetched**, not owner-entered; there is no *empty*
+   state, only a **stale** one that answers from the last known value and says how old it
+   is; the screen states **which standard is in use**; the caveat names the open choices.
+   Both 27 September zakat decisions land here.
+3. **N1, N2, N3** — §B1's plan with no figure, Home's states table, the hero copy table.
+4. **§2, §2a, §7.4, §7.9** — navigation, getting back, Transactions' two segments, and
+   Settings as an **index with routes under it** rather than one screen with six sections.
 
-- **No screens are being built.** #72 is parked and re-scoped.
-- **No server exists.** There is no `services/` folder. [ADR-012](docs/adr/ADR-012-server-stack.md) chose a stack on paper and is **parked** — its first action item is *revisit this at all*, because it was written before any server existed and some of it may not survive contact. #119 is parked with it.
-- **Nothing on the build side blocks the designer**, checked item by item — `docs/open-items.md` §J·4 lists every answer we owed and its status.
+**O1 is the owner's, and it blocks a drawing.** `seed-data.md` owes the silver price per
+gram with the date read, the naira rate used, and a gold-standard nisab. **Only the owner
+puts figures in that file** (rule 2), and the gold-standard comparison sheet cannot be
+drawn until the figure exists.
 
-**The design is finished when the §H boxes in `open-items.md` are ticked.** That is
-what those boxes mean, and it is the signal both sides agreed on — delivered in parts
-is not the same as done.
+### Then: the planning pass, and only then the build
 
-**Then, and only then:** a planning pass, and after it the build.
+**Agreed 25 September and not changed:** finish the design → confirm it is done → plan
+properly → then build. The specs rewrite above is part of *confirming it is done*, not part
+of building.
 
-### Afterwards: accounts and sync
+The planning pass is where **#23–#27, #29 and #85** get acceptance criteria written against
+the product that now exists rather than the one they were written for, and where #72's
+remaining screens are ordered against 263 new artboards.
+
+### After that: accounts and sync
 
 Stories **I** and **J** in `docs/03-system-spec.md`, endpoints in
-`docs/09-endpoint-specs.md` §5a and §5b. This is the first code in `services/api/`,
-the first auth, and the first thing holding anyone else's data — so **rule 7 stops
-being a document and becomes a set of tests.**
+`docs/09-endpoint-specs.md` §5a and §5b. First code in `services/api/`, first auth, and the
+first thing holding anyone else's data — so **rule 7 stops being a document and becomes a
+set of tests.** ADR-010's required migration is already done (schema v2), so the next piece
+is the endpoints themselves.
 
-Start with the migration ADR-010 requires *before any endpoint*: the sync metadata
-exists, so the next piece is the sync endpoints themselves.
+**ADR-012 is parked and must be re-opened before any of it**, not treated as settled: it
+chose Node/Hono/Postgres/Kysely before a server existed, and its own first action item is
+*revisit this at all*.
+
+### Waiting on the owner — none of it urgent, one of it blocking a drawing
+
+| | |
+|---|---|
+| **O1** | the three zakat figures. **Blocks a drawing** |
+| **The git history** | two forbidden terms are in past commits. Recommendation given: **leave it** — see 2026-09-27. Not yet answered |
+| **#112** | branch protection is off, and gitleaks is pinned to a mutable tag rather than a SHA |
+| **#113** | hosting. Cloudflare Pages or Netlify for the static side; Render, Railway or Fly.io for server plus Postgres. **Verify the free tier's database retention in the provider's own documentation before committing** — the free Postgres tiers expire, and finding that out afterwards means finding it out from missing data |
+| **O4** | should savings destinations carry a **riba** marker? A religious position about named third parties |
+| **O5** | **irregular income** — the *float* model. v2 scope at minimum |
+| **#125 (item 125)** | **do not paywall zakat** — the nisab is one number for every user and fails §11a's own pricing test |
 
 ### The thirteen open issues, by what they are
 
@@ -1435,6 +1501,12 @@ What remains open:
 
 | Question | Status |
 |----------|--------|
+| `owner:` **Two forbidden terms are in the git history.** The working tree is clean as of 27 September; `git log -p` is not. One of them appears across roughly ten lines in `CONTEXT.md` and `peer-ai/docs/peer-ai-feedback.md` before a hand-sweep on 22 September removed it | **Open — the owner's call, and deliberately not taken.** Recommendation given: **leave it.** These are ordinary company and project names, not a key and not a figure; nothing is exposed, something is merely named. Rewriting the history of a public repository does not un-publish anything — the commits are already cloned, mirrored and indexed — while the costs are certain: every commit hash changes, so every issue and pull request citing one points at nothing, and every existing clone breaks. The rule's real job is stopping **new** mentions, and that is automated as of #125 |
+| `owner:` **O1 — the three zakat figures** `seed-data.md` owes: silver price per gram **with the date read**, the naira rate used, and a **gold-standard nisab** | **Open, and it blocks a drawing.** Only the owner puts figures in that file (rule 2). The gold-standard comparison sheet cannot be drawn without the third one, and the 27 September decision to support **both** standards is what makes it required rather than nice to have |
+| `spec:` **The nisab needs an FX rate named on screen** (item 122) | **Open — and it is a first for this product.** Every other figure here is the user's own money, correct by definition. This one is only correct if the network was reachable recently, which is why the fetch design says the screen must show **how old** the value is rather than presenting it bare. Goes into §7.10 with O2 |
+| `owner:` **O4 — should savings destinations carry a riba / interest-bearing marker?** | **Open, and not proposed by design on purpose.** It is a religious position about **named third parties**, which rule 3 touches, and §8's *never preachy* rules out the soft version. Needs the owner, not a designer or a build agent |
+| `owner:` **O5 — irregular income.** The **float** model: one new concept rather than a second cycle type | **Open. v2 scope at minimum.** Touches onboarding, Home, Plan, Months and §5a/D16, and nothing is drawn. Recorded because the case is real for the target household, not because it is next |
+| `owner:` **Item 125 — do not paywall zakat** | **Open, and design's argument is strong.** The nisab is **one number for every user**, so it fails §11a's own pricing test — a tier is for something that costs more to serve a heavier user, and this does not |
 | `design:` **Which figure does the engine use while a household disagreement is unsettled?** | **Answered 25 September, and design's proposal was backwards for the case that matters.** Design proposed *the lower of the two* as conservative. Checked against `budget.ts`: a planned amount reaches safe-to-spend only through `protectedRemaining`, which counts **protected** categories only (**D1**) — so for a **Rent fund** disagreement, taking the lower figure reserves *less* and safe-to-spend goes **up**, which is the exact harm the proposal guarded against. Design's example was Food, an expense, where the amount never enters the figure at all. **Corrected the same day, and the second answer was wrong too.** *Whichever figure produces the smaller safe-to-spend* — higher for protected, lower for expense — is maximally cautious per calculation and makes **which person's number wins flip on a category type neither of them thinks about**, so neither can predict it. Design's fourth decision was to say which figure is used and why, precisely so the app is not suspected of preferring one person; an explanation that reads as arbitrary is one step from *it preferred her*. **The rule is simply: the engine uses the higher of the two. No exceptions.** It is the conservative reading of a promise, it still never overstates safe-to-spend (expense plans do not enter that figure at all), and it is one sentence true in every case — which is what makes it explainable to two people mid-argument. Cost, not hidden: an expense envelope warns slightly later. **Awaiting the owner's confirmation** |
 | `design:` **Is the reconciliation queue blocking?** | **Answered 25 September — no, and it is now a requirement rather than a preference.** Non-blocking is the only reading consistent with the addendum's **K1**: no upsell interrupts the core journey, and a paid queue standing between someone and their safe-to-spend figure would do precisely that. Added from the behaviour side: the Home row's count must not be a badge that nags — *"8 movements to sort"* is information; a growing red dot is pressure to use a feature they pay for, applied to a screen about money they are short of |
 | `design:` **A demo export must not restore silently as real data** | **Answered 25 September — agreed, and the sharpest catch of the round.** A demo file restoring into a real account would put invented figures into someone's budget with nothing marking them, and because every figure here is *derived*, the contamination reaches safe-to-spend, the rollover and the debt balances at once, all looking equally correct. Mechanism: `ExportFile` gains `demo: true`; a demo file is **refused** on import by default, not warned about, and is restorable only into a demo session. **One place design did not name and it is worse:** the flag must survive every `schemaVersion` migration step, or it is lost exactly when the file is oldest. Issue raised |
@@ -1444,6 +1516,8 @@ What remains open:
 | Does the printable debt record carry the owner's own name, and does onboarding collect it? | Open — needed before story E5 |
 | `design:` **Does a bottom-sheet title take the voice face?** The artboards draw it serif (`class="ser"`, 24px, `QADark.dc.html`); the code renders it Inter (`apps/web/src/ui/sheet.tsx:57`, `font-structural text-h2`). The design system supports both readings and contradicts itself: §3's prose gives voice to *"screen titles"*, but the type table names EB Garamond on the `title` step **only**, and 24px is the `h2` band — and a sheet is not a screen | **Settled 23 September — it takes the voice face, and the artboard's size was wrong.** The rule is now in `tokens.md` §3: the voice face names a **surface**, the structural face names a **part** of one. A sheet is the surface while it is open — it holds focus, Escape closes it, everything behind it is inert — so its title is a `title`, not an `h2`. The reviewer was reading a real fault, but it was the size: EB Garamond's x-height is 0.407em against Inter's 0.546, so 24px serif is optically Inter 18px — *under* the `h2` it was meant to lead, and under-sized titles read as misapplied serif. The artboards are corrected to **30 / 36**, which is the `title` step already in `tailwind.config.ts`. Code change is one class: `font-structural text-h2` → `font-voice text-title` in `apps/web/src/ui/sheet.tsx`. See open item 9 |
 | `spec:` **Is Home's first section called "Categories" or "Needs attention"?** Page specs §429 writes *Categories*; the artboards label it *Needs attention*. Copy, not type — so neither authority clearly owns it | **Settled 23 September — both words are right; they are two states of one section, and the heading names what the list is showing.** There was never a conflict: page specs §429 sits inside an ASCII sketch of the *superseded* 2×2 tile Home and is not a copy spec (§7.2, lines 462–463, is). The artboards label two different things — `HomeLight` (360) heads a **ranked subset** *Needs attention* with a *Show all 8 categories* link; `DHomeLight` (1440) heads the **full table** *Categories*. The code has only the full table at both widths, so the mobile treatment is missing rather than mis-named. See open item 10 |
+
+**Answered 27 September, and it had never been written down before that:** *which* nisab standard the product uses. The answer is **both, with the user choosing**, silver by default because it is the lower threshold and therefore the cautious reading of an obligation — and the figure is **fetched by a scheduled job on our side**, never typed in by the user and never scraped from a messaging group. Both are in Key Decisions. They had existed only in conversation, which is the same failure #123 was about earlier the same day: a decision that lives in one place nobody downstream reads is not a decision anyone else has.
 
 The amber threshold is settled as **D15**. Every question raised at SETUP and in
 UNDERSTAND's clarification round is now closed.
