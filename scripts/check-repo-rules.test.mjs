@@ -30,10 +30,10 @@ function repoWith(files) {
 }
 
 /**
- * `spawnSync`, not `execFileSync`, for both streams on both paths: the guard
- * reports findings and the unconfigured warning on **stderr**, and a helper
- * that reads only stdout would have made the quiet case look silent when it is
- * not.
+ * `spawnSync`, not `execFileSync`, for both streams and both exit codes: the
+ * guard reports findings and the unconfigured failure on **stderr** while the
+ * clean line goes to stdout, and `execFileSync` throws on a non-zero exit — so
+ * a helper built on it would have to catch to read the very cases that matter.
  */
 function run(dir, env = {}) {
   const result = spawnSync('node', [GUARD], {
@@ -96,22 +96,30 @@ describe('the guard stays quiet when it should', () => {
   })
 })
 
-describe('unconfigured is announced, not assumed', () => {
-  it('exits 0 but says the rule is NOT ENFORCED', () => {
+describe('unconfigured fails, because a check that could not run did not pass', () => {
+  it('exits non-zero when no terms are loaded', () => {
     const dir = repoWith({ 'docs/notes.md': `${TERM}\n` })
     const { code, output } = run(dir)
 
-    // Passing is the right exit code — there is nothing to compare against.
-    expect(code).toBe(0)
-    // Saying nothing would not be. This is the line that stops a green tick
-    // from meaning more than it does.
-    expect(output).toContain('NOT ENFORCED')
+    // It exited 0 with a warning for the first month of this repository's life,
+    // and the warning scrolled past inside a green run. A live violation sat
+    // there the whole time. Issue #111.
+    expect(code).toBe(1)
+    expect(output).toContain('CANNOT RUN')
+  })
+
+  it('says why, so the red mark is actionable rather than mysterious', () => {
+    const { output } = run(repoWith({ 'docs/notes.md': 'ordinary\n' }))
+
+    expect(output).toContain('MIZANIYA_FORBIDDEN_TERMS')
+    expect(output).toContain('FORBIDDEN_TERMS repository secret')
   })
 
   it('annotates the run in GitHub Actions so it is visible without the log', () => {
     const dir = repoWith({ 'docs/notes.md': 'ordinary\n' })
     const { output } = run(dir, { GITHUB_ACTIONS: 'true' })
 
-    expect(output).toContain('::warning title=Repo rule 3 unenforced::')
+    // An error annotation, not a warning: a warning is what nobody read.
+    expect(output).toContain('::error title=Repo rule 3 cannot run::')
   })
 })

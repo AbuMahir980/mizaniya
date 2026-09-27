@@ -72,6 +72,12 @@ jobs:
         env:
           # The terms cannot live in the repository — that is the rule. They
           # come from a secret, and the guard prints positions, never matches.
+          #
+          # Unset is a failure, not a warning (#111): it exited 0 with a warning
+          # for the first month here and there was a live violation the whole
+          # time. So a pull request from a fork — which GitHub gives no secrets
+          # — goes red on this step, correctly: the names were not checked, and
+          # a maintainer has to run it.
           MIZANIYA_FORBIDDEN_TERMS: ${{ secrets.FORBIDDEN_TERMS }}
 
   secrets:
