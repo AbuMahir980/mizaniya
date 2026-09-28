@@ -1,9 +1,32 @@
 # CLAUDE.md — Mizaniya
 
-Mizaniya is a local-first household money app for salary-cycle budgeting, debts
-in both directions, and a sinking fund for annual rent. It is built in the open
-using the **Peer AI development workflow**, whose playbook is vendored in
-`peer-ai/`.
+Mizaniya is a household money app for salary-cycle budgeting, debts in both
+directions, and a sinking fund for annual rent. **v1 is a hosted, multi-user
+webapp with a server** — accounts, sync, tiers and a landing page — with the
+local store kept as the offline path. It is built in the open using the **Peer
+AI development workflow**, whose playbook is vendored in `peer-ai/`.
+
+> *Corrected 28 September: this paragraph opened with "a local-first household
+> money app" for four days after [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md)
+> repositioned the product. It is the first sentence every session reads.*
+
+---
+
+## 0. PAUSED — 28 September 2026, for the Peer AI rewrite
+
+**Do not start the next piece of work without checking with the owner first.**
+Peer AI is being rewritten as an **npm package with skills**, so the vendored
+`peer-ai/` playbook, the phase files named in §5 and the paths throughout this
+driver are all expected to change. The project was deliberately brought to a
+clean stop for it:
+
+- nothing unpushed, no open pull request, clean tree;
+- every record made true against its source, not against another record;
+- the unmerged T16 branch preserved on `origin` at `c11c872`.
+
+**When the new Peer AI lands, the work resumes at the spec rewrite** — `CONTEXT.md`
+§What's Next, N4 first. The order is unchanged; only the tooling beneath it moves.
+Delete this section once the migration is done.
 
 ---
 
