@@ -437,6 +437,14 @@ none, because it is read first and trusted.*
 
 ### Where the project is
 
+**Paused 28 September for the Peer AI migration, deliberately and with nothing in
+flight.** Peer AI is being rewritten as an npm package with skills, so the vendored
+`peer-ai/` playbook and the phase-file paths this project follows are all about to
+change. Rather than half-finish the spec rewrite against a workflow that is being
+replaced, the work stops here with every record made true and everything pushed, so the
+new Peer AI picks up from the latest rather than from a half-state. **Nothing is
+unpushed, no pull request is open, the tree is clean.**
+
 **The design has landed, and the specs have not caught up with it yet.** That gap is the
 whole of the near-term work. Nothing is being built.
 
@@ -474,7 +482,7 @@ open ones are **§N's N1–N4** and **§O's O1–O5** in `docs/open-items.md`:
 | **N2** | Home's states table |
 | **N3** | the hero copy table — `₦8,666.66` |
 | **N4** | `06-page-specs.md` §7.1 — *"Everything you enter stays on this device"*, **false since ADR-009** and on `guards.py`'s forbidden list. The most urgent of the four, because it is a promise, not a detail |
-| **O1** | `seed-data.md` owes three figures: the silver price per gram **with the date read**, the naira rate used, and a **gold-standard nisab**. Only the owner adds figures to that file |
+| **O1** | `seed-data.md` owes three figures: the silver price per gram **with the date read**, the naira rate used, and a **gold-standard nisab**. **Not owner-blocked — corrected 28 September.** They are invented like every other figure there |
 | **O2** | `06-page-specs.md` §7.10 — the nisab is **fetched**, not owner-entered, and there is no *empty* state, only a **stale** one |
 
 Plus `§2` navigation, `§2a` getting back, `§7.4` Transactions and `§7.9` Settings, each
@@ -487,9 +495,27 @@ on **O1**; the standards decision of 27 September unblocks the requirement, the 
 still has to be added) · Months' empty state, which is four lines against the rule that an
 empty state is a whole screen.
 
-**3. Screen building stays stopped.** #72's conformance pass is parked half-done, and
-#23–#27, #29 and #85 are `blocked:respec` — real product need, acceptance criteria written
-for a different product.
+**3. Screen building stays stopped — but #72 is no longer blocked, and nobody noticed.**
+Its own block condition reads *"Blocked until the reworked 1440 artboards land."* **They
+landed on 27 September**: Home, Plan, Transactions and Debts & Goals all exist at 1440 in
+both themes. The issue has been unblocked since the design drop merged. Its carried-forward
+per-screen checklists are a separate problem — they were written against the artboards the
+drop **replaced**, so they are superseded rather than resumable, and the owner's
+instruction is that **every screen is rebuilt** from the 263 artboards rather than
+conformed to piecemeal. #23–#27, #29 and #85 remain `blocked:respec`.
+
+**3b. `docs/08-issue-plan.md` is the *old* product's plan, and this is the largest stale
+record in the repository.** Its §6 explicitly excludes *"bank sync, household sharing,
+… and any server"* — every one of which ADR-009 made v1 work. Its cycle 3 is seven
+tickets. It counts **67 artboards**; there are **263**. The tracker inherits all of it:
+seven build issues for a twenty-one-screen hosted multi-user app with accounts, sync,
+billing, household and bank reconciliation. **So the planning pass is not re-reading
+acceptance criteria on #23–#27 — it is re-issuing the build.** Calling it a re-spec
+understated it badly, and that wording is corrected here.
+
+**The size of the gap, stated once so nobody re-derives it:** five screens are built —
+launch/welcome, onboarding, Home (half), Plan, Quick Add. Twenty-one screen families are
+drawn. The server has zero lines.
 
 **4. No server exists.** There is no `services/` folder. ADR-012 chose a stack **on paper**
 and is **parked**; its first action item is *revisit this at all*. #119 is parked with it.
@@ -506,6 +532,11 @@ and is **parked**; its first action item is *revisit this at all*. #119 is parke
 
 **All of it is now against 263 new artboards rather than the ones it was parked against**,
 which is the reason parking it was right.
+
+**The table above is kept for the record, not as a work list.** It describes progress
+against artboards that no longer exist. Every screen is rebuilt from the 263 that do —
+the owner's instruction, and the only reading consistent with a drop that replaced the
+set. The issue's block was satisfied on 27 September; see *What is NOT done* item 3.
 
 ### T16 (#23) — started, parked, and the record of it was wrong until 25 September
 
@@ -636,6 +667,61 @@ questions on purpose. Do not invent answers to them.**
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-09-28 (Monday) — the work stops for the Peer AI rewrite, and three records were lying
+
+No code, no specs, no screens. The day's work was **stopping properly**, which this
+project has learned is a thing that has to be done rather than a thing that happens.
+
+**Peer AI is being rewritten as an npm package with skills.** The vendored `peer-ai/`
+playbook, the phase files, the paths in the workflow driver — all of it changes. The
+owner's call, and the right one: **hold until it exists, push everything, make the
+records true, and let the new Peer AI pick up from the latest** rather than from a
+half-finished spec rewrite against a workflow that no longer exists.
+
+**Nothing was outstanding.** Clean tree, no stash, no open pull request, every commit
+pushed. The unmerged T16 branch is on `origin` at `c11c872`, so the 181 lines of
+`core/movement` survive the migration. Five merged branches were still on `origin` against
+the merge policy, and are the only untidiness found.
+
+**Then the records were read against their sources rather than against each other, and
+three of them were wrong.** All three had the same shape — a claim repeated until it
+looked settled, whose cited authority said something else.
+
+1. **O1 was never the owner's.** One line in `seed-data.md`, added 27 September, said
+   *"only the owner adds figures here"* and cited **§Adding to this file**. That section's
+   first rule is **"Invent them."** Rule 2 is the stakeholder's verbatim words and names no
+   gatekeeper either. **An agent invented a gate, cited a section that contradicts it, and
+   a drawing sat blocked behind it** — the gold-standard comparison sheet. The arithmetic
+   was already on the boards: ₦2,450,000 ÷ 595 g = ₦4,117.65/g. Corrected in the seed, in
+   Open Questions, and removed from *Waiting on the owner*, which is now empty of anything
+   blocking.
+
+2. **#72 has been unblocked since the design drop merged.** Its own words: *"Blocked until
+   the reworked 1440 artboards land."* They landed on 27 September — Home, Plan,
+   Transactions and Debts & Goals all exist at 1440 in both themes. The block condition was
+   satisfied by the same pull request that CONTEXT recorded as the day's headline, and
+   nobody joined the two facts. Its per-screen checklists are a second fault: they were
+   written against artboards the drop **replaced**, so they are superseded, not resumable.
+
+3. **The planning pass was described as a re-spec, and it is a re-issue.**
+   `docs/08-issue-plan.md` plans the product ADR-009 replaced — §6 excludes *"bank sync,
+   household sharing … and any server"*, cycle 3 is seven tickets, and it counts 67
+   artboards where there are now 263. The tracker inherits that shape. Five screens are
+   built, twenty-one families are drawn, the server has no code. **This is a new build with
+   five screens of salvage**, and the previous wording — *"acceptance criteria written for a
+   different product"* — made it sound like an editing job.
+
+**The one thing still owed by the owner, and it must stop being re-asked as if new:** the
+git history. The answer given was *follow the rule*, and rule 3's *"or commits"* points at
+cleaning it while the standing recommendation says leave it. The two readings conflict, and
+rewriting a public repository's history is not a thing to infer. Recorded as *answered
+once, one word outstanding* rather than as *not yet answered*, because the difference is
+what made the owner have to say it twice.
+
+**The lesson, and it is the project's own, collected for the fourth time:** a record that
+is only ever checked against another record is not checked. All three faults above survive
+any amount of internal consistency and none of them survives one reading of the source.
 
 ### 2026-09-27 (Sunday) — the design landed, and rule 3 stopped being decorative
 
@@ -1376,13 +1462,31 @@ full reasoning; this is the summary and what it means for the code.*
 
 ## What's Next
 
-*Refreshed 2026-09-27.*
+*Refreshed 2026-09-28.*
 
-### The immediate work: make the specs say what the design says
+### First: nothing, until the new Peer AI exists
+
+**The project is paused, and the pause is the plan.** Peer AI is being rewritten as an
+npm package with skills; the vendored `peer-ai/` playbook, the phase files and the paths
+in the workflow driver are all about to change. Starting the spec rewrite against a
+workflow being replaced would produce work that has to be re-homed anyway.
+
+So the 28 September session did the one thing that keeps its value across the migration:
+**made every record true and pushed everything.** Nothing is unpushed, no pull request is
+open, the tree is clean, and the unmerged T16 branch is safe on `origin` at `c11c872`.
+
+**When the new Peer AI lands, it picks up at the list below.** The order is unchanged;
+only the tooling underneath it is.
+
+### Then: make the specs say what the design says
 
 The design drop annotated every place the specs are now wrong instead of rewriting them,
-so the next session's job is the rewrite. **In this order**, because the first is a false
-promise and the rest are details:
+so the next session's job is the rewrite. **It is smaller than it reads.** All five ⚠
+flags are already in place **with the agreed replacement wording written inside them** —
+the owner's decisions of 26 and 27 September. The job is deleting struck-through text and
+the flags around it, not authoring behaviour. One sitting.
+
+**In this order**, because the first is a false promise and the rest are details:
 
 1. **N4 first — `06-page-specs.md` §7.1.** *"Everything you enter stays on this device"*
    has been **false since ADR-009** and is on `guards.py`'s forbidden list. A sentence that
@@ -1396,20 +1500,28 @@ promise and the rest are details:
 4. **§2, §2a, §7.4, §7.9** — navigation, getting back, Transactions' two segments, and
    Settings as an **index with routes under it** rather than one screen with six sections.
 
-**O1 is the owner's, and it blocks a drawing.** `seed-data.md` owes the silver price per
-gram with the date read, the naira rate used, and a gold-standard nisab. **Only the owner
-puts figures in that file** (rule 2), and the gold-standard comparison sheet cannot be
-drawn until the figure exists.
+**O1 goes alongside it, and it is nobody's blocker.** `seed-data.md` owes the silver price
+per gram with the date read, the naira rate used, and a gold-standard nisab — **invented,
+like every figure there.** The gold-standard comparison sheet cannot be drawn until they
+exist, which makes them next, not blocked. See the Open Questions row for how the
+owner-only gate got there.
 
-### Then: the planning pass, and only then the build
+### Then: the planning pass — which is a re-issue, not a re-read
 
 **Agreed 25 September and not changed:** finish the design → confirm it is done → plan
 properly → then build. The specs rewrite above is part of *confirming it is done*, not part
 of building.
 
-The planning pass is where **#23–#27, #29 and #85** get acceptance criteria written against
-the product that now exists rather than the one they were written for, and where #72's
-remaining screens are ordered against 263 new artboards.
+**What that pass actually is, restated 28 September because the old wording was far too
+small.** `docs/08-issue-plan.md` plans the product that ADR-009 replaced: it excludes the
+server and every feature the repositioning pulled into v1, its cycle 3 is seven tickets,
+and it counts 67 artboards against today's 263. The tracker inherits that shape. So the
+pass **rewrites the issue plan for the repositioned product and re-issues the build**, with
+#23–#27, #29 and #85 re-written or replaced inside it rather than merely re-read, and #72
+re-scoped to *rebuild every screen from the 263 artboards*. Five screens are built;
+twenty-one families are drawn; the server has no code. **This is a new build with five
+screens of salvage, and planning it as an edit to the old plan would fail the same way the
+old plan did.**
 
 ### After that: accounts and sync
 
@@ -1423,12 +1535,15 @@ is the endpoints themselves.
 chose Node/Hono/Postgres/Kysely before a server existed, and its own first action item is
 *revisit this at all*.
 
-### Waiting on the owner — none of it urgent, one of it blocking a drawing
+### Waiting on the owner — none of it urgent, and none of it blocking
+
+*Corrected 28 September: **O1 was listed here and does not belong.** The figures are
+invented like every other figure in the seed, so they are work, not a decision. Removing
+it empties this list of anything that blocks a drawing.*
 
 | | |
 |---|---|
-| **O1** | the three zakat figures. **Blocks a drawing** |
-| **The git history** | two forbidden terms are in past commits. Recommendation given: **leave it** — see 2026-09-27. Not yet answered |
+| **The git history** | two forbidden terms are in past commits. **The owner has answered once — *follow the rule* — and the two readings of that conflict:** rule 3 says *"or commits"*, which points at cleaning it; the standing recommendation is to leave it. One word settles it. Do not present this as never-raised |
 | **#112** | branch protection is off, and gitleaks is pinned to a mutable tag rather than a SHA |
 | **#113** | hosting. Cloudflare Pages or Netlify for the static side; Render, Railway or Fly.io for server plus Postgres. **Verify the free tier's database retention in the provider's own documentation before committing** — the free Postgres tiers expire, and finding that out afterwards means finding it out from missing data |
 | **O4** | should savings destinations carry a **riba** marker? A religious position about named third parties |
@@ -1446,7 +1561,7 @@ difference is named rather than quietly absorbed.
 |---|---|
 | **Actionable now** | **#106** a demo export must not restore as real data |
 | **Needs the owner's hands** | **#112** branch protection off, gitleaks on a mutable tag · **#113** hosting, and verify the free tier's retention *before* committing |
-| **Blocked on the designer** | **#72** the conformance pass, re-scoped — 360 work still valid, four 1440 screens being redrawn |
+| **Unblocked 27 Sep, noticed 28 Sep** | **#72** — its block read *"until the reworked 1440 artboards land"*, and they landed with the design drop. Needs re-scoping to *rebuild every screen from the 263 artboards*; its per-screen checklists are superseded, not resumable |
 | **`blocked:respec`** | **#23–#27, #29, #85** — real product need, acceptance criteria written for a different product. Re-read the specs before building |
 | **Conditional** | **#58** first-cycle movements, needed only if story F2 is built |
 
@@ -1501,8 +1616,8 @@ What remains open:
 
 | Question | Status |
 |----------|--------|
-| `owner:` **Two forbidden terms are in the git history.** The working tree is clean as of 27 September; `git log -p` is not. One of them appears across roughly ten lines in `CONTEXT.md` and `peer-ai/docs/peer-ai-feedback.md` before a hand-sweep on 22 September removed it | **Open — the owner's call, and deliberately not taken.** Recommendation given: **leave it.** These are ordinary company and project names, not a key and not a figure; nothing is exposed, something is merely named. Rewriting the history of a public repository does not un-publish anything — the commits are already cloned, mirrored and indexed — while the costs are certain: every commit hash changes, so every issue and pull request citing one points at nothing, and every existing clone breaks. The rule's real job is stopping **new** mentions, and that is automated as of #125 |
-| `owner:` **O1 — the three zakat figures** `seed-data.md` owes: silver price per gram **with the date read**, the naira rate used, and a **gold-standard nisab** | **Open, and it blocks a drawing.** Only the owner puts figures in that file (rule 2). The gold-standard comparison sheet cannot be drawn without the third one, and the 27 September decision to support **both** standards is what makes it required rather than nice to have |
+| `owner:` **Two forbidden terms are in the git history.** The working tree is clean as of 27 September; `git log -p` is not. One of them appears across roughly ten lines in `CONTEXT.md` and `peer-ai/docs/peer-ai-feedback.md` before a hand-sweep on 22 September removed it | **Open — and the 28 September session must not present it as never-raised again.** The owner has said they answered it, in the terms *follow the rule*; rule 3 is verbatim and reads *"anywhere in code, comments, docs **or commits**"*, which points at cleaning the history and away from the standing recommendation. **The two readings genuinely conflict**, and rewriting a public repository's history is not something to infer, so the one word — *clean it* or *leave it* — is still owed. Recommendation unchanged: **leave it.** These are ordinary company and project names, not a key and not a figure; nothing is exposed, something is merely named. Rewriting the history of a public repository does not un-publish anything — the commits are already cloned, mirrored and indexed — while the costs are certain: every commit hash changes, so every issue and pull request citing one points at nothing, and every existing clone breaks. The rule's real job is stopping **new** mentions, and that is automated as of #125 |
+| ~~`owner:`~~ **O1 — the three zakat figures** `seed-data.md` owes: silver price per gram **with the date read**, the naira rate used, and a **gold-standard nisab** | **Not a question, and never was the owner's — corrected 28 September.** Exactly one line in the repository claimed only the owner may add figures there (`seed-data.md`, added 27 September), and it cited §Adding to this file as its authority. That section says the opposite: its first rule is *"Invent them."* Rule 2 is the stakeholder's verbatim words and names no gatekeeper either. **An agent invented a gate, cited a section contradicting it, and blocked a drawing on it.** The arithmetic is already on the boards — ₦2,450,000 ÷ 595 g = **₦4,117.65/g** — so writing that forward plus an invented FX rate and an invented 85 g figure is one sitting's work whenever it resumes. The owner may supply them; nothing requires it |
 | `spec:` **The nisab needs an FX rate named on screen** (item 122) | **Open — and it is a first for this product.** Every other figure here is the user's own money, correct by definition. This one is only correct if the network was reachable recently, which is why the fetch design says the screen must show **how old** the value is rather than presenting it bare. Goes into §7.10 with O2 |
 | `owner:` **O4 — should savings destinations carry a riba / interest-bearing marker?** | **Open, and not proposed by design on purpose.** It is a religious position about **named third parties**, which rule 3 touches, and §8's *never preachy* rules out the soft version. Needs the owner, not a designer or a build agent |
 | `owner:` **O5 — irregular income.** The **float** model: one new concept rather than a second cycle type | **Open. v2 scope at minimum.** Touches onboarding, Home, Plan, Months and §5a/D16, and nothing is drawn. Recorded because the case is real for the target household, not because it is next |

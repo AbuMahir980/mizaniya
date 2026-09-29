@@ -1,11 +1,11 @@
 {
-  "currentPhase": "build",
+  "currentPhase": "spec-pages",
   "currentStep": 1,
-  "phaseFile": "peer-ai/frontend/03-build.md",
-  "cycle": "Design landed — the specs have not caught up. Nothing is being built",
+  "phaseFile": "peer-ai/frontend/01-spec-pages.md",
+  "cycle": "Paused 28 Sep for the Peer AI rewrite — records true, nothing in flight",
   "milestoneBranch": "",
   "ticket": "",
-  "ticketTitle": "Rewrite the specs to match the design (N1-N4, O2), then plan, then build",
+  "ticketTitle": "Rewrite the specs to match the design (N4, O2, N1-N3), then re-issue the build plan",
   "ticketsCompleted": [
     "#8",
     "#9",
@@ -60,9 +60,9 @@
     "#113"
   ],
   "pendingAgents": [],
-  "lastVerifyResult": "green — naming, spacing, lint, typecheck, 418 tests, build",
-  "lastVerifyTimestamp": "2026-09-27",
+  "lastVerifyResult": "pass",
+  "lastVerifyTimestamp": "2026-09-28",
   "pdfExportOffered": "",
-  "lastUpdated": "2026-09-27",
-  "notes": "NEXT ACTION: rewrite the specs to match the merged design — N4 FIRST (06-page-specs §7.1 promises \"stays on this device\", false since ADR-009 and on guards.py's forbidden list), then O2 (§7.10 zakat: nisab fetched not owner-entered, stale not empty), then N1/N2/N3, then §2/§2a/§7.4/§7.9. All annotated in place with the old wording struck through. See CONTEXT.md \"What's Next\" for the order and why. ORDER IS FIXED (agreed 25 Sep): finish design -> confirm done -> plan -> build. Not in parallel. Nothing is being built: #72 parked, #23-#27/#29/#85 blocked:respec, NO SERVER EXISTS (no services/ folder; ADR-012 parked, its first action item is \"revisit this at all\"; #119 parked with it). OWNER-BLOCKED: O1 three zakat figures (BLOCKS A DRAWING, rule 2 = owner only); the git history question (two forbidden terms in past commits, recommendation is leave it, not yet answered); #112 branch protection; #113 hosting (verify free-tier DB retention in the provider's own docs FIRST); O4 riba marker; O5 irregular income. Layout: npm workspace — apps/web/src is the app, packages/core/src is @mizaniya/core/<module>, @/ means apps/web/src. Root commands unchanged. All seven rules binding, and rule 3 is genuinely enforced as of 27 Sep (#111 closed). 13 open issues — 12 actionable plus #119 parked. Never git add -A: the designer writes into this worktree."
+  "lastUpdated": "2026-09-28",
+  "notes": "PAUSED for the Peer AI rewrite (npm package + skills) — nothing in flight, nothing unpushed. READ CONTEXT.md at app root: 'Current State', 'What's Next' and the 2026-09-28 entry. Next action when work resumes: the spec rewrite, N4 first."
 }
