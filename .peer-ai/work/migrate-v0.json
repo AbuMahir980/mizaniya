@@ -4,8 +4,9 @@
   "id": "migrate-v0",
   "title": "Finish the move from v0",
   "kind": "migration",
-  "stage": "prepare",
+  "stage": "build",
   "branch": "peer-ai/migrate-1.0",
+  "base": "7367c6a209cf50f25ed7bbc6b54d5b75fd36d1c1",
   "acceptance": [
     "Decided: v0's text moved out of CLAUDE.md.",
     "Decided: phase-config.json blocks the project has changed since.",
@@ -21,6 +22,6 @@
   "sources": [
     "docs/peer-ai-migration.md"
   ],
-  "next": "Go through docs/peer-ai-migration.md with the person, one decision at a time.",
-  "updatedAt": "2026-10-06T18:11:15.245Z"
+  "next": "Every decision is made: verify, run the reviews the change needs, then ship.",
+  "updatedAt": "2026-10-06T19:31:39.457Z"
 }
