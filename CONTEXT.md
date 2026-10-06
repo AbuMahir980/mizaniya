@@ -539,15 +539,16 @@ set. The issue's block was satisfied on 27 September; see *What is NOT done* ite
 ### T16 (#23) — started, parked, and the record of it was wrong until 25 September
 
 `core/movement` — 181 lines, the eight movements and the list's derivations — **has never
-reached `main`.** It exists only on the unmerged branch
-`feature/transactions-and-editing`, at commit `c11c872`. CONTEXT claimed for two days that
-it was merged.
+reached `main`.** It exists only as commit `c11c872`, kept by the tag
+`archive/t16-movement` since 6 October, when its branch, `feature/transactions-and-editing`,
+was deleted. CONTEXT claimed for two days that it was merged.
 
 **Two things stand between it and `main`:** its paths are all `src/…`, which the workspace
 extraction replaced, and its `movement-draft.ts` predates schema v2. Landing it is a port
-plus a reconciliation, not a merge. **The branch is kept deliberately** — deleting it makes
-the commit unreachable, and 181 lines of worked-through domain logic beats a tidy branch
-list.
+plus a reconciliation, not a merge. **The commit is kept deliberately**, as a tag rather
+than a branch, so it stays reachable without sitting in the branch list: 181 lines of
+worked-through domain logic beats a tidy branch list, and a tag gives both. To work from it:
+`git switch -c <branch> archive/t16-movement`.
 
 ### Three guarantees are held by tests that break them on purpose
 
@@ -701,6 +702,10 @@ in the same pull request,** rather than merged half-done:
   sent and fixed on 11 September.
 - **Making `peer-ai check` a required check is the owner's**, along with branch protection
   as a whole.
+
+**The branch list was tidied the same day.** The merged `chore/records-true-before-the-peer-ai-migration`
+went, and so did T16's branch, once its commit was kept by the tag `archive/t16-movement`.
+Only `main` is left.
 
 ### 2026-09-28 (Monday) — the work stops for the Peer AI rewrite, and three records were lying
 
