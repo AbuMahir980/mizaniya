@@ -437,13 +437,11 @@ none, because it is read first and trusted.*
 
 ### Where the project is
 
-**Paused 28 September for the Peer AI migration, deliberately and with nothing in
-flight.** Peer AI is being rewritten as an npm package with skills, so the vendored
-`peer-ai/` playbook and the phase-file paths this project follows are all about to
-change. Rather than half-finish the spec rewrite against a workflow that is being
-replaced, the work stops here with every record made true and everything pushed, so the
-new Peer AI picks up from the latest rather than from a half-state. **Nothing is
-unpushed, no pull request is open, the tree is clean.**
+**On Peer AI 1.0 since 6 October, and ready to resume.** The pause of 28 September
+held until the new Peer AI existed; the migration replaced the vendored `peer-ai/`
+playbook and `.peer-ai-state.json` with `peer-ai.config.json`, the work items in
+`.peer-ai/` and the instructions block in `CLAUDE.md`. Nothing else moved: the work
+resumes where the pause left it, at the spec rewrite.
 
 **The design has landed, and the specs have not caught up with it yet.** That gap is the
 whole of the near-term work. Nothing is being built.
@@ -667,6 +665,42 @@ questions on purpose. Do not invent answers to them.**
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-10-06 (Tuesday) — the move to Peer AI 1.0
+
+The pause of 28 September ended the way it was meant to: **the new Peer AI exists, and
+the project is on it.** No code, no specs, no screens changed.
+
+**What replaced what.** `peer-ai migrate` read the vendored copy and turned what it could
+read with certainty into `peer-ai.config.json`: the verify command, the tracker, branch
+naming, the merge policy, the design reference, the models, the standards documents, and
+each phase's notes as notes on the skill that does that work now. Then it deleted
+`peer-ai/` and `.peer-ai-state.json` — git keeps both, at `0b6e325` — and set up the
+instructions block in `CLAUDE.md`, the MCP server, the skills and Peer AI's CI gate,
+`peer-ai.yml`. The state file's job passes to Peer AI's work items in `.peer-ai/`.
+
+**What it could not decide, it listed — nine decisions — and they were made the same day,
+in the same pull request,** rather than merged half-done:
+
+- **The project's own rules came back into `CLAUDE.md`, in its own words.** They had lived
+  inside v0's workflow driver, so the migration took them out with it: never `git add -A`,
+  PR descriptions with no attribution, squash and delete, stacked pull requests, the
+  design read from the PNG first, the tracker's labels, the session-end save. A session
+  reading `CLAUDE.md` without them would have broken rules this project paid to learn.
+- **The phase notes were cut to what is still true.** Several contradicted ADR-009 — *local-
+  first, do not reopen*, *no server in v1*, *the designs do not exist yet* — and would have
+  been read as current by every session. They now point at the ADRs and the endpoint
+  specs instead.
+- **`money` joined `offline` as a trait,** so Peer AI's money rules apply beside H1–H5.
+- **The frontend standard now covers `core` as well as `web`**, since money, types and
+  testing (H, G, K) govern the domain logic too.
+- **The description is the current one** — a household money app, not a local-first one —
+  in the config and `package.json`.
+- **`docs/peer-ai-feedback.md` is deleted.** Its one open item, a vendored copy that can't
+  tell anyone it is stale, is what an npm package with update checks fixes; the rest were
+  sent and fixed on 11 September.
+- **Making `peer-ai check` a required check is the owner's**, along with branch protection
+  as a whole.
 
 ### 2026-09-28 (Monday) — the work stops for the Peer AI rewrite, and three records were lying
 
@@ -1462,9 +1496,15 @@ full reasoning; this is the summary and what it means for the code.*
 
 ## What's Next
 
-*Refreshed 2026-09-28.*
+*Refreshed 2026-10-06.*
 
-### First: nothing, until the new Peer AI exists
+### Done: the move to Peer AI 1.0
+
+The new Peer AI exists, and the project moved onto it on 6 October — see that day's
+entry. What follows is unchanged from 28 September, which is the point of having
+stopped cleanly.
+
+### Kept for the record: why the work paused on 28 September
 
 **The project is paused, and the pause is the plan.** Peer AI is being rewritten as an
 npm package with skills; the vendored `peer-ai/` playbook, the phase files and the paths

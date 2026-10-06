@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Local-first household money app for salary-cycle budgeting, envelopes, and debts in both directions.",
+  "description": "A household money app for salary-cycle budgeting, debts in both directions, and a sinking fund for annual rent.",
   "license": "SEE LICENSE IN LICENSE",
   "engines": {
     "node": ">=20"
@@ -19,7 +19,6 @@
     "test:watch": "vitest",
     "verify": "npm run naming && npm run spacing && npm run lint && npm run typecheck && npm run test && npm run build",
     "naming": "node scripts/check-naming.mjs",
-    "peer-ai:check": "node peer-ai/check-upstream.mjs",
     "seed": "vite-node -c vitest.config.ts scripts/seed.ts",
     "spacing": "node scripts/check-spacing.mjs"
   },

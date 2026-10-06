@@ -1,0 +1,94 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "migrate-v0",
+  "title": "Finish the move from v0",
+  "kind": "migration",
+  "stage": "ship",
+  "branch": "peer-ai/migrate-1.0",
+  "base": "7367c6a209cf50f25ed7bbc6b54d5b75fd36d1c1",
+  "acceptance": [
+    "Decided: v0's text moved out of CLAUDE.md.",
+    "Decided: phase-config.json blocks the project has changed since.",
+    "Decided: Settings migrate couldn't place.",
+    "Decided: The project's standards documents.",
+    "Decided: Work carried over from v0's state.",
+    "Decided: Files the project changed in peer-ai/ (33).",
+    "Decided: package.json scripts that only ran v0's files.",
+    "Decided: Left as they were.",
+    "Decided: Make Peer AI's CI gate a required check.",
+    "Every decision in docs/peer-ai-migration.md is made, and the file is deleted."
+  ],
+  "sources": [
+    "docs/peer-ai-migration.md"
+  ],
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-06T19:32:05.351Z",
+    "commit": "33490d5feb01211e8f5e4e85a9ab861ecd5a477d"
+  },
+  "reviews": [
+    {
+      "skill": "infrastructure-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/migrate-v0/infrastructure-review-20261006T1945Z.json",
+      "summary": "Pass, with nothing open. The new Peer AI workflow reads the repository only, pins its actions to commits and Peer AI to an exact version, keeps no credentials, and deploys nothing. The MCP registration and session hook start a local tool with no secrets.",
+      "at": "2026-10-06T21:53:46.046Z",
+      "commit": "33490d5feb01211e8f5e4e85a9ab861ecd5a477d"
+    },
+    {
+      "skill": "dependency-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/migrate-v0/dependency-review-20261006T1945Z.json",
+      "summary": "Pass, with nothing open. No dependency is added or changed: package.json loses a v0 script and gets the current description. Peer AI, which replaces the vendored copy, runs at an exact version from the public registry under MIT.",
+      "at": "2026-10-06T21:53:46.482Z",
+      "commit": "33490d5feb01211e8f5e4e85a9ab861ecd5a477d"
+    },
+    {
+      "skill": "qa-acceptance",
+      "result": "pass",
+      "report": ".peer-ai/reports/migrate-v0/qa-acceptance-20261006T1950Z.json",
+      "summary": "Pass, with nothing open: all ten criteria hold, each checked by reading the file that settles it. Built beyond the item, at the owner's request on 6 October: the money trait, the current description, and ignoring .DS_Store so the migration started from a clean tree. Two numbered docs still name a deleted v0 file; the map flags them for the spec rewrite.",
+      "at": "2026-10-06T21:53:46.870Z",
+      "commit": "33490d5feb01211e8f5e4e85a9ab861ecd5a477d"
+    }
+  ],
+  "waived": [
+    {
+      "skill": "code-review",
+      "reason": "The migration changes no application code: its one code edit removes peer-ai from ESLint's ignore list, and the rest deletes v0's own scripts.",
+      "by": "Qudus Lawal",
+      "at": "2026-10-06T21:53:47.263Z"
+    },
+    {
+      "skill": "security-review",
+      "reason": "The migration changes no application code: its one code edit removes peer-ai from ESLint's ignore list, and the rest deletes v0's own scripts.",
+      "by": "Qudus Lawal",
+      "at": "2026-10-06T21:53:47.544Z"
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "code-review",
+      "reason": "it changes code"
+    },
+    {
+      "skill": "security-review",
+      "reason": "it changes code, at the mvp stage"
+    },
+    {
+      "skill": "dependency-review",
+      "reason": "it changes a dependency file or lockfile"
+    },
+    {
+      "skill": "infrastructure-review",
+      "reason": "it changes infrastructure or deployment"
+    },
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
+  "next": "Every decision is made: verify, run the reviews the change needs, then ship.",
+  "updatedAt": "2026-10-06T21:53:59.969Z"
+}

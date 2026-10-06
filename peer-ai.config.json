@@ -1,0 +1,200 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/config.schema.json",
+  "version": 1,
+  "project": {
+    "name": "Mizaniya",
+    "description": "A household money app for salary-cycle budgeting, debts in both directions, and a sinking fund for annual rent.",
+    "stage": "mvp",
+    "origin": "existing",
+    "team": "solo",
+    "traits": [
+      "money",
+      "offline"
+    ]
+  },
+  "tools": [
+    "claude-code"
+  ],
+  "tracks": [
+    {
+      "id": "web",
+      "kind": "web",
+      "path": "apps/web",
+      "stack": [
+        "typescript",
+        "react"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "core",
+      "kind": "library",
+      "path": "packages/core",
+      "stack": [
+        "typescript"
+      ],
+      "status": "active"
+    }
+  ],
+  "repo": {
+    "host": "github",
+    "remote": "origin",
+    "branchNaming": "feature/{slug}",
+    "mergePolicy": "pull-request"
+  },
+  "delivery": {
+    "ci": "existing",
+    "pipeline": ".github/workflows/"
+  },
+  "standards": {
+    "enforcement": "report",
+    "documents": [
+      {
+        "path": "docs/standards/frontend-engineering-standards.md",
+        "role": "standard",
+        "scope": [
+          "web",
+          "core"
+        ]
+      },
+      {
+        "path": "docs/standards/standards-addendum-mizaniya.md",
+        "role": "addendum"
+      }
+    ],
+    "onExisting": "map",
+    "profiles": [
+      "react",
+      "typescript"
+    ]
+  },
+  "gates": {
+    "blockOn": "critical"
+  },
+  "design": {
+    "status": "exists",
+    "reference": "docs/design/"
+  },
+  "tracker": {
+    "kind": "github",
+    "project": "AbuMahir980/mizaniya"
+  },
+  "commands": {
+    "verify": "npm run verify"
+  },
+  "models": {
+    "policy": "pinned",
+    "default": "Fable",
+    "byActivity": {
+      "delivery-setup": "Opus",
+      "build": "Opus"
+    }
+  },
+  "capabilities": {
+    "requirements-analysis": {
+      "notes": [
+        "`docs/product-brief.md` is the requirements source and `docs/seed-data.md` holds the only figures you may use. Read both before asking anything; arrive with a draft understanding to correct, not a blank page. The stakeholder is the user — ask about how the spreadsheet is actually used, not what sounds impressive."
+      ]
+    },
+    "architecture": {
+      "also": [
+        "engineering:architecture",
+        "engineering:system-design"
+      ],
+      "notes": [
+        "The decisions are the ADRs in `docs/adr/`, one per decision: read them before proposing a change, and write a new one rather than editing an old one. ADR-009 made v1 a hosted webapp with a server, with the local store kept as the offline path. ADR-012, which chose the server's stack, is parked: reopen it before any server work."
+      ]
+    },
+    "system-design": {
+      "also": [
+        "product-management:write-spec"
+      ],
+      "notes": [
+        "Every user story names its states (loading, empty, error, offline, success) and the exact numbers the screen shows. Money is always `{ amount, type }` in kobo (frontend H1, H5)."
+      ]
+    },
+    "api-design": {
+      "notes": [
+        "The `Repository` interface and the JSON export/import schema in `core/` are contracts too. Write each once, as TypeScript types plus a runtime schema, and derive the documents from them — never hand-write the same shape twice (frontend G2, G4). The server's endpoints are specified in `docs/09-endpoint-specs.md`."
+      ]
+    },
+    "issue-planning": {
+      "also": [
+        "engineering:tech-debt"
+      ],
+      "notes": [
+        "Anything not in `docs/product-brief.md` goes to `docs/backlog.md`, not into an issue for this build."
+      ]
+    },
+    "documentation": {
+      "also": [
+        "engineering:documentation"
+      ],
+      "notes": [
+        "README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/engineering-notes/` is part of the documentation set."
+      ]
+    },
+    "product-spec": {
+      "also": [
+        "design:accessibility-review",
+        "design:ux-copy"
+      ],
+      "notes": [
+        "The design exists, in `docs/design/`, and the specs follow it: where a spec and the design disagree, name it and ask in `docs/open-items.md`. Each spec gives every state (loading, empty, error, offline, success), every number shown and where it comes from in `core/`, the primary action, and what the danger colour means on that screen (addendum: money going wrong, nothing else).",
+        "`design:ux-copy`: the words on the screen, in British English, in the user's vocabulary (frontend O4). `design:accessibility-review`: target sizes, contrast, motion, screen-reader paths (frontend J)."
+      ]
+    },
+    "implement-ticket": {
+      "notes": [
+        "Learning mode was replaced on 2026-09-24 — see `CLAUDE.md` §4. There is no three-line file header and no `docs/concepts/`. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one commit per item are in `CONTEXT.md`."
+      ]
+    },
+    "code-review": {
+      "also": [
+        "engineering:code-review"
+      ],
+      "notes": [
+        "Review against, in this order: `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist, and the `auto` rules should already be green in CI, so a red one is a CI defect too; `docs/standards/standards-addendum-mizaniya.md` — kobo, what the danger colour means, the core journey; the repo rules in `CONTEXT.md` — no real figures, no employer or client names, no secrets.",
+        "Count, don't judge: C1 (a prop passes through at most 2 components), D1 (at most 150 lines), D2 (at most 7 props), E1/E2 (the third duplicate extracts; money and validation extract on the first repeat), H3 (no money arithmetic in a component).",
+        "One finding = one location + one fix. Correctness before style. Findings go to the user as a table before anything is changed.",
+        "Claude Code's `/code-review` reads the real diff, so prefer it over pasting code into a prompt."
+      ]
+    },
+    "test-strategy": {
+      "also": [
+        "engineering:testing-strategy"
+      ],
+      "notes": [
+        "The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export → import round-trip (M3). Test by role and label, not test id (K3)."
+      ]
+    },
+    "security-review": {
+      "notes": [
+        "**On this project, also work through:** secrets (none in the repo, `.env` ignored, secret scanning in CI); dependency audit against the pinned lockfile; input validation at every boundary with a schema (frontend G4) — imports especially, since an export file is untrusted input; the user's financial data at rest in IndexedDB (what a shared device or a browser extension can read; what the export contains; no telemetry per M2); and that no screenshot, fixture or test carries real figures (M1)."
+      ]
+    },
+    "qa-acceptance": {
+      "notes": [
+        "**The test matrix starts from the core journey in the addendum (K1)** and from the states each page spec declares; a state the spec names but the matrix omits is a QA defect."
+      ]
+    },
+    "contract-check": {
+      "notes": [
+        "The contracts are the `Repository` interface and the export/import schema in `core/`, and, once the server exists, `docs/09-endpoint-specs.md`. Check the screens against them, and the generated contract doc against the source types."
+      ]
+    }
+  },
+  "activities": {
+    "standards": {
+      "notes": [
+        "This project already has its standards in `docs/standards/`, plus the addendum. Don't write a competing one or walk through generic defaults: map each `auto` rule to its ESLint, tsconfig or CI enforcement in `docs/05-coding-standards.md`, and each `review` rule to the checklist in `CONTEXT.md`. Delete nothing from the standards; propose changes instead.",
+        "`design:design-system`: token discipline and component conventions, against `docs/design/tokens.md`."
+      ]
+    },
+    "delivery-setup": {
+      "notes": [
+        "CI exists in `.github/workflows/`: extend it rather than starting over. Its target, from the original plan: install with the pinned lockfile; lint (every `auto` rule in `docs/standards/` has a lint or tsconfig backing); typecheck; unit tests for `core/` with a coverage gate on money modules (frontend H4, K2); component tests; the Playwright core journey (addendum K1); secret scanning; the contract-doc regeneration diff. Nothing merges red."
+      ]
+    }
+  }
+}
