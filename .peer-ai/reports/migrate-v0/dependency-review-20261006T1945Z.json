@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "skill": "dependency-review",
+  "workItem": "migrate-v0",
+  "at": "2026-10-06T19:45:00Z",
+  "scope": {
+    "base": "7367c6a209cf50f25ed7bbc6b54d5b75fd36d1c1",
+    "head": "33490d5feb01211e8f5e4e85a9ab861ecd5a477d",
+    "tracks": [
+      "web",
+      "core"
+    ],
+    "files": [
+      "package.json",
+      ".github/workflows/peer-ai.yml",
+      ".mcp.json",
+      ".claude/settings.json"
+    ]
+  },
+  "inputs": [
+    "package.json",
+    "package-lock.json",
+    "peer-ai.config.json",
+    "LICENSE"
+  ],
+  "inventory": [
+    {
+      "id": "manifest:package.json",
+      "kind": "manifest",
+      "location": {
+        "file": "package.json",
+        "line": 6,
+        "endLine": 21
+      }
+    },
+    {
+      "id": "tool:peer-ai",
+      "kind": "tool",
+      "location": {
+        "file": ".github/workflows/peer-ai.yml",
+        "line": 24
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "DEL-01",
+      "item": "manifest:package.json",
+      "status": "pass",
+      "evidence": "package.json changes only its description (line 6) and drops the peer-ai:check script; no dependency is added or changed, and package-lock.json is untouched by the change."
+    },
+    {
+      "rule": "DEL-01",
+      "item": "tool:peer-ai",
+      "status": "pass",
+      "evidence": "Peer AI is run at an exact version everywhere it's named: peer-ai@1.0.0-next.14 in peer-ai.yml:24, .mcp.json:7 and .claude/settings.json:9."
+    },
+    {
+      "rule": "DEL-02",
+      "item": "tool:peer-ai",
+      "status": "pass",
+      "evidence": "Peer AI isn't a dependency of the product; it replaces the vendored v0 copy deleted in this change, which the pull request and CONTEXT.md's 6 October entry explain."
+    },
+    {
+      "rule": "DEL-03",
+      "status": "pass",
+      "evidence": "No dependency is added or changed, so none brings a vulnerability; the project's existing checks are unchanged."
+    },
+    {
+      "rule": "DEL-09",
+      "item": "tool:peer-ai",
+      "status": "pass",
+      "evidence": "There's no .npmrc, so npx fetches peer-ai from npm's public registry, where it's published with provenance; the project has no private package that could share its name."
+    },
+    {
+      "rule": "DEL-11",
+      "item": "tool:peer-ai",
+      "status": "pass",
+      "evidence": "Peer AI is MIT-licensed and runs only as a development tool; it isn't distributed with the product, so the project's PolyForm Noncommercial licence is unaffected."
+    },
+    {
+      "rule": "DEL-07",
+      "status": "not-applicable",
+      "reason": "Nothing in this change ships to production: Peer AI runs only in CI and on developers' machines, and the app's build is unchanged."
+    },
+    {
+      "rule": "DEL-10",
+      "status": "not-applicable",
+      "reason": "No shipped dependency is added or changed, so the list of what ships doesn't change."
+    },
+    {
+      "rule": "DEL-12",
+      "item": "tool:peer-ai",
+      "status": "pass",
+      "evidence": "Peer AI is the project owner's own package, maintained and published from github.com/AbuMahir980/peer-ai with provenance; it has no install script, and its name isn't one slip from another package."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass, with nothing open. No dependency is added or changed: package.json loses a v0 script and gets the current description. Peer AI, which replaces the vendored copy, runs at an exact version from the public registry under MIT."
+}

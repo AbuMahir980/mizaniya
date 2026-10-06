@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "skill": "infrastructure-review",
+  "workItem": "migrate-v0",
+  "at": "2026-10-06T19:45:00Z",
+  "scope": {
+    "base": "7367c6a209cf50f25ed7bbc6b54d5b75fd36d1c1",
+    "head": "33490d5feb01211e8f5e4e85a9ab861ecd5a477d",
+    "tracks": [
+      "web",
+      "core"
+    ],
+    "files": [
+      ".github/workflows/peer-ai.yml",
+      ".mcp.json",
+      ".claude/settings.json"
+    ]
+  },
+  "inputs": [
+    "peer-ai.config.json",
+    ".github/workflows/pr-checks.yml",
+    "CLAUDE.md §5",
+    "docs/adr/ADR-009-repositioning-v1-hosted-webapp.md"
+  ],
+  "inventory": [
+    {
+      "id": "workflow:peer-ai",
+      "kind": "ci-workflow",
+      "location": {
+        "file": ".github/workflows/peer-ai.yml",
+        "line": 1,
+        "endLine": 24
+      }
+    },
+    {
+      "id": "mcp:peer-ai",
+      "kind": "tool-registration",
+      "location": {
+        "file": ".mcp.json",
+        "line": 1,
+        "endLine": 12
+      }
+    },
+    {
+      "id": "hook:session-start",
+      "kind": "tool-hook",
+      "location": {
+        "file": ".claude/settings.json",
+        "line": 1,
+        "endLine": 15
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "SEC-10",
+      "item": "workflow:peer-ai",
+      "status": "pass",
+      "evidence": "peer-ai.yml:8-24 uses no secrets and no tokens: permissions are contents: read, and checkout sets persist-credentials: false, so no credential is left in the job."
+    },
+    {
+      "rule": "SEC-10",
+      "item": "mcp:peer-ai",
+      "status": "pass",
+      "evidence": ".mcp.json:1-12 holds only a command and its arguments, with no keys, tokens or environment values."
+    },
+    {
+      "rule": "SEC-10",
+      "item": "hook:session-start",
+      "status": "pass",
+      "evidence": ".claude/settings.json:1-15 runs one command with no credentials in it."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "not-applicable",
+      "reason": "Nothing in scope sends or accepts traffic between apps or services: the workflow runs a check inside GitHub Actions, and the other two files start a local tool."
+    },
+    {
+      "rule": "SEC-23",
+      "status": "not-applicable",
+      "reason": "No TLS configuration in scope: no server, hosting platform or certificate is set up by this change."
+    },
+    {
+      "rule": "SEC-28",
+      "item": "workflow:peer-ai",
+      "status": "pass",
+      "evidence": "peer-ai.yml:8-9 grants only contents: read, the least the check needs to read the repository; it can't write, comment or publish."
+    },
+    {
+      "rule": "SEC-29",
+      "status": "pass",
+      "evidence": "Nothing in scope exposes anything: peer-ai.yml runs on pull_request only and publishes nothing, and .mcp.json starts a local process over stdio, with no port opened."
+    },
+    {
+      "rule": "DEL-06",
+      "status": "pass",
+      "evidence": "The change deploys nothing and adds no way to reach production: peer-ai.yml:6-24 only runs peer-ai check on a pull request. Production deployment doesn't exist yet (ADR-009's server isn't built), and the merge policy in CLAUDE.md §5 keeps every change on a pull request with checks green."
+    },
+    {
+      "rule": "SEC-26",
+      "status": "not-applicable",
+      "reason": "The change adds no secret: the workflow, the MCP registration and the session hook use none."
+    },
+    {
+      "rule": "OPS-01",
+      "status": "not-applicable",
+      "reason": "The change sets up no environment: there's no production yet, and the workflow only runs a check on pull requests."
+    },
+    {
+      "rule": "OPS-02",
+      "status": "not-applicable",
+      "reason": "No data moves anywhere in this change: the check reads the repository's files only."
+    },
+    {
+      "rule": "OPS-03",
+      "status": "not-applicable",
+      "reason": "The change grants no access to production, which doesn't exist yet; the workflow's permissions are contents: read."
+    },
+    {
+      "rule": "OPS-04",
+      "status": "not-applicable",
+      "reason": "No environment is added or changed by this change."
+    },
+    {
+      "rule": "OPS-05",
+      "status": "not-applicable",
+      "reason": "No data store is added or changed by this change."
+    },
+    {
+      "rule": "OPS-06",
+      "status": "not-applicable",
+      "reason": "No data store or uptime target is added or changed by this change."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass, with nothing open. The new Peer AI workflow reads the repository only, pins its actions to commits and Peer AI to an exact version, keeps no credentials, and deploys nothing. The MCP registration and session hook start a local tool with no secrets."
+}
