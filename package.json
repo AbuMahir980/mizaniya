@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Local-first household money app for salary-cycle budgeting, envelopes, and debts in both directions.",
+  "description": "A household money app for salary-cycle budgeting, debts in both directions, and a sinking fund for annual rent.",
   "license": "SEE LICENSE IN LICENSE",
   "engines": {
     "node": ">=20"

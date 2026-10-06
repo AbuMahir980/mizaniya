@@ -3,8 +3,9 @@
 Mizaniya is a household money app for salary-cycle budgeting, debts in both
 directions, and a sinking fund for annual rent. **v1 is a hosted, multi-user
 webapp with a server** — accounts, sync, tiers and a landing page — with the
-local store kept as the offline path. It is built in the open using the **Peer
-AI development workflow**, whose playbook is vendored in `peer-ai/`.
+local store kept as the offline path. It is built in the open with **Peer AI**:
+its settings are in `peer-ai.config.json`, and its instructions are in the
+marked block at the end of this file.
 
 > *Corrected 28 September: this paragraph opened with "a local-first household
 > money app" for four days after [ADR-009](docs/adr/ADR-009-repositioning-v1-hosted-webapp.md)
@@ -12,21 +13,15 @@ AI development workflow**, whose playbook is vendored in `peer-ai/`.
 
 ---
 
-## 0. PAUSED — 28 September 2026, for the Peer AI rewrite
+## 1. On every session start
 
-**Do not start the next piece of work without checking with the owner first.**
-Peer AI is being rewritten as an **npm package with skills**, so the vendored
-`peer-ai/` playbook, the phase files named in §5 and the paths throughout this
-driver are all expected to change. The project was deliberately brought to a
-clean stop for it:
+Start with Peer AI's `next_work`, as the block below says. Then read
+`CONTEXT.md` — the narrative log: repo rules, decisions, daily progress, what's
+next, open questions and the code-review checklist. **Tell the user where things
+stand**, from its Current State and What's Next, before doing anything else.
 
-- nothing unpushed, no open pull request, clean tree;
-- every record made true against its source, not against another record;
-- the unmerged T16 branch preserved on `origin` at `c11c872`.
-
-**When the new Peer AI lands, the work resumes at the spec rewrite** — `CONTEXT.md`
-§What's Next, N4 first. The order is unchanged; only the tooling beneath it moves.
-Delete this section once the migration is done.
+Peer AI's work items hold the work and where it stopped; `CONTEXT.md` holds the
+story. Read both.
 
 ---
 
@@ -35,26 +30,25 @@ Delete this section once the migration is done.
 | Document | Covers |
 |---|---|
 | `docs/standards/frontend-engineering-standards.md` | Sections **A–O**: architecture, state, prop drilling, components, DRY, styling and design system, types, money, safety-critical data, accessibility, testing, errors/loading/offline, data safety, dependencies, naming |
-| `docs/standards/backend-engineering-standards.md` | Server-side equivalents. **Dormant until v3** (separate private repo) |
+| `docs/standards/backend-engineering-standards.md` | Server-side equivalents. Not in use until the server's code starts |
 | `docs/standards/standards-addendum-mizaniya.md` | Every value the standards leave to the project: kobo as the minor unit, what the danger colour means, the core journey K1, storage per version, seed data, telemetry |
 
 **Reference rules by section number. Never copy their text into another file** —
 a copy guarantees drift, and then nobody knows which is current.
 
 Every rule there is marked `auto` (a linter, the compiler or CI fails the build)
-or `review` (a human has to look). SHARED RULES maps each `auto` rule to its
-enforcement; every `review` rule is already listed as the code-review agent's
-checklist in `CONTEXT.md`.
+or `review` (a human has to look). `docs/05-coding-standards.md` maps each `auto`
+rule to its enforcement; every `review` rule is the code-review checklist in
+`CONTEXT.md`.
 
-`peer-ai/shared/rules/shared.md` and `peer-ai/frontend/rules/frontend.md` are
-the **workflow layer** — session continuity, git conventions, journal, PDF
-export. Each opens with a section saying `docs/standards/` is authoritative.
-Where they disagree, `docs/standards/` wins and the rules file is the one that
-is wrong.
+Peer AI's own rules, which `standards_for_file` returns before each edit, apply
+beside them, and `standards_for_file` serves these documents too. **Where the two
+disagree, `docs/standards/` wins**: follow it, and record the disagreement in
+`CONTEXT.md`'s Open Questions.
 
 ---
 
-## 3. Repo rules bind every phase
+## 3. Repo rules bind every piece of work
 
 The five repo rules are written verbatim in `CONTEXT.md` and are not negotiable:
 PolyForm Noncommercial licence (`LICENSE` at the root is authoritative — never
@@ -111,28 +105,117 @@ is how documentation starts contradicting itself. **Do not recreate it.**
 
 ---
 
-## 6. Models and skills
 
-**Opus for build. Fable for everything else. Never downgrade mid-phase.** Each
-phase file states its model on its `> **Model:` line. There is no cost tier to
-announce and no model-switch gate — see `peer-ai/shared/rules/shared.md`
-§ Models.
+## 5. How work reaches `main`
 
-**Skills are named per phase** in the table in `peer-ai/AGENTS.md`, and are
-invoked *inside* the phase to deepen the single artefact it produces — never as
-a parallel process, which yields two documents that disagree. All ten were
-confirmed present in this session (Claude Code desktop app, 9 September 2026);
-`CONTEXT.md` records the check. **Re-check at the start of each phase that names
-one. A missing skill is reported, never silently skipped.**
+**Every piece of work goes on a branch and reaches `main` only through a pull
+request with every check green. Squash and merge. Delete the branch after.**
+Nothing is committed to `main` directly: not a document, not a fix, not a
+one-line typo.
+
+- **Branches:** `feature/<short-description>` for build work, `peer-ai/<topic>`
+  for documents. Never `main`. Push a branch as soon as it has a commit: the repo
+  is built in the open and the remote is the only backup.
+- **Commit messages and PR titles:** conventional commits — `feat:`, `fix:`,
+  `chore:`, `docs:`, `test:`, `refactor:` — one line, plus an optional short body.
+- **PR descriptions** say what changed and why. **No AI attribution lines, no
+  emoji, no tool names**, in commit messages either.
+- **Checks:** `pr-checks.yml` runs **verify** (`npm run verify`), **repo rules**
+  and **secret scanning**, and `peer-ai.yml` runs **peer-ai check**, Peer AI's
+  gate. Wait for all of them. Red is not done, and **a check that was skipped or
+  cancelled has not passed.** Branch protection is not on, so nothing stops a red
+  merge but you.
+- **One peer review before merge**, on the pull request.
+- **Squash and merge**, then delete the branch locally and on `origin`.
+- **Never `git add -A`.** The designer writes into this worktree, and `git add -A`
+  has swept a whole drop into a feature commit twice. Stage by path.
+  `scripts/check-design-drop.mjs` fails CI on it.
+
+**Merging a stack is not the same as merging a branch.** When pull requests are
+stacked, each based on the one beneath it, three things change, and getting them
+wrong costs an afternoon:
+
+- **Merge with a merge commit, not a squash.** Squashing rewrites the commits
+  beneath, so the next PR up re-applies the same changes against a `main` that
+  already has them, and conflicts on every shared file.
+- **Retarget each PR to `main` as the one below it merges.** GitHub does not
+  reliably do this for you; set `--base main` explicitly before merging.
+- **Delete branches only once the whole stack has landed.** Deleting a branch
+  that another PR is *based on* **closes that PR**, and GitHub then refuses to
+  reopen it because its base no longer exists.
 
 ---
 
-## 7. What this project already has — do not reinvent it
+## 6. The issue tracker
+
+GitHub Issues on `AbuMahir980/mizaniya`, with issues as `#N`. **No project board
+and no milestones** — deliberate, see `CONTEXT.md` Key Decisions. Status is
+carried by labels: Backlog is an open issue with no status label, In Progress adds
+`status:in-progress`, Done is closed as Completed with that label removed.
+`cycle-1/2/3` are the cycles.
+
+When a piece of work is done:
+
+1. Tick the acceptance criteria, and **close the issue as Completed**.
+2. **Remove `status:in-progress`.** Closing does not remove it, and a finished
+   ticket still labelled in progress is a lie the tracker tells confidently.
+3. Add a **completion comment**: 3–5 bullets on what shipped, deviations and
+   follow-ups.
+4. Write the dated entry in `CONTEXT.md`, which carries the reasoning a one-line
+   status never could.
+
+---
+
+## 7. The design
+
+The design comes from the designer, in `docs/design/`. **`tokens.md` is
+authoritative for values; the PNG is what you build from.**
+
+1. **Open the PNG first** — `docs/design/<n>-<screen>-360-light.png`, then
+   `-dark`, then `-1440-light` — and **describe the screen before writing
+   anything.** Every screen rebuilt in this project was first built from fragments
+   grepped out of `canvas/*.dc.html`, and every one of them invented layout, copy
+   or an interaction model the design had already settled.
+2. **Then read `canvas/*.dc.html` as a tree**, for exact values — sizes, tones,
+   radii, spacing. Grepping it returns a class, not a screen.
+3. **`tokens.md` is authoritative for the scale**; `brand/README.md` owns the
+   wordmark and the app icon, which are not type or radius steps.
+4. **Invent nothing.** Where the design does not answer something, ask in
+   `docs/open-items.md`, a new lettered section per round. The designer answers in
+   place and marks the heading `answered <date>`. The questions belong next to the
+   answers, not in a message.
+5. **The canvas is re-cut often.** Re-pull before each screen.
+
+The design is authoritative on layout, spacing, type and colour; the page spec is
+authoritative on behaviour, states and data. When they conflict, **name it, log
+it, never pick a side quietly.**
+
+**After each screen works, compare it with the design**: open the PNG at 360 and
+1440, light and dark. A list of ticked behaviours is not this pass. An agent that
+cannot see a browser says so and asks the owner to look.
+
+---
+
+## 8. Before saying anything is done
+
+- **Tests alongside the code**, not after: co-located, not batched, not deferred.
+- **Figures only from `docs/seed-data.md`.**
+- **Verify** with Peer AI's `run_verify`, which runs `npm run verify`. Red is not
+  done.
+- **At the end of a session, or at about 80% context:** add a dated entry to
+  `CONTEXT.md` under What Was Done — By Day, refresh Current State, What's Next
+  and Open Questions, and record where the work item stopped with
+  `update_work_item`.
+
+---
+
+## 9. What this project already has — do not reinvent it
 
 - **The brief exists** — `docs/product-brief.md`. Understand it; do not re-derive the product.
-- **The standards exist** — `docs/standards/`. The rules phases map them to enforcement; they do not write a second standard.
+- **The standards exist** — `docs/standards/`. Map them to enforcement; do not write a second standard.
 - **The seed data exists** — `docs/seed-data.md`, the only source of figures.
-- **The design arrives from outside** — `docs/design/` after the design stop.
+- **The design exists** — `docs/design/`, from the designer.
+- **The decisions exist** — `docs/adr/`, one per decision. ADR-009 made v1 a hosted webapp, and ADR-012, which chose the server's stack, is parked: reopen it before any server work.
 - **The licence exists** — `LICENSE` at the root is authoritative.
 
 ---
@@ -169,64 +252,36 @@ Models: Fable by default; delivery-setup: Opus; build: Opus. If one isn't offere
 
 When you use one of Peer AI's skills, follow the project's settings for it. If an add-on it names isn't available, tell the person; never skip it silently.
 
-- For `peer-ai-requirements-analysis`: **No skill for this phase.** `docs/product-brief.md` is the requirements source and `docs/seed-data.md` holds the only figures you may use. Read both before asking anything; arrive with a draft understanding to correct, not a blank page. The stakeholder is the user — ask about how the spreadsheet is actually used, not what sounds impressive.
+- For `peer-ai-requirements-analysis`: `docs/product-brief.md` is the requirements source and `docs/seed-data.md` holds the only figures you may use. Read both before asking anything; arrive with a draft understanding to correct, not a blank page. The stakeholder is the user — ask about how the spreadsheet is actually used, not what sounds impressive.
 - `peer-ai-product-spec`: also use `design:accessibility-review` and `design:ux-copy`.
-- For `peer-ai-product-spec`: Frontend: **Skills to use here.** Invoke these *inside* this phase to deepen the page specs, never as parallel processes producing competing documents.
-- For `peer-ai-product-spec`: Frontend: `design:accessibility-review` — target sizes, contrast, motion, screen-reader paths (frontend J)
-- For `peer-ai-product-spec`: Frontend: `design:ux-copy` — the words on the screen, in British English, in the user's vocabulary (frontend O4)
-- For `peer-ai-product-spec`: Frontend: **The designs do not exist yet — they are produced from these specs.** After this phase the workflow stops; the design system and screen designs are made outside this session from the page specs and land in `docs/design/` (`tokens.md` + PNGs). So each spec must be complete enough to design from: every state (loading, empty, error, offline, success), every number shown and where it comes from in `core/`, the primary action, and what the danger colour would mean on that screen (addendum: money going wrong, nothing else). Pages: Onboarding, Home, Plan, Transactions (+ Quick Add sheet), Debts & Goals (+ debt record view), Months, Settings.
+- For `peer-ai-product-spec`: The design exists, in `docs/design/`, and the specs follow it: where a spec and the design disagree, name it and ask in `docs/open-items.md`. Each spec gives every state (loading, empty, error, offline, success), every number shown and where it comes from in `core/`, the primary action, and what the danger colour means on that screen (addendum: money going wrong, nothing else).
+- For `peer-ai-product-spec`: `design:ux-copy`: the words on the screen, in British English, in the user's vocabulary (frontend O4). `design:accessibility-review`: target sizes, contrast, motion, screen-reader paths (frontend J).
 - `peer-ai-architecture`: also use `engineering:architecture` and `engineering:system-design`.
-- For `peer-ai-architecture`: **Skills to use here.** Invoke these *inside* this phase to deepen the single artefact it produces — never as a parallel process. Two overlapping processes yield two architectures that disagree, and then nobody knows which is authoritative.
-- For `peer-ai-architecture`: `engineering:architecture` — structural options and their trade-offs
-- For `peer-ai-architecture`: `engineering:system-design` — how the pieces fit and where the boundaries sit
-- For `peer-ai-architecture`: **Constraints already decided** (do not reopen): local-first; IndexedDB via Dexie behind a `Repository` interface; a framework-free `core/` for cycle maths, safe-to-spend, rollover, projected gap, zakat estimate and money in kobo; React 19 + TypeScript + Vite; folder structure per frontend standards A1–A5; v2 is Expo sharing `core/`; v3 is a separate private API repo. One ADR per decision, using `shared/templates/architecture-decision-record.md`.
+- For `peer-ai-architecture`: The decisions are the ADRs in `docs/adr/`, one per decision: read them before proposing a change, and write a new one rather than editing an old one. ADR-009 made v1 a hosted webapp with a server, with the local store kept as the offline path. ADR-012, which chose the server's stack, is parked: reopen it before any server work.
 - `peer-ai-system-design`: also use `product-management:write-spec`.
-- For `peer-ai-system-design`: **Skills to use here.** Invoke inside this phase, not alongside it.
-- For `peer-ai-system-design`: `product-management:write-spec` — turning decisions into a spec someone can build from
 - For `peer-ai-system-design`: Every user story names its states (loading, empty, error, offline, success) and the exact numbers the screen shows. Money is always `{ amount, type }` in kobo (frontend H1, H5).
-- For `peer-ai-api-design`: **No skill — and there is no server in v1.** The "API" here is (1) the `Repository` interface and (2) the JSON export/import schema. Write both once, as TypeScript types plus a runtime schema (zod) in `core/`, and derive the contract document from them — never hand-write the same shape twice (frontend G2, G4). Add a CI step that regenerates the contract doc and fails on any diff. Mark where a v3 API would slot in behind the same interface.
+- For `peer-ai-api-design`: The `Repository` interface and the JSON export/import schema in `core/` are contracts too. Write each once, as TypeScript types plus a runtime schema, and derive the documents from them — never hand-write the same shape twice (frontend G2, G4). The server's endpoints are specified in `docs/09-endpoint-specs.md`.
 - `peer-ai-issue-planning`: also use `engineering:tech-debt`.
-- For `peer-ai-issue-planning`: **Skills to use here.** Invoke inside this phase, not alongside it.
-- For `peer-ai-issue-planning`: `engineering:tech-debt` — separating what must be fixed now from what is merely untidy
 - For `peer-ai-issue-planning`: Anything not in `docs/product-brief.md` goes to `docs/backlog.md`, not into an issue for this build.
-- For `peer-ai-implement-ticket`: Frontend: **Learning mode was replaced on 2026-09-24 — see `CLAUDE.md` §4.** There is no three-line file header and no `docs/concepts/`; both were removed. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one-commit-per-item are in `CONTEXT.md`.
-- For `peer-ai-implement-ticket`: Backend: **Dormant until v3.**
+- For `peer-ai-implement-ticket`: Learning mode was replaced on 2026-09-24 — see `CLAUDE.md` §4. There is no three-line file header and no `docs/concepts/`. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one commit per item are in `CONTEXT.md`.
 - `peer-ai-code-review`: also use `engineering:code-review`.
-- For `peer-ai-code-review`: Frontend: **Skills to use here.** Invoke inside this phase, not alongside it.
-- For `peer-ai-code-review`: Frontend: `engineering:code-review` — the review itself. **Verify it is installed before relying on it.** If it is missing, review directly from this file and say the skill was unavailable — never skip the step silently.
-- For `peer-ai-code-review`: Frontend: Claude Code ships `/code-review`, which reads the real diff, so prefer it over pasting code into a prompt.
-- For `peer-ai-code-review`: Frontend: Review against `docs/standards/frontend-engineering-standards.md` and the addendum. Every rule there marked `review` is a promise that a human checks it — this is where that promise is kept. Count, don't judge: C1 (prop passes through ≤2 components), D1 (≤150 lines), D2 (≤7 props), E1/E2 (third duplicate extracts; money and validation extract on the first repeat), H3 (no money arithmetic in a component).
-- For `peer-ai-code-review`: Backend: **Skills to use here.** Invoke inside this phase, not alongside it.
-- For `peer-ai-code-review`: Backend: `engineering:code-review` — the review itself
-- For `peer-ai-code-review`: Backend: Dormant until v3. Then review against `docs/standards/backend-engineering-standards.md` — money in minor units, idempotency, per-resource authorisation, audience axis, migrations only, config that fails closed.
-- For `peer-ai-code-review`: **Review against, in this order:** `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist; the `auto` rules should already be green in CI, so a red one is a CI defect too; `docs/standards/standards-addendum-mizaniya.md` — kobo, danger colour meaning, core journey; the repo rules in `CONTEXT.md` — no real figures, no employer or client names, no secrets
+- For `peer-ai-code-review`: Review against, in this order: `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist, and the `auto` rules should already be green in CI, so a red one is a CI defect too; `docs/standards/standards-addendum-mizaniya.md` — kobo, what the danger colour means, the core journey; the repo rules in `CONTEXT.md` — no real figures, no employer or client names, no secrets.
+- For `peer-ai-code-review`: Count, don't judge: C1 (a prop passes through at most 2 components), D1 (at most 150 lines), D2 (at most 7 props), E1/E2 (the third duplicate extracts; money and validation extract on the first repeat), H3 (no money arithmetic in a component).
 - For `peer-ai-code-review`: One finding = one location + one fix. Correctness before style. Findings go to the user as a table before anything is changed.
+- For `peer-ai-code-review`: Claude Code's `/code-review` reads the real diff, so prefer it over pasting code into a prompt.
 - For `peer-ai-security-review`: **On this project, also work through:** secrets (none in the repo, `.env` ignored, secret scanning in CI); dependency audit against the pinned lockfile; input validation at every boundary with a schema (frontend G4) — imports especially, since an export file is untrusted input; the user's financial data at rest in IndexedDB (what a shared device or a browser extension can read; what the export contains; no telemetry per M2); and that no screenshot, fixture or test carries real figures (M1).
-- For `peer-ai-contract-check`: **In v1 the contract is the `Repository` interface and the export/import schema in `core/`.** Check the screens against those, and the generated contract doc against the source types.
+- For `peer-ai-contract-check`: The contracts are the `Repository` interface and the export/import schema in `core/`, and, once the server exists, `docs/09-endpoint-specs.md`. Check the screens against them, and the generated contract doc against the source types.
 - `peer-ai-test-strategy`: also use `engineering:testing-strategy`.
-- For `peer-ai-test-strategy`: Frontend: **Skills to use here.** Invoke inside this phase, not alongside it.
-- For `peer-ai-test-strategy`: Frontend: `engineering:testing-strategy` — what is tested, at which layer, and why
-- For `peer-ai-test-strategy`: Frontend: The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export → import round-trip (M3). Test by role and label, not test id (K3).
-- For `peer-ai-test-strategy`: Backend: **Skills to use here.** Invoke inside this phase, not alongside it.
-- For `peer-ai-test-strategy`: Backend: `engineering:testing-strategy` — what is tested, at which layer, and why
-- For `peer-ai-test-strategy`: Backend: Dormant until v3.
+- For `peer-ai-test-strategy`: The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export → import round-trip (M3). Test by role and label, not test id (K3).
 - For `peer-ai-qa-acceptance`: **The test matrix starts from the core journey in the addendum (K1)** and from the states each page spec declares; a state the spec names but the matrix omits is a QA defect.
 - `peer-ai-documentation`: also use `engineering:documentation`.
-- For `peer-ai-documentation`: **Skills to use here.** Invoke inside this phase, not alongside it.
-- For `peer-ai-documentation`: `engineering:documentation` — structure and audience for the docs produced here
-- For `peer-ai-documentation`: README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/engineering-notes/` is part of the documentation set (it replaced `docs/concepts/` on 2026-09-25).
+- For `peer-ai-documentation`: README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/engineering-notes/` is part of the documentation set.
 
 When a work item reaches one of these activities:
 
-- During `standards`: **Skills to use here.** Invoke inside this phase, not alongside it.
-- During `standards`: `design:design-system` — token discipline and component conventions
-- During `standards`: **This project already has its standards in `docs/standards/`.** This phase does not write a competing one. It produces `docs/05-coding-standards.md` as a short index: links to the three standards files; every `auto` rule with the exact ESLint rule, tsconfig option or CI check that enforces it; every `review` rule as the review checklist (also written into `CONTEXT.md`); and the token contract from `docs/design/tokens.md`. Ask the user only about addendum values that are still blank.
-- During `standards`: Frontend: **Skills to use here.** Invoke inside this phase, not alongside it.
-- During `standards`: Frontend: `design:design-system` — component and token conventions
-- During `standards`: Frontend: `design:accessibility-review` — the accessibility rules that belong in the standard
-- During `standards`: Frontend: **The frontend standard already exists** — `docs/standards/frontend-engineering-standards.md` plus the addendum. This phase does not walk through generic defaults; it maps each `auto` rule to its ESLint/tsconfig/CI enforcement and each `review` rule to the checklist, and records the token contract from `docs/design/tokens.md`. Delete nothing from the standard here; propose changes as feedback.
-- During `standards`: Backend: **Dormant until v3.** The backend standard already exists in `docs/standards/backend-engineering-standards.md`; when a server is built, this phase maps its `auto` rules to enforcement and its `review` rules to the checklist, exactly as the frontend track does. It does not write a competing standard.
-- During `delivery-setup`: **CI is created here from nothing.** Stages, in order: install with pinned lockfile; lint (every `auto` rule in `docs/standards/` has a lint or tsconfig backing); typecheck; unit tests for `core/` with the coverage gate on money modules (frontend H4, K2); component tests; Playwright core journey (addendum K1); secret scanning; contract-doc regeneration diff (see 04). Nothing merges red.
+- During `standards`: This project already has its standards in `docs/standards/`, plus the addendum. Don't write a competing one or walk through generic defaults: map each `auto` rule to its ESLint, tsconfig or CI enforcement in `docs/05-coding-standards.md`, and each `review` rule to the checklist in `CONTEXT.md`. Delete nothing from the standards; propose changes instead.
+- During `standards`: `design:design-system`: token discipline and component conventions, against `docs/design/tokens.md`.
+- During `delivery-setup`: CI exists in `.github/workflows/`: extend it rather than starting over. Its target, from the original plan: install with the pinned lockfile; lint (every `auto` rule in `docs/standards/` has a lint or tsconfig backing); typecheck; unit tests for `core/` with a coverage gate on money modules (frontend H4, K2); component tests; the Playwright core journey (addendum K1); secret scanning; the contract-doc regeneration diff. Nothing merges red.
 
 If the peer-ai tools aren't available, run `npx peer-ai doctor`.
 <!-- peer-ai:end -->

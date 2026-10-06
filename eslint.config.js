@@ -18,7 +18,7 @@ export default tseslint.config(
   // `**/dist` rather than `dist`: the build output moved to apps/web/dist with the
   // workspace extraction, and a root-relative ignore stopped covering it — which
   // pointed ESLint at a bundled service worker and produced 2,147 errors.
-  { ignores: ['**/dist', '**/coverage', 'docs', 'peer-ai', '**/node_modules'] },
+  { ignores: ['**/dist', '**/coverage', 'docs', '**/node_modules'] },
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
