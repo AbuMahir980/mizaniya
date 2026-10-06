@@ -1,0 +1,226 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/config.schema.json",
+  "version": 1,
+  "project": {
+    "name": "Mizaniya",
+    "description": "Local-first household money app for salary-cycle budgeting, envelopes, and debts in both directions.",
+    "stage": "mvp",
+    "origin": "existing",
+    "team": "solo",
+    "traits": [
+      "offline"
+    ]
+  },
+  "tools": [
+    "claude-code"
+  ],
+  "tracks": [
+    {
+      "id": "web",
+      "kind": "web",
+      "path": "apps/web",
+      "stack": [
+        "typescript",
+        "react"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "core",
+      "kind": "library",
+      "path": "packages/core",
+      "stack": [
+        "typescript"
+      ],
+      "status": "active"
+    }
+  ],
+  "repo": {
+    "host": "github",
+    "remote": "origin",
+    "branchNaming": "feature/{slug}",
+    "mergePolicy": "pull-request"
+  },
+  "delivery": {
+    "ci": "existing",
+    "pipeline": ".github/workflows/"
+  },
+  "standards": {
+    "enforcement": "report",
+    "documents": [
+      {
+        "path": "docs/standards/frontend-engineering-standards.md",
+        "role": "standard",
+        "scope": [
+          "web"
+        ]
+      },
+      {
+        "path": "docs/standards/standards-addendum-mizaniya.md",
+        "role": "addendum"
+      }
+    ],
+    "onExisting": "map",
+    "profiles": [
+      "react",
+      "typescript"
+    ]
+  },
+  "gates": {
+    "blockOn": "critical"
+  },
+  "design": {
+    "status": "exists",
+    "reference": "docs/design/"
+  },
+  "tracker": {
+    "kind": "github",
+    "project": "AbuMahir980/mizaniya"
+  },
+  "commands": {
+    "verify": "npm run verify"
+  },
+  "models": {
+    "policy": "pinned",
+    "default": "Fable",
+    "byActivity": {
+      "delivery-setup": "Opus",
+      "build": "Opus"
+    }
+  },
+  "capabilities": {
+    "requirements-analysis": {
+      "notes": [
+        "**No skill for this phase.** `docs/product-brief.md` is the requirements source and `docs/seed-data.md` holds the only figures you may use. Read both before asking anything; arrive with a draft understanding to correct, not a blank page. The stakeholder is the user — ask about how the spreadsheet is actually used, not what sounds impressive."
+      ]
+    },
+    "architecture": {
+      "also": [
+        "engineering:architecture",
+        "engineering:system-design"
+      ],
+      "notes": [
+        "**Skills to use here.** Invoke these *inside* this phase to deepen the single artefact it produces — never as a parallel process. Two overlapping processes yield two architectures that disagree, and then nobody knows which is authoritative.",
+        "`engineering:architecture` — structural options and their trade-offs",
+        "`engineering:system-design` — how the pieces fit and where the boundaries sit",
+        "**Constraints already decided** (do not reopen): local-first; IndexedDB via Dexie behind a `Repository` interface; a framework-free `core/` for cycle maths, safe-to-spend, rollover, projected gap, zakat estimate and money in kobo; React 19 + TypeScript + Vite; folder structure per frontend standards A1–A5; v2 is Expo sharing `core/`; v3 is a separate private API repo. One ADR per decision, using `shared/templates/architecture-decision-record.md`."
+      ]
+    },
+    "system-design": {
+      "also": [
+        "product-management:write-spec"
+      ],
+      "notes": [
+        "**Skills to use here.** Invoke inside this phase, not alongside it.",
+        "`product-management:write-spec` — turning decisions into a spec someone can build from",
+        "Every user story names its states (loading, empty, error, offline, success) and the exact numbers the screen shows. Money is always `{ amount, type }` in kobo (frontend H1, H5)."
+      ]
+    },
+    "api-design": {
+      "notes": [
+        "**No skill — and there is no server in v1.** The \"API\" here is (1) the `Repository` interface and (2) the JSON export/import schema. Write both once, as TypeScript types plus a runtime schema (zod) in `core/`, and derive the contract document from them — never hand-write the same shape twice (frontend G2, G4). Add a CI step that regenerates the contract doc and fails on any diff. Mark where a v3 API would slot in behind the same interface."
+      ]
+    },
+    "issue-planning": {
+      "also": [
+        "engineering:tech-debt"
+      ],
+      "notes": [
+        "**Skills to use here.** Invoke inside this phase, not alongside it.",
+        "`engineering:tech-debt` — separating what must be fixed now from what is merely untidy",
+        "Anything not in `docs/product-brief.md` goes to `docs/backlog.md`, not into an issue for this build."
+      ]
+    },
+    "documentation": {
+      "also": [
+        "engineering:documentation"
+      ],
+      "notes": [
+        "**Skills to use here.** Invoke inside this phase, not alongside it.",
+        "`engineering:documentation` — structure and audience for the docs produced here",
+        "README order is fixed by the repo rules in `CONTEXT.md`: the problem, the screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap, licence (one line: PolyForm Noncommercial 1.0.0, link to `LICENSE`). `docs/engineering-notes/` is part of the documentation set (it replaced `docs/concepts/` on 2026-09-25)."
+      ]
+    },
+    "product-spec": {
+      "also": [
+        "design:accessibility-review",
+        "design:ux-copy"
+      ],
+      "notes": [
+        "Frontend: **Skills to use here.** Invoke these *inside* this phase to deepen the page specs, never as parallel processes producing competing documents.",
+        "Frontend: `design:accessibility-review` — target sizes, contrast, motion, screen-reader paths (frontend J)",
+        "Frontend: `design:ux-copy` — the words on the screen, in British English, in the user's vocabulary (frontend O4)",
+        "Frontend: **The designs do not exist yet — they are produced from these specs.** After this phase the workflow stops; the design system and screen designs are made outside this session from the page specs and land in `docs/design/` (`tokens.md` + PNGs). So each spec must be complete enough to design from: every state (loading, empty, error, offline, success), every number shown and where it comes from in `core/`, the primary action, and what the danger colour would mean on that screen (addendum: money going wrong, nothing else). Pages: Onboarding, Home, Plan, Transactions (+ Quick Add sheet), Debts & Goals (+ debt record view), Months, Settings."
+      ]
+    },
+    "implement-ticket": {
+      "notes": [
+        "Frontend: **Learning mode was replaced on 2026-09-24 — see `CLAUDE.md` §4.** There is no three-line file header and no `docs/concepts/`; both were removed. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one-commit-per-item are in `CONTEXT.md`.",
+        "Backend: **Dormant until v3.**"
+      ]
+    },
+    "code-review": {
+      "also": [
+        "engineering:code-review"
+      ],
+      "notes": [
+        "Frontend: **Skills to use here.** Invoke inside this phase, not alongside it.",
+        "Frontend: `engineering:code-review` — the review itself. **Verify it is installed before relying on it.** If it is missing, review directly from this file and say the skill was unavailable — never skip the step silently.",
+        "Frontend: Claude Code ships `/code-review`, which reads the real diff, so prefer it over pasting code into a prompt.",
+        "Frontend: Review against `docs/standards/frontend-engineering-standards.md` and the addendum. Every rule there marked `review` is a promise that a human checks it — this is where that promise is kept. Count, don't judge: C1 (prop passes through ≤2 components), D1 (≤150 lines), D2 (≤7 props), E1/E2 (third duplicate extracts; money and validation extract on the first repeat), H3 (no money arithmetic in a component).",
+        "Backend: **Skills to use here.** Invoke inside this phase, not alongside it.",
+        "Backend: `engineering:code-review` — the review itself",
+        "Backend: Dormant until v3. Then review against `docs/standards/backend-engineering-standards.md` — money in minor units, idempotency, per-resource authorisation, audience axis, migrations only, config that fails closed.",
+        "**Review against, in this order:** `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist; the `auto` rules should already be green in CI, so a red one is a CI defect too; `docs/standards/standards-addendum-mizaniya.md` — kobo, danger colour meaning, core journey; the repo rules in `CONTEXT.md` — no real figures, no employer or client names, no secrets",
+        "One finding = one location + one fix. Correctness before style. Findings go to the user as a table before anything is changed."
+      ]
+    },
+    "test-strategy": {
+      "also": [
+        "engineering:testing-strategy"
+      ],
+      "notes": [
+        "Frontend: **Skills to use here.** Invoke inside this phase, not alongside it.",
+        "Frontend: `engineering:testing-strategy` — what is tested, at which layer, and why",
+        "Frontend: The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export → import round-trip (M3). Test by role and label, not test id (K3).",
+        "Backend: **Skills to use here.** Invoke inside this phase, not alongside it.",
+        "Backend: `engineering:testing-strategy` — what is tested, at which layer, and why",
+        "Backend: Dormant until v3."
+      ]
+    },
+    "security-review": {
+      "notes": [
+        "**On this project, also work through:** secrets (none in the repo, `.env` ignored, secret scanning in CI); dependency audit against the pinned lockfile; input validation at every boundary with a schema (frontend G4) — imports especially, since an export file is untrusted input; the user's financial data at rest in IndexedDB (what a shared device or a browser extension can read; what the export contains; no telemetry per M2); and that no screenshot, fixture or test carries real figures (M1)."
+      ]
+    },
+    "qa-acceptance": {
+      "notes": [
+        "**The test matrix starts from the core journey in the addendum (K1)** and from the states each page spec declares; a state the spec names but the matrix omits is a QA defect."
+      ]
+    },
+    "contract-check": {
+      "notes": [
+        "**In v1 the contract is the `Repository` interface and the export/import schema in `core/`.** Check the screens against those, and the generated contract doc against the source types."
+      ]
+    }
+  },
+  "activities": {
+    "standards": {
+      "notes": [
+        "**Skills to use here.** Invoke inside this phase, not alongside it.",
+        "`design:design-system` — token discipline and component conventions",
+        "**This project already has its standards in `docs/standards/`.** This phase does not write a competing one. It produces `docs/05-coding-standards.md` as a short index: links to the three standards files; every `auto` rule with the exact ESLint rule, tsconfig option or CI check that enforces it; every `review` rule as the review checklist (also written into `CONTEXT.md`); and the token contract from `docs/design/tokens.md`. Ask the user only about addendum values that are still blank.",
+        "Frontend: **Skills to use here.** Invoke inside this phase, not alongside it.",
+        "Frontend: `design:design-system` — component and token conventions",
+        "Frontend: `design:accessibility-review` — the accessibility rules that belong in the standard",
+        "Frontend: **The frontend standard already exists** — `docs/standards/frontend-engineering-standards.md` plus the addendum. This phase does not walk through generic defaults; it maps each `auto` rule to its ESLint/tsconfig/CI enforcement and each `review` rule to the checklist, and records the token contract from `docs/design/tokens.md`. Delete nothing from the standard here; propose changes as feedback.",
+        "Backend: **Dormant until v3.** The backend standard already exists in `docs/standards/backend-engineering-standards.md`; when a server is built, this phase maps its `auto` rules to enforcement and its `review` rules to the checklist, exactly as the frontend track does. It does not write a competing standard."
+      ]
+    },
+    "delivery-setup": {
+      "notes": [
+        "**CI is created here from nothing.** Stages, in order: install with pinned lockfile; lint (every `auto` rule in `docs/standards/` has a lint or tsconfig backing); typecheck; unit tests for `core/` with the coverage gate on money modules (frontend H4, K2); component tests; Playwright core journey (addendum K1); secret scanning; contract-doc regeneration diff (see 04). Nothing merges red."
+      ]
+    }
+  }
+}

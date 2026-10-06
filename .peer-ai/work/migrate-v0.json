@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "migrate-v0",
+  "title": "Finish the move from v0",
+  "kind": "migration",
+  "stage": "prepare",
+  "branch": "peer-ai/migrate-1.0",
+  "acceptance": [
+    "Decided: v0's text moved out of CLAUDE.md.",
+    "Decided: phase-config.json blocks the project has changed since.",
+    "Decided: Settings migrate couldn't place.",
+    "Decided: The project's standards documents.",
+    "Decided: Work carried over from v0's state.",
+    "Decided: Files the project changed in peer-ai/ (33).",
+    "Decided: package.json scripts that only ran v0's files.",
+    "Decided: Left as they were.",
+    "Decided: Make Peer AI's CI gate a required check.",
+    "Every decision in docs/peer-ai-migration.md is made, and the file is deleted."
+  ],
+  "sources": [
+    "docs/peer-ai-migration.md"
+  ],
+  "next": "Go through docs/peer-ai-migration.md with the person, one decision at a time.",
+  "updatedAt": "2026-10-06T18:11:15.245Z"
+}

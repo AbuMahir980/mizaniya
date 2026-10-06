@@ -1,0 +1,158 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/map.schema.json",
+  "version": 1,
+  "assessedAt": "2026-10-06T18:11:15.245Z",
+  "items": {
+    "requirements": {
+      "status": "present",
+      "evidence": [
+        "docs/01-requirements-summary.md",
+        "docs/10-design-brief.md",
+        "docs/11-landing-page-brief.md",
+        "docs/product-brief.md"
+      ],
+      "flagged": [
+        {
+          "file": "docs/01-requirements-summary.md",
+          "reason": "docs/01-requirements-summary.md names src/ui, which no longer exists"
+        },
+        {
+          "file": "docs/product-brief.md",
+          "reason": "docs/product-brief.md names src/design/tokens.ts, which no longer exists"
+        }
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "architecture": {
+      "status": "present",
+      "evidence": [
+        "docs/02-architecture.md",
+        "docs/adr/"
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "threat-model": {
+      "status": "missing",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "specs": {
+      "status": "present",
+      "evidence": [
+        "docs/03-system-spec.md",
+        "docs/06-page-specs.md",
+        "docs/09-endpoint-specs.md"
+      ],
+      "flagged": [
+        {
+          "file": "docs/06-page-specs.md",
+          "reason": "docs/06-page-specs.md names docs/design/canvas/HomeLight.dc.html, which no longer exists"
+        }
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "api-contract": {
+      "status": "present",
+      "evidence": [
+        "docs/04-api-contract.md"
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "data-model": {
+      "status": "present",
+      "evidence": [
+        "apps/web/src/data/database.ts"
+      ],
+      "note": "A database on the device, defined in code.",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "data-inventory": {
+      "status": "not-applicable",
+      "inferred": true,
+      "note": "No personal-data fields found in the schema or migrations.",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "dpia": {
+      "status": "not-applicable",
+      "inferred": true,
+      "note": "No personal-data fields found in the schema or migrations.",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "design": {
+      "status": "present",
+      "evidence": [
+        "docs/design/"
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "standards": {
+      "status": "present",
+      "evidence": [
+        "docs/05-coding-standards.md",
+        "docs/07-frontend-coding-rules.md",
+        "docs/standards/backend-engineering-standards.md",
+        "docs/standards/frontend-engineering-standards.md",
+        "docs/standards/standards-addendum-mizaniya.md"
+      ],
+      "flagged": [
+        {
+          "file": "docs/05-coding-standards.md",
+          "reason": "docs/05-coding-standards.md names src/ui, which no longer exists"
+        }
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "ci": {
+      "status": "present",
+      "evidence": [
+        ".github/workflows/"
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "environments": {
+      "status": "missing",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "tests": {
+      "status": "present",
+      "evidence": [
+        "apps/web",
+        "packages/core"
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "load-testing": {
+      "status": "missing",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "infrastructure": {
+      "status": "missing",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "observability": {
+      "status": "missing",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "slos": {
+      "status": "missing",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "runbooks": {
+      "status": "missing",
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    },
+    "docs": {
+      "status": "present",
+      "evidence": [
+        "README.md",
+        "docs/"
+      ],
+      "flagged": [
+        {
+          "file": "README.md",
+          "reason": "README.md names src/architecture.test.ts, which no longer exists"
+        }
+      ],
+      "checkedAt": "2026-10-06T18:11:15.245Z"
+    }
+  }
+}
