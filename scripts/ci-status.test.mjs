@@ -5,6 +5,7 @@ import {
   SETTLED_BLOCKING_BUCKETS,
   classify,
   isPass,
+  parseList,
   splitGate,
   verdict,
 } from './ci-status.mjs'
@@ -110,6 +111,36 @@ describe('a gate blocks on pending; an alarm waits', () => {
     expect(result.green).toBe(false)
     expect(result.waiting).toBe(false)
     expect(result.reason).toBe('no checks have reported')
+  })
+})
+
+describe('what comes back from gh is checked for its shape', () => {
+  it('returns the list when it is one', () => {
+    expect(parseList('[{"name":"verify","bucket":"pass"}]', 'the checks')).toEqual([
+      { name: 'verify', bucket: 'pass' },
+    ])
+  })
+
+  it('accepts an empty list, which the caller refuses separately', () => {
+    expect(parseList('[]', 'the checks')).toEqual([])
+  })
+
+  /**
+   * SEC-06. Assuming the shape would push the failure into the caller's loop,
+   * outside its one catch, and back to a stack trace on stderr with nothing on
+   * stdout — the silence that reads as every check passing.
+   */
+  it.each([
+    ['an object', '{"name":"verify"}'],
+    ['null', 'null'],
+    ['a string', '"verify"'],
+    ['a number', '7'],
+  ])('refuses %s, naming what it was reading', (_label, raw) => {
+    expect(() => parseList(raw, 'the checks')).toThrow('the checks did not come back as a list')
+  })
+
+  it('lets malformed JSON throw, rather than guessing at it', () => {
+    expect(() => parseList('not json', 'the checks')).toThrow()
   })
 })
 

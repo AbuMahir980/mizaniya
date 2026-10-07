@@ -16,6 +16,19 @@ export const BLOCKING_BUCKETS = ['fail', 'cancel', 'skipping', 'pending']
  */
 export const SETTLED_BLOCKING_BUCKETS = ['fail', 'cancel', 'skipping']
 
+/**
+ * `gh --json` is documented to return an array, so this is SEC-06 rather than
+ * suspicion: data crossing a boundary is checked for the shape it should have,
+ * never assumed to have it. Assuming it would push the failure deep into the
+ * caller's loop and back into a stack trace on stderr with nothing on stdout —
+ * the silence that reads as every check passing.
+ */
+export function parseList(raw, what) {
+  const parsed = JSON.parse(raw)
+  if (!Array.isArray(parsed)) throw new Error(`${what} did not come back as a list`)
+  return parsed
+}
+
 /** A bucket this script has never seen is treated as blocking, not as a pass. */
 export function isPass(bucket) {
   return bucket === 'pass'

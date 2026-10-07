@@ -11,7 +11,7 @@
  */
 
 import { execFileSync } from 'node:child_process'
-import { PEER_AI_GATE_SIGNATURE, splitGate, verdict } from './ci-status.mjs'
+import { PEER_AI_GATE_SIGNATURE, parseList, splitGate, verdict } from './ci-status.mjs'
 
 /** Long enough for a slow API call, short enough that a hang is noticed. */
 const GH_TIMEOUT_MS = 30_000
@@ -32,12 +32,15 @@ function gh(args) {
 
 function openPullRequests() {
   const raw = gh(['pr', 'list', '--state', 'open', '--json', 'number,title,baseRefName,isDraft'])
-  return JSON.parse(raw)
+  return parseList(raw, 'the open pull requests')
 }
 
 function checksFor(number) {
   try {
-    return JSON.parse(gh(['pr', 'checks', String(number), '--json', 'name,bucket,link']))
+    return parseList(
+      gh(['pr', 'checks', String(number), '--json', 'name,bucket,link']),
+      'the checks',
+    )
   } catch {
     // `gh pr checks` exits non-zero when a check is failing as well as when it
     // cannot answer, so a throw here is not evidence of either. Treat it as no
@@ -81,8 +84,17 @@ try {
 if (pulls.length === 0 && !quiet) console.log('No open pull requests.')
 
 for (const pull of pulls) {
-  const result = verdict(checksFor(pull.number), { ignorePending })
+  // One pull request that cannot be read must not end the sweep over the others,
+  // and must not end it in silence either. Same reason as the catch above.
+  let result
   const label = `#${pull.number} → ${pull.baseRefName}${pull.isDraft ? ' (draft)' : ''}`
+  try {
+    result = verdict(checksFor(pull.number), { ignorePending })
+  } catch (error) {
+    red += 1
+    console.log(`ERROR  ${label}  cannot be read: ${error.message.split('\n')[0]}`)
+    continue
+  }
 
   if (result.green) {
     if (!quiet) console.log(`GREEN  ${label}  ${result.reason}  — ${pull.title}`)
