@@ -100,6 +100,23 @@ export function AppShell() {
   const online = useIsOnline()
   const theme = useTheme()
   const [quickAddOpen, setQuickAddOpen] = useState(false)
+  /**
+   * Counts openings, and keys Quick Add on it, so each opening is a fresh mount.
+   *
+   * Quick Add must start empty every time: carrying the last amount over is how
+   * someone records ₦2,000 twice without noticing. It used to reset itself in an
+   * effect, which listed the four pieces of state to clear — so a fifth added
+   * later would have been missed silently, and it called setState inside an
+   * effect. Remounting resets everything the component holds, including anything
+   * added after this was written, and the component that opens the sheet is the
+   * one that knows an opening has happened. Closing does not change the count, so
+   * the sheet still closes without being torn down mid-animation.
+   */
+  const [opening, setOpening] = useState(0)
+  const openQuickAdd = () => {
+    setOpening((n) => n + 1)
+    setQuickAddOpen(true)
+  }
   const bar = useNavItems(NAV)
   // One list for the active key, split for rendering: otherwise being on
   // /settings would light Home, because Settings is not in the main group.
@@ -139,7 +156,7 @@ export function AppShell() {
         footerItems={sidebarFooterItems}
         footerSlot={<ThemeChoice value={theme.choice} onValueChange={theme.setChoice} />}
         activeKey={sidebar.activeKey}
-        onAdd={() => setQuickAddOpen(true)}
+        onAdd={openQuickAdd}
       />
 
       <div className="flex min-w-0 flex-1 flex-col">
@@ -171,12 +188,12 @@ export function AppShell() {
           </div>
         </main>
 
-        <QuickAddRoute open={quickAddOpen} onOpenChange={setQuickAddOpen} />
+        <QuickAddRoute key={opening} open={quickAddOpen} onOpenChange={setQuickAddOpen} />
 
         <BottomBar
           items={bar.items}
           activeKey={bar.activeKey}
-          onAdd={() => setQuickAddOpen(true)}
+          onAdd={openQuickAdd}
           className="desktop:hidden"
         />
       </div>

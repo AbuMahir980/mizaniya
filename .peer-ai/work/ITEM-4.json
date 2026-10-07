@@ -4,9 +4,10 @@
   "id": "ITEM-4",
   "title": "Adopt react-hooks 7's React Compiler rules deliberately, with the three faults they already found",
   "kind": "chore",
-  "stage": "prepare",
+  "stage": "build",
   "track": "web",
   "branch": "feature/adopt-react-hooks-7-s-react-compiler-rules-deliber",
+  "base": "0152fca317fdfb3ae3b35de7b07822fffd559c9e",
   "goal": "eslint-plugin-react-hooks 7 expands configs.recommended from two rules to sixteen at error severity. ITEM-1 replaced the spread with one named rule rather than adopt thirteen blocking rules as a side effect of a peer-dependency bump. This adopts them on purpose, starting with set-state-in-effect, and fixes the three real faults they found. Nothing currently guards ITEM-1's use-media-query fix: no test can, because it preserved behaviour, and the rule that caught it is one of these.",
   "acceptance": [
     "Given eslint.config.js, when lint runs, then react-hooks/set-state-in-effect is enabled and apps/web/src/ui/use-media-query.ts fails if its setState-in-effect shape returns",
@@ -21,5 +22,5 @@
     "apps/web/src/ui/use-media-query.ts"
   ],
   "next": "Enable set-state-in-effect first: it is the rule that caught the use-media-query fault, and that fix is currently guarded by nothing",
-  "updatedAt": "2026-10-07T09:47:27.500Z"
+  "updatedAt": "2026-10-07T11:00:22.530Z"
 }

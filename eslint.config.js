@@ -75,13 +75,16 @@ export default tseslint.config(
        * because `standards.enforcement` is `enforce`. Keeping a second copy under
        * a second namespace is how two records of one rule start to disagree.
        *
-       * `exhaustive-deps` stays: Peer AI does not set it, so it is this project's
-       * own choice rather than a duplicate. It is **not** spread from
-       * `configs.recommended` — eslint-plugin-react-hooks 7 expands that from two
-       * rules to sixteen at error severity, and adopting the React Compiler set as
-       * a side effect of a peer-dependency bump is not a decision. See ITEM-3.
+       * The react-hooks set is spread from `configs.recommended`, which under
+       * version 7 is the sixteen React Compiler rules at error severity. ITEM-1
+       * deliberately did not adopt them, because they arrived as a side effect of
+       * a peer-dependency bump rather than as a decision. ITEM-4 is that decision:
+       * the whole set costs exactly two fixes, each of which was a real fault, and
+       * one of them is the only thing that can guard ITEM-1's own
+       * `use-media-query` repair — no test can, because that repair preserved
+       * behaviour by design.
        */
-      'react-hooks/exhaustive-deps': 'warn',
+      ...reactHooks.configs.recommended.rules,
 
       '@typescript-eslint/consistent-type-imports': [
         'error',
