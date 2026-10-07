@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import {
   BLOCKING_BUCKETS,
+  PEER_AI_GATE_SIGNATURE,
   SETTLED_BLOCKING_BUCKETS,
   classify,
   isPass,
+  splitGate,
   verdict,
 } from './ci-status.mjs'
 
@@ -108,6 +110,50 @@ describe('a gate blocks on pending; an alarm waits', () => {
     expect(result.green).toBe(false)
     expect(result.waiting).toBe(false)
     expect(result.reason).toBe('no checks have reported')
+  })
+})
+
+describe('the gate waiting is not the same as something broken', () => {
+  const gateFail = { name: 'peer-ai check', bucket: 'fail', link: 'https://x/job/1' }
+  const realFail = { name: 'verify', bucket: 'fail', link: 'https://x/job/2' }
+  const always = () => true
+  const never = () => false
+
+  it('knows the line Peer AI prints when a work item is merely unreviewed', () => {
+    expect(PEER_AI_GATE_SIGNATURE).toBe("isn't verified and reviewed yet")
+  })
+
+  it('puts a gate failure on the gate side', () => {
+    const { gate, broken } = splitGate([gateFail], always)
+    expect(gate.map((p) => p.name)).toEqual(['peer-ai check'])
+    expect(broken).toEqual([])
+  })
+
+  it('keeps a real failure broken even when it sits beside a gate failure', () => {
+    const { gate, broken } = splitGate([gateFail, realFail], (p) => p.name === 'peer-ai check')
+    expect(gate.map((p) => p.name)).toEqual(['peer-ai check'])
+    expect(broken.map((p) => p.name)).toEqual(['verify'])
+  })
+
+  /**
+   * The safe direction. Calling a real failure "the gate" is the one mistake here
+   * that hides a break, so an unreadable log counts as broken.
+   */
+  it('treats a failure it cannot identify as broken, not as the gate', () => {
+    const { gate, broken } = splitGate([gateFail], never)
+    expect(gate).toEqual([])
+    expect(broken.map((p) => p.name)).toEqual(['peer-ai check'])
+  })
+
+  it('never calls a cancelled, skipped or pending check the gate', () => {
+    const problems = [
+      { name: 'a', bucket: 'cancel' },
+      { name: 'b', bucket: 'skipping' },
+      { name: 'c', bucket: 'pending' },
+    ]
+    const { gate, broken } = splitGate(problems, always)
+    expect(gate).toEqual([])
+    expect(broken).toHaveLength(3)
   })
 })
 

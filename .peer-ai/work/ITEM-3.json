@@ -4,7 +4,7 @@
   "id": "ITEM-3",
   "title": "A watcher that refuses a red merge, into any branch, without waiting for anyone to look",
   "kind": "chore",
-  "stage": "build",
+  "stage": "verify",
   "track": "web",
   "branch": "feature/a-watcher-that-refuses-a-red-merge-into-any-branch",
   "base": "5e4e57ad9392a6e6f1af035528425b5ec270632e",
@@ -21,9 +21,41 @@
   ],
   "lastVerify": {
     "result": "pass",
-    "at": "2026-10-07T06:51:55.398Z",
-    "commit": "3193c715f5a83630de7388fc518831d195639ba7"
+    "at": "2026-10-07T06:54:53.338Z",
+    "commit": "a1c8270c724e58ae3fa04ae1dc16b6dbc1dc3b3a"
   },
+  "reviews": [
+    {
+      "skill": "dependency-review",
+      "result": "pass",
+      "open": {
+        "high": 1
+      },
+      "report": ".peer-ai/reports/ITEM-3/dependency-review-20261007T0656Z.json",
+      "summary": "Pass with 1 high finding open, pre-existing rather than caused here: nothing audits dependencies on change or on a schedule, and 18 vulnerabilities are present (2 critical), all dev-only. The change adds two npm scripts, moves no version, leaves the lockfile untouched, and ships nothing — the production bundle is byte-identical to the base's.",
+      "at": "2026-10-07T06:55:53.158Z",
+      "commit": "a1c8270c724e58ae3fa04ae1dc16b6dbc1dc3b3a",
+      "readOnly": 1
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "code-review",
+      "reason": "it changes code"
+    },
+    {
+      "skill": "security-review",
+      "reason": "it changes code, at the mvp stage"
+    },
+    {
+      "skill": "dependency-review",
+      "reason": "it changes a dependency file or lockfile"
+    },
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
   "next": "Write scripts/ci-watch.mjs and scripts/pre-merge-check.mjs with tests, then arm a Monitor poll loop over open pull requests",
-  "updatedAt": "2026-10-07T06:51:55.398Z"
+  "updatedAt": "2026-10-07T06:55:53.158Z"
 }

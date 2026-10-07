@@ -22,6 +22,31 @@ export function isPass(bucket) {
 }
 
 /**
+ * The line Peer AI's gate prints when a work item simply has not been reviewed yet.
+ * That failure means "waiting on the reviewer", not "the code is broken", and the
+ * two were indistinguishable in this script's output until the owner had to ask
+ * twice which one he was looking at.
+ */
+export const PEER_AI_GATE_SIGNATURE = "isn't verified and reviewed yet"
+
+/**
+ * Split settled problems into the gate waiting and something actually broken.
+ *
+ * `isGateFailure` does the looking-up, so this stays pure and testable. It must
+ * answer false when it cannot tell: calling a real failure a gate is the one
+ * mistake here that loses information, and neither caller may merge on either.
+ */
+export function splitGate(problems, isGateFailure) {
+  const gate = []
+  const broken = []
+  for (const problem of problems) {
+    if (problem.bucket === 'fail' && isGateFailure(problem)) gate.push(problem)
+    else broken.push(problem)
+  }
+  return { gate, broken }
+}
+
+/**
  * @param {{name: string, bucket: string, link?: string}[]} checks
  * @returns {{green: boolean, problems: {name: string, bucket: string, link: string}[], counts: Record<string, number>}}
  */

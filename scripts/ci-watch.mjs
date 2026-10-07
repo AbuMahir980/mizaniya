@@ -11,7 +11,7 @@
  */
 
 import { execFileSync } from 'node:child_process'
-import { verdict } from './ci-status.mjs'
+import { PEER_AI_GATE_SIGNATURE, splitGate, verdict } from './ci-status.mjs'
 
 const quiet = process.argv.includes('--quiet')
 const ignorePending = process.argv.includes('--ignore-pending')
@@ -36,7 +36,23 @@ function checksFor(number) {
   }
 }
 
+/**
+ * Reads the failing job's log to tell Peer AI's gate waiting on a review from a
+ * real break. Answers false whenever it cannot tell, so an unreadable failure is
+ * reported as broken rather than quietly downgraded.
+ */
+function isGateFailure(problem) {
+  const jobId = /\/job\/(\d+)/.exec(problem.link ?? '')?.[1]
+  if (!jobId) return false
+  try {
+    return gh(['run', 'view', '--job', jobId, '--log']).includes(PEER_AI_GATE_SIGNATURE)
+  } catch {
+    return false
+  }
+}
+
 let red = 0
+let gated = 0
 
 const pulls = openPullRequests()
 if (pulls.length === 0 && !quiet) console.log('No open pull requests.')
@@ -55,14 +71,33 @@ for (const pull of pulls) {
     continue
   }
 
+  const { gate, broken } = splitGate(result.problems, isGateFailure)
+
+  // Only the gate against it: reviews are outstanding, nothing is broken. Still
+  // not green, and pre-merge-check still refuses it — but this is not an alarm.
+  if (broken.length === 0 && gate.length > 0) {
+    gated += 1
+    console.log(`GATE   ${label}  waiting on its reviews  — ${pull.title}`)
+    for (const problem of gate) {
+      console.log(`         ${problem.name} [${problem.bucket}] ${problem.link}`)
+    }
+    continue
+  }
+
   red += 1
   console.log(`RED    ${label}  ${result.reason}  — ${pull.title}`)
-  for (const problem of result.problems) {
+  for (const problem of broken) {
     console.log(`         ${problem.name} [${problem.bucket}] ${problem.link}`)
+  }
+  for (const problem of gate) {
+    console.log(`         ${problem.name} [${problem.bucket}] (gate, waiting on reviews)`)
   }
 }
 
-if (red > 0) {
-  console.log(`\n${red} of ${pulls.length} open pull requests are not green.`)
+if (red > 0 || gated > 0) {
+  const parts = []
+  if (red > 0) parts.push(`${red} broken`)
+  if (gated > 0) parts.push(`${gated} waiting on reviews`)
+  console.log(`\n${parts.join(', ')}, of ${pulls.length} open pull requests.`)
   process.exit(1)
 }
