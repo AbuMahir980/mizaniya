@@ -13,6 +13,9 @@
 import { execFileSync } from 'node:child_process'
 import { verdict } from './ci-status.mjs'
 
+/** Long enough for a slow API call, short enough that a hang is noticed. */
+const GH_TIMEOUT_MS = 30_000
+
 const number = process.argv[2]
 
 if (!number || !/^\d+$/.test(number)) {
@@ -21,7 +24,12 @@ if (!number || !/^\d+$/.test(number)) {
 }
 
 function gh(args) {
-  return execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
+  // A timeout, so a hung gh refuses the merge rather than hanging the gate open.
+  return execFileSync('gh', args, {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+    timeout: GH_TIMEOUT_MS,
+  })
 }
 
 let pull

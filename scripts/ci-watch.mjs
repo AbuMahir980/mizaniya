@@ -13,11 +13,21 @@
 import { execFileSync } from 'node:child_process'
 import { PEER_AI_GATE_SIGNATURE, splitGate, verdict } from './ci-status.mjs'
 
+/** Long enough for a slow API call, short enough that a hang is noticed. */
+const GH_TIMEOUT_MS = 30_000
+
 const quiet = process.argv.includes('--quiet')
 const ignorePending = process.argv.includes('--ignore-pending')
 
 function gh(args) {
-  return execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
+  // A timeout, because this runs inside a monitor on a loop. Without one a hung
+  // gh — a stalled network, a login prompt waiting on input — stops the watch
+  // silently and forever, and a stalled watcher looks exactly like a quiet one.
+  return execFileSync('gh', args, {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe'],
+    timeout: GH_TIMEOUT_MS,
+  })
 }
 
 function openPullRequests() {
