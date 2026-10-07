@@ -3,7 +3,14 @@
 ## Status
 
 **Proposed** — 2026-10-07. Raised by Qudus Lawal (stakeholder and owner); written up
-for their decision. **Not accepted: nobody has decided it yet.**
+for their decision.
+
+**The owner said "proceed" on 2026-10-07, before reading this.** That is recorded as
+intent, not as acceptance, and the status stays `Proposed` deliberately: the whole
+reason they asked for this to be written was so they could *read the flow rather
+than assume it*, and marking it accepted unread would be the exact thing they were
+guarding against. **It becomes `Accepted` on their word once they have read it** —
+one sentence from them, and this line and the heading change together.
 
 If accepted it **replaces the premise of
 [ADR-009](ADR-009-repositioning-v1-hosted-webapp.md)** — which made v1 a hosted
@@ -181,6 +188,29 @@ comes from, and the complete payload already serialises in one call.
 4. **A second device.** The person types the phrase. The device derives the same
    address and key, fetches, decrypts, and merges with whatever it already has.
 5. **A spouse.** They are a second device. The phrase is the sharing mechanism.
+
+**One phrase, one mechanism — there is no separate device-sync and sharing
+feature.** Added 2026-10-07 because the owner asked whether the phrase could serve
+device sync as well: it already does, and that is the point rather than a
+convenience. Your phone and your laptop reach the same blob by deriving the same
+address from the same phrase; a spouse's phone does the identical thing. Nothing in
+the design distinguishes *your* second device from *someone else's* device, because
+nothing can: possession of the phrase is the whole of the authorisation.
+
+**That unification is also the limitation, and the two cannot be separated later
+without changing the design.** Because one phrase grants everything:
+
+- sharing with a spouse necessarily shares the entire budget — there is no partial
+  view, and no read-only;
+- removing one device means changing the phrase and re-syncing every other device,
+  because there is nothing else to revoke;
+- a phrase that leaks grants a stranger exactly what it grants a spouse.
+
+For two people who already share a bank account this is likely the right trade, and
+it is why the Options above treat household sharing as *coarse* rather than solved.
+If separating them is ever wanted — your devices distinct from a partner's, or
+revoking one phone — that is per-device key management rather than a phrase, and it
+reopens this record. It is listed under *What would make this worth revisiting*.
 
 ### What orders writes, now that no server can
 
