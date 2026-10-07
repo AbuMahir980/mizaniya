@@ -1,0 +1,399 @@
+{
+  "version": 1,
+  "skill": "code-review",
+  "workItem": "ITEM-4",
+  "at": "2026-10-07T11:15:00Z",
+  "scope": {
+    "base": "0152fca317fdfb3ae3b35de7b07822fffd559c9e",
+    "head": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "eslint.config.js",
+      "apps/web/src/app/app-shell.tsx",
+      "apps/web/src/features/quick-add/quick-add.tsx",
+      "apps/web/src/features/plan/plan-screen.tsx"
+    ]
+  },
+  "inputs": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "docs/06-page-specs.md",
+    "docs/02-architecture.md",
+    "eslint.config.js",
+    ".peer-ai/work/ITEM-4.json"
+  ],
+  "inventory": [
+    {
+      "id": "component:AppShell",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/app/app-shell.tsx",
+        "line": 102
+      }
+    },
+    {
+      "id": "component:QuickAdd",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/quick-add/quick-add.tsx",
+        "line": 41
+      }
+    },
+    {
+      "id": "component:PlanScreen",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/plan/plan-screen.tsx",
+        "line": 32
+      }
+    },
+    {
+      "id": "test:quick-add",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/app/quick-add.test.tsx",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "ARC-01",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Everything stays where the architecture puts it: app/ composes and owns shell state, features/ hold screens, ui/ holds primitives. The opening counter belongs in app-shell because app-shell already owns whether Quick Add is open; nothing moved across a layer. The architecture test's nine cases pass."
+    },
+    {
+      "rule": "ARC-02",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "One module owns the decision, and this change makes that truer. Whether Quick Add is open was already app-shell's, in quickAddOpen; whether an opening has happened is the same question and now lives beside it as opening, rather than being inferred inside Quick Add from a prop transition. Quick Add no longer holds any opinion about its own lifecycle."
+    },
+    {
+      "rule": "ARC-03",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Nothing reaches into another module's internals. app-shell passes a key, which is React's own mechanism rather than a private of Quick Add's; Quick Add's props are unchanged, so no caller but app-shell is affected and none needed editing."
+    },
+    {
+      "rule": "ARC-04",
+      "item": "component:PlanScreen",
+      "status": "pass",
+      "evidence": "The business rules in scope stay plain code in core: carriedInLookup, leftoverFrom and unallocated are called the same way with the same arguments. Removing the memo around one of them changed no rule, only when the closure is built."
+    },
+    {
+      "rule": "ARC-05",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Quick Add does not know how it is called: it takes open, onOpenChange and the data it needs, and returns markup. It knew slightly more before \u2014 that a change in open meant it should clear itself \u2014 and now knows less, which is the right direction."
+    },
+    {
+      "rule": "ARC-06",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Dependencies still point inward: app-shell imports from features and ui, features from ui and core, ui from design and core. No import was added in any file, and two were removed. The boundaries rules pass."
+    },
+    {
+      "rule": "ARC-07",
+      "status": "not-applicable",
+      "reason": "No database or query in scope. Storage is IndexedDB behind the Repository, and no call to it changes here. Quick Add still reaches storage only through the onSave prop, which quick-add-route supplies."
+    },
+    {
+      "rule": "ARC-08",
+      "status": "not-applicable",
+      "reason": "No database or query in scope. Storage is IndexedDB behind the Repository, and no call to it changes here."
+    },
+    {
+      "rule": "FE-01",
+      "status": "not-applicable",
+      "reason": "No server data and no cache in scope: nothing here fetches."
+    },
+    {
+      "rule": "FE-02",
+      "item": "component:PlanScreen",
+      "status": "pass",
+      "evidence": "Improved in both files. plan-screen's lookup is now derived on each render rather than held in a memo that never hit, and Quick Add's draft is created by its own initialiser on mount rather than being written into state by an effect after the fact. Neither stores a value that follows from something else."
+    },
+    {
+      "rule": "FE-03",
+      "status": "not-applicable",
+      "reason": "No global store is added or changed. The opening counter is local to app-shell, which is where the open flag it accompanies already lived."
+    },
+    {
+      "rule": "FE-04",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Nothing is passed through a layer that does not use it. The counter is not passed as a prop at all: it is a key on QuickAddRoute, consumed by React rather than forwarded. Quick Add's own props are unchanged, so no new value travels through quick-add-route."
+    },
+    {
+      "rule": "FE-05",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Quick Add still shows rather than fetches: its data arrives as props from quick-add-route, which reads the store. Unchanged by this item."
+    },
+    {
+      "rule": "FE-06",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Only the shell knows about opening and closing: app-shell holds both the flag and the count, and Quick Add is told rather than deciding. No routing knowledge entered features/ or ui/."
+    },
+    {
+      "rule": "FE-07",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "The states Quick Add declares are unchanged in number and more reliably reached. Its saving, problem and save-problem states are all still present and still rendered from the same values; what changed is that each opening starts from their initialisers rather than from an effect clearing four of them. The eight existing Quick Add tests cover the empty, invalid, saving and rejected states and all pass."
+    },
+    {
+      "rule": "FE-08",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "The error messages in scope are untouched in wording and still reached. A rejected save still returns its message and keeps every value \u2014 'keeps every value when the write is rejected' passes \u2014 and that path never depended on the effect, because it sets saveProblem directly rather than clearing it."
+    },
+    {
+      "rule": "FE-09",
+      "status": "not-applicable",
+      "reason": "Offline is unchanged: no network call, service worker or cache is touched."
+    },
+    {
+      "rule": "PERF-01",
+      "status": "not-applicable",
+      "reason": "No list runs a query per row. plan-screen's lookup is a closure called per category over snapshot.categories already in memory, which is unchanged in cost by this item: the memo it lost never prevented a single call, since the closure's work happens when it is invoked."
+    },
+    {
+      "rule": "PERF-05",
+      "status": "not-applicable",
+      "reason": "No list's rendering strategy changes. Plan still renders its categories directly, as before."
+    },
+    {
+      "rule": "PERF-06",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "What is started is stopped, and one thing that used to run no longer exists. Removing Quick Add's effect removes a subscription-free effect that re-ran on every change of open or now; nothing was being cleaned up by it, so nothing is leaked by its absence. The remount tears down the whole component on close, which releases everything it held rather than leaving state behind \u2014 the opposite of a leak. No listener, timer or handle is added anywhere in this change."
+    },
+    {
+      "rule": "REL-01",
+      "status": "not-applicable",
+      "reason": "No call to another service in scope. onSave still returns a message on failure and is unchanged."
+    },
+    {
+      "rule": "REL-09",
+      "status": "not-applicable",
+      "reason": "Service worker and caching untouched."
+    },
+    {
+      "rule": "SEC-01",
+      "status": "not-applicable",
+      "reason": "No server, route or request in scope. The project has no services folder; ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-05",
+      "status": "not-applicable",
+      "reason": "No server, route or request in scope. The project has no services folder; ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-07",
+      "status": "not-applicable",
+      "reason": "No database or query in scope. Storage is IndexedDB behind the Repository, and no call to it changes here."
+    },
+    {
+      "rule": "SEC-08",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "No content from outside is put into the page as HTML. No dangerouslySetInnerHTML in any changed file, and REACT-04 forbids it repository-wide."
+    },
+    {
+      "rule": "SEC-10",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "No secret in any changed file and none read. gitleaks passes on this commit."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "not-applicable",
+      "reason": "No connection is opened by this code."
+    },
+    {
+      "rule": "PRIV-01",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Nothing is logged by any changed file \u2014 no console call in any of the four. No figure the owner typed reaches a log, and the remount discards the draft rather than retaining it anywhere observable."
+    },
+    {
+      "rule": "TEST-01",
+      "item": "test:quick-add",
+      "status": "pass",
+      "evidence": "Both fixes ship with a test that fails without them, and both were proven by breaking them. Quick Add: removing the key fails 'starts empty each time, so nothing is recorded twice by accident' and only that test, so the money-safety behaviour is held by a test rather than by the shape of the code. use-media-query, the fix this item exists to guard: restoring its old effect now raises react-hooks/set-state-in-effect, which is the guard no test could provide. plan-screen's memo removal is behaviour-preserving and is held by the lint rule that reported it, which errors if the memo returns."
+    },
+    {
+      "rule": "TEST-04",
+      "item": "test:quick-add",
+      "status": "pass",
+      "evidence": "The tests relied on assert behaviour through the rendered screen: 'starts empty each time' opens the sheet, types, saves, reopens and reads the amount field's value; the focus case asserts document.activeElement. None reaches into component state, and none needed changing for this refactor \u2014 which is itself the evidence that they test behaviour rather than implementation."
+    },
+    {
+      "rule": "TEST-07",
+      "item": "test:quick-add",
+      "status": "pass",
+      "evidence": "No test depends on another's leftovers: quick-add.test.tsx builds a fresh database per case in beforeEach and deletes it after, and each case renders its own app. The remount change did not require any test to be reordered or reset differently."
+    },
+    {
+      "rule": "TEST-12",
+      "item": "test:quick-add",
+      "status": "pass",
+      "evidence": "The tests import the real components by the same specifiers the app uses, with no alias or build step between, so what vitest ran is what the bundle contains. 487 tests and the build pass in CI on this commit."
+    },
+    {
+      "rule": "CODE-01",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Names say what they are: opening counts openings, openQuickAdd opens it. Neither is named for its mechanism."
+    },
+    {
+      "rule": "CODE-02",
+      "status": "not-applicable",
+      "reason": "No boolean is introduced. quickAddOpen already existed and already read as a statement."
+    },
+    {
+      "rule": "CODE-03",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "The words are the product's: a sheet opens, and Quick Add is what the owner calls it. opening names the event rather than a React concept."
+    },
+    {
+      "rule": "CODE-04",
+      "status": "not-applicable",
+      "reason": "The rule of three is not reached. openQuickAdd is extracted at its second call site rather than its third, which the rule permits and which is the point: the two call sites must not be able to drift into opening it differently."
+    },
+    {
+      "rule": "CODE-05",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "This is the rule the change serves most directly. Opening Quick Add must do the same thing from both the sidebar and the bottom bar, and the two call sites previously each wrote setQuickAddOpen(true) inline \u2014 so bumping the counter in one and not the other would have left the sheet carrying its last amount from one of the two entry points only. openQuickAdd is now the single way in, and both call it."
+    },
+    {
+      "rule": "CODE-06",
+      "status": "not-applicable",
+      "reason": "No deliberate copy is introduced."
+    },
+    {
+      "rule": "CODE-07",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Each function does one thing: openQuickAdd records an opening and opens the sheet, which is one act described two ways rather than two acts. Quick Add's body lost a responsibility it should not have had, resetting itself."
+    },
+    {
+      "rule": "CODE-08",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Every comment states a why. app-shell's explains what carrying the last amount over costs the owner, why a remount beats a list of setters, and why closing deliberately does not change the count. quick-add's says where the reset now happens and that there is therefore no setter list to forget. plan-screen's gives both reasons the memo was pointless and names the compiler cost. None restates its code."
+    },
+    {
+      "rule": "CODE-09",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Nesting is unchanged or shallower: removing the effect removes a block and a guard from Quick Add, and removing the memo removes a closure wrapper from plan-screen."
+    },
+    {
+      "rule": "CODE-10",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Sizes moved the right way without being the point: quick-add.tsx loses nine lines and plan-screen.tsx one, and app-shell gains the counter and its comment. Both screens remain over REACT-03's 150, which is ITEM-2's work and is why that rule is deferred \u2014 this change does not pretend to address it, and does not make it worse."
+    },
+    {
+      "rule": "CODE-11",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "No error is swallowed. No catch is added or removed in this change; Quick Add's save path, with its message on rejection, is untouched."
+    },
+    {
+      "rule": "CODE-12",
+      "status": "not-applicable",
+      "reason": "No catch is added, removed or widened by this change."
+    },
+    {
+      "rule": "CODE-13",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "An impossible state became harder to write down. Before, Quick Add could in principle be open while holding a previous opening's draft \u2014 the effect existed to prevent exactly that, by remembering to clear four things. A remount makes that state unrepresentable rather than merely cleared, and a fifth piece of state added later is covered without anyone remembering."
+    },
+    {
+      "rule": "CODE-14",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Types stay strict: the counter is inferred as a number, openQuickAdd returns void, and no any, assertion or non-null operator is added. Two now-unused imports were removed rather than left, and typecheck passes."
+    },
+    {
+      "rule": "CODE-15",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "The edge this change is about is the second opening, and it is tested: open, type, save, reopen, assert the amount field is empty. The adjacent edges still pass unchanged \u2014 a rejected save keeps every value, changing the type drops a choice that no longer applies, and the amount field holds focus on open, which a remount could plausibly have broken and demonstrably does not, since that case asserts document.activeElement and passes."
+    },
+    {
+      "rule": "CODE-16",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "React's own rules are kept, and that is the whole item. A key to reset state when a prop changes is React's documented answer, and setState in an effect to do the same is what its own lint rule now forbids here. plan-screen's memo is removed because React's compiler cannot preserve it, which is the framework telling us the construct is wrong rather than a preference. All sixteen react-hooks rules are enabled and pass, including rules-of-hooks and the React Compiler set."
+    },
+    {
+      "rule": "MONEY-01",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-02",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-03",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-04",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-05",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-06",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-07",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-09",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-10",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-12",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, and Quick Add is where money is entered \u2014 but no line of this change performs, formats, parses or stores a money value. The amount is still parsed by parseAmount and the movement still built by toTransaction, both untouched, in core. What changed is when the draft holding it is created. The one money-shaped consequence is covered under MONEY-08."
+    },
+    {
+      "rule": "MONEY-08",
+      "item": "component:QuickAdd",
+      "status": "pass",
+      "evidence": "Safe to repeat, and this is the rule with real money consequences here. The hazard the old effect guarded is recording the same \u20a62,000 twice: open the sheet, find the last amount still in it, save, and the movement is duplicated with nothing marking it. A remount makes that structurally impossible for every piece of state rather than for the four the effect listed. The behaviour is held by a test proven to fail without the key, and a rejected save still keeps its values for a deliberate retry, which is the one repeat that should be possible."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass, nothing open. CODE-16 is the item: a key is React's documented way to reset state when a prop changes, and setState in an effect is what its own rule forbids. MONEY-08 is the one with consequences \u2014 the hazard is recording the same amount twice, and a remount makes that impossible for all state rather than the four an effect listed. Proven by removing the key and watching only that test fail. Focus on open survives the remount, asserted and passing."
+}

@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "skill": "security-review",
+  "workItem": "ITEM-4",
+  "at": "2026-10-07T11:21:00Z",
+  "scope": {
+    "base": "0152fca317fdfb3ae3b35de7b07822fffd559c9e",
+    "head": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "eslint.config.js",
+      "apps/web/src/app/app-shell.tsx",
+      "apps/web/src/features/quick-add/quick-add.tsx",
+      "apps/web/src/features/plan/plan-screen.tsx"
+    ]
+  },
+  "inputs": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/adr/ADR-011-encryption-and-data-protection.md",
+    "CLAUDE.md",
+    ".github/workflows/pr-checks.yml",
+    "docs/seed-data.md"
+  ],
+  "inventory": [
+    {
+      "id": "screen:QuickAdd",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/quick-add/quick-add.tsx",
+        "line": 41
+      }
+    },
+    {
+      "id": "screen:Plan",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/plan/plan-screen.tsx",
+        "line": 32
+      }
+    },
+    {
+      "id": "component:AppShell",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/app/app-shell.tsx",
+        "line": 102
+      }
+    },
+    {
+      "id": "check:secret-scanning",
+      "kind": "check",
+      "location": {
+        "file": ".github/workflows/pr-checks.yml",
+        "line": 1
+      }
+    },
+    {
+      "id": "test:quick-add",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/app/quick-add.test.tsx",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "REL-04",
+      "item": "screen:QuickAdd",
+      "status": "pass",
+      "evidence": "Configuration fails closed, and the change moves one uncertainty in that direction. No environment variable is read in scope. The uncertainty Quick Add had was whether its state belonged to this opening or the last; an effect answered it by remembering to clear four things, and a remount answers it by construction, so the unsafe state is unrepresentable rather than cleared after the fact."
+    },
+    {
+      "rule": "SEC-01",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope: v1's accounts are specified and not built, there is no services folder, and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-02",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope: v1's accounts are specified and not built, there is no services folder, and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-03",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope: v1's accounts are specified and not built, there is no services folder, and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-05",
+      "status": "not-applicable",
+      "reason": "No server, route or endpoint in scope, for the same reason. Quick Add's own validation is unchanged: problemWith and parseAmount in core still decide, and nothing in the diff touches them."
+    },
+    {
+      "rule": "SEC-06",
+      "item": "screen:QuickAdd",
+      "status": "pass",
+      "evidence": "Data crossing a boundary is still checked rather than trusted, and this change moves none of that logic. The amount the owner types is parsed by parseAmount and the movement validated by problemWith before toTransaction builds it, all in core and all untouched. The only value this change introduces is an integer counter created and consumed inside app-shell, which never leaves the process."
+    },
+    {
+      "rule": "SEC-07",
+      "status": "not-applicable",
+      "reason": "No database or query in scope. Quick Add still reaches storage only through its onSave prop."
+    },
+    {
+      "rule": "SEC-08",
+      "item": "screen:QuickAdd",
+      "status": "pass",
+      "evidence": "No content from outside becomes HTML: no dangerouslySetInnerHTML in any changed file, and REACT-04 forbids it repository-wide and is enforced."
+    },
+    {
+      "rule": "SEC-09",
+      "item": "screen:QuickAdd",
+      "status": "pass",
+      "evidence": "No internal detail is newly exposed. The save-failure message already carried the write's reason and is unchanged; the diff adds no message and removes none."
+    },
+    {
+      "rule": "SEC-10",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "No secret in any changed file and none read. The gitleaks job passes on this commit."
+    },
+    {
+      "rule": "SEC-11",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Nothing secret is built into the page: no environment variable is read in scope, and the only value added is a render-time counter. Recorded because this change does alter the bundle \u2014 it removes an effect and a memo \u2014 and nothing of any sensitivity enters it."
+    },
+    {
+      "rule": "SEC-12",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope: v1's accounts are specified and not built, there is no services folder, and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-14",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope: v1's accounts are specified and not built, there is no services folder, and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "not-applicable",
+      "reason": "No connection is opened by this code."
+    },
+    {
+      "rule": "SEC-16",
+      "status": "not-applicable",
+      "reason": "No server, route or endpoint in scope, for the same reason."
+    },
+    {
+      "rule": "SEC-17",
+      "status": "not-applicable",
+      "reason": "No server, route or endpoint in scope, for the same reason."
+    },
+    {
+      "rule": "SEC-22",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Nothing sensitive goes in a URL. No navigation, query string or fragment is added; Quick Add is a sheet rather than a route, and the counter lives in memory, never in the address."
+    },
+    {
+      "rule": "SEC-23",
+      "status": "not-applicable",
+      "reason": "No TLS configuration in scope."
+    },
+    {
+      "rule": "SEC-24",
+      "status": "not-applicable",
+      "reason": "No security event occurs in scope: no sign-in, permission check or rate limit exists for this code to log."
+    },
+    {
+      "rule": "SEC-25",
+      "item": "screen:QuickAdd",
+      "status": "pass",
+      "evidence": "The ways in are unchanged: no route, upload, webhook, sign-in or outside service is added, and no boundary moves. The threat model stays the mvp gap Peer AI reports, which this item neither widens nor narrows."
+    },
+    {
+      "rule": "SEC-27",
+      "item": "check:secret-scanning",
+      "status": "pass",
+      "evidence": "Secret scanning ran and passed on this commit: the secret scanning job in pr-checks.yml, which runs gitleaks, is green on pull request 135 \u2014 read from the check list rather than assumed."
+    },
+    {
+      "rule": "SEC-28",
+      "status": "not-applicable",
+      "reason": "No service or credential is granted anything in scope."
+    },
+    {
+      "rule": "SEC-29",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Nothing becomes public that was not. No configuration, endpoint or asset is added; the repository is already public by rule 1."
+    },
+    {
+      "rule": "SEC-30",
+      "item": "component:AppShell",
+      "status": "pass",
+      "evidence": "Nothing from outside runs as code or a command: no eval, no Function constructor and no shell in any changed file. The counter is an integer incremented in a setState callback."
+    },
+    {
+      "rule": "PRIV-01",
+      "item": "screen:QuickAdd",
+      "status": "pass",
+      "evidence": "Nothing is logged by any changed file \u2014 no console call in any of the four \u2014 so no amount the owner typed can reach a log. The remount makes this marginally stronger: the draft holding a figure is destroyed with the component on close rather than being overwritten later, so a previous opening's amount does not sit in memory behind a closed sheet."
+    },
+    {
+      "rule": "PRIV-02",
+      "item": "test:quick-add",
+      "status": "pass",
+      "evidence": "No real personal data in the repository, and this change adds no fixture or figure. The tests it relies on use the seeded figures from docs/seed-data.md and the invented 2000 they type, which is rule 2 satisfied by the existing suite rather than by anything new."
+    },
+    {
+      "rule": "PRIV-03",
+      "status": "not-applicable",
+      "reason": "No personal data is read, written or transmitted. The change alters when a draft is created and removes a memo; it reads nothing it did not read before."
+    },
+    {
+      "rule": "PRIV-04",
+      "status": "not-applicable",
+      "reason": "No personal data is read, written or transmitted. The change alters when a draft is created and removes a memo; it reads nothing it did not read before."
+    },
+    {
+      "rule": "PRIV-05",
+      "status": "not-applicable",
+      "reason": "No personal data is read, written or transmitted. The change alters when a draft is created and removes a memo; it reads nothing it did not read before."
+    },
+    {
+      "rule": "TEST-08",
+      "item": "test:quick-add",
+      "status": "pass",
+      "evidence": "The abuse case that matters on this screen is the one the change is about, and it is tested as an attack on the behaviour rather than on an input: open Quick Add, enter an amount, save, reopen, and assert the field is empty \u2014 the sequence that would otherwise record the same money twice. Proven able to fail by removing the key, which fails that case and only that case. The input boundary itself is unchanged and its refusals are covered by the existing cases for a missing amount and a type whose category no longer applies."
+    },
+    {
+      "rule": "MONEY-12",
+      "status": "not-applicable",
+      "reason": "No card number, security code or payment detail exists in the project; there is no payment path."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass, nothing open. No serious problem and no boundary moves: validation and parsing stay in core untouched, and the only value introduced is an integer counter inside app-shell. PRIV-01 is marginally stronger \u2014 a draft holding an amount is destroyed with the component on close rather than overwritten later, so a previous opening's figure does not sit behind a closed sheet."
+}
