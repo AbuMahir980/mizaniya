@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import {
   cycleAt,
   isProtected,
@@ -42,7 +42,16 @@ export function PlanScreen({ snapshot, now, onSaveRow, onCopyLastCycle }: PlanSc
    * ₦900,000 against a ₦450,000 take-home.
    */
   const carried = leftoverFrom(snapshot, previous)
-  const lookup = useMemo(() => carriedInLookup(snapshot, cycle), [snapshot, cycle])
+  /**
+   * Not memoised, deliberately. `carriedInLookup` only closes over its arguments
+   * and returns a function; the work happens when that function is called, per
+   * category, which no memo here would avoid. And `cycle` comes from `cycleAt`, a
+   * fresh object every render, so the dependency array never matched and the memo
+   * recomputed every time regardless — while costing the whole component its
+   * React Compiler optimisation, which is what `preserve-manual-memoization`
+   * reports.
+   */
+  const lookup = carriedInLookup(snapshot, cycle)
 
   const free = unallocated(snapshot, cycle, carried)
   const overAllocated = free < 0

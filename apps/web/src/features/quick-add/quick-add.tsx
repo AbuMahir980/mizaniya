@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { AmountInput, Field } from '@/ui/field'
 import { Button } from '@/ui/button'
 import { ChipGroup, Segmented } from '@/ui/controls'
@@ -53,16 +53,13 @@ export function QuickAdd({
   const [saving, setSaving] = useState(false)
   const [noteOpen, setNoteOpen] = useState(false)
 
-  // A fresh sheet every time it opens. Carrying the last amount over is how
-  // someone records ₦2,000 twice without noticing.
-  useEffect(() => {
-    if (!open) return
-    setDraft(emptyDraft(now))
-    setShowProblem(false)
-    setSaveProblem(undefined)
-    setNoteOpen(false)
-  }, [open, now])
-
+  /**
+   * A fresh sheet every time it opens — carrying the last amount over is how
+   * someone records ₦2,000 twice without noticing. That is now AppShell's doing:
+   * it counts openings and keys this component on the count, so each opening is a
+   * new mount and every initialiser above runs again. Nothing here resets state,
+   * which is why there is no list of setters to forget to add to.
+   */
   const categories = useMemo(
     () =>
       snapshot.categories

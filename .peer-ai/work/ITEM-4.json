@@ -4,9 +4,10 @@
   "id": "ITEM-4",
   "title": "Adopt react-hooks 7's React Compiler rules deliberately, with the three faults they already found",
   "kind": "chore",
-  "stage": "prepare",
+  "stage": "ship",
   "track": "web",
   "branch": "feature/adopt-react-hooks-7-s-react-compiler-rules-deliber",
+  "base": "0152fca317fdfb3ae3b35de7b07822fffd559c9e",
   "goal": "eslint-plugin-react-hooks 7 expands configs.recommended from two rules to sixteen at error severity. ITEM-1 replaced the spread with one named rule rather than adopt thirteen blocking rules as a side effect of a peer-dependency bump. This adopts them on purpose, starting with set-state-in-effect, and fixes the three real faults they found. Nothing currently guards ITEM-1's use-media-query fix: no test can, because it preserved behaviour, and the rule that caught it is one of these.",
   "acceptance": [
     "Given eslint.config.js, when lint runs, then react-hooks/set-state-in-effect is enabled and apps/web/src/ui/use-media-query.ts fails if its setState-in-effect shape returns",
@@ -20,6 +21,84 @@
     "apps/web/src/features/plan/plan-screen.tsx",
     "apps/web/src/ui/use-media-query.ts"
   ],
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-07T11:07:58.253Z",
+    "commit": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+    "ci": {
+      "check": "verify",
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/37611831667/job/112760635592"
+    }
+  },
+  "reviews": [
+    {
+      "skill": "code-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-4/code-review-20261007T1115Z.json",
+      "summary": "Pass, nothing open. CODE-16 is the item: a key is React's documented way to reset state when a prop changes, and setState in an effect is what its own rule forbids. MONEY-08 is the one with consequences — the hazard is recording the same amount twice, and a remount makes that impossible for all state rather than the four an effect listed. Proven by removing the key and watching only that test fail.",
+      "at": "2026-10-07T11:10:20.157Z",
+      "commit": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+      "readOnly": 9
+    },
+    {
+      "skill": "accessibility-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-4/accessibility-review-20261007T1118Z.json",
+      "summary": "Pass, nothing open. The rule worth checking was DES-10: a remount could have broken focus on open, and it demonstrably does not — the amount field still holds focus, asserted by a test reading document.activeElement. DES-13 computed from the tokens rather than deferred: all twelve text pairs clear 4.5:1, worst 5.75:1, focus ring clears 3:1 at 8:1.",
+      "at": "2026-10-07T11:12:49.823Z",
+      "commit": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+      "readOnly": 5
+    },
+    {
+      "skill": "design-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-4/design-review-20261007T1119Z.json",
+      "summary": "Pass, nothing open. Nothing visual changes: no colour, token, spacing, radius or size appears in the diff, and no element is added — the change removes an effect and a memo. DES-13 computed from the tokens rather than deferred, all twelve text pairs clearing 4.5:1. DES-06 holds: the only danger use in scope is Plan's over-allocation, which is money going wrong.",
+      "at": "2026-10-07T11:12:56.026Z",
+      "commit": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+      "readOnly": 4
+    },
+    {
+      "skill": "security-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-4/security-review-20261007T1121Z.json",
+      "summary": "Pass, nothing open. No serious problem and no boundary moves: validation and parsing stay in core untouched, and the only value introduced is an integer counter inside app-shell. PRIV-01 is marginally stronger — a draft holding an amount is destroyed with the component on close rather than overwritten later, so a previous opening's figure does not sit behind a closed sheet.",
+      "at": "2026-10-07T11:13:41.284Z",
+      "commit": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+      "readOnly": 4
+    },
+    {
+      "skill": "qa-acceptance",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-4/qa-acceptance-20261007T1123Z.json",
+      "summary": "Pass. All four criteria hold and each was demonstrated by breaking something first: 16 rules in the computed config with set-state-in-effect at error, the old use-media-query shape now raising that error, and removing app-shell's key failing the money-safety test and only that one. The refactor needed no test edited, which is itself evidence the tests check behaviour.",
+      "at": "2026-10-07T11:14:31.550Z",
+      "commit": "5e2f155c586ae3e0ade3c8eddfa1f5f6f278b2a8",
+      "readOnly": 1
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "code-review",
+      "reason": "it changes code"
+    },
+    {
+      "skill": "security-review",
+      "reason": "it changes code, at the mvp stage"
+    },
+    {
+      "skill": "accessibility-review",
+      "reason": "it changes a screen"
+    },
+    {
+      "skill": "design-review",
+      "reason": "it changes a screen, and the project has a design"
+    },
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
   "next": "Enable set-state-in-effect first: it is the rule that caught the use-media-query fault, and that fix is currently guarded by nothing",
-  "updatedAt": "2026-10-07T09:47:27.500Z"
+  "updatedAt": "2026-10-07T11:14:38.239Z"
 }
