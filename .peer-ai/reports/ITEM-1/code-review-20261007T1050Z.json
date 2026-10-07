@@ -1,0 +1,437 @@
+{
+  "version": 1,
+  "skill": "code-review",
+  "workItem": "ITEM-1",
+  "at": "2026-10-07T10:50:00Z",
+  "scope": {
+    "base": "13bf0c6fbf4feedaa5cd4166b295d1e945d05618",
+    "head": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/app/first-run.tsx",
+      "apps/web/src/ui/rail.tsx",
+      "apps/web/src/ui/rail.test.tsx",
+      "apps/web/src/ui/use-media-query.ts",
+      "apps/web/src/ui/use-media-query.test.tsx",
+      "eslint.config.js",
+      "tsconfig.json",
+      "peer-ai.config.json",
+      "package.json"
+    ]
+  },
+  "inputs": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "docs/02-architecture.md",
+    "docs/adr/ADR-001-reactivity-and-the-data-seam.md",
+    "docs/adr/ADR-009-repositioning-v1-hosted-webapp.md",
+    "eslint.config.js",
+    "peer-ai.config.json",
+    "CLAUDE.md"
+  ],
+  "inventory": [
+    {
+      "id": "component:FirstRun",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/app/first-run.tsx",
+        "line": 29
+      }
+    },
+    {
+      "id": "component:Rail",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/ui/rail.tsx",
+        "line": 21
+      }
+    },
+    {
+      "id": "function:useMediaQuery",
+      "kind": "function",
+      "location": {
+        "file": "apps/web/src/ui/use-media-query.ts",
+        "line": 3
+      }
+    },
+    {
+      "id": "function:read",
+      "kind": "function",
+      "location": {
+        "file": "apps/web/src/ui/use-media-query.ts",
+        "line": 28
+      }
+    },
+    {
+      "id": "test:rail",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/ui/rail.test.tsx",
+        "line": 1
+      }
+    },
+    {
+      "id": "test:use-media-query",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/ui/use-media-query.test.tsx",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "ARC-01",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "All four files stay where the architecture puts them: app/ composes routes, ui/ holds primitives. first-run.tsx remains the only one of the four that knows about routing, and rail.tsx and use-media-query.ts gained no import that crosses a layer. The architecture test's nine cases pass on this commit."
+    },
+    {
+      "rule": "ARC-02",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "One module still owns the breakpoint: use-media-query.ts exports both the hook and DESKTOP, and the refactor did not spread the matchMedia knowledge anywhere. Nothing else in apps/web calls matchMedia \u2014 checked by searching."
+    },
+    {
+      "rule": "ARC-03",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Nothing reaches into another module's internals. Rail still takes props and returns markup; the hook still returns a boolean; neither exposes or consumes a private."
+    },
+    {
+      "rule": "ARC-04",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "The business rule in the diff \u2014 a failed save keeps the owner's answers, a failed navigation does not claim they were lost \u2014 is plain code in the handler, with no framework construct deciding it."
+    },
+    {
+      "rule": "ARC-05",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "The hook does not know how it is called: it takes a query string and answers a boolean. Replacing useState-plus-effect with useSyncExternalStore changed nothing about its interface, which is why none of its callers changed."
+    },
+    {
+      "rule": "ARC-06",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Dependencies still point inward: ui/ imports from design and core, never from features, app, store or data. The boundaries rules in eslint.config.js are unchanged by this item and still pass, and the architecture test asserts seven permitted and forbidden directions."
+    },
+    {
+      "rule": "ARC-07",
+      "status": "not-applicable",
+      "reason": "No database or query in scope. Storage here is IndexedDB behind the Repository interface, and this change touches neither. Reads and writes still go through the Repository, and first-run.tsx reaches it only through actions.replaceAll, exactly as before."
+    },
+    {
+      "rule": "ARC-08",
+      "status": "not-applicable",
+      "reason": "No database or query in scope. Storage here is IndexedDB behind the Repository interface, and this change touches neither."
+    },
+    {
+      "rule": "FE-01",
+      "status": "not-applicable",
+      "reason": "No server data and no cache: this change touches no fetching. The snapshot comes from the local Repository through the store, unchanged here."
+    },
+    {
+      "rule": "FE-02",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "Improved by this change, and that is its point. The hook previously mirrored an external value into component state with setState in an effect; it now derives from the store on every render through useSyncExternalStore, so the value cannot be stale while state catches up."
+    },
+    {
+      "rule": "FE-03",
+      "status": "not-applicable",
+      "reason": "No global store is added or changed. The hook's state is local to its caller by construction, and useSyncExternalStore subscribes rather than storing."
+    },
+    {
+      "rule": "FE-04",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Nothing is passed through a layer that does not use it. Rail's label is used by the component it is given to, now in two places \u2014 the accessible name and the value text \u2014 rather than being handed further down."
+    },
+    {
+      "rule": "FE-05",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "FirstRun still composes rather than fetching and showing at once: it hands onRestore and onFinish to WelcomeScreen and Onboarding, and neither renders data it also loads. The diff moved a statement inside that handler and added no data access."
+    },
+    {
+      "rule": "FE-06",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "Only the screen knows about navigation, and that is unchanged: useNavigate stays in first-run.tsx, and neither Rail nor useMediaQuery gained any knowledge of routing."
+    },
+    {
+      "rule": "FE-07",
+      "status": "not-applicable",
+      "reason": "No loading, empty or error state is added or altered. first-run.tsx's error state exists and is unchanged in content; what changed is which failure reaches it, covered under FE-08."
+    },
+    {
+      "rule": "FE-08",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "This is the rule the change was failing a commit ago, and the reason it was worth catching. The message says what happened and what to do next: 'Couldn't save that. Your answers are still here \u2014 try again.' Awaiting navigate() inside the try that produces it made the message reachable when the save had in fact succeeded, so it would have said the owner's figures were lost when they were written, and offered a retry for work already done. The navigation now happens after the catch, so the message is only ever shown for the thing it names. first-run.test.tsx:316 asserts the message and the retry on a genuine save failure, and :302 asserts the success path reaches Home."
+    },
+    {
+      "rule": "FE-09",
+      "status": "not-applicable",
+      "reason": "Offline is unchanged by this item: no network call is added, and the service worker and its caching are untouched."
+    },
+    {
+      "rule": "PERF-01",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "No list and no per-row work. The hook subscribes once per query and the component renders one element."
+    },
+    {
+      "rule": "PERF-05",
+      "status": "not-applicable",
+      "reason": "No list is rendered by any of the three files."
+    },
+    {
+      "rule": "PERF-06",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "What is started is stopped, and it is now proven rather than read: subscribe returns a function removing the change listener, and use-media-query.test.tsx asserts the listener count is 1 while mounted and 0 after unmount. Checked that the test can fail \u2014 replacing the cleanup with an empty function fails that case and only that case."
+    },
+    {
+      "rule": "REL-01",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "The one call out in scope is navigate(), and both call sites now handle its failure rather than dropping it: at the restore path it is awaited inside a handler whose rejection the caller sees, and at the onboarding path it is awaited after the save's catch so a navigation failure is not misreported. Nothing here calls a network service; no timeout applies."
+    },
+    {
+      "rule": "REL-09",
+      "status": "not-applicable",
+      "reason": "The service worker and its update path are untouched by this item."
+    },
+    {
+      "rule": "SEC-01",
+      "status": "not-applicable",
+      "reason": "No server, route or request in scope. The project has no services folder; ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-05",
+      "status": "not-applicable",
+      "reason": "No server, route or request in scope. The project has no services folder; ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-07",
+      "status": "not-applicable",
+      "reason": "No database or query in scope. Storage here is IndexedDB behind the Repository interface, and this change touches neither."
+    },
+    {
+      "rule": "SEC-08",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "No content from outside is put into the page as HTML. Rail renders label into aria-label and aria-valuetext, both attributes set through JSX, so React escapes them; there is no dangerouslySetInnerHTML anywhere in the three files, and REACT-04 enforces that repository-wide as of this change."
+    },
+    {
+      "rule": "SEC-10",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "No secret appears in any of the four files, and none is read. CI's gitleaks job passes on this commit."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "not-applicable",
+      "reason": "No connection is opened by this code."
+    },
+    {
+      "rule": "PRIV-01",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "Nothing is logged at all by the three source files: there is no console call in any of them. The one message that reaches a person is the save-failure text, which carries the error's message and no figure, no answer the owner typed, and no identifier."
+    },
+    {
+      "rule": "TEST-01",
+      "status": "fail",
+      "finding": "F1"
+    },
+    {
+      "rule": "TEST-04",
+      "item": "test:rail",
+      "status": "pass",
+      "evidence": "Both new test files assert behaviour through the public surface. rail.test.tsx queries by role and accessible name \u2014 getByRole('progressbar', {name}) \u2014 which is what a screen reader does, rather than asserting an attribute exists. use-media-query.test.tsx renders a probe component and reads its output, and its one structural assertion, the listener count, is checking the documented behaviour PERF-06 names rather than an internal."
+    },
+    {
+      "rule": "TEST-07",
+      "item": "test:use-media-query",
+      "status": "pass",
+      "evidence": "No test depends on another's leftovers. rail.test.tsx calls cleanup after each case; use-media-query.test.tsx calls cleanup and unstubs the global it replaced, so a case that stubs matchMedia away cannot affect the next. Each case renders its own component and builds its own fake."
+    },
+    {
+      "rule": "TEST-12",
+      "item": "test:rail",
+      "status": "pass",
+      "evidence": "Both files import the modules under test by the same relative specifiers the app uses, with no alias or build step between them, so what runs under vitest is what the bundle contains."
+    },
+    {
+      "rule": "CODE-01",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "Names say what things are: subscribe, getSnapshot and read in the hook, and the destructured label, tone and value in Rail. onStoreChange is React's own name for that parameter."
+    },
+    {
+      "rule": "CODE-02",
+      "status": "not-applicable",
+      "reason": "No boolean is introduced by this change. The hook returns one, and its name, useMediaQuery(query), already reads as the question it answers."
+    },
+    {
+      "rule": "CODE-03",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "The words are the product's: label is the category name the owner sees, and the value text reads '62% of Food and groceries' rather than naming a ratio or a fill."
+    },
+    {
+      "rule": "CODE-04",
+      "status": "not-applicable",
+      "reason": "The rule of three is not reached: nothing in this change is a third repeat."
+    },
+    {
+      "rule": "CODE-05",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "The rule that must never disagree here is what the bar announces, and it is in one place: percent is computed once at rail.tsx:24 and used by both aria-valuenow and aria-valuetext, so the number read aloud and the number in the text cannot differ."
+    },
+    {
+      "rule": "CODE-06",
+      "status": "not-applicable",
+      "reason": "No deliberate copy is introduced."
+    },
+    {
+      "rule": "CODE-07",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "Each function does one thing: subscribe attaches and detaches, getSnapshot reads, read answers the query, Rail renders. The handler in first-run.tsx does one thing per block, and the diff narrowed its try to the save alone, which is the rule applied rather than broken."
+    },
+    {
+      "rule": "CODE-08",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Every comment added states a why the code cannot: rail.tsx explains that label reached the value text and not the name and what a screen reader therefore said; first-run.tsx explains why the navigation sits outside that catch; use-media-query.ts explains what the previous setState in an effect was hand-rolling. None restates the line beneath it."
+    },
+    {
+      "rule": "CODE-09",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "Nesting is shallow: the deepest is the guard inside subscribe, at two levels. first-run.tsx's handler lost a level, because the success path no longer sits inside the try."
+    },
+    {
+      "rule": "CODE-10",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Sizes are small and lint agrees at the project's own numbers: rail.tsx 62 lines, use-media-query.ts 38, first-run.tsx unchanged in length. No file or function in this change is flagged by TS-07, TS-08 or REACT-03."
+    },
+    {
+      "rule": "CODE-11",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "No error is swallowed, and one that was being mislabelled no longer is. The save's catch returns a message the screen shows; the navigation's failure is no longer absorbed into that message and instead propagates, which is visible rather than silent. There is no empty catch in any of the four files."
+    },
+    {
+      "rule": "CODE-12",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "The one broad catch has a stated reason and a narrowed scope. It catches anything replaceAll throws because a storage failure has many shapes and the response is the same \u2014 keep the answers, offer a retry \u2014 and the comment says so. The diff's whole point is that it no longer also catches the navigation, which it had no reason to."
+    },
+    {
+      "rule": "CODE-13",
+      "status": "not-applicable",
+      "reason": "No new state shape is introduced. The hook now has no state of its own at all, which removes rather than adds a way to write down an impossible one."
+    },
+    {
+      "rule": "CODE-14",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "Types stay strict: the hook declares its parameter and return, subscribe's callback is typed by React's own signature, and no any, assertion or non-null operator is added. TS-01 through TS-09 are enforced by this very change, and typecheck passes."
+    },
+    {
+      "rule": "CODE-15",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Edges are handled and now tested rather than assumed. Rail: a value above 1 reports its true proportion instead of announcing full, a NaN reports 0, a negative reports 0 \u2014 five cases in rail.test.tsx. The hook: no matchMedia at all answers wide, and a change event is followed \u2014 five cases. first-run.tsx: the edge it adds is a save that succeeded followed by a navigation that did not, and the code handles it by not claiming the save failed."
+    },
+    {
+      "rule": "CODE-16",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "React's own rules are kept, and more closely than before. useSyncExternalStore is the hook React documents for reading and subscribing to an external store, which is what a MediaQueryList is; subscribe and getSnapshot are both wrapped in useCallback keyed on query so neither identity changes between renders, which is what the hook requires to avoid resubscribing. getSnapshot returns a primitive, so there is no identity instability. react-hooks/rules-of-hooks and peer-ai-react-hooks/hooks both pass."
+    },
+    {
+      "rule": "MONEY-01",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-02",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-03",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-04",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-05",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-06",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-07",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-09",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-10",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-12",
+      "status": "not-applicable",
+      "reason": "The project carries the money trait, but no line of this change performs, formats or stores a money value. first-run.tsx's diff awaits a navigation and moves a catch; rail.tsx adds an aria-label; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "MONEY-08",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "Safe to repeat, and this change makes it meaningfully safer. The retry path calls actions.replaceAll with a snapshot built from the same answers, which replaces rather than appends, so repeating it writes the same state rather than doubling anything. What the diff removes is the case where a repeat was invited after the write had already succeeded: a navigation failure used to produce 'Couldn't save that\u2026 try again', so the owner would have re-submitted a completed save. Idempotent either way, but no longer asked for without cause."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "rule": "TEST-01",
+      "severity": "medium",
+      "status": "open",
+      "title": "Two of this item's fixes are guarded by nothing \u2014 one cannot be guarded by a test, and the rule that would guard it was removed by this same change",
+      "location": {
+        "file": "apps/web/src/ui/use-media-query.ts",
+        "line": 3,
+        "endLine": 21
+      },
+      "evidence": "Four faults were fixed on this branch. The rail accessible name has a test proven to fail without it, by removing the attribute and watching one of five cases fail. The other two have no guard at all.\n\nFirst, use-media-query.ts. Five tests were written for it, then run against the old setState-in-effect implementation: all five pass. That is correct, because the refactor preserved behaviour by design, so no test should distinguish them \u2014 which means the shape it fixed can only be guarded by a lint rule. ESLint was then run over the old implementation on this branch and reported nothing, because this change replaced the react-hooks 7 recommended spread with one named rule and set-state-in-effect was not it. So the fix made by the change whose purpose is to end unguarded rules is itself unguarded.\n\nSecond, first-run.tsx's separation of the save's catch from the navigation. No test covers it, because react-router rejects a navigation only when a loader, an action or a blocker intervenes and this app configures none, so the path is unreachable without mocking the router into a state the product cannot reach.",
+      "fix": "ITEM-4 exists for the first and names it in its goal: enable react-hooks/set-state-in-effect, which also catches the quick-add fault it was pinned to avoid, and see it fail once on purpose before relying on it. For the second, add the test with the first route loader, action or blocker, which is when the path becomes reachable; until then the separation is held by reading and by the comment that states why the navigation sits outside the catch."
+    }
+  ],
+  "result": "pass",
+  "summary": "Pass, with 1 medium finding open. No serious problem. FE-08 was the rule this branch was failing and now holds: a navigation that fails after a successful save no longer reports the owner's figures as lost. CODE-16 holds more closely than before, useSyncExternalStore being React's own hook for this. The finding is that two of the four fixes are guarded by nothing \u2014 one provably cannot be guarded by a test, and the lint rule that would guard it was removed by this same change. ITEM-4 closes it."
+}

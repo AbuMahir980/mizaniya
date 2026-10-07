@@ -47,7 +47,21 @@
     "pipeline": ".github/workflows/"
   },
   "standards": {
-    "enforcement": "report",
+    "enforcement": "enforce",
+    "deferred": [
+      {
+        "rule": "TS-07",
+        "reason": "Sixteen functions in apps/web are over the limit, all in the five built screens. Those screens are due to be rebuilt against the 263 artboards, so splitting them now would cut at line counts rather than along the design's own structure, and the cuts would be thrown away. Reviews still apply the rule.",
+        "decidedBy": "Qudus Lawal",
+        "untilItem": "ITEM-2"
+      },
+      {
+        "rule": "REACT-03",
+        "reason": "Eight component files in apps/web are over the 150-line limit: the five built screens plus primitives-page, controls and field. Deferred with TS-07 and for the same reason, the rebuild decides where these files divide. TS-08's 400-line limit is NOT deferred; it passes in source, and its one finding is a test file the test override exempts. Reviews still apply the rule.",
+        "decidedBy": "Qudus Lawal",
+        "untilItem": "ITEM-2"
+      }
+    ],
     "documents": [
       {
         "path": "docs/standards/frontend-engineering-standards.md",

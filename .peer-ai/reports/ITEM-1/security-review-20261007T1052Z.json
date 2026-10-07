@@ -1,0 +1,262 @@
+{
+  "version": 1,
+  "skill": "security-review",
+  "workItem": "ITEM-1",
+  "at": "2026-10-07T10:52:00Z",
+  "scope": {
+    "base": "13bf0c6fbf4feedaa5cd4166b295d1e945d05618",
+    "head": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/app/first-run.tsx",
+      "apps/web/src/ui/rail.tsx",
+      "apps/web/src/ui/rail.test.tsx",
+      "apps/web/src/ui/use-media-query.ts",
+      "apps/web/src/ui/use-media-query.test.tsx",
+      "eslint.config.js",
+      "tsconfig.json",
+      "peer-ai.config.json",
+      "package.json"
+    ]
+  },
+  "inputs": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "docs/adr/ADR-011-encryption-and-data-protection.md",
+    "CLAUDE.md",
+    ".github/workflows/pr-checks.yml",
+    "peer-ai.config.json"
+  ],
+  "inventory": [
+    {
+      "id": "component:FirstRun",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/app/first-run.tsx",
+        "line": 29
+      }
+    },
+    {
+      "id": "component:Rail",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/ui/rail.tsx",
+        "line": 21
+      }
+    },
+    {
+      "id": "function:useMediaQuery",
+      "kind": "function",
+      "location": {
+        "file": "apps/web/src/ui/use-media-query.ts",
+        "line": 3
+      }
+    },
+    {
+      "id": "test:rail",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/ui/rail.test.tsx",
+        "line": 1
+      }
+    },
+    {
+      "id": "check:secret-scanning",
+      "kind": "check",
+      "location": {
+        "file": ".github/workflows/pr-checks.yml",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "REL-04",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "Configuration fails closed, and the one uncertainty this change touches now resolves that way. No environment variable is read by any of the four files. The hook's unknown case \u2014 no matchMedia at all \u2014 answers the wide layout deliberately and says why, which is the safe answer for jsdom and unreachable in any supported browser. And the handler no longer treats an uncertain outcome as a known one: a navigation that may or may not have completed is no longer reported as a save that definitely failed."
+    },
+    {
+      "rule": "SEC-01",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope. v1's accounts are specified in the system spec and not built: there is no services folder and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-02",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope. v1's accounts are specified in the system spec and not built: there is no services folder and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-03",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope. v1's accounts are specified in the system spec and not built: there is no services folder and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-05",
+      "status": "not-applicable",
+      "reason": "No server, route or endpoint in scope, for the same reason. No input validation on a server can apply."
+    },
+    {
+      "rule": "SEC-06",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "The two values crossing a boundary in scope are both checked rather than assumed. window.matchMedia is tested for existence before use, at use-media-query.ts:12 and :29, so a host without it answers deliberately instead of throwing. Rail's value is checked with Number.isFinite and clamped at the low end before it reaches an attribute, so a NaN or a negative cannot be rendered \u2014 and rail.test.tsx asserts both."
+    },
+    {
+      "rule": "SEC-07",
+      "status": "not-applicable",
+      "reason": "No database or query in scope: storage is IndexedDB behind the Repository, untouched here."
+    },
+    {
+      "rule": "SEC-08",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Content from outside is never put into the page as HTML. Rail's label reaches aria-label and aria-valuetext as JSX attributes, which React escapes; there is no dangerouslySetInnerHTML in any of the four files. As of this change REACT-04, which forbids it, is enforced across the repository for the first time rather than merely written down."
+    },
+    {
+      "rule": "SEC-09",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "No internal detail reaches a person beyond what the project already decided to show. The save-failure message appends the caught error's message, which is the existing behaviour and deliberate \u2014 the owner is the only user in v1 and a storage reason such as a quota is actionable for them. Nothing new is exposed; the diff reduces what reaches that message rather than adding to it."
+    },
+    {
+      "rule": "SEC-10",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "No secret in any of the four files, and none read. gitleaks passes on this commit."
+    },
+    {
+      "rule": "SEC-11",
+      "item": "function:useMediaQuery",
+      "status": "pass",
+      "evidence": "Nothing secret is built into the page. No environment variable is read in scope. Worth recording because this change does alter what the build contains: it adds peer-ai-eslint-config and three lint plugins, all devDependencies, and the bundle is unchanged apart from the three source files \u2014 no new value of any kind is baked in."
+    },
+    {
+      "rule": "SEC-12",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope. v1's accounts are specified in the system spec and not built: there is no services folder and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-14",
+      "status": "not-applicable",
+      "reason": "No sign-in, session, role, permission check or user identity in scope. v1's accounts are specified in the system spec and not built: there is no services folder and ADR-012 is parked."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "not-applicable",
+      "reason": "No connection is opened by this code. The app is served over HTTPS; nothing in scope chooses a scheme."
+    },
+    {
+      "rule": "SEC-16",
+      "status": "not-applicable",
+      "reason": "No server, route or endpoint in scope, for the same reason."
+    },
+    {
+      "rule": "SEC-17",
+      "status": "not-applicable",
+      "reason": "No server, route or endpoint in scope, for the same reason."
+    },
+    {
+      "rule": "SEC-22",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "Nothing sensitive goes in a URL. The only navigation in scope is to '/' with replace, carrying no query, no fragment and no identifier."
+    },
+    {
+      "rule": "SEC-23",
+      "status": "not-applicable",
+      "reason": "No TLS configuration in scope."
+    },
+    {
+      "rule": "SEC-24",
+      "status": "not-applicable",
+      "reason": "No security event occurs in scope: no sign-in, permission check or rate limit exists in v1 yet for this code to log the outcome of."
+    },
+    {
+      "rule": "SEC-25",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "The ways in are unchanged: no route, upload, webhook, sign-in or outside service is added, and the three source changes alter an attribute, a hook's internals and the order of two statements. The threat model remains the mvp gap Peer AI reports, which this item does not move either way \u2014 recorded rather than passed over, because the project's own rule 7 and ADR-011 make that gap one to close before the first real user."
+    },
+    {
+      "rule": "SEC-27",
+      "item": "check:secret-scanning",
+      "status": "pass",
+      "evidence": "Secret scanning runs on every change and is confirmed to have run on this one: the secret scanning job in pr-checks.yml, which runs gitleaks, passes on pull request 133 at this commit \u2014 read from the check list rather than assumed. Issue 112 separately records that gitleaks is pinned to a mutable tag, which is outside this change."
+    },
+    {
+      "rule": "SEC-28",
+      "status": "not-applicable",
+      "reason": "No service or credential is granted anything in scope."
+    },
+    {
+      "rule": "SEC-29",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Nothing becomes public that was not. The change adds no configuration, no endpoint and no asset; the repository is already public by rule 1, and the new files are source and tests."
+    },
+    {
+      "rule": "SEC-30",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "Nothing from outside runs as code or a command. No eval, no Function constructor and no shell in any of the four source files. Worth stating for this item in particular, because it enables the rules that keep it true across the repository: TS-02 forbidding any, and REACT-04 forbidding HTML from outside, both go from written-down to enforced here."
+    },
+    {
+      "rule": "PRIV-01",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "Nothing is logged by any of the three source files \u2014 there is no console call in them. The save-failure message is shown to the owner, not logged, and carries no figure, no answer they typed and no identifier."
+    },
+    {
+      "rule": "PRIV-02",
+      "item": "test:rail",
+      "status": "pass",
+      "evidence": "No real personal data in the repository, and the two new test files invent everything: category names Food and groceries, Health and Transport, and proportions 0.62, 1.4, NaN and -0.5. No figure comes from anywhere but the test itself, and none is a money value, so repo rule 2 is not engaged at all."
+    },
+    {
+      "rule": "PRIV-03",
+      "status": "not-applicable",
+      "reason": "No personal data is read, written or transmitted by any line of this change. first-run.tsx awaits a navigation and narrows a catch; rail.tsx adds an attribute; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "PRIV-04",
+      "status": "not-applicable",
+      "reason": "No personal data is read, written or transmitted by any line of this change. first-run.tsx awaits a navigation and narrows a catch; rail.tsx adds an attribute; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "PRIV-05",
+      "status": "not-applicable",
+      "reason": "No personal data is read, written or transmitted by any line of this change. first-run.tsx awaits a navigation and narrows a catch; rail.tsx adds an attribute; use-media-query.ts answers a width."
+    },
+    {
+      "rule": "TEST-08",
+      "status": "fail",
+      "finding": "F1"
+    },
+    {
+      "rule": "MONEY-12",
+      "status": "not-applicable",
+      "reason": "No card number, security code or payment detail exists in the project: there is no payment path, and none in scope."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "rule": "TEST-08",
+      "severity": "medium",
+      "status": "open",
+      "title": "The import path, which reads an untrusted file, gains no abuse test from the change that touches it",
+      "location": {
+        "file": "apps/web/src/app/first-run.tsx",
+        "line": 34,
+        "endLine": 52
+      },
+      "evidence": "first-run.tsx's restore path hands a file's text to importFrom, and an export file is untrusted input \u2014 the project's own security notes say so, and ADR-011 and rule 7 treat it as a boundary. This change edits that handler, awaiting its navigation, so the path is in scope. Its refusal is covered at the level of a well-formed foreign file: first-run.test.tsx:400 asserts a foreign file is refused and that nothing changed. What has no test is input shaped to attack rather than merely wrong \u2014 a file whose schemaVersion is from the future, one whose figures are strings, one with a demo flag set, one truncated mid-object. Issue 106 already records the demo case as a real risk, that a demo export must not restore silently as real data, which makes the missing coverage concrete rather than theoretical.\n\nThis is not a hole opened by this change, and the validation itself is schema-based rather than hand-rolled, so SEC-06 holds. It is a boundary the change touched without strengthening its tests.",
+      "fix": "Add abuse cases alongside the existing refusal test, asserting each is refused and that the stored snapshot is unchanged afterwards: a future schemaVersion, a money value as a string or a float, a demo-flagged file into a real session per issue 106, and a truncated file. They belong with issue 106 rather than in this item, since that issue owns the demo flag's behaviour and the flag must survive every migration step."
+    }
+  ],
+  "result": "pass",
+  "summary": "Pass, 1 medium open. No serious problem, and the item strengthens the repository's posture: TS-02 forbidding any and REACT-04 forbidding HTML from outside both go from written-down to enforced here. The finding: the import path reads untrusted input and this change edits it, yet it has a refusal test only for a merely-wrong file, none for input shaped to attack. Belongs with issue 106."
+}

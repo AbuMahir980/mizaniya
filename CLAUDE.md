@@ -255,7 +255,7 @@ Parts of the project:
 - `web` (web, active): apps/web
 - `core` (library, active): packages/core
 
-Commands: verify `npm run verify`.
+Commands: verify `npm run verify`, verifyCheck `verify`.
 
 Models: Fable by default; delivery-setup: Opus; build: Opus. If one isn't offered, use the most capable one available. Never run a review on a weaker model than the build.
 

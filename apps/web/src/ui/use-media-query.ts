@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useSyncExternalStore } from 'react'
 
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(() => read(query))
+  // `useSyncExternalStore` re-reads the snapshot straight after subscribing, which
+  // is what the previous `setMatches` in an effect was hand-rolling: the width can
+  // change between the first read and the subscription, and a stale `false` there
+  // is a whole layout out of date.
+  const subscribe = useCallback(
+    (onStoreChange: () => void) => {
+      if (typeof window === 'undefined' || !window.matchMedia) return () => {}
 
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return
+      const list = window.matchMedia(query)
+      list.addEventListener('change', onStoreChange)
+      return () => list.removeEventListener('change', onStoreChange)
+    },
+    [query],
+  )
 
-    const list = window.matchMedia(query)
-    // Read again on mount: the width may have changed between the initialiser
-    // and the effect, and a stale `false` here is a whole layout out of date.
-    setMatches(list.matches)
+  const getSnapshot = useCallback(() => read(query), [query])
 
-    const onChange = (event: MediaQueryListEvent) => setMatches(event.matches)
-    list.addEventListener('change', onChange)
-    return () => list.removeEventListener('change', onChange)
-  }, [query])
-
-  return matches
+  return useSyncExternalStore(subscribe, getSnapshot)
 }
 
 /**

@@ -1,17 +1,8 @@
-/**
- * WHAT: Every `auto` rule from docs/standards/ that a linter can hold, wired to
- *       the exact rule that enforces it.
- * WHY:  A standard nobody can check is a wish. The architecture boundaries in
- *       section A are only real because this file fails the build when one is
- *       crossed — `core/` importing React would otherwise be caught by nobody.
- * INTERVIEW: I mapped each architecture rule to the lint rule that enforces it,
- *       so the boundaries are machine-checked rather than remembered.
- */
-
 import js from '@eslint/js'
 import boundaries from 'eslint-plugin-boundaries'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
+import peerAi from 'peer-ai-eslint-config'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
@@ -22,6 +13,12 @@ export default tseslint.config(
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
+
+  // Peer AI's rules go before this project's own, so where the two set the same
+  // rule the project's choice wins — `docs/standards/` is authoritative. The blocks
+  // are generated per track from `peer-ai.config.json`, so they are already scoped
+  // to `apps/web/**` and `packages/core/**` and need no `files` of their own.
+  ...peerAi(),
 
   {
     files: ['**/*.{ts,tsx}'],
@@ -71,10 +68,21 @@ export default tseslint.config(
       },
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
+      /**
+       * Peer AI owns the generic language and framework rules, so they are not
+       * repeated here. `rules-of-hooks` is `peer-ai-react-hooks/rules-of-hooks`
+       * and G1's no-`any` is `peer-ai-typescript/no-explicit-any`; both block,
+       * because `standards.enforcement` is `enforce`. Keeping a second copy under
+       * a second namespace is how two records of one rule start to disagree.
+       *
+       * `exhaustive-deps` stays: Peer AI does not set it, so it is this project's
+       * own choice rather than a duplicate. It is **not** spread from
+       * `configs.recommended` — eslint-plugin-react-hooks 7 expands that from two
+       * rules to sixteen at error severity, and adopting the React Compiler set as
+       * a side effect of a peer-dependency bump is not a decision. See ITEM-3.
+       */
+      'react-hooks/exhaustive-deps': 'warn',
 
-      // G1 — no untyped escape hatches without a stated reason.
-      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
@@ -298,6 +306,24 @@ export default tseslint.config(
       'no-restricted-syntax': 'off',
       'no-restricted-imports': 'off',
       'boundaries/element-types': 'off',
+
+      /**
+       * TS-03 in a test asserts a precondition the test itself just set up, and a
+       * wrong one fails the test loudly. The risk the rule guards — an assertion
+       * that survives quietly into a live path — does not exist here. All fifty
+       * findings were in tests and **none in source**, so source is held to it.
+       */
+      'peer-ai-typescript/no-non-null-assertion': 'off',
+
+      /** A `describe` is a function to ESLint and a file section to a reader. */
+      'peer-ai/max-lines-per-function': 'off',
+
+      /**
+       * TS-08 asks a question — *is this file doing too much?* — and for a suite the
+       * answer is its number of cases, not its structure. Splitting one by line count
+       * breaks a coherent set of cases apart. Source is held to it; only tests are not.
+       */
+      'peer-ai/max-lines': 'off',
     },
   },
 
