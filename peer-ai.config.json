@@ -80,7 +80,8 @@
     "project": "AbuMahir980/mizaniya"
   },
   "commands": {
-    "verify": "npm run verify"
+    "verify": "npm run verify",
+    "verifyCheck": "verify"
   },
   "models": {
     "policy": "pinned",
