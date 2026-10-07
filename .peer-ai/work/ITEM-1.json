@@ -29,6 +29,20 @@
     "at": "2026-10-07T06:29:01.529Z",
     "commit": "156e3c101bb75a385041d2707f4dd41809c370e5"
   },
+  "reviews": [
+    {
+      "skill": "dependency-review",
+      "result": "pass",
+      "open": {
+        "high": 2
+      },
+      "report": ".peer-ai/reports/ITEM-1/dependency-review-20261007T0640Z.json",
+      "summary": "Pass with 2 high findings open. Nothing audits dependencies on change or schedule, and 18 vulnerabilities are already present (2 critical) — all pre-existing and dev-only. eslint-plugin-jsx-a11y-x is a fork named one suffix from a better-known package, required by Peer AI's config, with no reason recorded in the tree.",
+      "at": "2026-10-07T06:34:40.083Z",
+      "commit": "b1a30eeb857b6fa7b26e78051b96a4c7623bcb56",
+      "readOnly": 1
+    }
+  ],
   "requiredReviews": [
     {
       "skill": "code-review",
@@ -58,5 +72,5 @@
     }
   ],
   "next": "Fix the 4 blocking errors (tailwind.config.ts parse, 2 set-state-in-effect, 1 preserve-manual-memoization), exempt tests from no-non-null-assertion, then decide enforce vs deferred for the warnings",
-  "updatedAt": "2026-10-07T06:29:10.607Z"
+  "updatedAt": "2026-10-07T06:34:40.083Z"
 }
