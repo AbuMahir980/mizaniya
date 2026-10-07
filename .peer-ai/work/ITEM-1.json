@@ -26,8 +26,12 @@
   },
   "lastVerify": {
     "result": "pass",
-    "at": "2026-10-07T06:29:01.529Z",
-    "commit": "156e3c101bb75a385041d2707f4dd41809c370e5"
+    "at": "2026-10-07T09:43:12.973Z",
+    "commit": "16ac79e49ef93ce9d5edd9c9b66bf21a4a61132f",
+    "ci": {
+      "check": "verify",
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/37602335158/job/112729463381"
+    }
   },
   "reviews": [
     {
@@ -72,5 +76,5 @@
     }
   ],
   "next": "Fix the 4 blocking errors (tailwind.config.ts parse, 2 set-state-in-effect, 1 preserve-manual-memoization), exempt tests from no-non-null-assertion, then decide enforce vs deferred for the warnings",
-  "updatedAt": "2026-10-07T06:34:40.083Z"
+  "updatedAt": "2026-10-07T09:43:12.973Z"
 }
