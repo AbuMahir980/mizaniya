@@ -4,7 +4,7 @@
   "id": "ITEM-1",
   "title": "Turn on Peer AI's lint rules, so sixteen standards stop being unenforced",
   "kind": "chore",
-  "stage": "build",
+  "stage": "verify",
   "track": "web",
   "branch": "feature/turn-on-peer-ai-s-lint-rules-so-sixteen-standards",
   "base": "5e4e57ad9392a6e6f1af035528425b5ec270632e",
@@ -24,6 +24,39 @@
     "activity": "build",
     "step": 2
   },
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-07T06:29:01.529Z",
+    "commit": "156e3c101bb75a385041d2707f4dd41809c370e5"
+  },
+  "requiredReviews": [
+    {
+      "skill": "code-review",
+      "reason": "it changes code"
+    },
+    {
+      "skill": "security-review",
+      "reason": "it changes code, at the mvp stage"
+    },
+    {
+      "skill": "accessibility-review",
+      "reason": "it changes a screen",
+      "depth": "light"
+    },
+    {
+      "skill": "design-review",
+      "reason": "it changes a screen, and the project has a design",
+      "depth": "light"
+    },
+    {
+      "skill": "dependency-review",
+      "reason": "it changes a dependency file or lockfile"
+    },
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
   "next": "Fix the 4 blocking errors (tailwind.config.ts parse, 2 set-state-in-effect, 1 preserve-manual-memoization), exempt tests from no-non-null-assertion, then decide enforce vs deferred for the warnings",
-  "updatedAt": "2026-10-07T06:10:25.731Z"
+  "updatedAt": "2026-10-07T06:29:10.607Z"
 }
