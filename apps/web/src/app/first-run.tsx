@@ -62,14 +62,18 @@ export function FirstRun() {
       onFinish={async (answers, ctx) => {
         try {
           await actions.replaceAll(buildSnapshot(answers, ctx))
-          await navigate('/', { replace: true })
-          return undefined
         } catch (error) {
           // Every value the owner typed is still in the form. Retry re-submits
           // it, so they never type it again.
           const detail = error instanceof Error ? ` (${error.message})` : ''
           return `Couldn’t save that. Your answers are still here — try again.${detail}`
         }
+
+        // Outside that catch deliberately. Its message says the save failed, and
+        // by here it has not. A navigation that fails after the snapshot is
+        // written must never be reported as the owner's figures being lost.
+        await navigate('/', { replace: true })
+        return undefined
       }}
     />
   )
