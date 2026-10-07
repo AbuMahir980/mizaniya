@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "skill": "qa-acceptance",
+  "workItem": "ITEM-3",
+  "at": "2026-10-07T10:35:00Z",
+  "scope": {
+    "base": "5e4e57ad9392a6e6f1af035528425b5ec270632e",
+    "head": "093a2317",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "scripts/ci-status.mjs",
+      "scripts/ci-watch.mjs",
+      "scripts/pre-merge-check.mjs",
+      "scripts/ci-status.test.mjs",
+      "scripts/ci-scripts.test.mjs",
+      "package.json",
+      "CLAUDE.md"
+    ]
+  },
+  "inputs": [
+    ".peer-ai/work/ITEM-3.json",
+    "CLAUDE.md",
+    "docs/standards/standards-addendum-mizaniya.md"
+  ],
+  "inventory": [
+    {
+      "id": "criterion:1",
+      "kind": "test",
+      "location": {
+        "file": "scripts/ci-scripts.test.mjs",
+        "line": 66
+      }
+    },
+    {
+      "id": "criterion:2",
+      "kind": "test",
+      "location": {
+        "file": "scripts/ci-scripts.test.mjs",
+        "line": 45
+      }
+    },
+    {
+      "id": "criterion:3",
+      "kind": "test",
+      "location": {
+        "file": "scripts/ci-scripts.test.mjs",
+        "line": 163
+      }
+    },
+    {
+      "id": "criterion:4",
+      "kind": "test",
+      "location": {
+        "file": "scripts/ci-scripts.test.mjs",
+        "line": 148
+      }
+    },
+    {
+      "id": "criterion:5",
+      "kind": "test",
+      "location": {
+        "file": "scripts/ci-status.test.mjs",
+        "line": 20
+      }
+    },
+    {
+      "id": "script:ci-watch",
+      "kind": "job",
+      "location": {
+        "file": "scripts/ci-watch.mjs",
+        "line": 36
+      }
+    },
+    {
+      "id": "script:pre-merge-check",
+      "kind": "job",
+      "location": {
+        "file": "scripts/pre-merge-check.mjs",
+        "line": 34
+      }
+    },
+    {
+      "id": "test:ci-status",
+      "kind": "test",
+      "location": {
+        "file": "scripts/ci-status.test.mjs",
+        "line": 1
+      }
+    },
+    {
+      "id": "test:ci-scripts",
+      "kind": "test",
+      "location": {
+        "file": "scripts/ci-scripts.test.mjs",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "AC-1",
+      "item": "criterion:1",
+      "status": "pass",
+      "evidence": "'Given an open pull request with a failing check, ci-watch names the pull request, the failing check and its run link, and exits non-zero.' Met in ci-watch.mjs:128-131, which prints the label, then each problem's name, bucket and link, and returns 1. Proven by a test that can fail: ci-scripts.test.mjs:66 'exits one and names the pull request, the check and its run link when broken' asserts the return is 1 and that the output contains RED, #7, verify and https://x/job/9 \u2014 change any of the four and it fails. Also observed against the real repository: a failing verify on pull request 134 earlier on this branch printed exactly that shape and exited 1."
+    },
+    {
+      "rule": "AC-2",
+      "item": "criterion:2",
+      "status": "pass",
+      "evidence": "'Given every open pull request is green, ci-watch exits zero.' Met in ci-watch.mjs:134, which returns 0 when neither red nor gated was counted. Two tests, because there are two ways to be all-green: ci-scripts.test.mjs:45 'exits zero when every open pull request passed' asserts 0 and a GREEN line, and :54 'exits zero when there is nothing open at all' asserts 0 and the no-open-pull-requests line. Neither could be demonstrated against the real repository, because no green pull request exists today \u2014 both open ones are held by their own gate \u2014 which is precisely why this criterion needed a test rather than a run."
+    },
+    {
+      "rule": "AC-3",
+      "item": "criterion:3",
+      "status": "pass",
+      "evidence": "'Given a pull request with a pending, failing, cancelled or skipped check, pre-merge-check refuses and names what is not green.' Met in pre-merge-check.mjs:76-82. Proven for all four buckets rather than one: ci-scripts.test.mjs:163 runs the same case over fail, pending, cancel and skipping, asserting the return is 1 and that the output names both the check and its bucket. Also observed against the real repository: pre-merge-check refuses pull request 134 on its failing peer-ai check, naming it and its run."
+    },
+    {
+      "rule": "AC-4",
+      "item": "criterion:4",
+      "status": "pass",
+      "evidence": "'Given a pull request whose base is not main and whose checks all pass, pre-merge-check allows the merge and states the base branch.' Met in pre-merge-check.mjs:72-74 and :88. Proven by ci-scripts.test.mjs:148 'allows a green pull request based on another branch, and names that base', which asserts the return is 0 and that the output contains 'Base is feature/underneath, not main', 'Branch protection would not cover this merge' and ALLOWED. This is the criterion that could least be demonstrated by running: no pull request in this repository has ever had a base other than main, and it is the case branch protection would never cover, which is the whole reason the criterion exists."
+    },
+    {
+      "rule": "AC-5",
+      "item": "criterion:5",
+      "status": "pass",
+      "evidence": "'Given a check reported as skipped, either script treats it as not passed rather than as a pass.' Met in ci-status.mjs:33, where only the bucket pass is a pass, and the rule is shared by both scripts rather than implemented twice. Proven at both levels: ci-status.test.mjs:20 runs fail, cancel, skipping and pending through verdict and asserts each is refused with its bucket named, :29 pins SETTLED_BLOCKING_BUCKETS so the list cannot silently shrink, and ci-scripts.test.mjs:163 asserts pre-merge-check itself refuses a skipping check. A bucket never seen before is also refused (ci-status.test.mjs:34), which is the same rule applied to GitHub adding a fifth."
+    },
+    {
+      "rule": "AC-NOTHING-EXTRA",
+      "status": "pass",
+      "evidence": "Nothing was built beyond the criteria. The change is three scripts and two test files, two npm scripts, one CLAUDE.md section recording both as rules, and one line in peer-ai.config.json naming the CI check that runs verify. The GATE labelling and the ERROR-on-failure path are not extra features: each closes a fault found reviewing this item, and neither adds a capability the criteria did not ask for. No application code is touched and the production bundle is byte-identical to the base's."
+    },
+    {
+      "rule": "TEST-01",
+      "item": "test:ci-scripts",
+      "status": "pass",
+      "evidence": "Every fault fixed on this branch ships with a test that fails without the fix: the alarm firing on pending checks (6 cases), the gate being indistinguishable from a break (5), the shape of gh's answer (6), and the ERROR-on-failure and keep-going paths (5). The timeout alone is reasoned rather than exercised, because forcing a real hang means sleeping in a test; what is proven is that any throw from the runner, which is what a timeout produces, reaches the ERROR path."
+    },
+    {
+      "rule": "TEST-02",
+      "status": "not-applicable",
+      "reason": "No user journey is involved: this item adds developer tooling run from a terminal, with no screen and no path through the product. The project's own main journey is the core journey in the addendum (K1), which is unchanged by this item \u2014 the production bundle built from this branch is byte-identical to the base's. That journey not yet existing as an end-to-end test is a project gap, recorded against the project rather than caused here."
+    },
+    {
+      "rule": "TEST-03",
+      "item": "test:ci-status",
+      "status": "pass",
+      "evidence": "This is what ci-status.test.mjs is: the rule \u2014 which bucket counts as a pass, when pending blocks, what the gate is \u2014 tested with plain objects, case by case, each with a name. 31 cases, including the edges that matter: an empty list, a bucket never seen before, a check with no bucket at all, one check in the singular, and a settled failure sitting beside a pending one. No mock, no network, no framework."
+    },
+    {
+      "rule": "TEST-04",
+      "item": "test:ci-scripts",
+      "status": "pass",
+      "evidence": "The tests assert what the caller sees: the returned exit code and the lines printed. None reaches into a private variable or asserts a call order. The one place a collaborator is observed, the ten abuse cases asserting gh recorded no call, is checking behaviour that is the point of the rule \u2014 the refusal happens before anything runs \u2014 rather than an implementation detail."
+    },
+    {
+      "rule": "TEST-08",
+      "item": "test:ci-scripts",
+      "status": "pass",
+      "evidence": "The input that reaches a command gets tests that attack it: ten cases shaped like a flag, a leading dash, an appended path traversal, an appended shell separator, an embedded newline, a decimal, a word, a space-separated pair, an empty string and no argument. Each asserts exit 2 and that gh was never called at all, so nothing outside reaches an argument list."
+    },
+    {
+      "rule": "TEST-09",
+      "item": "test:ci-scripts",
+      "status": "pass",
+      "evidence": "Done deliberately rather than assumed, because this project's own recurring lesson is that a check which has only ever passed is indistinguishable from one switched off. Two experiments on this commit: making isPass accept 'skipping' as well as 'pass' failed exactly two tests, one at the unit level and one through pre-merge-check, so the rule is guarded at both; replacing the argument guard's condition with false failed all ten abuse cases. Both were restored and the 59 tests pass again. The sibling item's rail test was proven the same way, by removing the attribute and watching one of its five fail."
+    },
+    {
+      "rule": "TEST-12",
+      "item": "test:ci-scripts",
+      "status": "pass",
+      "evidence": "The tests import ci-watch.mjs, pre-merge-check.mjs and ci-status.mjs by the same relative specifiers the scripts use on each other, with no build step, no bundling and no alias between them. What runs under vitest is the same file npm run ci:watch executes, so there is no second copy that could pass while the real one fails."
+    },
+    {
+      "rule": "CODE-15",
+      "item": "script:ci-watch",
+      "status": "pass",
+      "evidence": "Each edge is handled and each is tested: no open pull requests at all returns 0 with a line saying so; a check list that is empty is refused rather than read as green; a bucket never seen before blocks; a check with no bucket blocks; one pull request that cannot be read is reported and the sweep continues over the others; a multi-line failure prints one line rather than a stack; and a run link with no job id in it makes isGateFailure answer false rather than throwing."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass. All five acceptance criteria hold and each is proven by a test that fails without the behaviour, not by reading. Two of them \u2014 exiting zero when all green, and allowing a green pull request based on a branch other than main \u2014 could not be demonstrated against the real repository at all, since no green pull request and no non-main base exists here, which is why the scripts were made importable. Nothing extra was built."
+}
