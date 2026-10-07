@@ -54,7 +54,20 @@ function isGateFailure(problem) {
 let red = 0
 let gated = 0
 
-const pulls = openPullRequests()
+/**
+ * A watcher that cannot do its job must say so on stdout, not die quietly. The
+ * monitor around this script reads its output and treats no output as nothing
+ * wrong, so a crash here would look exactly like every pull request being green.
+ * Exit 2 rather than 1, so "the watcher is broken" is distinguishable from "a
+ * pull request is not green".
+ */
+let pulls
+try {
+  pulls = openPullRequests()
+} catch (error) {
+  console.log(`ERROR  cannot list pull requests: ${error.message.split('\n')[0]}`)
+  process.exit(2)
+}
 if (pulls.length === 0 && !quiet) console.log('No open pull requests.')
 
 for (const pull of pulls) {
