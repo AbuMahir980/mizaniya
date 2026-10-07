@@ -9,6 +9,13 @@
 
 export const BLOCKING_BUCKETS = ['fail', 'cancel', 'skipping', 'pending']
 
+/**
+ * The subset that is a *settled* problem. A merge gate blocks on `pending` too —
+ * a check still running has not passed. An alarm must not fire on it, or it cries
+ * wolf every time CI starts and the real failures stop being read.
+ */
+export const SETTLED_BLOCKING_BUCKETS = ['fail', 'cancel', 'skipping']
+
 /** A bucket this script has never seen is treated as blocking, not as a pass. */
 export function isPass(bucket) {
   return bucket === 'pass'
@@ -38,16 +45,32 @@ export function classify(checks) {
  * identical to one that passed if you only count failures, and that is exactly
  * how an unverified change merges.
  */
-export function verdict(checks) {
+export function verdict(checks, { ignorePending = false } = {}) {
   if (checks.length === 0) {
-    return { green: false, reason: 'no checks have reported', problems: [], counts: {} }
+    return { green: false, waiting: false, reason: 'no checks have reported', problems: [], counts: {} }
   }
 
   const result = classify(checks)
-  if (result.green) return { ...result, reason: `all ${checks.length} checks passed` }
+  if (result.green) {
+    return { ...result, waiting: false, reason: `all ${checks.length} checks passed` }
+  }
 
-  const worst = result.problems
+  const settled = result.problems.filter((p) => p.bucket !== 'pending')
+
+  // Nothing settled against it, only checks still running. A gate still refuses;
+  // an alarm stays quiet and waits for them to land.
+  if (ignorePending && settled.length === 0) {
+    const pending = result.problems.length
+    return {
+      ...result,
+      green: false,
+      waiting: true,
+      reason: `${pending} check${pending === 1 ? '' : 's'} still running`,
+    }
+  }
+
+  const worst = (ignorePending ? settled : result.problems)
     .map((p) => `${p.name} [${p.bucket}]`)
     .join(', ')
-  return { ...result, reason: `not green: ${worst}` }
+  return { ...result, problems: ignorePending ? settled : result.problems, waiting: false, reason: `not green: ${worst}` }
 }
