@@ -26,6 +26,10 @@ export function Rail({ value, tone = 'positive', label, className }: RailProps) 
   return (
     <div
       role="progressbar"
+      // `label` was only reaching `aria-valuetext`, which is the *value*, not the
+      // name — so the bar had no accessible name at all, against its own prop
+      // comment. A screen reader read "62% of food" with nothing saying what it was.
+      aria-label={label}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={percent}

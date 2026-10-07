@@ -32,6 +32,7 @@
   "include": [
     "apps/web/src",
     "apps/web/vite.config.ts",
+    "apps/web/tailwind.config.ts",
     "packages/core/src",
     "scripts",
     "eslint.config.js"

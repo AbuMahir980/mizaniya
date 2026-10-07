@@ -43,7 +43,7 @@ export function FirstRun() {
           if (outcome.kind === 'imported') {
             // The export already carries the settings, so onboarding would only
             // ask for answers the file has already supplied.
-            navigate('/', { replace: true })
+            await navigate('/', { replace: true })
             return undefined
           }
 
@@ -62,7 +62,7 @@ export function FirstRun() {
       onFinish={async (answers, ctx) => {
         try {
           await actions.replaceAll(buildSnapshot(answers, ctx))
-          navigate('/', { replace: true })
+          await navigate('/', { replace: true })
           return undefined
         } catch (error) {
           // Every value the owner typed is still in the form. Retry re-submits

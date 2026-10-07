@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-2",
+  "title": "Bring the built screens within the length rules",
+  "kind": "refactor",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/bring-the-built-screens-within-the-length-rules",
+  "goal": "The eight source files over the file-length limit and the sixteen functions over the function-length limit come within TS-07 and TS-08, so both rules can stop being deferred and start blocking. These are the same screens due to be rebuilt against the 263 artboards, so the split should follow the design's own structure rather than cutting files at arbitrary line counts.",
+  "acceptance": [
+    "Given apps/web, when lint runs, then no source file exceeds the file-length limit for its type",
+    "Given apps/web, when lint runs, then no function exceeds the function-length limit",
+    "Given peer-ai.config.json, when the work is done, then TS-07 and TS-08 are removed from standards.deferred and block the build"
+  ],
+  "sources": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/design/"
+  ],
+  "next": "Wait for the screen rebuild against the artboards; split along the design's own structure rather than at line counts",
+  "updatedAt": "2026-10-07T06:24:47.008Z"
+}
