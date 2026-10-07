@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-5",
+  "title": "Revisit the architecture: no accounts, sync as an encrypted blob the owner holds the key to",
+  "kind": "discovery",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/revisit-the-architecture-no-accounts-sync-as-an-en",
+  "goal": "An ADR the owner can read end to end and follow the whole flow from, replacing ADR-009's premise: no accounts, no database, no tiers, and sync as one client-encrypted blob addressed by a key derived from a recovery phrase. It must settle how writes are ordered without a server that can read them, since ADR-010 relied on the server ordering; how a spouse joins; what replaces bank sync; and what the design must change.",
+  "acceptance": [
+    "Given the ADR, when the owner reads it alone, then the whole flow from first sync to a second device joining is followable without asking a question, and every rejected alternative says why",
+    "Given ADR-010 depends on the server ordering writes because client clocks lie, when the ADR is written, then it states what orders writes instead and names the remaining risk rather than hiding it",
+    "Given two devices editing at once, when the ADR is written, then it says which write wins, how the loser is detected, and what the owner sees",
+    "Given the key design, when the ADR is written, then the phrase entropy, the derivation, the cipher, and the separation of the blob address from the decryption key are each stated with a reason",
+    "Given rule 7 and ADR-011, when the ADR is written, then it says which of their clauses become true, which become moot, and which still bind",
+    "Given the 263 artboards, when the ADR is written, then it lists what the design must change and what is unaffected, in a form the designer can act on"
+  ],
+  "sources": [
+    "docs/adr/ADR-009-repositioning-v1-hosted-webapp.md",
+    "docs/adr/ADR-010-sync-model.md",
+    "docs/adr/ADR-011-encryption-and-data-protection.md",
+    "docs/adr/ADR-012-server-stack.md",
+    "docs/02-architecture.md",
+    "CONTEXT.md"
+  ],
+  "next": "Run peer-ai-architecture, reading ADR-009, ADR-010, ADR-011 and ADR-012 first, since this supersedes the premise of one and rebuilds a guarantee of another",
+  "updatedAt": "2026-10-07T11:53:36.936Z"
+}
