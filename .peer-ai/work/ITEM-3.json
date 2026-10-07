@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-3",
+  "title": "A watcher that refuses a red merge, into any branch, without waiting for anyone to look",
+  "kind": "chore",
+  "stage": "build",
+  "track": "web",
+  "branch": "feature/a-watcher-that-refuses-a-red-merge-into-any-branch",
+  "base": "5e4e57ad9392a6e6f1af035528425b5ec270632e",
+  "goal": "Two scripts, needing only node and gh. One reports the check state of every open pull request and exits non-zero when any is red, so it runs one-shot or inside a polling monitor. The other guards one pull request before merge and refuses unless every check passed, whatever its base branch, so a stacked merge is held to the same bar as main. Branch protection guards only main, and it is off; this depends on neither it nor anyone noticing.",
+  "acceptance": [
+    "Given an open pull request with a failing check, when scripts/ci-watch.mjs runs, then it names the pull request, the failing check and its run link, and exits non-zero",
+    "Given every open pull request is green, when scripts/ci-watch.mjs runs, then it exits zero",
+    "Given a pull request with a pending, failing, cancelled or skipped check, when scripts/pre-merge-check.mjs is run for it, then it refuses and names what is not green",
+    "Given a pull request whose base is not main and whose checks all pass, when scripts/pre-merge-check.mjs runs for it, then it allows the merge and states the base branch",
+    "Given a check reported as skipped, when either script runs, then it is treated as not passed rather than as a pass"
+  ],
+  "sources": [
+    "CLAUDE.md"
+  ],
+  "next": "Write scripts/ci-watch.mjs and scripts/pre-merge-check.mjs with tests, then arm a Monitor poll loop over open pull requests",
+  "updatedAt": "2026-10-07T06:50:43.324Z"
+}

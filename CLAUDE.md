@@ -123,8 +123,17 @@ one-line typo.
 - **Checks:** `pr-checks.yml` runs **verify** (`npm run verify`), **repo rules**
   and **secret scanning**, and `peer-ai.yml` runs **peer-ai check**, Peer AI's
   gate. Wait for all of them. Red is not done, and **a check that was skipped or
-  cancelled has not passed.** Branch protection is not on, so nothing stops a red
-  merge but you.
+  cancelled has not passed.**
+- **Watching CI is yours, not the owner's.** After every push, watch that pull
+  request's checks to completion — `npm run ci:watch` reports every open pull
+  request and exits non-zero if any is not green, so it also runs inside a
+  background monitor. The owner should never be the one who notices a red check.
+- **`npm run ci:premerge <pr>` before every merge**, and it must say `ALLOWED`.
+  It refuses on a failing, pending, cancelled or skipped check, on no checks at
+  all, and on a draft. **It applies whatever the base branch is:** branch
+  protection only ever guards `main`, so a pull request stacked onto another
+  branch is otherwise merged with no gate at all. Branch protection on `main` is
+  still off (#112), which is why this does not depend on it.
 - **One peer review before merge**, on the pull request.
 - **Squash and merge**, then delete the branch locally and on `origin`.
 - **Never `git add -A`.** The designer writes into this worktree, and `git add -A`
