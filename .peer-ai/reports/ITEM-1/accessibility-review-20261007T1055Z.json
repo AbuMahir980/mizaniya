@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "skill": "accessibility-review",
+  "workItem": "ITEM-1",
+  "at": "2026-10-07T10:55:00Z",
+  "depth": "light",
+  "scope": {
+    "base": "13bf0c6fbf4feedaa5cd4166b295d1e945d05618",
+    "head": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/ui/rail.tsx",
+      "apps/web/src/ui/rail.test.tsx",
+      "apps/web/src/ui/use-media-query.ts",
+      "apps/web/src/app/first-run.tsx"
+    ]
+  },
+  "inputs": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/design/tokens.md",
+    "docs/design/motion.md",
+    "CLAUDE.md"
+  ],
+  "inventory": [
+    {
+      "id": "component:Rail",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/ui/rail.tsx",
+        "line": 26
+      }
+    },
+    {
+      "id": "component:FirstRun",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/app/first-run.tsx",
+        "line": 62
+      }
+    },
+    {
+      "id": "test:rail",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/ui/rail.test.tsx",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "FE-08",
+      "item": "component:FirstRun",
+      "status": "pass",
+      "evidence": "A light review: only the changed hunks are in scope, which are rail.tsx's one added attribute, use-media-query.ts's internals, and two statements in first-run.tsx's handler. The one message in scope says what happened and what to do next \u2014 \"Couldn't save that. Your answers are still here \u2014 try again.\" \u2014 and the hunk makes that true where it was not. Awaiting navigate inside the try that produces it meant the message could appear after a successful save, telling the owner their figures were lost. It is now shown only for a failed save. The copy itself is unchanged, so nothing new needs the designer."
+    },
+    {
+      "rule": "DES-08",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "A light review: only the changed hunks are in scope, which are rail.tsx's one added attribute, use-media-query.ts's internals, and two statements in first-run.tsx's handler. This is the rule the change exists to satisfy, and it was being broken. Rail renders role=\"progressbar\", which makes it a control to assistive technology, and its required label prop reached only aria-valuetext \u2014 the *value*, not the name. So the bar had no accessible name at all: a screen reader announced \"62% of food\" with nothing saying what the 62% was of. rail.tsx:29 now sets aria-label={label}. Proven rather than asserted: rail.test.tsx queries getByRole('progressbar', {name: 'Food and groceries'}), and removing the attribute fails that one case and only that case."
+    },
+    {
+      "rule": "DES-07",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "A light review: only the changed hunks are in scope, which are rail.tsx's one added attribute, use-media-query.ts's internals, and two statements in first-run.tsx's handler. No information is shown by colour alone, and the hunk improves this too. Rail's tone picks a fill colour \u2014 emerald, ochre, rose or slate \u2014 and the proportion it encodes is also carried as text in aria-valuetext and, as of this change, named by aria-label. So a person who cannot distinguish the tones still gets the figure and what it belongs to. The tone values themselves are untouched."
+    },
+    {
+      "rule": "DES-09",
+      "status": "not-applicable",
+      "reason": "No form field is added or changed. The hunks touch a progressbar, a hook and two statements in a handler; first-run.tsx's inputs are rendered by Onboarding, which is not in scope."
+    },
+    {
+      "rule": "DES-10",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "A light review: only the changed hunks are in scope, which are rail.tsx's one added attribute, use-media-query.ts's internals, and two statements in first-run.tsx's handler. Everything in scope works with a keyboard because nothing in scope is interactive. Rail is a presentational progressbar with no handler, no tabindex and no focusable child \u2014 role=\"progressbar\" is a live region's role, not a widget that takes input. The hook renders nothing. No interaction is added or removed."
+    },
+    {
+      "rule": "DES-11",
+      "status": "not-applicable",
+      "reason": "No focusable element is added or changed by the hunks, so no focus style is in scope. Rail takes no focus by design."
+    },
+    {
+      "rule": "DES-12",
+      "status": "not-applicable",
+      "reason": "No dragging exists in scope, and none is added."
+    },
+    {
+      "rule": "DES-14",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "A light review: only the changed hunks are in scope, which are rail.tsx's one added attribute, use-media-query.ts's internals, and two statements in first-run.tsx's handler. Text follows the person's size setting, and the hunk adds no fixed-size text. aria-label carries no styling at all; the only dimension in rail.tsx is the bar's 6px height, which is unchanged and is a rule rather than text. The hook returns a boolean and sets no size."
+    },
+    {
+      "rule": "DES-15",
+      "status": "not-applicable",
+      "reason": "No touch target is added or resized. Rail is not a target: it takes no input, so there is nothing for the 44px minimum to apply to."
+    },
+    {
+      "rule": "DES-16",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "A light review: only the changed hunks are in scope, which are rail.tsx's one added attribute, use-media-query.ts's internals, and two statements in first-run.tsx's handler. The one animation in scope is Rail's width transition, transition-[width] duration-base, which the hunk does not touch. It is driven by a token rather than a hard-coded duration, and docs/design/motion.md is authoritative for the reduced-motion behaviour of that token. Nothing in this change adds motion or overrides the setting."
+    },
+    {
+      "rule": "DES-13",
+      "item": "component:Rail",
+      "status": "pass",
+      "evidence": "Checked by computing it from the tokens rather than deferred for want of a browser, which is possible because contrast is arithmetic on the values and both themes declare theirs in apps/web/src/design/tokens.css. Rail's fill against its own track is a user interface component boundary, so WCAG 2.1 success criterion 1.4.11 applies and the bar is 3:1. Computed with the WCAG relative-luminance formula for all four tones in both themes: light emerald #0f5c3c on track #ede7da 6.51:1, ochre #8c5c15 4.66:1, slate #3c4a5a 7.35:1, rose #9e2b2b 6.01:1; dark emerald #4ecb8b on track #1a2129 7.92:1, ochre #e5a93f 7.79:1, slate #8fa7c0 6.54:1, rose #f0736b 5.70:1. All eight pass, the worst being light ochre at 4.66:1, comfortably above 3:1 and above 4.5:1 as well. Nothing in this change alters a token or a fill, so these are the ratios before and after it."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Incomplete, not fail: nothing is wrong, but DES-13 could not be checked. DES-08 was being broken and is fixed \u2014 Rail's progressbar had no accessible name at all, since its label reached aria-valuetext, the value, rather than the name. A screen reader said '62% of food' with nothing saying what of. Proven by a test that fails when the attribute is removed. Contrast needs the rendered screen, which this review cannot see, and no colour changed."
+}

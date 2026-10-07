@@ -4,7 +4,7 @@
   "id": "ITEM-1",
   "title": "Turn on Peer AI's lint rules, so sixteen standards stop being unenforced",
   "kind": "chore",
-  "stage": "verify",
+  "stage": "ship",
   "track": "web",
   "branch": "feature/turn-on-peer-ai-s-lint-rules-so-sixteen-standards",
   "base": "5e4e57ad9392a6e6f1af035528425b5ec270632e",
@@ -26,14 +26,70 @@
   },
   "lastVerify": {
     "result": "pass",
-    "at": "2026-10-07T09:43:12.973Z",
-    "commit": "16ac79e49ef93ce9d5edd9c9b66bf21a4a61132f",
+    "at": "2026-10-07T10:24:58.362Z",
+    "commit": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
     "ci": {
       "check": "verify",
-      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/37602335158/job/112729463381"
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/37603122796/job/112732057716"
     }
   },
   "reviews": [
+    {
+      "skill": "code-review",
+      "result": "pass",
+      "open": {
+        "medium": 1
+      },
+      "report": ".peer-ai/reports/ITEM-1/code-review-20261007T1050Z.json",
+      "summary": "Pass with 1 medium open. No serious problem. FE-08 was the rule this branch was failing and now holds: a navigation failing after a successful save no longer reports the owner's figures as lost. The finding is that two of the four fixes are guarded by nothing — one provably cannot be guarded by a test, and the lint rule that would guard it was removed by this same change. ITEM-4 closes it.",
+      "at": "2026-10-07T10:20:05.400Z",
+      "commit": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+      "readOnly": 10
+    },
+    {
+      "skill": "security-review",
+      "result": "pass",
+      "open": {
+        "medium": 1
+      },
+      "report": ".peer-ai/reports/ITEM-1/security-review-20261007T1052Z.json",
+      "summary": "Pass, 1 medium open. No serious problem, and the item strengthens the repository's posture: TS-02 and REACT-04 go from written-down to enforced here. The finding: the import path reads untrusted input and this change edits it, yet has a refusal test only for a merely-wrong file, none for input shaped to attack. Belongs with issue 106.",
+      "at": "2026-10-07T10:21:23.397Z",
+      "commit": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+      "readOnly": 4
+    },
+    {
+      "skill": "qa-acceptance",
+      "result": "pass",
+      "open": {
+        "medium": 1
+      },
+      "report": ".peer-ai/reports/ITEM-1/qa-acceptance-20261007T1100Z.json",
+      "summary": "Pass. All four criteria hold and each was demonstrated rather than read: 15 peer-ai rules in the computed config, doctor's enforcers warning gone and replaced by two named deferrals with the owner's name, and an injected any plus non-null assertion produce errors that fail verify. One open finding carried from the security review: the untrusted import path this change edits has no abuse test.",
+      "at": "2026-10-07T10:24:49.004Z",
+      "commit": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+      "readOnly": 1
+    },
+    {
+      "skill": "accessibility-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-1/accessibility-review-20261007T1055Z.json",
+      "summary": "Pass. DES-08 was being broken and is fixed — Rail's progressbar had no accessible name at all, because its label reached aria-valuetext, the value, rather than the name. A screen reader said \"62% of food\" with nothing saying what of. Proven by a test that fails when the attribute is removed. DES-13 computed from the tokens rather than deferred: all four tones clear 3:1 in both themes, worst 4.66:1.",
+      "at": "2026-10-07T10:26:02.818Z",
+      "commit": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+      "depth": "light",
+      "readOnly": 3
+    },
+    {
+      "skill": "design-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-1/design-review-20261007T1057Z.json",
+      "summary": "Pass. DES-13 computed from the tokens rather than deferred: all four Rail tones clear 3:1 against their track in both themes, worst 4.66:1. Nothing visual changed — no colour, token, spacing or size is touched by any hunk, and the one added attribute is text. DES-07 is strengthened: the thing a coloured bar measures is now named, not just its percentage.",
+      "at": "2026-10-07T10:26:09.565Z",
+      "commit": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+      "depth": "light",
+      "readOnly": 4
+    },
     {
       "skill": "dependency-review",
       "result": "pass",
@@ -41,9 +97,9 @@
         "high": 2
       },
       "report": ".peer-ai/reports/ITEM-1/dependency-review-20261007T0640Z.json",
-      "summary": "Pass with 2 high findings open. Nothing audits dependencies on change or schedule, and 18 vulnerabilities are already present (2 critical) — all pre-existing and dev-only. eslint-plugin-jsx-a11y-x is a fork named one suffix from a better-known package, required by Peer AI's config, with no reason recorded in the tree.",
-      "at": "2026-10-07T06:34:40.083Z",
-      "commit": "b1a30eeb857b6fa7b26e78051b96a4c7623bcb56",
+      "summary": "Pass with 2 high open, both recorded in full. Nothing audits dependencies on change or on a schedule, and 18 vulnerabilities are present (2 critical), all pre-existing and dev-only. eslint-plugin-jsx-a11y-x is a fork named one suffix from a better-known package, required by Peer AI's config, with no reason recorded in the tree. Re-checked at d00f246: the dependency diff is unchanged.",
+      "at": "2026-10-07T10:26:18.572Z",
+      "commit": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
       "readOnly": 1
     }
   ],
@@ -76,5 +132,5 @@
     }
   ],
   "next": "Fix the 4 blocking errors (tailwind.config.ts parse, 2 set-state-in-effect, 1 preserve-manual-memoization), exempt tests from no-non-null-assertion, then decide enforce vs deferred for the warnings",
-  "updatedAt": "2026-10-07T09:43:12.973Z"
+  "updatedAt": "2026-10-07T10:26:22.863Z"
 }

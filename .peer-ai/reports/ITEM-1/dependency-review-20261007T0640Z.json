@@ -2,12 +2,18 @@
   "version": 1,
   "skill": "dependency-review",
   "workItem": "ITEM-1",
-  "at": "2026-10-07T06:40:00Z",
+  "at": "2026-10-07T11:05:00Z",
   "scope": {
     "base": "5e4e57ad9392a6e6f1af035528425b5ec270632e",
-    "head": "b1a30eeb857b6fa7b26e78051b96a4c7623bcb56",
-    "tracks": ["web", "core"],
-    "files": ["package.json", "package-lock.json"]
+    "head": "d00f246ea38b3fdbc9485b36c20fdaf7f34746f0",
+    "tracks": [
+      "web",
+      "core"
+    ],
+    "files": [
+      "package.json",
+      "package-lock.json"
+    ]
   },
   "inputs": [
     "package.json",
@@ -24,67 +30,106 @@
     {
       "id": "manifest:root",
       "kind": "manifest",
-      "location": { "file": "package.json", "line": 1 }
+      "location": {
+        "file": "package.json",
+        "line": 1
+      }
     },
     {
       "id": "manifest:web",
       "kind": "manifest",
-      "location": { "file": "apps/web/package.json", "line": 1 }
+      "location": {
+        "file": "apps/web/package.json",
+        "line": 1
+      }
     },
     {
       "id": "manifest:core",
       "kind": "manifest",
-      "location": { "file": "packages/core/package.json", "line": 1 }
+      "location": {
+        "file": "packages/core/package.json",
+        "line": 1
+      }
     },
     {
       "id": "dependency:peer-ai-eslint-config",
       "kind": "dependency",
-      "location": { "file": "package.json", "line": 43 }
+      "location": {
+        "file": "package.json",
+        "line": 43
+      }
     },
     {
       "id": "dependency:eslint-plugin-react-hooks",
       "kind": "dependency",
-      "location": { "file": "package.json", "line": 39 }
+      "location": {
+        "file": "package.json",
+        "line": 39
+      }
     },
     {
       "id": "dependency:eslint-plugin-react-dom",
       "kind": "dependency",
-      "location": { "file": "package.json", "line": 38 }
+      "location": {
+        "file": "package.json",
+        "line": 38
+      }
     },
     {
       "id": "dependency:eslint-plugin-jsx-a11y-x",
       "kind": "dependency",
-      "location": { "file": "package.json", "line": 37 }
+      "location": {
+        "file": "package.json",
+        "line": 37
+      }
     },
     {
       "id": "dependency:typescript-eslint",
       "kind": "dependency",
-      "location": { "file": "package.json", "line": 48 }
+      "location": {
+        "file": "package.json",
+        "line": 48
+      }
     },
     {
       "id": "registry:public",
       "kind": "registry",
-      "location": { "file": "package-lock.json", "line": 1 }
+      "location": {
+        "file": "package-lock.json",
+        "line": 1
+      }
     },
     {
       "id": "check:verify",
       "kind": "check",
-      "location": { "file": ".github/workflows/pr-checks.yml", "line": 1 }
+      "location": {
+        "file": ".github/workflows/pr-checks.yml",
+        "line": 1
+      }
     },
     {
       "id": "check:secret-scanning",
       "kind": "check",
-      "location": { "file": ".github/workflows/pr-checks.yml", "line": 1 }
+      "location": {
+        "file": ".github/workflows/pr-checks.yml",
+        "line": 1
+      }
     },
     {
       "id": "check:peer-ai",
       "kind": "check",
-      "location": { "file": ".github/workflows/peer-ai.yml", "line": 1 }
+      "location": {
+        "file": ".github/workflows/peer-ai.yml",
+        "line": 1
+      }
     },
     {
       "id": "licence:product",
       "kind": "licence",
-      "location": { "file": "LICENSE", "line": 1 }
+      "location": {
+        "file": "LICENSE",
+        "line": 1
+      }
     }
   ],
   "coverage": [
@@ -209,6 +254,13 @@
       "item": "manifest:root",
       "status": "pass",
       "evidence": "DEL-12 applies in full from the production stage and the project is at mvp, but it was checked now rather than deferred. On two of its three limbs this change is clean. No install script: none of the five packages declares preinstall, install or postinstall. The one package in the tree that does, unrs-resolver, was already present on the base commit, where package-lock.json names it six times, so this change did not introduce it. Maintenance: react-hooks is published from facebook/react, typescript-eslint from the typescript-eslint project, react-dom from eslint-react, and the three peer-ai packages are the project owner's own, all at versions published within the current release cycle. The third limb, a name close to a better-known package, failed: see F2."
+    },
+    {
+      "rule": "DEL-01",
+      "item": "manifest:root",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "Re-checked at d00f246, after the branch took main in and four further commits. The dependency diff is unchanged from the first check: the same five pinned devDependencies, and package-lock.json's only movement is theirs. What changed since are source files, two test files, CLAUDE.md, the generated peer-ai.yml and peer-ai.config.json's enforcement and verifyCheck lines, none of which names a package, a version or a registry. The five are still exact, and the lockfile is still committed."
     }
   ],
   "findings": [
@@ -218,7 +270,10 @@
       "severity": "high",
       "status": "open",
       "title": "Nothing checks the dependencies for known vulnerabilities, and eighteen are already present including two critical",
-      "location": { "file": ".github/workflows/pr-checks.yml", "line": 1 },
+      "location": {
+        "file": ".github/workflows/pr-checks.yml",
+        "line": 1
+      },
       "evidence": "The three jobs in pr-checks.yml are verify, repo rules and secret scanning; peer-ai.yml adds peer-ai check. Searching .github for npm audit, osv-scanner, trivy, snyk or dependency-review-action returns nothing, and there is no .github/dependabot.yml or renovate.json, so dependencies are checked neither on change nor on a schedule, and no time to fix is set for any severity. Running npm audit on this commit reports 18 vulnerabilities: 2 critical, 10 high, 5 moderate, 1 low. This change introduced none of them: every chain traces to dependencies already on the base commit (eslint-plugin-boundaries via micromatch, tailwindcss via chokidar and postcss-selector-parser, vite, vitest via tinypool and @vitest/mocker). npm audit --omit=dev reports 0, so all of them are in the build and test toolchain rather than the shipped bundle. That lowers the reach but does not remove it, because the toolchain runs on developer machines and in CI, and the two critical ones are remote code execution in tinypool's worker options and arbitrary file read through vitest.",
       "fix": "Add a dependency audit to pr-checks.yml so every pull request fails on a vulnerability at or above an agreed severity, and a scheduled daily run so newly published advisories are seen without a code change. Add a dependency bot, or a scheduled job, to raise the upgrades. Write the time to fix per severity where the standards are mapped. Then handle the two critical findings, which are vitest and tinypool: npm audit reports the fix as vitest 5.0.3, a breaking change, so it needs its own work item rather than npm audit fix --force here."
     },
@@ -228,7 +283,10 @@
       "severity": "high",
       "status": "open",
       "title": "A dependency is a fork whose name sits one suffix from a better-known package, with no reason recorded in the repository",
-      "location": { "file": "package.json", "line": 37 },
+      "location": {
+        "file": "package.json",
+        "line": 37
+      },
       "evidence": "eslint-plugin-jsx-a11y-x is a fork of the considerably better-known eslint-plugin-jsx-a11y, differing only by the -x suffix, which is the shape DEL-12 describes. It is legitimate: it is published by es-tooling, declares MIT, and runs no install script. It is also not optional here, because peer-ai-eslint-config names that exact package, not the original, as the peer its accessibility rules need. The reason is stated in pull request 133, but a pull request description is not where the repository keeps a standing decision, so nothing in the tree records why a fork was chosen. DEL-12 requires a written reason, and applies in full at the production stage.",
       "fix": "Record the reason where it survives the pull request: a line in the standards mapping, or an entry in docs/backlog.md, saying that Peer AI's configuration requires this fork and that the original is not a substitute. If the original would serve, raise it with Peer AI through draft_feedback rather than diverging from the generated configuration here."
     }
