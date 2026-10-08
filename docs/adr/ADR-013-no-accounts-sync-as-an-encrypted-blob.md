@@ -232,9 +232,9 @@ hosting plus one small request handler. And the person picks which risk they wou
 rather carry, instead of being handed the one we happened to think of first.
 
 **Costs:** bank movement through an aggregator becomes impossible — see
-Consequences. **Revocation stays unsolved in every mode:** anyone who has held the
-data key keeps whatever they already read, so rotation protects the future and never
-the past. Three modes is more to build and far more to explain than one, and if the
+Consequences. **Revocation is only partly solvable in every mode:** rotating always
+stops future access, but a holder who already fetched the blob keeps that copy — see
+*Deleting the blob is the remedy*. Three modes is more to build and far more to explain than one, and if the
 explanation is poor people will choose D3 to get past the screen — shipping the
 weakest option while having built the better ones.
 
@@ -310,11 +310,11 @@ design distinguishes *your* device from *someone else's*. That is deliberate, an
 is also the limit:
 
 - **Sharing shares everything.** There is no partial view and no read-only.
-- **Revocation is forward-only, in every mode.** Anyone who has held the data key
-  keeps whatever they already read. Rotating — new data key, rewrapped for whoever
-  remains, new address, old blob deleted — protects the future and can never
-  protect the past. A device that reads without asking permission cannot be told to
-  stop retroactively.
+- **Revocation is forward-certain and backward-conditional** — see *Deleting the
+  blob is the remedy* below. Rotating always stops future access. Whether it
+  protects the past depends entirely on whether the holder had already fetched the
+  blob, which differs sharply between a found secret and a partner who has been
+  syncing.
 - **What the modes change is the *recovery* risk, not the sharing model.** D2 is the
   one that answers *"a stranger finds it"*, because no single piece is enough.
 
@@ -363,11 +363,15 @@ of all since it is the mode with a single sufficient secret:**
    rewrap the data key, move to the new address, delete the old blob. Because the
    budget is encrypted under a data key rather than under the phrase, this costs one
    small rewrap rather than re-encrypting everything — which is a second reason the
-   wrapping design is right. **Honest limit: anyone who already copied the old blob
-   keeps that snapshot for ever.** Rotation protects the future, never the past.
-2. **Notification.** The store sees only an opaque address and cannot tell a thief
-   from the owner. The app can still say *"a new device opened your budget on 3
-   November"*. That is detection rather than prevention, and it is nearly free.
+   wrapping design is right. **Deleting the old blob is the remedy itself, not
+   housekeeping** — against a secret found and not yet used it leaves the holder
+   nothing. See *Deleting the blob is the remedy* for what it reaches and what it
+   cannot.
+2. **Notification**, which is the *trigger* for the remedy above rather than a
+   nicety, and the two only work as a pair. The store sees only an opaque address
+   and cannot tell a thief from the owner, but the app can still say *"a new device
+   opened your budget on 3 November"* — which is what tells the owner to delete. An
+   undetected leak is one nobody deletes in time.
 3. **Copy that says what the phrase is.** The screen showing it must state plainly
    that anyone holding those words can see the owner's money. Buried in a tooltip is
    how a phrase ends up photographed into a chat.
@@ -390,6 +394,50 @@ a flow in an area [ADR-011](ADR-011-encryption-and-data-protection.md) warned
 phrase on paper at home, where the person most likely to find it is the spouse it
 was meant for. **If a real person is ever harmed by a found phrase, this is the
 thing to build**, and it is listed under *What would make this worth revisiting*.
+
+### Deleting the blob is the remedy, and it works better than "forward-only" suggested
+
+**The owner's correction, 2026-10-08, and it was right.** Earlier drafts of this
+record said rotation *"protects the future and can never protect the past"*. That is
+too absolute, and the owner proposed the sharper move: when a secret is believed
+leaked, **delete the blob at its address.** The leaked secret then points at
+nothing.
+
+**Why this costs the owner nothing, which is the part that makes it practical.**
+[ADR-010](ADR-010-sync-model.md) made the device authoritative and the server a sync
+target rather than a source of truth. So the blob is a copy. Deleting it loses no
+data at all: every budget stays on every device that had it, and a new secret and a
+new address can be published from any of them. The remedy is cheap *because* the
+architecture is local-first.
+
+**What it achieves depends on one question: had the holder already fetched it?**
+
+| The case | What deletion does |
+|---|---|
+| **A secret found and not yet used** — a slip in a drawer, a photo in an old chat | **They get nothing.** The address returns nothing and the ciphertext was never in their hands. This is the common case, because most found secrets are never tried, or are tried late |
+| **A partner who has been syncing** | **Deletion does not touch what they have.** Their device already holds the whole budget locally, by design — that is what syncing *is*. Rotating stops them seeing anything further, and the copy up to that moment is theirs |
+
+So the honest shape is not *"the past can never be protected"* but **"the past is
+protected exactly as far as you delete before they fetch."** Against a found secret
+that is usually everything; against someone who has been syncing it is nothing,
+because they never needed the blob.
+
+**This makes notification a requirement rather than a nicety.** Deletion is the
+remedy and notification is the trigger: *"a new device opened your budget on 3
+November"* is what tells the owner to delete, and the two only work as a pair. An
+undetected leak is one nobody deletes in time.
+
+**One refinement worth building:** a rotated address should be **permanently
+refused** rather than merely empty, so a holder cannot distinguish *deleted* from
+*never existed*, and cannot sit on the address waiting for a republish there. New
+secret, new address, old address burned.
+
+**And what it cannot do, stated so the limit is not mistaken for a gap:** nothing
+reaches a copy already on someone else's disk. No deletion, no rotation and no
+cryptography retrieves data that has left. That is true of every system that has
+ever let a device read offline, and it is the price of
+[ADR-010](ADR-010-sync-model.md)'s offline guarantee rather than a fault in this
+design.
 
 ### What orders writes, now that no server can
 
