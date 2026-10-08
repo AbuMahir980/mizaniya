@@ -320,6 +320,32 @@ timer, and ship installable. Detailed in **ADR-007**.
 Two are promoted to their own files because they have alternatives worth
 spelling out and a status that may change. The rest are recorded inline.
 
+> **Decided 2026-10-08 (ITEM-6): ADR-003 to ADR-007 should become their own files,
+> and have not been moved yet.**
+>
+> The question had to be answered when every file in `docs/adr/` was reshaped to Peer
+> AI 1.0's decision template. These five were not reshaped, because **they are not
+> files** — each is one row of the table below, with its context and consequences
+> compressed into a single cell.
+>
+> **Why they should move.** `CLAUDE.md` §9 says the decisions live in `docs/adr/`,
+> *one per decision*. Today a reader looking for ADR-005 goes there and finds nothing,
+> and the numbering has a hole in it — eight files numbered up to thirteen. That gap
+> is a thing to explain rather than a thing to read, and it is the only part of the
+> ADR set still shaped by v0.
+>
+> **Why it is not done in the same change.** Turning a one-cell summary into a
+> structured record means deciding which sentence is context and which is
+> consequence. ITEM-6 forbade changing a word of reasoning, and it was reshaping
+> headings only — mechanically provable. Extracting these is a different kind of
+> work: ADR-005's cell records no context at all, and ADR-006's names its
+> alternatives inline. Where the source says nothing, the new file must **say that it
+> says nothing** rather than fill the gap, and that deserves its own review rather
+> than being done at the end of another change.
+>
+> **Until then the table below is authoritative for these five**, and the cells are
+> unchanged.
+
 | ADR | Decision | Status |
 |---|---|---|
 | **[ADR-001](adr/ADR-001-reactivity-and-the-data-seam.md)** | In-memory snapshot with a plain async Repository; the UI never touches Dexie | Accepted |

@@ -1,5 +1,7 @@
 # ADR-010: The sync model — local-first with the server as sync target
 
+## Status
+
 | Field | Value |
 |-------|-------|
 | **Status** | **Accepted** — 2026-09-24. **Part 2 of the decision is rebuilt by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md), 2026-10-08**; parts 1 and 3 stand. See immediately below |
@@ -173,7 +175,7 @@ happens to a device that has been away longer.
 
 ---
 
-## Alternatives Considered
+## Options
 
 | Option | Pros | Cons |
 |--------|------|------|

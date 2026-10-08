@@ -1,5 +1,7 @@
 # ADR-009: Repositioning — v1 is a hosted webapp with a server; mobile becomes v2
 
+## Status
+
 | Field | Value |
 |-------|-------|
 | **Status** | **Accepted** — 2026-09-24. **Its premise is superseded by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md), 2026-10-08.** The decision stands as history; what is still true and what is not is set out immediately below |
@@ -143,7 +145,7 @@ user rather than the first line of server code.
 
 ---
 
-## Alternatives Considered
+## Options
 
 | Option | Pros | Cons |
 |--------|------|------|

@@ -1,5 +1,7 @@
 # ADR-011: Encryption and data protection — strong at rest now, end-to-end deliberately deferred
 
+## Status
+
 | Field | Value |
 |-------|-------|
 | **Status** | **Accepted** — 2026-09-24. **Its deferral of end-to-end encryption is reversed by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md), 2026-10-08, on the conditions this record itself wrote down.** See immediately below |
@@ -174,7 +176,7 @@ choice for them.
 
 ---
 
-## Alternatives Considered
+## Options
 
 | Option | Pros | Cons |
 |--------|------|------|

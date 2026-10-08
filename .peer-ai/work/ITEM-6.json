@@ -4,9 +4,10 @@
   "id": "ITEM-6",
   "title": "Reshape ADR-001 to ADR-012 to Peer AI 1.0's decision template",
   "kind": "chore",
-  "stage": "prepare",
+  "stage": "ship",
   "track": "web",
   "branch": "feature/reshape-adr-001-to-adr-012-to-peer-ai-1-0-s-decisi",
+  "base": "2d4aa6514d9d07c895ead83f3a8541e496e24a89",
   "goal": "The eight ADR files split into two formats. ADR-013 follows Peer AI 1.0's decision template and check_document accepts it; ADR-001 to ADR-012 use v0's project format, with Status in a field table and Alternatives Considered in place of Options, and check_document rejects all of them. Reshape the headings only, never a word of the reasoning or a decision, so every record is checkable.",
   "acceptance": [
     "Given each file in docs/adr, when check_document runs with skill architecture and template decision, then every one is ready",
@@ -17,6 +18,31 @@
     "docs/adr/",
     "docs/02-architecture.md"
   ],
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-08T11:10:58.091Z",
+    "commit": "d9cad200455d9261ad87584912c28bd472f31a2a",
+    "ci": {
+      "check": "verify",
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/37768202758/job/113280939169"
+    }
+  },
+  "reviews": [
+    {
+      "skill": "qa-acceptance",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-6/qa-acceptance-20261008T1112Z.json",
+      "summary": "Pass. All three criteria hold on evidence rather than assertion: all eight ADR files accepted where seven were rejected; the complete diff is fifteen heading lines and nothing else, counted against git, so no reasoning could have changed; and the ADR-003 to ADR-007 answer is recorded beside the table it concerns, with ITEM-7 carrying the work. TEST-09 is satisfied by the checker having been seen to reject these same files first.",
+      "at": "2026-10-08T11:11:53.180Z",
+      "commit": "d9cad200455d9261ad87584912c28bd472f31a2a"
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
   "next": "Confirmed non-conforming before any of today's amendments, so this is pre-existing v0 residue rather than something the ADR-013 work caused",
-  "updatedAt": "2026-10-08T10:57:11.413Z"
+  "updatedAt": "2026-10-08T11:13:46.691Z"
 }

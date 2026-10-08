@@ -1,5 +1,7 @@
 # ADR-008: Repository layout — monorepo for the clients, server visibility deferred
 
+## Status
+
 | Field | Value |
 |-------|-------|
 | **Status** | **Accepted** — 2026-09-11 |
@@ -110,7 +112,7 @@ would be deciding without information.
 
 ---
 
-## Alternatives Considered
+## Options
 
 | Option | Pros | Cons |
 |--------|------|------|

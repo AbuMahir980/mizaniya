@@ -1,5 +1,7 @@
 # ADR-012: The server stack — TypeScript, Hono, Postgres, Kysely
 
+## Status
+
 | Field | Value |
 |-------|-------|
 | **Status** | **Superseded, unbuilt, 2026-10-08 — by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md).** Parked since 2026-09-25 and never started, which is why nothing is lost. Its central argument no longer applies: see immediately below |
@@ -66,7 +68,7 @@ decisions already made, not a new choice.
 
 ---
 
-## Decision (proposed)
+## Decision
 
 | Concern | Choice | In one line |
 |---|---|---|
@@ -133,7 +135,7 @@ knows that.
 
 ---
 
-## Alternatives Considered
+## Options
 
 | Option | Pros | Cons |
 |--------|------|------|
