@@ -2,11 +2,40 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | **Accepted** — 2026-09-24 |
+| **Status** | **Accepted** — 2026-09-24. **Part 2 of the decision is rebuilt by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md), 2026-10-08**; parts 1 and 3 stand. See immediately below |
 | **Date** | 2026-09-24 |
 | **Deciders** | Qudus Lawal (stakeholder and owner) |
 
 ---
+
+> ## Amended 2026-10-08 — part 2 is rebuilt, parts 1 and 3 stand
+>
+> [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md) makes the store unable to read the data, which breaks exactly one
+> part of the decision below and leaves the rest intact.
+>
+> **Part 2 is gone as written.** *"The client proposes, the server orders"* relied on
+> a server-assigned monotonic sequence, because — correctly — *"last-write-wins that
+> trusts a phone's clock is a bug waiting for one traveller crossing a timezone."* A
+> store that cannot read a row cannot order rows. **Replaced by compare-and-swap on
+> the whole blob plus per-device counters**, which is *causal* ordering: the
+> traveller's clock never decides anything, so that bug is removed rather than
+> mitigated.
+>
+> **Part 1 stands and is load-bearing.** Every entity carrying `updatedAt`, deletions
+> as tombstones, schema v2 — all of it is what makes a client-side merge possible at
+> all. This record identifying that as *"the blocker nobody has noticed yet"* is the
+> reason ADR-013 could be designed in a day rather than a month.
+>
+> **Part 3 stands in spirit.** The local implementation is still authoritative and
+> still wrapped rather than replaced; what wraps it is a blob sync rather than an
+> HTTP `Repository`.
+>
+> **And this record's sharpest observation is now acted on.** It marked `PlanEntry`
+> keyed `(cycleStart, categoryId)` as **"this is the one"**, and said of households
+> that *"the answer is to ask, not to merge."* Compare-and-swap makes that conflict
+> *visible* — both sides changed the same key since a known common version — so the
+> app can ask. That is **better** than the server-ordered last-write-wins this record
+> proposed, which would have silently discarded one of the two edits.
 
 ## Context
 

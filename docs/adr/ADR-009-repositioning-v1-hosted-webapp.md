@@ -2,11 +2,37 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | **Accepted** — 2026-09-24 |
+| **Status** | **Accepted** — 2026-09-24. **Its premise is superseded by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md), 2026-10-08.** The decision stands as history; what is still true and what is not is set out immediately below |
 | **Date** | 2026-09-24 |
 | **Deciders** | Qudus Lawal (stakeholder and owner) |
 
 ---
+
+> ## Amended 2026-10-08 — the premise is superseded by ADR-013
+>
+> [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md) removes accounts, the database and the paid tiers. This record is
+> **not** rewritten: an ADR records what was decided when it was decided, and the
+> reasoning below is why the server once looked necessary. What a reader needs is to
+> know which parts still bind.
+>
+> **No longer true.** v1 is not a hosted multi-user webapp. There are no accounts,
+> no Postgres, no tiers and no billing, so stories **K** are out. **Bank movement
+> through an aggregator is out too** — the feature this record was largely written
+> to justify — deferred against a question to ask real users, with a price in it,
+> rather than against the *"outside interest"* this record itself called **"the
+> weakest signal in product"**.
+>
+> **Still true, and the reason this record is not retired.** Mobile is still v2.
+> `apps/admin` is still a separate deployment and not a route in the web app. The
+> amendment to repo rule 1 — the server lives in **this** repository, public, under
+> the same licence — still holds, and now covers the one small request handler
+> ADR-013 needs. And its action item 8 stands: the project is **source-available**
+> under PolyForm Noncommercial, not open source.
+>
+> **Its rule 7 survives in full**, and ADR-013 satisfies the hardest clauses rather
+> than exempting itself from them: *keys kept outside the database* becomes keys we
+> never hold at all, and *deleting means the data is actually gone* becomes
+> achievable because the blob is ciphertext nobody can read.
 
 ## Context
 

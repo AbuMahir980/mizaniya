@@ -2,12 +2,39 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | **Parked 2026-09-25 — not being decided yet.** Written while planning ahead, then deferred: the design is the critical path, and the server is not started until it is finished and a proper planning pass has happened. **Nothing is waiting on this.** It is on the record so the reasoning is not re-derived later |
+| **Status** | **Superseded, unbuilt, 2026-10-08 — by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md).** Parked since 2026-09-25 and never started, which is why nothing is lost. Its central argument no longer applies: see immediately below |
 | **Date** | 2026-09-25 |
 | **Deciders** | Qudus Lawal (stakeholder and owner) |
 
 ---
 
+> ## Amended 2026-10-08 — superseded, and its central argument no longer applies
+>
+> [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md) removes the database and the server's knowledge of the data, so most
+> of this record is moot. **It was parked and never started, so nothing built is
+> thrown away** — which is the value of having parked it rather than implemented it.
+>
+> **The part that was *"not a preference"* is the part that fell.** This record argued
+> the runtime was forced: the server **must** import `packages/core` for `types.ts`,
+> `schema.ts`, `money` and `cycle`, or validation gets written twice in two languages
+> and drifts. That reasoning was sound — and it is now void, because **the store
+> validates nothing.** It receives ciphertext it cannot read, so there is no second
+> definition of a valid movement to drift. The one place a shared definition mattered
+> has been removed rather than solved.
+>
+> **What is gone:** Postgres, Kysely, its migrations, and testing against a real
+> database. `docs/standards/backend-engineering-standards.md` stays dormant.
+>
+> **What survives, reduced to a much smaller question.** Something still has to accept
+> a blob and hand it back. The choice is now about **conditional writes, rate limits
+> and a size cap**, not about a database — and the Hono argument still holds for the
+> little that remains, because it decouples the runtime from the hosting decision
+> (#113) that is still open.
+>
+> **What this record was right about, and ADR-013 inherited:** that a decision made on
+> paper before anything exists should say so and wait. Its own first action item was
+> *"revisit this at all"*, and that instruction is what made this supersession
+> straightforward rather than a reversal.
 ## Context
 
 [ADR-009](ADR-009-repositioning-v1-hosted-webapp.md) put a server in v1 at

@@ -2,11 +2,36 @@
 
 | Field | Value |
 |-------|-------|
-| **Status** | **Accepted** — 2026-09-24 |
+| **Status** | **Accepted** — 2026-09-24. **Its deferral of end-to-end encryption is reversed by [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md), 2026-10-08, on the conditions this record itself wrote down.** See immediately below |
 | **Date** | 2026-09-24 |
 | **Deciders** | Qudus Lawal (stakeholder and owner) |
 
 ---
+
+> ## Amended 2026-10-08 — the deferral is reversed, by its own conditions
+>
+> This record deferred end-to-end encryption *"with the conditions for revisiting it
+> written down"*, and [ADR-013](ADR-013-no-accounts-sync-as-an-encrypted-blob.md) is that revisit. It is worth being precise that
+> the deferral was **not overturned on a whim**: three of the four reasons for it
+> dissolved, and this record's own Pros column for the rejected option already said
+> it **"fits the architecture because all computation is client-side"**.
+>
+> | Reason given here for deferring | Why it no longer holds |
+> |---|---|
+> | *"paying customers cannot be supported properly"* | There are no paying customers, and none is planned |
+> | *"the bank-feed caveat weakens the headline claim anyway"* | The bank feed is deferred, so the claim gets **stronger** |
+> | *"cannot be withdrawn once promised"* | Still true — which argued for deciding now rather than later |
+> | *"forgotten password means permanent loss"* | **The one that still binds.** ADR-013 answers it with key wrapping and three recovery modes rather than by denying it |
+>
+> **What this record got right and ADR-013 kept.** Its rejection of *"end-to-end with
+> an escrowed key for recovery"* as **"the one option with no reason to exist"** is
+> the argument that killed every easy answer to recovery — an authenticator app and
+> security questions among them, both of which require the verifier to hold the
+> secret. And its warning that this is an area where *"errors are quiet"* is quoted
+> in ADR-013 against hand-rolling the key splitting.
+>
+> **Its stakeholder note is now satisfied.** This record observed that the owner
+> *"wanted data we could not read at all"*. As of ADR-013 that is the design.
 
 ## Context
 
