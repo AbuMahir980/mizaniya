@@ -658,6 +658,33 @@ came out of §M·49 alongside bank movements, but a cash withdrawal is something
 owner can record by hand, so it may stand on its own. Whether it survives
 independently of bank linking is theirs to say, and this record does not decide it.
 
+**New, and the owner asked for it specifically, 2026-10-08: the landing page must
+say how it works.** Short points, not paragraphs, and the absence of an account is
+the strongest thing this product has to say — so it should be said first rather than
+buried in a privacy page. The shape the owner asked for, phrased as the question a
+visitor actually has:
+
+| The question | The answer, in a line |
+|---|---|
+| Do I need an account? | **No.** No email, no password, nothing to verify |
+| Where is my money data? | On your device. It works with no signal at all |
+| Can you see my budget? | **No.** It is encrypted before it leaves, and we hold no key |
+| How do I get it on my other phone? | Two of your three keys, and it is there |
+| What if I lose one? | Any two of the three bring it back |
+| What if someone finds one? | One on its own opens nothing |
+| Can I share it with my partner? | Yes — their phone becomes one of yours |
+| Can I remove them later? | Yes. They stop seeing anything new from that moment |
+
+**Two rules for whoever writes this copy.** It must not overclaim: *"one on its own
+opens nothing"* is true, and *"nobody can ever see your data"* would not be once a
+secret is shared or found. And it must not explain the cryptography — nobody needs
+to read the words Shamir or HKDF to trust a budgeting app. The honesty is in the
+*scope* of each claim, not in the detail behind it.
+
+This is the seam this record calls the real opportunity: every tool solving this
+problem assumes a technical reader. Explaining *"any two of three"* to a household in
+eight lines is the part nobody else has done.
+
 **Unaffected:** every budgeting screen, every onboarding screen, and the whole
 design system.
 
