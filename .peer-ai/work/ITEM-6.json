@@ -4,7 +4,7 @@
   "id": "ITEM-6",
   "title": "Reshape ADR-001 to ADR-012 to Peer AI 1.0's decision template",
   "kind": "chore",
-  "stage": "verify",
+  "stage": "ship",
   "track": "web",
   "branch": "feature/reshape-adr-001-to-adr-012-to-peer-ai-1-0-s-decisi",
   "base": "2d4aa6514d9d07c895ead83f3a8541e496e24a89",
@@ -44,5 +44,5 @@
     }
   ],
   "next": "Confirmed non-conforming before any of today's amendments, so this is pre-existing v0 residue rather than something the ADR-013 work caused",
-  "updatedAt": "2026-10-08T11:11:53.180Z"
+  "updatedAt": "2026-10-08T11:13:46.691Z"
 }
