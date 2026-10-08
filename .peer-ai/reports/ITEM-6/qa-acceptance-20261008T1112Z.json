@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "skill": "qa-acceptance",
+  "workItem": "ITEM-6",
+  "at": "2026-10-08T11:12:00Z",
+  "scope": {
+    "base": "2d4aa6514d9d07c895ead83f3a8541e496e24a89",
+    "head": "d9cad200455d9261ad87584912c28bd472f31a2a",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "docs/adr/ADR-001-reactivity-and-the-data-seam.md",
+      "docs/adr/ADR-002-where-core-lives.md",
+      "docs/adr/ADR-008-repository-layout.md",
+      "docs/adr/ADR-009-repositioning-v1-hosted-webapp.md",
+      "docs/adr/ADR-010-sync-model.md",
+      "docs/adr/ADR-011-encryption-and-data-protection.md",
+      "docs/adr/ADR-012-server-stack.md",
+      "docs/02-architecture.md"
+    ]
+  },
+  "inputs": [
+    ".peer-ai/work/ITEM-6.json",
+    "CLAUDE.md",
+    "docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md"
+  ],
+  "inventory": [
+    {
+      "id": "criterion:1",
+      "kind": "contract",
+      "location": {
+        "file": "docs/adr/ADR-001-reactivity-and-the-data-seam.md",
+        "line": 3
+      }
+    },
+    {
+      "id": "criterion:2",
+      "kind": "contract",
+      "location": {
+        "file": "docs/adr/ADR-012-server-stack.md",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:3",
+      "kind": "contract",
+      "location": {
+        "file": "docs/02-architecture.md",
+        "line": 318
+      }
+    },
+    {
+      "id": "check:check_document",
+      "kind": "check",
+      "location": {
+        "file": ".github/workflows/peer-ai.yml",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "AC-1",
+      "item": "criterion:1",
+      "status": "pass",
+      "evidence": "'Every file in docs/adr is ready against the decision template.' Run on all eight at this commit, each returning ready: ADR-001, ADR-002, ADR-008, ADR-009, ADR-010, ADR-011, ADR-012 and ADR-013. Before the change, seven of the eight were rejected with 'Add the missing parts: Status, Options' \u2014 ADR-012 additionally missing Decision, because its heading read 'Decision (proposed)'."
+    },
+    {
+      "rule": "AC-2",
+      "item": "criterion:2",
+      "status": "pass",
+      "evidence": "'No sentence of context, decision, alternative or consequence has changed \u2014 only headings moved.' Proven against git rather than asserted. The complete diff of docs/adr against HEAD, with blank lines excluded and identical lines counted, is: 7 additions of '## Status', 7 replacements of '## Alternatives Considered' with '## Options', and 1 replacement of '## Decision (proposed)' with '## Decision'. Fifteen changed lines across eight files, every one a heading. No other line differs, so no reasoning could have changed. The single wording change beyond a rename is ADR-012's '(proposed)' marker, which was already stale: its status is now Superseded, unbuilt."
+    },
+    {
+      "rule": "AC-3",
+      "item": "criterion:3",
+      "status": "pass",
+      "evidence": "'It states whether ADR-003 to ADR-007 stay in the architecture document or become files, and why.' Stated in docs/02-architecture.md section 11, beside the table that holds them rather than only in a commit message. The answer is that they should become files, with two reasons given \u2014 CLAUDE.md section 9 requires one record per decision, and a reader looking for ADR-005 in docs/adr currently finds nothing while the numbering shows eight files running to thirteen \u2014 and three reasons for not doing it in this change: extraction requires deciding which sentence is context and which is consequence, which this item forbade; ADR-005's cell records no context at all and ADR-006 names its alternatives inline, so the mapping is not uniform; and where the source says nothing the new file must declare that rather than fill it. Carried by ITEM-7."
+    },
+    {
+      "rule": "AC-NOTHING-EXTRA",
+      "status": "pass",
+      "evidence": "Beyond the three criteria the change contains only what they required: fifteen heading lines in docs/adr, one blockquote in docs/02-architecture.md section 11 recording the criterion-3 answer, and two work item files. No prose was rewritten, no file renamed \u2014 filenames were deliberately left alone, because every cross-reference in CONTEXT.md, the specs and the ADRs themselves names them, and the template checks headings rather than filenames."
+    },
+    {
+      "rule": "TEST-09",
+      "item": "check:check_document",
+      "status": "pass",
+      "evidence": "The check was seen failing before being trusted, which for a documentation change is the whole of the evidence. check_document rejected seven of the eight ADR files before the reshape, naming the exact missing parts, and rejected docs/02-architecture.md against the architecture template on twelve sections. It was also run on the pre-change versions restored from git into the project, which failed identically \u2014 confirming the rejections were about the documents rather than about where they sat. So its acceptance afterwards means something rather than being a tool that passes everything."
+    },
+    {
+      "rule": "TEST-01",
+      "status": "not-applicable",
+      "reason": "No bug was fixed and no code changed. The defect class here is a document failing its template, and the guard against it returning is check_document itself, which CI runs through peer-ai check on every pull request."
+    },
+    {
+      "rule": "TEST-02",
+      "status": "not-applicable",
+      "reason": "No user journey exists in a decision record. The application is untouched: the diff contains no file under apps/ or packages/."
+    },
+    {
+      "rule": "TEST-03",
+      "status": "not-applicable",
+      "reason": "No business rule is in scope. Nothing executable changed, so there are no values to test case by case."
+    },
+    {
+      "rule": "TEST-04",
+      "status": "not-applicable",
+      "reason": "No test was added or changed. The 487 existing tests are untouched and pass in CI on this commit."
+    },
+    {
+      "rule": "TEST-08",
+      "status": "not-applicable",
+      "reason": "No input boundary, route or permission is in scope. A markdown heading takes no input."
+    },
+    {
+      "rule": "TEST-12",
+      "item": "check:check_document",
+      "status": "pass",
+      "evidence": "What was checked is what ships: check_document reads the files at their committed paths in docs/adr, which are the same files every reader and every future review will open. There is no build step, generated copy or alias between the checked artefact and the published one."
+    },
+    {
+      "rule": "CODE-15",
+      "item": "criterion:2",
+      "status": "pass",
+      "evidence": "The edge cases of the transformation were handled rather than assumed uniform. ADR-012 needed a third substitution its siblings did not, because its heading read 'Decision (proposed)'. The Status insertion was made conditional on a document not already having one, so re-running it cannot insert a second heading. And ADR-001 was patched first as a pilot and diffed on its own before the other six were touched, so the transformation was proven on one file before being applied in bulk."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass. All three criteria hold on evidence rather than assertion: all eight ADR files now accepted where seven were rejected; the complete diff is fifteen heading lines and nothing else, counted against git, so no reasoning could have changed; and the ADR-003 to ADR-007 answer is recorded beside the table it concerns, with ITEM-7 carrying the work. TEST-09 is satisfied by the checker having been seen to reject these same files first."
+}
