@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-6",
+  "title": "Reshape ADR-001 to ADR-012 to Peer AI 1.0's decision template",
+  "kind": "chore",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/reshape-adr-001-to-adr-012-to-peer-ai-1-0-s-decisi",
+  "goal": "The eight ADR files split into two formats. ADR-013 follows Peer AI 1.0's decision template and check_document accepts it; ADR-001 to ADR-012 use v0's project format, with Status in a field table and Alternatives Considered in place of Options, and check_document rejects all of them. Reshape the headings only, never a word of the reasoning or a decision, so every record is checkable.",
+  "acceptance": [
+    "Given each file in docs/adr, when check_document runs with skill architecture and template decision, then every one is ready",
+    "Given any amended record, when its text is compared with the version before the reshape, then no sentence of context, decision, alternative or consequence has changed — only headings moved",
+    "Given ADR-003 to ADR-007, which live inside docs/02-architecture.md rather than as files, when the reshape is done, then it states whether they stay there or become files, and why"
+  ],
+  "sources": [
+    "docs/adr/",
+    "docs/02-architecture.md"
+  ],
+  "next": "Confirmed non-conforming before any of today's amendments, so this is pre-existing v0 residue rather than something the ADR-013 work caused",
+  "updatedAt": "2026-10-08T10:57:11.413Z"
+}
