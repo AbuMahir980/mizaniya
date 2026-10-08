@@ -2,15 +2,21 @@
 
 ## Status
 
-**Proposed** — 2026-10-07. Raised by Qudus Lawal (stakeholder and owner); written up
-for their decision.
+**Accepted** — 2026-10-08, by Qudus Lawal (stakeholder and owner), who raised it,
+read it, and settled it.
 
-**The owner said "proceed" on 2026-10-07, before reading this.** That is recorded as
-intent, not as acceptance, and the status stays `Proposed` deliberately: the whole
-reason they asked for this to be written was so they could *read the flow rather
-than assume it*, and marking it accepted unread would be the exact thing they were
-guarding against. **It becomes `Accepted` on their word once they have read it** —
-one sentence from them, and this line and the heading change together.
+**Accepted after four rounds of their pushing back, each of which changed the
+record**, and they are listed because the document is better for them and the order
+shows how: (1) an authenticator app was proposed for recovery, which exposed that
+the first draft made the phrase *be* the key, and produced key wrapping; (2) they
+asked whether a found secret could be stopped, which produced the three modes and
+the split key; (3) they asked twice whether sharing still worked, which produced the
+recovery-versus-access distinction; (4) they corrected *"forward-only"*, which
+produced deletion as the remedy and the removal flow below.
+
+**What was accepted:** Option D, with **D2, the split key, as the default**, D1 for
+someone who wants nothing written down, and **D3, the single phrase, last and
+labelled the weakest**. The owner confirmed that ordering explicitly.
 
 If accepted it **replaces the premise of
 [ADR-009](ADR-009-repositioning-v1-hosted-webapp.md)** — which made v1 a hosted
@@ -421,6 +427,34 @@ So the honest shape is not *"the past can never be protected"* but **"the past i
 protected exactly as far as you delete before they fetch."** Against a found secret
 that is usually everything; against someone who has been syncing it is nothing,
 because they never needed the blob.
+
+#### Removing someone: they are synced out, and re-admitting them is deliberate
+
+**The owner's framing, 2026-10-08, and it is clearer than this record's first
+attempt at it.** Rotating does not reach into anyone's phone, and it does not need
+to. What it does is cut them off:
+
+| | What happens to a person removed |
+|---|---|
+| Sees anything new | **No — immediately and completely.** The old address is gone, so their device finds nothing to sync. No new transactions, no new plans, nothing |
+| Keeps what was already on their device | **Yes, permanently.** A frozen snapshot as of the moment of rotation. Nothing can reach across and remove it |
+| Gets back in | **Only if the owner gives them the new secret.** Re-admission is an act, not a default |
+
+So **"remove someone" is a real feature rather than a theoretical one**, and the
+flow is short enough to put on a screen: rotate, re-share with whoever stays, and
+the person being removed simply never receives the new secret.
+
+**In D2 this is cleaner still.** A removed partner loses their *share* as well as
+their access, because the new data key is split into new pieces distributed only
+among whoever remains. Their old piece is useless against the new address, so they
+cannot help recover either — which is the correct outcome when the point was to
+remove them.
+
+**The cost, named:** rotation cuts off *every* device, not just the one being
+removed, so the owner must re-enrol their own other devices and any partner who
+stays. For a household of two people and three devices that is a few deliberate
+steps. It is also the honest shape — there is no per-device revocation here, which
+is exactly the limitation recorded under sharing.
 
 **This makes notification a requirement rather than a nicety.** Deletion is the
 remedy and notification is the trigger: *"a new device opened your budget on 3
