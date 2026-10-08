@@ -1,5 +1,7 @@
 # ADR-001: Reactivity and the data seam
 
+## Status
+
 | Field | Value |
 |-------|-------|
 | **Status** | Accepted |
@@ -53,7 +55,7 @@ to reload their snapshot.
 
 ---
 
-## Alternatives Considered
+## Options
 
 | Option | Pros | Cons |
 |--------|------|------|

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-7",
+  "title": "Reshape the architecture document, and extract ADR-003 to ADR-007 into files",
+  "kind": "chore",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/reshape-the-architecture-document-and-extract-adr",
+  "goal": "Two pieces of v0 residue ITEM-6 found and deliberately left. docs/02-architecture.md fails Peer AI 1.0's architecture template on twelve sections, confirmed failing identically before ITEM-6 touched it. And ADR-003 to ADR-007 are one-row table cells rather than files, so a reader looking for ADR-005 in docs/adr finds nothing and the numbering has a hole in it.",
+  "acceptance": [
+    "Given docs/02-architecture.md, when check_document runs with skill architecture, then it is ready",
+    "Given the reshaped architecture document, when compared with the version before, then every rule, number, dependency direction and decision it already stated is still stated, and any section the template requires but the project never recorded says so rather than being invented",
+    "Given ADR-003 to ADR-007, when each becomes a file in docs/adr, then check_document accepts it against the decision template",
+    "Given a section of an extracted record for which the original one-cell entry recorded nothing, when the file is written, then it says nothing was recorded and points at the table, rather than filling the gap",
+    "Given every document that references ADR-003 to ADR-007 or the architecture document, when the move is done, then no reference points at something that no longer exists"
+  ],
+  "sources": [
+    "docs/02-architecture.md",
+    "docs/adr/"
+  ],
+  "next": "Read the five table cells first: ADR-005 records no context and ADR-006 names its alternatives inline, so the mapping is not uniform and the gaps must be declared rather than filled",
+  "updatedAt": "2026-10-08T11:08:39.260Z"
+}

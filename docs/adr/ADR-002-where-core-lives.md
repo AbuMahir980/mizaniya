@@ -1,5 +1,7 @@
 # ADR-002: Where `core/` lives — folder or workspace package
 
+## Status
+
 | Field | Value |
 |-------|-------|
 | **Status** | **Accepted** — option A, chosen by the stakeholder on 2026-09-10 |
@@ -43,7 +45,7 @@ being discovered halfway through the mobile build.
 
 ---
 
-## Alternatives Considered
+## Options
 
 | Option | Pros | Cons |
 |--------|------|------|
