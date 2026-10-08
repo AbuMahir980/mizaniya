@@ -164,115 +164,189 @@ Drive scopes needs app verification, which is real calendar time and a review th
 project does not control, and it is per-provider work repeated for each one. The
 friction the owner wanted removed comes back wearing a different logo.
 
-### Option D — A recovery phrase, and one encrypted blob in object storage *(recommended)*
+### Option D — One encrypted blob, and the owner chooses how they can get back in *(recommended)*
 
-No account. The first time someone turns sync on, the app generates a recovery
-phrase, derives keys from it on the device, and stores their snapshot as one
-opaque encrypted blob. A second device types the phrase and pulls it. The store
-holds ciphertext addressed by an opaque id and understands nothing.
+**Revised 2026-10-08.** The first draft of this option offered a recovery phrase and
+nothing else, and the owner was right to push on it: a single secret that is enough
+for you is enough for anyone who finds it. That is not a gap in the field, it is
+what the word *secret* means — but offering only the weakest arrangement of it was a
+failure of this record, not a law of nature.
 
-**Gives:** no account, no database, no per-user compute, and a cost that stays
-near zero at any scale this product will reach. Rule 7's hardest promise becomes
-literally true rather than aspirational. #113's expiring-database risk disappears
-because there is no database. Deployment is static hosting plus one small request
-handler.
+No account, in all three shapes below. The budget is encrypted under a random data
+key; the store holds ciphertext at an opaque address and understands nothing. What
+differs is **what can rebuild the data key**, and therefore what happens when
+something is lost or found. **The person chooses, at the moment they turn sync on.**
 
-**Costs:** bank sync through an aggregator becomes impossible — see
-Consequences. A lost phrase means the cloud copy is unreadable by anyone,
-including us. Household sharing is *share your phrase*, which is coarse. And
-getting the cryptography wrong here fails quietly, which is the risk ADR-011
-named about this whole area.
+#### D1 — Devices only
+
+The data key lives in each device's own secure storage, wrapped by a passkey.
+Passkeys are backed up by the platform's keychain, so a new phone restores it.
+
+- **Getting back in:** a device you still have, or a passkey your Apple or Google
+  account restores.
+- **If something is found:** *nothing exists to find.* No words on paper anywhere.
+- **If you lose everything,** every device and the platform account, the cloud copy
+  is gone for good. Local exports remain.
+
+#### D2 — A split key, any two of three *(recommended default)*
+
+The data key is split into three pieces by Shamir's scheme, and **any two rebuild
+it; any one is useless.** A natural household split is your device, your partner's
+device, and a printed slip in a drawer.
+
+- **Getting back in:** any two holders. You never had to keep one specific thing.
+- **If one piece is found:** it reveals **nothing at all** — not the budget, and not
+  even the blob's address, because the address is derived from the rebuilt secret
+  rather than from any single piece. This is the shape that answers the owner's
+  question properly.
+- **Costs:** three pieces to place, and *"any two of three"* must be explained at
+  the exact moment someone has least patience for it. Shamir's scheme is standard
+  and must come from a vetted library, never hand-rolled — ADR-011's warning that
+  *errors here are quiet* applies with full force.
+
+#### D3 — A single recovery phrase
+
+Twelve words. The shape the first draft proposed, kept because some people will
+want one portable thing and no dependence on a platform or a partner.
+
+- **Getting back in:** the phrase, anywhere, with nobody's help.
+- **If it is found:** **full access to the budget.** This is the weakest of the
+  three and the record now says so plainly rather than presenting it as the design.
+
+#### What is identical in all three, and worth stating because it caused confusion
+
+**Recovery and access are different things.** A device that already holds the data
+key keeps it, in its own secure storage, and reads and writes the blob directly.
+Pieces and phrases are touched **only when enrolling a new device or recovering from
+loss** — never in day-to-day use.
+
+So in every mode: **your phone and your laptop sync continuously, and a partner's
+device behaves exactly like one of yours.** Sharing is unaffected by which recovery
+shape is chosen; enrolling a new device is either an approval from a device you
+already have, or whatever that mode's recovery path is.
+
+**Gives:** no account, no database, no per-user compute, and a cost near zero at any
+scale this product will reach. Rule 7's hardest promise becomes literally true. #113's
+expiring-database risk disappears because there is no database. Deployment is static
+hosting plus one small request handler. And the person picks which risk they would
+rather carry, instead of being handed the one we happened to think of first.
+
+**Costs:** bank movement through an aggregator becomes impossible — see
+Consequences. **Revocation stays unsolved in every mode:** anyone who has held the
+data key keeps whatever they already read, so rotation protects the future and never
+the past. Three modes is more to build and far more to explain than one, and if the
+explanation is poor people will choose D3 to get past the screen — shipping the
+weakest option while having built the better ones.
 
 ---
 
 ## Decision
 
-**Recommended: Option D.** It is the only one that answers all three of the
-owner's requirements, and the one the existing architecture is already shaped for
-— every calculation is client-side, the `Repository` seam from
-[ADR-001](ADR-001-reactivity-and-the-data-seam.md) already isolates where data
-comes from, and the complete payload already serialises in one call.
+**Recommended: Option D, with D2 — the split key, any two of three — as the
+default.** Option D is the only one answering all three of the owner's
+requirements, and the one the existing architecture is already shaped for: every
+calculation is client-side, the `Repository` seam from
+[ADR-001](ADR-001-reactivity-and-the-data-seam.md) already isolates where data comes
+from, and the complete payload already serialises in one call.
+
+**D2 as the default, and the ordering is the recommendation.** D2 first, because it
+is the only shape where a found secret is useless. D1 for someone who would rather
+have nothing written down at all and accepts that losing every device ends it. D3
+last, offered only because some people will want one portable thing that depends on
+no platform and no partner — and it is the weakest, which this record says plainly
+rather than leaving to be discovered.
 
 ### How it works, end to end
 
-1. **Turning sync on.** The app generates a **random data key** — this, and only
+1. **Turning sync on.** The app generates a **random data key**. This, and only
    this, encrypts the budget. It is never shown to anyone and never derived from
    anything a person types.
-2. **The data key is then wrapped, separately, under each factor the person has.**
-   A factor is any way of producing a stable secret on the device. Each wrapping is
-   a small encrypted copy of the data key; **any one of them opens it.** Factors can
-   be added or removed by rewrapping that copy alone, with the budget itself never
-   re-encrypted. This is the part the first draft got wrong, and it is what stops
-   loss being fatal.
-3. **The factors, in the order a person is likely to still have one.**
-   - **A passkey** — Face ID, Touch ID, Windows Hello, or a hardware key. WebAuthn's
-     PRF extension derives a stable secret from it, which wraps the data key. The
-     property that matters for recovery: **passkeys are backed up by the platform's
-     own keychain**, so someone who loses their phone and signs in to a new one has
-     the passkey restored by Apple or Google, and the data key with it. We never see
-     any of it.
-   - **A recovery phrase** — 12 words from a published wordlist, from
-     `crypto.getRandomValues`, 128 bits of entropy, never derived from anything the
-     person chose themselves, because a chosen passphrase is guessable offline
-     against a blob anyone can fetch. A memory-hard derivation turns it into the
-     wrapping secret. This is the **portable** factor: it works on any device, any
-     platform, with no third party involved.
-   - **An existing signed-in device**, which already holds the data key and can
-     wrap it for a new factor. If someone has two devices, losing one is not a
-     recovery event at all.
-4. **The blob's address comes from the phrase, and only the phrase.** A memory-hard
-   derivation produces one secret and **HKDF splits it into two independent values**:
-   the **address** that names the blob and the **phrase's wrapping key**. It must not
-   be possible to work back from the address to any key, which is why they are split
-   rather than one being a hash of the other. The address stays phrase-derived
-   because it must be reachable from nothing but the phrase on a brand-new device.
+2. **The person chooses how they can get back in** — D1, D2 or D3 above. This is
+   the only question asked, and it is asked once.
+3. **The data key is wrapped under whatever that choice provides.** A wrapping is a
+   small encrypted copy of the data key, and **any one of them opens it.** Wrappings
+   can be added or removed on their own, with the budget never re-encrypted — which
+   is what makes both rotation and adding a device cheap.
+   - **A passkey** wraps it from Face ID, Touch ID, Windows Hello or a hardware key,
+     through WebAuthn's PRF extension. Platforms back passkeys up, so a new phone
+     restores it and we never see any of it.
+   - **A split key** wraps it in three pieces of which any two rebuild it.
+   - **A phrase** wraps it from 12 words out of a published wordlist, from
+     `crypto.getRandomValues`, 128 bits, never derived from anything the person
+     chose themselves — a chosen passphrase is guessable offline against a blob
+     anyone can fetch. A memory-hard derivation turns it into the wrapping secret.
+   - **A device already signed in** holds the data key and can wrap it for a new
+     factor directly. Two devices means losing one is not a recovery event at all.
+4. **The blob's address comes from the recovery secret, never from a single piece
+   of it.** A memory-hard derivation produces one secret — the phrase in D3, the
+   rebuilt key in D2, the passkey's in D1 — and **HKDF splits it into two
+   independent values**: the **address** naming the blob and the **wrapping key**.
+   They are split rather than one being a hash of the other so that nothing can be
+   worked back from the address. In D2 this matters most: one found piece cannot
+   even locate the blob, let alone open it.
 5. **Writing.** The device serialises its snapshot with the existing
    `buildExportFile`, encrypts it with AEAD under the data key — so tampering is
    *detected*, not merely unreadable — with a fresh nonce, and stores it at the
-   address alongside the wrapped copies of the data key.
-4. **A second device.** The person types the phrase. The device derives the same
-   address and key, fetches, decrypts, and merges with whatever it already has.
-5. **A spouse.** They are a second device. The phrase is the sharing mechanism.
+   address beside the wrapped copies of the data key.
+6. **A second device of your own.** Either approve it from a device you already
+   have, or use the recovery path for your mode. It then holds the data key itself.
+7. **A partner.** Their device holds the data key exactly as yours does. From then
+   on it is indistinguishable from a second device of your own.
 
-**One phrase, one mechanism — there is no separate device-sync and sharing
-feature.** Added 2026-10-07 because the owner asked whether the phrase could serve
-device sync as well: it already does, and that is the point rather than a
-convenience. Your phone and your laptop reach the same blob by deriving the same
-address from the same phrase; a spouse's phone does the identical thing. Nothing in
-the design distinguishes *your* second device from *someone else's* device, because
-nothing can: possession of the phrase is the whole of the authorisation.
+### Sharing and device sync are the same thing, and neither depends on the mode
 
-**That unification is also the limitation, and the two cannot be separated later
-without changing the design.** Because one phrase grants everything:
+**Recovery and access are different, and conflating them is what made the first
+draft confusing.** Added 2026-10-08 after the owner asked, twice, whether these
+schemes still allow syncing with a partner. They do, and here is why:
 
-- sharing with a spouse necessarily shares the entire budget — there is no partial
-  view, and no read-only;
-- removing one device means changing the phrase and re-syncing every other device,
-  because there is nothing else to revoke;
-- a phrase that leaks grants a stranger exactly what it grants a spouse.
+A device that holds the data key **keeps it**, in its own secure storage, and reads
+and writes the blob directly. Pieces, phrases and passkeys are touched **only when
+enrolling a new device or recovering from loss** — never in ordinary use. So your
+phone and your laptop sync continuously, and a partner's device behaves exactly
+like one of yours, in **all three modes**.
 
-For two people who already share a bank account this is likely the right trade, and
-it is why the Options above treat household sharing as *coarse* rather than solved.
-If separating them is ever wanted — your devices distinct from a partner's, or
-revoking one phone — that is per-device key management rather than a phrase, and it
-reopens this record. It is listed under *What would make this worth revisiting*.
+Possession of the data key is the whole of the authorisation, and nothing in the
+design distinguishes *your* device from *someone else's*. That is deliberate, and it
+is also the limit:
 
-### A phrase that is found grants everything, and that cannot be engineered away
+- **Sharing shares everything.** There is no partial view and no read-only.
+- **Revocation is forward-only, in every mode.** Anyone who has held the data key
+  keeps whatever they already read. Rotating — new data key, rewrapped for whoever
+  remains, new address, old blob deleted — protects the future and can never
+  protect the past. A device that reads without asking permission cannot be told to
+  stop retroactively.
+- **What the modes change is the *recovery* risk, not the sharing model.** D2 is the
+  one that answers *"a stranger finds it"*, because no single piece is enough.
 
-The owner asked, 2026-10-07, whether the wrapping design protects against the other
-half of losing a phrase: not being locked out, but **someone else getting in.**
+If sharing ever needs to be finer — a partner with read-only access, or revoking one
+phone without re-keying the rest — that is per-device key management rather than a
+recovery secret, and it reopens this record.
 
-**It does not.** The phrase derives the blob's address *and* unwraps the data key,
-so twelve words are sufficient to locate a budget and read all of it. Adding a
-passkey does not reduce that, because the phrase has to keep working alone or it is
-not a recovery path at all.
+### A found secret: why one of them grants everything and another grants nothing
 
-**This is a tension, not an oversight.** Recovery that needs nobody's help requires
-a portable secret; a portable secret can be found. *"I can get back in with nothing
-but this phrase"* and *"whoever finds this phrase cannot get in"* are the same
-property seen from two sides. No arrangement of keys removes it — only a custodian
-who can let you back in, and that is
-[ADR-011](ADR-011-encryption-and-data-protection.md)'s rejected escrow.
+The owner asked, 2026-10-07, whether the design protects against the other half of
+losing a secret: not being locked out, but **someone else getting in.** The answer
+differs by mode, and working out why is what produced D1 and D2.
+
+**Any *single* secret sufficient for you is sufficient for whoever finds it.** That
+is not a gap in the field. *"I can get back in with nothing but this"* and
+*"whoever finds this cannot get in"* are one property seen from two sides, for the
+same reason a spare key under the mat opens the door for a burglar. The only escape
+is a custodian who can let you back in, and that is
+[ADR-011](ADR-011-encryption-and-data-protection.md)'s rejected escrow — *"the one
+option with no reason to exist"*.
+
+**So D3 cannot be fixed, and D2 does not need to be.** In D3 twelve words derive
+the address and unwrap the key, so a found phrase is full access, permanently and
+by construction. In D2 **no single thing is sufficient**: one of three pieces
+rebuilds nothing, and because the address comes from the rebuilt secret it does not
+even reveal where to look. The tension is real, and the way past it is not a cleverer
+secret but **refusing to have a single one** — which is why D2 is the recommended
+default and D3 is offered with a warning rather than as the design.
+
+The owner pressed on exactly this, and was right to: the first draft offered only
+D3 and presented its weakness as inevitable. It is inevitable *for a single
+secret*, and that is a much smaller claim.
 
 **What a leak does and does not give, because the difference is the whole of the
 blast radius.** The blob holds a budget: figures, categories, debts, goals. It holds
@@ -282,7 +356,8 @@ repo rule 7 calls a leaked record of someone's real finances *"a different categ
 of event"*; it is not minimised here. But it is bounded in a way a stolen banking
 password is not.
 
-**Three mitigations, which are requirements rather than hardening:**
+**Three mitigations, requirements rather than hardening, and they apply to D3 most
+of all since it is the mode with a single sufficient secret:**
 
 1. **Rotation.** A phrase believed leaked can be replaced: generate a new one,
    rewrap the data key, move to the new address, delete the old blob. Because the
@@ -297,10 +372,13 @@ password is not.
    that anyone holding those words can see the owner's money. Buried in a tooltip is
    how a phrase ends up photographed into a chat.
 
-**The stronger option, named rather than adopted.** Require a second factor to
-enrol a *new* device: the phrase **plus** approval from a device already enrolled,
-the way a messaging app links a new phone. A found phrase then achieves nothing
-while the owner still holds any device. It has to fall back to phrase-alone when no
+**The stronger option, named rather than adopted — and largely superseded by D2.**
+Require a second factor to enrol a *new* device: the recovery secret **plus**
+approval from a device already enrolled, the way a messaging app links a new phone.
+A found secret then achieves nothing while the owner still holds any device. Worth
+noting that **D2 reaches most of this result more simply**, by never having a single
+sufficient secret in the first place, which is why it became the default rather than
+this. It has to fall back to phrase-alone when no
 device remains, or recovery is impossible again — so the real shape is a waiting
 period with a notification, which is how platform account recovery works.
 
