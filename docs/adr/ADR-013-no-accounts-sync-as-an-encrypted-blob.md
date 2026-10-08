@@ -78,6 +78,28 @@ The owner's original instinct — recorded in ADR-011 as wanting data *"we could
 read at all"* — becomes available again. This record does not claim that as new
 thinking; it notes that the grounds for refusing it have changed.
 
+### Revised 2026-10-07 after the owner read it: recovery
+
+The owner read this record and pressed on its one real user harm — *"if a user
+should misplace the recovery key, there's no way to get it back"* — and asked
+whether an authenticator app could help.
+
+**It cannot, for three reasons.** A TOTP code is six digits and rotates every
+thirty seconds, so no stable key can be derived from it, and a million
+possibilities is brute-forced instantly. Its *seed* could be a key, but then the
+authenticator is merely storing the key and carries the same loss problem — lose
+the phone without the app's own backup and it is gone. And verification requires
+the verifier to hold the same seed: if we hold it, we can derive the key, which is
+exactly the option [ADR-011](ADR-011-encryption-and-data-protection.md) already
+rejected as **"the one option with no reason to exist"**, since a server that can
+decrypt for recovery makes ordinary encryption nearly as good for a fraction of the
+work.
+
+**But the question exposed a real flaw in the first draft of this record: it made
+the phrase *be* the key.** That is what made loss fatal, and it was avoidable. The
+revision below separates the two, so the phrase becomes one way in rather than the
+only one.
+
 ### The guarantee this breaks, and must replace
 
 [ADR-010](ADR-010-sync-model.md)'s decision has three parts. Part 2 is the problem:
@@ -173,18 +195,41 @@ comes from, and the complete payload already serialises in one call.
 
 ### How it works, end to end
 
-1. **Turning sync on.** The app generates a 12-word phrase from a published
-   wordlist, from `crypto.getRandomValues`, giving 128 bits of entropy. It is
-   never derived from anything the person chose themselves: a chosen passphrase is
-   guessable offline against a blob anyone can fetch.
-2. **Two keys, from one phrase, kept apart.** A memory-hard derivation turns the
-   phrase into one secret, and **HKDF splits that into two independent values**: an
-   **address** that names the blob, and a **key** that encrypts it. The store sees
-   only the address. It must not be possible to work back from the address to the
-   key, which is why they are separated rather than one being a hash of the other.
-3. **Writing.** The device serialises its snapshot with the existing
-   `buildExportFile`, encrypts it with AEAD — so tampering is *detected*, not
-   merely unreadable — under a fresh nonce, and stores it at the address.
+1. **Turning sync on.** The app generates a **random data key** — this, and only
+   this, encrypts the budget. It is never shown to anyone and never derived from
+   anything a person types.
+2. **The data key is then wrapped, separately, under each factor the person has.**
+   A factor is any way of producing a stable secret on the device. Each wrapping is
+   a small encrypted copy of the data key; **any one of them opens it.** Factors can
+   be added or removed by rewrapping that copy alone, with the budget itself never
+   re-encrypted. This is the part the first draft got wrong, and it is what stops
+   loss being fatal.
+3. **The factors, in the order a person is likely to still have one.**
+   - **A passkey** — Face ID, Touch ID, Windows Hello, or a hardware key. WebAuthn's
+     PRF extension derives a stable secret from it, which wraps the data key. The
+     property that matters for recovery: **passkeys are backed up by the platform's
+     own keychain**, so someone who loses their phone and signs in to a new one has
+     the passkey restored by Apple or Google, and the data key with it. We never see
+     any of it.
+   - **A recovery phrase** — 12 words from a published wordlist, from
+     `crypto.getRandomValues`, 128 bits of entropy, never derived from anything the
+     person chose themselves, because a chosen passphrase is guessable offline
+     against a blob anyone can fetch. A memory-hard derivation turns it into the
+     wrapping secret. This is the **portable** factor: it works on any device, any
+     platform, with no third party involved.
+   - **An existing signed-in device**, which already holds the data key and can
+     wrap it for a new factor. If someone has two devices, losing one is not a
+     recovery event at all.
+4. **The blob's address comes from the phrase, and only the phrase.** A memory-hard
+   derivation produces one secret and **HKDF splits it into two independent values**:
+   the **address** that names the blob and the **phrase's wrapping key**. It must not
+   be possible to work back from the address to any key, which is why they are split
+   rather than one being a hash of the other. The address stays phrase-derived
+   because it must be reachable from nothing but the phrase on a brand-new device.
+5. **Writing.** The device serialises its snapshot with the existing
+   `buildExportFile`, encrypts it with AEAD under the data key — so tampering is
+   *detected*, not merely unreadable — with a fresh nonce, and stores it at the
+   address alongside the wrapped copies of the data key.
 4. **A second device.** The person types the phrase. The device derives the same
    address and key, fetches, decrypts, and merges with whatever it already has.
 5. **A spouse.** They are a second device. The phrase is the sharing mechanism.
@@ -211,6 +256,62 @@ it is why the Options above treat household sharing as *coarse* rather than solv
 If separating them is ever wanted — your devices distinct from a partner's, or
 revoking one phone — that is per-device key management rather than a phrase, and it
 reopens this record. It is listed under *What would make this worth revisiting*.
+
+### A phrase that is found grants everything, and that cannot be engineered away
+
+The owner asked, 2026-10-07, whether the wrapping design protects against the other
+half of losing a phrase: not being locked out, but **someone else getting in.**
+
+**It does not.** The phrase derives the blob's address *and* unwraps the data key,
+so twelve words are sufficient to locate a budget and read all of it. Adding a
+passkey does not reduce that, because the phrase has to keep working alone or it is
+not a recovery path at all.
+
+**This is a tension, not an oversight.** Recovery that needs nobody's help requires
+a portable secret; a portable secret can be found. *"I can get back in with nothing
+but this phrase"* and *"whoever finds this phrase cannot get in"* are the same
+property seen from two sides. No arrangement of keys removes it — only a custodian
+who can let you back in, and that is
+[ADR-011](ADR-011-encryption-and-data-protection.md)'s rejected escrow.
+
+**What a leak does and does not give, because the difference is the whole of the
+blast radius.** The blob holds a budget: figures, categories, debts, goals. It holds
+no card, no bank credential and no way to move money — the project has no payment
+path at all. So compromise is **disclosure, not theft.** That is still serious, and
+repo rule 7 calls a leaked record of someone's real finances *"a different category
+of event"*; it is not minimised here. But it is bounded in a way a stolen banking
+password is not.
+
+**Three mitigations, which are requirements rather than hardening:**
+
+1. **Rotation.** A phrase believed leaked can be replaced: generate a new one,
+   rewrap the data key, move to the new address, delete the old blob. Because the
+   budget is encrypted under a data key rather than under the phrase, this costs one
+   small rewrap rather than re-encrypting everything — which is a second reason the
+   wrapping design is right. **Honest limit: anyone who already copied the old blob
+   keeps that snapshot for ever.** Rotation protects the future, never the past.
+2. **Notification.** The store sees only an opaque address and cannot tell a thief
+   from the owner. The app can still say *"a new device opened your budget on 3
+   November"*. That is detection rather than prevention, and it is nearly free.
+3. **Copy that says what the phrase is.** The screen showing it must state plainly
+   that anyone holding those words can see the owner's money. Buried in a tooltip is
+   how a phrase ends up photographed into a chat.
+
+**The stronger option, named rather than adopted.** Require a second factor to
+enrol a *new* device: the phrase **plus** approval from a device already enrolled,
+the way a messaging app links a new phone. A found phrase then achieves nothing
+while the owner still holds any device. It has to fall back to phrase-alone when no
+device remains, or recovery is impossible again — so the real shape is a waiting
+period with a notification, which is how platform account recovery works.
+
+Not adopted now for three reasons, each of which should be revisited rather than
+treated as settled: it needs the store to hold a little readable state, namely how
+many devices exist, which is a small disclosure though not a financial one; it adds
+a flow in an area [ADR-011](ADR-011-encryption-and-data-protection.md) warned
+*"errors are quiet"*; and the realistic threat for a household budgeting app is a
+phrase on paper at home, where the person most likely to find it is the spouse it
+was meant for. **If a real person is ever harmed by a found phrase, this is the
+thing to build**, and it is listed under *What would make this worth revisiting*.
 
 ### What orders writes, now that no server can
 
@@ -345,10 +446,17 @@ requirement rather than a hardening task.
   onboarding, no business registration, and no monthly ritual asked of someone whose
   app exists to be used at the moment they spend. The cheapest feature is the one
   not built before anyone wants it.
-- **A lost phrase cannot be recovered by anyone.** This is the real user harm and
-  the honest cost of the guarantee. It must be mitigated in the product, not in
-  prose: the phrase is shown once with a deliberate confirmation, and local export
-  stays the primary backup.
+- **Losing every factor cannot be recovered by anyone**, and a *found* phrase
+  grants a stranger everything. Both are addressed above rather than in prose — four
+  independent ways back in, rotation, notification, and copy that says what the
+  phrase is — but neither is eliminated, and the second one cannot be.
+- **Recovery now leans on Apple or Google**, for the passkey factor. The owner never
+  creates an account with us, and we still cannot read anything, but it is a
+  third-party dependency on the recovery path and should be named as one: it is a
+  weaker version of the objection that ruled out Option C. The difference that makes
+  it acceptable is that a passkey is a browser API with no consent screen, no app
+  verification and no quota, so the friction is Face ID rather than an OAuth flow —
+  and the phrase remains the portable factor that needs nobody.
 - **Household sharing is coarse.** Sharing a phrase shares everything, with no way
   to revoke one device without re-keying and re-syncing every other. For two people
   who already share a bank account this may be acceptable; it is a real limitation
@@ -424,5 +532,15 @@ the first two are left visible rather than tidied away.*
 - **A second person in a household needs revoking without re-keying.** That is a
   real key-management problem and a phrase cannot carry it.
 - **Someone abuses the blob store** past what caps and rate limits hold.
-- **A lost phrase destroys a real person's budget.** The mitigation is a product
-  decision, and if it proves insufficient the guarantee itself is what has to move.
+- **A lost phrase destroys a real person's budget**, despite four ways back in. The
+  mitigation is a product decision, and if it proves insufficient the guarantee
+  itself is what has to move.
+- **A found phrase harms a real person.** Then build the second factor for enrolling
+  a new device, described above: phrase plus approval from an existing device, with
+  a waiting period and a notification when no device remains.
+- **WebAuthn's PRF extension turns out to be unavailable** on the browsers people
+  actually use here. Support must be verified in the browsers' own documentation
+  before this is committed to, the way #113 requires a free tier's retention to be
+  verified in the provider's own documentation rather than assumed. If PRF is not
+  usable, the passkey factor cannot be built and the phrase is again the only one —
+  which changes the recovery story materially and brings this record back.
