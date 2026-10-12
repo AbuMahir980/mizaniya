@@ -51,7 +51,7 @@ From [docs/01-requirements-summary.md](01-requirements-summary.md) (**D1–D14**
 | **Nigerian salary-cycle reality** — paid monthly, rent annually, debts in both directions | The cycle, not the calendar month, is the unit everything is computed against |
 | **The owner's financial history is private**, and NDPR applies to processing it | Nothing leaves the device unencrypted; no telemetry at all (**M2**); and repo rule 7 governs anything a server may hold |
 | **Durability on a browser that may evict data** (**D12**, **D14** — iOS Safari is the strict case) | Persistence requested after real data exists, true status reported in Settings, nudges on unexported changes, installable (**ADR-007**) |
-| **Mobile-first at 360px, correct at 1440px** | Two drawn widths, one component set, no separate mobile build |
+| **Mobile-first at 360px, correct at 1440px** | Two drawn widths, one component set, no separate mobile build. **React 19, TypeScript and Vite**, tested with Vitest |
 | **A React Native client in v2** | `packages/core` is framework-free and shares the `Repository` interface (**ADR-002**) |
 
 **Not recorded, and not invented here:** no availability target, no concurrency figure
@@ -63,12 +63,12 @@ than about Mizaniya. See *Open questions*.
 
 | Part | What it owns | Where | Runs on |
 |---|---|---|---|
-| **App shell** | Routing, layout, providers, error boundary, offline and install prompts | `apps/web/src/app/` | Static bundle |
-| **Feature modules** | One folder per screen area. Built: onboarding, home, plan, quick-add, storage status. Specified and not built: transactions, debts, goals, months, settings | `apps/web/src/features/` | Same bundle |
-| **UI primitives** | 26 shared components — button, field, sheet, table, gauge, rail, pill, nav, money-text, announce and the rest — every state included (**F6**) | `apps/web/src/ui/` — Radix primitives with Tailwind bound to the tokens | Same bundle |
+| **App shell** | Routing, layout, providers, error boundary, offline and install prompts | `apps/web/src/app/` — React 19 with React Router 8 | Static bundle |
+| **Feature modules** | One folder per screen area. Built: onboarding, home, plan, quick-add, storage status. Specified and not built: transactions, debts, goals, months, settings — each will be a folder beside the five that exist | `apps/web/src/features/` — React and TypeScript | Same bundle |
+| **UI primitives** | **23 component files**, plus a hook and two helpers — button, field, sheet, table, gauge, rail, pill, nav, card, banner, list-row, money-text, money-breakdown, daily-spend-chart, announce and the rest — every state included (**F6**) | `apps/web/src/ui/` — Radix primitives with Tailwind bound to the tokens | Same bundle |
 | **Design tokens** | Colour, type scale, spacing, radius, elevation; light and dark | `apps/web/src/design/` — `tokens.css` holds both palettes, `tokens.ts` exposes them, from `docs/design/tokens.md` | Same bundle |
 | **Session store** | The single in-memory snapshot and the actions that change it | `apps/web/src/store/` — Zustand (**B4**, **ADR-006**) | Runtime |
-| **`core`** | Every domain calculation and type. No React, no storage, no platform API, no `Date.now()` | `packages/core/src/` — money, cycle, budget, debt, goal, zakat, sync | Shared with v2 |
+| **`core`** | Every domain calculation and type. No React, no storage, no platform API, no `Date.now()` | `packages/core/src/` — plain TypeScript: money, cycle, budget, debt, goal, zakat, sync | Shared with v2 |
 | **Data layer** | The Dexie implementation of `Repository`, schema migrations, export and import | `apps/web/src/data/` — Dexie 4 | Runtime |
 | **Storage** | The database itself | IndexedDB | The owner's browser |
 | **PWA layer** | Manifest, icons, service worker precaching the app shell, persistence request | vite-plugin-pwa / Workbox (**ADR-007**) | Static bundle |
@@ -123,7 +123,8 @@ apps/web/                      the web app
     ui/                  design-system primitives
     design/              tokens.ts, tokens.css
     store/               the snapshot store and its actions
-    data/                database.ts, dexie-repository.ts, export-file.ts
+    data/                database.ts, dexie-repository.ts, export-file.ts,
+                         broadcast-notifier.ts, storage-persistence.ts
 
 packages/core/                 framework-free domain logic
   src/                 money/ cycle/ budget/ debt/ goal/ zakat/ sync/
@@ -180,6 +181,19 @@ comes from.
   repeat rather than the third (**E2**), because duplicated money logic drifts and the
   cost of that is not a refactor. Formatting (`₦1,250,000.00`) is one function in the
   same module.
+- **Time, and dates.** No function in `core` ever calls `new Date()` or `Date.now()`
+  (**ADR-003**); anything needing the current moment takes `now` as an argument,
+  **supplied once per render pass from a single place in the app** — otherwise two
+  figures on one screen can be computed against different instants. And **dates are
+  calendar dates, not instants**: a transaction stores `YYYY-MM-DD`, because *"the day I
+  spent this"* is a calendar fact, and storing it as a timestamp lets a transaction
+  appear to move to the previous day when the device's timezone shifts — a silent
+  one-day error in exactly the figures that matter. Cycle boundaries compare calendar
+  dates only.
+- **Multi-tab.** Two open tabs would otherwise drift apart silently. A `BroadcastChannel`
+  message after each successful write tells the other tabs to reload their snapshot
+  (`apps/web/src/data/broadcast-notifier.ts`). Cheap, and it closes a gap nobody would
+  notice.
 - **Error handling.** Every async surface models its state as a **discriminated union,
   never boolean soup** (**G3**), and handles loading, empty and error explicitly
   (**L1**). Messages say what happened *and what to do next* (**L2**). A failed save
@@ -200,7 +214,8 @@ comes from.
 - **Configuration and secrets.** None. Nothing to authenticate to, so there is no key
   to leak. `.env` stays git-ignored and CI runs secret scanning anyway, so the habit is
   in place before there is anything to protect.
-- **Monitoring.** None, deliberately (**M2**, and the addendum). Nothing leaves the
+- **Monitoring.** None, deliberately (**M2**, and
+  [the addendum](standards/standards-addendum-mizaniya.md)). Nothing leaves the
   device. Any later analytics is opt-in and documented.
 - **Audiences.** One household, and a second person who uses the same device —
   everything **C5** implies about audiences follows from that. `apps/admin` stays its
@@ -245,8 +260,9 @@ entity and deletions as tombstones (**ADR-010**).
 of one household's income, spending, debts and savings. Repo rule 7 calls a leak of
 real financial history *"a different category of event"*. It is kept **only** on the
 owner's device, and the encrypted blob is the only copy that ever leaves it. No
-figure is ever logged; `docs/seed-data.md` is the only source of figures anywhere in
-the repository, fixtures, tests and screenshots included (repo rule 2).
+figure is ever logged; [`docs/seed-data.md`](seed-data.md) is the only source of figures
+anywhere in the repository, fixtures, tests and screenshots included (repo rule 2). The
+repo rules are verbatim in [`CONTEXT.md`](../CONTEXT.md).
 
 ## Contracts
 
@@ -286,12 +302,20 @@ The central decision, recorded in full as
                  │
                  ├─▶ 1. Repository.put(...)   ← the device is written FIRST
                  ├─▶ 2. update the snapshot    ← only if the write resolved
-                 └─▶ 3. selectors recompute    ← pure core functions
+                 ├─▶ 3. selectors recompute    ← pure core functions
+                 └─▶ 4. subscribed screens render
 ```
 
 A write that fails never reaches the snapshot, so the screen cannot show a figure the
 database does not support. A failed save keeps what the owner typed and offers a retry
 (**L2**).
+
+**The UI never subscribes to Dexie.** Dexie's `liveQuery` would have given reactivity
+for free and was rejected: it puts the storage engine inside every component, which
+breaks **A4**, and neither SQLite in v2 nor an HTTP implementation has anything like it,
+so every screen would be rewritten at v2. The `Repository` stays portable and the store
+does the reactivity. ADR-001 records the full argument, including the
+observable-returning repository, which is the *more* dangerous option.
 
 ## Outside services
 
@@ -376,6 +400,18 @@ Most serious first. Each is a thing to do, not a worry.
 6. **Branch protection is off** (**#112**), so nothing but the pre-merge gate stops a
    red merge. gitleaks is also pinned to a mutable tag rather than a commit.
 
+### What would be revisited, and when
+
+Kept from the previous version of this document, with the sync row rewritten for
+ADR-013.
+
+| Trigger | What changes |
+|---|---|
+| **The snapshot stops fitting comfortably in memory** — many years of daily records | Paginate transactions in the repository and keep aggregates in the snapshot. The `Repository` interface already allows a ranged `list`, so this is an implementation change rather than a contract change |
+| **v2 (Expo)** | Add a SQLite `Repository` implementation, and extract `packages/tokens` — which has a real consumer then and does not now. No screen logic changes (**ADR-002**) |
+| **Sync and sharing** | Blob encryption, the compare-and-swap, the per-device counters and the merge (**ADR-013**). *This row used to read "an HTTP `Repository` wrapping the local one; **A6** wakes up", which ADR-013 made false: there is no session to scope, and the merge happens on the device.* The conflict resolution is still the first genuinely hard problem this project will have |
+| **A second person uses one device** | Audiences, and everything **C5** implies. `apps/admin` stays its own deployment, never a route in the web app (**ADR-008**) |
+
 **Where the code breaks this architecture today: nowhere that is known.** The nine
 architecture tests pass, `core` imports nothing, and no file outside `data/` names
 Dexie. That is asserted by tests rather than by reading.
@@ -419,3 +455,19 @@ was settled as **D15** in the system spec.
   [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md), and a document kept
   in sync is the reason to correct them rather than archive them. ADR-003 to ADR-007
   moved out of §11 into their own files, unchanged in wording.
+- **Three things the previous version stated that the code does not**, found by reading
+  the code rather than the prose, and corrected here: the data layer's file was named
+  `export-import.ts` and is `export-file.ts`; a `migrations/` folder was listed and has
+  never existed, because migrations are pure functions keyed on `schemaVersion`; and the
+  UI primitives were enumerated as Button, Input, Select, Card, Sheet, StatTile,
+  ProgressBar, Badge, Tabs, Toast, EmptyState and Table — a planned set, several of which
+  were never built under those names. The real set is 23 component files, read from
+  `apps/web/src/ui/`.
+- **Restored after being lost in the first draft of this reshape**, recorded because a
+  rewrite that drops things quietly is the failure this project guards against: the core
+  journey traced end to end (**K1**, with **D5** and **D9**), the money section with the
+  branded `Kobo` type (**H3**, **E2**), the multi-tab `BroadcastChannel` rule, the
+  calendar-dates-not-instants rule, the revisit triggers, the fourth step of the write
+  path, the `liveQuery` rejection, and the references **A1**, **B4**, **C5**, **G3**,
+  **J1–J5**, **L1**, **N1** and Radix. Checked by comparing every reference and every
+  technical token in both versions, not by re-reading.
