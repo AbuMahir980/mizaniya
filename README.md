@@ -96,7 +96,7 @@ This repository is also a record of *how* it was built.
   compiler or CI fails the build) or `review` (a human has to look).
 - **The architecture boundaries are machine-checked.** `core/` imports nothing;
   `ui/` may not reach the store; the app may not reach the database.
-  [`src/architecture.test.ts`](src/architecture.test.ts) injects a violation into
+  [`apps/web/src/architecture.test.ts`](apps/web/src/architecture.test.ts) injects a violation into
   each layer and **requires ESLint to report it** — because a lint rule that has
   only ever passed is indistinguishable from one that is switched off.
 - **[`CONTEXT.md`](CONTEXT.md)** — every decision, with its date, its reasoning

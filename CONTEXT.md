@@ -437,14 +437,37 @@ none, because it is read first and trusted.*
 
 ### Where the project is
 
-**On Peer AI 1.0 since 6 October, and ready to resume.** The pause of 28 September
-held until the new Peer AI existed; the migration replaced the vendored `peer-ai/`
-playbook and `.peer-ai-state.json` with `peer-ai.config.json`, the work items in
-`.peer-ai/` and the instructions block in `CLAUDE.md`. Nothing else moved: the work
-resumes where the pause left it, at the spec rewrite.
+*Added 2026-10-12. The three paragraphs below it are 27 September's and still true as
+far as they go; what has changed since is here rather than mixed into them.*
+
+**The product no longer has a server, and that is a decision rather than a delay.**
+[ADR-013](docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md), accepted 8 October,
+replaced ADR-009's premise: no accounts, no database, no tiers, free for everyone, and
+syncing across devices or with a partner done by **holding a key** rather than by holding
+an account. ADR-009 and ADR-012 stand as history; ADR-012 is superseded unbuilt.
+
+**Everything Peer AI reads is now in 1.0's shape.** All thirteen ADRs are files on the
+1.0 decision template, ADR-003 to ADR-007 among them for the first time, and
+`docs/02-architecture.md` is on the 1.0 architecture template with `check_document`
+accepting it.
+
+**The standards enforce, and CI is watched by a script rather than by the owner.**
+Sixteen standards that had a rule and no enforcement now fail the build, with two
+deferrals carrying the owner's name and ITEM-2 attached (TS-07, REACT-03).
+`npm run ci:watch` reports every open pull request and `npm run ci:premerge <pr>` refuses
+a merge on anything that is not a pass, whatever the base branch.
+
+**The next thing the owner has asked to be built is the landing page**, deployed to
+Vercel, carrying ADR-013's eight how-it-works lines — because something live is worth
+more to a job application than more documents.
+
+**On Peer AI 1.0 since 6 October.** The pause of 28 September held until the new Peer AI
+existed; the migration replaced the vendored `peer-ai/` playbook and
+`.peer-ai-state.json` with `peer-ai.config.json`, the work items in `.peer-ai/` and the
+instructions block in `CLAUDE.md`.
 
 **The design has landed, and the specs have not caught up with it yet.** That gap is the
-whole of the near-term work. Nothing is being built.
+whole of the near-term spec work. No screen is being built yet.
 
 **The agreed order, from 25 September, unchanged:** finish the design → confirm it is
 done → plan properly → then build. Not in parallel, and not the other way round.
@@ -452,7 +475,8 @@ done → plan properly → then build. Not in parallel, and not the other way ro
 ### What is true as of 27 September
 
 - **`main` runs end to end as a local-first app**, from cycles 1 and 2 (T1–T15).
-  `npm run verify` runs naming, spacing, lint, typecheck, **418 tests** and a build.
+  `npm run verify` runs naming, spacing, lint, typecheck, tests and a build. **487 tests
+  in 34 files** as of 12 October — 418 on 27 September, plus ITEM-1's and ITEM-3's.
 - **The repo is an npm workspace.** `apps/web/src` is the app, `packages/core/src` is the
   domain logic published as `@mizaniya/core/<module>`, and `@/` means `apps/web/src`.
   Root commands are unchanged. (ADR-008 item 2 — **done**, #110.)
@@ -479,7 +503,7 @@ open ones are **§N's N1–N4** and **§O's O1–O5** in `docs/open-items.md`:
 | **N1** | `03-system-spec.md` §B1 — a plan with no figure |
 | **N2** | Home's states table |
 | **N3** | the hero copy table — `₦8,666.66` |
-| **N4** | `06-page-specs.md` §7.1 — *"Everything you enter stays on this device"*, **false since ADR-009** and on `guards.py`'s forbidden list. The most urgent of the four, because it is a promise, not a detail |
+| **N4** | `06-page-specs.md` §7.1 — *"Everything you enter stays on this device"*. **It was false from ADR-009 until 8 October, and ADR-013 makes it true again** — with one qualification the copy has to carry: it stays on the device unless the owner turns sync on, and then what leaves is ciphertext nobody else can read. **Still the most urgent of the four**, because a promise about where money data lives has now been wrong in both directions and must be written once, precisely |
 | **O1** | `seed-data.md` owes three figures: the silver price per gram **with the date read**, the naira rate used, and a **gold-standard nisab**. **Not owner-blocked — corrected 28 September.** They are invented like every other figure there |
 | **O2** | `06-page-specs.md` §7.10 — the nisab is **fetched**, not owner-entered, and there is no *empty* state, only a **stale** one |
 
@@ -515,8 +539,14 @@ understated it badly, and that wording is corrected here.
 launch/welcome, onboarding, Home (half), Plan, Quick Add. Twenty-one screen families are
 drawn. The server has zero lines.
 
-**4. No server exists.** There is no `services/` folder. ADR-012 chose a stack **on paper**
-and is **parked**; its first action item is *revisit this at all*. #119 is parked with it.
+**4. There is no server, and there is not going to be one.** *Rewritten 2026-10-12.* The
+old text here said ADR-012 was parked pending a decision; **ADR-013 made the decision, and
+it was to remove the server rather than choose its stack.** ADR-012 is superseded unbuilt,
+and #119 goes with it. What remains is a **blob store**, designed and not built: object
+storage plus a small handler doing conditional writes, a rate limit and a size cap, which
+understands nothing about budgets and can read nothing it holds. Choosing it is #113, and
+the free tier's retention must be read in the provider's own documentation rather than
+assumed.
 
 ### The screen-by-screen rebuild (#72)
 
@@ -666,6 +696,134 @@ questions on purpose. Do not invent answers to them.**
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-10-08 (Thursday) — the architecture is rewritten around holding no data
+
+**[ADR-013](docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md) is accepted, and
+it replaces the premise of ADR-009.** No accounts, no database, no tiers. The app stays
+free, and syncing between devices or with a partner works by holding a key rather than by
+holding an account. The owner's reason came first and the engineering followed it: *take
+the friction away entirely — no account to create, no money to pay — and build the app
+that earns money separately.*
+
+**How it works, one line each.** The device encrypts the whole snapshot and writes it as
+one opaque blob, about 12 KB, measured rather than guessed. The address the blob sits at
+and the key that unlocks it are both derived from one secret, split by HKDF, so the store
+can be asked for a blob without being able to read it. Ordering is a compare-and-swap on
+the whole blob plus a per-device counter, which rebuilds the guarantee ADR-010 had taken
+from a server-assigned sequence. Bank movement reading is **deferred entirely**, not
+designed: an aggregator's credentials would have to live in a browser bundle, and the
+owner's own judgement was that statement import carries more friction than the feature is
+worth until somebody asks for it.
+
+**The document took five rounds, and every round was the owner pushing back.** They are
+listed in the ADR's Status rather than tidied away, because each one changed the design:
+
+- *"If a user misplaces the recovery key, there is no way back — can an authenticator app
+  resolve that?"* It can, and the answer was **key wrapping**: a random data key, wrapped
+  separately by each factor, so a factor can be added or replaced without re-encrypting
+  anything.
+- *"Does this safeguard against someone else finding the key?"* Not with a single secret
+  — and I first said that tension *could not be engineered away*. **That was wrong, and
+  the owner was right to push.** It is inevitable only for *one* secret. Shamir 2-of-3
+  makes the default mode need two factors out of three, which is an answer rather than a
+  trade-off accepted.
+- *"Deletion doesn't touch what they already have?"* — which led to the right remedy:
+  **delete the blob, don't just rotate the key.** The past is protected exactly as far as
+  you delete before they fetch, and that replaced four places where I had written
+  "forward-only".
+- *"The landing page has to say how it works, in points, without giving out secrets."*
+  Eight lines, in the ADR's Consequences, ready for the page.
+
+**ADR-001 to ADR-012 were reshaped to the 1.0 decision template** (#144, ITEM-6), and
+**ADR-003 to ADR-007 became files at last** (ITEM-7). They had been one-row cells in a
+table inside `docs/02-architecture.md`, so a reader looking for ADR-005 in `docs/adr/`
+found nothing and the numbering had a hole in it. The wording is unchanged; where a row
+recorded no context or no alternative, the file **says nothing was recorded** rather than
+filling the gap, which is the only version of this move that does not invent history.
+
+**`docs/02-architecture.md` was reshaped from thirteen sections to the twelve Peer AI 1.0
+asks for** (ITEM-7) — and the first attempt at it **lost content**, which is worth
+recording because it is the failure this project guards against everywhere else. A regex
+comparison against the previous version found fifteen standards references gone and two
+whole sections with them: the core journey traced end to end (K1, the acceptance test,
+including D5's projected-gap formula and D9's ajo balance crossing zero) and the money
+section with the branded `Kobo` type. Every one is restored. **A rewrite is a migration,
+and a migration without a diff is a rewrite that quietly drops things.**
+
+What was **corrected** rather than preserved in it: `services/api` with Postgres is gone
+from the parts table, v1 is no longer described as a hosted multi-user webapp with tiers,
+and authentication is no longer described as arriving in v1. All three were made false by
+ADR-013, and a document kept in sync is the reason to correct them rather than archive
+them. Where the template asks for something this project has **never** recorded — an
+availability target, a concurrency figure, a growth projection — the section says so.
+
+**Six broken links were fixed on the way**: four to `docs/concepts/`, deleted on 25
+September, and two to `src/architecture.test.ts`, which moved with the workspace
+extraction. Nothing in the repository's Markdown now points at a file that does not
+exist.
+
+**`~/Developer/project-exp/mizaniya.md` exists**, the experience file, and writing it
+caught three wrong numbers in my own account of the work — thirteen decision records
+where there were eight files, twenty UI primitives where there are twenty-six, six
+entities where `Snapshot` is settings plus five arrays. **An experience file is checked
+against the repository or it is fiction.**
+
+### 2026-10-07 (Wednesday) — the rules stop being advice
+
+Three pieces of work, and one of them was a finding against my own.
+
+**1. A watcher that refuses a red merge into any branch** (#134, ITEM-3). The owner's
+words were the whole requirement: *"I shouldn't be the one coming to mention that a CI
+check failed. What if I did not see it? Is that how code would be merged?"* And the second
+half, which branch protection cannot answer: a pull request stacked onto another branch is
+not guarded by a rule that only ever guards `main`.
+
+So there are three scripts, with the decision logic separated from the GitHub calls so it
+can be tested with plain values: `scripts/ci-status.mjs` classifies every check into pass,
+fail, cancel, skipping or pending; `ci-watch.mjs` walks every open pull request and exits
+non-zero if any is not green; `pre-merge-check.mjs` refuses a merge on a draft, on a
+non-open pull request, and on **any** check that is not a pass, naming the base branch
+when it is not `main`. `npm run ci:watch` and `npm run ci:premerge <pr>`, both written
+into `CLAUDE.md` §5.
+
+**Two faults in it were found by using it, not by reading it.** A crash printed to stderr
+and nothing to stdout, so a monitor watching stdout read **silence as all-green** — the
+exact shape of silent failure this project keeps relearning; it now prints an `ERROR` line
+and exits 2, distinct from 1, proven by running it with `gh` off the PATH. And there was
+no timeout on the GitHub calls (**REL-01**), so a hang would have stalled the watch
+indefinitely; 30 seconds now.
+
+**2. Peer AI's lint rules turned on** (#133, ITEM-1). `standards.enforcement` moved from
+`report` to `enforce`, so sixteen standards that had a rule and no enforcement now fail
+the build. **Two are deferred rather than met, with the owner's name on the deferral and
+ITEM-2 as the item that ends it:** TS-07 (function length) and REACT-03 (component file
+length), sixteen functions and eight files over, all of them in the five built screens
+that are due to be rebuilt against the artboards. A deferral with a name, a reason and an
+item attached is a decision; the same thing without them is a rule switched off.
+
+Turning them on found real faults, not formatting: the Rail had **no accessible name**; a
+failed save in `first-run.tsx` could report the owner's figures as lost *after they had
+been written*, because `navigate` sat inside the save's catch; and a `useMemo` in the plan
+screen could never hit, since its dependency was a fresh object every render.
+
+**3. React Hooks 7's compiler rules, adopted as a decision** (#135, ITEM-4). They had
+arrived as a side effect of a peer-dependency bump, which is not a decision, so ITEM-1
+deliberately did not adopt them. The whole set cost exactly two fixes and **each was a
+real fault**: `use-media-query` set state in an effect and is now built on
+`useSyncExternalStore`; Quick Add reset itself through an effect and now resets by React
+key, which is the mechanism that exists for it.
+
+**ITEM-4 exists because I broke this project's cardinal rule and then found it.** ITEM-1's
+`use-media-query` repair was guarded by **neither a test nor a lint rule** — and both
+halves were *proven*, not asserted: the five new tests pass against the old
+implementation, because the repair preserved behaviour by design; and ESLint reported
+nothing on the old shape, because the config spread had removed the only rule that could
+see it. A fix nothing can detect is indistinguishable from no fix. Enabling
+`set-state-in-effect` closed it, proven by restoring the old shape and watching lint fail.
+
+**Also that day:** Peer AI updated to `1.0.0-next.15` (#131), and the last of the v0
+migration items closed (#132).
 
 ### 2026-10-06 (Tuesday) — the move to Peer AI 1.0
 
@@ -1272,7 +1430,7 @@ full reasoning; this is the summary and what it means for the code.*
 - **It immediately found a real violation:** `app/app.tsx` imported `data/`
   twice, to build the Dexie repository and the notifier. That wiring moved to
   `store/create-app-store.ts`.
-- **[src/architecture.test.ts](src/architecture.test.ts) now holds the line.** It
+- **[apps/web/src/architecture.test.ts](apps/web/src/architecture.test.ts) now holds the line.** It
   writes a file into each layer, runs ESLint on it, and requires the violation to
   be reported — five that must fail, two permitted directions that must not. It
   costs about twelve seconds because it shells out to ESLint nine times, which is
@@ -1460,7 +1618,7 @@ full reasoning; this is the summary and what it means for the code.*
 
 - **First learning-mode stop.** Worked through the review questions from SETUP. Two answers landed on the symptom but stopped short of the mechanism: the stored safe-to-spend field would be too high (B3), and copying rules means editing five places instead of one (E1/E2). Both missed the same half — that nothing would report the fault.
 - **Named the pattern and gave it a method.** *What breaks — and who finds out?* Loud problems are cheap; silent ones are expensive. Written up as the first concept note; it now lives as a named principle near the top of this file, `docs/concepts/` having been replaced by `docs/engineering-notes/`. It reframes B3, E2 and K4 as one rule about detectability wearing three hats.
-- **Opened [docs/concepts/revisit.md](docs/concepts/revisit.md)** with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
+- **Opened `docs/concepts/revisit.md`** — *deleted 2026-09-25 with the rest of that folder, so no longer a link* — with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
 - **Recorded a standing writing preference:** intelligent but plain — the test is whether the least technical reader could understand and remember it. Applies to docs, file headers, commit messages and the app's own copy.
 - **Added `docs/Mizaniya_Kickoff_Pack.md`**, the instructions this build actually runs on. The product brief's §6 had declared itself superseded by a file that was not in the repo.
 - **Caught a repo-rule-3 breach before it was committed.** The kick-off pack named another project four times. Redacted, along with local folder paths and a stale filename. Worth noting: **rule 3 is the only repo rule with no automated enforcement** — secret scanning finds keys, not project names, and a denylist committed to a public repo publishes the very names it hides. Raised properly at PR AUTOMATION.
@@ -1471,7 +1629,7 @@ full reasoning; this is the summary and what it means for the code.*
 - **Ran ARCHITECT** with `engineering:architecture` and `engineering:system-design` invoked inside the phase. Wrote [docs/02-architecture.md](docs/02-architecture.md) with seven ADRs; [ADR-001](docs/adr/ADR-001-reactivity-and-the-data-seam.md) and [ADR-002](docs/adr/ADR-002-where-core-lives.md) promoted to their own files.
 - **The architecture reduced to one idea:** transactions are the only facts, everything else is a calculation. Once nothing derived is stored, the only architectural question left is how a write reaches the screens — which is ADR-001.
 - **Rejected Dexie `liveQuery`,** the obvious and least-code option, on cost of ownership: it puts the storage engine inside every component and has no counterpart in SQLite or HTTP, so v2 would be a screen-by-screen rewrite. Also rejected an observable-returning repository, which is the *more* dangerous choice because a v3 HTTP implementation could only honour it by polling or by returning a subscription that never fires — wrong, and silent.
-- **Wrote three concept notes** — [derived state](docs/concepts/derived-state.md), [the repository pattern](docs/concepts/repository-pattern.md), [IndexedDB](docs/concepts/indexeddb.md).
+- **Wrote three concept notes** — `derived-state.md`, `repository-pattern.md`, `indexeddb.md`. *All three were deleted with `docs/concepts/` on 2026-09-25 once their content had been harvested; what replaced them is [docs/engineering-notes/](docs/engineering-notes/). Left unlinked rather than repointed, because this entry records what was written that day.*
 - **Noted a small inconsistency to fix later:** the addendum says the Expo SDK will be recorded in "ADR-01", but ADR-001 is now taken. It should say *an* ADR.
 - **ADR-002 decided:** `core/` stays a folder in v1. Opened [docs/backlog.md](docs/backlog.md) with the extraction recorded as the first task of v2 — before any Expo screen, so it happens once rather than being discovered mid-build. **The A3 lint rule is now the only thing holding that boundary, so it must fail CI rather than warn.**
 - **Ran SYSTEM SPEC** with `product-management:write-spec` invoked inside the phase. Wrote [docs/03-system-spec.md](docs/03-system-spec.md): overview, goals and non-goals, roles, 40 stories with MoSCoW, Given/When/Then criteria for every Must, a per-screen state table, data requirements, and non-functional requirements.
@@ -1501,7 +1659,36 @@ full reasoning; this is the summary and what it means for the code.*
 
 ## What's Next
 
-*Refreshed 2026-10-06.*
+*Refreshed 2026-10-12.*
+
+### First: the landing page, live
+
+**The owner's own ordering, and the reason is not technical:** something deployed is worth
+more to a job application than another document. It goes to **Vercel**, static, and it
+carries **ADR-013's eight how-it-works lines** — no account to create, nothing to pay, what
+happens if the phrase is lost, and what syncing does — in the points the owner asked for,
+**without describing the key derivation**. The landing page is the one place the product's
+promise is made to a stranger, so the sentence about where data lives must match
+`06-page-specs.md` §7.1 exactly (see **N4**, which ADR-013 made true again).
+
+### Then: the specs, which ADR-013 changed again
+
+The spec rewrite below was written against ADR-009. **ADR-013 changes what the rewrite has
+to say in the places that mention accounts, tiers, sign-in or a server** — N4 above most of
+all. The order of the list is unchanged; the replacement wording for anything touching
+accounts now comes from ADR-013 rather than from ADR-009.
+
+### And: sync is designed, not built — and it is the dangerous part
+
+ADR-013 says plainly that the merge will be the most dangerous code in the product: one
+blob, no server-side copy to fall back on, so a merge bug can corrupt every device. The
+store keeps the previous version and the merge is tested exhaustively with plain values
+before any of it ships. **Nothing about it is written yet, which is the correct state for
+it right now.**
+
+**A threat model is now writable and still missing.** It was blocked on *what is the
+server*; ADR-013 answers that, and the surface is small and specific: the blob store, the
+recovery secret, and an imported file. Peer AI reports it missing for the mvp stage.
 
 ### Done: the move to Peer AI 1.0
 
@@ -1568,17 +1755,20 @@ twenty-one families are drawn; the server has no code. **This is a new build wit
 screens of salvage, and planning it as an edit to the old plan would fail the same way the
 old plan did.**
 
-### After that: accounts and sync
+### Cancelled, not postponed: accounts and sync as a server
 
-Stories **I** and **J** in `docs/03-system-spec.md`, endpoints in
-`docs/09-endpoint-specs.md` §5a and §5b. First code in `services/api/`, first auth, and the
-first thing holding anyone else's data — so **rule 7 stops being a document and becomes a
-set of tests.** ADR-010's required migration is already done (schema v2), so the next piece
-is the endpoints themselves.
+*Rewritten 2026-10-12.* This section used to read *"first code in `services/api/`, first
+auth, and the first thing holding anyone else's data"*. **ADR-013 cancelled all three.**
+There is no account, no `services/api/`, and nothing that holds anyone's data — so rule 7
+is answered by the architecture rather than by a set of tests on a server. Stories **I**
+and **J** in `docs/03-system-spec.md` and §5a and §5b of `docs/09-endpoint-specs.md`
+describe endpoints that will not be built; they are rewritten as part of the spec work
+above rather than left to be read as current.
 
-**ADR-012 is parked and must be re-opened before any of it**, not treated as settled: it
-chose Node/Hono/Postgres/Kysely before a server existed, and its own first action item is
-*revisit this at all*.
+ADR-010's required migration is still done and still needed (schema v2 with `updatedAt`
+and tombstones): it is what makes a blob merge possible at all. **ADR-012 is superseded
+unbuilt** — it chose Node/Hono/Postgres/Kysely before a server existed, and the server it
+chose a stack for no longer exists.
 
 ### Waiting on the owner — none of it urgent, and none of it blocking
 
@@ -1590,7 +1780,7 @@ it empties this list of anything that blocks a drawing.*
 |---|---|
 | **The git history** | two forbidden terms are in past commits. **The owner has answered once — *follow the rule* — and the two readings of that conflict:** rule 3 says *"or commits"*, which points at cleaning it; the standing recommendation is to leave it. One word settles it. Do not present this as never-raised |
 | **#112** | branch protection is off, and gitleaks is pinned to a mutable tag rather than a SHA |
-| **#113** | hosting. Cloudflare Pages or Netlify for the static side; Render, Railway or Fly.io for server plus Postgres. **Verify the free tier's database retention in the provider's own documentation before committing** — the free Postgres tiers expire, and finding that out afterwards means finding it out from missing data |
+| **#113** | hosting. **Changed by ADR-013:** Vercel for the static side, which the landing page needs first; and for sync, **object storage with conditional writes** rather than a server with Postgres. **Verify the free tier's retention in the provider's own documentation before committing** — finding out afterwards means finding out from missing data |
 | **O4** | should savings destinations carry a **riba** marker? A religious position about named third parties |
 | **O5** | **irregular income** — the *float* model. v2 scope at minimum |
 | **#125 (item 125)** | **do not paywall zakat** — the nisab is one number for every user and fails §11a's own pricing test |
@@ -1656,6 +1846,25 @@ eleven items back to the build side** — four figures that block drawings (36�
 four behaviour decisions logged below (40–43), and three assumptions to confirm
 (44–46). **Item 44 is the one to answer first:** it is the only one that could send a
 finished drawing back to the board.
+
+**What ADR-013 closed, 8 October, and what it opened.** Three rows below were answered
+against a product with accounts, tiers and a server, and the answers are kept as written
+because they record what was decided at the time:
+
+- **Item 125 — do not paywall zakat** is **closed by the architecture.** There are no
+  tiers to paywall anything with. Design's argument was right and is now moot.
+- **Is the reconciliation queue blocking?** is **parked with the feature.** Bank movement
+  reading is deferred entirely (ADR-013), so there is no queue to block anything. The
+  answer stands for whenever it returns.
+- **Is export reachable while signing in?** has **no sign-in left to be reachable
+  during.** The answer — that export reads the local snapshot and needs no session — is
+  now simply how the product works everywhere.
+
+**Opened by it, and it is the one outside fact nobody has checked:** is **WebAuthn's PRF
+extension** usable on the browsers people here actually use? If it is not, the passkey
+factor in ADR-013's default two-of-three recovery cannot be built and the phrase becomes
+the only one, which changes the recovery story materially. It is to be read in the
+browsers' own documentation, not inferred, and not the owner's to decide.
 
 What remains open:
 

@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "skill": "qa-acceptance",
+  "workItem": "ITEM-7",
+  "at": "2026-10-12T14:35:00Z",
+  "scope": {
+    "base": "d9eab03efd403967733f925d864722b3c1485076",
+    "head": "51a1e6f7702d79d731828ff3ac591b1da3a3fbc0",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "docs/02-architecture.md",
+      "docs/adr/ADR-003-time-is-a-parameter.md",
+      "docs/adr/ADR-004-money-is-integer-kobo.md",
+      "docs/adr/ADR-005-export-carries-a-schema-version.md",
+      "docs/adr/ADR-006-zustand-as-the-single-client-store.md",
+      "docs/adr/ADR-007-pwa-and-persistence.md",
+      "CONTEXT.md",
+      "README.md"
+    ]
+  },
+  "inputs": [
+    ".peer-ai/work/ITEM-7.json",
+    "CLAUDE.md",
+    "docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md",
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md"
+  ],
+  "inventory": [
+    {
+      "id": "criterion:1",
+      "kind": "contract",
+      "location": {
+        "file": "docs/02-architecture.md",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:2",
+      "kind": "contract",
+      "location": {
+        "file": "docs/02-architecture.md",
+        "line": 3
+      }
+    },
+    {
+      "id": "criterion:3",
+      "kind": "contract",
+      "location": {
+        "file": "docs/adr/ADR-005-export-carries-a-schema-version.md",
+        "line": 5
+      }
+    },
+    {
+      "id": "criterion:4",
+      "kind": "contract",
+      "location": {
+        "file": "docs/adr/ADR-005-export-carries-a-schema-version.md",
+        "line": 11
+      }
+    },
+    {
+      "id": "criterion:5",
+      "kind": "contract",
+      "location": {
+        "file": "docs/02-architecture.md",
+        "line": 331
+      }
+    },
+    {
+      "id": "check:check_document",
+      "kind": "check",
+      "location": {
+        "file": ".github/workflows/peer-ai.yml",
+        "line": 1
+      }
+    },
+    {
+      "id": "check:reference-diff",
+      "kind": "check",
+      "location": {
+        "file": "docs/02-architecture.md",
+        "line": 1
+      }
+    },
+    {
+      "id": "check:link-scan",
+      "kind": "check",
+      "location": {
+        "file": "docs/02-architecture.md",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "AC-1",
+      "item": "criterion:1",
+      "status": "pass",
+      "evidence": "'check_document with skill architecture is ready.' Run at this commit: 'docs/02-architecture.md has every part of the architecture template.' Before the change it was rejected on twelve of the twelve sections, and ITEM-6 confirmed it failed identically on the pre-change file restored from git, so the rejection was about the document rather than about where it sat."
+    },
+    {
+      "rule": "AC-2",
+      "item": "check:reference-diff",
+      "status": "pass",
+      "evidence": "'Every rule, number, dependency direction and decision it already stated is still stated.' Checked twice by comparison with the previous version at d9eab03, not by re-reading. First pass, every standards and ADR reference matched by regex: 29 in the old document, and the first draft of the reshape had LOST fifteen of them (A1, B4, C5, D5, D9, E2, G3, H3, J1, J5, K1, L1, N1, Radix, ADR-01) together with two whole sections - the core journey traced end to end and the money section. All restored; the comparison now reports zero lost. Second pass, every technical token in either document: it found seven further losses the reference pass could not see, all restored - the multi-tab BroadcastChannel rule, 'dates are calendar dates, not instants' with its timezone reason, 'now is supplied once per render pass from a single place', the revisit-triggers table, step 4 of the write path, the liveQuery rejection, and the per-part technology names (React 19, React Router 8, TypeScript, Vite, Vitest). Every technical token still absent is accounted for: superseded server terms (services/api, Postgres, Kysely, Prisma, SQL, v1.1, v3), files deleted before this change (derived-state.md), and three facts the old document stated that the code does not, corrected and the correction recorded in Sources."
+    },
+    {
+      "rule": "AC-2b",
+      "item": "criterion:2",
+      "status": "pass",
+      "evidence": "'Any section the template requires but the project never recorded says so rather than being invented.' Four declarations, each naming what is absent: docs/02-architecture.md:57 'Not recorded, and not invented here: no availability target, no concurrency figure and no growth projection has ever been written down for this project', with the reason that with no server there is nothing to make available and the question carried into Open questions; the blob store's host is 'Not yet chosen' in both the Parts table (line 75) and Where it runs (line 343), pointing at issue #113; and the blob format is 'Not yet written as a contract' (line 274). No hosting, vendor, SLO or scale figure appears anywhere in the document as settled."
+    },
+    {
+      "rule": "AC-3",
+      "item": "criterion:3",
+      "status": "pass",
+      "evidence": "'Each becomes a file in docs/adr and check_document accepts it against the decision template.' Five files created, each run at this commit and each returning ready: ADR-003-time-is-a-parameter.md, ADR-004-money-is-integer-kobo.md, ADR-005-export-carries-a-schema-version.md, ADR-006-zustand-as-the-single-client-store.md, ADR-007-pwa-and-persistence.md. Each carries all five template headings - Status, Context, Options, Decision, Consequences - and the numbering hole is closed: docs/adr now runs 001 to 013 with no gap."
+    },
+    {
+      "rule": "AC-4",
+      "item": "criterion:4",
+      "status": "pass",
+      "evidence": "'Where the original one-cell entry recorded nothing, the file says nothing was recorded and points at the table, rather than filling the gap.' Six declarations across the five files, one per gap: ADR-003:15 'Not recorded. The original row names no alternative, so none is invented here'; ADR-004:15 'Not recorded. The original row names no alternative'; ADR-005:11 'Not recorded. The original row gives no context section' and ADR-005:20 for its alternatives; ADR-006:11 'Not recorded as its own section', the row citing requirement B4 instead; ADR-007:30 'Not recorded. The original row names no alternative to vite-plugin-pwa'. Every file also opens with the same provenance line naming the source - the table in docs/02-architecture.md section 11 - and stating that where the original recorded nothing the section says so rather than being filled in. ADR-005 and ADR-006 are the two cases the work item warned were not uniform, and both are declared rather than smoothed over."
+    },
+    {
+      "rule": "AC-5",
+      "item": "check:link-scan",
+      "status": "pass",
+      "evidence": "'No reference points at something that no longer exists.' Every markdown link in every tracked .md file plus docs/adr was resolved against the filesystem: zero broken. That is a stricter result than the criterion asked for, because six links were already broken before this change - four to docs/concepts/, deleted 25 September, and two to src/architecture.test.ts, which moved to apps/web/src/ with the workspace extraction - and they are fixed in README.md and CONTEXT.md. References to ADR-003 to ADR-007 now resolve to the new files from the architecture document's Decisions table, and the extracted files link back to the table they came from."
+    },
+    {
+      "rule": "TEST-09",
+      "item": "check:check_document",
+      "status": "pass",
+      "evidence": "The checks were seen failing before being trusted, which for a documentation change is the whole of the evidence. check_document rejected docs/02-architecture.md on twelve sections before the reshape. The reference comparison was seen reporting fifteen lost references against the first draft, which is why the loss was caught at all rather than merged; it reports zero now. The token comparison was seen reporting seven further substantive losses after the reference comparison was already clean, which is the one that proves a reference-level diff is not sufficient on its own. The link scan was seen reporting six broken links before the fixes."
+    },
+    {
+      "rule": "TEST-01",
+      "status": "not-applicable",
+      "reason": "No bug was fixed in code. The defect class here is a document failing its template or silently losing content, and the guard against the first returning is check_document, which CI runs through peer-ai check on every pull request. The guard against the second is the comparison method recorded in the document's own Sources section; it is not automated, which is stated rather than implied."
+    },
+    {
+      "rule": "TEST-02",
+      "status": "not-applicable",
+      "reason": "No user journey is in scope. The diff contains no file under apps/ or packages/; the application is untouched."
+    },
+    {
+      "rule": "TEST-03",
+      "status": "not-applicable",
+      "reason": "No business rule changed. Nothing executable is in the diff, so there are no values to test case by case. The money, cycle and goal rules the document now restates are unchanged in core/, where 487 tests cover them."
+    },
+    {
+      "rule": "TEST-04",
+      "status": "not-applicable",
+      "reason": "No test was added or changed. The 487 existing tests in 34 files are untouched and verify passed in CI on this commit."
+    },
+    {
+      "rule": "TEST-08",
+      "status": "not-applicable",
+      "reason": "No input boundary, route or permission is in scope. A markdown heading takes no input."
+    },
+    {
+      "rule": "TEST-12",
+      "item": "check:check_document",
+      "status": "pass",
+      "evidence": "What was checked is what ships: check_document and the link scan read the files at their committed paths, which are the files every reader and every future review will open. There is no build step, generated copy or alias between the checked artefact and the published one."
+    },
+    {
+      "rule": "CODE-15",
+      "item": "criterion:2",
+      "status": "pass",
+      "evidence": "The edge cases of the move were handled rather than assumed uniform. ADR-005 records no context and ADR-006 names its alternatives inline, both flagged in the work item before the work started and both declared in the files. Three statements in the old document contradicted the code - export-import.ts for export-file.ts, a migrations/ folder that has never existed, and a primitives list naming components never built under those names - and were corrected against the folder rather than copied forward, with the correction recorded in Sources so the next reader knows the document and its predecessor disagree on purpose."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass, all five criteria on evidence. The one that mattered is the second: the first draft of this reshape lost fifteen standards references and two whole sections, and a token-level comparison then found seven more after the reference comparison was clean. Both were caught by comparing against the previous version, and both are recorded in the document's Sources. No markdown link in the repository is now broken, six better than before."
+}
