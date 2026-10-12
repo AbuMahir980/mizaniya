@@ -1272,7 +1272,7 @@ full reasoning; this is the summary and what it means for the code.*
 - **It immediately found a real violation:** `app/app.tsx` imported `data/`
   twice, to build the Dexie repository and the notifier. That wiring moved to
   `store/create-app-store.ts`.
-- **[src/architecture.test.ts](src/architecture.test.ts) now holds the line.** It
+- **[apps/web/src/architecture.test.ts](apps/web/src/architecture.test.ts) now holds the line.** It
   writes a file into each layer, runs ESLint on it, and requires the violation to
   be reported — five that must fail, two permitted directions that must not. It
   costs about twelve seconds because it shells out to ESLint nine times, which is
@@ -1460,7 +1460,7 @@ full reasoning; this is the summary and what it means for the code.*
 
 - **First learning-mode stop.** Worked through the review questions from SETUP. Two answers landed on the symptom but stopped short of the mechanism: the stored safe-to-spend field would be too high (B3), and copying rules means editing five places instead of one (E1/E2). Both missed the same half — that nothing would report the fault.
 - **Named the pattern and gave it a method.** *What breaks — and who finds out?* Loud problems are cheap; silent ones are expensive. Written up as the first concept note; it now lives as a named principle near the top of this file, `docs/concepts/` having been replaced by `docs/engineering-notes/`. It reframes B3, E2 and K4 as one rule about detectability wearing three hats.
-- **Opened [docs/concepts/revisit.md](docs/concepts/revisit.md)** with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
+- **Opened `docs/concepts/revisit.md`** — *deleted 2026-09-25 with the rest of that folder, so no longer a link* — with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
 - **Recorded a standing writing preference:** intelligent but plain — the test is whether the least technical reader could understand and remember it. Applies to docs, file headers, commit messages and the app's own copy.
 - **Added `docs/Mizaniya_Kickoff_Pack.md`**, the instructions this build actually runs on. The product brief's §6 had declared itself superseded by a file that was not in the repo.
 - **Caught a repo-rule-3 breach before it was committed.** The kick-off pack named another project four times. Redacted, along with local folder paths and a stale filename. Worth noting: **rule 3 is the only repo rule with no automated enforcement** — secret scanning finds keys, not project names, and a denylist committed to a public repo publishes the very names it hides. Raised properly at PR AUTOMATION.
@@ -1471,7 +1471,7 @@ full reasoning; this is the summary and what it means for the code.*
 - **Ran ARCHITECT** with `engineering:architecture` and `engineering:system-design` invoked inside the phase. Wrote [docs/02-architecture.md](docs/02-architecture.md) with seven ADRs; [ADR-001](docs/adr/ADR-001-reactivity-and-the-data-seam.md) and [ADR-002](docs/adr/ADR-002-where-core-lives.md) promoted to their own files.
 - **The architecture reduced to one idea:** transactions are the only facts, everything else is a calculation. Once nothing derived is stored, the only architectural question left is how a write reaches the screens — which is ADR-001.
 - **Rejected Dexie `liveQuery`,** the obvious and least-code option, on cost of ownership: it puts the storage engine inside every component and has no counterpart in SQLite or HTTP, so v2 would be a screen-by-screen rewrite. Also rejected an observable-returning repository, which is the *more* dangerous choice because a v3 HTTP implementation could only honour it by polling or by returning a subscription that never fires — wrong, and silent.
-- **Wrote three concept notes** — [derived state](docs/concepts/derived-state.md), [the repository pattern](docs/concepts/repository-pattern.md), [IndexedDB](docs/concepts/indexeddb.md).
+- **Wrote three concept notes** — `derived-state.md`, `repository-pattern.md`, `indexeddb.md`. *All three were deleted with `docs/concepts/` on 2026-09-25 once their content had been harvested; what replaced them is [docs/engineering-notes/](docs/engineering-notes/). Left unlinked rather than repointed, because this entry records what was written that day.*
 - **Noted a small inconsistency to fix later:** the addendum says the Expo SDK will be recorded in "ADR-01", but ADR-001 is now taken. It should say *an* ADR.
 - **ADR-002 decided:** `core/` stays a folder in v1. Opened [docs/backlog.md](docs/backlog.md) with the extraction recorded as the first task of v2 — before any Expo screen, so it happens once rather than being discovered mid-build. **The A3 lint rule is now the only thing holding that boundary, so it must fail CI rather than warn.**
 - **Ran SYSTEM SPEC** with `product-management:write-spec` invoked inside the phase. Wrote [docs/03-system-spec.md](docs/03-system-spec.md): overview, goals and non-goals, roles, 40 stories with MoSCoW, Given/When/Then criteria for every Must, a per-screen state table, data requirements, and non-functional requirements.

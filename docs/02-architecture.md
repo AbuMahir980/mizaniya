@@ -1,96 +1,117 @@
-# System Architecture — Mizaniya v1
+# Architecture: Mizaniya
 
-| Field | Value |
+> **Reshaped 2026-10-08 (ITEM-7)** from the thirteen numbered sections this document
+> carried under Peer AI v0, into the twelve Peer AI 1.0 requires. **Every rule,
+> number, dependency direction and decision it stated is still stated**, and where the
+> template asks for something the project has never recorded, the section says so
+> rather than inventing it. Statements the
+> [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md) decision made false
+> — accounts, tiers, Postgres, a server that reads data — are corrected rather than
+> preserved, because a document kept in sync is the point. The previous version is in
+> git.
+
+## Summary
+
+Mizaniya is a **local-first** web app with no server that holds anyone's data. Every
+figure is computed on the device from the records the owner entered, and the device is
+the source of truth rather than a cache.
+
+The whole of one person's budget is held in memory as a single snapshot — a few
+thousand transactions across several years, comfortably under a megabyte — and every
+derived figure is a pure function of it. Writes go to IndexedDB first and only then
+update the snapshot, through a `Repository` interface that is the one seam between the
+app and where data lives. Domain calculations sit in a framework-free `packages/core`
+that imports nothing, so a React Native client can share them unchanged.
+
+**The one idea the architecture is built around: transactions are the only facts, and
+everything else is a calculation.** Cash left, safe-to-spend, what is left in each
+category, savings moved, debt paid, the projected gap, the zakat estimate — none is
+stored. That is standard **B3**, and it is what makes the figures trustworthy: a number
+that is recalculated cannot silently disagree with the records that produced it. It
+also decides the architecture, because if nothing derived is stored then the only
+question left is how a change to the facts reaches the screens showing the
+calculations.
+
+Syncing between devices, **designed and not built**, adds no server that understands
+anything: the snapshot is encrypted on the device and stored as one opaque blob
+([ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md)).
+
+## Needs it answers
+
+From [docs/01-requirements-summary.md](01-requirements-summary.md) (**D1–D14**),
+`docs/product-brief.md` and `docs/standards/`.
+
+| The need | What it drives in the design |
 |---|---|
-| **Date** | 2026-09-10 |
-| **Phase** | 2 · Architect |
-| **Inputs** | [docs/01-requirements-summary.md](01-requirements-summary.md) (D1–D14), `docs/standards/`, `docs/product-brief.md` |
-| **Status** | Accepted. ADR-002 chosen (option A) and D15 settled in SYSTEM SPEC; §12's open choices are both closed. |
+| **One salaried household**, the owner and possibly a partner — not a multi-tenant service | No accounts, no server-side identity, no per-record permission model. Standard **A6**, session scope on every request, stays dormant |
+| **Little data per person** — a few thousand transactions over years, under a megabyte | The whole snapshot is held in memory, which makes the simplest design also the correct one (**ADR-001**). It is also why sync can be one 12 KB blob rather than a database |
+| **Spending is recorded at the moment it happens** — in a queue, at a fuel station, immediately after paying | Offline is the normal condition, not an error state (**L4**). Writes never wait on a network. This is the need that rules out a server-authoritative design |
+| **Money must be exact** | Integer kobo with a branded type, all arithmetic in `core/money` (**ADR-004**, **MONEY-01**, **MONEY-05**) |
+| **Every cycle figure depends on today** | Time is a parameter; `core` never reads the clock (**ADR-003**) |
+| **Nigerian salary-cycle reality** — paid monthly, rent annually, debts in both directions | The cycle, not the calendar month, is the unit everything is computed against |
+| **The owner's financial history is private**, and NDPR applies to processing it | Nothing leaves the device unencrypted; no telemetry at all (**M2**); and repo rule 7 governs anything a server may hold |
+| **Durability on a browser that may evict data** (**D12**, **D14** — iOS Safari is the strict case) | Persistence requested after real data exists, true status reported in Settings, nudges on unexported changes, installable (**ADR-007**) |
+| **Mobile-first at 360px, correct at 1440px** | Two drawn widths, one component set, no separate mobile build |
+| **A React Native client in v2** | `packages/core` is framework-free and shares the `Repository` interface (**ADR-002**) |
 
----
+**Not recorded, and not invented here:** no availability target, no concurrency figure
+and no growth projection has ever been written down for this project. With no server
+there is nothing to make available, so an SLO would be about the static host rather
+than about Mizaniya. See *Open questions*.
 
-## 1 · What this document is for
+## Parts
 
-It fixes the shape of the system before any screen is specified or any code
-written: what the pieces are, where the boundaries sit, how a write reaches the
-screen, and which decisions were made on purpose rather than by accident.
-
-The detailed `Repository` method signatures and the export schema belong in
-**API CONTRACT** (`docs/04-api-contract.md`), not here.
-
----
-
-## 2 · Constraints, already fixed
-
-Not reopened in this phase:
-
-- **Local-first** — but no longer *server-less*. The device stays the source of truth and the app works fully offline ([ADR-010](adr/ADR-010-sync-model.md)); accounts and sync arrive in v1 with the repositioning (**ADR-009**). The original wording — *"no server, no accounts, no network, no telemetry in v1"* — held until 2026-09-24 and is kept here as history, because "local-first" now means *the phone is in charge*, not *there is nothing else*.
-- **IndexedDB via Dexie, behind a `Repository` interface** (standard **A4**).
-- **A framework-free `core/`** holding cycle maths, safe-to-spend, rollover, projected gap, zakat estimate and money (standard **A3**).
-- **React 19 + TypeScript + Vite**, mobile-first at 360px, correct at 1440px.
-- **Feature-first folders**, dependencies pointing inward (**A1**, **A2**, **A5**).
-- **v1 is a hosted webapp with a server** since the repositioning of 2026-09-24 (**ADR-009**): accounts, sync, free and paid tiers, and bank-movement reading designed in v1 and built as v1.1. **v2** is Expo/React Native sharing `core/`. **There is no v3** — its contents moved into v1, `services/api` is public, and repo rule 1 is amended in writing in `CONTEXT.md`. The sync model is **ADR-010**.
-- Money in **kobo**; `docs/seed-data.md` is the only source of figures.
-
----
-
-## 3 · The one idea the architecture is built around
-
-**Transactions are the only facts. Everything else is a calculation.**
-
-Cash left, safe-to-spend, what is left in each category, savings moved, debt paid, the
-projected gap, the zakat estimate — none of these are stored. Each is a pure
-function of the transaction list plus the plan plus today's date. That is
-standard **B3**, and it is what makes the app trustworthy: a figure that is
-recalculated cannot silently disagree with the records that produced it.
-
-It also decides the architecture. If nothing derived is stored, then the entire
-question becomes *how does a change to the facts reach the screens showing the
-calculations* — which is section 6.
-
----
-
-## 4 · Components
-
-| Component | Purpose | Technology | Deployment |
+| Part | What it owns | Where | Runs on |
 |---|---|---|---|
-| **App shell** | Routing, layout, providers, error boundary, offline and install prompts | React 19, React Router | Static bundle |
-| **Feature modules** | One folder per screen area: onboarding, home, plan, transactions, debts, goals, months, settings | React + TypeScript | Same bundle |
-| **UI primitives** | Button, Input, Select, Card, Sheet, StatTile, ProgressBar, Badge, Tabs, Toast, EmptyState, Table — every state included (**F6**) | Radix + Tailwind bound to tokens | Same bundle |
-| **Design tokens** | Colour, type scale, spacing, radius, elevation; light and dark | `apps/web/src/design/tokens.ts`, generated from `docs/design/tokens.md` | Same bundle |
-| **Session store** | The single in-memory snapshot of all data, and the actions that change it | Zustand | Runtime |
-| **`core/`** | Every domain calculation and type. No React, no storage, no platform APIs, no `Date.now()` | Pure TypeScript | Shared with v2 |
-| **Data layer** | The Dexie implementation of `Repository`, schema migrations, export/import | Dexie 4 | Runtime |
+| **App shell** | Routing, layout, providers, error boundary, offline and install prompts | `apps/web/src/app/` | Static bundle |
+| **Feature modules** | One folder per screen area. Built: onboarding, home, plan, quick-add, storage status. Specified and not built: transactions, debts, goals, months, settings | `apps/web/src/features/` | Same bundle |
+| **UI primitives** | 26 shared components — button, field, sheet, table, gauge, rail, pill, nav, money-text, announce and the rest — every state included (**F6**) | `apps/web/src/ui/` — Radix primitives with Tailwind bound to the tokens | Same bundle |
+| **Design tokens** | Colour, type scale, spacing, radius, elevation; light and dark | `apps/web/src/design/` — `tokens.css` holds both palettes, `tokens.ts` exposes them, from `docs/design/tokens.md` | Same bundle |
+| **Session store** | The single in-memory snapshot and the actions that change it | `apps/web/src/store/` — Zustand (**B4**, **ADR-006**) | Runtime |
+| **`core`** | Every domain calculation and type. No React, no storage, no platform API, no `Date.now()` | `packages/core/src/` — money, cycle, budget, debt, goal, zakat, sync | Shared with v2 |
+| **Data layer** | The Dexie implementation of `Repository`, schema migrations, export and import | `apps/web/src/data/` — Dexie 4 | Runtime |
 | **Storage** | The database itself | IndexedDB | The owner's browser |
-| **PWA layer** | Manifest, icons, service worker precaching the app shell; persistence request | vite-plugin-pwa (Workbox) | Static bundle |
-| **`services/api`** *(not built — v1)* | Sync, email auth, entitlement, household sharing, payments, and the aggregator integration for bank movement (v1.1) | Node · Hono · Postgres · Kysely — **[ADR-012](adr/ADR-012-server-stack.md)** — **parked**, not decided | **Public, in this repository** — **[ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)**; sync model **[ADR-010](adr/ADR-010-sync-model.md)** |
+| **PWA layer** | Manifest, icons, service worker precaching the app shell, persistence request | vite-plugin-pwa / Workbox (**ADR-007**) | Static bundle |
+| **The blob store** *(designed, not built)* | Holds one opaque encrypted blob per sync address. Understands nothing, validates nothing, reads nothing | Object storage plus a small request handler | Not yet chosen — see *Open questions* |
 
-### Dependency direction (A2)
+**`services/api` is gone from this table.** It was listed here as *not built — v1*,
+with Node, Hono, Postgres and Kysely from **ADR-012**. ADR-013 removed the database and
+the server's knowledge of the data, so what remains is the blob store above:
+conditional writes, a rate limit and a size cap, not a service.
+
+**`apps/mobile/`** is v2 (**ADR-002**) and does not exist yet.
+
+## How the parts depend on each other
+
+**Feature-first folders, dependencies pointing inward** (**A1**, **A2**, **A5**), and
+`eslint.config.js` fails the build on a violation via `eslint-plugin-boundaries`. These are the directions as the linter actually
+declares them:
 
 ```
-app/  ──▶  features/  ──▶  ui/  ──▶  design/
-                │
-                ▼
-           store (Zustand)
-                │
-                ├──▶  core/       (pure calculations — imports nothing)
-                └──▶  data/       (implements core/'s Repository)
-                                        │
-                                        ▼
-                                  dexie implementation
-                                        │
-                                        ▼
-                                    IndexedDB
+app     →  app, feature, ui, design, store, core
+feature →        feature, ui, design, store, core
+ui      →                     ui, design,     core
+store   →                            store, data, core
+data    →                                   data, core
+design  →                                   design
+core    →  nothing at all
 ```
 
-Never the reverse, and never feature → feature. `core/` imports nothing at all.
-Only `data/` may name Dexie; **no file outside `data/` imports it**, enforced by
-`import/no-restricted-paths` (**A4**).
+So, concretely, and each of these is checkable:
+
+- **`core` imports nothing outside itself** — not React, not Dexie, not the clock
+  (**A3**, **ADR-003**).
+- **Only `data/` may name Dexie.** No file outside it imports Dexie (**A4**).
+- **`ui` may not reach the store or the database.** A primitive takes props.
+- **A feature may not reach the database directly** — it goes through the store.
+- **Never feature → another feature's internals.** Each exposes its surface through
+  `index.ts` (**A5**).
+
+**Nine tests assert these by breaking them on purpose**
+(`apps/web/src/architecture.test.ts`), because a rule that has only ever passed is
+indistinguishable from one that is switched off.
 
 ### Folder layout
-
-**Amended 2026-09-25 — the workspace extraction landed** (ADR-008 action item 2,
-pulled forward from v2 because `services/api` must share `core/`).
 
 ```
 apps/web/                      the web app
@@ -98,167 +119,94 @@ apps/web/                      the web app
   public/
   src/
     app/                 routes, providers, layout, error boundary
-    features/
-      onboarding/  home/  plan/  transactions/
-      debts/  goals/  months/  settings/
+    features/            onboarding/ home/ plan/ quick-add/ storage/
     ui/                  design-system primitives
     design/              tokens.ts, tokens.css
     store/               the snapshot store and its actions
-    data/                dexie-repository.ts (implementation)
-                         migrations/
-                         export-import.ts
+    data/                database.ts, dexie-repository.ts, export-file.ts
 
 packages/core/                 framework-free domain logic
-  src/                 money/  cycle/  budget/  debt/  goal/  zakat/  sync/
+  src/                 money/ cycle/ budget/ debt/ goal/ zakat/ sync/
                        types.ts       (domain types)
                        schema.ts      (runtime validation)
-                       repository.ts  (the interface — see note below)
+                       repository.ts  (the interface — see below)
 
-services/api/                  not built yet (ADR-009)
-apps/mobile/                   v2 (ADR-002)
+apps/mobile/                   v2, does not exist yet (ADR-002)
 
 tsconfig.json  eslint.config.js  vitest.config.ts  scripts/   at the root
 ```
 
+**The workspace extraction landed 2026-09-25** (ADR-008 action item 2, pulled forward
+because the server was then expected to share `core`).
+
 **One deviation from ADR-008 item 2, deliberate:** it also called for
-`packages/tokens`. **Not extracted.** Nothing in the app imports `tokens.ts` — only
-two tests do; the app reads the CSS custom properties. So a package now would have
-one consumer, a test living in another package. The reason the package exists is
-**v2**, where React Native needs the values and cannot use CSS — so it is extracted
-then, when it has a real consumer. Extracting it now would be machinery ahead of
-need, which is the thing `performance.md` argues against.
+`packages/tokens`. **Not extracted.** Nothing in the app imports `tokens.ts` — only two
+tests do; the app reads the CSS custom properties. A package now would have one
+consumer, a test living in another package. The reason it exists is **v2**, where React
+Native needs the values and cannot use CSS, so it is extracted then, when it has a real
+consumer. Extracting now would be machinery ahead of need, which `performance.md`
+argues against.
 
 **`@/` means `apps/web/src`. `core` is imported as `@mizaniya/core/<module>`** —
 subpath only, no barrel file, because a barrel over a domain package invites circular
 imports and hides which module a dependency came from.
 
 **Every root command is unchanged**: `npm run dev`, `verify`, `seed`, `test`, `lint`
-all still work from the repository root and mean what they meant before. Root scripts
-delegate into the workspace, deliberately, so nobody has to learn a new command
+all work from the repository root and mean what they meant before the extraction. Root
+scripts delegate into the workspace deliberately, so nobody has to learn a new command
 because of an internal move.
 
-Each feature exposes its public surface through `index.ts`; nothing imports
-another feature's internal file (**A5**).
+**The `Repository` interface lives in `core`, its implementations in `data/`.** This
+corrects the first draft of this document, which placed the interface in `data/`
+alongside the Dexie implementation. The interface is part of the domain contract every
+client shares — the Expo app in v2 must implement it — whereas the implementation is a
+platform detail. `core` still imports nothing, so **A3** holds, and `data/` depends on
+`core`, which is the direction **A2** requires.
 
-**The `Repository` interface lives in `core/`, its implementations in `data/`.**
-This corrects the first draft of this document, which placed the interface in
-`data/` alongside the Dexie implementation. The interface is part of the domain
-contract every client shares — the Expo app in v2 must implement it — whereas
-the implementation is a platform detail. `core/` still imports nothing, so
-**A3** holds; `data/` depends on `core/`, which is the direction **A2** requires.
+### Rules every part keeps
 
----
+Each of these is a rule a reviewer checks, not a note, so each names the standard it
+comes from.
 
-## 5 · The data seam
+- **Money.** Every amount is an **integer number of kobo**, carried as a branded type
+  so it cannot be confused with an ordinary number:
 
-`Repository` is **plain async CRUD**. It is deliberately boring, because it has
-to survive three implementations: Dexie today, **HTTP in v1** since the
-repositioning, and SQLite in v2. The HTTP one **wraps** the local implementation
-rather than replacing it (ADR-010), so writes still land on the device first.
+  ```ts
+  type Kobo = number & { readonly __brand: 'Kobo' }
+  ```
 
-Shape only — the real signatures are the API CONTRACT's job:
+  No floating point anywhere; `0.1 + 0.2` is the reason. All arithmetic lives in
+  `core/money` — **never in a component** (**H3**) — and was extracted on the first
+  repeat rather than the third (**E2**), because duplicated money logic drifts and the
+  cost of that is not a refactor. Formatting (`₦1,250,000.00`) is one function in the
+  same module.
+- **Error handling.** Every async surface models its state as a **discriminated union,
+  never boolean soup** (**G3**), and handles loading, empty and error explicitly
+  (**L1**). Messages say what happened *and what to do next* (**L2**). A failed save
+  keeps the entered values and offers a retry — it never silently discards what the
+  owner typed.
+- **Offline.** Not an error state (**L4**). Spending is recorded when it happens, so
+  offline is a normal condition; the banner says where the data is, it does not report
+  a fault.
+- **Accessibility.** Standards **J1–J5**: 44px targets, labels on every interactive
+  element, `prefers-reduced-motion` honoured, WCAG AA contrast in **both** themes, and
+  keyboard-only operation proven by an end-to-end test.
+- **Authentication and authorisation.** None, and after
+  [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md) none is planned.
+  There is no account and no server that can read anything, so **A6** — session scope
+  on every request — has nothing to apply to. It was previously described as dormant
+  until household sharing; household sharing now works by holding the key, so there is
+  no session to scope.
+- **Configuration and secrets.** None. Nothing to authenticate to, so there is no key
+  to leak. `.env` stays git-ignored and CI runs secret scanning anyway, so the habit is
+  in place before there is anything to protect.
+- **Monitoring.** None, deliberately (**M2**, and the addendum). Nothing leaves the
+  device. Any later analytics is opt-in and documented.
+- **Audiences.** One household, and a second person who uses the same device —
+  everything **C5** implies about audiences follows from that. `apps/admin` stays its
+  own deployment, never a route in the web app (**ADR-008**).
 
-```
-Repository
-  settings      get / put
-  categories    list / put / delete
-  plans         listByCycle / put
-  transactions  list(range) / put / delete / bulkPut
-  debts         list / put / delete
-  goals         list / put / delete
-  export()      → snapshot
-  import(s)     → void   (atomic; all or nothing)
-```
-
-**No query language, no observables, no Dexie types cross this line.** A method
-that could not be implemented over HTTP without heroics does not belong in the
-interface.
-
----
-
-## 6 · How a write reaches the screen
-
-The central decision, recorded in full as
-**[ADR-001](adr/ADR-001-reactivity-and-the-data-seam.md)**.
-
-One person's budget is small — a few thousand transactions across several
-years, comfortably under a megabyte. That single fact makes the simplest design
-also the correct one.
-
-**The whole dataset is held in memory as one snapshot.** Every derived figure is
-computed from it by pure `core/` functions, through memoised selectors. Writes
-follow one path and one order:
-
-```
-  UI event
-     │
-     ▼
-  store action
-     │
-     ├─▶ 1. Repository.put(...)      ← IndexedDB is written FIRST
-     │
-     ├─▶ 2. update the snapshot       ← only if the write resolved
-     │
-     ├─▶ 3. selectors recompute       ← pure core/ functions
-     │
-     └─▶ 4. subscribed screens render
-```
-
-**Storage is written before memory, always.** If the write fails, the snapshot
-is untouched and the UI shows the failure — the screen and the database cannot
-end up disagreeing. The reverse order would leave the owner looking at a figure
-that no longer matches what was saved, with nothing to detect it.
-
-**The UI never subscribes to Dexie.** Dexie's `liveQuery` would give reactivity
-for free, and it was rejected: it puts the storage engine into every component,
-which breaks **A4**, and neither SQLite (v2) nor an HTTP API (v3) has anything
-like it — so every screen would be rewritten at v2. The Repository stays
-portable and the store does the reactivity.
-
-**Multi-tab.** Two open tabs would otherwise drift apart silently. A
-`BroadcastChannel` message after each successful write tells other tabs to
-reload their snapshot. Cheap, and it closes a gap nobody would notice.
-
----
-
-## 7 · Time, and why it is a parameter
-
-**No function in `core/` ever calls `new Date()` or `Date.now()`.** Anything
-that needs the current moment takes `now` as an argument, supplied once per
-render pass from a single place in the app.
-
-*Why:* cycle boundaries, days remaining, the projected gap and the zakat hawl
-are all functions of today's date. If `core/` reads the clock itself, none of it
-can be tested against a fixed date, a cycle rollover at midnight becomes
-non-deterministic, and a bug that only appears on the 29th of February cannot be
-reproduced on purpose.
-
-**Dates are calendar dates, not instants.** A transaction stores `YYYY-MM-DD`,
-not a timestamp. "The day I spent this" is a calendar fact; storing it as an
-instant means a transaction can appear to move to the previous day when the
-device timezone shifts — a silent, one-day error in exactly the figures that
-matter. Cycle boundaries compare calendar dates only.
-
----
-
-## 8 · Money
-
-Every amount is an **integer number of kobo**, carried as a branded type so it
-cannot be confused with an ordinary number:
-
-```ts
-type Kobo = number & { readonly __brand: 'Kobo' }
-```
-
-No floating point anywhere; `0.1 + 0.2` is the reason. All arithmetic lives in
-`core/money` — never in a component (**H3**), and extracted on the first repeat
-rather than the third (**E2**), because duplicated money logic drifts and the
-cost of that is not a refactor. Formatting (`₦1,250,000.00`) is one function in
-the same module.
-
----
-
-## 9 · Core journey, traced end to end
+### The core journey, traced end to end
 
 The addendum's **K1**, which is also the acceptance test.
 
@@ -272,139 +220,202 @@ The addendum's **K1**, which is also the acceptance test.
 | 6 | **Projected gap updates** | `core/goal.projectedGap(goal, snapshot, now)` → `saved + (paydays remaining on or before the due date × planned contribution)` per **D5** → status badge re-renders |
 | 7 | **Export** | Settings → `Repository.export()` → snapshot + `schemaVersion` → JSON download → `lastExportedAt` recorded, so the nudge in **D12** resets |
 | 8 | **Import into a clean browser** | File → parse → version check → **one Dexie transaction, all or nothing** → snapshot replaced → every screen recomputes |
-| 9 | **Identical state** | Every figure on every screen is derived, so the same facts produce the same figures. Nothing stored can have drifted, because nothing derived was stored. |
+| 9 | **Identical state** | Every figure on every screen is derived, so the same facts produce the same figures. Nothing stored can have drifted, because nothing derived was stored |
 
-Step 9 is not a hope. It is a *consequence* of the rule in section 3 — which is
+**Step 9 is not a hope. It is a *consequence* of the rule in the Summary** — which is
 the return on that decision.
 
----
+## Data
 
-## 10 · Cross-cutting concerns
-
-**Authentication and authorisation.** None. There is no server, no account and
-nobody else's data. Standard **A6** (session scope on every request) is dormant
-until household sharing in v3.
-
-**Error handling.** Every async surface models its state as a discriminated
-union, never boolean soup (**G3**), and handles loading, empty and error
-explicitly (**L1**). Messages say what happened *and what to do next* (**L2**).
-A failed save keeps the entered values and offers retry — it never silently
-discards what the owner typed.
-
-**Offline.** Not an error state (**L4**). There is no network, so offline is the
-normal condition; the banner exists to say *your data is on this device only*,
-not to report a fault.
-
-**Configuration and secrets.** None in v1 — nothing to authenticate to. `.env`
-stays git-ignored and CI runs secret scanning from the day CI exists, so the
-habit is in place before there is anything to leak.
-
-**Deployment.** A static bundle on Vercel or Netlify. No server-side runtime, no
-environment-specific build. One environment: production.
-
-**Monitoring.** None, deliberately (**M2**, and the addendum). Nothing leaves the
-device. Any later analytics is opt-in and documented.
-
-**Accessibility.** Standards **J1–J5** — 44px targets, labels on every
-interactive element, `prefers-reduced-motion` honoured, WCAG AA contrast in both
-themes, and keyboard-only operation proven by an end-to-end test.
-
-**Storage durability.** Per **D12**: request persistence after real data exists,
-report the true status in Settings, nudge on unexported changes rather than on a
-timer, and ship installable. Detailed in **ADR-007**.
-
----
-
-## 11 · Architecture decisions
-
-Two are promoted to their own files because they have alternatives worth
-spelling out and a status that may change. The rest are recorded inline.
-
-> **Decided 2026-10-08 (ITEM-6): ADR-003 to ADR-007 should become their own files,
-> and have not been moved yet.**
->
-> The question had to be answered when every file in `docs/adr/` was reshaped to Peer
-> AI 1.0's decision template. These five were not reshaped, because **they are not
-> files** — each is one row of the table below, with its context and consequences
-> compressed into a single cell.
->
-> **Why they should move.** `CLAUDE.md` §9 says the decisions live in `docs/adr/`,
-> *one per decision*. Today a reader looking for ADR-005 goes there and finds nothing,
-> and the numbering has a hole in it — eight files numbered up to thirteen. That gap
-> is a thing to explain rather than a thing to read, and it is the only part of the
-> ADR set still shaped by v0.
->
-> **Why it is not done in the same change.** Turning a one-cell summary into a
-> structured record means deciding which sentence is context and which is
-> consequence. ITEM-6 forbade changing a word of reasoning, and it was reshaping
-> headings only — mechanically provable. Extracting these is a different kind of
-> work: ADR-005's cell records no context at all, and ADR-006's names its
-> alternatives inline. Where the source says nothing, the new file must **say that it
-> says nothing** rather than fill the gap, and that deserves its own review rather
-> than being done at the end of another change.
->
-> **Until then the table below is authoritative for these five**, and the cells are
-> unchanged.
-
-| ADR | Decision | Status |
+| Store | Owned by | The one way code reaches it |
 |---|---|---|
-| **[ADR-001](adr/ADR-001-reactivity-and-the-data-seam.md)** | In-memory snapshot with a plain async Repository; the UI never touches Dexie | Accepted |
-| **[ADR-002](adr/ADR-002-where-core-lives.md)** | Where `core/` lives — a folder now, or a workspace package now | Accepted |
-| **ADR-003** | **Time is a parameter.** `core/` never reads the clock; `now` is passed in, and dates are stored as calendar dates (`YYYY-MM-DD`), not instants. *Context:* every cycle figure depends on today. *Consequences:* every calculation is testable against a fixed date and a February bug can be reproduced on purpose; the cost is one extra argument on many functions. | Accepted |
-| **ADR-004** | **Money is integer kobo with a branded type**, all arithmetic in `core/money`. *Context:* floating point cannot represent decimal money exactly. *Consequences:* rounding is explicit and testable, and a raw number cannot be passed where an amount is expected; the cost is conversion at every input and output boundary. | Accepted |
-| **ADR-005** | **Export carries a `schemaVersion`; import is atomic and version-checked.** Older files migrate through a chain of pure functions; a newer file is refused with a plain explanation rather than partially loaded. Import replaces everything, and the current data is exported to a file first. *Consequences:* an import can never half-succeed, and overwriting live data is recoverable; the cost is a migration chain to maintain from the first schema change. | Accepted |
-| **ADR-006** | **Zustand as the single client store** (**B4**). *Alternatives:* Context + `useReducer` — no dependency, but one snapshot in one context re-renders every consumer on every change, which is felt on a phone; Redux Toolkit — more ceremony than one person's budget warrants. *Consequences:* selector-based subscriptions keep re-renders narrow and it works unchanged in React Native for v2; the cost is one dependency, justified per **N1** (~1 KB, no provider, no platform equivalent). | Accepted |
-| **ADR-007** | **PWA via vite-plugin-pwa; persistence requested after first meaningful write.** The service worker precaches the app shell only — there is no network data to cache. *Consequences:* the app opens offline, becomes installable, and installation is the single biggest factor in whether the browser evicts the data (**D14**: iOS Safari is the strict case); the cost is a service-worker update path that must not serve a stale shell. | **Accepted, amended 2026-09-25.** *"There is no network data to cache"* stopped being true when ADR-009 added a server — but **the conclusion is unchanged and now rests on a better reason.** It was an absence: nothing to cache, so nothing cached. It is now a prohibition: **the service worker must never cache synced data**, because a runtime cache would be a second copy of the owner's money with its own staleness and nothing able to say which was right — the same argument that keeps derived figures out of storage (**B3**, `derived-state.md`). The shell is still all it precaches. The update path still must not serve a stale shell |
-| **[ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)** | **v1 is a hosted webapp with a public server; mobile becomes v2; v3 dissolves into v1.** Bank-movement reading is designed in v1 and built as v1.1. Repo rule 1 amended in writing; a rule about real user data is owed from the stakeholder. | Accepted |
-| **[ADR-010](adr/ADR-010-sync-model.md)** | **Local-first with the server as sync target** — per-row last-write-wins, tombstones for deletes, the server providing the order. Derived money figures are never synced, only recomputed. Requires `updatedAt` and soft deletion on every entity (`SCHEMA_VERSION` 2). | Accepted |
-| **[ADR-012](adr/ADR-012-server-stack.md)** | **The server stack: Node · Hono · Postgres · Kysely**, tested against a real Postgres. Node is forced rather than chosen — the server imports `packages/core` for `schema.ts`, and a non-JS server would reimplement it, giving two definitions of a valid movement in two languages. Hono because hosting is undecided and it keeps the two decisions separable. Kysely over Prisma because the two queries that carry real risk — the sync cursor and the last-write-wins upsert — should be legible as SQL. | **Parked 2026-09-25** — written while planning ahead, deferred until the design is finished |
-| **[ADR-011](adr/ADR-011-encryption-and-data-protection.md)** | **Strong encryption at rest done properly; end-to-end deliberately deferred.** Sensitive fields encrypted with keys held outside the database, bank tokens held higher still, financial values never logged, every production access audited, support by asking rather than looking. Does **not** defend a live server compromise — stated rather than assumed. End-to-end returns as an opt-in once recovery and support are understood. | Accepted |
+| **IndexedDB** — the authoritative copy of the owner's budget | `apps/web/src/data/` | The `Repository` interface. Nothing else may touch Dexie (**A4**) |
+| **The in-memory snapshot** — the whole dataset, read by every screen | `apps/web/src/store/` | Memoised selectors over pure `core` functions. Never written to directly by a screen |
+| **An export file** — a complete snapshot as JSON the owner holds | `apps/web/src/data/export-file.ts` | `buildExportFile`, and an atomic version-checked import (**ADR-005**) |
+| **The sync blob** *(designed, not built)* | The device encrypts it; the store holds it | One opaque ciphertext per address. The store cannot read it (**ADR-013**) |
 
-**A numbering note.** `docs/standards/standards-addendum-mizaniya.md` says the
-Expo SDK will be "recorded in ADR-01 when v2 starts". ADR-001 is now taken. The
-addendum should say *an* ADR rather than naming a number — a small correction to
-make when v2 begins.
+**Where the structure comes from.** The schema is defined in code —
+`apps/web/src/data/database.ts` for the Dexie stores, and `packages/core/src/types.ts`
+with `schema.ts` for the shapes and their runtime validation. There is no separate
+schema file, and no migration tool: migrations are a chain of pure functions keyed on
+`schemaVersion` (**ADR-005**), currently at **v2**, which added `updatedAt` to every
+entity and deletions as tombstones (**ADR-010**).
 
----
+**What is especially sensitive, and where it is kept.** All of it — a complete record
+of one household's income, spending, debts and savings. Repo rule 7 calls a leak of
+real financial history *"a different category of event"*. It is kept **only** on the
+owner's device, and the encrypted blob is the only copy that ever leaves it. No
+figure is ever logged; `docs/seed-data.md` is the only source of figures anywhere in
+the repository, fixtures, tests and screenshots included (repo rule 2).
 
-## 12 · Open choices
+## Contracts
 
-Both sides given; the stakeholder chooses, and the choice is recorded in
-`CONTEXT.md`.
-
-### Choice A — where `core/` lives (ADR-002)
-
-| | **`packages/core/src/` folder now** | **`packages/core` workspace now** |
-|---|---|---|
-| Cost today | none | workspace config across Vite, Vitest, ESLint, tsconfig and CI |
-| Cost at v2 | move a folder that already imports nothing, then fix import paths | none — Expo consumes the package |
-| Boundary enforcement | lint rule (**A3**), from day one either way | lint rule *and* a package boundary |
-| Risk | the move is mechanical, but it is a whole-repo diff | added config surface on a project whose constraint is "ship as soon as realistic" |
-
-**Leaning:** the folder. The boundary that actually matters is the import
-discipline, and lint enforces that from day one; a folder with no framework
-imports is a contained thing to extract later. But if v2 is genuinely the next
-thing you build, the workspace pays for itself.
-
-### Choice B — the amber threshold for safe-to-spend
-
-Still open from UNDERSTAND. Three shapes:
-
-1. **A fixed naira figure** — "amber below ₦2,000 a day". Simple, but wrong for anyone whose income changes.
-2. **A proportion of the planned daily allowance** — "amber below 60% of plan". Adapts by itself; needs one number chosen once.
-3. **Days of cover** — "amber when the remaining cash would not last the remaining days". Arguably what the figure already means, so it may make the state redundant.
-
-**Leaning:** option 2, with the proportion editable in Settings. It is
-meaningful on day one and does not need re-tuning after a pay rise. This can be
-settled in SYSTEM SPEC.
-
----
-
-## 13 · What would be revisited, and when
-
-| Trigger | What changes |
+| Contract | Its one source of truth |
 |---|---|
-| The snapshot stops fitting comfortably in memory (many years of daily records) | Paginate transactions in the repository; keep aggregates in the snapshot. The `Repository` interface already allows a ranged `list` |
-| **v2 (Expo)** | Extract `core/` to a package if Choice A went the other way; add a SQLite `Repository` implementation. No screen logic changes |
-| **v1 sync and sharing** *(was v3 — **ADR-009**)* | An HTTP `Repository` wrapping the local one; **A6** wakes up; the snapshot needs conflict resolution, which is the first genuinely hard problem this project will have — answered in **[ADR-010](adr/ADR-010-sync-model.md)**, which also finds that no entity carries `updatedAt` or a tombstone, so deletes cannot currently propagate at all. Also `apps/admin` as its own deployment, never a route in the web app (**ADR-008**) |
-| A second person uses one device | Audiences, and everything **C5** implies |
+| **`Repository`** — the seam between the app and where data lives | `packages/core/src/repository.ts`. The generated document in [docs/04-api-contract.md](04-api-contract.md) is derived from it and says it is hand-checked |
+| **The export and import file** — `schemaVersion`, and what a valid snapshot is | `packages/core/src/types.ts` and `schema.ts`, as types plus Zod validation written once |
+| **Design tokens** | [docs/design/tokens.md](design/tokens.md) is authoritative for values; `apps/web/src/design/tokens.css` implements them |
+| **The blob format** *(designed, not built)* | ADR-013. Not yet written as a contract — see *Open questions* |
+
+`Repository` is **plain async CRUD**, deliberately boring, because it has to survive
+three implementations: Dexie today, a blob sync next, and SQLite in v2.
+
+```
+Repository
+  settings      get / put
+  categories    list / put / delete
+  plans         listByCycle / put
+  transactions  list(range) / put / delete / bulkPut
+  debts         list / put / delete
+  goals         list / put / delete
+  export()      → snapshot
+  import(s)     → void   (atomic; all or nothing)
+```
+
+**No query language, no observables, no Dexie types cross this line.** A method that
+could not be implemented over a network without heroics does not belong in the
+interface.
+
+### How a write reaches the screen
+
+The central decision, recorded in full as
+**[ADR-001](adr/ADR-001-reactivity-and-the-data-seam.md)**. One order, always:
+
+```
+  UI event  →  store action
+                 │
+                 ├─▶ 1. Repository.put(...)   ← the device is written FIRST
+                 ├─▶ 2. update the snapshot    ← only if the write resolved
+                 └─▶ 3. selectors recompute    ← pure core functions
+```
+
+A write that fails never reaches the snapshot, so the screen cannot show a figure the
+database does not support. A failed save keeps what the owner typed and offers a retry
+(**L2**).
+
+## Outside services
+
+**None in the built app.** Nothing is called, nothing is sent, and there is no key to
+hold. That is why repo rule 1's prohibition on secrets costs nothing today.
+
+| Designed, not built | What is sent | When it is down |
+|---|---|---|
+| **The blob store** (ADR-013) | One opaque ciphertext, and nothing else. No identity, no metadata beyond an address | **The app keeps working.** The device is authoritative, so a store that cannot be reached means sync waits, not that the budget stops. The owner is told sync is behind, not shown an error |
+| **A metal price source**, for the zakat nisab | Nothing. It is a read | The nisab is **stale, not empty**: the last known value is used and the screen says how old it is (**ADR-013** keeps this, and `docs/06-page-specs.md` §7.10 specifies it) |
+
+**Bank movement reading is deferred entirely**, not designed as an outside service.
+An aggregator cannot work under this architecture, since its credentials would have to
+live in a browser bundle (**SEC-11**, repo rule 1), and the feature waits on evidence
+that anyone wants it (ADR-013).
+
+## Where it runs
+
+**One environment: production.** No staging, no per-environment build, and no
+environment variable the app reads at runtime.
+
+| Part | Where it runs | How a change reaches it |
+|---|---|---|
+| **The app** | A static bundle on a CDN. Vercel is the intent; Netlify and Cloudflare Pages are equivalent for a static PWA | Merge to `main`, then a static deploy. Nothing is built per environment |
+| **The blob store** *(not built)* | Object storage plus a small request handler | Not yet chosen — issue **#113**, and ADR-013 reduced it to a question about conditional writes, rate limits and a size cap rather than a database |
+
+**Nothing merges red.** `.github/workflows/pr-checks.yml` runs verify — naming,
+spacing, lint, typecheck, tests, build — plus a repo-rules guard and secret scanning;
+`.github/workflows/peer-ai.yml` runs the Peer AI gate. `npm run ci:premerge <pr>` must
+say `ALLOWED` before any merge, whatever the base branch, because branch protection
+only ever guards `main` and is **still off** (**#112**).
+
+## Decisions
+
+Every decision now has its own file in [`docs/adr/`](adr/), one per decision.
+ADR-003 to ADR-007 were extracted from a table in this document on 2026-10-08
+(ITEM-7); their wording is unchanged, and where the original row recorded no context
+or no alternative, the file says so.
+
+| Decision | Status |
+|---|---|
+| **[ADR-001](adr/ADR-001-reactivity-and-the-data-seam.md)** — in-memory snapshot with a plain async `Repository`; the UI never touches Dexie | Accepted |
+| **[ADR-002](adr/ADR-002-where-core-lives.md)** — where `core` lives: a folder, or a workspace package | Accepted; the package was chosen and extracted 2026-09-25 |
+| **[ADR-003](adr/ADR-003-time-is-a-parameter.md)** — time is a parameter; `core` never reads the clock | Accepted |
+| **[ADR-004](adr/ADR-004-money-is-integer-kobo.md)** — money is integer kobo with a branded type | Accepted |
+| **[ADR-005](adr/ADR-005-export-carries-a-schema-version.md)** — export carries a `schemaVersion`; import is atomic and version-checked | Accepted |
+| **[ADR-006](adr/ADR-006-zustand-as-the-single-client-store.md)** — Zustand as the single client store (**B4**), its one dependency justified per **N1** | Accepted |
+| **[ADR-007](adr/ADR-007-pwa-and-persistence.md)** — PWA, and persistence requested after the first meaningful write | Accepted, amended twice |
+| **[ADR-008](adr/ADR-008-repository-layout.md)** — repository layout | Accepted |
+| **[ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md)** — v1 as a hosted webapp with a server | Accepted as history; **its premise is superseded by ADR-013** |
+| **[ADR-010](adr/ADR-010-sync-model.md)** — the sync model, local-first with the server as sync target | Accepted; **part 2 rebuilt by ADR-013**, parts 1 and 3 stand |
+| **[ADR-011](adr/ADR-011-encryption-and-data-protection.md)** — encryption at rest, end-to-end deferred | Accepted; **its deferral is reversed by ADR-013**, on the conditions it wrote down |
+| **[ADR-012](adr/ADR-012-server-stack.md)** — the server stack | **Superseded, unbuilt**, by ADR-013 |
+| **[ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md)** — no accounts; sync as one encrypted blob | **Accepted** 2026-10-08 |
+
+## Risks
+
+Most serious first. Each is a thing to do, not a worry.
+
+1. **The sync merge will be the most dangerous code in the product.** One blob means a
+   merge bug can corrupt every device's copy, and there is no server-side copy to fall
+   back on because the store cannot read one. ADR-013 requires the store to keep the
+   previous version and the merge to be tested exhaustively with plain values. **Not
+   built, so not yet a live risk — but it is the one to design for.**
+2. **No threat model exists**, and the project map reports it missing for the mvp
+   stage. It was blocked on *what is the server*; ADR-013 answers that, so the surface
+   is now small and specific: the blob store, the recovery secret, and an imported
+   file.
+3. **An imported file is untrusted input and its abuse cases are untested.** Validation
+   is schema-based rather than hand-rolled, so **SEC-06** holds, but there is no test
+   for a future `schemaVersion`, a money value as a string, or a demo-flagged file
+   restored into a real session — which issue **#106** records as a real risk.
+4. **Nothing watches the dependencies.** No audit runs on change or on a schedule, and
+   `npm audit` currently reports 18 vulnerabilities, 2 critical, all in the build and
+   test toolchain rather than the shipped bundle. Recorded as an open finding against
+   ITEM-1 and ITEM-3.
+5. **Two length rules are deferred rather than met.** TS-07 (function length) and
+   REACT-03 (component file length) report instead of blocking, with the owner's name
+   on the deferral and **ITEM-2** as the item that ends it: sixteen functions and eight
+   files are over, all in the five built screens, which are due to be rebuilt against
+   the artboards.
+6. **Branch protection is off** (**#112**), so nothing but the pre-merge gate stops a
+   red merge. gitleaks is also pinned to a mutable tag rather than a commit.
+
+**Where the code breaks this architecture today: nowhere that is known.** The nine
+architecture tests pass, `core` imports nothing, and no file outside `data/` names
+Dexie. That is asserted by tests rather than by reading.
+
+## Open questions
+
+Each needs the owner, or an outside fact nobody has checked yet.
+
+| Question | Who answers it |
+|---|---|
+| **Which object store and request handler**, and does its free tier survive? **#113.** ADR-013 reduced this to conditional writes, rate limits and a size cap — but the retention must be verified in the provider's own documentation, not assumed | The owner |
+| **Is WebAuthn's PRF extension usable** on the browsers people here actually use? If not, the passkey recovery factor cannot be built and the phrase becomes the only one, which changes ADR-013's recovery story materially | An outside fact; must be read in the browsers' own documentation |
+| **Branch protection** on `main`, and pinning gitleaks to a commit. **#112** | The owner, it is a repository setting |
+| **Should savings destinations carry a riba marker?** A religious position about named third parties. **O4** | The owner |
+| **Irregular income** — the float model. **O5**, v2 scope at minimum | The owner |
+| **Does `17d-cash-in-hand` survive** independently of bank linking? | The designer |
+| **No availability target, concurrency figure or growth projection** has been recorded. With no server there is little to make available, so this may be correctly absent rather than missing | The owner |
+
+**Both of the open choices this document used to carry are closed.** Where `core`
+lives was settled by ADR-002 and the extraction; the amber threshold for safe-to-spend
+was settled as **D15** in the system spec.
+
+## Sources
+
+- **Written from** [docs/01-requirements-summary.md](01-requirements-summary.md)
+  (**D1–D14**), `docs/product-brief.md`, `docs/standards/`, and the decision records in
+  [`docs/adr/`](adr/).
+- **And from the code**, read at commit `d9eab03` on 2026-10-08: `eslint.config.js` for
+  the dependency directions as the linter declares them rather than as prose describes
+  them, `apps/web/src/architecture.test.ts` for what is asserted, `packages/core/src`
+  for the module layout, and `apps/web/src/data/database.ts` for where the schema lives.
+- **People asked:** Qudus Lawal (stakeholder and owner), through 2026-09-10 to
+  2026-10-08.
+- **What changed in this version, and why.** Reshaped from thirteen numbered sections
+  into the twelve of Peer AI 1.0's architecture template (ITEM-7), because the project
+  moved to Peer AI 1.0 and a document in the old shape could not be checked. Nothing it
+  stated was dropped. What was **corrected** rather than preserved: the Parts table no
+  longer lists `services/api` with Postgres, the constraints no longer describe v1 as a
+  hosted multi-user webapp with tiers, and authentication is no longer described as
+  arriving in v1 — all three were made false by
+  [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md), and a document kept
+  in sync is the reason to correct them rather than archive them. ADR-003 to ADR-007
+  moved out of §11 into their own files, unchanged in wording.
