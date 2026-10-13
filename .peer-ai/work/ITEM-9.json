@@ -4,9 +4,10 @@
   "id": "ITEM-9",
   "title": "Bump peer-ai-eslint-config to next.16, and park TS-08 until the rebuild",
   "kind": "chore",
-  "stage": "prepare",
+  "stage": "ship",
   "track": "web",
   "branch": "feature/bump-peer-ai-eslint-config-to-next-16-and-park-ts",
+  "base": "b9d2379e30cab266284a9a0e0a5b79ba3087f141",
   "goal": "next.16 fixes Peer AI #235: a reporting-only rule no longer replaces an enforced rule sharing the same ESLint rule. This project has that shape, so TS-08's 400-line limit has never been applied to a .tsx file while doctor and CONTEXT recorded it as enforced and passing. With the fix, home-screen.tsx (500 counted lines) and onboarding.tsx (660) break it. The owner's decision is to park TS-08 until the screens are rebuilt, on the reason already accepted for TS-07 and REACT-03.",
   "acceptance": [
     "Given peer-ai-eslint-config at 1.0.0-next.16, when npm run verify runs, then lint is green with no error, and the two files over 400 lines are reported rather than ignored",
@@ -21,6 +22,47 @@
     "apps/web/src/features/home/home-screen.tsx",
     "apps/web/src/features/onboarding/onboarding.tsx"
   ],
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-13T18:03:17.992Z",
+    "commit": "43ebdce3448111a219b9002fd79f9aa91c57d3b3",
+    "ci": {
+      "check": "verify",
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/38443383720/job/115455397499"
+    }
+  },
+  "reviews": [
+    {
+      "skill": "dependency-review",
+      "result": "pass",
+      "open": {
+        "high": 1
+      },
+      "report": ".peer-ai/reports/ITEM-9/dependency-review-20261013T1810Z.json",
+      "summary": "Pass at the project's blocking level, one high finding open. The change is clean: exact pin, committed lockfile with fresh integrity hashes, MIT licences read from the packages, public registry, no install scripts, reason recorded. DEL-03 fails and not because of this change - nothing watches dependencies, and npm audit reports 19 vulnerabilities, 5 critical, all dev toolchain, none shipped, none from this bump.",
+      "at": "2026-10-13T18:05:40.277Z",
+      "commit": "43ebdce3448111a219b9002fd79f9aa91c57d3b3",
+      "readOnly": 1
+    },
+    {
+      "skill": "qa-acceptance",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-9/qa-acceptance-20261013T1812Z.json",
+      "summary": "Pass, all four criteria on observed evidence. Three states of the same rule were seen: nothing reported under next.15 while two files stood at 500 and 660 lines, two errors under next.16 with nothing deferred, and two warnings with the deferral in place. The two records that said the rule was enforced and passing are corrected with their dates, and the deferral names both files, their counts, the owner and ITEM-2.",
+      "at": "2026-10-13T18:06:32.241Z",
+      "commit": "43ebdce3448111a219b9002fd79f9aa91c57d3b3"
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "dependency-review",
+      "reason": "it changes a dependency file or lockfile"
+    },
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
   "next": "Read what this item needs, then plan it.",
-  "updatedAt": "2026-10-13T17:59:08.320Z"
+  "updatedAt": "2026-10-13T18:06:35.273Z"
 }
