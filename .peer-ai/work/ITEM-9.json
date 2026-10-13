@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-9",
+  "title": "Bump peer-ai-eslint-config to next.16, and park TS-08 until the rebuild",
+  "kind": "chore",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/bump-peer-ai-eslint-config-to-next-16-and-park-ts",
+  "goal": "next.16 fixes Peer AI #235: a reporting-only rule no longer replaces an enforced rule sharing the same ESLint rule. This project has that shape, so TS-08's 400-line limit has never been applied to a .tsx file while doctor and CONTEXT recorded it as enforced and passing. With the fix, home-screen.tsx (500 counted lines) and onboarding.tsx (660) break it. The owner's decision is to park TS-08 until the screens are rebuilt, on the reason already accepted for TS-07 and REACT-03.",
+  "acceptance": [
+    "Given peer-ai-eslint-config at 1.0.0-next.16, when npm run verify runs, then lint is green with no error, and the two files over 400 lines are reported rather than ignored",
+    "Given the deferral, when peer-ai doctor runs, then TS-08 is listed as reporting only until ITEM-2, with the owner named and the two files named in the reason",
+    "Given REACT-03's existing deferral reason claims TS-08 passes in source, when this lands, then that sentence is corrected, because it was true only while the rule was not being applied",
+    "Given a file is added over 400 lines after this, when lint runs, then it is reported rather than silently passing, which is what the bug prevented"
+  ],
+  "sources": [
+    "peer-ai.config.json",
+    "package.json",
+    "eslint.config.js",
+    "apps/web/src/features/home/home-screen.tsx",
+    "apps/web/src/features/onboarding/onboarding.tsx"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-13T17:59:08.320Z"
+}

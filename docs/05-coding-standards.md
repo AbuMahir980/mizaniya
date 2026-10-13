@@ -66,7 +66,8 @@ catches most of it. **Not yet** names where it lands.
 | Rule | Enforced by | Status |
 |---|---|:-:|
 | **B1 / B2** No fetching in `useEffect` | v1 has no network at all, so there is nothing to fetch. Activates in v3 | **N/A in v1** |
-| **D1** A component file is at most 150 lines | — | **Not yet** — needs a line-count rule; raised as feedback, since several primitives with all their states exceed it |
+| **D1** A component file is at most 150 lines | `peer-ai/max-lines`, as Peer AI's **REACT-03** | **Reports, does not block** — the rule exists and runs as of 2026-10-07; it is deferred to reporting until **ITEM-2** rebuilds the screens, with the owner's name on the deferral in `peer-ai.config.json`. *Corrected 2026-10-13: this row said "Not yet — needs a line-count rule", which stopped being true when Peer AI's rules were turned on.* |
+| **D1 (file size)** No file over 400 lines | `peer-ai/max-lines`, as Peer AI's **TS-08** | **Reports, does not block** — same deferral, same item. Until 2026-10-13 this rule was recorded as enforced and was in fact being replaced by the 150-line warning above for every `.tsx` file; `peer-ai-eslint-config` next.16 fixed that, and the two files over 400 are named in the deferral's reason |
 | **D4** Only a screen knows about navigation | — | **Not yet** — BUILD, once routing exists |
 
 ### Styling
