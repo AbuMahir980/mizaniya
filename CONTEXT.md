@@ -697,6 +697,43 @@ questions on purpose. Do not invent answers to them.**
 
 Newest first.
 
+### 2026-10-13 (Monday) — the records catch up with the work, and Peer AI moves to next.16
+
+**Nothing was waiting to be merged, which is worth stating plainly:** no open pull
+request, no branch other than `main`, and `main` level with `origin`. The one commit
+that sits off `main` is the tag `archive/t16-movement`, deliberately — it **cannot** be
+merged, because its paths are all pre-workspace `src/…` and its `movement-draft.ts`
+predates schema v2. Landing it is a port, and it belongs to the Transactions screen.
+
+**Two records were stale and are now true.** **ITEM-5** still said *prepare* five days
+after ADR-013 — its whole deliverable — was accepted and merged across #137 to #143; it
+is closed, with where its six criteria are answered written into the item. And the
+**threat model**, which Peer AI has reported missing for the mvp stage, is now
+**ITEM-8**, a gap item rather than a warning: it was blocked on *what is the server*, and
+ADR-013 answered that by removing it, so the surface is three named things — the blob
+store, the recovery secret, an imported file.
+
+**Peer AI is on 1.0.0-next.16.** Four of its fixes are ones this project reported: ids
+are never handed out twice (#234, which had reissued ITEM-3 twice in one session and did
+it again today), `standards_for_file` no longer claims a rule is enforced for a file in
+no part of the project (#223), a dependency manifest gets the delivery rules rather than
+the code's (#224), and the review guides now agree with the validator about a rule that
+applies from a later stage (#225). **The feedback drafts were worth sending.**
+
+**And the fifth fix found a live fault here.** Peer AI #235: a rule that only *reports*
+no longer weakens one that *enforces* the same underlying ESLint rule. This project had
+exactly that shape — REACT-03 deferred as a 150-line warning, TS-08 enforced as a
+400-line error, both `peer-ai/max-lines`, and ESLint takes the last setting for a file.
+**So TS-08 was not being applied to a single `.tsx` file**, while `doctor` and this log
+both recorded it as enforced and passing. With the fix in place, two files break it:
+`home-screen.tsx` at 500 counted lines and `onboarding.tsx` at 660, both against a limit
+of 400. The lint-config bump is therefore **held** pending the owner's decision — defer
+TS-08 for those two until ITEM-2's rebuild, on the reason already accepted for TS-07, or
+split them now — because a deferral carries their name. **A rule nobody was applying
+reported itself as green for six days**, which is the same lesson this project keeps
+paying for: a check that has only ever passed is indistinguishable from one that is
+switched off.
+
 ### 2026-10-08 (Thursday) — the architecture is rewritten around holding no data
 
 **[ADR-013](docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md) is accepted, and
