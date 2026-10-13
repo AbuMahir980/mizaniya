@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-8",
+  "title": "Write the threat model, now that there is no server to model",
+  "kind": "gap",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/write-the-threat-model-now-that-there-is-no-server",
+  "gap": "threat-model",
+  "goal": "Peer AI reports a threat model missing for the mvp stage. It was blocked on a question nobody could answer: what is the server. ADR-013 answered it by removing the server, so the surface is now small and nameable — the blob store, the recovery secret, an imported export file — and the model is writable rather than deferred again. Without it, the only record of what this design protects against is prose scattered through ADR-011 and ADR-013.",
+  "acceptance": [
+    "Given the three surfaces ADR-013 leaves — the blob store, the recovery secret and an imported file — when the threat model is written, then each has its attackers, what they can see, what they can change, and what stops them",
+    "Given a found or stolen recovery secret, when the threat model is written, then it states exactly what the holder gets in each of ADR-013's three recovery modes, and what deleting the blob does and does not take back",
+    "Given an imported export file is untrusted input, when the threat model is written, then it names the abuse cases issue #106 records and says which are tested and which are not",
+    "Given rule 7 and ADR-011, when the threat model is written, then every clause is marked true, moot or still binding, with no clause left unaddressed",
+    "Given the model is written, when check_document runs against it, then it is ready, and docs/02-architecture.md's Risks section no longer says no threat model exists"
+  ],
+  "sources": [
+    "docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md",
+    "docs/adr/ADR-011-encryption-and-data-protection.md",
+    "docs/02-architecture.md",
+    "CONTEXT.md"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-13T10:08:20.745Z"
+}
