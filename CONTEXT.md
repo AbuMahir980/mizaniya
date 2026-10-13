@@ -727,12 +727,21 @@ exactly that shape — REACT-03 deferred as a 150-line warning, TS-08 enforced a
 **So TS-08 was not being applied to a single `.tsx` file**, while `doctor` and this log
 both recorded it as enforced and passing. With the fix in place, two files break it:
 `home-screen.tsx` at 500 counted lines and `onboarding.tsx` at 660, both against a limit
-of 400. The lint-config bump is therefore **held** pending the owner's decision — defer
-TS-08 for those two until ITEM-2's rebuild, on the reason already accepted for TS-07, or
-split them now — because a deferral carries their name. **A rule nobody was applying
-reported itself as green for six days**, which is the same lesson this project keeps
-paying for: a check that has only ever passed is indistinguishable from one that is
-switched off.
+of 400. **The owner's decision, taken the same day: park TS-08 until the rebuild**, on
+the reason already accepted for TS-07 and REACT-03 — both files are screens due to be
+rebuilt against the 263 artboards, so splitting them now would cut at line counts rather
+than along the design's own structure. The deferral names both files and carries the
+owner's name; **ITEM-2 now ends three deferrals rather than two.** The claim inside
+REACT-03's own reason that *"TS-08's 400-line limit is NOT deferred; it passes in
+source"* is corrected in place, and `docs/05-coding-standards.md` no longer says D1
+*"needs a line-count rule"* — it has had one since 7 October.
+
+**A rule nobody was applying reported itself as green for six days**, which is the same
+lesson this project keeps paying for: a check that has only ever passed is
+indistinguishable from one that is switched off. **Its cousin is new, and worth writing
+down: a check that is switched off by another check reports nothing at all, and a config
+can be internally contradictory while every file in it looks right.** What found it was
+not reading the config — it was a tool release note.
 
 ### 2026-10-08 (Thursday) — the architecture is rewritten around holding no data
 

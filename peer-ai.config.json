@@ -57,7 +57,13 @@
       },
       {
         "rule": "REACT-03",
-        "reason": "Eight component files in apps/web are over the 150-line limit: the five built screens plus primitives-page, controls and field. Deferred with TS-07 and for the same reason, the rebuild decides where these files divide. TS-08's 400-line limit is NOT deferred; it passes in source, and its one finding is a test file the test override exempts. Reviews still apply the rule.",
+        "reason": "Eight component files in apps/web are over the 150-line limit: the five built screens plus primitives-page, controls and field. Deferred with TS-07 and for the same reason, the rebuild decides where these files divide. Reviews still apply the rule. Corrected 2026-10-13: this reason used to end 'TS-08's 400-line limit is NOT deferred; it passes in source', which was true only because this deferral was silently replacing it for every .tsx file. peer-ai-eslint-config next.16 fixes that, and TS-08 is now deferred in its own right below.",
+        "decidedBy": "Qudus Lawal",
+        "untilItem": "ITEM-2"
+      },
+      {
+        "rule": "TS-08",
+        "reason": "Two files in apps/web are over the 400-line limit once the rule is actually applied: home-screen.tsx at 500 counted lines and onboarding.tsx at 660. Nothing else in source is over. The limit was never reached before 2026-10-13 because REACT-03's deferred 150-line warning replaced this enforced 400-line error for every .tsx file, ESLint taking the last setting of a rule for a file; peer-ai-eslint-config next.16 fixed that and the breach became visible. Deferred rather than fixed for the reason already accepted for TS-07 and REACT-03: both files are built screens due to be rebuilt against the 263 artboards, so splitting them now would cut at line counts rather than along the design's own structure, and the cuts would be thrown away. Reviews still apply the rule, and a new file over the limit is still reported.",
         "decidedBy": "Qudus Lawal",
         "untilItem": "ITEM-2"
       }
@@ -108,7 +114,7 @@
   "capabilities": {
     "requirements-analysis": {
       "notes": [
-        "`docs/product-brief.md` is the requirements source and `docs/seed-data.md` holds the only figures you may use. Read both before asking anything; arrive with a draft understanding to correct, not a blank page. The stakeholder is the user — ask about how the spreadsheet is actually used, not what sounds impressive."
+        "`docs/product-brief.md` is the requirements source and `docs/seed-data.md` holds the only figures you may use. Read both before asking anything; arrive with a draft understanding to correct, not a blank page. The stakeholder is the user \u2014 ask about how the spreadsheet is actually used, not what sounds impressive."
       ]
     },
     "architecture": {
@@ -130,7 +136,7 @@
     },
     "api-design": {
       "notes": [
-        "The `Repository` interface and the JSON export/import schema in `core/` are contracts too. Write each once, as TypeScript types plus a runtime schema, and derive the documents from them — never hand-write the same shape twice (frontend G2, G4). The server's endpoints are specified in `docs/09-endpoint-specs.md`."
+        "The `Repository` interface and the JSON export/import schema in `core/` are contracts too. Write each once, as TypeScript types plus a runtime schema, and derive the documents from them \u2014 never hand-write the same shape twice (frontend G2, G4). The server's endpoints are specified in `docs/09-endpoint-specs.md`."
       ]
     },
     "issue-planning": {
@@ -161,7 +167,7 @@
     },
     "implement-ticket": {
       "notes": [
-        "Learning mode was replaced on 2026-09-24 — see `CLAUDE.md` §4. There is no three-line file header and no `docs/concepts/`. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one commit per item are in `CONTEXT.md`."
+        "Learning mode was replaced on 2026-09-24 \u2014 see `CLAUDE.md` \u00a74. There is no three-line file header and no `docs/concepts/`. Explanation lives in `docs/engineering-notes/`, one note per topic, written when the topic is built or deliberately deferred. Build order and one commit per item are in `CONTEXT.md`."
       ]
     },
     "code-review": {
@@ -169,7 +175,7 @@
         "engineering:code-review"
       ],
       "notes": [
-        "Review against, in this order: `docs/standards/frontend-engineering-standards.md` — every `review` rule is the checklist, and the `auto` rules should already be green in CI, so a red one is a CI defect too; `docs/standards/standards-addendum-mizaniya.md` — kobo, what the danger colour means, the core journey; the repo rules in `CONTEXT.md` — no real figures, no employer or client names, no secrets.",
+        "Review against, in this order: `docs/standards/frontend-engineering-standards.md` \u2014 every `review` rule is the checklist, and the `auto` rules should already be green in CI, so a red one is a CI defect too; `docs/standards/standards-addendum-mizaniya.md` \u2014 kobo, what the danger colour means, the core journey; the repo rules in `CONTEXT.md` \u2014 no real figures, no employer or client names, no secrets.",
         "Count, don't judge: C1 (a prop passes through at most 2 components), D1 (at most 150 lines), D2 (at most 7 props), E1/E2 (the third duplicate extracts; money and validation extract on the first repeat), H3 (no money arithmetic in a component).",
         "One finding = one location + one fix. Correctness before style. Findings go to the user as a table before anything is changed.",
         "Claude Code's `/code-review` reads the real diff, so prefer it over pasting code into a prompt."
@@ -180,12 +186,12 @@
         "engineering:testing-strategy"
       ],
       "notes": [
-        "The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export → import round-trip (M3). Test by role and label, not test id (K3)."
+        "The core journey in `docs/standards/standards-addendum-mizaniya.md` (K1) is the acceptance test, run in Playwright. `core/` is tested exhaustively with plain values (K2), including cycle boundaries, month rollover, a debt paid early, a salary that arrives late, and export \u2192 import round-trip (M3). Test by role and label, not test id (K3)."
       ]
     },
     "security-review": {
       "notes": [
-        "**On this project, also work through:** secrets (none in the repo, `.env` ignored, secret scanning in CI); dependency audit against the pinned lockfile; input validation at every boundary with a schema (frontend G4) — imports especially, since an export file is untrusted input; the user's financial data at rest in IndexedDB (what a shared device or a browser extension can read; what the export contains; no telemetry per M2); and that no screenshot, fixture or test carries real figures (M1)."
+        "**On this project, also work through:** secrets (none in the repo, `.env` ignored, secret scanning in CI); dependency audit against the pinned lockfile; input validation at every boundary with a schema (frontend G4) \u2014 imports especially, since an export file is untrusted input; the user's financial data at rest in IndexedDB (what a shared device or a browser extension can read; what the export contains; no telemetry per M2); and that no screenshot, fixture or test carries real figures (M1)."
       ]
     },
     "qa-acceptance": {
