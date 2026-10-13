@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-10",
+  "title": "Move Peer AI from next.16 to next.18",
+  "kind": "chore",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/move-peer-ai-from-next-16-to-next-18",
+  "goal": "next.17 and next.18 landed within minutes of next.16 being adopted here, and both fix friction this project hit today: a merged item's done record stayed uncommitted on a branch that no longer existed, run_verify re-ran against a records-only push, and the gate went red on a draft that could not merge. next.17 also has next_work read CI's checks itself. Adopt both, read what render writes before committing it, and keep ci:watch and ci:premerge, which gate any base branch rather than only main.",
+  "acceptance": [
+    "Given the config, package files and workflows, when the move is done, then every reference to a Peer AI version names 1.0.0-next.18 and none names next.16",
+    "Given render writes new workflows, when they are reviewed, then anything the project does not need — such as a scan for a server this product does not have — is identified and decided rather than committed unread",
+    "Given peer-ai doctor and peer-ai check, when they run on next.18, then both pass with no new problem",
+    "Given the project's own ci:watch and ci:premerge scripts, when next.17's CI reading arrives, then the scripts stay, because Peer AI's gate guards main while ci:premerge guards any base branch"
+  ],
+  "sources": [
+    "peer-ai.config.json",
+    ".mcp.json",
+    ".github/workflows/",
+    ".claude/settings.json"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-13T18:31:45.318Z"
+}
