@@ -85,7 +85,8 @@
     "onExisting": "map",
     "profiles": [
       "react",
-      "typescript"
+      "typescript",
+      "github-actions"
     ]
   },
   "gates": {

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-11",
+  "title": "Turn on Peer AI's security pipeline, so dependencies are actually watched",
+  "kind": "chore",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/turn-on-peer-ai-s-security-pipeline-so-dependencie",
+  "goal": "DEL-03 has failed on two items: nothing checks dependencies for vulnerabilities on change or on a schedule, and npm audit reports 19 advisories with 5 critical. Peer AI already ships the answer in its github-actions stack profile, which this project does not list: osv-scanner for dependencies, gitleaks pinned by checksum, zizmor for the workflows, Semgrep for the code, on every pull request and daily. Adopt it in reporting mode first, as the lint rules were adopted.",
+  "acceptance": [
+    "Given the github-actions profile is added and render runs, when the workflow is written, then every job it contains is read and named before it is committed, and anything inapplicable — a TLS or running-app scan for a product with no deployed environment — is absent rather than disabled",
+    "Given the pipeline runs on this pull request, when it reports, then the dependency job's findings are recorded with their severities, so the 19 advisories are a list in the repository rather than a number in a conversation",
+    "Given the pipeline is adopted in reporting mode, when a job finds something, then it warns and stays green, and what it would take to make each job block is written down",
+    "Given gitleaks is now pinned by checksum in the new workflow, when the old gitleaks-action@v2 step in pr-checks.yml is considered, then the duplication is resolved one way or the other rather than left running twice",
+    "Given DEL-03's open finding on ITEM-9 and ITEM-10, when this lands, then the finding is closed with the evidence that a scheduled and per-change scan now exists"
+  ],
+  "sources": [
+    "peer-ai.config.json",
+    ".github/workflows/pr-checks.yml",
+    ".peer-ai/reports/ITEM-10/dependency-review-20261013T1842Z.json"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-13T18:46:34.583Z"
+}
