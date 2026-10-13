@@ -57,7 +57,7 @@
       },
       {
         "rule": "REACT-03",
-        "reason": "Eight component files in apps/web are over the 150-line limit: the five built screens plus primitives-page, controls and field. Deferred with TS-07 and for the same reason, the rebuild decides where these files divide. Reviews still apply the rule. Corrected 2026-10-13: this reason used to end 'TS-08's 400-line limit is NOT deferred; it passes in source', which was true only because this deferral was silently replacing it for every .tsx file. peer-ai-eslint-config next.16 fixes that, and TS-08 is now deferred in its own right below.",
+        "reason": "Eight component files in apps/web are over the 150-line limit: the five built screens plus primitives-page, controls and field. Deferred with TS-07 and for the same reason, the rebuild decides where these files divide. Reviews still apply the rule. Corrected 2026-10-13: this reason used to end 'TS-08's 400-line limit is NOT deferred; it passes in source', which was true only because this deferral was silently replacing it for every .tsx file. peer-ai-eslint-config next.16 fixed that, and TS-08 is now deferred in its own right below.",
         "decidedBy": "Qudus Lawal",
         "untilItem": "ITEM-2"
       },

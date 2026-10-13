@@ -1,0 +1,80 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-10",
+  "title": "Move Peer AI from next.16 to next.18",
+  "kind": "chore",
+  "stage": "ship",
+  "track": "web",
+  "branch": "feature/move-peer-ai-from-next-16-to-next-18",
+  "base": "1584ab848bbfea703bcf9f5c756a6ec64e24f092",
+  "goal": "next.17 and next.18 landed within minutes of next.16 being adopted here, and both fix friction this project hit today: a merged item's done record stayed uncommitted on a branch that no longer existed, run_verify re-ran against a records-only push, and the gate went red on a draft that could not merge. next.17 also has next_work read CI's checks itself. Adopt both, read what render writes before committing it, and keep ci:watch and ci:premerge, which gate any base branch rather than only main.",
+  "acceptance": [
+    "Given the config, package files and workflows, when the move is done, then every reference to a Peer AI version names 1.0.0-next.18 and none names next.16",
+    "Given render writes new workflows, when they are reviewed, then anything the project does not need — such as a scan for a server this product does not have — is identified and decided rather than committed unread",
+    "Given peer-ai doctor and peer-ai check, when they run on next.18, then both pass with no new problem",
+    "Given the project's own ci:watch and ci:premerge scripts, when next.17's CI reading arrives, then the scripts stay, because Peer AI's gate guards main while ci:premerge guards any base branch"
+  ],
+  "sources": [
+    "peer-ai.config.json",
+    ".mcp.json",
+    ".github/workflows/",
+    ".claude/settings.json"
+  ],
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-13T18:35:23.975Z",
+    "commit": "7d22d4fc9b977c3ac1a67fa8fc8397b064403d32",
+    "ci": {
+      "check": "verify",
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/38447695151/job/115470265617"
+    }
+  },
+  "reviews": [
+    {
+      "skill": "infrastructure-review",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-10/infrastructure-review-20261013T1840Z.json",
+      "summary": "Pass. The change is one workflow file gaining a draft condition and a version bump, and it moves nothing about privilege, secrets or exposure: permissions stay contents: read and checks: read, persist-credentials stays false, and the only secret is a repository secret read by name. Seven of thirteen rules are not applicable because there is no server, no second environment and nothing deployed, each with its reason.",
+      "at": "2026-10-13T18:36:58.340Z",
+      "commit": "7d22d4fc9b977c3ac1a67fa8fc8397b064403d32",
+      "readOnly": 1
+    },
+    {
+      "skill": "dependency-review",
+      "result": "pass",
+      "open": {
+        "high": 1
+      },
+      "report": ".peer-ai/reports/ITEM-10/dependency-review-20261013T1842Z.json",
+      "summary": "Pass at the project's blocking level, with the same high finding carried forward. The change itself is clean: exact pin, committed lockfile with fresh integrity hashes, MIT read from the packages, public registry with integrity, no install scripts, reason recorded. DEL-03 still fails for the same reason as on ITEM-9 - nothing watches dependencies - and the audit numbers are unchanged by this bump.",
+      "at": "2026-10-13T18:37:34.504Z",
+      "commit": "7d22d4fc9b977c3ac1a67fa8fc8397b064403d32",
+      "readOnly": 1
+    },
+    {
+      "skill": "qa-acceptance",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-10/qa-acceptance-20261013T1844Z.json",
+      "summary": "Pass, all four criteria on observed evidence. The one behavioural change was seen working on this pull request itself: the gate reports skipping on a draft, where it ran and passed on the last one. The project's own pre-merge guard already treats skipping as not passed, so the new behaviour opens no hole. doctor and check both end clean on next.18, where next.16 left warnings.",
+      "at": "2026-10-13T18:38:18.082Z",
+      "commit": "7d22d4fc9b977c3ac1a67fa8fc8397b064403d32"
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "dependency-review",
+      "reason": "it changes a dependency file or lockfile"
+    },
+    {
+      "skill": "infrastructure-review",
+      "reason": "it changes infrastructure or deployment"
+    },
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-13T18:38:22.307Z"
+}
