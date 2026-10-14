@@ -108,7 +108,8 @@ ADDED = {
     "page-land": [[("LandRailLight", "How it works · the rail arrives · light"),
                    ("LandRailDark", "How it works · the rail arrives · dark")]],
     "page-set": [M.row("Sync", "15d · Settings · your sync")],
-    "page-hh": [M.row("Remove", "18d · Household · removing Aisha"),
+    "page-hh": [M.row("HouseholdPartner", "18f · Household · the partner\u2019s view"),
+                M.row("Remove", "18d · Household · removing Aisha"),
                 M.row("RemoveDone",
                       "18e · Household · Aisha removed · place new keys")],
 }

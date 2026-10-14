@@ -1128,7 +1128,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 773,
+   "h": 791,
    "title": "18 · Household · just you · 1440 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1138,7 +1138,7 @@
    "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 976,
+   "h": 994,
    "title": "18 · Household · just you · 360 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1148,7 +1148,7 @@
    "x": 3304,
    "y": 0,
    "w": 1512,
-   "h": 773,
+   "h": 791,
    "title": "18 · Household · just you · 1440 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1158,7 +1158,7 @@
    "x": 4956,
    "y": 0,
    "w": 832,
-   "h": 976,
+   "h": 994,
    "title": "18 · Household · just you · 360 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1166,7 +1166,7 @@
   {
    "file": "WebHouseholdSharedLight.dc.html",
    "x": 0,
-   "y": 1166,
+   "y": 1184,
    "w": 1512,
    "h": 906,
    "title": "18a · Household · shared with Aisha · 1440 · light",
@@ -1176,7 +1176,7 @@
   {
    "file": "MwHouseholdSharedLight.dc.html",
    "x": 1652,
-   "y": 1166,
+   "y": 1184,
    "w": 832,
    "h": 1141,
    "title": "18a · Household · shared with Aisha · 360 · light",
@@ -1186,7 +1186,7 @@
   {
    "file": "WebHouseholdSharedDark.dc.html",
    "x": 3304,
-   "y": 1166,
+   "y": 1184,
    "w": 1512,
    "h": 906,
    "title": "18a · Household · shared with Aisha · 1440 · dark",
@@ -1196,7 +1196,7 @@
   {
    "file": "MwHouseholdSharedDark.dc.html",
    "x": 4956,
-   "y": 1166,
+   "y": 1184,
    "w": 832,
    "h": 1141,
    "title": "18a · Household · shared with Aisha · 360 · dark",
@@ -1206,7 +1206,7 @@
   {
    "file": "WebDisagreeALight.dc.html",
    "x": 0,
-   "y": 2497,
+   "y": 2515,
    "w": 1512,
    "h": 934,
    "title": "18b · Household · two amounts for one expense · 1440 · light",
@@ -1216,7 +1216,7 @@
   {
    "file": "WebDisagreeADark.dc.html",
    "x": 1652,
-   "y": 2497,
+   "y": 2515,
    "w": 1512,
    "h": 934,
    "title": "18b · Household · two amounts for one expense · 1440 · dark",
@@ -1226,7 +1226,7 @@
   {
    "file": "WebDisagreeBLight.dc.html",
    "x": 0,
-   "y": 3621,
+   "y": 3639,
    "w": 1512,
    "h": 880,
    "title": "18c · Household · two amounts for a savings target · 1440 · light",
@@ -1236,7 +1236,7 @@
   {
    "file": "WebDisagreeBDark.dc.html",
    "x": 1652,
-   "y": 3621,
+   "y": 3639,
    "w": 1512,
    "h": 880,
    "title": "18c · Household · two amounts for a savings target · 1440 · dark",
@@ -1244,11 +1244,51 @@
    "print": "fixed"
   },
   {
+   "file": "WebHouseholdPartnerLight.dc.html",
+   "x": 0,
+   "y": 4709,
+   "w": 1512,
+   "h": 958,
+   "title": "18f · Household · the partner’s view · 1440 · light",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHouseholdPartnerLight.dc.html",
+   "x": 1652,
+   "y": 4709,
+   "w": 832,
+   "h": 1258,
+   "title": "18f · Household · the partner’s view · 360 · light",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHouseholdPartnerDark.dc.html",
+   "x": 3304,
+   "y": 4709,
+   "w": 1512,
+   "h": 958,
+   "title": "18f · Household · the partner’s view · 1440 · dark",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHouseholdPartnerDark.dc.html",
+   "x": 4956,
+   "y": 4709,
+   "w": 832,
+   "h": 1258,
+   "title": "18f · Household · the partner’s view · 360 · dark",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
    "file": "WebRemoveLight.dc.html",
    "x": 0,
-   "y": 4691,
+   "y": 6157,
    "w": 1512,
-   "h": 767,
+   "h": 785,
    "title": "18d · Household · removing Aisha · 1440 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1256,9 +1296,9 @@
   {
    "file": "MwRemoveLight.dc.html",
    "x": 1652,
-   "y": 4691,
+   "y": 6157,
    "w": 832,
-   "h": 793,
+   "h": 811,
    "title": "18d · Household · removing Aisha · 360 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1266,9 +1306,9 @@
   {
    "file": "WebRemoveDark.dc.html",
    "x": 3304,
-   "y": 4691,
+   "y": 6157,
    "w": 1512,
-   "h": 767,
+   "h": 785,
    "title": "18d · Household · removing Aisha · 1440 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1276,9 +1316,9 @@
   {
    "file": "MwRemoveDark.dc.html",
    "x": 4956,
-   "y": 4691,
+   "y": 6157,
    "w": 832,
-   "h": 793,
+   "h": 811,
    "title": "18d · Household · removing Aisha · 360 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1286,7 +1326,7 @@
   {
    "file": "WebRemoveDoneLight.dc.html",
    "x": 0,
-   "y": 5674,
+   "y": 7158,
    "w": 1512,
    "h": 881,
    "title": "18e · Household · Aisha removed · place new keys · 1440 · light",
@@ -1296,7 +1336,7 @@
   {
    "file": "MwRemoveDoneLight.dc.html",
    "x": 1652,
-   "y": 5674,
+   "y": 7158,
    "w": 832,
    "h": 1193,
    "title": "18e · Household · Aisha removed · place new keys · 360 · light",
@@ -1306,7 +1346,7 @@
   {
    "file": "WebRemoveDoneDark.dc.html",
    "x": 3304,
-   "y": 5674,
+   "y": 7158,
    "w": 1512,
    "h": 881,
    "title": "18e · Household · Aisha removed · place new keys · 1440 · dark",
@@ -1316,7 +1356,7 @@
   {
    "file": "MwRemoveDoneDark.dc.html",
    "x": 4956,
-   "y": 5674,
+   "y": 7158,
    "w": 832,
    "h": 1193,
    "title": "18e · Household · Aisha removed · place new keys · 360 · dark",

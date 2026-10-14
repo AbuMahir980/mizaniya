@@ -89,14 +89,16 @@ def household(shared):
     return left
 
 
-N18 = ("&sect;18. <b>The roles are gone, and the screen says so.</b> The committed "
-       "board carried an account holder who could not be removed and a member who "
-       "could not change billing. ADR-013 removed billing and made possession of "
-       "the key the whole of the authorisation &mdash; so either person can remove "
-       "the other. Drawing a hierarchy would promise something the architecture "
-       "cannot keep. Stories L1&ndash;L5 are void; logged. <b>Cut on 14 October:</b> "
-       "every claim here had a heading and a two-line body under it. The headings "
-       "were the facts; the bodies were explanation.")
+N18 = ("&sect;18. <b>The creator is senior, and the store enforces it.</b> The first "
+       "cut of this board said <i>there is no owner</i>, because under ADR-013 "
+       "possession of the key was the whole of the authorisation and nothing "
+       "distinguished the two people. That was logged as &sect;Q&middot;9&middot;8, "
+       "the owner rejected it, and <b>ADR-014</b> amended the record: the store "
+       "verifies a signature on each write, which it can do without reading "
+       "anything. So the third line reversed. The partner&rsquo;s side of the same "
+       "facts is <code>18f</code> &mdash; drawn, because a hierarchy nobody is told "
+       "about is one you find out about at the worst possible moment. No "
+       "<i>admin</i> anywhere: seniority is of the budget, not of the household.")
 N18A = ("&sect;18a. The same screen with two of you. <i>Holds a key</i> is the whole "
         "membership model &mdash; no invitation to accept, no address to verify, no "
         "state in between.")
@@ -104,7 +106,9 @@ N18D = ("&sect;18d. <b>Three outcomes, and one of them is a thing we cannot do.<
         "The tick, the cross and the caution are not severity &mdash; they are what "
         "happens. The copy on her phone stays on her phone, and a screen that "
         "implied otherwise would be the one line of this product that could not "
-        "survive being tested.")
+        "survive being tested. ADR-014 made this screen honest in a second way: it "
+        "can say <i>you are removing Aisha</i>, because under the first draft it "
+        "was describing a rotation either of them could have started.")
 N18E = ("&sect;18e. Removal ends on the screen that turning sync on ended on, "
         "because it is the same act &mdash; three new keys, two of which have to "
         "leave the phone.")
@@ -114,6 +118,14 @@ N15D = ("&sect;15d. <b>Your account became your sync.</b> It is a setting now, n
         "new copies, <i>delete the stored copy</i> is ADR-013's remedy against a "
         "key believed found, and merging them would put the remedy behind the "
         "setting.")
+N18F = ("&sect;18f. <b>The partner&rsquo;s side of ADR-014, said out loud.</b> The "
+        "record is explicit that seniority is of the <i>budget</i>, not of the "
+        "household, and that no screen carries the word <i>admin</i> &mdash; so "
+        "this one states what they can do first and what they cannot second, in "
+        "the same voice as the creator&rsquo;s board. There is no disabled "
+        "<i>Remove</i> button: a dead control with no explanation is how a product "
+        "says <i>you are not allowed</i> without saying why. Where it would have "
+        "sat, the row simply ends.")
 N21 = ("&sect;21. The short version, in front of turning sync on rather than in "
        "front of a sign-up that no longer exists. Three lines, and the third is the "
        "limit &mdash; a panel carrying only the good half is the exact thing "
@@ -175,6 +187,23 @@ PANEL = ('<div class="card" style="padding:4px 18px 12px">'
          + '</div>')
 
 
+def partner_household():
+    """18f — the same household from the side that was added to it."""
+    state = hh_state("You were added to this budget.",
+                     "You can read and change everything in it. You cannot change "
+                     "who else can reach it.")
+    return (state + '<div style="height:12px"></div>'
+            + member_row("You", "This phone &middot; holds a key")
+            + '<div style="height:10px"></div>'
+            + member_row("Whoever created it", "Their phone &middot; holds a key")
+            + '<div style="height:18px"></div>' + SETTLE
+            + '<div style="height:12px"></div>' + r.DISAGREE
+            + '<div style="font-size:12.5px;line-height:19px;color:var(--soft);'
+              'margin:12px 2px 0">You can stop syncing at any time in '
+              '<b style="color:var(--ink)">Your sync</b>. What is on this phone '
+              'stays on it either way.</div>')
+
+
 def build():
     made = []
     for th in ("light", "dark"):
@@ -198,6 +227,25 @@ def build():
                          + '<div style="height:12px"></div>' + r.sharing_card()
                          + '<div style="height:14px"></div></div>', nav="Plan"),
                 note, wide=False))
+        # ── 18f · the partner's view ──
+        left_p = partner_household()
+        made.append(mz.write(
+            f"WebHouseholdPartner{T}",
+            f"18f · Household · the partner&rsquo;s view · 1440 · {th}", th,
+            mz.shell("Plan", mz.head1440(CRUMB_HH, "Household",
+                                         "Who else is in this budget.")
+                     + two_col(left_p,
+                               r.sharing_card("What you can do", r.SHARING_PARTNER)),
+                     1180, add=""), N18F))
+        made.append(mz.write(
+            f"MwHouseholdPartner{T}",
+            f"18f · Household · the partner&rsquo;s view · 360 · {th}", th,
+            mz.phone(mz.backbar("Household", "Plan")
+                     + '<div style="padding:18px 20px 0">' + left_p
+                     + '<div style="height:12px"></div>'
+                     + r.sharing_card("What you can do", r.SHARING_PARTNER)
+                     + '<div style="height:14px"></div></div>', nav="Plan"),
+            N18F, wide=False))
         # ── 18d · removing Aisha ──
         sub = "Removing someone means making three new keys."
         body = ('<div class="card" style="padding:4px 18px 12px">'
