@@ -32,6 +32,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          # Otherwise the job's token stays in .git/config, where anything this
+          # job uploads as an artifact can carry it out with it. Nothing here
+          # pushes, so there is nothing to keep it for.
+          persist-credentials: false
 
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
@@ -55,6 +60,7 @@ jobs:
           # Full history: the guard reads the commit messages on the branch, and
           # a squash merge makes those subjects permanent on `main`.
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
