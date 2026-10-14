@@ -5156,3 +5156,244 @@ its match count before it writes.
 `generator/README.md` has the run order. Both build scripts are idempotent, which is
 not a nicety: a build script that is only correct the first time is one that will be
 run twice.
+
+### Q·11 — The length pass, 14 October, and where it stopped
+
+**The owner's instruction, after reading the first cut back:** *"If a page is over
+explaining things — you have titles, sub-text, sub sub sub text — fix it. An
+average user just wants to spend a few minutes and get off. A design that does not
+take that into consideration is not a good and clean design."*
+
+He was right, and the first cut of these screens was guilty of it: a title, a
+standfirst, a card heading and a body paragraph on almost every one — four levels
+of text before a person reaches a control.
+
+**The rule now applied, and it is in `generator/build_screens.py` so it survives:**
+
+> A title. At most one line of standfirst, and only if it says something the title
+> does not. One sentence per row. No line under a button that the button does not
+> need.
+
+**What was cut was never a qualifier.** *"We hold no key to it"*, *"one alone opens
+nothing"*, *"what is already on her phone stays there"* are claims and they all
+stay, at full size. What went was the second sentence explaining the first — which
+is a thing for the note under the board, not the screen.
+
+**Done by measurement, not by eye.** Every board's visible text was counted and the
+ones carrying three or more paragraph-length nodes were the list.
+
+| Board | Before | After |
+|---|---|---|
+| `20` Security and privacy | 593 words, 13 paragraphs | **363 words, 1** |
+| `18a` Household | 13 paragraph nodes | **0** |
+| `15d` Your sync | standfirst + 5 paragraphs | **no standfirst, 0** |
+| `22` Getting back in | 2-sentence standfirst, reassurance line | **one line, no reassurance** |
+| `23` Open your budget here | 36-word no-reset line, 2 hints | **17 words, no hints** |
+| `14` Zakat | 5 paragraphs | **2** |
+| `19` Import and export | 4 paragraphs | **2** |
+| `05.1`&ndash;`05.6` Setting up | the rail blurb and two helper lines | **halved** |
+
+Three specific deletions worth naming, because each removed a liability as well as
+words:
+
+1. **"You can change this later in Settings"**, under the chooser's button. It was
+   reassurance the screen did not need — and a promise the spec has not made
+   (§Q9·1). Gone.
+2. **The hints under each key slot on `23`.** The buttons say *Scan it* and *Type
+   it in*; a line underneath saying the same thing is help nobody needs twice.
+3. **Two 30-word paragraphs on `14b`** that made the same claim in different words,
+   on one screen.
+
+### Where the pass stopped, and why
+
+Ten boards still carry three or more long nodes, and all ten are deliberate:
+
+- **The primitives sheet and the motion studies.** Reference boards for whoever
+  builds this. Nobody *uses* them.
+- **The landing page's card captions.** A landing page is read on purpose, and
+  seventeen words describing a screen is a caption, not an explanation.
+- **The setting-up steps.** First run is the one moment a person has no model of
+  the product yet, so a helper line there is buying something. They were halved,
+  not emptied.
+
+---
+
+## §R · The ten answered — 2026-10-14 from the build side
+
+§Q·9 named ten behaviours the drawings imply that the spec had not agreed to. All ten
+are answered here. **Two went to the owner**, because they are trade-offs about other
+people's money rather than engineering; one of those produced a new decision record.
+The rest are settled from ADR-013's own reasoning and are stated so a screen can be
+checked against them.
+
+### R·1 — Yes, the recovery mode can be changed later, and dropping one must bite immediately
+
+ADR-013's key wrapping is what makes this cheap: a random data key wrapped separately
+by each factor, so a factor can be added or dropped **without re-encrypting anything**.
+
+**The rule that matters is the one about going down.** Changing from *three keys, any
+two* to *your devices only* drops the printed slip — and the moment it is dropped, that
+slip must open nothing. A wrapping that lingers is a key in someone's drawer that the
+screen has told the owner is dead.
+
+**For the designer:** `15d`'s *Change* row needs the consequence on it, in the same
+voice as the chooser's four rows — *anything you printed stops working*.
+
+### R·2 — Six groups of five, Crockford's alphabet, the last group a check
+
+The drawing fixed the shape and was right to: grouped, monospace, and a QR beside it so
+the common path needs no typing at all.
+
+| | |
+|---|---|
+| **Alphabet** | Crockford base32 — no `I`, `L`, `O` or `U`, so nothing reads as something else in handwriting, and case does not matter |
+| **Length** | 30 characters, as drawn: six groups of five |
+| **Of which** | The last group is a **check** over the first five. A mistyped key is rejected by the device, before anything is attempted against the store |
+| **Key material** | 125 bits. Comfortably past the 128-bit convention once the check is accounted for, and far past anything guessable |
+
+**ADR-014 adds a second thing to carry:** the authorising keypair. Its public half sits
+with the address; its private half is part of what the creator's recovery restores, not
+a separate item to lose. **Neither is ever shown as cryptography** — ADR-013's rule
+stands: nobody reads the word Shamir to trust a budgeting app.
+
+### R·3 — Two positions, chosen at random, and a wrong answer costs nothing
+
+`22e` asks for two words. **Random positions, not fixed four and nine.** Fixed
+positions can be learned without the phrase ever being written down, which defeats the
+only thing the screen is for.
+
+**A wrong answer re-asks with two different positions and offers to show the phrase
+again.** Nothing is leaked by being generous here: the person has just been shown the
+phrase, and the screen exists to confirm they wrote it down, not to interrogate them.
+
+### R·4 — Confirmed: nothing is validated until the last word, and the reason is written down
+
+`23b` was drawn right. **A phrase that reports a wrong word at word three tells whoever
+is trying it which two were right**, which turns a guess into a search. The spec states
+the behaviour *and* the reason, so nobody later improves it into a per-word tick.
+
+### R·5 — Going back makes three new keys, and the screen says so
+
+Confirmed as drawn, because the alternative is worse. By the time *Back* is reachable, a
+key may already have been **printed** — and a printed key exists in the world whether or
+not the flow finished. Reusing the same three would mean a slip in a drawer that the
+owner believes they abandoned.
+
+**For the designer:** the sentence belongs on the button's own confirmation, not in help
+text — *going back makes three new keys. Anything you have already printed or placed
+stops working.*
+
+### R·6 — Owner's decision: a lost slip can be printed again, and every device is told
+
+**The owner decided this on 2026-10-14.** Losing paper is ordinary, and without
+re-printing a lost slip means placing three new keys — which is the moment someone turns
+sync off instead.
+
+**The cost is real and is answered rather than hidden.** Someone with a few minutes
+alone with an unlocked phone could print a key and walk away with **lasting** access,
+which is worse than copying the data, because a copy is a snapshot and a key keeps
+working. So **every device that syncs is told**: *a new copy of key 3 was printed on 14
+October.* It cannot be prevented silently and it cannot be missed.
+
+That is this project's own principle doing the work — *what breaks, and who finds out?*
+The capability stays; the silence goes.
+
+### R·7 — Confirmed: turning sync off and deleting the stored copy are two operations
+
+`15d` was drawn right. ADR-013 makes **deleting the blob** the remedy against a key
+believed found — *the past is protected exactly as far as you delete before they fetch*
+— so folding deletion into the off switch would put the remedy behind a setting. Two
+rows, two sentences, and the deletion row says what it does and does not reach.
+
+### R·8 — Owner's decision: the creator is senior. See [ADR-014](adr/ADR-014-the-creator-is-senior-in-a-shared-budget.md)
+
+**The drawings said either person may remove the other, and the owner rejected it
+outright:** *"if I create a budget and I add my partner I should be the senior of it …
+they can even take me off and kick me out."*
+
+**The build side had recommended the equal model and was wrong.** Its argument was that
+equality falls out of the design — which explains the behaviour without justifying it.
+A household budget is exactly where a relationship ends badly, and the person who
+created it should not be the one locked out.
+
+[ADR-014](adr/ADR-014-the-creator-is-senior-in-a-shared-budget.md) records what it takes:
+**the store verifies a signature on every write**, so seniority is enforced where it
+cannot be bypassed rather than by the app agreeing to hide a button. The store still
+reads nothing — a signature over ciphertext says who wrote it and nothing about what it
+says.
+
+**For the designer:** `18`, `18a`, `18d`, `18e` and the chooser lose *either person can
+remove the other*. A partner's Household shows what they can and cannot do — read
+everything, write everything, change nobody's access — **and the word *admin* appears
+nowhere**. Seniority is of the budget, not of the household.
+
+### R·9 — Rotation cuts off every device, and the way back needs drawing
+
+Stated in ADR-013 and correct: rotation moves the budget to a new address, so **every**
+device must be re-enrolled, not only the one being removed. `18e` draws as far as placing
+the new keys and stops.
+
+**For the designer:** what the owner's *other* phone shows between the rotation and its
+re-enrolment. It is not an error — nothing has gone wrong — and it is not an empty
+budget, because the old copy is still on the device. The honest state is *this device is
+holding an older copy; open it again with two keys.*
+
+### R·10 — Household is shown when sync is off, not hidden
+
+Sharing requires sync, because ADR-013 makes them one mechanism. But hiding Household
+when sync is off makes the feature undiscoverable by exactly the people who would want
+it — someone looking for *can my spouse see this?* finds nothing and concludes the answer
+is no.
+
+**So the screen stays, with one action on it:** what sharing is, in a line, and *turn
+sync on to share*. Not a locked state and not an upsell — there is nothing to buy.
+
+### Q·12 — Three household boards are superseded by the owner's answer to Q·9·8
+
+**Found while committing, 14 October.** `ITEM-14` is open on the build side:
+*"Seniority in a shared budget: the creator can remove a partner, and the partner
+cannot remove them."* Its goal names where it came from — **Q·9·8**, the finding
+that the drawings let either partner remove the other because nothing
+distinguishes them. **The owner rejected that**, and the item amends ADR-013 with
+a signature the blob store verifies without reading anything.
+
+That is the system working. It is also a reversal, and these three boards now say
+the opposite of the decision:
+
+| Board | What it says now |
+|---|---|
+| `18` Household · just you | *"There is no owner — they can remove you too."* |
+| `18a` Household · shared with Aisha | the same line |
+| `18d` Removing Aisha | written as something either of them could be doing |
+
+**Not to be built from as drawn.** They are correct against ADR-013 as accepted
+and wrong against the decision that supersedes it, and they will be redrawn from
+the amendment rather than guessed at now — `ITEM-14` is at *prepare*, so the
+detail a screen needs does not exist yet.
+
+### What the amendment has to answer for a screen to be drawable
+
+Its own acceptance criterion 1 asks for the rule *"in terms a reader can check a
+screen against."* Three questions are what that means here, and the design cannot
+proceed without them:
+
+1. **Does the partner see that they are not senior, and where?** This is the same
+   trap as Q·9·8 from the other side. A hierarchy nobody is told about is one the
+   partner discovers at the worst possible moment, which is the thing the first
+   drawing was trying to avoid. If the answer is *yes*, the partner's Household
+   screen needs a line the creator's does not have.
+2. **What stands where *Remove* stands, on the partner's screen?** Not a disabled
+   button — a disabled control with no explanation is how a product says *you are
+   not allowed* without saying why. Either a different action (*leave this
+   budget*, which they certainly can do) or nothing at all.
+3. **What happens when the creator loses every key?** Criterion 3 asks this of the
+   record, and the answer decides a screen. If seniority cannot transfer, a
+   household's budget dies with one person's phone, and the partner's screen has
+   to say so *before* that happens rather than after.
+
+**One thing the drawing can already contribute.** ADR-013's own reasoning is that
+possession of the data key is the whole of the authorisation. A signature check
+moves that boundary into the store, so the store now has something it must do
+correctly for a product promise to hold — and `02-architecture.md` should say what
+happens when it is unavailable. *Seniority enforced by a service that is down* is
+a state a screen will eventually have to show.

@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:wght@500;600&family=Amiri:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+  <style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+.mz{font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);
+    background:var(--bg);-webkit-font-smoothing:antialiased}
+/* The voice face steps to 600 on dark. EB Garamond's thinnest stroke is .034em:
+   at 28px that is 0.95 device pixels on a 1x screen, so it has no solid pixel to
+   land on and is drawn by antialiasing alone. Light-on-dark that reads as washed
+   out. 600 takes the hairline to .0385em -- 1.08px at 28px -- which clears it. */
+.mz .ser{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.004em}
+.mz .disp{font-family:Inter,system-ui,sans-serif;font-weight:600;letter-spacing:-.035em;
+     font-variant-numeric:tabular-nums lining-nums}
+.mz .lab{font-size:10.5px;letter-spacing:.115em;text-transform:uppercase;font-weight:600;
+     color:var(--soft)}
+.mz .num{font-variant-numeric:tabular-nums lining-nums}
+.mz .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,monospace;
+     font-variant-numeric:tabular-nums}
+.mz .mlab{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+     letter-spacing:.12em;text-transform:uppercase;color:var(--soft);font-weight:400}
+.mz .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+     box-shadow:var(--shadow)}
+.mz .pill{display:inline-flex;align-items:center;height:25px;padding:0 10px;
+     border-radius:8px;font-size:10.5px;font-weight:700;letter-spacing:.07em;
+     text-transform:uppercase;white-space:nowrap}
+.mz .tile{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;
+     justify-content:center;flex:0 0 auto}
+.mz .seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;
+     background:var(--card);padding:3px;box-shadow:var(--shadow)}
+.mz .seg>span{padding:8px 20px;border-radius:9px;font-size:13px;font-weight:600;
+     color:var(--soft);white-space:nowrap}
+.mz .seg>span.on{background:var(--ink);color:var(--bg)}
+.mz .link{display:inline-flex;align-items:center;gap:8px;min-height:44px;
+     color:var(--emerald);font-size:13.5px;font-weight:600}
+.mz .rail{height:6px;border-radius:4px;background:var(--track);overflow:hidden}
+.mz .rail>i{display:block;height:100%;border-radius:4px}
+.mz .nav{display:flex;align-items:center;background:var(--card);
+     border-top:1px solid var(--line);padding:6px 10px 10px}
+.mz .nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+     padding:8px 0;color:var(--faint);font-size:10px;font-weight:600;letter-spacing:.02em}
+.mz .nav-i.on{color:var(--emerald)}
+
+.mz .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+     min-height:48px;padding:0 20px;border-radius:13px;font-size:14.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .btn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .btn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .btn-q{background:transparent;color:var(--soft)}
+.mz .fld{min-height:50px;background:var(--card);border:1px solid var(--line);
+     border-radius:13px;padding:12px 16px;font-size:15px;display:flex;align-items:center;
+     gap:10px;color:var(--ink)}
+.mz .fld.on{border-color:var(--emerald);box-shadow:0 0 0 3px var(--em2)}
+.mz .fld .ph{color:var(--faint)}
+.mz .chip{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;
+     border-radius:12px;border:1px solid var(--line);background:var(--card);
+     font-size:13.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+.mz .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mz .row{display:flex;align-items:center;gap:14px;min-height:56px;padding:12px 0;
+     border-bottom:1px solid var(--hair)}
+.mz .row:last-child{border-bottom:0}
+.mz .tabs{display:flex;gap:26px;border-bottom:1px solid var(--line)}
+.mz .tabs>span{min-height:46px;display:flex;align-items:center;font-size:15px;
+     font-weight:600;color:var(--soft);border-bottom:2px solid transparent}
+.mz .tabs>span.on{color:var(--ink);border-bottom-color:var(--emerald)}
+.mz .sw{width:46px;height:27px;border-radius:14px;background:var(--track);
+     border:1px solid var(--line);position:relative;flex:0 0 auto}
+.mz .sw>i{position:absolute;top:2px;left:2px;width:21px;height:21px;border-radius:11px;
+     background:var(--card);border:1px solid var(--line);display:block}
+.mz .sw.on{background:var(--emerald);border-color:var(--emerald)}
+.mz .sw.on>i{left:auto;right:2px;background:var(--onEmerald);border-color:transparent}
+.mz .sk{background:var(--track);border-radius:6px;height:12px;display:block}
+
+.mz .ar{font-family:Amiri,"Noto Naskh Arabic",serif;direction:rtl}
+.mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
+
+.mz .rowmenu{width:40px;height:40px;border-radius:11px;display:inline-flex;
+     align-items:center;justify-content:center;color:var(--soft);flex:0 0 auto;
+     border:1px solid var(--line);margin-left:10px}
+
+.mz .dtbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.mz .dtbl th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;
+     text-transform:uppercase;color:var(--soft);font-weight:400;text-align:left;
+     padding:0 22px 12px 0;border-bottom:1px solid var(--line)}
+.mz .dtbl th.r,.mz .dtbl td.r{text-align:right}
+.mz .dtbl th:last-child,.mz .dtbl td:last-child{padding-right:0}
+.mz .dtbl td{padding:16px 22px 16px 0;border-bottom:1px solid var(--hair);
+     vertical-align:middle}
+.mz .dtbl tr:last-child td{border-bottom:0}
+/* The row menu's target. 40px square, so it clears the 44px minimum with the
+   cell padding, and it is the LAST thing in the row so it is never between
+   the category name and its amount. */
+.mz .rowmenu{width:40px;height:40px;border-radius:10px;display:inline-flex;
+     align-items:center;justify-content:center;color:var(--soft);
+     border:1px solid var(--line)}
+/* A GROUP BAND INSIDE ONE TABLE, not a table of its own - see `dtable`. */
+.mz .dtbl td.grp{font-family:"JetBrains Mono",monospace;font-size:10px;
+     letter-spacing:.12em;text-transform:uppercase;color:var(--soft);
+     padding:34px 0 12px;border-bottom:0}
+
+.mz .ar{font-family:Amiri,"Noto Naskh Arabic",serif;direction:rtl}
+.mz .kufi{font-family:"Noto Kufi Arabic",sans-serif;direction:rtl}
+
+.mz .rest{transition:transform 180ms cubic-bezier(.2,0,0,1),box-shadow 180ms cubic-bezier(.2,0,0,1)}
+.mz .rest:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+@media (prefers-reduced-motion:reduce){.mz .rest{transition:none}.mz .rest:hover{transform:none}}
+
+.mz .lnav{display:flex;align-items:center;gap:14px;height:76px}
+.mz .lnav .sp{flex:1}
+.mz .lbtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+     min-height:52px;padding:0 26px;border-radius:14px;font-size:15.5px;font-weight:600;
+     border:1px solid transparent;white-space:nowrap}
+.mz .lbtn-p{background:var(--emerald);color:var(--onEmerald);box-shadow:var(--lift)}
+.mz .lbtn-s{background:var(--card);color:var(--ink);border-color:var(--line)}
+.mz .lbtn-q{background:transparent;color:var(--soft);padding:0 8px}
+.mz .lbtn.sm{min-height:46px;padding:0 20px;font-size:14.5px}
+.mz .kicker{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+     font-weight:600;color:var(--soft)}
+.mz .h2{font-family:"EB Garamond",Georgia,serif;font-weight:var(--serw,500);
+     letter-spacing:-.008em;font-size:40px;line-height:46px}
+.mz .h3{font-size:20px;line-height:27px;font-weight:600;letter-spacing:-.012em}
+.mz .body{font-size:17px;line-height:29px;color:var(--soft)}
+.mz .lead{font-size:19px;line-height:32px;color:var(--soft)}
+.mz .hair{height:1px;background:var(--hair)}
+.mz .slotspec{}
+.mz .shot{border-radius:30px;overflow:hidden;box-shadow:var(--shadow);
+     border:1px solid var(--line);display:block}
+/* Money is never set in the voice face — see ngn() below.
+   0.88em is measured, not guessed: EB Garamond's cap H is .658em and Inter's
+   lining figures are .747em, so .658/.747 = .881 sets the figure exactly as tall
+   as the capitals it sits beside. Weight 500, because Inter at 600 out-colours
+   EB Garamond 500 and the line reads as two documents spliced together. */
+.mz .ser .ngn,.mz .h2 .ngn{font-family:Inter,system-ui,sans-serif;
+     font-size:.88em;font-weight:500;letter-spacing:-.018em;
+     font-variant-numeric:tabular-nums lining-nums}
+</style>
+</helmet>
+<div style="background:#05070A;padding:36px;display:inline-block;font-family:Inter,system-ui,sans-serif"><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#7C8A95;margin:0 0 18px 2px">How it works · the rail arrives · dark</div><div style="display:flex;gap:34px;align-items:flex-start"><div class="mz" style="--bg:#0A0D10;--card:#12171C;--card2:#1A2129;--line:#2A3440;--hair:#222B35;--ink:#E9EFF3;--soft:#93A3AF;--faint:#6B7A86;--emerald:#4ECB8B;--ochre:#E5A93F;--slate:#8FA7C0;--rose:#F0736B;--em2:#0F2E22;--oc2:#2E2312;--sl2:#1A2532;--ro2:#2E1614;--track:#1A2129;--onEmerald:#052214;--scrim:rgba(4,6,8,.62);--serw:600;--shadow:0 1px 2px rgba(0,0,0,.5),0 14px 34px -16px rgba(0,0,0,.7);--lift:0 8px 20px -8px rgba(78,203,139,.4);width:1440px;border-radius:22px;overflow:hidden;border:1px solid var(--line);display:flex;align-items:stretch"><div style="flex:1;min-width:0;padding:52px 56px"><div style="max-width:1000px"><div class="kicker" style="margin-bottom:12px">How it works</div><div class="ser" style="font-size:34px;line-height:41px">The rail arrives, and then it is just a rail.</div><div style="height:30px"></div><div style="margin-bottom:34px"><div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px"><span class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--emerald);font-weight:600">0ms</span><span style="font-size:13px;color:var(--soft)">offset right, invisible &mdash; drawn faint here</span></div><div style="border:1px solid var(--line);border-radius:16px;background:var(--card2);padding:18px 0 18px 18px;overflow:hidden"><div style="zoom:.62"><div style="display:flex;gap:16px;align-items:stretch"><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">01</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Do I need an account?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>No.</b> No email, no password.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">02</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Where is my money data?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>On your device.</b> It works with no signal.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">03</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can you see my budget?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>No.</b> We hold no key to it.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">04</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">How do I get it on my other phone?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Two of your three keys.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">05</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">What if I lose one?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Any two bring it back.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">06</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">What if someone finds one?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>One alone opens nothing.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">07</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can I share it with my partner?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Yes.</b> Their phone becomes one of yours.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">08</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can I remove them later?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Yes.</b> They stop seeing anything new.</div></div></div></div></div></div><div style="margin-bottom:34px"><div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px"><span class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--emerald);font-weight:600">+180ms</span><span style="font-size:13px;color:var(--soft)">two have landed, two are travelling</span></div><div style="border:1px solid var(--line);border-radius:16px;background:var(--card2);padding:18px 0 18px 18px;overflow:hidden"><div style="zoom:.62"><div style="display:flex;gap:16px;align-items:stretch"><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">01</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Do I need an account?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>No.</b> No email, no password.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">02</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Where is my money data?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>On your device.</b> It works with no signal.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(14px);opacity:0.72;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">03</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can you see my budget?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>No.</b> We hold no key to it.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(28px);opacity:0.38;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">04</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">How do I get it on my other phone?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Two of your three keys.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">05</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">What if I lose one?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Any two bring it back.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">06</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">What if someone finds one?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>One alone opens nothing.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">07</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can I share it with my partner?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Yes.</b> Their phone becomes one of yours.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);transform:translateX(40px);opacity:0.14;"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">08</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can I remove them later?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Yes.</b> They stop seeing anything new.</div></div></div></div></div></div><div style="margin-bottom:34px"><div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px"><span class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--emerald);font-weight:600">+600ms</span><span style="font-size:13px;color:var(--soft)">at rest &mdash; and draggable from here</span></div><div style="border:1px solid var(--line);border-radius:16px;background:var(--card2);padding:18px 0 18px 18px;overflow:hidden"><div style="zoom:.62"><div style="display:flex;gap:16px;align-items:stretch"><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">01</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Do I need an account?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>No.</b> No email, no password.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">02</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Where is my money data?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>On your device.</b> It works with no signal.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">03</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can you see my budget?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>No.</b> We hold no key to it.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">04</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">How do I get it on my other phone?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Two of your three keys.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">05</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">What if I lose one?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Any two bring it back.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">06</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">What if someone finds one?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>One alone opens nothing.</b></div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">07</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can I share it with my partner?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Yes.</b> Their phone becomes one of yours.</div></div><div style="flex:0 0 318px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 22px;box-shadow:var(--shadow);"><div class="mono" style="font-size:10px;letter-spacing:.14em;color:var(--faint)">08</div><div style="font-size:14px;line-height:21px;color:var(--soft);margin-top:14px;min-height:42px">Can I remove them later?</div><div style="font-size:17.5px;line-height:27px;color:var(--ink);margin-top:8px"><b>Yes.</b> They stop seeing anything new.</div></div></div></div></div></div><div style="height:6px"></div><div class="card" style="padding:6px 20px 14px"><div style="display:flex;gap:20px;padding:13px 0;border-bottom:1px solid var(--hair);"><span class="mlab" style="flex:0 0 120px;padding-top:2px">Travel</span><span style="flex:1;font-size:14px;line-height:22px;color:var(--ink)">40px from the right, per card. No scale, no parallax.</span></div><div style="display:flex;gap:20px;padding:13px 0;border-bottom:1px solid var(--hair);"><span class="mlab" style="flex:0 0 120px;padding-top:2px">Duration</span><span style="flex:1;font-size:14px;line-height:22px;color:var(--ink)">280ms each, on the page's entrance easing.</span></div><div style="display:flex;gap:20px;padding:13px 0;border-bottom:1px solid var(--hair);"><span class="mlab" style="flex:0 0 120px;padding-top:2px">Stagger</span><span style="flex:1;font-size:14px;line-height:22px;color:var(--ink)">45ms between cards. The eighth lands at about 600ms.</span></div><div style="display:flex;gap:20px;padding:13px 0;border-bottom:1px solid var(--hair);"><span class="mlab" style="flex:0 0 120px;padding-top:2px">Trigger</span><span style="flex:1;font-size:14px;line-height:22px;color:var(--ink)">Once, when the band reaches the viewport. <b>Not scroll-linked.</b></span></div><div style="display:flex;gap:20px;padding:13px 0;border-bottom:1px solid var(--hair);"><span class="mlab" style="flex:0 0 120px;padding-top:2px">After it lands</span><span style="flex:1;font-size:14px;line-height:22px;color:var(--ink)">An ordinary horizontal scroller. Drag, swipe or arrows.</span></div><div style="display:flex;gap:20px;padding:13px 0;"><span class="mlab" style="flex:0 0 120px;padding-top:2px">Motion off</span><span style="flex:1;font-size:14px;line-height:22px;color:var(--ink)"><b>No transform, no stagger.</b> All eight in place on first paint, and the rail still drags.</span></div></div></div></div></div></div><!--note--><div style="font-size:12.5px;line-height:18px;color:#5A564A;margin-top:16px;max-width:760px">&sect;1b. <b>The rail is drawn, not required.</b> <code>motion.md</code> &sect;9 lets this page perform and binds it to one thing that decides the whole design: nothing may be gated behind a scroll animation. So all eight cards are in the markup in order and the rail drags by hand &mdash; the animation only decides how they <i>arrive</i>. With motion off they are simply there. The 0ms row is drawn faint rather than invisible, because an empty box is not a frame of an animation.</div><!--/note--></div>
+</x-dc>
+</body>
+</html>

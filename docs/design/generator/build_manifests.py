@@ -105,6 +105,8 @@ fr_pages = [
 # file produces the same two manifests as the first. A build script that is only
 # correct once is a build script that will be run twice.
 ADDED = {
+    "page-land": [[("LandRailLight", "How it works · the rail arrives · light"),
+                   ("LandRailDark", "How it works · the rail arrives · dark")]],
     "page-set": [M.row("Sync", "15d · Settings · your sync")],
     "page-hh": [M.row("Remove", "18d · Household · removing Aisha"),
                 M.row("RemoveDone",

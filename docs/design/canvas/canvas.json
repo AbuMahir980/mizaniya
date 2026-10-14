@@ -1044,7 +1044,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 1635,
+   "h": 1579,
    "title": "14 · Zakat · below the nisab · 1440 · light",
    "page": "page-zk",
    "print": "fixed"
@@ -1054,7 +1054,7 @@
    "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 2210,
+   "h": 2095,
    "title": "14 · Zakat · below the nisab · 360 · light",
    "page": "page-zk",
    "print": "fixed"
@@ -1064,7 +1064,7 @@
    "x": 2624,
    "y": 0,
    "w": 1512,
-   "h": 1635,
+   "h": 1579,
    "title": "14 · Zakat · below the nisab · 1440 · dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1074,7 +1074,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 2210,
+   "h": 2095,
    "title": "14 · Zakat · below the nisab · 360 · dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1082,9 +1082,9 @@
   {
    "file": "WebZakatDueLight.dc.html",
    "x": 0,
-   "y": 2400,
+   "y": 2285,
    "w": 1512,
-   "h": 1437,
+   "h": 1405,
    "title": "14a · Zakat · above the nisab · 1440 · light",
    "page": "page-zk",
    "print": "fixed"
@@ -1092,9 +1092,9 @@
   {
    "file": "MwZakatDueLight.dc.html",
    "x": 1652,
-   "y": 2400,
+   "y": 2285,
    "w": 462,
-   "h": 2123,
+   "h": 2048,
    "title": "14a · Zakat · above the nisab · 360 · light",
    "page": "page-zk",
    "print": "fixed"
@@ -1102,9 +1102,9 @@
   {
    "file": "WebZakatDueDark.dc.html",
    "x": 2624,
-   "y": 2400,
+   "y": 2285,
    "w": 1512,
-   "h": 1437,
+   "h": 1405,
    "title": "14a · Zakat · above the nisab · 1440 · dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1112,9 +1112,9 @@
   {
    "file": "MwZakatDueDark.dc.html",
    "x": 4276,
-   "y": 2400,
+   "y": 2285,
    "w": 462,
-   "h": 2123,
+   "h": 2048,
    "title": "14a · Zakat · above the nisab · 360 · dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1122,7 +1122,7 @@
   {
    "file": "WebZakatPickLight.dc.html",
    "x": 0,
-   "y": 4713,
+   "y": 4523,
    "w": 1512,
    "h": 1236,
    "title": "14c · Zakat · choosing the year start · 1440 · light",
@@ -1132,9 +1132,9 @@
   {
    "file": "MwZakatPickLight.dc.html",
    "x": 1652,
-   "y": 4713,
+   "y": 4523,
    "w": 462,
-   "h": 1241,
+   "h": 1222,
    "title": "14c · Zakat · choosing the year start · 360 · light",
    "page": "page-zk",
    "print": "fixed"
@@ -1142,7 +1142,7 @@
   {
    "file": "WebZakatPickDark.dc.html",
    "x": 2624,
-   "y": 4713,
+   "y": 4523,
    "w": 1512,
    "h": 1236,
    "title": "14c · Zakat · choosing the year start · 1440 · dark",
@@ -1152,9 +1152,9 @@
   {
    "file": "MwZakatPickDark.dc.html",
    "x": 4276,
-   "y": 4713,
+   "y": 4523,
    "w": 462,
-   "h": 1241,
+   "h": 1222,
    "title": "14c · Zakat · choosing the year start · 360 · dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1162,9 +1162,9 @@
   {
    "file": "WebZakatNoHawlLight.dc.html",
    "x": 0,
-   "y": 6144,
+   "y": 5949,
    "w": 1512,
-   "h": 1263,
+   "h": 1202,
    "title": "14b · Zakat · no year set · 1440 · light",
    "page": "page-zk",
    "print": "fixed"
@@ -1172,9 +1172,9 @@
   {
    "file": "MwZakatNoHawlLight.dc.html",
    "x": 1652,
-   "y": 6144,
+   "y": 5949,
    "w": 462,
-   "h": 1307,
+   "h": 1183,
    "title": "14b · Zakat · no year set · 360 · light",
    "page": "page-zk",
    "print": "fixed"
@@ -1182,9 +1182,9 @@
   {
    "file": "WebZakatNoHawlDark.dc.html",
    "x": 2624,
-   "y": 6144,
+   "y": 5949,
    "w": 1512,
-   "h": 1263,
+   "h": 1202,
    "title": "14b · Zakat · no year set · 1440 · dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1192,9 +1192,9 @@
   {
    "file": "MwZakatNoHawlDark.dc.html",
    "x": 4276,
-   "y": 6144,
+   "y": 5949,
    "w": 462,
-   "h": 1307,
+   "h": 1183,
    "title": "14b · Zakat · no year set · 360 · dark",
    "page": "page-zk",
    "print": "fixed"
@@ -1383,7 +1383,7 @@
    "y": -250,
    "w": 820,
    "page": "page-tx",
-   "text": "The list, and the two ways of having nothing in it. <b>A standing filter rail at 1440, tabs at 360</b>: stacked filters scroll the list away, and losing your place is the one thing that matters on this screen. <b>Both empty states are their own row</b> because they want opposite things — <i>nothing recorded</i> wants a movement, <i>filters match nothing</i> wants the filters cleared, and a single “no results” covering both is how a person clears their data looking for a button. Opening balances and debts are dated 24 September, the day before the cycle, so they never count as this cycle’s saving. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control."
+   "text": "The list, and the two ways of having nothing in it. <b>A standing filter rail at 1440, tabs at 360</b>: stacked filters scroll the list away, and losing your place is the one thing that matters on this screen. <b>Both empty states are their own row</b> because they want opposite things — <i>nothing recorded</i> wants a movement, <i>filters match nothing</i> wants the filters cleared, and a single “no results” covering both is how a person clears their data looking for a button. Opening balances and debts are dated 24 September, the day before the cycle, so they never count as this cycle’s saving. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control."
   },
   {
    "id": "n-qa",

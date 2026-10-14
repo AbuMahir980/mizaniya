@@ -59,8 +59,7 @@ def _slot(label, text, h, glyph=None):
 OPTIONS = [
     dict(
         key="keys", name="Three keys, any two", go="three keys", rec=True,
-        keep="One key on this phone, one on your partner&rsquo;s phone, one printed "
-             "for a drawer.",
+        keep="This phone, your partner&rsquo;s phone, a printed slip.",
         back="Any two of the three.",
         lose=("The other two still open it.", True),
         found=("It opens nothing on its own.", True),
@@ -70,7 +69,7 @@ OPTIONS = [
     ),
     dict(
         key="devices", name="Your devices only", go="devices only", rec=False,
-        keep="Nothing written down. Face ID on each device you use.",
+        keep="Nothing written down. Face ID on each device.",
         back="Any device you still have. Nothing else can.",
         lose=("The others still open it.", True),
         found=("There is nothing written down to find.", True),
@@ -83,7 +82,7 @@ OPTIONS = [
         keep="Twelve words, written down.",
         back="The words, on their own.",
         lose=("There is only one. The copy is gone.", False),
-        found=("Whoever has them can open your budget.", False),
+        found=("Anyone who has them can open your budget.", False),
         short="The words on their own open it.",
         p_lose="Lose them &mdash; the copy is gone",
         p_found="Found &mdash; whoever has them can open your budget",
@@ -135,8 +134,7 @@ def card_phone(o, on):
 
 
 TITLE = "Getting back in"
-SUB = ("Sync keeps an encrypted copy of your budget. We hold no key to it &mdash; "
-       "so how you get back in is the one thing you have to decide now.")
+SUB = "We hold no key to your budget, so choose how you get back in."
 
 
 def chooser_wide(chosen="keys"):
@@ -145,10 +143,9 @@ def chooser_wide(chosen="keys"):
     return (mz.head1440(mz.crumb("Settings", "Your sync", "Getting back in"),
                         TITLE, SUB)
             + f'<div style="display:flex;gap:18px;align-items:stretch">{cards}</div>'
-            + '<div style="display:flex;align-items:center;gap:18px;margin-top:28px">'
+            + '<div style="margin-top:28px">'
             + mz.btn(f'Continue with {pick["go"]}', "p", "min-width:230px")
-            + '<span style="font-size:13px;color:var(--soft)">'
-              'You can change this later in Settings.</span></div>')
+            + '</div>')
 
 
 def chooser_phone(chosen="keys"):
@@ -161,9 +158,7 @@ def chooser_phone(chosen="keys"):
             + f'<div style="padding:18px 20px 0">{cards}'
             + '<div style="height:18px"></div>'
             + mz.btn(f'Continue with {pick["go"]}', "p", "width:100%")
-            + '<div style="font-size:12.5px;color:var(--soft);text-align:center;'
-              'margin-top:10px;padding-bottom:4px">'
-              'You can change this later in Settings.</div></div>')
+            + '<div style="height:14px"></div></div>')
 
 
 # ══ the flow chrome ══════════════════════════════════════════════════════════
@@ -268,22 +263,15 @@ def foot_wide(primary, back=True, quiet=None, live=True):
 
 KEYS = [
     dict(n=1, name="This phone", auto=True, acts=[], done_as="Kept here",
-         blurb="Already in this phone&rsquo;s secure storage. It never leaves, and "
-               "we never see it.",
-         done="Already in this phone&rsquo;s secure storage. It never leaves, and "
-              "we never see it."),
+         blurb="Never leaves this phone.", done="Never leaves this phone."),
     dict(n=2, name="A printed slip", auto=False, done_as="Printed",
          acts=[("Print it", "p"), ("Save a PDF", "s")],
-         blurb="Print it and keep it where you keep documents &mdash; not beside "
-               "the phone.",
-         done="Printed on 5 October. Lose the slip and you can print it again from "
-              "Your sync &mdash; it is the same key, not a new one."),
+         blurb="Keep it where you keep documents.",
+         done="Printed 5 October. You can print it again from Your sync."),
     dict(n=3, name="Another device", auto=False, done_as="Sent",
          acts=[("Show a code to scan", "p"), ("Save a PDF", "s")],
-         blurb="Your partner&rsquo;s phone, or a second device of your own. It "
-               "becomes one of yours.",
-         done="Scanned by Aisha&rsquo;s phone on 5 October. Her phone is now one "
-              "of yours."),
+         blurb="Your partner&rsquo;s phone, or a second device of yours.",
+         done="On Aisha&rsquo;s phone since 5 October."),
 ]
 
 
@@ -332,9 +320,7 @@ def proof(compact=False):
 
 
 KEYS_TITLE = "Your three keys"
-KEYS_SUB = ("Any two of these three open your budget. One on its own opens nothing "
-            "&mdash; so the two that leave this phone should not end up in the same "
-            "place.")
+KEYS_SUB = "Any two of these open your budget. Keep them in different places."
 
 
 def keys_wide(placed):
@@ -408,9 +394,7 @@ def code_block(code=KEY_CODE, size=15):
                       for g in code.split("-")) + '</div>')
 
 
-ONEKEY_SUB = ("Open Mīzāniyah on the other phone, choose <i>I already have a "
-              "budget</i>, and scan this. If the camera will not do it, the code "
-              "underneath is the same key typed out.")
+ONEKEY_SUB = "Scan this on the other phone. The code below is the same key."
 
 
 def onekey(wide=True):
@@ -422,12 +406,11 @@ def onekey(wide=True):
               f'border:1px solid var(--line);border-radius:14px">{qr(px=7 if wide else 6)}'
               '</div>'
             + '<div style="flex:1;min-width:0">'
-              '<div class="mlab" style="margin-bottom:9px">Key three, typed out</div>'
+              '<div class="mlab" style="margin-bottom:9px">Or type this</div>'
             + code_block() +
             '<div style="display:flex;gap:9px;align-items:flex-start;margin-top:15px;'
             'font-size:13px;line-height:19px;color:var(--soft)">' + CHECK
-            + '<span>This is one key. On its own it opens nothing &mdash; it is only '
-              'half of what anyone would need.</span></div></div></div>')
+            + '<span>One key. On its own it opens nothing.</span></div></div></div>')
 
 
 # ══ the twelve words ═════════════════════════════════════════════════════════
@@ -455,9 +438,8 @@ def phrase_grid(cols=3, hide=()):
             f'gap:10px">' + "".join(cells) + '</div>')
 
 
-PHRASE_SUB = ("These twelve words open your budget on any device, with nobody&rsquo;s "
-              "help. Whoever has them can see your money, so a photograph of this "
-              "screen is a copy of your budget.")
+PHRASE_SUB = ("Anyone with these words can see your money. A photo of this screen "
+              "is a copy of your budget.")
 
 
 # ══ coming back: the screen that replaces sign-in ════════════════════════════
@@ -495,8 +477,8 @@ def slot(label, state, hint, actions=True):
         mark = ('<span class="tile" style="background:var(--track);color:var(--soft)">'
                 + ic("shield", 19, 1.9) + '</span>')
         right = ""
-        body = (f'<div style="font-size:13px;line-height:19px;color:var(--soft);'
-                f'margin-top:4px">{hint}</div>'
+        body = ((f'<div style="font-size:13px;line-height:19px;color:var(--soft);'
+                 f'margin-top:4px">{hint}</div>' if hint else "")
                 + ('<div style="display:flex;gap:10px;margin-top:13px">'
                    + mz.btn("Scan it", "p", "min-height:42px;font-size:13.5px")
                    + mz.btn("Type it in", "s", "min-height:42px;font-size:13.5px")
@@ -509,9 +491,8 @@ def slot(label, state, hint, actions=True):
               f'{label}</span>{right}</div>' + body + '</div></div>')
 
 
-NO_RESET = ("There is nothing to reset here. No password, no account, no address "
-            "to send a link to &mdash; two of your keys is the only way in, and it "
-            "is the same reason nobody else can get in either.")
+NO_RESET = ("There is nothing to reset. Two of your keys is the only way in "
+            "&mdash; and the reason nobody else can get in.")
 
 
 def no_reset_line():
@@ -523,11 +504,11 @@ def no_reset_line():
 
 
 def entry(one_in):
-    a = slot("First key", "The printed slip" if one_in else None,
-             "Scan the QR on your other phone, or type the code from the slip.")
+    # The buttons already say Scan it and Type it in. A line underneath saying
+    # the same thing is help nobody needs twice.
+    a = slot("First key", "The printed slip" if one_in else None, None)
     b = slot("Second key", None,
-             "Any one of the other two. One more and your budget is here."
-             if one_in else "One is not enough on its own, so it asks for two.")
+             "One more, and your budget is here." if one_in else None)
     live = False
     primary = ("One more key" if one_in else "Open my budget")
     return (a + '<div style="height:12px"></div>' + b, primary, live)
@@ -571,51 +552,43 @@ def claim(lead, body, glyph=None, last=False):
             + ('</div>' if glyph else '') + '</div>')
 
 
+# Four lines, each one line long at 330px. A bullet that wraps is two bullets
+# pretending to be one.
 SHARING = [
-    ("Their phone becomes one of yours",
-     "What either of you records lands in the same cycle, and every movement "
-     "carries the name of whoever recorded it."),
-    ("They see everything you see",
-     "Every figure, every debt, every goal. There is no partial view and nothing "
-     "that can be held back."),
-    ("There is no owner",
-     "They can remove you exactly as you can remove them. Nothing here makes one "
-     "of you senior to the other."),
-    ("You can remove them later",
-     "They stop seeing anything new from that moment, and they keep whatever was "
-     "already on their phone."),
+    "Their phone becomes one of yours.",
+    "They see everything you see.",
+    "There is no owner &mdash; they can remove you too.",
+    "You can remove them. They stop seeing anything new.",
 ]
 
 
 def sharing_card(title="What sharing means"):
-    rows = "".join(claim(a, b, last=(i == len(SHARING) - 1))
-                   for i, (a, b) in enumerate(SHARING))
-    return ('<div class="card" style="padding:4px 18px 12px">'
-            f'<div class="mlab" style="padding:14px 0 2px">{title}</div>'
+    rows = "".join(
+        '<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;'
+        f'{"" if i == len(SHARING) - 1 else "border-bottom:1px solid var(--hair);"}'
+        f'font-size:13.5px;line-height:21px">'
+        '<span style="color:var(--emerald);flex:0 0 auto">&bull;</span>'
+        f'<span>{t}</span></div>' for i, t in enumerate(SHARING))
+    return ('<div class="card" style="padding:4px 18px 10px">'
+            f'<div class="mlab" style="padding:14px 0 4px">{title}</div>'
             + rows + '</div>')
 
 
 DISAGREE = ('<div class="card" style="padding:16px 18px;background:var(--card2)">'
             '<div class="mlab" style="margin-bottom:7px">When you set different '
             'amounts</div>'
-            '<div style="font-size:13px;line-height:20px;color:var(--soft)">'
-            'Nobody&rsquo;s figure wins automatically and nothing is overwritten. '
-            '<b style="color:var(--ink)">Both amounts are kept</b>, the row says so, '
-            'and one of you chooses &mdash; which is what two people sharing a budget '
-            'actually do. With no server in the middle there is nothing that could '
-            'referee it, and nothing that would.</div></div>')
+            '<div style="font-size:13.5px;line-height:21px;color:var(--soft)">'
+            'Nothing is overwritten. <b style="color:var(--ink)">Both amounts are '
+            'kept</b> until one of you chooses.</div></div>')
 
 
 REMOVE = [
     ("She stops seeing anything new",
-     "The moment you finish. Her phone looks for the budget at an address that is "
-     "gone, and will not find another one.", True),
+     "Her phone will not find the budget again.", True),
     ("What is already on her phone stays there",
-     "A copy up to today, and nothing can reach across and remove it. We will not "
-     "pretend otherwise.", False),
+     "Nothing can reach across and remove it.", False),
     ("Your other keys change too",
-     "The printed slip stops working, and so does every other device. You will "
-     "place three new keys before this is done.", None),
+     "The printed slip and every other device stop working.", None),
 ]
 
 

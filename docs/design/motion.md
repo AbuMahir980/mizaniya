@@ -191,3 +191,28 @@ are not negotiable there either:
 - **§5 — it must read completely with motion off**, and nothing may be gated behind a scroll animation. A page selling an offline-first app cannot require animation to make its argument.
 
 Everything else in §1–§7 governs the app and does not bind the page.
+
+### 9.1 · The *how it works* rail — added 14 October 2026
+
+The eight questions ADR-013 put on the landing page are a **horizontal rail**, and
+the owner asked for them to arrive from the right, in step, on scroll. That is
+allowed here and it is specified rather than left to the build:
+
+| | |
+|---|---|
+| **Travel** | 40px from the right, per card. No scale and no parallax |
+| **Duration** | 280ms each |
+| **Stagger** | 45ms between cards, so the eighth lands at about 600ms |
+| **Trigger** | Once, when the band reaches the viewport |
+| **After it lands** | An ordinary horizontal scroller — drag, swipe, the two arrows, or a trackpad |
+| **Motion off** | No transform and no stagger. All eight in place on first paint, and the rail still drags |
+
+**It is triggered, not scroll-linked**, and the distinction is the whole of §9's
+second rule. Tying the cards' progress to scroll position is what makes a section
+feel like something you have to *operate* before it will tell you anything — and
+the eight lines are the product's strongest claim, so a visitor who scrolls past
+quickly must still have read them. Every card is in the markup, in order, from
+first paint. The animation decides how they arrive and nothing else.
+
+Drawn at `docs/design/how-it-works-the-rail-arrives-light.png`, three frames and
+the table above.
