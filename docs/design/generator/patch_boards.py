@@ -40,6 +40,33 @@ EDITS = [
     (["LandLight", "LandDark", "LandPhoneLight", "LandPhoneDark"],
      'No account needed. Sign up only for a second device or a second person.',
      'No account. No email, no password, nothing to verify.', 1),
+    # ── settings' own row, which still pointed at an account ────────────────
+    (["WebSettingsLight", "WebSettingsDark", "MwSettingsLight", "MwSettingsDark"],
+     '<div style="font-size:15px;font-weight:600">Your account</div>'
+     '<div style="font-size:12.5px;line-height:18px;color:var(--soft);'
+     'margin-top:3px">Signing in, your devices, and deleting the account</div>'
+     '</div><div style="font-size:13px;color:var(--soft);text-align:right;'
+     'max-width:232px">Not signed in</div>',
+     '<div style="font-size:15px;font-weight:600">Your sync</div>'
+     '<div style="font-size:12.5px;line-height:18px;color:var(--soft);'
+     'margin-top:3px">Your keys, the devices holding one, and the stored copy</div>'
+     '</div><div style="font-size:13px;color:var(--soft);text-align:right;'
+     'max-width:232px">Off</div>', 1),
+    # ── the landing hero's trust line ───────────────────────────────────────
+    # It was the honest claim while a bank feed existed. With the feed deferred
+    # there is no bank data to store, so the line answers a question nobody is
+    # asking and quietly implies we hold something we do not. The replacement is
+    # the claim page 20 now leads with, which is both stronger and still true.
+    (["LandLight", "LandDark"],
+     '<div style="font-size:17px;font-weight:600">We never store your bank data '
+     'in readable form.</div>',
+     '<div style="font-size:17px;font-weight:600">We cannot read your budget.'
+     '</div>', 1),
+    (["LandPhoneLight", "LandPhoneDark"],      # the 390 hero sets it at 15px
+     '<div style="font-size:15px;font-weight:600">We never store your bank data '
+     'in readable form.</div>',
+     '<div style="font-size:15px;font-weight:600">We cannot read your budget.'
+     '</div>', 1),
 ]
 
 

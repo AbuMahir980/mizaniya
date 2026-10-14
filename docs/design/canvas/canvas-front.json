@@ -68,7 +68,7 @@
    "x": 0,
    "y": 8150,
    "w": 832,
-   "h": 8766,
+   "h": 8747,
    "title": "Landing page · 390 · light",
    "page": "page-land",
    "print": "fixed"
@@ -78,7 +78,7 @@
    "x": 1848,
    "y": 8150,
    "w": 832,
-   "h": 8837,
+   "h": 8818,
    "title": "Landing page · 390 · dark",
    "page": "page-land",
    "print": "fixed"
@@ -86,7 +86,7 @@
   {
    "file": "LandMotionLight.dc.html",
    "x": 0,
-   "y": 17177,
+   "y": 17158,
    "w": 1708,
    "h": 1559,
    "title": "Landing page · pointer states · light",
@@ -96,7 +96,7 @@
   {
    "file": "LandMotionDark.dc.html",
    "x": 1848,
-   "y": 17177,
+   "y": 17158,
    "w": 1708,
    "h": 1559,
    "title": "Landing page · pointer states · dark",
@@ -106,7 +106,7 @@
   {
    "file": "LandCycleLight.dc.html",
    "x": 0,
-   "y": 18926,
+   "y": 18907,
    "w": 1220,
    "h": 1727,
    "title": "The strongest moment · item 34 · light",
@@ -116,7 +116,7 @@
   {
    "file": "LandCycleDark.dc.html",
    "x": 1848,
-   "y": 18926,
+   "y": 18907,
    "w": 1220,
    "h": 1727,
    "title": "The strongest moment · item 34 · dark",
@@ -126,7 +126,7 @@
   {
    "file": "WebFirstRunLight.dc.html",
    "x": 0,
-   "y": 20843,
+   "y": 20824,
    "w": 1512,
    "h": 1174,
    "title": "01 · First launch · installed · 1440 · light",
@@ -136,7 +136,7 @@
   {
    "file": "MwFirstRunLight.dc.html",
    "x": 1848,
-   "y": 20843,
+   "y": 20824,
    "w": 462,
    "h": 1003,
    "title": "01 · First launch · installed · 360 · light",
@@ -146,7 +146,7 @@
   {
    "file": "WebFirstRunDark.dc.html",
    "x": 3696,
-   "y": 20843,
+   "y": 20824,
    "w": 1512,
    "h": 1174,
    "title": "01 · First launch · installed · 1440 · dark",
@@ -156,7 +156,7 @@
   {
    "file": "MwFirstRunDark.dc.html",
    "x": 5348,
-   "y": 20843,
+   "y": 20824,
    "w": 462,
    "h": 1003,
    "title": "01 · First launch · installed · 360 · dark",
