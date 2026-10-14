@@ -153,6 +153,13 @@ seed/
 # design drop tarballs — transfer artefacts, never committed
 .drop/
 
+# A worktree per session. Two Claude sessions share this repository — one builds,
+# one draws — and on 14 October the drawing one committed onto the branch the
+# building one was working from, which cost a pull request. Each now has a
+# checkout of its own in here. Ignored because a worktree holds a whole second
+# copy of the tree, and git would otherwise offer to commit it into itself.
+/.claude/worktrees/
+
 # macOS Finder files
 .DS_Store
 

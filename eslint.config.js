@@ -9,7 +9,17 @@ export default tseslint.config(
   // `**/dist` rather than `dist`: the build output moved to apps/web/dist with the
   // workspace extraction, and a root-relative ignore stopped covering it — which
   // pointed ESLint at a bundled service worker and produced 2,147 errors.
-  { ignores: ['**/dist', '**/coverage', 'docs', '**/node_modules'] },
+  /**
+   * `.claude` holds a worktree per session (see `.gitignore`). A worktree is a
+   * second checkout of this same repository, so without this ESLint walks into
+   * it and lints every source file twice — once as itself and once as a copy on
+   * another branch, which reports faults that are not in this branch's code.
+   *
+   * Only ESLint needs telling. The naming, spacing and repo-rule guards are
+   * anchored at `apps/web/src`, `packages/core/src` or `git ls-files`, and
+   * `vitest` and `tsconfig` name their roots, so none of them can wander in.
+   */
+  { ignores: ['**/dist', '**/coverage', 'docs', '**/node_modules', '.claude/**'] },
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
