@@ -1160,7 +1160,7 @@ worked day and are not transactions yet, so the nineteen expenses still sum to e
 
 ### I·b — Decisions I reached that belong to the spec, not to design
 
-Per `peer-ai/shared/design-data-contract.md`: design owns layout, spacing, type,
+Per the design-and-data split (now `CLAUDE.md` §7): design owns layout, spacing, type,
 colour and motion; **behaviour, states and data are yours.** Each of these is a
 behaviour I had to assume to finish a drawing. **I am naming them rather than letting
 them arrive disguised as a picture** — please agree, amend or reject, and log each as
@@ -1921,7 +1921,7 @@ that are now wrong, each flagged at the line itself with a ⚠ block so nobody c
 read the old wording without seeing it. The flags are deliberately ugly. Delete
 them when you rewrite the lines.*
 
-*The contract (`peer-ai/shared/design-data-contract.md`) says: name the conflict,
+*The contract (the design-and-data split (now `CLAUDE.md` §7)) says: name the conflict,
 log it, get agreement, then update the canonical doc. Agreement exists — the
 owner decided all three. What is left is the rewrite, and the wording of a
 behaviour line is the spec's to write, not the design's.*
@@ -3972,7 +3972,7 @@ the ⊕ sits in the bottom bar on the Debts screen too. Someone on Debts & Goals
 may well press it expecting *add a debt*. Today the mitigation is that
 **Add a debt** is a visible, named button on that screen. Whether that is enough
 is a behaviour question, so it goes to spec rather than being decided here
-(`peer-ai/shared/design-data-contract.md`: design owns layout, spec owns
+(the design-and-data split (now `CLAUDE.md` §7): design owns layout, spec owns
 behaviour):
 
 > **→ spec, O3.** Should the Quick Add sheet's *type* default follow the screen

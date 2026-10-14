@@ -83,7 +83,7 @@ Bank/wallet sync via Mono or Okra (premium); household sharing (spouse view, sha
 ## 6. Peer AI kick-off — SUPERSEDED
 
 **The prompt below is history, and the file it used to point at is gone.**
-`docs/Mizaniya_Kickoff_Pack.md` was deleted on 2026-10-14 (ITEM-13): it described
+The kick-off pack, once at `docs/Mizaniya_Kickoff_Pack`, was deleted on 2026-10-14 (ITEM-13): it described
 Peer AI v0 — a vendored `./peer-ai` folder, named phases, `.peer-ai-state.json`, a
 separate private repository for a server, paid tiers and a v3 — none of which exists.
 The instructions this build runs on are in `CLAUDE.md`, and the five repo rules are

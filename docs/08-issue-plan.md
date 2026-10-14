@@ -303,7 +303,7 @@ export, notifications, telemetry, and any server.
 
 ## 7 · Next
 
-**BUILD**, `peer-ai/frontend/03-build.md`, starting at **T1**.
+**BUILD**, starting at **T1**. *The phase file this named went with Peer AI v0; the skill that does this work now is `peer-ai-implement-ticket`.*
 
 Note for whoever runs it: step 2 now has **option F — the design already
 exists** (upstream item 30), and step 4 is **conditional** — this project's

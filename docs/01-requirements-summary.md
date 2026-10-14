@@ -340,7 +340,7 @@ Everything this build needs from outside itself.
 | **Nisab value** | The owner, in-app | A current figure, editable, with a note on where to look it up | By design — no price feed in a local-first app |
 | **Hijri calendar** | Browser platform | Gregorian-to-Hijri conversion | **Available with no dependency.** `Intl.DateTimeFormat` supports the `islamic` calendar in all current browsers, which satisfies standard N1 without adding a package. |
 | **Domain name** | Stakeholder | `mizaniya.com` / `.app` / `.ng` | Unknown. Kick-off pack step 1. Does not block the build. |
-| **Plugin skills** | Claude Code desktop app | The ten skills named in `peer-ai/AGENTS.md` | All present, checked 2026-09-09. Re-checked each phase. |
+| **Plugin skills** | Claude Code desktop app | The skills named in the Peer AI block at the end of `CLAUDE.md` | *Repointed 2026-10-14: the `AGENTS` file went with the vendored `peer-ai` copy in the migration to Peer AI 1.0. The skills are now rendered by `npx peer-ai render --skills` and `peer-ai doctor` checks they are current.* |
 
 ---
 
@@ -406,6 +406,11 @@ Recorded so that a wrong one is traceable rather than silently load-bearing.
 
 ## Next steps
 
-1. **ARCHITECT** — `peer-ai/shared/02-architect.md`. Local-first; IndexedDB via Dexie behind `Repository`; a framework-free `core/`; structure per frontend standards A1–A5. The IndexedDB durability question (assumption A5) is decided there, with both sides presented.
-2. **SYSTEM SPEC** — `peer-ai/shared/03-spec-system.md`.
-3. **API CONTRACT** — `peer-ai/shared/04-spec-api-contract.md`. In v1 the `Repository` interface and the JSON export/import schema *are* the contract; the document notes where a v3 API would slot in. **Stop after this.**
+*All three were done in September 2026, and the phase files they named went with Peer AI
+v0 in the migration of 6 October. The skills that do this work now are
+`peer-ai-architecture`, `peer-ai-system-design` and `peer-ai-api-design`, listed in
+`CLAUDE.md`. Repointed 2026-10-14.*
+
+1. **ARCHITECT** — done; [docs/02-architecture.md](02-architecture.md) and the thirteen records in [docs/adr/](adr/). Local-first; IndexedDB via Dexie behind `Repository`; a framework-free `core/`; structure per frontend standards A1–A5. The IndexedDB durability question (assumption A5) was decided there, with both sides presented.
+2. **SYSTEM SPEC** — done; [docs/03-system-spec.md](03-system-spec.md).
+3. **API CONTRACT** — done; [docs/04-api-contract.md](04-api-contract.md). The `Repository` interface and the JSON export/import schema *are* the contract. **The v3 API it said would slot in later was removed by [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md); there is no server.**

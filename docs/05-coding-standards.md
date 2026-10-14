@@ -169,7 +169,8 @@ until you have seen the rule go red.
 
 ## 6 · Where to look
 
-*Moved here on 2026-10-14 from `docs/07-frontend-coding-rules.md`, which held nothing
+*Moved here on 2026-10-14 from the frontend-coding-rules document, once at
+`docs/07-frontend-coding-rules`, which held nothing
 else and was deleted. Its own argument is why: two documents describing one enforcement
 setup is the drift this project keeps designing against, and the readable copy is the one
 that goes stale.*

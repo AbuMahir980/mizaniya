@@ -479,7 +479,11 @@ other (D8).
 > this spec still wins on behaviour and on which figures appear
 > (the design-and-data split, now in `CLAUDE.md` §7). **The numbers table below is
 > unchanged and still authoritative** — the same figures, presented differently.
-> Build from `docs/design/canvas/HomeLight.dc.html`.
+> Build from `docs/design/canvas/MwHomeLight.dc.html` at 360 and
+> `docs/design/canvas/WebHomeLight.dc.html` at 1440. *Repointed 2026-10-14: the
+> canvas was re-cut and `HomeLight.dc.html` no longer exists. The prefixes are the
+> convention now — `Mw` for mobile web at 360, `Web` for 1440 — and Home has
+> fourteen cuts in each, one per state.*
 
 ```
 ┌──────────────────────────────────────┐
