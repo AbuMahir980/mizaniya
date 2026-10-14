@@ -174,3 +174,105 @@ LATE = [
      '<span class="mlab" style="flex:1;font-size:9px">Nisab, fetched 5 Oct'
      '</span>', 1),
 ]
+
+
+# ── the wordiness sweep, 14 October ─────────────────────────────────────────
+# The owner's instruction: *"an average user just wants to spend a few minutes
+# and get off. A design that does not take that into consideration is not a good
+# and clean design."* Measured rather than guessed — every board's visible text
+# was counted and the boards carrying three or more paragraph-length nodes were
+# the list. What is NOT on it, and why:
+#
+#   * the primitives sheet and the motion studies — reference boards for whoever
+#     builds this, not screens anybody uses;
+#   * the landing page's card captions — a landing page is read on purpose, and
+#     17 words describing a screen is a caption, not an explanation;
+#   * the setting-up steps — first run is the one moment a person has no model
+#     yet, and the helper lines there are buying something.
+#
+# Everything cut below is a SECOND sentence explaining the first one.
+TRIM = [
+    # ── 14 · Zakat ──────────────────────────────────────────────────────────
+    ("The other standard is gold, 85g, and it sets the line far higher — "
+     "high enough that most people earning a salary never reach it. Silver is the "
+     "lower threshold, which is why most zakat bodies use it for money.",
+     "Gold, 85g, sets the line far higher. Silver is the lower threshold, which "
+     "is why most zakat bodies use it for money."),
+    ("A lunar year, not a calendar one — about eleven days shorter. It is "
+     "the only date in Mizaniya that does not follow your salary.",
+     "A lunar year — about eleven days shorter than a calendar one."),
+    ("Mizaniya had to take a position on three things to reach the figure above. "
+     "None of them is settled, and all three are yours to change:",
+     "Three positions were taken to reach this figure. All are yours to change:"),
+    (" below the nisab. This is not a target — it is the line at which zakat "
+     "starts to apply.", " below the nisab."),
+    ("What you hold is below the nisab — the threshold wealth has to pass "
+     "before zakat falls due.",
+     "Below the nisab — the threshold before zakat falls due."),
+    # The same claim was made twice on one board, 38 words and then 32.
+    ("Zakat is due once a lunar year has passed with your wealth above the nisab. "
+     "Mizaniya knows what you hold and what the threshold is — the one thing "
+     "it cannot work out is when your year began.",
+     "Zakat is due a lunar year after your wealth passed the nisab."),
+    ("Zakat falls due a lunar year after your wealth passed the nisab. Mizaniya "
+     "knows what you hold and what the threshold is — this is the one date it "
+     "cannot work out.",
+     "The one date Mizaniya cannot work out is when your year began."),
+    # ── 19 · Import and export ──────────────────────────────────────────────
+    ("A single file with everything in it — your plan, every movement, your "
+     "debts and goals. It is yours, it is readable, and it is the only copy that "
+     "does not depend on this browser.",
+     "Your plan, every movement, your debts and goals. Readable, and not tied to "
+     "this browser."),
+    ("A single file with everything in it — your plan, every movement, your "
+     "debts and goals. Readable, and not tied to this browser.",
+     "Your plan, every movement, your debts and goals. Readable, and not tied to "
+     "this browser."),
+    ("Mizaniya exports what you have now before it starts, and tells you where "
+     "that copy went. The import then runs in one go — all of it, or none "
+     "of it.",
+     "Your current budget is exported first. Then it runs in one go — all "
+     "of it, or none."),
+    ("A file that does not check out is refused and nothing changes. That is not "
+     "an error — it is the import doing its job.",
+     "A file that does not check out is refused, and nothing changes."),
+    ("Two of your keys carry this for you. The file is how you move without sync, "
+     "and how you keep a copy either way",
+     "Two of your keys carry this for you. The file works without sync"),
+    # ── 05 · Setting up ─────────────────────────────────────────────────────
+    ("Step 2 is the only one we cannot work without. Skip any of the others and "
+     "come back when you feel like it.",
+     "Step 2 is the only one we cannot work without. The rest can wait."),
+    ("Twelve, suggested from a Nigerian household. Rename any of them, change a "
+     "type, or remove what you do not use. The amounts come later, in the plan.",
+     "Twelve, from a Nigerian household. Rename, change or remove any. Amounts "
+     "come later."),
+    ("Removing one here removes it before it has any history. After the first "
+     "cycle a category with movements in it is archived instead, so the past "
+     "keeps adding up.",
+     "Remove one now and it has no history to lose. Later, a category with "
+     "movements is archived instead."),
+]
+
+
+
+
+def trim(boards):
+    """Apply TRIM wherever it lands. A string absent from a board is fine; a
+    string present twice is not, and stops the run."""
+    hits = {}
+    for nm in boards:
+        p = os.path.join(SRC, nm + ".dc.html")
+        s = io.open(p, encoding="utf-8").read()
+        n = 0
+        for old, new in TRIM:
+            c = s.count(old)
+            if not c:
+                continue
+            assert c == 1, f"{nm}: {c} of {old[:40]!r}"
+            s, n = s.replace(old, new), n + 1
+        if n:
+            assert s.count("<div") == s.count("</div>"), nm
+            io.open(p, "w", encoding="utf-8").write(s)
+            hits[nm] = n
+    return hits
