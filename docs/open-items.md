@@ -4797,3 +4797,111 @@ Settings
 gold figure), **O2** (§7.10's superseded lines), **O4** (the riba marker) and
 **O5** (irregular income / the float). §N's **N1–N4**. §M·49's `Moved to cash`
 type label. §M·50's aggregator quote.
+
+---
+
+## §P · The landing page after ADR-013 — asked 2026-10-14 from the build side
+
+**Why this round exists.** [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md)
+was accepted on 8 October and removed accounts, tiers and payment from the product
+entirely. It lists the screens that change, and it names *"pricing in the landing
+navigation"* — but **it does not enumerate what the drawn landing page now says that is
+no longer true**, and the page is drawn in full: `LandLight`, `LandDark`,
+`LandPhoneLight`, `LandPhoneDark`, plus the cycle and motion cuts.
+
+**This is named rather than quietly built around**, per `CLAUDE.md` §7: the design is
+authoritative on layout, spacing, type and colour, the spec on behaviour and data, and
+where they conflict neither side is picked silently. **Nothing here is a criticism of the
+drawing.** Every line below was true when it was drawn on 25 September; one architectural
+decision on 8 October made it false.
+
+### P·1 — "Sign in" appears three times, and there is nothing to sign in to
+
+Header, hero, and the final call to action. There is **no account**: no email, no
+password, nothing to verify. **Proposed:** the three become nothing at all in the header,
+and in the two call-to-action pairs the second button becomes *I have a recovery phrase*
+— which is the real second path, for someone arriving on a new device.
+
+### P·2 — The hero's subline promises sign-up for the two things that no longer need it
+
+> *"No account needed. Sign up only for a second device or a second person."*
+
+Both halves are now wrong in the same sentence: there is no sign-up, and a second device
+and a second person are exactly what **holding a key** does. **Proposed:** *"No account,
+ever. A second device or a second person is a phrase you share, not a sign-up."*
+
+### P·3 — The paid-tier block is gone entirely
+
+Four cards and a reassurance line:
+
+| Drawn | Status |
+|---|---|
+| *"The budgeting is free forever. You pay for the parts that cost us money to run."* | **False.** Nothing is paid |
+| *A second device — phone and laptop, kept in step* | **Free**, and it is how sync works |
+| *A second person — two people, one plan* | **Free**, and it is how sharing works |
+| *Your bank movement — it sees money leave and asks which envelope. Read-only* | **Deferred entirely** (ADR-013), not sold |
+| *"We never store your bank data in readable form."* | **Moot.** No bank data is read at all |
+
+### P·4 — The pricing block is gone with it
+
+*"Free, and not a trial"* survives as a claim. Everything beside it goes: *"The parts
+that cost us money to run"*, *"A monthly price, not yet set"*, *"Reconciliation, a second
+person, every device"*, and the honest line *"the number is not settled — better an empty
+space than one we change later."* **There is no number, and there will not be one.**
+
+### P·5 — What replaces P·3 and P·4: eight lines ADR-013 already wrote
+
+The owner asked for this specifically: the page must say **how it works**, in points, and
+the absence of an account is the strongest thing this product has to say, so it goes
+early rather than in a privacy page.
+
+| The question | The answer, in a line |
+|---|---|
+| Do I need an account? | **No.** No email, no password, nothing to verify |
+| Where is my money data? | On your device. It works with no signal at all |
+| Can you see my budget? | **No.** It is encrypted before it leaves, and we hold no key |
+| How do I get it on my other phone? | Two of your three keys, and it is there |
+| What if I lose one? | Any two of the three bring it back |
+| What if someone finds one? | One on its own opens nothing |
+| Can I share it with my partner? | Yes — their phone becomes one of yours |
+| Can I remove them later? | Yes. They stop seeing anything new from that moment |
+
+**Two rules ADR-013 sets for this copy, and they are the point of it.** It must not
+overclaim — *"one on its own opens nothing"* is true; *"nobody can ever see your data"*
+would not be, once a secret is shared or found. And it must not explain the
+cryptography: nobody should have to read the word *Shamir* to trust a budgeting app.
+**The honesty is in the scope of each claim, not in the detail behind it.**
+
+**The question for you:** where does this sit, and in what shape? It replaces two blocks
+that were cards and a price table. Eight question-and-answer lines is a different rhythm,
+and this is the one section of the page with no precedent to borrow from.
+
+### P·6 — "Free on one device, with no account" is now too modest
+
+Drawn as a trust bullet. It is free on **every** device, so the qualifier undersells what
+changed. **Proposed:** *"Free on every device you own, with no account."*
+
+### P·7 — The closing block keeps its first sentence and loses the rest
+
+> *"You do not need an account. Your figures, this device, free and not a trial. An
+> account adds a second device, a second person, or your bank."*
+
+The first sentence is now the truest line on the page. The third is false in all three of
+its clauses. **Proposed:** *"You do not need an account. Your figures, your devices, free
+— and not a trial."*
+
+### P·8 — Not ADR-013, and older: the nisab is fetched, not entered
+
+The zakat card reads *"Nisab, as you entered it."* The decision of 27 September is that
+the nisab is **fetched by a scheduled job**, never typed in, with a **stale** state that
+says how old the figure is — there is no empty state. This is **§O·O2** reaching the
+landing page, and it is flagged here because the page would otherwise ship a promise the
+screen does not keep.
+
+### What is unaffected, so nobody re-draws it
+
+Everything else. The hero, the three *"the app you tried"* comparisons, safe-to-spend,
+the three-things section, the debt timeline, the trust bullets other than P·6, the
+transactions, debts, debt-record and zakat proof cards, the image slot, *How to use it*,
+the footer, and **the whole motion study**. The sections above are the only ones ADR-013
+touches.
