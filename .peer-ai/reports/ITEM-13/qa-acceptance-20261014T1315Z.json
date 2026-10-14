@@ -2,22 +2,90 @@
   "version": 1,
   "skill": "qa-acceptance",
   "workItem": "ITEM-13",
-  "at": "2026-10-14T12:06:00Z",
+  "at": "2026-10-14T13:15:00Z",
   "scope": {
     "base": "241a8cec71ae19f536e271a949859c59ad843177",
-    "head": "HEAD",
-    "tracks": ["web"],
-    "files": ["docs/05-coding-standards.md", "CLAUDE.md", "docs/product-brief.md", "docs/01-requirements-summary.md", "docs/06-page-specs.md", "docs/08-issue-plan.md", "docs/10-design-brief.md", "docs/open-items.md", "README.md", "CONTEXT.md"]
+    "head": "a4e146f12719cca3f67f08c8551229fc9c6862fa",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "CLAUDE.md",
+      "CONTEXT.md",
+      "README.md",
+      "docs/01-requirements-summary.md",
+      "docs/05-coding-standards.md",
+      "docs/06-page-specs.md",
+      "docs/08-issue-plan.md",
+      "docs/10-design-brief.md",
+      "docs/open-items.md",
+      "docs/product-brief.md"
+    ]
   },
-  "inputs": [".peer-ai/work/ITEM-13.json", "docs/standards/frontend-engineering-standards.md", "docs/standards/standards-addendum-mizaniya.md", ".peer-ai/map.json", "CONTEXT.md"],
+  "inputs": [
+    ".peer-ai/work/ITEM-13.json",
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    ".peer-ai/map.json",
+    "CONTEXT.md"
+  ],
   "inventory": [
-    { "id": "criterion:1", "kind": "contract", "location": { "file": "docs/05-coding-standards.md", "line": 196 } },
-    { "id": "criterion:2", "kind": "contract", "location": { "file": "docs/05-coding-standards.md", "line": 330 } },
-    { "id": "criterion:3", "kind": "contract", "location": { "file": "docs/product-brief.md", "line": 82 } },
-    { "id": "criterion:4", "kind": "check", "location": { "file": ".peer-ai/map.json", "line": 1 } },
-    { "id": "criterion:5", "kind": "contract", "location": { "file": "CLAUDE.md", "line": 43 } },
-    { "id": "check:link-scan", "kind": "check", "location": { "file": "docs/05-coding-standards.md", "line": 1 } },
-    { "id": "check:assess", "kind": "check", "location": { "file": ".peer-ai/map.json", "line": 1 } }
+    {
+      "id": "criterion:1",
+      "kind": "contract",
+      "location": {
+        "file": "docs/05-coding-standards.md",
+        "line": 196
+      }
+    },
+    {
+      "id": "criterion:2",
+      "kind": "contract",
+      "location": {
+        "file": "docs/05-coding-standards.md",
+        "line": 330
+      }
+    },
+    {
+      "id": "criterion:3",
+      "kind": "contract",
+      "location": {
+        "file": "docs/product-brief.md",
+        "line": 82
+      }
+    },
+    {
+      "id": "criterion:4",
+      "kind": "check",
+      "location": {
+        "file": ".peer-ai/map.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:5",
+      "kind": "contract",
+      "location": {
+        "file": "CLAUDE.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "check:link-scan",
+      "kind": "check",
+      "location": {
+        "file": "docs/05-coding-standards.md",
+        "line": 1
+      }
+    },
+    {
+      "id": "check:assess",
+      "kind": "check",
+      "location": {
+        "file": ".peer-ai/map.json",
+        "line": 1
+      }
+    }
   ],
   "coverage": [
     {
@@ -53,14 +121,14 @@
       "item": "criterion:5",
       "status": "pass",
       "checkedBy": "reading",
-      "evidence": "'CLAUDE.md section 2 points at the map rather than restating the rules, and the precedence is written in exactly one place.' Section 2 now names docs/05-coding-standards.md section 7 as where the mapping lives, gives the D1 example as the reason to read it rather than guess, and says the precedence is stated there and not repeated. The sentence 'where the two disagree, docs/standards/ wins' appears once in the repository outside CONTEXT's historical entries: in section 7. Checked by searching for it."
+      "evidence": "'CLAUDE.md section 2 points at the map rather than restating the rules, and the precedence is written in exactly one place.' Section 2 now names docs/05-coding-standards.md section 7 as where the mapping lives, gives the D1 example as the reason to read it rather than guess, and says the precedence is stated there and not repeated. The sentence 'where the two disagree, docs/standards/ wins' appears once in the repository outside CONTEXT's historical entries: in section 7. Checked by searching for it. Re-checked at a4e146f, which added one more rule to section 5 of the same file: mark a pull request ready before the last push, because Peer AI's gate decides draft state from the stored event payload and a push landing while the item is still a draft leaves a skipped gate as the head status. That is a CI ordering rule rather than a standards rule, so it does not touch the precedence sentence, which is still in exactly one place."
     },
     {
       "rule": "TEST-09",
       "item": "check:assess",
       "status": "pass",
       "checkedBy": "tool",
-      "evidence": "Both checks were seen failing before they were trusted. peer-ai assess named six documents before the first pass and a different one after each of the next two, so its output was watched changing rather than assumed; it now names none. The rule-coverage check was run against an incomplete draft first, which reported B1 and B2 missing - a false alarm from the joint row 'B1 / B2', confirmed by reading the row rather than by loosening the check until it passed."
+      "evidence": "Both checks were seen failing before they were trusted. peer-ai assess named six documents before the first pass and a different one after each of the next two, so its output was watched changing rather than assumed; it now names none. The rule-coverage check was run against an incomplete draft first, which reported B1 and B2 missing - a false alarm from the joint row 'B1 / B2', confirmed by reading the row rather than by loosening the check until it passed. A third check was seen failing after the reviews were first recorded: the Peer AI gate refused this pull request with 'ITEM-13 is at ship, but its verify looked at f4eac53, and CLAUDE.md changed since', which is why this report exists at a second commit rather than being left to stand on a stale one."
     },
     {
       "rule": "TEST-01",
@@ -104,5 +172,5 @@
   ],
   "findings": [],
   "result": "pass",
-  "summary": "Pass, all five criteria, each checked by running something. All 62 project rules are mapped, proven by differencing the two sets of ids rather than by reading. peer-ai assess now names no stale document where it named six, which took three passes because it reports one per file per run. The kick-off pack's deletion had a recorded decision against it, so the stakeholder's one unique sentence was moved before the file went."
+  "summary": "Pass, all five criteria, each checked by running something. All 62 project rules are mapped, proven by differencing the two sets of ids. peer-ai assess now names no stale document where it named six. Recorded a second time at a4e146f: the gate refused the first pair of records because CLAUDE.md changed after them, which is the staleness check working rather than a defect."
 }
