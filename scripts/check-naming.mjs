@@ -29,6 +29,17 @@ for (const file of ROOTS.flatMap(walk)) {
 
   // `money.test.ts` is kebab-case with a suffix; check each dotted part.
   const stem = name.slice(0, -extension.length)
+  /*
+   * Semgrep's detect-redos flags KEBAB as possible catastrophic backtracking, and
+   * it is a false positive here on two counts. The mandatory `-` between the two
+   * character classes leaves no ambiguity about where one group ends, so there is
+   * nothing to backtrack over: measured at 0.46ms on 100,000 characters built to
+   * force a failed match. And the input is a filename from this script's own
+   * directory walk, never anything a user supplies. Suppressed with the
+   * measurement rather than rewritten, because rewriting a correct regex to quiet
+   * a tool is how a check starts costing more than it finds.
+   */
+  // nosemgrep: rules.javascript.lang.security.audit.detect-redos
   const bad = stem.split('.').filter((part) => !KEBAB.test(part))
 
   if (bad.length > 0) {

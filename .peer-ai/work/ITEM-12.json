@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-12",
+  "title": "Clear the 18 fixable dependency advisories in the build and test toolchain",
+  "kind": "chore",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/clear-the-18-fixable-dependency-advisories-in-the",
+  "goal": "osv-scanner lists 19 advisories across 11 packages, 5 critical, every one marked dev and none in the shipped bundle. 18 have a fix, but the fixes are major jumps - vite 5 to 6, vitest 2 to 3 or 4, esbuild, plus transitive ones through the lint plugins - which can change config shape and test behaviour. braces 3.0.3 has no fix at all. Doing them alongside turning the scanner on would have made one unreviewable pull request out of two separate jobs.",
+  "acceptance": [
+    "Given the 18 fixable advisories, when the upgrades are done, then osv-scanner reports no fixable advisory and the 487 tests still pass, with any test or config change the majors forced recorded in the pull request",
+    "Given braces 3.0.3 has no fixed version, when the work is done, then it is recorded with where it comes from, whether anything shipped depends on it, and what would be watched for a fix, rather than left silent",
+    "Given each major jump, when it lands, then the pull request says what it changed about the build or the tests, so the next reader knows which breakage came from which upgrade",
+    "Given GHA-02 is deferred in reporting mode until this item, when this item is done, then the deferral is removed and the dependencies job blocks"
+  ],
+  "sources": [
+    "package.json",
+    "package-lock.json",
+    ".github/workflows/peer-ai-security.yml"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-14T11:29:11.835Z"
+}

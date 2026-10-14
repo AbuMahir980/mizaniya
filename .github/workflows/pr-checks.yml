@@ -1,10 +1,12 @@
-# WHAT: The checks every pull request has to pass before it can reach `main`.
-# WHY:  **The verify job runs `npm run verify` and nothing else.** Re-listing
-#       lint, typecheck and tests as separate steps here would create a second
-#       opinion about what "passing" means, and the two would drift — so a green
-#       run here and a green run on a laptop are the identical claim.
-# INTERVIEW: I made CI call the same one command developers run, so there is no
-#       second definition of "green" to fall out of step with the first.
+# The verify job runs `npm run verify` and nothing else. Re-listing lint, typecheck
+# and tests as separate steps here would create a second opinion about what
+# "passing" means, and the two would drift — so a green run here and a green run on
+# a laptop are the identical claim.
+#
+# Actions are pinned to a commit, not a tag: whoever controls a tag can change what
+# runs in this pipeline without a commit here. These are v5, the versions this file
+# already ran; `peer-ai-security.yml` is generated and carries Peer AI's own pins,
+# which is why the two name different major versions.
 
 name: PR Checks
 
@@ -29,9 +31,9 @@ jobs:
     name: verify
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           # `.nvmrc` is the single source of truth. Naming a version here as
           # well is how CI ends up testing a runtime nobody develops on.
@@ -48,13 +50,13 @@ jobs:
     name: repo rules
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           # Full history: the guard reads the commit messages on the branch, and
           # a squash merge makes those subjects permanent on `main`.
           fetch-depth: 0
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version-file: .nvmrc
 
@@ -79,20 +81,3 @@ jobs:
           # — goes red on this step, correctly: the names were not checked, and
           # a maintainer has to run it.
           MIZANIYA_FORBIDDEN_TERMS: ${{ secrets.FORBIDDEN_TERMS }}
-
-  secrets:
-    name: secret scanning
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          # Gitleaks reads history: a key deleted in a later commit is still
-          # published, and scanning only the tip would miss exactly that case.
-          fetch-depth: 0
-
-      # Still on the Node 20 runtime, and warns about it on every run. It is a
-      # third-party action, so that one is theirs to fix; ours are on v5.
-      # Pinning this to a SHA rather than a mutable tag is a task for 11b.
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

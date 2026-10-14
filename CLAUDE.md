@@ -120,10 +120,14 @@ one-line typo.
   `chore:`, `docs:`, `test:`, `refactor:` — one line, plus an optional short body.
 - **PR descriptions** say what changed and why. **No AI attribution lines, no
   emoji, no tool names**, in commit messages either.
-- **Checks:** `pr-checks.yml` runs **verify** (`npm run verify`), **repo rules**
-  and **secret scanning**, and `peer-ai.yml` runs **peer-ai check**, Peer AI's
-  gate. Wait for all of them. Red is not done, and **a check that was skipped or
-  cancelled has not passed.**
+- **Checks:** `pr-checks.yml` runs **verify** (`npm run verify`) and **repo rules**;
+  `peer-ai-security.yml` runs **secrets**, **dependencies**, **workflows** and
+  **code**; and `peer-ai.yml` runs **peer-ai check**, Peer AI's gate. Wait for all
+  of them. Red is not done, and **a check that was skipped or cancelled has not
+  passed** — except Peer AI's gate on a draft, which it skips by design since
+  2026-10-13. **The dependencies job reports and does not block** until ITEM-12
+  clears the advisories; the other three block.
+  The security workflow is generated — change `peer-ai.config.json`, not the file.
 - **Watching CI is yours, not the owner's.** After every push, watch that pull
   request's checks to completion — `npm run ci:watch` reports every open pull
   request and exits non-zero if any is not green, so it also runs inside a
