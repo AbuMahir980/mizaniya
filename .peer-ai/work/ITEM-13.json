@@ -4,9 +4,10 @@
   "id": "ITEM-13",
   "title": "One rulebook: map the A-O standards onto Peer AI's rule ids, and clear the v0 leftovers from docs",
   "kind": "chore",
-  "stage": "prepare",
+  "stage": "ship",
   "track": "web",
   "branch": "feature/one-rulebook-map-the-a-o-standards-onto-peer-ai-s",
+  "base": "241a8cec71ae19f536e271a949859c59ad843177",
   "goal": "The project carries 62 rules of its own, A1 to O4, beside Peer AI's, with no single place saying which covers which. That overlap already cost a week: TS-08 and REACT-03 are one ESLint rule under two ids, and nobody saw the 400-line limit had stopped applying. Two documents are also v0 residue - the kick-off pack, superseded by CLAUDE.md and still describing a v3 server and paid tiers, and 07-frontend-coding-rules, 28 lines pointing at 05 - and six documents name paths that no longer exist.",
   "acceptance": [
     "Given the 62 rules A1 to O4, when the map is written, then every one has a row naming the Peer AI rule or rules that cover it, or saying in words that none does, with no rule left out",
@@ -22,6 +23,31 @@
     "docs/Mizaniya_Kickoff_Pack.md",
     "CLAUDE.md"
   ],
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-14T12:05:18.371Z",
+    "commit": "f4eac535b0fceaf0b0b6d7192a634135ad0e1087",
+    "ci": {
+      "check": "verify",
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/38561031891/job/115841852414"
+    }
+  },
+  "reviews": [
+    {
+      "skill": "qa-acceptance",
+      "result": "pass",
+      "report": ".peer-ai/reports/ITEM-13/qa-acceptance-20261014T1206Z.json",
+      "summary": "Pass, all five criteria, each checked by running something. All 62 project rules are mapped, proven by differencing the two sets of ids rather than by reading. peer-ai assess now names no stale document where it named six, which took three passes because it reports one per file per run. The kick-off pack's deletion had a recorded decision against it, so the stakeholder's one unique sentence was moved before the file went.",
+      "at": "2026-10-14T12:06:10.024Z",
+      "commit": "f4eac535b0fceaf0b0b6d7192a634135ad0e1087"
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
   "next": "Read what this item needs, then plan it.",
-  "updatedAt": "2026-10-14T11:56:42.978Z"
+  "updatedAt": "2026-10-14T12:06:19.324Z"
 }
