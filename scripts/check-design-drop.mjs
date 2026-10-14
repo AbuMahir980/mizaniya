@@ -49,6 +49,12 @@ const theirs = changed.filter(
     // sandbox -- so the shot list, licences and file names live here.
     path === 'docs/design/image-brief.md' ||
     path.startsWith('docs/design/img/') ||
+    // Added 2026-10-14, with the drop that brought it. The designer's cloud
+    // toolchain was reclaimed that day, so the generator that produces every
+    // board is now committed here. It is theirs, and it is the source of the
+    // canvas — a drop that changed it while the guard was silent would be the
+    // worst version of the hole this list keeps growing to close.
+    path.startsWith('docs/design/generator/') ||
     (path.startsWith('docs/design/') && path.endsWith('.png')),
 )
 
