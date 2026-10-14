@@ -140,6 +140,12 @@ N21 = ("&sect;21. The short version, in front of turning sync on rather than in 
        "&sect;20 was rewritten to stop doing.")
 
 
+ACTIVITY = [
+    ("A new device opened your budget", "5 October &middot; 14:02"),
+    ("Key three was printed again", "2 October &middot; 09:40"),
+    ("Aisha&rsquo;s phone was added", "28 September &middot; 18:15"),
+]
+
 # ══ 15d · your sync ══════════════════════════════════════════════════════════
 SW_ON = '<span class="sw on" style="flex:0 0 auto"><i></i></span>'
 
@@ -181,10 +187,13 @@ def sync_body(wide):
                     + row("Delete the stored copy",
                           "The copy goes, and nothing can be put back at it.",
                           chip("Delete"), last=True))
+    act = card_rows("Recent activity",
+                    "".join(row(t, when, last=(i == len(ACTIVITY) - 1))
+                            for i, (t, when) in enumerate(ACTIVITY)))
     g = '<div style="height:12px"></div>'
     if wide:
-        return two_col(state + g + back + g + devs, end)
-    return state + g + back + g + devs + g + end
+        return two_col(state + g + back + g + devs + g + act, end)
+    return state + g + back + g + devs + g + act + g + end
 
 
 # ══ 21 · in front of turning sync on ═════════════════════════════════════════
@@ -548,9 +557,55 @@ def build_recovery():
     return made
 
 
-if __name__ == "__main__":
-    n = len(build()) + len(build_recovery())
-    print("built", n, "boards")
+def build_open_two():
+    """S·1 and S·2 — the confirmation and the notification surface."""
+    made = []
+    for th in ("light", "dark"):
+        T = th.title()
+        TITLE = "Go back and make three new keys?"
+        BODY = ("Anything you have already printed or placed stops working.")
+        made.append(mz.write(
+            f"WebKeysBack{T}",
+            f"22f · Your three keys · going back makes new ones · 1440 · {th}", th,
+            confirm_over(r.flow_wide(2, r.keys_wide(True) + r.foot_wide(
+                "Turn sync on", True)), TITLE, BODY, "Go back", wide=True), N22F))
+        made.append(mz.write(
+            f"MwKeysBack{T}",
+            f"22f · Your three keys · going back makes new ones · 360 · {th}", th,
+            confirm_over(r.flow_phone(2, r.KEYS_TITLE, r.keys_phone(True),
+                                      r.foot_phone("Turn sync on", True)),
+                         TITLE, BODY, "Go back", wide=False), N22F, wide=False),)
+    # 07i rides the same seam 07h uses
+    MARK = '<div style="padding:36px;display:flex;justify-content:center">'
+    SEAM = "<!--offline-seam-->"
+    for th in ("light", "dark"):
+        T = th.title()
+        for pre, w in (("Web", "1440"), ("Mw", "360")):
+            src = io.open(os.path.join(mz.SRC, f"{pre}Home{T}.dc.html"),
+                          encoding="utf-8").read()
+            if pre == "Mw":
+                j = src.index(SEAM) + len(SEAM)
+                band = '<div style="padding:18px 20px 0">' + NEW_DEVICE + '</div>'
+            else:
+                i = src.index(MARK)
+                j = src.index('">', src.index('<div style="width:100%', i)) + 2
+                band = NEW_DEVICE
+            out = src[:j] + band + src[j:]
+            m = mz.TITLE_RE.search(out)
+            out = (out[:m.start(2)]
+                   + f"07i · Home · a new device opened your budget · {w} · {th}"
+                   + out[m.end(2):])
+            nm = out.index("<!--/note-->")
+            n1 = out.rindex("</div>", 0, nm); n0 = out.rindex('">', 0, n1) + 2
+            out = out[:n0] + N07I + out[n1:]
+            assert out.count("<div") == out.count("</div>"), (pre, T)
+            io.open(os.path.join(mz.SRC, f"{pre}HomeNotice{T}.dc.html"), "w",
+                    encoding="utf-8").write(out)
+            made.append(f"{pre}HomeNotice{T}")
+    return made
+
+
+
 
 
 # ══ 07h · Home, on a device the rotation left behind ═════════════════════════
@@ -628,3 +683,84 @@ def build_behind():
                     encoding="utf-8").write(out)
             made.append(f"{pre}HomeBehind{T}")
     return made
+
+
+# ══ S·1 · 22f — the confirmation §R·5 asked for ══════════════════════════════
+# §R·5 put the sentence on the button's own confirmation rather than in help
+# text under it, and was right about why: by the time Back is reachable a key
+# may already be on paper, and a printed key exists in the world whether or not
+# the flow finished. Help text under a button is read by nobody about to press
+# it.
+#
+# The safe choice is the primary one. Going back is the quiet button, because a
+# dialog whose default action destroys three keys is a dialog that destroys
+# three keys.
+def confirm_over(content, title, body, go, stay="Stay here", wide=True):
+    pad = "48px" if wide else "20px"
+    w = "min(460px,100%)" if wide else "100%"
+    dialog = ('<div style="position:absolute;inset:0;background:var(--scrim);'
+              'display:flex;align-items:center;justify-content:center;'
+              f'border-radius:22px;padding:{pad}">'
+              f'<div style="background:var(--card);border:1px solid var(--line);'
+              f'border-radius:22px;box-shadow:var(--shadow);padding:24px;'
+              f'width:{w}">'
+              f'<div class="ser" style="font-size:{24 if wide else 21}px;'
+              f'line-height:{30 if wide else 27}px">{title}</div>'
+              f'<div style="font-size:14px;line-height:22px;color:var(--soft);'
+              f'margin-top:10px">{body}</div>'
+              '<div style="display:flex;gap:10px;margin-top:22px">'
+              + mz.btn(stay, "p", "flex:1") + mz.btn(go, "q", "flex:1")
+              + '</div></div></div>')
+    return ('<div style="position:relative;flex:1;min-width:0;display:flex">'
+            + content + dialog + '</div>')
+
+
+N22F = ("&sect;22f. <b>&sect;R&middot;5, where it asked to be.</b> The sentence was "
+        "under the button; a line under a button is read by nobody about to press "
+        "it. <b>The safe choice is the primary one</b> &mdash; a dialog whose "
+        "default action destroys three keys is a dialog that destroys three keys. "
+        "Going back is the quiet button, and it says what it costs rather than "
+        "asking <i>are you sure</i>, which answers nothing.")
+
+
+# ══ S·2 · the notification surface ═══════════════════════════════════════════
+# ADR-013 makes deletion the remedy against a key believed found and
+# notification the trigger for it — they only work as a pair. §R·6 then allowed
+# a lost key to be re-printed *because* every device is told. So two decisions
+# now rest on a surface that did not exist.
+#
+# The smallest thing that works, and why it is not an inbox: these events are
+# rare — a device enrolled, a key printed, the keys rotated. Three a year does
+# not earn a bell, a badge and a read state. So:
+#
+#   * **Home carries the newest unseen one**, as a banner, because that is where
+#     the person is and `07h` already put a banner there. One pattern, not two.
+#   * **Your sync keeps the list**, because *who can reach this budget?* is the
+#     question these events answer and that is the screen that answers it.
+#   * **Two at once do not stack.** The banner counts them and opens the list.
+
+
+NEW_DEVICE = ('<div style="display:flex;gap:14px;align-items:center;'
+              'background:var(--oc2);border:1px solid var(--line);'
+              'border-radius:13px;padding:14px 16px;min-height:44px;'
+              'margin-bottom:26px"><div style="flex:1">'
+              '<div style="font-size:14px;font-weight:600;color:var(--ink)">'
+              'A new device opened your budget</div>'
+              '<div style="font-size:12.5px;line-height:19px;color:var(--soft);'
+              'margin-top:2px">5 October at 14:02. If that was not you, delete '
+              'the stored copy.</div></div>'
+              '<span class="chip" style="min-height:38px;padding:0 14px;'
+              'font-size:13px">Your sync</span></div>')
+
+N07I = ("&sect;07i. <b>The trigger for ADR-013&rsquo;s own remedy.</b> Deleting the "
+        "stored copy is the defence against a key believed found, and this notice "
+        "is the only thing that tells the owner to reach for it &mdash; they work "
+        "as a pair or not at all. It carries the action rather than describing one, "
+        "and it says <i>if that was not you</i> instead of asking the owner to "
+        "work out what the line implies. <b>Two notices do not stack</b>: the "
+        "banner counts them and opens the list on <code>15d</code>.")
+
+
+if __name__ == "__main__":
+    n = len(build()) + len(build_recovery()) + len(build_behind()) + len(build_open_two())
+    print("built", n, "boards")

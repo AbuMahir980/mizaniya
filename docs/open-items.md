@@ -5459,3 +5459,49 @@ neither has a home.** That is not a missing board, it is a missing decision:
 safe sentence would have been *"a banner appears"*; the honest one is that a
 product whose security model depends on the owner noticing something has nowhere
 for the owner to notice it.
+
+### S·1 and S·2 — answered and drawn, 2026-10-14
+
+Both were left open in §S and both are now built. The reasoning is here because
+the second one is a decision, not a drawing.
+
+#### S·1 — `22f · going back makes new ones`
+
+§R·5 put the sentence on the button's own confirmation rather than in help text
+under it, and was right about why: **a line under a button is read by nobody
+about to press it.** The dialog is drawn over the placed-keys screen.
+
+**The safe choice is the primary one.** *Stay here* is the green button and *Go
+back* is the quiet one — a dialog whose default action destroys three keys is a
+dialog that destroys three keys. And it names the cost rather than asking *are
+you sure*, which answers nothing.
+
+#### S·2 — the notification surface, and why it is not an inbox
+
+**Why it is load-bearing, not a nicety.** ADR-013's defence against a key
+believed found is deleting the stored copy, and its own trigger for reaching for
+that is a notice. They work as a pair or not at all. **§R·6 then allowed a lost
+key to be re-printed precisely because every device is told** — so shipping the
+permission without the notice ships the risk without its mitigation.
+
+**Why not a bell with a badge.** These events are rare: a device enrolled, a key
+printed, the keys rotated. Three a year does not earn an inbox, a read state and
+a dismissal model — that is machinery arriving long before the thing it manages.
+
+**The shape, which answers the three questions §S raised:**
+
+| The question | The answer |
+|---|---|
+| Where does a notice that is not about *this* screen live? | **Home carries the newest unseen one, as a banner** — where the person already is, and the pattern `07h` established. One pattern, not two |
+| A history, or only the latest? | **Both.** The banner shows the newest; `15d` keeps the list, because *who can reach this budget?* is the question these events answer and that is the screen that answers it |
+| Two at once? | **They do not stack.** The banner counts them and opens the list |
+
+**Drawn:** `07i · Home · a new device opened your budget`, and a *Recent
+activity* card on `15d`. The banner carries the action rather than describing
+one, and says *if that was not you, delete the stored copy* instead of leaving
+the owner to work out what the line implies.
+
+**Still not decided, and it is the spec's:** how long the list keeps an event.
+*A new device opened your budget* matters for as long as that device has access;
+*a key was printed* matters longer, because a key on paper outlives the moment.
+The drawing shows three and does not claim a retention rule.

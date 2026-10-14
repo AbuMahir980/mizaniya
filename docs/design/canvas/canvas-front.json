@@ -728,7 +728,7 @@
    "x": 0,
    "y": 4736,
    "w": 1512,
-   "h": 956,
+   "h": 1225,
    "title": "15d · Settings · your sync · 1440 · light",
    "page": "page-set",
    "print": "fixed"
@@ -738,7 +738,7 @@
    "x": 1652,
    "y": 4736,
    "w": 832,
-   "h": 1202,
+   "h": 1471,
    "title": "15d · Settings · your sync · 360 · light",
    "page": "page-set",
    "print": "fixed"
@@ -748,7 +748,7 @@
    "x": 2624,
    "y": 4736,
    "w": 1512,
-   "h": 956,
+   "h": 1225,
    "title": "15d · Settings · your sync · 1440 · dark",
    "page": "page-set",
    "print": "fixed"
@@ -758,7 +758,7 @@
    "x": 4276,
    "y": 4736,
    "w": 832,
-   "h": 1202,
+   "h": 1471,
    "title": "15d · Settings · your sync · 360 · dark",
    "page": "page-set",
    "print": "fixed"
@@ -884,9 +884,49 @@
    "print": "fixed"
   },
   {
-   "file": "WebKeyScanLight.dc.html",
+   "file": "WebKeysBackLight.dc.html",
    "x": 0,
    "y": 3843,
+   "w": 1512,
+   "h": 731,
+   "title": "22f · Your three keys · going back makes new ones · 1440 · light",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "MwKeysBackLight.dc.html",
+   "x": 1652,
+   "y": 3843,
+   "w": 832,
+   "h": 991,
+   "title": "22f · Your three keys · going back makes new ones · 360 · light",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "WebKeysBackDark.dc.html",
+   "x": 2624,
+   "y": 3843,
+   "w": 1512,
+   "h": 731,
+   "title": "22f · Your three keys · going back makes new ones · 1440 · dark",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "MwKeysBackDark.dc.html",
+   "x": 4276,
+   "y": 3843,
+   "w": 832,
+   "h": 991,
+   "title": "22f · Your three keys · going back makes new ones · 360 · dark",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "WebKeyScanLight.dc.html",
+   "x": 0,
+   "y": 5024,
    "w": 1512,
    "h": 700,
    "title": "22c · Key three · ready to scan · 1440 · light",
@@ -896,7 +936,7 @@
   {
    "file": "MwKeyScanLight.dc.html",
    "x": 1652,
-   "y": 3843,
+   "y": 5024,
    "w": 832,
    "h": 825,
    "title": "22c · Key three · ready to scan · 360 · light",
@@ -906,7 +946,7 @@
   {
    "file": "WebKeyScanDark.dc.html",
    "x": 2624,
-   "y": 3843,
+   "y": 5024,
    "w": 1512,
    "h": 700,
    "title": "22c · Key three · ready to scan · 1440 · dark",
@@ -916,7 +956,7 @@
   {
    "file": "MwKeyScanDark.dc.html",
    "x": 4276,
-   "y": 3843,
+   "y": 5024,
    "w": 832,
    "h": 825,
    "title": "22c · Key three · ready to scan · 360 · dark",
@@ -926,7 +966,7 @@
   {
    "file": "WebPhraseLight.dc.html",
    "x": 0,
-   "y": 4858,
+   "y": 6039,
    "w": 1512,
    "h": 700,
    "title": "22d · Your recovery phrase · 1440 · light",
@@ -936,7 +976,7 @@
   {
    "file": "MwPhraseLight.dc.html",
    "x": 1652,
-   "y": 4858,
+   "y": 6039,
    "w": 832,
    "h": 843,
    "title": "22d · Your recovery phrase · 360 · light",
@@ -946,7 +986,7 @@
   {
    "file": "WebPhraseDark.dc.html",
    "x": 2624,
-   "y": 4858,
+   "y": 6039,
    "w": 1512,
    "h": 700,
    "title": "22d · Your recovery phrase · 1440 · dark",
@@ -956,7 +996,7 @@
   {
    "file": "MwPhraseDark.dc.html",
    "x": 4276,
-   "y": 4858,
+   "y": 6039,
    "w": 832,
    "h": 843,
    "title": "22d · Your recovery phrase · 360 · dark",
@@ -966,7 +1006,7 @@
   {
    "file": "WebPhraseCheckLight.dc.html",
    "x": 0,
-   "y": 5891,
+   "y": 7072,
    "w": 1512,
    "h": 653,
    "title": "22e · Confirm two of the words · 1440 · light",
@@ -976,7 +1016,7 @@
   {
    "file": "MwPhraseCheckLight.dc.html",
    "x": 1652,
-   "y": 5891,
+   "y": 7072,
    "w": 832,
    "h": 798,
    "title": "22e · Confirm two of the words · 360 · light",
@@ -986,7 +1026,7 @@
   {
    "file": "WebPhraseCheckDark.dc.html",
    "x": 2624,
-   "y": 5891,
+   "y": 7072,
    "w": 1512,
    "h": 653,
    "title": "22e · Confirm two of the words · 1440 · dark",
@@ -996,7 +1036,7 @@
   {
    "file": "MwPhraseCheckDark.dc.html",
    "x": 4276,
-   "y": 5891,
+   "y": 7072,
    "w": 832,
    "h": 798,
    "title": "22e · Confirm two of the words · 360 · dark",
@@ -1006,7 +1046,7 @@
   {
    "file": "WebEntryLight.dc.html",
    "x": 0,
-   "y": 6879,
+   "y": 8060,
    "w": 1512,
    "h": 842,
    "title": "23 · Open your budget here · two keys · 1440 · light",
@@ -1016,7 +1056,7 @@
   {
    "file": "MwEntryLight.dc.html",
    "x": 1652,
-   "y": 6879,
+   "y": 8060,
    "w": 832,
    "h": 861,
    "title": "23 · Open your budget here · two keys · 360 · light",
@@ -1026,7 +1066,7 @@
   {
    "file": "WebEntryDark.dc.html",
    "x": 2624,
-   "y": 6879,
+   "y": 8060,
    "w": 1512,
    "h": 842,
    "title": "23 · Open your budget here · two keys · 1440 · dark",
@@ -1036,7 +1076,7 @@
   {
    "file": "MwEntryDark.dc.html",
    "x": 4276,
-   "y": 6879,
+   "y": 8060,
    "w": 832,
    "h": 861,
    "title": "23 · Open your budget here · two keys · 360 · dark",
@@ -1046,7 +1086,7 @@
   {
    "file": "WebEntryOneLight.dc.html",
    "x": 0,
-   "y": 7930,
+   "y": 9111,
    "w": 1512,
    "h": 805,
    "title": "23a · Open your budget here · one accepted · 1440 · light",
@@ -1056,7 +1096,7 @@
   {
    "file": "MwEntryOneLight.dc.html",
    "x": 1652,
-   "y": 7930,
+   "y": 9111,
    "w": 511,
    "h": 824,
    "title": "23a · Open your budget here · one accepted · 360 · light",
@@ -1066,7 +1106,7 @@
   {
    "file": "WebEntryOneDark.dc.html",
    "x": 2624,
-   "y": 7930,
+   "y": 9111,
    "w": 1512,
    "h": 805,
    "title": "23a · Open your budget here · one accepted · 1440 · dark",
@@ -1076,7 +1116,7 @@
   {
    "file": "MwEntryOneDark.dc.html",
    "x": 4276,
-   "y": 7930,
+   "y": 9111,
    "w": 511,
    "h": 824,
    "title": "23a · Open your budget here · one accepted · 360 · dark",
@@ -1086,7 +1126,7 @@
   {
    "file": "WebEntryPhraseLight.dc.html",
    "x": 0,
-   "y": 8944,
+   "y": 10125,
    "w": 1512,
    "h": 810,
    "title": "23b · Open your budget here · the phrase · 1440 · light",
@@ -1096,7 +1136,7 @@
   {
    "file": "MwEntryPhraseLight.dc.html",
    "x": 1652,
-   "y": 8944,
+   "y": 10125,
    "w": 832,
    "h": 941,
    "title": "23b · Open your budget here · the phrase · 360 · light",
@@ -1106,7 +1146,7 @@
   {
    "file": "WebEntryPhraseDark.dc.html",
    "x": 2624,
-   "y": 8944,
+   "y": 10125,
    "w": 1512,
    "h": 810,
    "title": "23b · Open your budget here · the phrase · 1440 · dark",
@@ -1116,7 +1156,7 @@
   {
    "file": "MwEntryPhraseDark.dc.html",
    "x": 4276,
-   "y": 8944,
+   "y": 10125,
    "w": 832,
    "h": 941,
    "title": "23b · Open your budget here · the phrase · 360 · dark",

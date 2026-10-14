@@ -27,7 +27,9 @@ BANK_MOVED = {"WebBankLight", "MwBankLight", "WebBankDark", "MwBankDark"}
 
 ADDED_APP = {
     "page-w-home": [M.row("HomeBehind",
-                          "07h · Home · this device is holding an older copy")],
+                          "07h · Home · this device is holding an older copy"),
+                    M.row("HomeNotice",
+                          "07i · Home · a new device opened your budget")],
 }
 NEW_APP = {n for rows in ADDED_APP.values() for r in rows for n, _ in r}
 
@@ -88,6 +90,7 @@ GETTING_BACK = (
     M.row("Recovery", "22 · Getting back in · choose how")
     + M.row("Keys", "22a · Your three keys · nothing placed yet")
     + M.row("KeysDone", "22b · Your three keys · all three placed")
+    + M.row("KeysBack", "22f · Your three keys · going back makes new ones")
     + M.row("KeyScan", "22c · Key three · ready to scan")
     + M.row("Phrase", "22d · Your recovery phrase")
     + M.row("PhraseCheck", "22e · Confirm two of the words")
