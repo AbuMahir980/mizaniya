@@ -4905,3 +4905,254 @@ the three-things section, the debt timeline, the trust bullets other than P·6, 
 transactions, debts, debt-record and zakat proof cards, the image slot, *How to use it*,
 the footer, and **the whole motion study**. The sections above are the only ones ADR-013
 touches.
+
+---
+
+## §Q · ADR-013 drawn — answered 2026-10-14 by the designer
+
+**What this is.** [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md) was
+handed to design on 14 October with the instruction not to start from the existing
+boards. This section is the record of what was drawn, what was deleted, what was
+parked, and — the part that matters for the build — **every place where a drawing
+implies a behaviour the spec has not yet agreed to.** Nothing below is silently
+assumed: `CLAUDE.md` §7 gives design layout, spacing, type, colour and motion, and
+the spec behaviour, states and data, and says that where they meet neither side is
+picked quietly.
+
+The canvas went **263 → 277 artboards**: 48 new, 34 deleted, 40 redrawn or edited.
+
+### Q·1 — The chooser, and why it is built the way it is
+
+ADR-013 names the risk in its own Costs column: *"if the explanation is poor people
+will choose D3 to get past the screen — shipping the weakest option while having
+built the better ones."* The drawing treats that as a brief rather than a warning.
+
+**The rule the screen is built on: every option answers the same four questions, in
+the same four slots.** *What you keep · how you get back in · if you lose one · if
+someone finds one.* Nothing wears a warning, because a warning is friction and
+friction is exactly what a person skimming a setup screen selects against — the
+warned option becomes the one they avoid *reading*, not the one they avoid choosing.
+
+What falls out of that is better than a warning would have been. The three cards
+carry a tick or a cross on their two failure rows, the four rows are pinned to one
+height so they line up across all three cards, and **the weakest option is simply
+the only card with two crosses on it.** That is visible before a word is read, and
+it survives skimming, which is the only test this screen has to pass.
+
+| Card | If you lose one | If someone finds one |
+|---|---|---|
+| **Three keys, any two** *(default, selected)* | ✓ The other two still open it | ✓ It opens nothing on its own |
+| Your devices only | ✓ The others still open it | ✓ There is nothing written down to find |
+| One recovery phrase | ✗ There is only one. The copy is gone | ✗ Whoever has them can open your budget |
+
+**D1's cost is stated where it belongs**, in *to get back in*: *"Any device you still
+have. Nothing else can."* It is not a warning; it is the defining property of the
+option, which is the whole reason somebody would pick it.
+
+**The recommended option is first and pre-selected**, so the shortest path through the
+screen is the safe one. ADR-013's Decision orders them D2, D1, D3 and the brief
+enumerates them D1, D2, D3; the record's ordering was followed because it is the one
+with a reason attached. **Named here rather than chosen quietly.**
+
+**Nothing on any of these boards names the cryptography.** Not Shamir, not HKDF, not
+*share*, not *threshold*. The honesty is in the scope of each line.
+
+### Q·2 — The nine screens, and the one that does not exist
+
+New page **12 · Getting back in**, 36 boards.
+
+| | Screen | Note |
+|---|---|---|
+| `22` | Getting back in · choose how | The seam above |
+| `22a` | Your three keys · nothing placed yet | *Continue* is dead until both keys have left the phone |
+| `22b` | Your three keys · all three placed | *Back* is still offered, and still says what it costs |
+| `22c` | Key three · ready to scan | A QR and the same key typed out, in six groups of five |
+| `22d` | Your recovery phrase | The twelve words |
+| `22e` | Confirm two of the words | Word four and word nine |
+| `23` | Open your budget here · two keys | What stands where sign-in stood |
+| `23a` | Open your budget here · one accepted | |
+| `23b` | Open your budget here · the phrase | |
+
+**Three decisions inside those that are worth having on the record.**
+
+**The three keys are never on one screen at the same time.** A photograph of such a
+screen would be two of three, which is the budget. So `22a` shows none of them: key
+one never leaves the phone and is never displayed, and each of the other two is
+revealed only in the act of placing it (`22c`).
+
+**The keys get no typed confirmation; the phrase does.** Placing a key leaves a trace
+the app can observe — it was printed, it was scanned. Writing twelve words on paper
+leaves none, so `22e` asks for two of them back. It is also the cheapest possible
+moment to find out the paper is already wrong.
+
+**Devices only has no screen after the chooser**, and that is the option's selling
+point rather than a gap: there is nothing written down, so there is nothing to show.
+
+### Q·3 — Household lost its roles, and that is a real change
+
+The committed boards carried an **account holder** who could not be removed and a
+**household member** who could not change billing. Billing is gone, and so is the
+hierarchy: ADR-013 makes *possession of the data key the whole of the authorisation*,
+and nothing in the design distinguishes one device from another. **So either person
+can remove the other**, and the board says so in as many words: *"There is no owner.
+They can remove you exactly as you can remove them."*
+
+> **For the spec owner.** `03-system-spec.md` stories **L1–L5** describe roles and
+> permissions that the architecture can no longer enforce. They are not weakened by
+> ADR-013; they are **void**. This is §N's list growing by one, and it is the single
+> largest spec consequence of this round. A screen that implied a hierarchy would be
+> promising something that can only be discovered to be false by the person who gets
+> removed.
+
+`18d · removing Aisha` is new, and it states three outcomes with a tick, a cross and
+a caution — *she stops seeing anything new*, *what is already on her phone stays
+there*, *your other keys change too*. The middle one is the one the product cannot
+do, and the board says *"we will not pretend otherwise"* rather than leaving it out.
+`18e` hands straight back to the keys screen, because rotating **is** placing three
+new keys.
+
+### Q·4 — 17d cash in hand does not survive. The reason is in the board itself
+
+Asked as a question for the designer, and the answer is **no — park it with the
+17-series.** It is not a feature that happens to be cheap to defer; it is a screen
+that only has a job while something is reading the bank.
+
+**The evidence is on the board.** `17d` opens with *Taken out ₦6,500.00 · ATM WDL
+LEKKI BR 0041* and its own note reads: *"Your bank sees the withdrawal. It never sees
+what you bought, so this is the one place the recording is yours to do."* Every word
+of that premise is a bank feed.
+
+**And the ledger does not need it.** `03-system-spec.md` **D16** defines cash left as
+*this cycle's income minus this cycle's movements*. There are no account balances in
+the model, so moving ₦6,500 from a bank to a pocket is not a movement at all — it
+changes nothing, and nothing needs recording until the money is spent. The person
+records the ₦1,200 of fuel when they buy it, exactly as they would have with a card.
+
+So the problem `17d` solves is **created by the feed, not by cash**: a feed shows an
+ATM line, the app would otherwise count it as spending, and `17d` exists to say that
+a withdrawal is not a purchase. With nothing reading the bank, nobody is ever shown a
+withdrawal to classify and the mistake never happens.
+
+**One honest caveat, because it is the real thing behind the question.** There *is* a
+cash problem that survives, and this screen is not its answer: someone spending cash
+records less reliably than someone spending by card, because nothing prompts them.
+That is a habit problem, and the app's answer to it is already the Add button and
+*cash left* on Home — not a ledger of pocket money. If it ever needs more, the thing
+to build is a prompt, not this screen.
+
+**Unaffected:** story **D7** — *"say where a savings transfer went — bank vault,
+Cowrywise, PiggyVest, cash at home"* — is about savings and stands untouched. Cash as
+a savings destination stays; cash in hand as an unaccounted pool goes.
+
+### Q·5 — Answers to §P, and what §P did not reach
+
+`§P` was raised from the build side on the same day and every item is now done.
+
+| | Asked | Done |
+|---|---|---|
+| P·1 | Three *Sign in* on the landing page | All three are **I already have a budget** — not *I have a recovery phrase*, because the phrase is the option we hope nobody picks and the default path is two keys |
+| P·2 | The hero's sign-up subline | **No account. No email, no password, nothing to verify.** |
+| P·3 | The paid-tier band | **Removed** — heading, three cards and the trust line |
+| P·4 | The pricing card | **Removed.** *Free, and not a trial* survives in the bullet list as *Not a trial and not a countdown* |
+| P·5 | Where the eight lines sit | **Immediately after the hero** — see below |
+| P·6 | *Free on one device* | **Free on every device you own** — and the same line in the footer of the landing **and** security pages, which §P did not reach |
+| P·7 | The closing block | *"Your figures, your devices, free — and not a trial. A second device or a second person is a key you hand over, not a sign-up."* |
+| P·8 | *Nisab, as you entered it* | **Nisab, fetched 5 Oct** — §O·O2 reaching the landing page |
+
+**P·5, the one that was a question.** The eight lines sit in their own band directly
+after the hero, on `--bg` with a hairline above it, under the kicker *How it works*
+and the headline **There is nothing to sign up for.** Two columns of four at 1440, one
+column at 390, each pair a soft question over an ink answer. The owner asked for the
+absence of an account to lead rather than sit in a privacy page, and this is the first
+thing below the fold. **The eight answers are verbatim.**
+
+**Two things §P did not list and would have shipped wrong.**
+
+1. **Settings' own row still said *Your account*** — *"Signing in, your devices, and
+   deleting the account"*, on all four `15` boards. It is now *Your sync* ·
+   *"Your keys, the devices holding one, and the stored copy"*.
+2. **The hero's trust line was the §10.1 sentence**, and it was inside the tier band,
+   so it went with it. That is the right outcome: see Q·7.
+
+### Q·6 — Transactions, and the segment that named a view that will not exist
+
+The `Your record | Bank movements` segmented control is off all sixteen live
+Transactions boards. Bank movement is deferred entirely, and a segmented control with
+one segment is not a control.
+
+- `09e · bank movements, not yours yet` is **deleted, not parked.** It draws a paywall
+  for a tier that does not exist, so it is not a deferred design — it is a wrong one.
+- `09d · bank movements` is **parked**, and moved onto page 13 with the queue it
+  belongs to. Page 13 is renamed *13 · Parked · bank movements, not to be built*.
+
+### Q·7 — What §10.1's sentence is for now
+
+**The guard stays exactly as it is.** *"your bank data never touches our servers"* is
+still forbidden everywhere and still appears nowhere.
+
+What changed is that the **approved** sentence — *"We never store your bank data in
+readable form."* — now has nowhere to stand. It was the honest claim while a feed
+existed; with the feed deferred there is no bank data at all, so on the landing page
+it was answering a question nobody asks while quietly implying we hold something we
+do not. It has come off all four landing boards.
+
+Page 20 now leads with **"We cannot read your budget."**, which is true by
+construction rather than by policy, and that claim carries its own limits in the same
+size type — see Q·8. **If bank movement is ever built, §10.1's sentence is the wording
+to come back to**, unchanged, which is why it stays in `tokens.md`.
+
+### Q·8 — Security and privacy, rewritten rather than edited
+
+`20` described what a server held. There is no server. The rewrite is in four blocks
+of the same weight:
+
+- **What we hold** — one encrypted file, and the address it sits at. That is the list.
+- **What we do not hold at all** — name, email, phone, card, BVN, NIN, a device list.
+- **What this does not protect you from** — a key you have shared · two keys somebody
+  finds · a copy already on someone's phone · losing your keys.
+- **How we decide** — the three tests, including that deleting the copy burns the
+  address rather than leaving it empty.
+
+The third block is the point of the rewrite. The owner's rule was exact: *"We cannot
+read your budget" is true. "Nobody can ever see your data" is not, once a key is
+shared or found.* A page that carried only the good half would be the first thing a
+person found out we had got wrong.
+
+`21` is re-homed from *in front of sign-up* to **in front of turning sync on**, and
+carries the same shape in three lines, the third of which is the limit.
+
+### Q·9 — Ten things the drawings imply that the spec has not agreed to
+
+Each is a behaviour or a data question. **None is settled by the design.**
+
+| | The drawing says | The spec owes |
+|---|---|---|
+| **Q9·1** | *"You can change this later in Settings"* under the chooser, and a **Change** row on `15d` | Whether switching recovery mode after the fact is supported. ADR-013 says wrappings can be added and removed without re-encrypting, so it should be cheap — but cheap is not the same as specified |
+| **Q9·2** | A key as **six groups of five** from a Crockford-style alphabet | The alphabet, the length and the checksum. The drawing fixes only the shape: grouped, monospace, and a QR beside it so the common path needs no typing |
+| **Q9·3** | `22e` asks for **word four and word nine** | Whether the check is two fixed positions or two random ones, and what happens on a wrong answer |
+| **Q9·4** | `23b` validates **nothing until the last word** | Confirmed as intent: a phrase that reports a wrong word at word three tells whoever is trying it which three were right |
+| **Q9·5** | `22b`'s *Back* makes **three new keys**, and the placed ones stop working | Whether going back regenerates or reuses. The board states the destructive reading because it is the safe one to draw |
+| **Q9·6** | *"Printed on 5 October. Lose the slip and you can print it again from Your sync"* | That a placed key can be re-materialised from a device that holds the data key |
+| **Q9·7** | `15d` separates **turn sync off** from **delete the stored copy** | Two distinct operations. ADR-013 makes deletion the remedy against a key believed found, so merging them would put the remedy behind the setting |
+| **Q9·8** | `18`/`18a` say **either person can remove the other** | Stories L1–L5, void — see Q·3 |
+| **Q9·9** | `18d` says rotation cuts off **every** device, not only the one removed | Stated in ADR-013; the flow after it (re-enrol the devices that stay) is drawn only as far as placing the new keys |
+| **Q9·10** | Sharing requires sync to be on | Household and sync are drawn as one mechanism, because ADR-013 says they are. Nothing yet says what Household shows when sync is off |
+
+### Q·10 — The generator is in the repository now
+
+The toolchain that produced every board was about forty Python modules that lived in
+a cloud container and were never committed — only the output was. **The container was
+reclaimed on 14 October and the toolchain went with it.**
+
+Nothing was lost, because the output is the source: every `.dc.html` carries its whole
+stylesheet inline and its theme as custom properties, and 246 of the 263 boards shared
+a byte-identical `<helmet>`. The replacement is in `docs/design/generator/` and it is
+deliberately smaller: **`mz.py` takes a committed board as a template and fills three
+slots in it** — the title, the frame's contents, the note — so the chrome, the fonts
+and the tokens are never retyped and a board drawn today cannot drift from one drawn
+in September. Edits to committed boards go through `patch_boards.py`, which asserts
+its match count before it writes.
+
+`generator/README.md` has the run order. Both build scripts are idempotent, which is
+not a nicety: a build script that is only correct the first time is one that will be
+run twice.

@@ -113,6 +113,40 @@ the column's height — then `Settings`, on the bottom edge.
 
 ---
 
+## 2b · Getting back **in** — the screens that replaced the account *(added 14 Oct, ADR-013)*
+
+> ### ⚠ Not to be confused with §2a
+>
+> §2a is **back navigation** — the chevron that returns you one step. This section is
+> about **recovering a budget**, which is a different thing wearing a similar name, and
+> the two are kept apart on purpose.
+
+[ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md) removed accounts, so
+`01`, `01a`, `02`, `03`, `03a` and `04` are **deleted, not superseded** — there is no
+password to forget and no address to send a link to. Nine screens stand where they
+stood, on canvas page **12 · Getting back in**.
+
+**Turning sync on asks one question and asks it once:** how do you want to be able to
+get back in? Three answers — *three keys, any two* (the default), *your devices only*,
+*one recovery phrase*.
+
+**The chooser is built so that no option wears a warning.** All three answer the same
+four questions in the same four slots — *what you keep · how you get back in · if you
+lose one · if someone finds one* — and the four rows are pinned to one height so the
+ticks and crosses line up across the cards. The weakest option is then simply the only
+card with two crosses on it, which is visible before a word is read. The reasoning,
+and the failure it is built to avoid, is `open-items.md` **§Q·1**.
+
+**Behaviour the spec still owes**, drawn but not agreed: ten items, `open-items.md`
+**§Q·9**. The three that most affect what gets built are the key encoding (§Q9·2),
+whether the recovery mode can be changed after the fact (§Q9·1), and whether going back
+from the keys screen regenerates them (§Q9·5).
+
+**Two rules that are design decisions, not preferences.** The three keys are never on
+one screen at the same time, because a photograph of that screen would be two of three.
+And nothing on any of these boards names the cryptography — not *Shamir*, not *HKDF*,
+not *share*. The honesty is in the scope of each claim.
+
 ## 2a · Getting back — binding on every page *(added 27 Sep, owner's call)*
 
 > *"You should add it for every screen — just like how you have at the top your

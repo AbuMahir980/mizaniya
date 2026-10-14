@@ -3,7 +3,7 @@
 The design stop for Mizaniya, produced 10 September 2026 from
 `docs/06-page-specs.md` at commit `6bd2291` and `docs/design/DESIGN-BRIEF.md`.
 
-**263 artboards over seventeen pages**, as of 27 September — every screen at 360
+**277 artboards over seventeen pages**, as of 14 October — every screen at 360
 **and** 1440, light **and** dark, the two widths of one screen on the same row,
 and **one page per screen**.
 
@@ -16,8 +16,8 @@ and **one page per screen**.
 >
 > | | Holds | Files | Manifest |
 > |---|---|---|---|
-> | **The app** — the canvas under review | pages 4–10, 13 | **137 of 200** | `canvas/canvas.json` |
-> | **Around the app** | pages 1–3, 11–12, 14–17 | **128 of 200** | `canvas/canvas-front.json` |
+> | **The app** — the canvas under review | pages 4–10, 13 | **132 of 200** | `canvas/canvas.json` |
+> | **Around the app** | pages 1–3, 11–12, 14–17 | **145 of 200** | `canvas/canvas-front.json` |
 >
 > **Re-cut on 27 September, along the owner's own line.** The first cut put the
 > front door and the materials on the second canvas, and the owner asked — fairly
@@ -152,8 +152,8 @@ numbered in flow order, and the same stem names the `.dc.html` beside it in `can
 | Page | Files | What is on it |
 |---|---|---|
 | 1 · Landing page and first launch | `11-landing-*`, `01-first-launch-*` | 1440 and 390, the pointer states, the strongest moment (item 34), and the screen an **installed** copy opens cold. |
-| 2 · Security and privacy | `20-*`, `21-*` | The page, and the same page as the modal sign-up opens. §10.1's sentence lives here **once**. |
-| 3 · Account and setting up | `01-*` … `05.6-*` | Sign up · address already taken · sign in · forgot · check your email · set a new password, then the six setting-up steps and the three pickers 360 needs. |
+| 2 · Security and privacy | `20-*`, `21-*` | The page, and the panel shown in front of turning sync on. Rewritten 14 October: the claim is **"We cannot read your budget"**, and its limits are set in the same size type as the promise. |
+| 3 · Setting up | `05.1-*` … `05.6-*` | The six setting-up steps and the three pickers 360 needs. **The account flow that opened this page is gone** — ADR-013, see page 12. Setting up itself never needed an account and now cannot have one. |
 | 4 · Home | `07-*` | Home, amber, over, **no plan**, **a brand-new account** (`07c2`), a plan with no movements, offline, this cycle, the More sheet. `07c` and `07c2` are two different first screens: onboarding's saved-pots and debts steps are optional. |
 | 5 · Plan | `08-*` | Plan · the row menu · no categories yet · nothing allocated yet · add a category · **scrolled, header pinned** (`08e`). `08e` is the one board clipped to a viewport, because a board has no fold and is therefore a bad guide to how tall a screen feels. |
 | 6 · Transactions | `09-*` | The list, **both** empty states — they want opposite things — and **savings by destination** (`09c`), §7.4's subtotal, which the spec says needs no screen of its own and was therefore on none. |
@@ -161,10 +161,10 @@ numbered in flow order, and the same stem names the `.dc.html` beside it in `can
 | 8 · Debts and goals | `11-*`, `12-*` | Debts and Goals (no tabs at 1440) · Goals at 360 · add a debt · add a goal · the debt record. |
 | 9 · Months | `13-*` | Empty and populated. A cycle is a salary month, not a calendar one. |
 | 10 · Zakat | `14-*` | The estimate and its workings. |
-| 11 · Settings | `15-*` | Settings, and signed out. **The sidebar's bottom group at 1440** (§2). |
-| 12 · What an account adds | `16-*` | Free and lapsed. **No padlock anywhere** — item 24, and `build_boards.py` fails if the word appears. |
-| 13 · Bank movements | `17-*` | The queue, the duplicate case, nothing to sort, **a cash withdrawal** (`17c`) and **Cash in hand** (`17d`, both widths). A withdrawal is a *move*, not a spend — the one row the queue asks no category for, because there is none to ask. **Its own nav destination**, shown only when a bank is linked. |
-| 14 · Household | `18-*` | Two amounts for one expense, and for a savings target. |
+| 11 · Settings | `15-*` | Settings and its four pages. **The sidebar's bottom group at 1440** (§2). `15d` is now **your sync** — your keys, the devices holding one, and the two different ways of stopping. |
+| 12 · Getting back in | `22-*`, `23-*` | What replaced the account. The three-way chooser, the three keys and the twelve words, and the two screens that take them back on a new device. **No padlock anywhere** — item 24 — and nothing here names the cryptography. |
+| 13 · Parked — not to be built | `09d-*`, `17-*` | Bank movement, deferred entirely by ADR-013 until someone using the product asks for it and says they would pay. The queue, the duplicate case, nothing to sort, a cash withdrawal, **Cash in hand** (`17d`) and the in-Transactions view (`09d`). **They stay on the record as the design for it; none of them is to be built.** |
+| 14 · Household | `18-*` | Just you, shared with Aisha, two amounts for one expense and for a savings target — and **removing somebody** (`18d`, `18e`), which ADR-013 made a real flow. **There are no roles any more**: possession of a key is the whole of the authorisation, so either person can remove the other. |
 | 15 · Import and export | `19-*` | The three-stage flow — spec §7.9, the most dangerous action in the app. |
 | 16 · Mark | `00-cover-*`, `00-logo-*` | The design-stop cover, and the mark: construction grid, sizes, app icon, favicon, wordmark lockups, misuses. |
 | 17 · Foundations | `00-primitives-*`, `00-style-*`, `05a-debt-record-print.png` | Every component in every state — including **loading, empty and error**, the last added 27 September because there was not one Retry state on the whole canvas — the palette and type tile, and the printed record: A4, black and white, no app chrome. |
