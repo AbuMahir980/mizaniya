@@ -436,7 +436,17 @@ salary.
 
 > **We never store your bank data in readable form.**
 
-That exact string appears on the landing page and on **sign-up**, and the two must
+**Where it stands after ADR-013 — 14 October 2026.** Bank movement is deferred
+entirely, so there is no bank data, and the sentence had nowhere left to stand. On the
+landing page it was answering a question nobody asks while quietly implying we hold
+something we do not, so it has come off all four landing boards. **The ban above is
+unchanged and absolute** — the false sentence is still forbidden everywhere and still
+appears nowhere. What the page leads with now is *"We cannot read your budget."*, which
+is true by construction rather than by policy, and which carries its own limits in the
+same size type on page `20`. **If bank movement is ever built, the wording below is
+what to come back to, unchanged.** That is why it stays here.
+
+The sentence used to appear on the landing page and on **sign-up**, and the two had to
 be **character-identical** — two slightly different privacy claims read as a company
 that is not sure, which is worse than one plain one. It lives here so there is one
 copy of it; a screen or a page quotes this line rather than rewriting it.
