@@ -195,6 +195,27 @@ When a piece of work is done:
 The design comes from the designer, in `docs/design/`. **`tokens.md` is
 authoritative for values; the PNG is what you build from.**
 
+**A checkout each — added 14 October, after it cost a pull request.** Two Claude
+sessions work in this repository: one builds, one draws. On 14 October they were
+both in the main checkout, and the drawing one committed onto the branch the
+building one had open. Nothing was lost, but the pull request had to be thrown
+away and rebuilt from `main`.
+
+- **The designer works in `.claude/worktrees/design`**, on `design/drop`. It is a
+  real checkout of this same repository, so `git` there behaves normally and
+  commits land on that branch and no other.
+- **The build session keeps the main checkout** at the repository root.
+- **Never `npm install` in the design worktree, and never symlink `node_modules`
+  into it.** Nothing there needs it: the boards are HTML and the generator is
+  Python.
+- Both are ignored by git and by ESLint — without the ESLint ignore it walks in
+  and lints **104 files twice**, reporting faults that are not in this branch at
+  all. The naming, spacing and repo-rule guards are already anchored at
+  `apps/web/src`, `packages/core/src` or `git ls-files`, so they cannot wander in.
+- **After a drop merges, reset the design worktree onto `main`** rather than
+  carrying the old branch forward: `git -C .claude/worktrees/design fetch && git
+  -C .claude/worktrees/design reset --hard origin/main`.
+
 1. **Open the PNG first** — `docs/design/<n>-<screen>-360-light.png`, then
    `-dark`, then `-1440-light` — and **describe the screen before writing
    anything.** Every screen rebuilt in this project was first built from fragments
