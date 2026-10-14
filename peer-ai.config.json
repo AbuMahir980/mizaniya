@@ -66,6 +66,12 @@
         "reason": "Two files in apps/web are over the 400-line limit once the rule is actually applied: home-screen.tsx at 500 counted lines and onboarding.tsx at 660. Nothing else in source is over. The limit was never reached before 2026-10-13 because REACT-03's deferred 150-line warning replaced this enforced 400-line error for every .tsx file, ESLint taking the last setting of a rule for a file; peer-ai-eslint-config next.16 fixed that and the breach became visible. Deferred rather than fixed for the reason already accepted for TS-07 and REACT-03: both files are built screens due to be rebuilt against the 263 artboards, so splitting them now would cut at line counts rather than along the design's own structure, and the cuts would be thrown away. Reviews still apply the rule, and a new file over the limit is still reported.",
         "decidedBy": "Qudus Lawal",
         "untilItem": "ITEM-2"
+      },
+      {
+        "rule": "GHA-02",
+        "reason": "osv-scanner's first run lists 19 advisories across 11 packages, 5 critical, and every one is marked dev: @vitest/mocker, brace-expansion, braces, esbuild, handlebars, postcss-selector-parser, serialize-javascript, source-map-js, tinypool, vite and vitest. None is in the shipped bundle - the browser downloads none of them. 18 have a fix, but the fixes are major jumps (vite 5 to 6, vitest 2 to 3 or 4) that can change config shape and test behaviour, and braces 3.0.3 has no fixed version at all. Reporting rather than blocking until ITEM-12 does those upgrades behind the full test suite, so the daily scan starts catching new advisories today instead of waiting for the upgrades. The other three jobs - secrets, workflows, code - block from the start.",
+        "decidedBy": "Qudus Lawal",
+        "untilItem": "ITEM-12"
       }
     ],
     "documents": [
@@ -85,7 +91,8 @@
     "onExisting": "map",
     "profiles": [
       "react",
-      "typescript"
+      "typescript",
+      "github-actions"
     ]
   },
   "gates": {
