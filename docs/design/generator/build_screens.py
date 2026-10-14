@@ -22,7 +22,7 @@ What got cut was never a qualifier — *"we hold no key to it"* and *"one alone
 opens nothing"* are claims and they stay. What got cut was me explaining my own
 design to the person using it, which is a thing for the note under the board.
 """
-import os, sys
+import io, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mz, recovery as r
 from mz import ic
@@ -118,6 +118,14 @@ N15D = ("&sect;15d. <b>Your account became your sync.</b> It is a setting now, n
         "new copies, <i>delete the stored copy</i> is ADR-013's remedy against a "
         "key believed found, and merging them would put the remedy behind the "
         "setting.")
+N18G = ("&sect;18g. <b>&sect;R&middot;10: the screen stays when sync is off.</b> "
+        "Sharing needs sync, because ADR-013 makes them one mechanism &mdash; but "
+        "hiding Household until then makes the feature undiscoverable by exactly "
+        "the person looking for it. Someone asking <i>can my spouse see this?</i> "
+        "finds nothing and concludes the answer is no. So the screen is here, with "
+        "what sharing is in a line and one action. <b>Not a locked state and not an "
+        "upsell</b> &mdash; there is nothing to buy, and the word <i>unlock</i> "
+        "appears nowhere in this product.")
 N18F = ("&sect;18f. <b>The partner&rsquo;s side of ADR-014, said out loud.</b> The "
         "record is explicit that seniority is of the <i>budget</i>, not of the "
         "household, and that no screen carries the word <i>admin</i> &mdash; so "
@@ -159,7 +167,8 @@ def sync_body(wide):
                          "One here, one printed, one on Aisha&rsquo;s phone.",
                          chip("Show my keys"))
                      + row("Change this",
-                           "Switch to devices only, or a recovery phrase.",
+                           "Switch to devices only, or a recovery phrase. "
+                           "Anything you printed stops working.",
                            chip("Change"), last=True))
     devs = card_rows("Devices holding a key",
                      row("This phone", "Added 5 October.")
@@ -204,6 +213,20 @@ def partner_household():
               'stays on it either way.</div>')
 
 
+def household_sync_off():
+    """18g — §R·10. The screen a person reaches before sync exists."""
+    return ('<div class="card" style="padding:18px 20px">'
+            '<div class="mlab" style="margin-bottom:7px">This plan</div>'
+            '<div class="ser" style="font-size:22px;line-height:28px">Just you.</div>'
+            '<div style="font-size:13.5px;line-height:21px;color:var(--soft);'
+            'margin-top:8px">Sharing hands someone a key, so it needs sync on. '
+            'One budget, not a copy each.</div>'
+            '<div style="margin-top:16px">'
+            + mz.btn("Turn sync on to share", "p", "min-width:230px")
+            + '</div></div>'
+            + '<div style="height:18px"></div>' + r.DISAGREE)
+
+
 def build():
     made = []
     for th in ("light", "dark"):
@@ -227,6 +250,20 @@ def build():
                          + '<div style="height:12px"></div>' + r.sharing_card()
                          + '<div style="height:14px"></div></div>', nav="Plan"),
                 note, wide=False))
+        # ── 18g · sync is off ──
+        left_g = household_sync_off()
+        made.append(mz.write(
+            f"WebHouseholdOff{T}", f"18g · Household · sync is off · 1440 · {th}", th,
+            mz.shell("Plan", mz.head1440(CRUMB_HH, "Household",
+                                         "Who else is in this budget.")
+                     + two_col(left_g, r.sharing_card()), 1180, add=""), N18G))
+        made.append(mz.write(
+            f"MwHouseholdOff{T}", f"18g · Household · sync is off · 360 · {th}", th,
+            mz.phone(mz.backbar("Household", "Plan")
+                     + '<div style="padding:18px 20px 0">' + left_g
+                     + '<div style="height:12px"></div>' + r.sharing_card()
+                     + '<div style="height:14px"></div></div>', nav="Plan"),
+            N18G, wide=False))
         # ── 18f · the partner's view ──
         left_p = partner_household()
         made.append(mz.write(
@@ -343,7 +380,12 @@ N22A = ("&sect;22a. <b>The three keys are never on one screen together.</b> A "
         "placing is the confirmation, because unlike writing words down it is "
         "something the app can observe.")
 N22B = ("&sect;22b. The same screen once both keys have left the phone. <i>Back</i> "
-        "is still offered and still says what it costs.")
+        "is still offered and still says what it costs &mdash; and &sect;R&middot;5 "
+        "put that sentence <b>on the button&rsquo;s own confirmation</b> rather "
+        "than in help text under it, which is a dialog this set does not draw yet. "
+        "The reason it cannot be softened: by the time <i>Back</i> is reachable a "
+        "key may already be on paper, and a printed key exists in the world whether "
+        "or not the flow finished.")
 N22C = ("&sect;22c. <b>One key, and the screen says so.</b> Somebody who has just "
         "been told three things open their budget needs to know what they are "
         "holding up to a camera. The QR is the common path, the typed code the "
@@ -355,7 +397,13 @@ N22D = ("&sect;22d. The weakest option, drawn as plainly as the others. ADR-013 
         "actually do, rather than the abstraction they would skim past.")
 N22E = ("&sect;22e. <b>Writing something down is not observable; typing it back is.</b> "
         "The three keys need no check of this kind because placing them leaves a "
-        "trace. Twelve words leave none.")
+        "trace. Twelve words leave none. <b>The two positions are chosen at random "
+        "each time</b> (&sect;R&middot;3) &mdash; seven and eleven here are an "
+        "example, not the pair. Fixed positions can be learned without the phrase "
+        "ever being written down, which defeats the only thing the screen is for. "
+        "A wrong answer re-asks with two different words and offers to show the "
+        "phrase again; nothing is leaked by being generous, because the person was "
+        "looking at it a moment ago.")
 N23 = ("&sect;23. <b>What stands where sign-in stood.</b> Everyone arriving here has "
        "the muscle memory of a <i>forgot password</i> link and will hunt for one, "
        "so the answer sits where the link used to be, phrased as the reason rather "
@@ -367,7 +415,7 @@ N23B = ("&sect;23b. The same screen for the twelve-word phrase. Word five is liv
         "reports a wrong word at word three tells whoever is trying it which three "
         "were right.")
 
-CONFIRM_SUB = "Type the fourth and the ninth from your paper."
+CONFIRM_SUB = "Type word seven and word eleven from your paper."
 
 
 def phrase_fields(cols):
@@ -414,7 +462,8 @@ def build_recovery():
             f"WebKeysDone{T}", f"22b · Your three keys · all three placed · 1440 · {th}",
             th, r.flow_wide(2, r.keys_wide(True) + r.foot_wide(
                 "Turn sync on", True,
-                "Back makes three new keys; these stop working.")), N22B))
+                "Going back makes three new keys. Anything you have "
+                                       "already printed or placed stops working.")), N22B))
         made.append(mz.write(
             f"MwKeysDone{T}", f"22b · Your three keys · all three placed · 360 · {th}",
             th, r.flow_phone(2, r.KEYS_TITLE, r.keys_phone(True),
@@ -464,7 +513,7 @@ def build_recovery():
         conf = ('<div style="font-size:14px;line-height:23px;color:var(--soft);'
                 f'margin-bottom:22px">{CONFIRM_SUB}</div>'
                 '<div style="max-width:620px">'
-                + r.phrase_grid(3, hide=(4, 9)) + '</div>')
+                + r.phrase_grid(3, hide=(7, 11)) + '</div>')
         made.append(mz.write(
             f"WebPhraseCheck{T}", f"22e · Confirm two of the words · 1440 · {th}", th,
             r.flow_wide(2, conf + r.foot_wide("Turn sync on", True, None, False)),
@@ -474,7 +523,7 @@ def build_recovery():
             r.flow_phone(2, "Check your paper",
                          f'<div style="font-size:13.5px;line-height:21px;'
                          f'color:var(--soft);margin-bottom:18px">{CONFIRM_SUB}</div>'
-                         + r.phrase_grid(2, hide=(4, 9)),
+                         + r.phrase_grid(2, hide=(7, 11)),
                          r.foot_phone("Turn sync on", True, None, False)), N22E,
             wide=False))
         for one_in, num, note, nt in ((False, "23", "· two keys", N23),
@@ -502,3 +551,80 @@ def build_recovery():
 if __name__ == "__main__":
     n = len(build()) + len(build_recovery())
     print("built", n, "boards")
+
+
+# ══ 07h · Home, on a device the rotation left behind ═════════════════════════
+# §R·9. Rotation moves the budget to a new address, so every device has to be
+# re-enrolled — not only the one being removed. The owner's OTHER phone is the
+# case nobody had drawn, and it is the dangerous one: the budget still opens,
+# the figures still render, and every one of them is from before the rotation.
+#
+# It is NOT an error and it is NOT an empty state. Nothing went wrong and the
+# data is real; it is simply old. So it is an inline banner — the component the
+# primitives already have — above the figure rather than in front of it, because
+# blocking a budget that still works would be a worse lie than showing it.
+#
+# It sits on **Home** rather than only in Settings for one reason: Home is where
+# the figures are, and a stale figure is the whole of the harm.
+BEHIND = ('<div style="display:flex;gap:14px;align-items:center;background:var(--oc2);'
+          'border:1px solid var(--line);border-radius:13px;padding:14px 16px;'
+          'min-height:44px;margin-bottom:26px">'
+          '<div style="flex:1"><div style="font-size:14px;font-weight:600;'
+          'color:var(--ink)">This device is holding an older copy</div>'
+          '<div style="font-size:12.5px;line-height:19px;color:var(--soft);'
+          'margin-top:2px">The keys changed on 5 October. Everything below is from '
+          'before that.</div></div>'
+          '<span class="chip" style="min-height:38px;padding:0 14px;font-size:13px">'
+          'Open it with two keys</span></div>')
+
+N07H = ("&sect;07h. <b>&sect;R&middot;9, and it is the dangerous state.</b> Rotation "
+        "moves the budget to a new address, so the owner&rsquo;s <i>other</i> phone "
+        "is cut off too &mdash; and it does not look cut off. The budget opens, the "
+        "figures render, and every one of them is from before the rotation. "
+        "<b>Not an error and not an empty state</b>: nothing went wrong and the "
+        "data is real, it is simply old. So it is an inline banner above the figure "
+        "rather than a sheet in front of it &mdash; blocking a budget that still "
+        "works would be a worse lie than showing it. It sits on Home and not only "
+        "in Settings because Home is where the figures are, and a stale figure is "
+        "the whole of the harm. The only board on the canvas that breaks "
+        "<code>motion.md</code> &sect;0&rsquo;s neighbourhood deliberately: the "
+        "banner is above the path to the figure, and it does not animate.")
+
+
+def build_behind():
+    """Derived from the committed Home boards rather than redrawn, so the only
+    difference between `07` and `07h` is the banner."""
+    import re
+    made = []
+    # At 360 Home already carries `<!--offline-seam-->`, the point a banner is
+    # meant to go in. At 1440 there is none, so the insert goes at the top of the
+    # max-width column — the same place, named differently.
+    MARK = '<div style="padding:36px;display:flex;justify-content:center">'
+    SEAM = "<!--offline-seam-->"
+    for th in ("light", "dark"):
+        T = th.title()
+        for pre, w in (("Web", "1440"), ("Mw", "360")):
+            src = io.open(os.path.join(mz.SRC, f"{pre}Home{T}.dc.html"),
+                          encoding="utf-8").read()
+            if pre == "Mw":
+                assert src.count(SEAM) == 1, (pre, T)
+                j = src.index(SEAM) + len(SEAM)
+            else:
+                i = src.index(MARK)
+                j = src.index('">', src.index('<div style="width:100%', i)) + 2
+            band = (BEHIND if pre == "Web" else
+                    '<div style="padding:18px 20px 0">' + BEHIND + '</div>')
+            out = src[:j] + band + src[j:]
+            # the title line and the note are the board's own, not the frame's
+            m = mz.TITLE_RE.search(out)
+            out = (out[:m.start(2)]
+                   + f"07h · Home · this device is holding an older copy · {w} · {th}"
+                   + out[m.end(2):])
+            nm = out.index("<!--/note-->")
+            n1 = out.rindex("</div>", 0, nm); n0 = out.rindex('">', 0, n1) + 2
+            out = out[:n0] + N07H + out[n1:]
+            assert out.count("<div") == out.count("</div>"), (pre, T)
+            io.open(os.path.join(mz.SRC, f"{pre}HomeBehind{T}.dc.html"), "w",
+                    encoding="utf-8").write(out)
+            made.append(f"{pre}HomeBehind{T}")
+    return made
