@@ -58,7 +58,7 @@ Two design decisions the sheet forces and the app should keep: **every movement 
 8. **States done properly**: loading, empty (first-run), invalid input, failed save with retry, offline (local-first means it works with no network; a banner says so).
 9. **Data**: local storage via IndexedDB (Dexie) behind a repository interface, so v2 can swap in an API without touching screens. Export/import JSON. Seed data script with invented numbers for screenshots and tests.
 10. **Tests**: Vitest on the cycle maths, safe-to-spend, rollover, projected gap; React Testing Library on the quick-add flow.
-11. **Design system**: `src/design/tokens.ts` + `src/ui/*` primitives, built in the Shared Rules phase before any screen. Muted, high-contrast palette; one accent; Naira formatting everywhere (₦1,250,000.00); dark mode from day one via tokens.
+11. **Design system**: `apps/web/src/design/tokens.ts` + `apps/web/src/ui/*` primitives, built in the Shared Rules phase before any screen. Muted, high-contrast palette; one accent; Naira formatting everywhere (₦1,250,000.00); dark mode from day one via tokens.
 
 **Islamic elements in v1 (light, useful, no preaching):** a **Zakat** panel that tracks whether savings have stayed above the nisab for a lunar year and estimates 2.5% due (nisab value editable, with a note on where to look it up); **Sadaqah** and **Family support** as default categories; **debt records** written in the spirit of 2:282 (date, parties, amount, terms, witnesses field, shareable); a Hijri date shown next to the Gregorian one; no interest-bearing product suggestions, ever.
 
@@ -82,7 +82,22 @@ Bank/wallet sync via Mono or Okra (premium); household sharing (spouse view, sha
 
 ## 6. Peer AI kick-off — SUPERSEDED
 
-The prompt below is the first draft. **Use the prompt in `Mizaniya_Kickoff_Pack.md` instead** — it carries the corrections (fast learning mode, standards folder, repo rules inline, design stop, PolyForm licence). This section is kept only for the record.
+**The prompt below is history, and the file it used to point at is gone.**
+The kick-off pack, once at `docs/Mizaniya_Kickoff_Pack`, was deleted on 2026-10-14 (ITEM-13): it described
+Peer AI v0 — a vendored `./peer-ai` folder, named phases, `.peer-ai-state.json`, a
+separate private repository for a server, paid tiers and a v3 — none of which exists.
+The instructions this build runs on are in `CLAUDE.md`, and the five repo rules are
+verbatim in `CONTEXT.md`, which is their authoritative home.
+
+**One sentence of the stakeholder's brief lived only in that file, and is kept here so
+the record is complete.** Its version of the email below ended with: *"A small API for
+sync and household sharing comes later, so the data layer sits behind a repository
+interface from day one."* The repository interface was built and still stands; the small
+API was removed by
+[ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md), which replaced sync
+with an encrypted blob and household sharing with holding a key.
+
+This section is kept only for the record.
 
 ### 6 (original draft) — paste this into Claude Code in the new repo folder
 
@@ -96,7 +111,7 @@ HOW TO RUN IT
 1. Read ./peer-ai/README.md and ./peer-ai/shared/ first, then tell me in plain language what SETUP will write to this folder before you do it.
 2. Run SETUP. Detect Claude Code, write CLAUDE.md, CONTEXT.md and .peer-ai-state.json from the templates. Add to CONTEXT.md the five repo rules I will paste separately (public repo; no real financial data anywhere; invented seed data only; no employer or client names; README leads with the problem and screenshots). STOP and say "Setup complete." Wait for me.
 3. Run UNDERSTAND against the brief. Ask me any question the brief leaves open before writing the understanding document. Then ARCHITECT (local-first; IndexedDB via Dexie behind a repository interface; a `core/` package with pure TypeScript for cycle maths, safe-to-spend, rollover, projected gap and zakat estimate; React app consuming it), SYSTEM SPEC, and API CONTRACT (define the repository interface and the JSON export/import schema as the "API" — there is no server in v1). STOP after API CONTRACT. Wait for me.
-4. Run SHARED RULES. This is where the design system lives: create `src/design/tokens.ts` (colour incl. dark mode, type scale, spacing, radius, elevation), and `src/ui/` with Button, Input, Select, Card, Sheet, StatTile, ProgressBar, Badge, Tabs, Toast, EmptyState, Table. Naira formatting utility. Rule: screens may only use these primitives. STOP and show me the primitives rendered in a scratch page. Wait for me.
+4. Run SHARED RULES. This is where the design system lives: create `apps/web/src/design/tokens.ts` (colour incl. dark mode, type scale, spacing, radius, elevation), and `apps/web/src/ui/` with the primitives the screens need. *What was actually built is 23 component files, listed in `docs/02-architecture.md`; several names in the original list — StatTile, ProgressBar, Toast, EmptyState — were never built under those names.* Naira formatting utility. Rule: screens may only use these primitives. STOP and show me the primitives rendered in a scratch page. Wait for me.
 5. PAGE SPECS for: Onboarding, Home, Plan, Transactions (+ Quick Add sheet), Debts & Goals (+ debt record view), Months, Settings. Each spec lists its loading, empty, error, offline and success states explicitly.
 6. BUILD in this order, one commit per screen: core maths with Vitest tests first; Onboarding; Home; Quick Add; Plan; Transactions; Debts & Goals; Months; Settings; export/import; seed script with invented data. Keep it small; anything not in the brief goes into docs/backlog.md, not into the code.
 7. Run the CODE REVIEW agent and the SECURITY AUDIT agent from ./peer-ai/agents/ on the build; show me their findings; fix what they flag; then TESTING and DOCUMENTATION phases. README structure: problem, screenshots, features, how it works (cycles, envelopes, debts, projected gap), running locally, roadmap (v2 Expo, v3 sync/sharing), licence.

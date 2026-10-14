@@ -309,7 +309,7 @@ two of someone's expenses were one.**
 ## 5 · What this brief does not decide
 
 Layout, hierarchy, palette, type, and the motion values themselves are **yours**.
-Where this and the spec disagree, `peer-ai/shared/design-data-contract.md` applies:
+Where this and the spec disagree, the split in `CLAUDE.md` §7 applies — it moved there when `peer-ai/` was deleted in the migration to Peer AI 1.0:
 design owns layout, spacing, type, colour and motion; the spec owns behaviour, states
 and data. **Name it and log it — never pick a side quietly.**
 

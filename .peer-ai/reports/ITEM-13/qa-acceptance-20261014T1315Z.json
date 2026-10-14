@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "skill": "qa-acceptance",
+  "workItem": "ITEM-13",
+  "at": "2026-10-14T13:15:00Z",
+  "scope": {
+    "base": "241a8cec71ae19f536e271a949859c59ad843177",
+    "head": "a4e146f12719cca3f67f08c8551229fc9c6862fa",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "CLAUDE.md",
+      "CONTEXT.md",
+      "README.md",
+      "docs/01-requirements-summary.md",
+      "docs/05-coding-standards.md",
+      "docs/06-page-specs.md",
+      "docs/08-issue-plan.md",
+      "docs/10-design-brief.md",
+      "docs/open-items.md",
+      "docs/product-brief.md"
+    ]
+  },
+  "inputs": [
+    ".peer-ai/work/ITEM-13.json",
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    ".peer-ai/map.json",
+    "CONTEXT.md"
+  ],
+  "inventory": [
+    {
+      "id": "criterion:1",
+      "kind": "contract",
+      "location": {
+        "file": "docs/05-coding-standards.md",
+        "line": 196
+      }
+    },
+    {
+      "id": "criterion:2",
+      "kind": "contract",
+      "location": {
+        "file": "docs/05-coding-standards.md",
+        "line": 330
+      }
+    },
+    {
+      "id": "criterion:3",
+      "kind": "contract",
+      "location": {
+        "file": "docs/product-brief.md",
+        "line": 82
+      }
+    },
+    {
+      "id": "criterion:4",
+      "kind": "check",
+      "location": {
+        "file": ".peer-ai/map.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:5",
+      "kind": "contract",
+      "location": {
+        "file": "CLAUDE.md",
+        "line": 43
+      }
+    },
+    {
+      "id": "check:link-scan",
+      "kind": "check",
+      "location": {
+        "file": "docs/05-coding-standards.md",
+        "line": 1
+      }
+    },
+    {
+      "id": "check:assess",
+      "kind": "check",
+      "location": {
+        "file": ".peer-ai/map.json",
+        "line": 1
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "AC-1",
+      "item": "criterion:1",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "'Every one of the 62 rules A1 to O4 has a row naming the Peer AI rule or rules that cover it, or saying in words that none does, with no rule left out.' Checked by extracting every rule id declared in docs/standards/frontend-engineering-standards.md - 62 of them - and every id appearing in section 7 of docs/05-coding-standards.md, then differencing the two sets: nothing missing. Four rows say in words that no Peer AI rule covers them, each with a reason to keep the project rule: B5 what belongs in context, C2 composition before context before store, N3 the pinned Expo SDK, O1 kebab-case filenames. Four more record that the number is the project's where Peer AI leaves it open: C1's two components, D1's 150 lines, D2's seven props, J1's 44px."
+    },
+    {
+      "rule": "AC-2",
+      "item": "criterion:2",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "'Read the other way, the Peer AI rules with no project equivalent are listed too.' The last subsection of section 7 lists them by group: four TypeScript rules that all block (TS-05, TS-06, TS-09, TS-10), four React rules plus REACT-09 with its deferral reason, seven CODE rules, four DES rules, five TEST rules, REL-01, REL-04, REL-09, four PERF rules, the SEC rules that are live here against the majority that describe a server, three MONEY rules, five DEL rules, and the five GHA rules added yesterday. Each says whether it applies today, and the section closes by stating that none of this is a second standard."
+    },
+    {
+      "rule": "AC-3",
+      "item": "criterion:3",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "'Both files are deleted, nothing links to either, and what each carried that is still true lives somewhere current.' git rm removed both; a scan of every markdown link in every tracked file resolves against the filesystem with zero broken. What moved rather than died: the kick-off pack held one sentence of the stakeholder's brief that the product brief's copy of the same email lacked, and it is now quoted in docs/product-brief.md section 6 with ADR-013's effect on it stated; the repo rules it carried are verbatim in CONTEXT.md, which is their authoritative home; and 07's only original content, its 'what lives where' table and its argument about drift, is now section 6 of 05. CONTEXT.md's recorded decision to keep the pack is amended in place rather than deleted, so the reasoning survives next to the reversal."
+    },
+    {
+      "rule": "AC-4",
+      "item": "criterion:4",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "'project_map flags no file for naming a path that does not exist.' peer-ai assess now prints no 'documents that may no longer hold' section at all, where before this change it named six files. It took three passes: the map reports one stale path per file per run, so fixing the six surfaced five more - peer-ai/AGENTS.md and three phase files in the requirements summary, the BUILD pointer in the issue plan, three design-contract references in the designer channel, and the Home canvas, which the re-cut renamed from HomeLight.dc.html to MwHomeLight at 360 and WebHomeLight at 1440. Two of the five were paths introduced in this change itself, while recording the deletions."
+    },
+    {
+      "rule": "AC-5",
+      "item": "criterion:5",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "'CLAUDE.md section 2 points at the map rather than restating the rules, and the precedence is written in exactly one place.' Section 2 now names docs/05-coding-standards.md section 7 as where the mapping lives, gives the D1 example as the reason to read it rather than guess, and says the precedence is stated there and not repeated. The sentence 'where the two disagree, docs/standards/ wins' appears once in the repository outside CONTEXT's historical entries: in section 7. Checked by searching for it. Re-checked at a4e146f, which added one more rule to section 5 of the same file: mark a pull request ready before the last push, because Peer AI's gate decides draft state from the stored event payload and a push landing while the item is still a draft leaves a skipped gate as the head status. That is a CI ordering rule rather than a standards rule, so it does not touch the precedence sentence, which is still in exactly one place."
+    },
+    {
+      "rule": "TEST-09",
+      "item": "check:assess",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "Both checks were seen failing before they were trusted. peer-ai assess named six documents before the first pass and a different one after each of the next two, so its output was watched changing rather than assumed; it now names none. The rule-coverage check was run against an incomplete draft first, which reported B1 and B2 missing - a false alarm from the joint row 'B1 / B2', confirmed by reading the row rather than by loosening the check until it passed. A third check was seen failing after the reviews were first recorded: the Peer AI gate refused this pull request with 'ITEM-13 is at ship, but its verify looked at f4eac53, and CLAUDE.md changed since', which is why this report exists at a second commit rather than being left to stand on a stale one."
+    },
+    {
+      "rule": "TEST-01",
+      "status": "not-applicable",
+      "reason": "No bug in the product was fixed. The defect class is a document that contradicts the code or itself, and what guards against it returning is peer-ai assess, which names any document whose paths have gone, plus the map in section 7, which gives a reviewer one place to check whether two rule numbers mean the same thing."
+    },
+    {
+      "rule": "TEST-02",
+      "status": "not-applicable",
+      "reason": "No user journey is in scope. Nothing under apps/web/src or packages/core changed; the 487 tests are untouched and verify passed in CI on this commit."
+    },
+    {
+      "rule": "TEST-03",
+      "status": "not-applicable",
+      "reason": "No business rule changed. The change is documentation, a deletion of two documents and one config edit that was reverted."
+    },
+    {
+      "rule": "TEST-04",
+      "status": "not-applicable",
+      "reason": "No test was added or changed. The two claims this change makes - that all 62 rules are mapped, and that no document names a dead path - were each checked by running something rather than asserted."
+    },
+    {
+      "rule": "TEST-08",
+      "status": "not-applicable",
+      "reason": "No input boundary, route or permission is in scope."
+    },
+    {
+      "rule": "TEST-12",
+      "item": "check:link-scan",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "What was checked is what ships: the link scan and the rule-coverage check both read the committed files at their committed paths, which are the files every reader opens. There is no generated copy of any of these documents."
+    },
+    {
+      "rule": "CODE-15",
+      "item": "criterion:3",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "The edge case was that one of the two deletions had a recorded decision against it: CONTEXT.md said the kick-off pack was deliberately left alone because it held the stakeholder's original instructions. Rather than overrule it silently, the reason was read first, the stakeholder's words were checked for survival elsewhere - the email is quoted in the product brief too, but one sentence was not - and that sentence was moved before the file was deleted. docs.settled was also considered for the two documents that name a deleted file on purpose and rejected with the reason written in the commit: it exempts a whole living document."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass, all five criteria, each checked by running something. All 62 project rules are mapped, proven by differencing the two sets of ids. peer-ai assess now names no stale document where it named six. Recorded a second time at a4e146f: the gate refused the first pair of records because CLAUDE.md changed after them, which is the staleness check working rather than a defect."
+}

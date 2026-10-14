@@ -42,9 +42,12 @@ rule to its enforcement; every `review` rule is the code-review checklist in
 `CONTEXT.md`.
 
 Peer AI's own rules, which `standards_for_file` returns before each edit, apply
-beside them, and `standards_for_file` serves these documents too. **Where the two
-disagree, `docs/standards/` wins**: follow it, and record the disagreement in
-`CONTEXT.md`'s Open Questions.
+beside them, and `standards_for_file` serves these documents too. **Which Peer AI rule
+covers which project rule is written down once, in `docs/05-coding-standards.md` §7** —
+all 62 of A1 to O4, plus what Peer AI adds that this project never wrote down. Read it
+rather than guessing whether two numbers mean the same thing: **D1 is REACT-03 and TS-08
+at once, and not noticing that switched the 400-line limit off for a week.** §7 also
+states the precedence, which is not repeated here.
 
 ---
 
@@ -132,6 +135,14 @@ one-line typo.
   request's checks to completion — `npm run ci:watch` reports every open pull
   request and exits non-zero if any is not green, so it also runs inside a
   background monitor. The owner should never be the one who notices a red check.
+- **Mark the pull request ready *before* the last push, not after.** Peer AI's gate
+  skips a draft, and it decides that from the event GitHub stored, not from the pull
+  request's state when the job starts. So a push that lands while the item is still a
+  draft leaves a **skipped** gate as the head commit's status *even after* the pull
+  request is marked ready — and `ci:premerge` refuses it, correctly, because a skipped
+  check has not passed. Seen on #150, which had one gate run that passed and one that
+  skipped, a second apart. The way out is another push; the way to avoid it is this
+  ordering.
 - **`npm run ci:premerge <pr>` before every merge**, and it must say `ALLOWED`.
   It refuses on a failing, pending, cancelled or skipped check, on no checks at
   all, and on a draft. **It applies whatever the base branch is:** branch

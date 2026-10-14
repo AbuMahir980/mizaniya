@@ -6,7 +6,17 @@
 | **Phase** | 7 · Issues |
 | **Inputs** | [03-system-spec.md](03-system-spec.md) · [06-page-specs.md](06-page-specs.md) · [02-architecture.md](02-architecture.md) · [05-coding-standards.md](05-coding-standards.md) · [seed-data.md](seed-data.md) |
 | **Tracker** | GitHub Issues on `AbuMahir980/mizaniya` — no prefix, issues are `#N` |
-| **Status** | 22 tickets across 3 cycles, **filed as [#8–#29](https://github.com/AbuMahir980/mizaniya/issues)** on 11 September. |
+| **Status** | **Superseded, and kept as history.** 22 tickets across 3 cycles, filed as [#8–#29](https://github.com/AbuMahir980/mizaniya/issues) on 11 September. |
+
+> **Read nothing here as current — marked 2026-10-14 (ITEM-13).** This document plans
+> the product that [ADR-009](adr/ADR-009-repositioning-v1-hosted-webapp.md) replaced and
+> [ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md) replaced again. Its §6
+> excludes *"bank sync, household sharing, … and any server"*, every one of which ADR-009
+> pulled into v1 and ADR-013 then removed or deferred. It counts **67 artboards**; there
+> are **263**. Its cycle 3 is seven tickets for what is now a twenty-one-screen build.
+> **It is not edited in place, because a plan is a record of what was planned.** The
+> re-issue is the planning pass in `CONTEXT.md`'s What's Next, and it replaces this
+> document rather than amending it.
 
 ---
 
@@ -293,7 +303,7 @@ export, notifications, telemetry, and any server.
 
 ## 7 · Next
 
-**BUILD**, `peer-ai/frontend/03-build.md`, starting at **T1**.
+**BUILD**, starting at **T1**. *The phase file this named went with Peer AI v0; the skill that does this work now is `peer-ai-implement-ticket`.*
 
 Note for whoever runs it: step 2 now has **option F — the design already
 exists** (upstream item 30), and step 4 is **conditional** — this project's
