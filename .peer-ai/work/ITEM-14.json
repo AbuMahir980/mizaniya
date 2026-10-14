@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-14",
+  "title": "Seniority in a shared budget: the creator can remove a partner, and the partner cannot remove them",
+  "kind": "discovery",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/seniority-in-a-shared-budget-the-creator-can-remov",
+  "goal": "Q9-8 found that the drawings let either partner remove the other, because nothing distinguishes them: whoever holds enough keys can rotate. The owner rejected that - a partner who falls out with you should not be able to lock you out of a budget you created. Enforcing seniority needs the blob store to verify a signature on each write, which it can do without reading anything, so it amends ADR-013 rather than fitting inside it.",
+  "acceptance": [
+    "Given the owner's decision that the creator is senior, when the record is written, then it states what the partner can and cannot do, and what the creator can do that the partner cannot, in terms a reader can check a screen against",
+    "Given the blob store understands nothing today, when the record proposes it verify a signature, then it states plainly that this does not let the store read anything, and what it now has to be able to do",
+    "Given a creator who loses every key, when the record is written, then it says what happens to the budget and to the partner, rather than leaving the worst case undescribed",
+    "Given ADR-013 says removal is rotation and re-sharing, when this amends it, then every clause of ADR-013 it changes is named, and the clauses it leaves standing are named too",
+    "Given check_document with the decision template, when it runs on the record, then it is ready"
+  ],
+  "sources": [
+    "docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md",
+    "docs/open-items.md",
+    "docs/02-architecture.md"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-14T14:35:01.716Z"
+}
