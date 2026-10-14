@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-13",
+  "title": "One rulebook: map the A-O standards onto Peer AI's rule ids, and clear the v0 leftovers from docs",
+  "kind": "chore",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/one-rulebook-map-the-a-o-standards-onto-peer-ai-s",
+  "goal": "The project carries 62 rules of its own, A1 to O4, beside Peer AI's, with no single place saying which covers which. That overlap already cost a week: TS-08 and REACT-03 are one ESLint rule under two ids, and nobody saw the 400-line limit had stopped applying. Two documents are also v0 residue - the kick-off pack, superseded by CLAUDE.md and still describing a v3 server and paid tiers, and 07-frontend-coding-rules, 28 lines pointing at 05 - and six documents name paths that no longer exist.",
+  "acceptance": [
+    "Given the 62 rules A1 to O4, when the map is written, then every one has a row naming the Peer AI rule or rules that cover it, or saying in words that none does, with no rule left out",
+    "Given the map, when it is read the other way, then the Peer AI rules that have no project equivalent are listed too, so a reader can see what Peer AI adds rather than only what it duplicates",
+    "Given docs/Mizaniya_Kickoff_Pack.md and docs/07-frontend-coding-rules.md, when they are deleted, then nothing in the repository links to either, and what each carried that is still true lives somewhere current",
+    "Given the six documents the project map flags for naming src/ui, src/core, src/design/tokens.ts or peer-ai/shared/design-data-contract.md, when they are fixed, then project_map flags no file for naming a path that does not exist",
+    "Given CLAUDE.md section 2 states which rulebook wins, when this lands, then it points at the map rather than restating the rules, and the precedence is written in exactly one place"
+  ],
+  "sources": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/05-coding-standards.md",
+    "docs/07-frontend-coding-rules.md",
+    "docs/Mizaniya_Kickoff_Pack.md",
+    "CLAUDE.md"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-14T11:56:42.978Z"
+}

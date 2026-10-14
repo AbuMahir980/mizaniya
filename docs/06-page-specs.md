@@ -477,7 +477,7 @@ other (D8).
 > allowance line, and a segmented breakdown of the cycle's money
 > (`docs/design/tokens.md` §6). The design wins on layout and visual hierarchy;
 > this spec still wins on behaviour and on which figures appear
-> (`peer-ai/shared/design-data-contract.md`). **The numbers table below is
+> (the design-and-data split, now in `CLAUDE.md` §7). **The numbers table below is
 > unchanged and still authoritative** — the same figures, presented differently.
 > Build from `docs/design/canvas/HomeLight.dc.html`.
 

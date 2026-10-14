@@ -15,9 +15,9 @@
 
 ## Inputs received
 
-- [x] **Stakeholder brief** — the email quoted in `docs/Mizaniya_Kickoff_Pack.md` §3 and `docs/product-brief.md` §6
+- [x] **Stakeholder brief** — the email quoted in `docs/product-brief.md` §6, which since 2026-10-14 carries it in full
 - [x] **Product brief** — `docs/product-brief.md` (§1–5 authoritative; §6 superseded)
-- [x] **Kick-off pack** — `docs/Mizaniya_Kickoff_Pack.md`, the instructions this build actually runs on
+- [x] **Kick-off pack** — deleted 2026-10-14 (ITEM-13); it described Peer AI v0. The instructions this build runs on are `CLAUDE.md`
 - [x] **Engineering standards** — `docs/standards/` (frontend, backend, addendum)
 - [x] **Seed data** — `docs/seed-data.md`, the only figures permitted anywhere
 - [x] **Existing system** — the stakeholder's Excel tracker, mapped sheet-by-sheet in `docs/product-brief.md` §3
@@ -316,7 +316,7 @@ and `Intl.DateTimeFormat` with the `islamic` calendar for the Hijri date.
 | Explicit loading, empty, invalid, failed-save and offline states on every screen | | |
 | IndexedDB via Dexie behind `Repository`; JSON export/import; seed script | | |
 | Vitest on cycle maths, safe-to-spend, rollover, projected gap; RTL on Quick Add; Playwright on the addendum's core journey K1 | | |
-| Design tokens and `src/ui/` primitives, built from `docs/design/` before any screen | | |
+| Design tokens and `apps/web/src/ui/` primitives, built from `docs/design/` before any screen | | |
 
 **Added to scope by decisions D8–D14**, each small but none of them free:
 

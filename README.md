@@ -50,7 +50,7 @@ specified and queued — see [Where it is](#where-it-is).*
 | <img src="docs/design/04a-quick-add-360-light.png" alt="Quick Add sheet" width="380"> | <img src="docs/design/05-debts-goals-360-light.png" alt="Debts and goals" width="380"> |
 
 Every screen exists in light and dark, at 360px and 1440px, in every state —
-**67 artboards** in [`docs/design/`](docs/design/), with
+**263 artboards** in [`docs/design/`](docs/design/), with
 [`tokens.md`](docs/design/tokens.md) carrying 54 gated contrast pairs and no
 failures.
 
@@ -143,14 +143,14 @@ is in progress** — the shell, onboarding, Home.
 
 | | |
 |---|---|
-| `src/core/` | Money, cycles, budget, rollover, debts, goals, zakat. Framework-free, imports nothing |
-| `src/data/` | The `Repository` over IndexedDB. The only place Dexie is named |
-| `src/store/` | One snapshot, one write path, memoised selectors |
-| `src/ui/` | ~25 primitives, every state, built from the design tokens |
-| `src/features/` | Onboarding, Home |
+| `packages/core/src/` | Money, cycles, budget, rollover, debts, goals, zakat. Framework-free, imports nothing |
+| `apps/web/src/data/` | The `Repository` over IndexedDB. The only place Dexie is named |
+| `apps/web/src/store/` | One snapshot, one write path, memoised selectors |
+| `apps/web/src/ui/` | 23 component files, every state, built from the design tokens |
+| `apps/web/src/features/` | Onboarding, Home, Plan, Quick Add, storage status |
 
-**288 tests.** Every figure the documentation publishes is pinned by one, because
-those numbers appear in the specs and on 67 artboards, and nothing else would
+**487 tests.** Every figure the documentation publishes is pinned by one, because
+those numbers appear in the specs and on 263 artboards, and nothing else would
 notice them drifting apart.
 
 Still to come: Plan, Transactions, the printable debt record, Months, Settings,

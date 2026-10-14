@@ -42,9 +42,12 @@ rule to its enforcement; every `review` rule is the code-review checklist in
 `CONTEXT.md`.
 
 Peer AI's own rules, which `standards_for_file` returns before each edit, apply
-beside them, and `standards_for_file` serves these documents too. **Where the two
-disagree, `docs/standards/` wins**: follow it, and record the disagreement in
-`CONTEXT.md`'s Open Questions.
+beside them, and `standards_for_file` serves these documents too. **Which Peer AI rule
+covers which project rule is written down once, in `docs/05-coding-standards.md` §7** —
+all 62 of A1 to O4, plus what Peer AI adds that this project never wrote down. Read it
+rather than guessing whether two numbers mean the same thing: **D1 is REACT-03 and TS-08
+at once, and not noticing that switched the 400-line limit off for a week.** §7 also
+states the precedence, which is not repeated here.
 
 ---
 

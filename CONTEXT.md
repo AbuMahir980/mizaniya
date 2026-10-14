@@ -273,7 +273,8 @@ replaces the first.
 
 **Done as harvest first, delete second.** The ten notes in `docs/engineering-notes/`
 were written before anything was removed, and the links in `docs/04-api-contract.md`,
-`docs/07-frontend-coding-rules.md` and three `peer-ai/` files were repointed. The
+`docs/07-frontend-coding-rules.md` — itself deleted 2026-10-14, its one useful table moved
+into `docs/05-coding-standards.md` §6 — and three `peer-ai/` files were repointed. The
 `peer-ai/` ones mattered most: they instructed future sessions to write concept notes,
 so leaving them would have had the folder recreated by the next session that read them.
 
@@ -290,9 +291,15 @@ Three files needed a decision rather than a move:
   topics it listed are now covered by the notes on derived state, validation, import and
   export, and data storage.
 
-**`docs/Mizaniya_Kickoff_Pack.md` is deliberately left alone.** It is the stakeholder's
-original instructions, and rewriting it would falsify the record of what was asked for.
-Its learning-mode paragraphs are superseded by `CLAUDE.md` §4.
+**`docs/Mizaniya_Kickoff_Pack.md` was deliberately left alone** — until 2026-10-14,
+when it was deleted (ITEM-13). The reason it was kept still held: it was the
+stakeholder's original instructions, and rewriting it would have falsified the record of
+what was asked for. **So nothing was rewritten.** The one sentence of the brief that
+lived only there was moved into `docs/product-brief.md` §6 first, where the email is
+already quoted in full, and the repo rules it carried are verbatim in this file, which is
+their authoritative home. What died with it was Peer AI v0's own instructions — a
+vendored `./peer-ai`, named phases, `.peer-ai-state.json`, a private server repository,
+paid tiers, a v3 — every one of which a session reading it would have taken as current.
 
 <details>
 <summary>The replaced contract, kept as history</summary>
@@ -1666,7 +1673,7 @@ full reasoning; this is the summary and what it means for the code.*
 - **Named the pattern and gave it a method.** *What breaks — and who finds out?* Loud problems are cheap; silent ones are expensive. Written up as the first concept note; it now lives as a named principle near the top of this file, `docs/concepts/` having been replaced by `docs/engineering-notes/`. It reframes B3, E2 and K4 as one rule about detectability wearing three hats.
 - **Opened `docs/concepts/revisit.md`** — *deleted 2026-09-25 with the rest of that folder, so no longer a link* — with that thread logged against the moment it will matter: building safe-to-spend in `core/`, and again at the Home screen.
 - **Recorded a standing writing preference:** intelligent but plain — the test is whether the least technical reader could understand and remember it. Applies to docs, file headers, commit messages and the app's own copy.
-- **Added `docs/Mizaniya_Kickoff_Pack.md`**, the instructions this build actually runs on. The product brief's §6 had declared itself superseded by a file that was not in the repo.
+- **Added `docs/Mizaniya_Kickoff_Pack.md`** — *deleted 2026-10-14; see that day's entry* — the instructions this build then ran on. The product brief's §6 had declared itself superseded by a file that was not in the repo.
 - **Caught a repo-rule-3 breach before it was committed.** The kick-off pack named another project four times. Redacted, along with local folder paths and a stale filename. Worth noting: **rule 3 is the only repo rule with no automated enforcement** — secret scanning finds keys, not project names, and a denylist committed to a public repo publishes the very names it hides. Raised properly at PR AUTOMATION.
 - **Ran UNDERSTAND.** Settled the six open domain questions as D1–D6 plus the D7 rename, each with the rejected option recorded. Wrote [docs/01-requirements-summary.md](docs/01-requirements-summary.md).
 - **Surfaced the biggest unflagged risk in the whole design:** IndexedDB is not permanent. Browser eviction or a cleared cache deletes every transaction with no warning to anyone. Logged as assumption A5, to be decided in ARCHITECT.
@@ -1944,7 +1951,7 @@ UNDERSTAND's clarification round is now closed.
 | Asset | Path |
 |-------|------|
 | Product brief | `docs/product-brief.md` (§1–5 authoritative; §6 superseded) |
-| Kick-off pack — the instructions this build runs on | `docs/Mizaniya_Kickoff_Pack.md` |
+| Kick-off pack | **Deleted 2026-10-14** (ITEM-13). The instructions are `CLAUDE.md`; the brief is `docs/product-brief.md` |
 | Requirements summary + the settled domain decisions | `docs/01-requirements-summary.md` |
 | System architecture + the ADR index | `docs/02-architecture.md` |
 | Promoted ADRs | `docs/adr/` |
