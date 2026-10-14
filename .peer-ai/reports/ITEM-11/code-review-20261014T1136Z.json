@@ -1,0 +1,441 @@
+{
+  "version": 1,
+  "skill": "code-review",
+  "workItem": "ITEM-11",
+  "at": "2026-10-14T11:36:00Z",
+  "depth": "light",
+  "scope": {
+    "base": "0ed170ca86f2ad17ad56c93789bca9015cc39169",
+    "head": "HEAD",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "scripts/check-naming.mjs"
+    ]
+  },
+  "inputs": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "CONTEXT.md",
+    "peer-ai.config.json"
+  ],
+  "inventory": [
+    {
+      "id": "function:kebab-check",
+      "kind": "function",
+      "location": {
+        "file": "scripts/check-naming.mjs",
+        "line": 32
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "AI-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No model, prompt or AI library is in scope. This product calls no model."
+    },
+    {
+      "rule": "API-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No API or contract is in scope. The project's contracts are the Repository interface and the export schema, untouched here."
+    },
+    {
+      "rule": "API-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No API or contract is in scope. The project's contracts are the Repository interface and the export schema, untouched here."
+    },
+    {
+      "rule": "ARC-01",
+      "status": "not-applicable",
+      "reason": "scripts/ sits in no track - the parts are apps/web and packages/core - so the architecture's dependency directions do not reach it. Nothing in the hunk imports anything."
+    },
+    {
+      "rule": "ARC-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. scripts/ belongs to no track - the parts are apps/web and packages/core - so the architecture's boundaries and ownership rules do not reach it, and the hunk imports nothing."
+    },
+    {
+      "rule": "ARC-03",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. scripts/ belongs to no track - the parts are apps/web and packages/core - so the architecture's boundaries and ownership rules do not reach it, and the hunk imports nothing."
+    },
+    {
+      "rule": "ARC-04",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. scripts/ belongs to no track - the parts are apps/web and packages/core - so the architecture's boundaries and ownership rules do not reach it, and the hunk imports nothing."
+    },
+    {
+      "rule": "ARC-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. scripts/ belongs to no track - the parts are apps/web and packages/core - so the architecture's boundaries and ownership rules do not reach it, and the hunk imports nothing."
+    },
+    {
+      "rule": "ARC-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. scripts/ belongs to no track - the parts are apps/web and packages/core - so the architecture's boundaries and ownership rules do not reach it, and the hunk imports nothing."
+    },
+    {
+      "rule": "ARC-07",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. scripts/ belongs to no track - the parts are apps/web and packages/core - so the architecture's boundaries and ownership rules do not reach it, and the hunk imports nothing."
+    },
+    {
+      "rule": "ARC-08",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. scripts/ belongs to no track - the parts are apps/web and packages/core - so the architecture's boundaries and ownership rules do not reach it, and the hunk imports nothing."
+    },
+    {
+      "rule": "BE-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. There is no server in this product and none is planned after ADR-013, so no backend code exists to review."
+    },
+    {
+      "rule": "BE-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. There is no server in this product and none is planned after ADR-013, so no backend code exists to review."
+    },
+    {
+      "rule": "CODE-01",
+      "item": "function:kebab-check",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "The changed hunk is eleven lines of comment and one suppression directive above an unchanged statement. No executable line changed, so behaviour cannot have: scripts/check-naming.mjs:41 is byte-identical to its previous form. The comment says what a reader would otherwise have to rediscover - why a security tool's finding was suppressed rather than acted on - with the measurement that justifies it."
+    },
+    {
+      "rule": "CODE-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-03",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-04",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-07",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-08",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-09",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-10",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-11",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-12",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-13",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-14",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No executable line is in scope, so there is nothing for this rule to judge beyond the comment itself, which CODE-01 covers."
+    },
+    {
+      "rule": "CODE-15",
+      "item": "function:kebab-check",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "The edge case Semgrep raised was tested rather than dismissed. The regex ^[a-z0-9]+(-[a-z0-9]+)*$ was run against 1,001, 5,001, 20,001, 50,001 and 100,001-character inputs built to match the character classes and then fail at the last character, which is the shape that triggers catastrophic backtracking where it exists: 0.27, 0.04, 0.14, 0.40 and 0.46 milliseconds. Linear, not quadratic, because the mandatory hyphen between the two classes removes the ambiguity. The measurement is in the comment so the next reader need not repeat it."
+    },
+    {
+      "rule": "CODE-16",
+      "item": "function:kebab-check",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "The suppression names the exact rule id, rules.javascript.lang.security.audit.detect-redos, rather than silencing the file or the tool. Anything else Semgrep finds here still fails the build."
+    },
+    {
+      "rule": "DATA-03",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No data store, schema or migration is in scope."
+    },
+    {
+      "rule": "FE-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-03",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-04",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-07",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-08",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "FE-09",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No screen, component or client state is in scope: the file is a Node script run by npm run verify, with no UI at all."
+    },
+    {
+      "rule": "MONEY-01",
+      "status": "not-applicable",
+      "reason": "No money is in scope. The file reads filenames."
+    },
+    {
+      "rule": "MONEY-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-03",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-04",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-07",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-08",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-09",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-10",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-11",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "MONEY-12",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No money is in scope. The file reads filenames, and every money rule applies to packages/core/money and the screens that render it."
+    },
+    {
+      "rule": "PERF-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No query, list render or cache is in scope. The one performance question the hunk raises, the regex's cost, is answered under CODE-15 with measurements."
+    },
+    {
+      "rule": "PERF-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No query, list render or cache is in scope. The one performance question the hunk raises, the regex's cost, is answered under CODE-15 with measurements."
+    },
+    {
+      "rule": "PERF-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No query, list render or cache is in scope. The one performance question the hunk raises, the regex's cost, is answered under CODE-15 with measurements."
+    },
+    {
+      "rule": "PRIV-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No personal data is in scope. Nothing is collected, logged or sent: the product has no telemetry at all, per M2."
+    },
+    {
+      "rule": "REL-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No outside call, retry or timeout is in scope; the script calls nothing over a network."
+    },
+    {
+      "rule": "REL-09",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No outside call, retry or timeout is in scope; the script calls nothing over a network."
+    },
+    {
+      "rule": "SAFE-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No safety-critical field is in scope. The project's safety-critical data is the owner's financial records in IndexedDB, which this script never touches."
+    },
+    {
+      "rule": "SAFE-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No safety-critical field is in scope. The project's safety-critical data is the owner's financial records in IndexedDB, which this script never touches."
+    },
+    {
+      "rule": "SAFE-03",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No safety-critical field is in scope. The project's safety-critical data is the owner's financial records in IndexedDB, which this script never touches."
+    },
+    {
+      "rule": "SAFE-04",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No safety-critical field is in scope. The project's safety-critical data is the owner's financial records in IndexedDB, which this script never touches."
+    },
+    {
+      "rule": "SAFE-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No safety-critical field is in scope. The project's safety-critical data is the owner's financial records in IndexedDB, which this script never touches."
+    },
+    {
+      "rule": "SAFE-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No safety-critical field is in scope. The project's safety-critical data is the owner's financial records in IndexedDB, which this script never touches."
+    },
+    {
+      "rule": "SEC-01",
+      "item": "function:kebab-check",
+      "status": "pass",
+      "checkedBy": "reading",
+      "evidence": "The input is not untrusted: it comes from this script's own directory walk over ROOTS, so the only way to reach the regex with a hostile string is to commit a file with that name to this repository. Even then the measurement shows no denial of service is available. Nothing in the hunk reads a request, an environment variable or a file's contents."
+    },
+    {
+      "rule": "SEC-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No route, session, credential, input boundary or output encoding is in scope. SEC-01 covers the one input the hunk touches, a filename from the script's own walk."
+    },
+    {
+      "rule": "SEC-07",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No route, session, credential, input boundary or output encoding is in scope. SEC-01 covers the one input the hunk touches, a filename from the script's own walk."
+    },
+    {
+      "rule": "SEC-08",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No route, session, credential, input boundary or output encoding is in scope. SEC-01 covers the one input the hunk touches, a filename from the script's own walk."
+    },
+    {
+      "rule": "SEC-10",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No route, session, credential, input boundary or output encoding is in scope. SEC-01 covers the one input the hunk touches, a filename from the script's own walk."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No route, session, credential, input boundary or output encoding is in scope. SEC-01 covers the one input the hunk touches, a filename from the script's own walk."
+    },
+    {
+      "rule": "SYS-01",
+      "status": "not-applicable",
+      "reason": "No behaviour changed, so no requirement's behaviour can have changed with it. The script's job, enforcing kebab-case filenames for O1, is unaltered and still runs inside npm run verify, which passed in CI on this commit."
+    },
+    {
+      "rule": "SYS-02",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No request path, queue, limit or scaling behaviour is in scope; the script walks a directory once and exits."
+    },
+    {
+      "rule": "SYS-03",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No request path, queue, limit or scaling behaviour is in scope; the script walks a directory once and exits."
+    },
+    {
+      "rule": "SYS-04",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No request path, queue, limit or scaling behaviour is in scope; the script walks a directory once and exits."
+    },
+    {
+      "rule": "SYS-05",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No request path, queue, limit or scaling behaviour is in scope; the script walks a directory once and exits."
+    },
+    {
+      "rule": "SYS-06",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No request path, queue, limit or scaling behaviour is in scope; the script walks a directory once and exits."
+    },
+    {
+      "rule": "TEST-01",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No test is in scope and none is owed for a comment; the claim it makes was measured instead, which TEST-04's line records."
+    },
+    {
+      "rule": "TEST-04",
+      "status": "not-applicable",
+      "reason": "No test was added or changed. A comment needs none, and the claim the comment makes was proven by measurement rather than by an assertion, because a timing assertion in a test suite is flaky on shared runners."
+    },
+    {
+      "rule": "TEST-07",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No test is in scope and none is owed for a comment; the claim it makes was measured instead, which TEST-04's line records."
+    },
+    {
+      "rule": "TEST-12",
+      "status": "not-applicable",
+      "reason": "The only changed hunk is eleven comment lines and one Semgrep suppression directive in scripts/check-naming.mjs, above a statement that did not change. No test is in scope and none is owed for a comment; the claim it makes was measured instead, which TEST-04's line records."
+    }
+  ],
+  "findings": [],
+  "result": "pass",
+  "summary": "Pass, light depth as the required review asked. One hunk, eleven comment lines and a rule-specific suppression above an unchanged statement, so no behaviour could change. The claim the comment makes was measured at five input sizes up to 100,001 characters rather than asserted, and the suppression names one rule id rather than silencing the tool."
+}
