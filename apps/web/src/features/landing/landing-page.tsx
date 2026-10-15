@@ -2,6 +2,7 @@ import { HowItWorksRail } from './how-it-works-rail'
 import { ImageSlot } from './image-slot'
 import { LandingArgument } from './landing-argument'
 import { LandingComparisons } from './landing-comparisons'
+import { LandingThreeThings } from './landing-three-things'
 import { LandingTimeline } from './landing-timeline'
 import { LandingClose } from './landing-close'
 import { LandingHero } from './landing-hero'
@@ -38,6 +39,7 @@ export function LandingPage({ onStart, onRestore }: LandingPageProps) {
       <HowItWorksRail />
       <LandingComparisons />
       <LandingArgument />
+      <LandingThreeThings />
       <LandingTimeline />
       <LandingClose onStart={onStart} onRestore={onRestore} />
     </main>
