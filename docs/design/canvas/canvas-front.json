@@ -68,7 +68,7 @@
    "x": 0,
    "y": 7066,
    "w": 832,
-   "h": 6729,
+   "h": 6756,
    "title": "Landing page · 390 · light",
    "page": "page-land",
    "print": "fixed"
@@ -78,7 +78,7 @@
    "x": 1848,
    "y": 7066,
    "w": 832,
-   "h": 6766,
+   "h": 6793,
    "title": "Landing page · 390 · dark",
    "page": "page-land",
    "print": "fixed"
@@ -86,7 +86,7 @@
   {
    "file": "LandMotionLight.dc.html",
    "x": 0,
-   "y": 14022,
+   "y": 14049,
    "w": 1708,
    "h": 1559,
    "title": "Landing page · pointer states · light",
@@ -96,7 +96,7 @@
   {
    "file": "LandMotionDark.dc.html",
    "x": 1848,
-   "y": 14022,
+   "y": 14049,
    "w": 1708,
    "h": 1559,
    "title": "Landing page · pointer states · dark",
@@ -106,7 +106,7 @@
   {
    "file": "LandCycleLight.dc.html",
    "x": 0,
-   "y": 15771,
+   "y": 15798,
    "w": 1220,
    "h": 1727,
    "title": "The strongest moment · item 34 · light",
@@ -116,7 +116,7 @@
   {
    "file": "LandCycleDark.dc.html",
    "x": 1848,
-   "y": 15771,
+   "y": 15798,
    "w": 1220,
    "h": 1727,
    "title": "The strongest moment · item 34 · dark",
@@ -126,9 +126,9 @@
   {
    "file": "WebFirstRunLight.dc.html",
    "x": 0,
-   "y": 17688,
+   "y": 17715,
    "w": 1512,
-   "h": 1174,
+   "h": 1228,
    "title": "01 · First launch · installed · 1440 · light",
    "page": "page-land",
    "print": "fixed"
@@ -136,9 +136,9 @@
   {
    "file": "MwFirstRunLight.dc.html",
    "x": 1848,
-   "y": 17688,
+   "y": 17715,
    "w": 462,
-   "h": 1003,
+   "h": 941,
    "title": "01 · First launch · installed · 360 · light",
    "page": "page-land",
    "print": "fixed"
@@ -146,9 +146,9 @@
   {
    "file": "WebFirstRunDark.dc.html",
    "x": 3696,
-   "y": 17688,
+   "y": 17715,
    "w": 1512,
-   "h": 1174,
+   "h": 1228,
    "title": "01 · First launch · installed · 1440 · dark",
    "page": "page-land",
    "print": "fixed"
@@ -156,9 +156,9 @@
   {
    "file": "MwFirstRunDark.dc.html",
    "x": 5348,
-   "y": 17688,
+   "y": 17715,
    "w": 462,
-   "h": 1003,
+   "h": 941,
    "title": "01 · First launch · installed · 360 · dark",
    "page": "page-land",
    "print": "fixed"
@@ -166,7 +166,7 @@
   {
    "file": "LandRailLight.dc.html",
    "x": 0,
-   "y": 19052,
+   "y": 19133,
    "w": 1512,
    "h": 1340,
    "title": "How it works · the rail arrives · light",
@@ -176,7 +176,7 @@
   {
    "file": "LandRailDark.dc.html",
    "x": 1848,
-   "y": 19052,
+   "y": 19133,
    "w": 1512,
    "h": 1340,
    "title": "How it works · the rail arrives · dark",
@@ -578,7 +578,7 @@
    "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 1182,
+   "h": 1164,
    "title": "15 · Settings · 360 · light",
    "page": "page-set",
    "print": "fixed"
@@ -598,7 +598,7 @@
    "x": 4276,
    "y": 0,
    "w": 832,
-   "h": 1182,
+   "h": 1164,
    "title": "15 · Settings · 360 · dark",
    "page": "page-set",
    "print": "fixed"
@@ -1288,7 +1288,7 @@
    "x": 0,
    "y": 4709,
    "w": 1512,
-   "h": 740,
+   "h": 758,
    "title": "18g · Household · sync is off · 1440 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1298,7 +1298,7 @@
    "x": 1652,
    "y": 4709,
    "w": 832,
-   "h": 979,
+   "h": 997,
    "title": "18g · Household · sync is off · 360 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1308,7 +1308,7 @@
    "x": 3304,
    "y": 4709,
    "w": 1512,
-   "h": 740,
+   "h": 758,
    "title": "18g · Household · sync is off · 1440 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1318,7 +1318,7 @@
    "x": 4956,
    "y": 4709,
    "w": 832,
-   "h": 979,
+   "h": 997,
    "title": "18g · Household · sync is off · 360 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1326,7 +1326,7 @@
   {
    "file": "WebHouseholdPartnerLight.dc.html",
    "x": 0,
-   "y": 5878,
+   "y": 5896,
    "w": 1512,
    "h": 958,
    "title": "18f · Household · the partner’s view · 1440 · light",
@@ -1336,7 +1336,7 @@
   {
    "file": "MwHouseholdPartnerLight.dc.html",
    "x": 1652,
-   "y": 5878,
+   "y": 5896,
    "w": 832,
    "h": 1258,
    "title": "18f · Household · the partner’s view · 360 · light",
@@ -1346,7 +1346,7 @@
   {
    "file": "WebHouseholdPartnerDark.dc.html",
    "x": 3304,
-   "y": 5878,
+   "y": 5896,
    "w": 1512,
    "h": 958,
    "title": "18f · Household · the partner’s view · 1440 · dark",
@@ -1356,7 +1356,7 @@
   {
    "file": "MwHouseholdPartnerDark.dc.html",
    "x": 4956,
-   "y": 5878,
+   "y": 5896,
    "w": 832,
    "h": 1258,
    "title": "18f · Household · the partner’s view · 360 · dark",
@@ -1366,7 +1366,7 @@
   {
    "file": "WebRemoveLight.dc.html",
    "x": 0,
-   "y": 7326,
+   "y": 7344,
    "w": 1512,
    "h": 785,
    "title": "18d · Household · removing Aisha · 1440 · light",
@@ -1376,7 +1376,7 @@
   {
    "file": "MwRemoveLight.dc.html",
    "x": 1652,
-   "y": 7326,
+   "y": 7344,
    "w": 832,
    "h": 811,
    "title": "18d · Household · removing Aisha · 360 · light",
@@ -1386,7 +1386,7 @@
   {
    "file": "WebRemoveDark.dc.html",
    "x": 3304,
-   "y": 7326,
+   "y": 7344,
    "w": 1512,
    "h": 785,
    "title": "18d · Household · removing Aisha · 1440 · dark",
@@ -1396,7 +1396,7 @@
   {
    "file": "MwRemoveDark.dc.html",
    "x": 4956,
-   "y": 7326,
+   "y": 7344,
    "w": 832,
    "h": 811,
    "title": "18d · Household · removing Aisha · 360 · dark",
@@ -1406,7 +1406,7 @@
   {
    "file": "WebRemoveDoneLight.dc.html",
    "x": 0,
-   "y": 8327,
+   "y": 8345,
    "w": 1512,
    "h": 881,
    "title": "18e · Household · Aisha removed · place new keys · 1440 · light",
@@ -1416,7 +1416,7 @@
   {
    "file": "MwRemoveDoneLight.dc.html",
    "x": 1652,
-   "y": 8327,
+   "y": 8345,
    "w": 832,
    "h": 1193,
    "title": "18e · Household · Aisha removed · place new keys · 360 · light",
@@ -1426,7 +1426,7 @@
   {
    "file": "WebRemoveDoneDark.dc.html",
    "x": 3304,
-   "y": 8327,
+   "y": 8345,
    "w": 1512,
    "h": 881,
    "title": "18e · Household · Aisha removed · place new keys · 1440 · dark",
@@ -1436,7 +1436,7 @@
   {
    "file": "MwRemoveDoneDark.dc.html",
    "x": 4956,
-   "y": 8327,
+   "y": 8345,
    "w": 832,
    "h": 1193,
    "title": "18e · Household · Aisha removed · place new keys · 360 · dark",

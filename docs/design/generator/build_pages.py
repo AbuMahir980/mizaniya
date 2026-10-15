@@ -179,7 +179,8 @@ def swap_body(name, new_body, title, note):
 EIGHT = [
     ("Do I need an account?", "<b>No.</b> No email, no password."),
     ("Where is my money data?", "<b>On your device.</b> It works with no signal."),
-    ("Can you see my budget?", "<b>No.</b> We hold no key to it."),
+    ("Can you see my budget?",
+     "<b>No.</b> It is encrypted before it leaves, and we hold no key."),
     ("How do I get it on my other phone?", "<b>Two of your three keys.</b>"),
     ("What if I lose one?", "<b>Any two bring it back.</b>"),
     ("What if someone finds one?", "<b>One alone opens nothing.</b>"),
