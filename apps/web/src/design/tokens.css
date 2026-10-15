@@ -194,3 +194,24 @@
     --leading-lockup: 58px;
   }
 }
+
+/* The how-it-works rail — motion.md §9.1.
+   
+   The resting state is the default, deliberately: with no JavaScript, or with
+   motion off, every card is already where it belongs. The offset is added by
+   the component only when motion is allowed, and removed once the band has been
+   seen. So the eight lines — the product's strongest claim — can never be
+   gated behind an animation that did not run. */
+.rail-card {
+  transition: transform 280ms ease-out;
+}
+
+[data-rail-enter='pending'] .rail-card {
+  transform: translateX(40px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rail-enter='pending'] .rail-card {
+    transform: none;
+  }
+}
