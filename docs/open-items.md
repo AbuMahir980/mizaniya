@@ -5646,3 +5646,40 @@ something about what the owner typed, not about what a bank sent.
 
 **Built as drawn meanwhile.** It is not a false safeguard, so nothing unsafe ships while
 this is answered.
+
+### T·4 — The landing page has a type scale of its own, and `tokens.md` does not publish it
+
+Found while rebuilding the page from the canvas rather than from its copy, which is
+what should have happened the first time.
+
+**The landing boards define their own vocabulary**, and it is not the app's:
+
+| Canvas | Spec | Nearest published token | Same? |
+|---|---|---|:-:|
+| `.lead` | 19px / 32px, soft | — | **no step** |
+| `.kicker` | 11px, .15em, 600 | `lab` 10.5px / .115em | close, not equal |
+| `.h2` *(landing)* | EB Garamond 40px / 46px | app `h2` is Inter 22px / 28px | **same name, different thing** |
+| `.body` *(landing)* | 17px / 29px | app `body` 15px / 22px | **same name, different thing** |
+| `.lbtn` | 52px tall, radius **14px** | radius steps are 8 · 12 · 16 · 22 · 30 | **14px is not a step** |
+| `.shot` | radius **30px** | `radius.full` 30px — *"the phone frame only"* | published, but reserved for something else |
+
+**None of this is a complaint about the drawing.** A marketing surface reading at arm's
+length on a laptop needs a larger scale than a budgeting screen read at arm's length on
+a phone, and the canvas is consistent about it. The problem is only that the scale lives
+in the board and not in `tokens.md`, so a build either reads it out of the HTML — as
+this one now does — or approximates it with app classes, which is exactly how the first
+attempt produced the right words in the wrong design.
+
+**Two questions, and the second is the one that matters.**
+
+1. **Is `.lbtn`'s 14px radius intended**, or is it 12 or 16 drifting? And does `.shot`'s
+   30px mean the phone-frame step is really "phone frame and screenshots", or is the
+   screenshot frame its own thing?
+2. **Should these become tokens?** The build needs names for them either way. If they
+   are published in `tokens.md` the build reads them from one place, as F3 requires. If
+   they stay board-local, that is a decision worth writing down — and then `tokens.md`
+   should say so, because *"the token contract"* currently reads as covering everything.
+
+**Meanwhile the build takes the canvas's numbers**, because the canvas is what the page
+is made of, and names them in `tokens.css` beside the app's — marked as landing steps
+read from the board, so they are easy to repoint once this is answered.

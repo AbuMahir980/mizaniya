@@ -254,6 +254,37 @@ The design is authoritative on layout, spacing, type and colour; the page spec i
 authoritative on behaviour, states and data. When they conflict, **name it, log
 it, never pick a side quietly.**
 
+### Nothing is designed in the build — added 15 October, after it was
+
+**The owner's rule, in their words:** *"the essence of having a design system is to
+follow it 100%."* A screen is not an interpretation of the design. It is the design,
+written in React.
+
+1. **Three sources, all of them, before a line is written.** The **PNG** is what the
+   screen looks like. The **canvas** is what it is made of. **`tokens.md`** is what the
+   values are. Reading one and inferring the others is how a screen gets built from
+   somebody's head.
+2. **The canvas is read as a tree, not grepped.** Its `<style>` block carries the real
+   vocabulary with exact numbers — `.lbtn` is 52px tall with a 14px radius at 15.5px/600;
+   `.lead` is 19px/32px; `.kicker` is 11px at .15em. Its elements carry inline styles
+   with the rest. **A text extraction returns the copy and loses the screen**, which is
+   exactly how the first landing page was built: right words, invented layout.
+3. **Every class the canvas names is mapped once, and then looked up.** `.deck`,
+   `.shot`, `.rest`, `.lbtn`, `.lead`, `.body`, `.kicker`, `.h2`, `.ngn`. Approximating
+   one with the nearest app class is the same mistake as inventing it.
+4. **A screen shown inside another screen is the board's own PNG**, derived mechanically
+   to a web size. Not redrawn by hand, which rots, and not imported from the live app,
+   which drags a feature into a marketing page. The board already is the screenshot.
+5. **Motion is part of the design, not a finish.** `motion.md` specifies it, and a
+   section that moves in the canvas and not in the build is unbuilt, not simplified.
+6. **A screen is done when it has been compared with its board** at both widths and in
+   both themes — not when its behaviours are ticked off.
+
+**Why this is a rule rather than a habit.** The first landing page was built from a text
+extraction of the canvas. Every word was right and almost nothing else was: no deck, no
+screenshots, no hover lift, none of the type scale, and the palette never checked. It
+passed its tests, because the tests were written from the same misreading.
+
 **After each screen works, compare it with the design**: open the PNG at 360 and
 1440, light and dark. A list of ticked behaviours is not this pass. An agent that
 cannot see a browser says so and asks the owner to look.
