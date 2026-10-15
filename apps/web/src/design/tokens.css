@@ -215,3 +215,40 @@
     transform: none;
   }
 }
+
+/* The landing page's own scale — read from `docs/design/canvas/LandLight.dc.html`
+   on 15 October, because `tokens.md` does not publish it (open-items §T·4).
+   
+   A marketing surface read at arm's length needs a larger scale than a budgeting
+   screen, and the boards are consistent about it. These are named here so the
+   build reads them from one place (F3) rather than approximating with app steps,
+   which is how the first attempt produced the right words in the wrong design.
+   Repoint them at tokens.md the day it publishes them. */
+:root {
+  --size-land-h2: 40px;
+  --leading-land-h2: 46px;
+  --size-land-h3: 20px;
+  --leading-land-h3: 27px;
+  --size-land-lead: 19px;
+  --leading-land-lead: 32px;
+  --size-land-body: 17px;
+  --leading-land-body: 29px;
+  --size-land-kicker: 11px;
+
+  /* The phone board overrides the serif down for 390. */
+  --size-land-h2-phone: 25px;
+  --leading-land-h2-phone: 33px;
+
+  /* .lbtn: 52px tall, 14px radius, 15.5px/600. The radius is not a published
+     step — see §T·4 — so it is named rather than written into a component. */
+  --land-button-height: 52px;
+  --land-button-radius: 14px;
+  --size-land-button: 15.5px;
+
+  /* The deck's cards. 20px is not a published radius step either — §T·4. */
+  --land-deck-radius: 20px;
+
+  /* .shot: the screenshot frame. 30px matches radius.full, which tokens.md
+     reserves for the phone frame; §T·4 asks whether that is intended. */
+  --land-shot-radius: 30px;
+}

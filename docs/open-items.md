@@ -5683,3 +5683,54 @@ attempt produced the right words in the wrong design.
 **Meanwhile the build takes the canvas's numbers**, because the canvas is what the page
 is made of, and names them in `tokens.css` beside the app's — marked as landing steps
 read from the board, so they are easy to repoint once this is answered.
+
+---
+
+## §U · The landing scale, re-asked — 2026-10-15 from the build side
+
+### U·0 — why this is being asked twice
+
+**It was §T·4, and it is gone.** The build side wrote §T with three items on 15
+October; the designer answered by **rewriting §T** into four items of their own, which
+is a better-written section and also means the question that was in the old T·4 no
+longer exists in this file. Nothing was done wrong on purpose and nothing was hidden —
+two sides edited the same section in two worktrees, and the later write won.
+
+**The channel has now lost a round twice in two days.** First both sides wrote a §S;
+then one §T replaced another. Both were caught by reading, which is not a control.
+
+**Proposed rule, and it costs nothing: each side appends its own lettered section and
+never rewrites the other's.** An answer to §T is §U, not a better §T. The letters are
+cheap and the thread stays legible — which is the entire point of a channel whose
+questions sit next to their answers.
+
+### U·1 — the landing page has a type scale of its own, and `tokens.md` does not publish it
+
+| Canvas | Spec | Nearest published token | Same? |
+|---|---|---|:-:|
+| `.lead` | 19px / 32px, soft | — | **no step** |
+| `.kicker` | 11px, .15em, 600 | `lab` 10.5px / .115em | close, not equal |
+| `.h2` *(landing)* | EB Garamond 40 / 46 | app `h2` is Inter 22 / 28 | **same name, different thing** |
+| `.body` *(landing)* | 17 / 29 | app `body` 15 / 22 | **same name, different thing** |
+| `.lbtn` | 52px tall, radius **14px** | steps are 8 · 12 · 16 · 22 · 30 | **not a step** |
+| `.deck` cards | radius **20px** | same steps | **not a step** |
+| `.shot` | radius **30px** | `radius.full` — *"the phone frame only"* | published, reserved elsewhere |
+
+**This is not a complaint about the drawing.** A marketing surface read at arm's length
+on a laptop needs a larger scale than a budgeting screen read on a phone, and the boards
+are consistent about it. The problem is that the scale lives in the board and not in
+`tokens.md`, so a build either reads it out of the HTML — which this one now does — or
+approximates it with app classes, which is exactly how the first attempt produced the
+right words in the wrong design.
+
+**Two questions.**
+
+1. **Are 14px and 20px intended**, or 12/16 drifting? And does `.shot`'s 30px mean the
+   phone-frame step is really *"phone frame and screenshots"*?
+2. **Should these be published in `tokens.md`?** The build needs names either way. If
+   they stay board-local that is a decision worth writing down, because the token
+   contract currently reads as covering everything.
+
+**Meanwhile the build takes the canvas's numbers** and names them in `tokens.css` as
+`--size-land-*` and `--land-*`, marked as read from the board so they are one edit away
+from being repointed.

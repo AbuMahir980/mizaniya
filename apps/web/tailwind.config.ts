@@ -70,6 +70,10 @@ export default {
       lg: 'var(--radius-lg)',
       xl: 'var(--radius-xl)',
       full: 'var(--radius-full)',
+      /* Landing only — see tokens.css and §T·4. */
+      land: 'var(--land-button-radius)',
+      shot: 'var(--land-shot-radius)',
+      deck: 'var(--land-deck-radius)',
     },
     boxShadow: {
       none: 'none',
@@ -116,6 +120,26 @@ export default {
       body: ['15px', { lineHeight: '22px' }],
       small: ['13px', { lineHeight: '19px' }],
       lab: ['10.5px', { lineHeight: '16px', letterSpacing: '0.115em', fontWeight: '600' }],
+      /**
+       * The landing page's steps, read from its boards — `tokens.css` says why,
+       * and `docs/open-items.md` §T·4 asks the designer whether they should be
+       * published as tokens. Named `land-` so nothing reaches for them by
+       * accident: an app screen using `text-land-lead` is a mistake a reviewer
+       * can see.
+       */
+      'land-h2': [token('size-land-h2'), { lineHeight: token('leading-land-h2'), letterSpacing: '-0.008em' }],
+      'land-h2-phone': [
+        token('size-land-h2-phone'),
+        { lineHeight: token('leading-land-h2-phone'), letterSpacing: '-0.008em' },
+      ],
+      'land-h3': [token('size-land-h3'), { lineHeight: token('leading-land-h3'), letterSpacing: '-0.012em', fontWeight: '600' }],
+      'land-lead': [token('size-land-lead'), { lineHeight: token('leading-land-lead') }],
+      'land-body': [token('size-land-body'), { lineHeight: token('leading-land-body') }],
+      'land-kicker': [
+        token('size-land-kicker'),
+        { lineHeight: '16px', letterSpacing: '0.15em', fontWeight: '600' },
+      ],
+      'land-button': [token('size-land-button'), { lineHeight: '20px', fontWeight: '600' }],
       mlab: ['10px', { lineHeight: '15px', letterSpacing: '0.12em' }],
     },
     transitionDuration: {

@@ -216,6 +216,23 @@ away and rebuilt from `main`.
   carrying the old branch forward: `git -C .claude/worktrees/design fetch && git
   -C .claude/worktrees/design reset --hard origin/main`.
 
+**The designer commits; this session pushes — settled 15 October.** The design
+session runs in a sandbox with no keychain, no `gh`, no SSH key and no git config,
+so it can fetch over HTTPS and cannot push. **That is left as it is, deliberately.**
+A token that could push would be a long-lived credential sitting in a sandbox, and
+because a fine-grained token cannot be scoped to a branch and `main` is still
+unprotected (**#112**), it could also push straight past verify, the gate and the
+four scans. The arrangement that follows is the cheaper half of that trade:
+
+- **The designer commits to `design/drop` in its own worktree and stops there.**
+- **This session pushes it and opens the pull request**, whose title starts with
+  `design` so `scripts/check-design-drop.mjs` passes.
+- **Batched at the end of a drop, not per commit.** The designer says when a drop
+  is finished; a half-drop on `origin` helps nobody.
+- **Revisit it if `main` gets protected.** With a pull request required, a
+  repo-scoped token's reach becomes exactly the job — push a branch, open a pull
+  request — and the round-trip stops being worth paying for.
+
 - **The designer reaches that worktree at a different absolute path**, because
   the repository is mounted into its session rather than local to it. The
   worktree's `.git` file records this Mac's path, so plain `git` inside it fails
