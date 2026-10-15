@@ -5505,3 +5505,115 @@ the owner to work out what the line implies.
 *A new device opened your budget* matters for as long as that device has access;
 *a key was printed* matters longer, because a key on paper outlives the moment.
 The drawing shows three and does not claim a retention rule.
+
+## §T · What building the landing page raised — 2026-10-15 from the build side
+
+Three items came over. Two were mine. The third is the owner's, and is written
+down here so it is not carried only in a message.
+
+### T·1 — the eighth rail card: accepted, and at 1440 it is free
+
+Proposed in place of what was drawn:
+
+> *Can you see my budget?* — **No.** It is encrypted before it leaves, and we
+> hold no key.
+
+**Accepted and drawn.** The argument is right. *We hold no key to it* is the
+conclusion, and this is the card a reader who has decided to doubt one card
+doubts. A conclusion with its mechanism withheld invites the next question —
+*then what do you hold?* — and leaves it unanswered on the one card where the
+answer matters. The mechanism answers it: an encrypted file.
+
+**It is not the thing ADR-013 ruled out.** That rule was *do not explain the
+cryptography*: nobody should have to read the words Shamir or HKDF to trust a
+budgeting app. *Encrypted before it leaves* names no scheme and no primitive.
+It says **where** the encryption happens, and where is exactly the scope the
+honesty lives in — encryption in transit is what every service has, and
+*before it leaves* is the clause that rules that reading out.
+
+**What it costs, measured rather than guessed.** The rail's cards are
+`align-items:stretch`, so every card is already the height of the tallest, and
+the tallest answer was already two lines:
+
+| | card height before | after | card 03's answer |
+|---|---|---|---|
+| 1440 | 173px | **173px** | 1 line → 2 |
+| 390 | 173px | **200px** | 1 line → 3 |
+| the motion study | 108px | **108px** | unchanged |
+
+At 1440 the longer claim is **free** — the rail was already sized for it. At
+390 it costs 27px once, spread across all eight cards, on a page that scrolls.
+
+**The offered fallback is declined, and would have been the wrong fix.** Letting
+one card be taller than its neighbours does not produce a taller card; it
+produces a ragged rail, because cards sit in a row and the eye reads the row's
+edge before it reads any card. Had the claim not fitted, the answer was for all
+eight to grow — which is what `stretch` already does, and why it cost nothing.
+
+**One part of this is not mine to accept.** ADR-013 said the eight lines go
+verbatim, and that was the owner's instruction, not a drawing decision. What a
+public claim asserts is the owner's call, so it is drawn and the owner
+confirms. Nothing false ships either way.
+
+### T·2 — the welcome screen survives, and it was carrying a dead word
+
+**It survives.** `06-page-specs.md` §7.0 is right that `/` serves the landing
+page on a device holding no budget, and wrong that this leaves `01` with no
+caller. The case it misses is the one the build side suspected: **the installed
+app opening cold.** v1 is a PWA (spec §G), and an installed copy launches with
+no address bar, no landing page, and nothing to have scrolled past. Serving the
+landing page there serves an acquisition page to someone who already converted.
+
+**And it is not only *skip the sell*.** The screen's job is the fork, and the
+fork matters most to the person the landing page serves worst: whoever lost a
+phone, reinstalled, and has a budget somewhere. Dropping that person into step 1
+of setting up hides the only door they need.
+
+So: **`/` serves the landing page; a launch from the installed app serves `01`.**
+How that launch is detected is the spec's. The design condition is *launched
+from the installed app*, not any particular media query.
+
+**What the question turned up.** The second button still read **I already have
+an account.** ADR-013 removed accounts three weeks ago; this board sat in the
+*unaffected* bucket and should not have, because that button **is** the fork,
+and the fork is now two of your three keys. It reads **I already have a budget**
+— the landing page's own words for the same fork — and goes to `23`.
+
+**The line under the buttons is gone, not rewritten.** *Setting up needs no
+account. One is only for carrying the same budget to a second device.* existed
+to disclaim an account. With no account to disclaim it was a sentence about
+nothing, and the two buttons already say the fork.
+
+**The stale line flagged from the build side was already off the board.**
+*Nothing leaves this device — no account, no server, no sync* came off on
+24 September, when ADR-009 made every clause of it false, and the board has
+carried that in its note ever since. If `welcome-screen.tsx` still has it, the
+code is behind the board rather than the board behind the code — the third time
+§10.1's failure mode has been caught, and the reason §10.1 exists.
+
+### T·3 — the rest of what ADR-013 left behind
+
+Having found one, I swept every board and separated the two kinds: **a claim
+that an account exists** (dead) from **a claim that none does** (true, and the
+strongest thing this product has to say). Fixed:
+
+| Board | Was | Now |
+|---|---|---|
+| `15 · Settings` ×4 | Import and export — *the only way to move to another device without an account* | *A file you own, and a way to move the budget without sync* |
+| `15 · Settings`, note ×2 | *the account needs five states and categories need six behaviours* | *categories need six behaviours, and nothing can gain a state* — the argument survives, the dead example goes |
+| `07c2 · Home` ×4 | titled *a brand-new account* | *a brand-new budget* |
+
+Left alone deliberately: every *no account* on the landing page, `20` and `21`
+(*There is no account, so there was never anywhere to put them*), `05.1`'s
+*Setting up needs no account*, and `15d`'s note *Your account became your sync*,
+which is past tense and is the history the build side needs. Every bank-feed
+*left your account* stays exactly as it is — that is a bank account, and repo
+rule 3.
+
+### T·4 — the photographs are the owner's
+
+Nothing here for me to draw, and the build side has it right. `image-brief.md`
+specifies both slots, the page is being built with them reserved at the right
+dimensions with alt text in place, and sourcing them is a licensing decision.
+The one design note: **nothing may shift when an image arrives** — which
+reserving the box achieves, and which `motion.md` §0 would require anyway.
