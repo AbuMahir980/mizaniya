@@ -28,7 +28,7 @@ const DEBTS = [
  */
 export function LandingThreeThings() {
   return (
-    <section aria-labelledby="three" className="-mx-24 bg-card2 px-24 py-44">
+    <section aria-labelledby="three" className="bg-card2 px-24 py-44 desktop:px-150 desktop:py-96">
       <h2 id="three" className="mt-12 font-voice text-land-h2-phone text-ink">
         Three things, and they are the whole product.
       </h2>

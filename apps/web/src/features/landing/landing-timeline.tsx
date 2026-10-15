@@ -15,7 +15,7 @@ import { debtTimeline, figures } from './landing-copy'
  */
 export function LandingTimeline() {
   return (
-    <section aria-labelledby="timeline" className="py-44">
+    <section aria-labelledby="timeline" className="px-24 py-44 desktop:px-150 desktop:py-96">
       <h2 id="timeline" className="font-voice text-land-h2-phone text-ink">
         You owe A. Friend <Ngn amount={figures.friendBalance} />. Three paydays from now you do
         not.

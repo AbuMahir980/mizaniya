@@ -15,7 +15,7 @@ import { figures } from './landing-copy'
  */
 export function LandingComparisons() {
   return (
-    <section aria-labelledby="tried" className="-mx-24 bg-card2 px-24 py-44">
+    <section aria-labelledby="tried" className="bg-card2 px-24 py-44 desktop:px-150 desktop:py-96">
       <h2 id="tried" className="mt-12 font-voice text-land-h2-phone text-ink">
         You have tried a budgeting app before.
       </h2>

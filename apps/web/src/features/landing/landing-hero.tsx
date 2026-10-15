@@ -22,7 +22,7 @@ export interface LandingHeroProps {
 export function LandingHero({ onStart, onRestore }: LandingHeroProps) {
   return (
     <>
-      <header className="flex h-[64px] items-center gap-14">
+      <header className="flex h-[64px] items-center gap-14 px-24 desktop:h-[76px] desktop:px-150">
         <Lockup />
         <span className="flex-1" />
         <LandingButton variant="secondary" small onClick={onRestore}>
@@ -30,27 +30,29 @@ export function LandingHero({ onStart, onRestore }: LandingHeroProps) {
         </LandingButton>
       </header>
 
-      <section className="border-b border-line pb-34 pt-26">
-        <h1 className="mt-16 font-voice text-land-h2-phone text-ink desktop:text-land-h2">
-          Your salary lands on the 25th.
-          <br />
-          By the 12th, you are not sure where it went.
-        </h1>
+      <section className="border-b border-line px-24 pb-34 pt-26 desktop:flex desktop:items-center desktop:gap-24 desktop:px-150 desktop:py-96">
+        <div className="desktop:min-h-[570px] desktop:max-w-[620px] desktop:flex desktop:flex-col desktop:justify-center">
+          <h1 className="mt-16 font-voice text-land-h2-phone text-ink desktop:mt-22 desktop:text-[44px] desktop:leading-[56px]">
+            Your salary lands on the 25th.
+            <br />
+            By the 12th, you are not sure where it went.
+          </h1>
 
-        <p className="mt-14 font-structural text-land-lead text-soft">
-          Salary cycles. Rent held back. Debts both ways.
-        </p>
+          <p className="mt-14 font-structural text-land-lead text-soft desktop:mt-22 desktop:max-w-[520px]">
+            Salary cycles. Rent held back. Debts both ways.
+          </p>
 
-        <div className="mt-22 flex flex-wrap gap-12">
-          <LandingButton onClick={onStart}>Start with my own figures</LandingButton>
-          <LandingButton variant="secondary" onClick={onRestore}>
-            I already have a budget
-          </LandingButton>
+          <div className="mt-22 flex flex-wrap gap-12 desktop:mt-30">
+            <LandingButton onClick={onStart}>Start with my own figures</LandingButton>
+            <LandingButton variant="secondary" onClick={onRestore}>
+              I already have a budget
+            </LandingButton>
+          </div>
+
+          <p className="mt-14 font-structural text-[13.5px] leading-[20px] text-soft">
+            No account. No email, no password, nothing to verify.
+          </p>
         </div>
-
-        <p className="mt-14 font-structural text-[13.5px] leading-[20px] text-soft">
-          No account. No email, no password, nothing to verify.
-        </p>
 
         <LandingDeck />
       </section>

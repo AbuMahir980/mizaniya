@@ -111,10 +111,15 @@ describe('the photographs that do not exist yet', () => {
    * empty state, because nothing has failed and nothing of the owner's is
    * missing — a photograph has not been bought.
    */
-  it('reserves both slots by name, so neither is forgotten', () => {
+  /**
+   * **One slot, not two.** The first build invented a second one at the top of
+   * the page; the boards draw a single photograph, near the end. Corrected 15
+   * October when the 390 board was read properly rather than skimmed.
+   */
+  it('reserves the one slot the boards draw, by name', () => {
     renderPage()
 
-    expect(document.querySelector('[data-slot="landing-recognition"]')).not.toBeNull()
     expect(document.querySelector('[data-slot="landing-paid"]')).not.toBeNull()
+    expect(document.querySelector('[data-slot="landing-recognition"]')).toBeNull()
   })
 })

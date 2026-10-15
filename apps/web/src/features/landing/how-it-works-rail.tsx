@@ -62,7 +62,7 @@ export function HowItWorksRail() {
   }, [entered])
 
   return (
-    <section aria-labelledby="how-it-works" className="flex flex-col gap-16">
+    <section aria-labelledby="how-it-works" className="flex flex-col gap-16 border-t border-line px-24 py-44 desktop:px-150 desktop:py-96">
       <p className="font-structural text-lab uppercase text-soft">How it works</p>
       <h2 id="how-it-works" className="font-voice text-title text-ink">
         There is nothing to sign up for.
@@ -71,7 +71,7 @@ export function HowItWorksRail() {
       <div
         ref={band}
         data-rail-enter={entered}
-        className="-mx-16 flex snap-x snap-mandatory gap-12 overflow-x-auto px-16 pb-8 desktop:-mx-44 desktop:px-44"
+        className="-mx-24 mt-34 flex snap-x snap-mandatory gap-16 overflow-x-auto px-24 pb-8 desktop:-mr-150 desktop:ml-0 desktop:pl-0 desktop:pr-150"
       >
         {howItWorks.map((item, index) => (
           <article

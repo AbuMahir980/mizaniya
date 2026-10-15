@@ -62,6 +62,10 @@ export default {
         Array.from({ length: 49 }, (_, i) => i * 2).map((px) => [px, `${px}px`]),
       ),
       target: 'var(--target-min)',
+      /* The landing bands, from the 1440 board: 96px down, 150px in. Not app
+         spacing — see tokens.css and open-items §U. */
+      96: '96px',
+      150: '150px',
     },
     borderRadius: {
       none: '0px',

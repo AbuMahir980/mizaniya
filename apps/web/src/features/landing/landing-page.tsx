@@ -1,5 +1,4 @@
 import { HowItWorksRail } from './how-it-works-rail'
-import { ImageSlot } from './image-slot'
 import { LandingArgument } from './landing-argument'
 import { LandingComparisons } from './landing-comparisons'
 import { LandingThreeThings } from './landing-three-things'
@@ -27,14 +26,9 @@ export interface LandingPageProps {
  */
 export function LandingPage({ onStart, onRestore }: LandingPageProps) {
   return (
-    <main className="mx-auto flex max-w-[64rem] flex-col gap-32 px-16 pb-32 desktop:px-44">
+    <main className="mx-auto w-full max-w-[1440px]">
       <LandingHero onStart={onStart} onRestore={onRestore} />
 
-      <ImageSlot
-        name="landing-recognition"
-        title="A household, mid-month"
-        description="The moment before the product: the salary has gone further than it should have, and nobody is sure where."
-      />
 
       <HowItWorksRail />
       <LandingComparisons />
