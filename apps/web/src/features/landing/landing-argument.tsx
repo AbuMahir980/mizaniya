@@ -1,4 +1,5 @@
 import { Card } from '@/ui/card'
+import { LandingBand } from './landing-band'
 import { figures, whatIsUnderneath } from './landing-copy'
 
 /**
@@ -21,7 +22,7 @@ export function LandingArgument() {
 function SafeToSpend() {
   return (
     <>
-      <section aria-labelledby="safe" className="flex flex-col gap-16">
+      <LandingBand labelledBy="safe" className="flex flex-col gap-16">
         <h2 id="safe" className="font-voice text-title text-ink">
           Safe to spend, today.
         </h2>
@@ -48,7 +49,7 @@ function SafeToSpend() {
             </li>
           ))}
         </ul>
-      </section>
+      </LandingBand>
     </>
   )
 }

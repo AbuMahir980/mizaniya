@@ -245,6 +245,22 @@
   --leading-land-body: 29px;
   --size-land-kicker: 11px;
 
+  /* The boards' micro-scale, used inside the landing cards. Read from the
+     canvas's inline styles, which is where it lives until §U answers whether
+     tokens.md should publish it. Named so the page stops inventing a size per
+     section, which is exactly what the owner saw down the right edge. */
+  --size-land-micro: 9px;
+  --size-land-fine: 12px;
+  --size-land-detail: 13.5px;
+  --size-land-label: 14.5px;
+  --size-land-answer: 17.5px;
+  /* The splash lockup. `brand/README.md` owns the size; it was written by hand
+     in launch-screen.tsx until the F3 rule found it on 16 October. */
+  --size-splash-lockup: 31px;
+
+  --size-land-hero: 44px;
+  --leading-land-hero: 56px;
+
   /* The phone board overrides the serif down for 390. */
   --size-land-h2-phone: 25px;
   --leading-land-h2-phone: 33px;

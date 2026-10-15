@@ -123,3 +123,33 @@ describe('the photographs that do not exist yet', () => {
     expect(document.querySelector('[data-slot="landing-recognition"]')).toBeNull()
   })
 })
+
+describe('one page, one measure', () => {
+  /**
+   * The fault this exists for, and the owner saw it before any test did: the
+   * page was converted to the boards' gutters a section at a time, so half of
+   * it sat on a 150px measure and half on none. Down the right edge it read as
+   * a page nobody had looked at.
+   *
+   * So the gutters live in `LandingBand` and nowhere else. This fails if a
+   * section starts writing its own again — which is how it happened the first
+   * time.
+   */
+  it('writes its gutters in exactly one place', async () => {
+    const { readFileSync, readdirSync } = await import('node:fs')
+    const dir = 'apps/web/src/features/landing'
+    const offenders: string[] = []
+
+    for (const file of readdirSync(dir)) {
+      if (!file.endsWith('.tsx') || file === 'landing-band.tsx' || file.includes('.test.')) continue
+      const source = readFileSync(`${dir}/${file}`, 'utf8')
+      for (const line of source.split('\n')) {
+        // A band's own padding. A bleed (-mx-) is the opposite: it reaches past
+        // the gutter rather than inventing one, and is paired with it.
+        if (/\bdesktop:px-150\b/.test(line) && !/-mx-150/.test(line)) offenders.push(`${file}: ${line.trim().slice(0, 60)}`)
+      }
+    }
+
+    expect(offenders).toEqual([])
+  })
+})

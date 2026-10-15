@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { IconButton } from '@/ui/button'
 import { Icon } from '@/ui/icon'
+import { LandingBand } from './landing-band'
 import { howItWorks } from './landing-copy'
 import { useCarousel } from './use-carousel'
 
@@ -61,10 +62,7 @@ export function HowItWorksRail() {
   }, [entered])
 
   return (
-    <section
-      aria-labelledby="how-it-works"
-      className="border-t border-line bg-bg px-24 py-44 desktop:px-150 desktop:py-96"
-    >
+    <LandingBand edge labelledBy="how-it-works">
       <div className="flex items-end justify-between gap-24">
         <div>
           <p className="mb-14 font-structural text-land-kicker uppercase text-soft">
@@ -87,7 +85,7 @@ export function HowItWorksRail() {
       <div
         ref={scroller}
         data-rail-enter={entered}
-        className="rail-scroller -mx-24 mt-34 flex snap-x snap-mandatory gap-16 overflow-x-auto px-24 pb-8 desktop:-mr-150 desktop:ml-0 desktop:pl-0 desktop:pr-150"
+        className="rail-scroller mt-34 flex snap-x snap-mandatory gap-16 overflow-x-auto pb-8 -mx-24 px-24 desktop:-mx-150 desktop:px-150"
       >
         <div className="flex gap-16">
           {howItWorks.map((item) => (
@@ -95,13 +93,13 @@ export function HowItWorksRail() {
               key={item.n}
               className="rail-card flex w-[258px] shrink-0 snap-start flex-col rounded-lg border border-line bg-card p-18"
             >
-              <p className="font-data text-[10px] uppercase tracking-[0.14em] text-faint">
+              <p className="font-data text-mlab uppercase tracking-[0.14em] text-faint">
                 {item.n}
               </p>
-              <h3 className="mt-14 font-structural text-[14px] leading-[21px] text-soft">
+              <h3 className="mt-14 font-structural text-land-label text-soft">
                 {item.q}
               </h3>
-              <p className="mt-8 font-structural text-[17.5px] leading-[27px] text-ink">
+              <p className="mt-8 font-structural text-land-answer text-ink">
                 <b className="font-semibold">{item.a}</b>
                 {item.detail === '' ? null : ` ${item.detail}`}
               </p>
@@ -109,7 +107,7 @@ export function HowItWorksRail() {
           ))}
         </div>
       </div>
-    </section>
+    </LandingBand>
   )
 }
 

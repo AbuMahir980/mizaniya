@@ -144,6 +144,16 @@ export default {
         { lineHeight: '16px', letterSpacing: '0.15em', fontWeight: '600' },
       ],
       'land-button': [token('size-land-button'), { lineHeight: '20px', fontWeight: '600' }],
+      'land-hero': [
+        token('size-land-hero'),
+        { lineHeight: token('leading-land-hero'), letterSpacing: '-0.008em' },
+      ],
+      'splash-lockup': [token('size-splash-lockup'), { lineHeight: '36px', fontWeight: '600' }],
+      'land-micro': [token('size-land-micro'), { lineHeight: '14px' }],
+      'land-fine': [token('size-land-fine'), { lineHeight: '18px' }],
+      'land-detail': [token('size-land-detail'), { lineHeight: '20px' }],
+      'land-label': [token('size-land-label'), { lineHeight: '21px' }],
+      'land-answer': [token('size-land-answer'), { lineHeight: '27px' }],
       mlab: ['10px', { lineHeight: '15px', letterSpacing: '0.12em' }],
     },
     transitionDuration: {

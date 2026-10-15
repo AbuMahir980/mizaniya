@@ -1,5 +1,6 @@
 import { LandingButton } from '@/ui/landing-button'
 import { WordmarkArabic } from '@/ui/wordmark-arabic'
+import { GUTTER } from './landing-band'
 import { LandingDeck } from './landing-deck'
 
 export interface LandingHeroProps {
@@ -22,7 +23,7 @@ export interface LandingHeroProps {
 export function LandingHero({ onStart, onRestore }: LandingHeroProps) {
   return (
     <>
-      <header className="flex h-[64px] items-center gap-14 px-24 desktop:h-[76px] desktop:px-150">
+      <header className={`flex h-[64px] items-center gap-14 desktop:h-[76px] ${GUTTER}`}>
         <Lockup />
         <span className="flex-1" />
         <LandingButton variant="secondary" small onClick={onRestore}>
@@ -30,9 +31,9 @@ export function LandingHero({ onStart, onRestore }: LandingHeroProps) {
         </LandingButton>
       </header>
 
-      <section className="border-b border-line px-24 pb-34 pt-26 desktop:flex desktop:items-center desktop:gap-24 desktop:px-150 desktop:py-96">
+      <section className={`border-b border-line pb-34 pt-26 desktop:flex desktop:items-center desktop:gap-24 desktop:py-96 ${GUTTER}`}>
         <div className="desktop:min-h-[570px] desktop:max-w-[620px] desktop:flex desktop:flex-col desktop:justify-center">
-          <h1 className="mt-16 font-voice text-land-h2-phone text-ink desktop:mt-22 desktop:text-[44px] desktop:leading-[56px]">
+          <h1 className="mt-16 font-voice text-land-h2-phone text-ink desktop:mt-22 desktop:text-land-hero desktop:leading-[56px]">
             Your salary lands on the 25th.
             <br />
             By the 12th, you are not sure where it went.
@@ -49,7 +50,7 @@ export function LandingHero({ onStart, onRestore }: LandingHeroProps) {
             </LandingButton>
           </div>
 
-          <p className="mt-14 font-structural text-[13.5px] leading-[20px] text-soft">
+          <p className="mt-14 font-structural text-land-detail text-soft">
             No account. No email, no password, nothing to verify.
           </p>
         </div>
@@ -71,7 +72,7 @@ function Lockup() {
     <span className="flex items-center gap-10 text-emerald">
       <span className="flex flex-col items-end">
         <WordmarkArabic latin={17} />
-        <span className="font-voice text-[17px] leading-[1.1] tracking-[0.005em] text-ink">
+        <span className="font-voice text-land-h3 leading-[1.1] tracking-[0.005em] text-ink">
           Mīzāniyah
         </span>
       </span>

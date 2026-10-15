@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Rail } from '@/ui/rail'
 import { figures } from './landing-copy'
+import { LandingBand } from './landing-band'
 
 /**
  * *You have tried a budgeting app before* — three comparisons, drawn.
@@ -15,12 +16,12 @@ import { figures } from './landing-copy'
  */
 export function LandingComparisons() {
   return (
-    <section aria-labelledby="tried" className="bg-card2 px-24 py-44 desktop:px-150 desktop:py-96">
+    <LandingBand tone="raised" labelledBy="tried">
       <h2 id="tried" className="mt-12 font-voice text-land-h2-phone text-ink">
         You have tried a budgeting app before.
       </h2>
 
-      <div className="-mx-24 mt-20 overflow-x-auto px-24">
+      <div className="rail-scroller mt-20 overflow-x-auto -mx-24 px-24 desktop:-mx-150 desktop:px-150">
         <div className="flex w-[940px] items-start gap-14">
           <Column claim={<>They budget by calendar month.<br />Your money works in salary cycles.</>}>
             <Side tone="theirs" note="1st → 30th · pay lands on the 25th">
@@ -62,14 +63,14 @@ export function LandingComparisons() {
       <p className="mt-16 font-structural text-small text-soft">
         Both sides are shown at once, because a phone has no pointer to reveal one with.
       </p>
-    </section>
+    </LandingBand>
   )
 }
 
 function Column({ claim, children }: { claim: ReactNode; children: ReactNode }) {
   return (
     <div className="w-[286px] shrink-0 snap-start">
-      <h3 className="min-h-[70px] font-structural text-[17px] font-semibold leading-[23px] text-ink">
+      <h3 className="min-h-[70px] font-structural text-land-h3 font-semibold text-ink">
         {claim}
       </h3>
       <div className="mt-12 flex flex-col gap-10">{children}</div>
@@ -90,13 +91,13 @@ function Side({
   return (
     <div className={`w-[262px] rounded-lg border border-line bg-card p-16 ${ours ? 'shadow-lift' : 'shadow-card'}`}>
       <p
-        className={`font-data text-[9px] uppercase tracking-[0.12em] ${ours ? 'text-emerald' : 'text-rose'}`}
+        className={`font-data text-land-micro uppercase tracking-[0.12em] ${ours ? 'text-emerald' : 'text-rose'}`}
       >
         {ours ? 'Mizaniya' : 'The app you tried'}
       </p>
       <div className="mt-12">{children}</div>
       {note === undefined ? null : (
-        <p className="mt-10 font-structural text-[12px] leading-[18px] text-soft">{note}</p>
+        <p className="mt-10 font-structural text-land-fine text-soft">{note}</p>
       )}
     </div>
   )
@@ -131,12 +132,12 @@ function Figure({ amount, beside, ours }: { amount: string; beside: string; ours
   return (
     <p className="flex items-baseline gap-8">
       <span
-        className={`font-data text-[19px] font-semibold ${ours === true ? 'text-emerald' : 'text-rose'}`}
+        className={`font-data text-land-lead font-semibold ${ours === true ? 'text-emerald' : 'text-rose'}`}
       >
         {amount}
-        <span className="text-[11px] font-medium opacity-60">.00</span>
+        <span className="text-land-kicker font-medium opacity-60">.00</span>
       </span>
-      <span className="font-structural text-[12px] text-soft">{beside}</span>
+      <span className="font-structural text-land-fine text-soft">{beside}</span>
     </p>
   )
 }
@@ -158,13 +159,13 @@ function Entry({
   return (
     <span className="flex items-center justify-between gap-10 border-b border-hair py-8 last:border-b-0">
       <span className="flex flex-col">
-        <span className="font-structural text-[13px] text-ink">{who}</span>
+        <span className="font-structural text-land-fine text-ink">{who}</span>
         {under === undefined ? null : (
-          <span className="font-structural text-[11px] text-soft">{under}</span>
+          <span className="font-structural text-land-kicker text-soft">{under}</span>
         )}
       </span>
       <span
-        className={`font-data text-[13px] ${muted === true ? 'text-faint' : ours === true ? 'text-emerald' : 'text-ink'}`}
+        className={`font-data text-land-fine ${muted === true ? 'text-faint' : ours === true ? 'text-emerald' : 'text-ink'}`}
       >
         {amount}
       </span>

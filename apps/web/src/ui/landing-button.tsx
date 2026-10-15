@@ -40,7 +40,7 @@ export function LandingButton({
       type="button"
       className={cx(
         'inline-flex items-center justify-center gap-10 whitespace-nowrap rounded-land border border-transparent font-structural',
-        small ? 'min-h-[46px] px-20 text-[14.5px]' : 'min-h-[52px] px-26 text-land-button',
+        small ? 'min-h-[46px] px-20 text-land-label' : 'min-h-[52px] px-26 text-land-button',
         VARIANT[variant],
         className,
       )}

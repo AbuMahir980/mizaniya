@@ -1,4 +1,5 @@
 import { WordmarkArabic } from '@/ui/wordmark-arabic'
+import { LandingBand } from './landing-band'
 
 /**
  * The footer, and the sentence that governs the whole page: every figure on it
@@ -8,7 +9,7 @@ import { WordmarkArabic } from '@/ui/wordmark-arabic'
 export function LandingFooter() {
   return (
     <>
-      <footer className="flex flex-col gap-12 border-t border-hair pt-24">
+      <LandingBand edge className="flex flex-col gap-12">
         <span className="flex items-center gap-8">
           <WordmarkArabic latin={18} />
           <span className="font-voice text-h2 text-ink">Mīzāniyah</span>
@@ -23,7 +24,7 @@ export function LandingFooter() {
         <p className="font-structural text-small text-faint">
           Every figure on this page comes from one worked example.
         </p>
-      </footer>
+      </LandingBand>
     </>
   )
 }

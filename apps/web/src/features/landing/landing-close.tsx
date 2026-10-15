@@ -2,6 +2,7 @@ import { Button } from '@/ui/button'
 import { Card } from '@/ui/card'
 import { ImageSlot } from './image-slot'
 import { LandingFooter } from './landing-footer'
+import { LandingBand } from './landing-band'
 import { freeBecause, howToUseIt, theRestOfIt } from './landing-copy'
 
 export interface LandingCloseProps {
@@ -37,7 +38,7 @@ export function LandingClose({ onStart, onRestore }: LandingCloseProps) {
 function WhatIsFree() {
   return (
     <>
-      <section aria-labelledby="free" className="flex flex-col gap-16">
+      <LandingBand labelledBy="free" className="flex flex-col gap-16">
         <h2 id="free" className="font-voice text-title text-ink">
           What is free is free because it costs us nothing to run.
         </h2>
@@ -48,14 +49,14 @@ function WhatIsFree() {
             </li>
           ))}
         </ul>
-      </section>
+      </LandingBand>
 
-      <section aria-labelledby="written" className="flex flex-col gap-8">
+      <LandingBand labelledBy="written" tone="raised" className="flex flex-col gap-8">
         <h2 id="written" className="font-voice text-h2 text-ink">
           Debts written down, both ways, with a record either party can hold.
         </h2>
         <p className="font-structural text-small text-faint">Qur&rsquo;an 2:282</p>
-      </section>
+      </LandingBand>
     </>
   )
 }
@@ -63,7 +64,7 @@ function WhatIsFree() {
 function TheRest() {
   return (
     <>
-      <section aria-labelledby="rest" className="flex flex-col gap-16">
+      <LandingBand labelledBy="rest" className="flex flex-col gap-16">
         <h2 id="rest" className="font-voice text-title text-ink">
           The rest of it.
         </h2>
@@ -75,7 +76,7 @@ function TheRest() {
             </Card>
           ))}
         </div>
-      </section>
+      </LandingBand>
     </>
   )
 }
@@ -83,7 +84,7 @@ function TheRest() {
 function HowToUseIt() {
   return (
     <>
-      <section aria-labelledby="how-to" className="flex flex-col gap-16">
+      <LandingBand labelledBy="how-to" tone="raised" className="flex flex-col gap-16">
         <h2 id="how-to" className="font-voice text-title text-ink">
           How to use it
         </h2>
@@ -98,7 +99,7 @@ function HowToUseIt() {
             </li>
           ))}
         </ol>
-      </section>
+      </LandingBand>
     </>
   )
 }
@@ -106,7 +107,7 @@ function HowToUseIt() {
 function Closing({ onStart, onRestore }: LandingCloseProps) {
   return (
     <>
-      <section aria-labelledby="closing" className="flex flex-col gap-16">
+      <LandingBand labelledBy="closing" className="flex flex-col gap-16">
         <h2 id="closing" className="font-voice text-title text-ink">
           You do not need an account.
         </h2>
@@ -126,7 +127,7 @@ function Closing({ onStart, onRestore }: LandingCloseProps) {
         >
           Read the source
         </a>
-      </section>
+      </LandingBand>
     </>
   )
 }

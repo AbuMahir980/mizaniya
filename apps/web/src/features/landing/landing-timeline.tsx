@@ -1,5 +1,6 @@
 import { Card } from '@/ui/card'
 import { Ngn } from '@/ui/ngn'
+import { LandingBand } from './landing-band'
 import { debtTimeline, figures } from './landing-copy'
 
 /**
@@ -15,12 +16,12 @@ import { debtTimeline, figures } from './landing-copy'
  */
 export function LandingTimeline() {
   return (
-    <section aria-labelledby="timeline" className="px-24 py-44 desktop:px-150 desktop:py-96">
+    <LandingBand labelledBy="timeline">
       <h2 id="timeline" className="font-voice text-land-h2-phone text-ink">
         You owe A. Friend <Ngn amount={figures.friendBalance} />. Three paydays from now you do
         not.
       </h2>
-      <p className="mt-10 font-structural text-[13.5px] text-soft">
+      <p className="mt-10 font-structural text-land-detail text-soft">
         No other app can draw this.
       </p>
 
@@ -41,7 +42,7 @@ export function LandingTimeline() {
           <span className="text-emerald">Cleared 25 Dec</span>
         </p>
       </Card>
-    </section>
+    </LandingBand>
   )
 }
 
@@ -70,17 +71,17 @@ function Step({
         }`}
       />
       <span className="flex min-w-0 flex-1 items-baseline gap-10">
-        <span className="w-[52px] shrink-0 font-structural text-[9.5px] font-semibold uppercase tracking-[0.115em] text-soft">
+        <span className="w-[52px] shrink-0 font-structural text-land-micro font-semibold uppercase tracking-[0.115em] text-soft">
           {step.when}
         </span>
-        <span className="flex-1 font-structural text-[12px] text-soft">{step.date}</span>
+        <span className="flex-1 font-structural text-land-fine text-soft">{step.date}</span>
         <span
-          className={`font-data text-[20px] font-semibold tracking-[-0.012em] ${
+          className={`font-data text-land-h3 font-semibold tracking-[-0.012em] ${
             cleared ? 'text-emerald' : first ? 'text-ink' : 'text-soft'
           }`}
         >
           {step.amount}
-          <span className="text-[12px] font-medium opacity-60">.00</span>
+          <span className="text-land-fine font-medium opacity-60">.00</span>
         </span>
       </span>
     </li>

@@ -1,5 +1,6 @@
 import { Card } from '@/ui/card'
 import { figures } from './landing-copy'
+import { LandingBand } from './landing-band'
 
 /** The three debts, as the board lists them: the sign of the balance sets the dot. */
 const DEBTS = [
@@ -28,12 +29,12 @@ const DEBTS = [
  */
 export function LandingThreeThings() {
   return (
-    <section aria-labelledby="three" className="bg-card2 px-24 py-44 desktop:px-150 desktop:py-96">
+    <LandingBand tone="raised" labelledBy="three">
       <h2 id="three" className="mt-12 font-voice text-land-h2-phone text-ink">
         Three things, and they are the whole product.
       </h2>
 
-      <div className="-mx-24 mt-20 overflow-x-auto px-24">
+      <div className="rail-scroller mt-20 overflow-x-auto -mx-24 px-24 desktop:-mx-150 desktop:px-150">
         <div className="flex w-[940px] items-start gap-14">
           <Thing title="Salary cycles, not months">
             <Card className="mt-20 p-18">
@@ -54,7 +55,7 @@ export function LandingThreeThings() {
           </Thing>
         </div>
       </div>
-    </section>
+    </LandingBand>
   )
 }
 
@@ -73,14 +74,14 @@ function BothDirections() {
               className={`h-8 w-8 shrink-0 rounded-full ${debt.owed ? 'bg-emerald' : 'bg-rose'}`}
             />
             <span className="min-w-0 flex-1">
-              <span className="block font-structural text-[14.5px] font-semibold text-ink">
+              <span className="block font-structural text-land-label font-semibold text-ink">
                 {debt.who}
               </span>
-              <span className="mt-2 block font-structural text-[12px] text-soft">{debt.under}</span>
+              <span className="mt-2 block font-structural text-land-fine text-soft">{debt.under}</span>
             </span>
-            <span className="font-data text-[14.5px] font-semibold tracking-[-0.012em] text-ink">
+            <span className="font-data text-land-label font-semibold tracking-[-0.012em] text-ink">
               {debt.amount}
-              <span className="text-[9px] font-medium opacity-60">.00</span>
+              <span className="text-land-micro font-medium opacity-60">.00</span>
             </span>
           </li>
         ))}
@@ -97,13 +98,13 @@ function RentFund() {
         <span className="text-ochre">Short</span>
       </p>
       <p className="mt-12 flex items-baseline gap-8">
-        <span className="font-data text-[19px] font-semibold text-ink">
+        <span className="font-data text-land-lead font-semibold text-ink">
           {figures.rentSaved}
-          <span className="text-[11px] font-medium opacity-60">.00</span>
+          <span className="text-land-kicker font-medium opacity-60">.00</span>
         </span>
-        <span className="font-structural text-[12px] text-soft">of {figures.rentTarget}</span>
+        <span className="font-structural text-land-fine text-soft">of {figures.rentTarget}</span>
       </p>
-      <p className="mt-10 font-structural text-[12px] leading-[18px] text-soft">
+      <p className="mt-10 font-structural text-land-fine text-soft">
         Due 1 March. At {figures.rentPerPayday} a payday you reach ₦850,000.00 —{' '}
         {figures.rentShortfall} short. {figures.rentPerPaydayThatCloses} a payday closes it.
       </p>
@@ -114,7 +115,7 @@ function RentFund() {
 function Thing({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="w-[286px] shrink-0 snap-start">
-      <h3 className="min-h-[46px] font-structural text-[17px] font-semibold leading-[23px] text-ink">
+      <h3 className="min-h-[46px] font-structural text-land-h3 font-semibold text-ink">
         {title}
       </h3>
       {children}

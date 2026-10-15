@@ -17,7 +17,7 @@ export function LaunchScreen() {
       <div className="text-center">
         {/* 31/36 here, not a type step: `brand/README.md` owns the wordmark's
             four sizes, and the launch panel is the smallest of them. */}
-        <div className="font-voice text-[31px] font-semibold leading-9 text-ink">Mizaniya</div>
+        <div className="font-voice text-splash-lockup text-ink">Mizaniya</div>
         {/* Under the Latin, never above it, and never carrying a figure. */}
         <WordmarkArabic latin={31} className="mx-auto text-soft" />
       </div>
