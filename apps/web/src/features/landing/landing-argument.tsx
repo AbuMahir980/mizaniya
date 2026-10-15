@@ -1,5 +1,5 @@
 import { Card } from '@/ui/card'
-import { comparisons, debtTimeline, figures, whatIsUnderneath } from './landing-copy'
+import { debtTimeline, figures, whatIsUnderneath } from './landing-copy'
 
 /**
  * The middle of the page: why the apps they have already tried did not work,
@@ -13,35 +13,8 @@ import { comparisons, debtTimeline, figures, whatIsUnderneath } from './landing-
 export function LandingArgument() {
   return (
     <>
-      <WhatYouTried />
       <SafeToSpend />
       <DebtTimeline />
-    </>
-  )
-}
-
-function WhatYouTried() {
-  return (
-    <>
-      <section aria-labelledby="tried" className="flex flex-col gap-16">
-        <h2 id="tried" className="font-voice text-title text-ink">
-          You have tried a budgeting app before.
-        </h2>
-
-        {comparisons.map((item) => (
-          <Card key={item.claim} as="article" className="flex flex-col gap-12">
-            <h3 className="font-structural text-body text-ink">{item.claim}</h3>
-            <div className="flex flex-col gap-8 desktop:flex-row desktop:gap-16">
-              <ComparisonSide label={item.theirs.label} line={item.theirs.line} />
-              <ComparisonSide label={item.ours.label} line={item.ours.line} ours />
-            </div>
-          </Card>
-        ))}
-
-        <p className="font-structural text-small text-faint">
-          Both sides are shown at once, because a phone has no pointer to reveal one with.
-        </p>
-      </section>
     </>
   )
 }
@@ -112,15 +85,3 @@ function DebtTimeline() {
   )
 }
 
-function ComparisonSide({ label, line, ours }: { label: string; line: string; ours?: boolean }) {
-  return (
-    <div className="flex flex-1 flex-col gap-4 border-t border-hair pt-8 desktop:border-l desktop:border-t-0 desktop:pl-16 desktop:pt-0">
-      <span className="font-structural text-lab uppercase text-faint">{label}</span>
-      <span
-        className={`font-structural text-small ${ours === true ? 'text-emerald' : 'text-soft'}`}
-      >
-        {line}
-      </span>
-    </div>
-  )
-}

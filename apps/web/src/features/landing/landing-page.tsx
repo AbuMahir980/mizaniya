@@ -1,6 +1,7 @@
 import { HowItWorksRail } from './how-it-works-rail'
 import { ImageSlot } from './image-slot'
 import { LandingArgument } from './landing-argument'
+import { LandingComparisons } from './landing-comparisons'
 import { LandingClose } from './landing-close'
 import { LandingHero } from './landing-hero'
 
@@ -34,6 +35,7 @@ export function LandingPage({ onStart, onRestore }: LandingPageProps) {
       />
 
       <HowItWorksRail />
+      <LandingComparisons />
       <LandingArgument />
       <LandingClose onStart={onStart} onRestore={onRestore} />
     </main>
