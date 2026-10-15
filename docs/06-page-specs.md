@@ -442,18 +442,34 @@ and because the link people share has to be the short one.
 `/welcome`. It no longer does: a stranger gets the landing page, and `/welcome` is
 reached by pressing its primary button.
 
-**The second decision, and it is proposed rather than done.** The welcome screen inside
-`/welcome` says what this page says: its two actions — *Get started* and *I have an
-export to restore* — are this page's two buttons, and its three bullets are this page's
-hero and trust lines. Leaving both means a visitor reads the same promise twice before
-being asked anything.
+**The second decision was proposed, and the designer corrected it — §T·2.**
 
-**But it is still there, and both landing buttons lead to it.** The restore path — the
-file picker and the import that replaces a whole budget — lives inside that screen, and
-moving something that writes everything somebody owns is not a change to make in
-passing. `docs/open-items.md` §T·2 is the question; the redundancy is what ships until
-it is answered. *Corrected 15 October: this section first claimed `/welcome` already
-opened on step 1, which it does not.*
+This section first proposed retiring the welcome screen, on the grounds that the landing
+page already says what it says. **That misses the case the screen exists for: the
+installed app opening cold.** v1 is a PWA. An installed copy launches with no address
+bar, no landing page and nothing to have scrolled past, so serving the acquisition page
+there serves it to someone who already converted.
+
+**And the fork matters most to the person the landing page serves worst** — whoever lost
+a phone, reinstalled, and has a budget somewhere. Dropping them into step 1 hides the
+only door they need.
+
+**So there are two front doors, and which one opens depends on how the app was opened:**
+
+| Opened | Serves |
+|---|---|
+| A browser, no budget on this device | **The landing page** |
+| The installed app, no budget on this device | **Board `01`**, the first-launch screen, with its fork |
+| Either, once a budget exists | **Home** |
+
+`apps/web/src/app/use-installed.ts` is the detection. The design condition is *launched
+from the installed app*, not a particular media query — `display-mode: standalone`, with
+`navigator.standalone` for iOS Safari, is what a browser gives us for it. It is read
+once at launch, because a window does not stop being the installed app halfway through a
+session.
+
+*Corrected twice on 15 October: first for claiming `/welcome` already opened on step 1,
+then for proposing to retire a screen that the designer showed was load-bearing.*
 
 | State | What shows |
 |---|---|

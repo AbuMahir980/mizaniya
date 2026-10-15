@@ -58,7 +58,7 @@ export const howItWorks = [
     n: '03',
     q: 'Can you see my budget?',
     a: 'No.',
-    detail: 'We hold no key to it.',
+    detail: 'It is encrypted before it leaves, and we hold no key.',
   },
   {
     n: '04',

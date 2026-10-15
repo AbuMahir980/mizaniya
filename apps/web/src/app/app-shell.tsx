@@ -1,5 +1,5 @@
 import { Suspense, useState, type ReactNode } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router'
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
 import { AnnounceProvider } from '@/ui/announce'
 import { BottomBar, Sidebar, type NavItem } from '@/ui/nav'
 import { OfflineNote } from '@/ui/banner'
@@ -8,6 +8,7 @@ import { ThemeChoice } from '@/ui/theme-choice'
 import { Spinner } from '@/ui/spinner'
 import { useIsOnline, useSnapshotState } from './store-context'
 import { LandingRoute } from './landing-route'
+import { launchedFromInstalledApp } from './use-installed'
 import { LaunchScreen } from './launch-screen'
 import { QuickAddRoute } from './quick-add-route'
 import { useTheme } from './use-theme'
@@ -131,8 +132,18 @@ export function AppShell() {
     return <LaunchScreen />
   }
 
+  /**
+   * Two front doors, and which one depends on how this was opened — §T·2.
+   *
+   * A browser gets the landing page. **The installed app gets board `01`**,
+   * because an installed copy launches with no address bar and nothing to have
+   * scrolled past: serving the acquisition page there serves it to someone who
+   * already converted. And the fork on `01` matters most to the person the
+   * landing page serves worst — whoever lost a phone, reinstalled, and has a
+   * budget somewhere. Dropping them into step 1 hides the only door they need.
+   */
   if (state.status === 'new-owner') {
-    return <LandingRoute />
+    return launchedFromInstalledApp() ? <Navigate to="/welcome" replace /> : <LandingRoute />
   }
 
   if (state.status === 'error') {

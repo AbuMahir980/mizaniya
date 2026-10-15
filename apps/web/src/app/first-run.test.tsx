@@ -62,10 +62,10 @@ function renderApp(repository: Repository = repo) {
 describe('the welcome screen', () => {
   it('leads with the promise and the three things the app does', async () => {
     renderApp()
-    expect(await screen.findByText('Know what you can spend today.')).toBeDefined()
+    expect(await screen.findByText('Every naira has a job, and the month ends where you meant it to.')).toBeDefined()
     expect(screen.getByText('Safe to spend, today')).toBeDefined()
     expect(screen.getByText('Debts in both directions')).toBeDefined()
-    expect(screen.getByText('Nothing leaves this device')).toBeDefined()
+    expect(screen.getByText('Works with no signal')).toBeDefined()
   })
 
   /**
@@ -76,7 +76,7 @@ describe('the welcome screen', () => {
    */
   it('gives the three points three different tints, as the artboard draws them', async () => {
     const { container } = renderApp()
-    await screen.findByText('Know what you can spend today.')
+    await screen.findByText('Every naira has a job, and the month ends where you meant it to.')
 
     for (const tint of ['bg-em2', 'bg-sl2', 'bg-oc2']) {
       expect(container.querySelector(`.${tint}`), tint).not.toBeNull()
@@ -85,7 +85,7 @@ describe('the welcome screen', () => {
 
   it('shows the app icon rather than the bare mark', async () => {
     const { container } = renderApp()
-    await screen.findByText('Know what you can spend today.')
+    await screen.findByText('Every naira has a job, and the month ends where you meant it to.')
 
     // A rounded emerald tile with the scales reversed out — the lockup the
     // installed icon uses. The first screen is where that is established.
@@ -94,7 +94,7 @@ describe('the welcome screen', () => {
 
   it('says more in the cards at 1440, because there is room to', async () => {
     const { container } = renderApp()
-    await screen.findByText('Know what you can spend today.')
+    await screen.findByText('Every naira has a job, and the month ends where you meant it to.')
 
     // `useMediaQuery` answers true without `matchMedia`, so this is the wide
     // layout. 360 is checked below.
@@ -109,22 +109,29 @@ describe('the welcome screen', () => {
       removeEventListener: () => {},
     }))
     const { container } = renderApp()
-    await screen.findByText('Know what you can spend today.')
+    await screen.findByText('Every naira has a job, and the month ends where you meant it to.')
 
     expect(container.textContent).toContain('One figure, worked out in front of you.')
     expect(container.textContent).not.toContain('never a number you have to take on trust')
     vi.unstubAllGlobals()
   })
 
-  it('offers a route in for someone restoring an export', async () => {
+  /**
+   * Renamed with the board on 15 October. It read *I have an export to restore*
+   * for three weeks after ADR-013, and that was never only a wording problem:
+   * **this button is the fork**, and it matters most to whoever lost a phone,
+   * reinstalled, and has a budget somewhere. It is the landing page's own words
+   * for the same choice.
+   */
+  it('offers the fork for someone who already has a budget', async () => {
     renderApp()
-    expect(await screen.findByRole('button', { name: /export to restore/i })).toBeDefined()
+    expect(await screen.findByRole('button', { name: 'I already have a budget' })).toBeDefined()
   })
 
   it('starts onboarding at step 1, not at the required step', async () => {
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Start with my own figures' }))
 
     // Step 1 is the name, and it is optional — nobody is asked for money first.
     // The artboards ask a question; they do not label the field twice.
@@ -137,7 +144,7 @@ describe('step 2 is the only one that is required', () => {
   async function toStepTwo() {
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Start with my own figures' }))
     await user.click(await screen.findByRole('button', { name: 'Continue' }))
     await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
     return user
@@ -190,7 +197,7 @@ describe('what step 5 actually records', () => {
   async function toStepFive() {
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Start with my own figures' }))
     await user.click(await screen.findByRole('button', { name: 'Continue' }))
     await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
     await user.type(screen.getByLabelText(/Take-home/), '450000')
@@ -238,7 +245,7 @@ describe('the controls the artboards drew after the rebuild', () => {
   async function toStepThree() {
     const user = userEvent.setup()
     renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Start with my own figures' }))
     await user.click(await screen.findByRole('button', { name: 'Continue' }))
     await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
     await user.type(screen.getByLabelText(/Take-home/), '450000')
@@ -286,7 +293,7 @@ describe('what onboarding writes', () => {
   async function onboardMinimally() {
     const user = userEvent.setup()
     const view = renderApp()
-    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Start with my own figures' }))
 
     await user.click(screen.getByRole('button', { name: 'Continue' })) // name
     await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
@@ -322,7 +329,7 @@ describe('what onboarding writes', () => {
     }
     const user = userEvent.setup()
     renderApp(failing)
-    await user.click(await screen.findByRole('button', { name: 'Get started' }))
+    await user.click(await screen.findByRole('button', { name: 'Start with my own figures' }))
     await user.click(screen.getByRole('button', { name: 'Continue' }))
     await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
     await user.type(screen.getByLabelText(/Take-home/), '450000')
@@ -412,7 +419,7 @@ describe('restoring an export skips onboarding entirely', () => {
     const message = await screen.findByText(/doesn’t look like a Mizaniya export/)
     expect(message.textContent).toContain('Nothing has changed.')
     // Still on welcome, with nothing written.
-    expect(screen.getByRole('button', { name: 'Get started' })).toBeDefined()
+    expect(screen.getByRole('button', { name: 'Start with my own figures' })).toBeDefined()
     expect(await repo.settings.get()).toBeUndefined()
   })
 })
@@ -422,7 +429,7 @@ describe('the seeded owner reaches ₦7,500.00 (the acceptance figure)', () => {
     await (async () => {
       const user = userEvent.setup()
       renderApp()
-      await user.click(await screen.findByRole('button', { name: 'Get started' }))
+      await user.click(await screen.findByRole('button', { name: 'Start with my own figures' }))
       await user.click(screen.getByRole('button', { name: 'Continue' }))
       await screen.findByRole('heading', { name: 'When are you paid, and how much?' })
       await user.type(screen.getByLabelText(/Take-home/), '450000')
