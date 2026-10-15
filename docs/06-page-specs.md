@@ -37,8 +37,9 @@ the same thing nine times. It is stated once here instead.
 
 | # | Page | Route | Priority | Reached from |
 |:-:|---|---|:-:|---|
-| 1 | **Onboarding** | `/welcome` | P0 | First run only; redirected here until settings exist |
-| 2 | **Home** | `/` | P0 | Nav, app launch, after any save |
+| 0 | **Landing** | `/` *(no budget on this device)* | P0 | The link anyone is given. **Added 15 Oct — it was drawn and briefed but never specified** |
+| 1 | **Onboarding** | `/welcome` | P0 | The landing page's primary button; and any route until settings exist |
+| 2 | **Home** | `/` *(a budget exists)* | P0 | Nav, app launch, after any save |
 | 3 | **Plan** | `/plan` | P0 | Nav, unallocated banner |
 | 4 | **Transactions** | `/transactions` | P0 | Nav, any Home tile |
 | 4a | **Quick Add** *(sheet)* | overlay, no route | P0 | The persistent action button, from anywhere |
@@ -419,6 +420,77 @@ Screens may use only the primitives in the design's set.
 ---
 
 ## 7 · The pages
+
+### 7.0 · Landing — `/`, when this device holds no budget
+
+**Added 2026-10-15.** The page was drawn in September, rewritten on 14 October after
+[ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md), and briefed in
+`docs/11-landing-page-brief.md` — but **it was never specified**, so nothing said where
+it lived or what it did. This section is that, and it names the two decisions it had to
+make rather than making them quietly.
+
+**Purpose.** It is the only page a stranger sees. It has to do one thing: make someone
+whose salary runs out before the month does recognise themselves, and then let them
+start in one tap.
+
+**Route, and the first decision.** `/` serves **the landing page when this device holds
+no budget**, and **Home when it does**. It is one route with two faces rather than two
+routes, because a budgeting app's address should not change the day you start using it,
+and because the link people share has to be the short one.
+
+**This replaces the first-run redirect.** Until now, `/` with no settings redirected to
+`/welcome`. It no longer does: a stranger gets the landing page, and `/welcome` is
+reached by pressing its primary button.
+
+**The second decision: the welcome screen inside `/welcome` is retired.** Its two
+actions — *Get started* and *I have an export to restore* — are the landing page's two
+buttons, and its three bullets are the landing page's hero and trust lines. Leaving both
+means a visitor reads the same promise twice before being asked anything, which is the
+worst place to put a redundant step. **`/welcome` now opens on step 1.** Raised as a
+question in `docs/open-items.md` §S because it retires a screen the owner confirmed,
+rather than being deleted on the build side's own authority.
+
+| State | What shows |
+|---|---|
+| **Normal** | The page, in the drawn order below |
+| **Loading** | **None.** Nothing is fetched. It is static markup and the figures are literals from `docs/seed-data.md` |
+| **Empty** | **None, and the distinction does not exist here.** The page has no data of its own |
+| **Error** | **None.** There is nothing that can fail |
+| **Offline** | **Identical.** It is precached by the service worker, and a page selling an offline-first app that cannot be read offline would be its own refutation |
+
+**The primary action is *Start with my own figures*** → `/welcome`. The secondary is
+*I already have a budget* → the import path, which is where someone arriving on a new
+device goes.
+
+**The danger colour appears nowhere on this page.** The addendum reserves it for money
+going wrong, and nothing here is anyone's money — every figure is the worked example.
+
+**Sections, in the drawn order.** Each is in both the 390 and the 1440 boards; what
+changes between them is layout, never content.
+
+| # | Section | Notes |
+|:-:|---|---|
+| 1 | Header — wordmark, and *I already have a budget* | |
+| 2 | Hero — *Your salary lands on the 25th. By the 12th, you are not sure where it went.* | Both buttons, then *No account. No email, no password, nothing to verify.* |
+| 3 | The app, shown | A board of Home, not a photograph |
+| 4 | **How it works** — *There is nothing to sign up for* | The eight questions, numbered 01–08, as a rail |
+| 5 | *You have tried a budgeting app before* | Three comparisons: calendar month, the rent lump sum, debts one way only |
+| 6 | *Safe to spend, today* | The figure, and the four things underneath it |
+| 7 | *Three things, and they are the whole product* | Cycles, debts both ways, the sinking fund |
+| 8 | The debt timeline — *Three paydays from now you do not* | |
+| 9 | *What is free is free because it costs us nothing to run* | Five lines |
+| 10 | *Debts written down, both ways* | With Qur'an 2:282 |
+| 11 | *The rest of it* | Transactions, debts, the printable record, zakat |
+| 12 | Image slot — *The same household, paid* | **Not sourced.** `docs/design/image-brief.md` holds the shot list |
+| 13 | *How to use it* | Open it · add it to your home screen · set your salary day |
+| 14 | *You do not need an account* | The closing, and both buttons again |
+| 15 | Footer | Trust and source links, and *every figure on this page comes from one worked example* |
+
+**Every figure is a literal from [`docs/seed-data.md`](seed-data.md)** — ₦7,500.00 safe
+to spend, ₦90,000.00 owed to A. Friend, ₦475,000.00 of the ₦900,000.00 rent target, and
+the rest. **No figure on this page is computed**, because computing one would mean the
+marketing page importing the domain, and a marketing page has no business holding money
+arithmetic.
 
 ### 7.1 · Onboarding — `/welcome`
 

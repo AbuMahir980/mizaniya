@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-15",
+  "title": "Build the landing page",
+  "kind": "feature",
+  "stage": "prepare",
+  "track": "web",
+  "branch": "feature/build-the-landing-page",
+  "goal": "The page is drawn at 390 and 1440 in both themes, and after the ADR-013 redraw it is finally true: no sign-in, no tiers, no price, and the eight how-it-works lines in their own rail. Vercel now deploys main on every merge, so this is the first thing anyone following the repository will see, and it is the link that goes on a job application. Nothing blocks it: it is a static marketing page with no store, no repository and no money arithmetic.",
+  "acceptance": [
+    "Given the drawn boards at 390 and 1440 in both themes, when the page is built, then every section is present in the drawn order with the drawn copy, and nothing is invented where the design is silent",
+    "Given the eight how-it-works lines, when they are built, then they read verbatim from ADR-013, because the scope of each line is where the honesty lives",
+    "Given every figure the page shows, when it is built, then each one comes from docs/seed-data.md and no other source",
+    "Given the page is a marketing surface and not the app, when it is built, then it holds no store, no repository and no money arithmetic, and it does not import from features",
+    "Given a reader on a phone at 390 and a reader on a desktop at 1440, when each loads it, then the layout matches its own board rather than one being derived from the other",
+    "Given the accessibility rules J1 to J5, when the page is built, then targets, labels, motion, contrast and keyboard order all hold, proven rather than asserted"
+  ],
+  "sources": [
+    "docs/design/11-landing-390-light.png",
+    "docs/design/canvas/LandPhoneLight.dc.html",
+    "docs/design/canvas/LandLight.dc.html",
+    "docs/11-landing-page-brief.md",
+    "docs/seed-data.md"
+  ],
+  "next": "Read what this item needs, then plan it.",
+  "updatedAt": "2026-10-15T07:42:46.356Z"
+}
