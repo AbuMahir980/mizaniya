@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { howItWorks } from "./landing-copy";
+import { useEffect, useRef, useState } from 'react'
+import { howItWorks } from './landing-copy'
 
 /**
  * `motion.md` §9.1 — 45ms between cards, so the eighth lands at about 600ms.
@@ -7,15 +7,15 @@ import { howItWorks } from "./landing-copy";
  * objects and eight known delays do not need to be computed.
  */
 const DELAY = [
-  "delay-0",
-  "delay-[45ms]",
-  "delay-[90ms]",
-  "delay-[135ms]",
-  "delay-[180ms]",
-  "delay-[225ms]",
-  "delay-[270ms]",
-  "delay-[315ms]",
-];
+  'delay-0',
+  'delay-[45ms]',
+  'delay-[90ms]',
+  'delay-[135ms]',
+  'delay-[180ms]',
+  'delay-[225ms]',
+  'delay-[270ms]',
+  'delay-[315ms]',
+]
 
 /**
  * The eight questions ADR-013 put on the page, as a horizontal rail.
@@ -30,44 +30,40 @@ const DELAY = [
  * place from first paint and the rail still drags.
  */
 export function HowItWorksRail() {
-  const band = useRef<HTMLDivElement>(null);
-  const [entered, setEntered] = useState<"pending" | "in">("in");
+  const band = useRef<HTMLDivElement>(null)
 
-  // Before paint, so a card never appears in place and then jumps aside to
-  // animate back. If motion is off this never runs and the default stands.
+  /**
+   * Decided once, during the first render, rather than in an effect that
+   * corrects itself afterwards — `set-state-in-effect` is right to refuse that,
+   * and the correction would also be a frame where the cards had already
+   * settled before sliding aside to arrive.
+   *
+   * Only two things earn the offset: motion is allowed, and there is an
+   * observer to end it with. Without either, the cards are simply where they
+   * belong, which is the behaviour §9.1 asks for anyway.
+   */
+  const [entered, setEntered] = useState<'pending' | 'in'>(() => {
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') return 'in'
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'in' : 'pending'
+  })
+
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setEntered("pending");
-  }, []);
-
-  const land = useCallback(() => setEntered("in"), []);
-
-  useEffect(() => {
-    const element = band.current;
-    if (entered !== "pending" || element === null) return;
-
-    // No IntersectionObserver — an older browser, or a test environment — means
-    // the cards simply stay where they belong.
-    if (typeof IntersectionObserver === "undefined") {
-      land();
-      return;
-    }
+    const element = band.current
+    if (entered !== 'pending' || element === null) return
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) land();
+        if (entries.some((entry) => entry.isIntersecting)) setEntered('in')
       },
       { threshold: 0.2 },
-    );
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [entered, land]);
+    )
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [entered])
 
   return (
     <section aria-labelledby="how-it-works" className="flex flex-col gap-16">
-      <p className="font-structural text-lab uppercase text-soft">
-        How it works
-      </p>
+      <p className="font-structural text-lab uppercase text-soft">How it works</p>
       <h2 id="how-it-works" className="font-voice text-title text-ink">
         There is nothing to sign up for.
       </h2>
@@ -83,18 +79,14 @@ export function HowItWorksRail() {
             className={`rail-card w-[16rem] shrink-0 snap-start rounded-card border border-hair bg-card p-16 ${DELAY[index]}`}
           >
             <p className="font-data text-lab text-faint">{item.n}</p>
-            <h3 className="mt-8 font-structural text-body text-soft">
-              {item.q}
-            </h3>
+            <h3 className="mt-8 font-structural text-body text-soft">{item.q}</h3>
             <p className="mt-4 font-structural text-body text-ink">{item.a}</p>
-            {item.detail === "" ? null : (
-              <p className="mt-2 font-structural text-small text-soft">
-                {item.detail}
-              </p>
+            {item.detail === '' ? null : (
+              <p className="mt-2 font-structural text-small text-soft">{item.detail}</p>
             )}
           </article>
         ))}
       </div>
     </section>
-  );
+  )
 }

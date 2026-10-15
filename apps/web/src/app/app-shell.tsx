@@ -1,5 +1,5 @@
 import { Suspense, useState, type ReactNode } from 'react'
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router'
+import { Outlet, useLocation, useNavigate } from 'react-router'
 import { AnnounceProvider } from '@/ui/announce'
 import { BottomBar, Sidebar, type NavItem } from '@/ui/nav'
 import { OfflineNote } from '@/ui/banner'
@@ -7,6 +7,7 @@ import { Icon, type IconName } from '@/ui/icon'
 import { ThemeChoice } from '@/ui/theme-choice'
 import { Spinner } from '@/ui/spinner'
 import { useIsOnline, useSnapshotState } from './store-context'
+import { LandingRoute } from './landing-route'
 import { LaunchScreen } from './launch-screen'
 import { QuickAddRoute } from './quick-add-route'
 import { useTheme } from './use-theme'
@@ -91,9 +92,10 @@ function useNavItems(destinations: readonly Destination[]): {
 /**
  * Everything below onboarding.
  *
- * `new-owner` — T7's `undefined` load — redirects to `/welcome`. It is a state
- * the type forces this component to handle rather than a falsy value it could
- * have skipped past.
+ * `new-owner` — T7's `undefined` load — is the landing page, not a redirect
+ * (§7.0, 15 October). A stranger gets the page that was drawn for them, and
+ * `/welcome` is what its primary button leads to. It is a state the type forces
+ * this component to handle rather than a falsy value it could have skipped past.
  */
 export function AppShell() {
   const state = useSnapshotState()
@@ -130,7 +132,7 @@ export function AppShell() {
   }
 
   if (state.status === 'new-owner') {
-    return <Navigate to="/welcome" replace />
+    return <LandingRoute />
   }
 
   if (state.status === 'error') {

@@ -5617,3 +5617,32 @@ specifies both slots, the page is being built with them reserved at the right
 dimensions with alt text in place, and sourcing them is a licensing decision.
 The one design note: **nothing may shift when an image arrives** — which
 reserving the box achieves, and which `motion.md` §0 would require anyway.
+**One line of it is stale either way**, and it is live on the deployed build today:
+*"Nothing leaves this device — no account, no server, no sync."* **No account** is truer
+than ever. **No sync** is true only until sync ships, and ADR-013 is the plan to ship it.
+Whatever happens to the screen, that sentence cannot survive as it is.
+
+### T·3 — The page still says "your bank sent it", and bank movement is deferred
+
+Found by a test, not by reading. The *Every movement, with its kobo* card ends:
+
+> *Grouped by day, filterable by type and category, and the payee reads exactly as your
+> bank sent it.*
+
+**Nothing sends anything.** ADR-013 deferred bank movement entirely — no aggregator, no
+statement import, no connection — so there is no bank to have sent a payee name. The
+line was true when it was drawn, in the same way the tier band was: it describes a
+feature the product had on paper and no longer has.
+
+**It is the same family as `tokens.md` §10.1**, which bans one sentence outright because
+it makes a false claim about bank data. This one is weaker — it implies a capability
+rather than asserting a safeguard — but it is on the page a stranger reads before
+deciding whether to trust us with a salary, and *the payee reads exactly as your bank
+sent it* will be read as **we connect to your bank**.
+
+**Proposed:** the clause goes, and the card keeps what is still true — *grouped by day,
+filterable by type and category*. If the payee detail is worth keeping, it belongs as
+something about what the owner typed, not about what a bank sent.
+
+**Built as drawn meanwhile.** It is not a false safeguard, so nothing unsafe ships while
+this is answered.

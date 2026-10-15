@@ -442,13 +442,18 @@ and because the link people share has to be the short one.
 `/welcome`. It no longer does: a stranger gets the landing page, and `/welcome` is
 reached by pressing its primary button.
 
-**The second decision: the welcome screen inside `/welcome` is retired.** Its two
-actions — *Get started* and *I have an export to restore* — are the landing page's two
-buttons, and its three bullets are the landing page's hero and trust lines. Leaving both
-means a visitor reads the same promise twice before being asked anything, which is the
-worst place to put a redundant step. **`/welcome` now opens on step 1.** Raised as a
-question in `docs/open-items.md` §T because it retires a screen the owner confirmed,
-rather than being deleted on the build side's own authority.
+**The second decision, and it is proposed rather than done.** The welcome screen inside
+`/welcome` says what this page says: its two actions — *Get started* and *I have an
+export to restore* — are this page's two buttons, and its three bullets are this page's
+hero and trust lines. Leaving both means a visitor reads the same promise twice before
+being asked anything.
+
+**But it is still there, and both landing buttons lead to it.** The restore path — the
+file picker and the import that replaces a whole budget — lives inside that screen, and
+moving something that writes everything somebody owns is not a change to make in
+passing. `docs/open-items.md` §T·2 is the question; the redundancy is what ships until
+it is answered. *Corrected 15 October: this section first claimed `/welcome` already
+opened on step 1, which it does not.*
 
 | State | What shows |
 |---|---|
