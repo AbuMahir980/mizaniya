@@ -360,6 +360,86 @@
    "print": "fixed"
   },
   {
+   "file": "WebHomeBehindLight.dc.html",
+   "x": 0,
+   "y": 13631,
+   "w": 1512,
+   "h": 1473,
+   "title": "07h · Home · this device is holding an older copy · 1440 · light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeBehindLight.dc.html",
+   "x": 1652,
+   "y": 13631,
+   "w": 832,
+   "h": 1849,
+   "title": "07h · Home · this device is holding an older copy · 360 · light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeBehindDark.dc.html",
+   "x": 2624,
+   "y": 13631,
+   "w": 1512,
+   "h": 1473,
+   "title": "07h · Home · this device is holding an older copy · 1440 · dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeBehindDark.dc.html",
+   "x": 4276,
+   "y": 13631,
+   "w": 832,
+   "h": 1849,
+   "title": "07h · Home · this device is holding an older copy · 360 · dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeNoticeLight.dc.html",
+   "x": 0,
+   "y": 15670,
+   "w": 1512,
+   "h": 1419,
+   "title": "07i · Home · a new device opened your budget · 1440 · light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeNoticeLight.dc.html",
+   "x": 1652,
+   "y": 15670,
+   "w": 832,
+   "h": 1740,
+   "title": "07i · Home · a new device opened your budget · 360 · light",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHomeNoticeDark.dc.html",
+   "x": 2624,
+   "y": 15670,
+   "w": 1512,
+   "h": 1419,
+   "title": "07i · Home · a new device opened your budget · 1440 · dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHomeNoticeDark.dc.html",
+   "x": 4276,
+   "y": 15670,
+   "w": 832,
+   "h": 1740,
+   "title": "07i · Home · a new device opened your budget · 360 · dark",
+   "page": "page-w-home",
+   "print": "fixed"
+  },
+  {
    "file": "WebPlanLight.dc.html",
    "x": 0,
    "y": 0,
@@ -1383,7 +1463,7 @@
    "y": -250,
    "w": 820,
    "page": "page-tx",
-   "text": "The list, and the two ways of having nothing in it. <b>A standing filter rail at 1440, tabs at 360</b>: stacked filters scroll the list away, and losing your place is the one thing that matters on this screen. <b>Both empty states are their own row</b> because they want opposite things — <i>nothing recorded</i> wants a movement, <i>filters match nothing</i> wants the filters cleared, and a single “no results” covering both is how a person clears their data looking for a button. Opening balances and debts are dated 24 September, the day before the cycle, so they never count as this cycle’s saving. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control."
+   "text": "The list, and the two ways of having nothing in it. <b>A standing filter rail at 1440, tabs at 360</b>: stacked filters scroll the list away, and losing your place is the one thing that matters on this screen. <b>Both empty states are their own row</b> because they want opposite things — <i>nothing recorded</i> wants a movement, <i>filters match nothing</i> wants the filters cleared, and a single “no results” covering both is how a person clears their data looking for a button. Opening balances and debts are dated 24 September, the day before the cycle, so they never count as this cycle’s saving. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control. <b>The bank-movements segment came off on 14 October</b> &mdash; ADR-013 defers the feature, and a segmented control with one segment is not a control."
   },
   {
    "id": "n-qa",

@@ -25,6 +25,14 @@ def load(name):
 app = load("canvas.json")
 BANK_MOVED = {"WebBankLight", "MwBankLight", "WebBankDark", "MwBankDark"}
 
+ADDED_APP = {
+    "page-w-home": [M.row("HomeBehind",
+                          "07h · Home · this device is holding an older copy"),
+                    M.row("HomeNotice",
+                          "07i · Home · a new device opened your budget")],
+}
+NEW_APP = {n for rows in ADDED_APP.values() for r in rows for n, _ in r}
+
 app_pages = [
     ("page-w-home", "4 · Home"), ("page-plan", "5 · Plan"),
     ("page-tx", "6 · Transactions"), ("page-qa", "7 · Quick Add"),
@@ -41,11 +49,12 @@ moved = sorted({c for pid in ("page-tx", "page-bank")
                key=lambda c: ("Mw" in c[0], "Dark" in c[0]))
 app_boards = []
 for pid, _ in app_pages:
-    rows = [[c for c in r if c[0] not in BANK_MOVED]
+    rows = [[c for c in r if c[0] not in BANK_MOVED and c[0] not in NEW_APP]
             for r in live(M.grouped(app, pid))]
     rows = [r for r in rows if r]
     if pid == "page-bank":
         rows = [list(moved)] + rows
+    rows += ADDED_APP.get(pid, [])
     app_boards += M.lay(pid, rows)
 
 N_BANK = ("<b>Parked by ADR-013, and parked is not the same as wrong.</b> Bank "
@@ -81,6 +90,7 @@ GETTING_BACK = (
     M.row("Recovery", "22 · Getting back in · choose how")
     + M.row("Keys", "22a · Your three keys · nothing placed yet")
     + M.row("KeysDone", "22b · Your three keys · all three placed")
+    + M.row("KeysBack", "22f · Your three keys · going back makes new ones")
     + M.row("KeyScan", "22c · Key three · ready to scan")
     + M.row("Phrase", "22d · Your recovery phrase")
     + M.row("PhraseCheck", "22e · Confirm two of the words")
@@ -108,7 +118,9 @@ ADDED = {
     "page-land": [[("LandRailLight", "How it works · the rail arrives · light"),
                    ("LandRailDark", "How it works · the rail arrives · dark")]],
     "page-set": [M.row("Sync", "15d · Settings · your sync")],
-    "page-hh": [M.row("Remove", "18d · Household · removing Aisha"),
+    "page-hh": [M.row("HouseholdOff", "18g · Household · sync is off"),
+                M.row("HouseholdPartner", "18f · Household · the partner\u2019s view"),
+                M.row("Remove", "18d · Household · removing Aisha"),
                 M.row("RemoveDone",
                       "18e · Household · Aisha removed · place new keys")],
 }

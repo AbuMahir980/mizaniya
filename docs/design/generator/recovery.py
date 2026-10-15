@@ -554,21 +554,37 @@ def claim(lead, body, glyph=None, last=False):
 
 # Four lines, each one line long at 330px. A bullet that wraps is two bullets
 # pretending to be one.
+#
+# The third line reversed on 14 October. ADR-014 made the creator senior, and the
+# store enforces it, so "there is no owner" became false the moment that record
+# was accepted. ADR-013's §Q·9·8 is where the question came from and §Q·12 is
+# where the reversal is recorded.
 SHARING = [
     "Their phone becomes one of yours.",
     "They see everything you see.",
-    "There is no owner &mdash; they can remove you too.",
+    "They can change anything in the budget, and nobody who can reach it.",
     "You can remove them. They stop seeing anything new.",
 ]
 
+# The same facts from the other side. ADR-014: no <i>admin</i> language, and the
+# partner's screen says the matching thing rather than staying silent — a
+# hierarchy nobody is told about is one you discover at the worst moment.
+SHARING_PARTNER = [
+    "You can read and change everything in this budget.",
+    "What you record lands in the same cycle, under your name.",
+    "You cannot add or remove anyone. Only whoever created it can.",
+    "If they remove you, what is already on this phone stays.",
+]
 
-def sharing_card(title="What sharing means"):
+
+def sharing_card(title="What sharing means", lines=None):
+    lines = lines or SHARING
     rows = "".join(
         '<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;'
-        f'{"" if i == len(SHARING) - 1 else "border-bottom:1px solid var(--hair);"}'
+        f'{"" if i == len(lines) - 1 else "border-bottom:1px solid var(--hair);"}'
         f'font-size:13.5px;line-height:21px">'
         '<span style="color:var(--emerald);flex:0 0 auto">&bull;</span>'
-        f'<span>{t}</span></div>' for i, t in enumerate(SHARING))
+        f'<span>{t}</span></div>' for i, t in enumerate(lines))
     return ('<div class="card" style="padding:4px 18px 10px">'
             f'<div class="mlab" style="padding:14px 0 4px">{title}</div>'
             + rows + '</div>')

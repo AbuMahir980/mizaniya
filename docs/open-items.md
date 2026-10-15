@@ -5397,3 +5397,111 @@ moves that boundary into the store, so the store now has something it must do
 correctly for a product promise to hold — and `02-architecture.md` should say what
 happens when it is unavailable. *Seniority enforced by a service that is down* is
 a state a screen will eventually have to show.
+
+---
+
+## §S · §R checked against the drawings — 2026-10-14 by the designer
+
+**Why this pass exists.** §R answered all ten of §Q·9. Five of the answers matched
+the boards, **five did not**, and two asked for a screen that did not exist. This
+is that reconciliation, so nothing goes to the build with a drawing that
+contradicts its own spec.
+
+| | §R said | The boards |
+|---|---|---|
+| R·1 | Changing mode must make a dropped factor bite immediately | **Fixed.** `15d`'s *Change* row now carries it |
+| R·2 | Six groups of five, Crockford, last group a check | **Already right.** 30 characters, no `I` `L` `O` `U`. ADR-014's keypair rides the same recovery, so no new screen |
+| R·3 | Two positions **chosen at random** | **Fixed.** `22e` said *the fourth and the ninth* |
+| R·4 | Nothing validated until the last word | **Already right** |
+| R·5 | The sentence goes on the button's own confirmation | **Fixed in wording, not in shape** — see below |
+| R·6 | A lost slip can be re-printed, and every device is told | **Half.** Re-printing is on `22a`; being told is nowhere |
+| R·7 | Two operations, not one | **Already right** |
+| R·8 | The creator is senior | **Done** — `18f` and the reversal |
+| R·9 | The other phone between rotation and re-enrolment | **Drawn now** — `07h` |
+| R·10 | Household stays when sync is off | **Drawn now** — `18g` |
+
+### The two new boards
+
+**`07h · Home · this device is holding an older copy`.** The dangerous one. The
+owner's *other* phone is cut off by rotation too, and it does not look cut off:
+the budget opens, the figures render, and every one of them is from before. Not
+an error and not an empty state, so it is an inline banner above the figure rather
+than a sheet in front of it — blocking a budget that still works would be the
+worse lie. It is on **Home**, not only in Settings, because Home is where the
+figures are and a stale figure is the whole of the harm.
+
+**`18g · Household · sync is off`.** R·10's reasoning, drawn: someone asking *can
+my spouse see this?* must not find nothing and conclude no. One action, *turn sync
+on to share*. Not a locked state and not an upsell.
+
+### Two things still open
+
+**S·1 — R·5 asks for a confirmation this set does not have.** The sentence is now
+on `22b` as drawn, but R·5 puts it *on the button's own confirmation* — a dialog
+on **Back**, which is a state nobody has drawn. One board, and it needs to exist
+before `22b` is built, or the build will quietly put the sentence in help text
+again. **Say the word and it is drawn.**
+
+**S·2 — there is no notification surface anywhere in the product, and two
+decisions now require one.** ADR-013 makes notification the *trigger* for its own
+remedy — *"a new device opened your budget on 3 November"* is what tells the owner
+to delete — and R·6 adds *"a new copy of key 3 was printed on 14 October"*, which
+is the whole reason re-printing was allowed at all. **Neither is drawn, and
+neither has a home.** That is not a missing board, it is a missing decision:
+
+1. Where does a notice that is not about *this* screen live? `07h` uses an inline
+   banner on Home, but that is one state, not a list.
+2. Is there a history, or only the latest? *A new device opened your budget* is
+   worth keeping; *a key was printed* is worth keeping longer.
+3. What happens when there are two at once, and what dismisses one?
+
+**This is the designer naming it rather than inventing it** (`CLAUDE.md` §7). The
+safe sentence would have been *"a banner appears"*; the honest one is that a
+product whose security model depends on the owner noticing something has nowhere
+for the owner to notice it.
+
+### S·1 and S·2 — answered and drawn, 2026-10-14
+
+Both were left open in §S and both are now built. The reasoning is here because
+the second one is a decision, not a drawing.
+
+#### S·1 — `22f · going back makes new ones`
+
+§R·5 put the sentence on the button's own confirmation rather than in help text
+under it, and was right about why: **a line under a button is read by nobody
+about to press it.** The dialog is drawn over the placed-keys screen.
+
+**The safe choice is the primary one.** *Stay here* is the green button and *Go
+back* is the quiet one — a dialog whose default action destroys three keys is a
+dialog that destroys three keys. And it names the cost rather than asking *are
+you sure*, which answers nothing.
+
+#### S·2 — the notification surface, and why it is not an inbox
+
+**Why it is load-bearing, not a nicety.** ADR-013's defence against a key
+believed found is deleting the stored copy, and its own trigger for reaching for
+that is a notice. They work as a pair or not at all. **§R·6 then allowed a lost
+key to be re-printed precisely because every device is told** — so shipping the
+permission without the notice ships the risk without its mitigation.
+
+**Why not a bell with a badge.** These events are rare: a device enrolled, a key
+printed, the keys rotated. Three a year does not earn an inbox, a read state and
+a dismissal model — that is machinery arriving long before the thing it manages.
+
+**The shape, which answers the three questions §S raised:**
+
+| The question | The answer |
+|---|---|
+| Where does a notice that is not about *this* screen live? | **Home carries the newest unseen one, as a banner** — where the person already is, and the pattern `07h` established. One pattern, not two |
+| A history, or only the latest? | **Both.** The banner shows the newest; `15d` keeps the list, because *who can reach this budget?* is the question these events answer and that is the screen that answers it |
+| Two at once? | **They do not stack.** The banner counts them and opens the list |
+
+**Drawn:** `07i · Home · a new device opened your budget`, and a *Recent
+activity* card on `15d`. The banner carries the action rather than describing
+one, and says *if that was not you, delete the stored copy* instead of leaving
+the owner to work out what the line implies.
+
+**Still not decided, and it is the spec's:** how long the list keeps an event.
+*A new device opened your budget* matters for as long as that device has access;
+*a key was printed* matters longer, because a key on paper outlives the moment.
+The drawing shows three and does not claim a retention rule.

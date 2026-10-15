@@ -216,6 +216,25 @@ away and rebuilt from `main`.
   carrying the old branch forward: `git -C .claude/worktrees/design fetch && git
   -C .claude/worktrees/design reset --hard origin/main`.
 
+- **The designer reaches that worktree at a different absolute path**, because
+  the repository is mounted into its session rather than local to it. The
+  worktree's `.git` file records this Mac's path, so plain `git` inside it fails
+  there with *not a git repository*. Naming both explicitly works:
+
+  ```
+  GIT_DIR=<repo>/.git/worktrees/design \
+  GIT_WORK_TREE=<repo>/.claude/worktrees/design git …
+  ```
+
+  For the same reason `git worktree list` calls the design worktree **prunable**
+  from that side although it is live. **Never run `git worktree prune` from the
+  designer session** — it would unregister a checkout that exists.
+
+- **A drop reaches the worktree through the shell, not the file transfer.**
+  Writing into `.claude/` is refused by the remote file tools, so a design drop
+  lands somewhere outside it and is extracted in place:
+  `tar xzf ~/drop.tgz -C .claude/worktrees/design`.
+
 1. **Open the PNG first** — `docs/design/<n>-<screen>-360-light.png`, then
    `-dark`, then `-1440-light` — and **describe the screen before writing
    anything.** Every screen rebuilt in this project was first built from fragments

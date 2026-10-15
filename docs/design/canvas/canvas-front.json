@@ -728,7 +728,7 @@
    "x": 0,
    "y": 4736,
    "w": 1512,
-   "h": 956,
+   "h": 1225,
    "title": "15d · Settings · your sync · 1440 · light",
    "page": "page-set",
    "print": "fixed"
@@ -738,7 +738,7 @@
    "x": 1652,
    "y": 4736,
    "w": 832,
-   "h": 1182,
+   "h": 1471,
    "title": "15d · Settings · your sync · 360 · light",
    "page": "page-set",
    "print": "fixed"
@@ -748,7 +748,7 @@
    "x": 2624,
    "y": 4736,
    "w": 1512,
-   "h": 956,
+   "h": 1225,
    "title": "15d · Settings · your sync · 1440 · dark",
    "page": "page-set",
    "print": "fixed"
@@ -758,7 +758,7 @@
    "x": 4276,
    "y": 4736,
    "w": 832,
-   "h": 1182,
+   "h": 1471,
    "title": "15d · Settings · your sync · 360 · dark",
    "page": "page-set",
    "print": "fixed"
@@ -848,7 +848,7 @@
    "x": 0,
    "y": 2664,
    "w": 1512,
-   "h": 695,
+   "h": 749,
    "title": "22b · Your three keys · all three placed · 1440 · light",
    "page": "page-tier",
    "print": "fixed"
@@ -857,8 +857,8 @@
    "file": "MwKeysDoneLight.dc.html",
    "x": 1652,
    "y": 2664,
-   "w": 702,
-   "h": 935,
+   "w": 832,
+   "h": 989,
    "title": "22b · Your three keys · all three placed · 360 · light",
    "page": "page-tier",
    "print": "fixed"
@@ -868,7 +868,7 @@
    "x": 2624,
    "y": 2664,
    "w": 1512,
-   "h": 695,
+   "h": 749,
    "title": "22b · Your three keys · all three placed · 1440 · dark",
    "page": "page-tier",
    "print": "fixed"
@@ -877,16 +877,56 @@
    "file": "MwKeysDoneDark.dc.html",
    "x": 4276,
    "y": 2664,
-   "w": 702,
-   "h": 935,
+   "w": 832,
+   "h": 989,
    "title": "22b · Your three keys · all three placed · 360 · dark",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "WebKeysBackLight.dc.html",
+   "x": 0,
+   "y": 3843,
+   "w": 1512,
+   "h": 731,
+   "title": "22f · Your three keys · going back makes new ones · 1440 · light",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "MwKeysBackLight.dc.html",
+   "x": 1652,
+   "y": 3843,
+   "w": 832,
+   "h": 991,
+   "title": "22f · Your three keys · going back makes new ones · 360 · light",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "WebKeysBackDark.dc.html",
+   "x": 2624,
+   "y": 3843,
+   "w": 1512,
+   "h": 731,
+   "title": "22f · Your three keys · going back makes new ones · 1440 · dark",
+   "page": "page-tier",
+   "print": "fixed"
+  },
+  {
+   "file": "MwKeysBackDark.dc.html",
+   "x": 4276,
+   "y": 3843,
+   "w": 832,
+   "h": 991,
+   "title": "22f · Your three keys · going back makes new ones · 360 · dark",
    "page": "page-tier",
    "print": "fixed"
   },
   {
    "file": "WebKeyScanLight.dc.html",
    "x": 0,
-   "y": 3789,
+   "y": 5024,
    "w": 1512,
    "h": 700,
    "title": "22c · Key three · ready to scan · 1440 · light",
@@ -896,7 +936,7 @@
   {
    "file": "MwKeyScanLight.dc.html",
    "x": 1652,
-   "y": 3789,
+   "y": 5024,
    "w": 832,
    "h": 825,
    "title": "22c · Key three · ready to scan · 360 · light",
@@ -906,7 +946,7 @@
   {
    "file": "WebKeyScanDark.dc.html",
    "x": 2624,
-   "y": 3789,
+   "y": 5024,
    "w": 1512,
    "h": 700,
    "title": "22c · Key three · ready to scan · 1440 · dark",
@@ -916,7 +956,7 @@
   {
    "file": "MwKeyScanDark.dc.html",
    "x": 4276,
-   "y": 3789,
+   "y": 5024,
    "w": 832,
    "h": 825,
    "title": "22c · Key three · ready to scan · 360 · dark",
@@ -926,7 +966,7 @@
   {
    "file": "WebPhraseLight.dc.html",
    "x": 0,
-   "y": 4804,
+   "y": 6039,
    "w": 1512,
    "h": 700,
    "title": "22d · Your recovery phrase · 1440 · light",
@@ -936,7 +976,7 @@
   {
    "file": "MwPhraseLight.dc.html",
    "x": 1652,
-   "y": 4804,
+   "y": 6039,
    "w": 832,
    "h": 843,
    "title": "22d · Your recovery phrase · 360 · light",
@@ -946,7 +986,7 @@
   {
    "file": "WebPhraseDark.dc.html",
    "x": 2624,
-   "y": 4804,
+   "y": 6039,
    "w": 1512,
    "h": 700,
    "title": "22d · Your recovery phrase · 1440 · dark",
@@ -956,7 +996,7 @@
   {
    "file": "MwPhraseDark.dc.html",
    "x": 4276,
-   "y": 4804,
+   "y": 6039,
    "w": 832,
    "h": 843,
    "title": "22d · Your recovery phrase · 360 · dark",
@@ -966,9 +1006,9 @@
   {
    "file": "WebPhraseCheckLight.dc.html",
    "x": 0,
-   "y": 5837,
+   "y": 7072,
    "w": 1512,
-   "h": 599,
+   "h": 653,
    "title": "22e · Confirm two of the words · 1440 · light",
    "page": "page-tier",
    "print": "fixed"
@@ -976,9 +1016,9 @@
   {
    "file": "MwPhraseCheckLight.dc.html",
    "x": 1652,
-   "y": 5837,
+   "y": 7072,
    "w": 832,
-   "h": 744,
+   "h": 798,
    "title": "22e · Confirm two of the words · 360 · light",
    "page": "page-tier",
    "print": "fixed"
@@ -986,9 +1026,9 @@
   {
    "file": "WebPhraseCheckDark.dc.html",
    "x": 2624,
-   "y": 5837,
+   "y": 7072,
    "w": 1512,
-   "h": 599,
+   "h": 653,
    "title": "22e · Confirm two of the words · 1440 · dark",
    "page": "page-tier",
    "print": "fixed"
@@ -996,9 +1036,9 @@
   {
    "file": "MwPhraseCheckDark.dc.html",
    "x": 4276,
-   "y": 5837,
+   "y": 7072,
    "w": 832,
-   "h": 744,
+   "h": 798,
    "title": "22e · Confirm two of the words · 360 · dark",
    "page": "page-tier",
    "print": "fixed"
@@ -1006,7 +1046,7 @@
   {
    "file": "WebEntryLight.dc.html",
    "x": 0,
-   "y": 6771,
+   "y": 8060,
    "w": 1512,
    "h": 842,
    "title": "23 · Open your budget here · two keys · 1440 · light",
@@ -1016,7 +1056,7 @@
   {
    "file": "MwEntryLight.dc.html",
    "x": 1652,
-   "y": 6771,
+   "y": 8060,
    "w": 832,
    "h": 861,
    "title": "23 · Open your budget here · two keys · 360 · light",
@@ -1026,7 +1066,7 @@
   {
    "file": "WebEntryDark.dc.html",
    "x": 2624,
-   "y": 6771,
+   "y": 8060,
    "w": 1512,
    "h": 842,
    "title": "23 · Open your budget here · two keys · 1440 · dark",
@@ -1036,7 +1076,7 @@
   {
    "file": "MwEntryDark.dc.html",
    "x": 4276,
-   "y": 6771,
+   "y": 8060,
    "w": 832,
    "h": 861,
    "title": "23 · Open your budget here · two keys · 360 · dark",
@@ -1046,7 +1086,7 @@
   {
    "file": "WebEntryOneLight.dc.html",
    "x": 0,
-   "y": 7822,
+   "y": 9111,
    "w": 1512,
    "h": 805,
    "title": "23a · Open your budget here · one accepted · 1440 · light",
@@ -1056,7 +1096,7 @@
   {
    "file": "MwEntryOneLight.dc.html",
    "x": 1652,
-   "y": 7822,
+   "y": 9111,
    "w": 511,
    "h": 824,
    "title": "23a · Open your budget here · one accepted · 360 · light",
@@ -1066,7 +1106,7 @@
   {
    "file": "WebEntryOneDark.dc.html",
    "x": 2624,
-   "y": 7822,
+   "y": 9111,
    "w": 1512,
    "h": 805,
    "title": "23a · Open your budget here · one accepted · 1440 · dark",
@@ -1076,7 +1116,7 @@
   {
    "file": "MwEntryOneDark.dc.html",
    "x": 4276,
-   "y": 7822,
+   "y": 9111,
    "w": 511,
    "h": 824,
    "title": "23a · Open your budget here · one accepted · 360 · dark",
@@ -1086,7 +1126,7 @@
   {
    "file": "WebEntryPhraseLight.dc.html",
    "x": 0,
-   "y": 8836,
+   "y": 10125,
    "w": 1512,
    "h": 810,
    "title": "23b · Open your budget here · the phrase · 1440 · light",
@@ -1096,7 +1136,7 @@
   {
    "file": "MwEntryPhraseLight.dc.html",
    "x": 1652,
-   "y": 8836,
+   "y": 10125,
    "w": 832,
    "h": 941,
    "title": "23b · Open your budget here · the phrase · 360 · light",
@@ -1106,7 +1146,7 @@
   {
    "file": "WebEntryPhraseDark.dc.html",
    "x": 2624,
-   "y": 8836,
+   "y": 10125,
    "w": 1512,
    "h": 810,
    "title": "23b · Open your budget here · the phrase · 1440 · dark",
@@ -1116,7 +1156,7 @@
   {
    "file": "MwEntryPhraseDark.dc.html",
    "x": 4276,
-   "y": 8836,
+   "y": 10125,
    "w": 832,
    "h": 941,
    "title": "23b · Open your budget here · the phrase · 360 · dark",
@@ -1128,7 +1168,7 @@
    "x": 0,
    "y": 0,
    "w": 1512,
-   "h": 773,
+   "h": 791,
    "title": "18 · Household · just you · 1440 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1138,7 +1178,7 @@
    "x": 1652,
    "y": 0,
    "w": 832,
-   "h": 976,
+   "h": 994,
    "title": "18 · Household · just you · 360 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1148,7 +1188,7 @@
    "x": 3304,
    "y": 0,
    "w": 1512,
-   "h": 773,
+   "h": 791,
    "title": "18 · Household · just you · 1440 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1158,7 +1198,7 @@
    "x": 4956,
    "y": 0,
    "w": 832,
-   "h": 976,
+   "h": 994,
    "title": "18 · Household · just you · 360 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1166,7 +1206,7 @@
   {
    "file": "WebHouseholdSharedLight.dc.html",
    "x": 0,
-   "y": 1166,
+   "y": 1184,
    "w": 1512,
    "h": 906,
    "title": "18a · Household · shared with Aisha · 1440 · light",
@@ -1176,7 +1216,7 @@
   {
    "file": "MwHouseholdSharedLight.dc.html",
    "x": 1652,
-   "y": 1166,
+   "y": 1184,
    "w": 832,
    "h": 1141,
    "title": "18a · Household · shared with Aisha · 360 · light",
@@ -1186,7 +1226,7 @@
   {
    "file": "WebHouseholdSharedDark.dc.html",
    "x": 3304,
-   "y": 1166,
+   "y": 1184,
    "w": 1512,
    "h": 906,
    "title": "18a · Household · shared with Aisha · 1440 · dark",
@@ -1196,7 +1236,7 @@
   {
    "file": "MwHouseholdSharedDark.dc.html",
    "x": 4956,
-   "y": 1166,
+   "y": 1184,
    "w": 832,
    "h": 1141,
    "title": "18a · Household · shared with Aisha · 360 · dark",
@@ -1206,7 +1246,7 @@
   {
    "file": "WebDisagreeALight.dc.html",
    "x": 0,
-   "y": 2497,
+   "y": 2515,
    "w": 1512,
    "h": 934,
    "title": "18b · Household · two amounts for one expense · 1440 · light",
@@ -1216,7 +1256,7 @@
   {
    "file": "WebDisagreeADark.dc.html",
    "x": 1652,
-   "y": 2497,
+   "y": 2515,
    "w": 1512,
    "h": 934,
    "title": "18b · Household · two amounts for one expense · 1440 · dark",
@@ -1226,7 +1266,7 @@
   {
    "file": "WebDisagreeBLight.dc.html",
    "x": 0,
-   "y": 3621,
+   "y": 3639,
    "w": 1512,
    "h": 880,
    "title": "18c · Household · two amounts for a savings target · 1440 · light",
@@ -1236,7 +1276,7 @@
   {
    "file": "WebDisagreeBDark.dc.html",
    "x": 1652,
-   "y": 3621,
+   "y": 3639,
    "w": 1512,
    "h": 880,
    "title": "18c · Household · two amounts for a savings target · 1440 · dark",
@@ -1244,11 +1284,91 @@
    "print": "fixed"
   },
   {
+   "file": "WebHouseholdOffLight.dc.html",
+   "x": 0,
+   "y": 4709,
+   "w": 1512,
+   "h": 740,
+   "title": "18g · Household · sync is off · 1440 · light",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHouseholdOffLight.dc.html",
+   "x": 1652,
+   "y": 4709,
+   "w": 832,
+   "h": 979,
+   "title": "18g · Household · sync is off · 360 · light",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHouseholdOffDark.dc.html",
+   "x": 3304,
+   "y": 4709,
+   "w": 1512,
+   "h": 740,
+   "title": "18g · Household · sync is off · 1440 · dark",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHouseholdOffDark.dc.html",
+   "x": 4956,
+   "y": 4709,
+   "w": 832,
+   "h": 979,
+   "title": "18g · Household · sync is off · 360 · dark",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHouseholdPartnerLight.dc.html",
+   "x": 0,
+   "y": 5878,
+   "w": 1512,
+   "h": 958,
+   "title": "18f · Household · the partner’s view · 1440 · light",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHouseholdPartnerLight.dc.html",
+   "x": 1652,
+   "y": 5878,
+   "w": 832,
+   "h": 1258,
+   "title": "18f · Household · the partner’s view · 360 · light",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "WebHouseholdPartnerDark.dc.html",
+   "x": 3304,
+   "y": 5878,
+   "w": 1512,
+   "h": 958,
+   "title": "18f · Household · the partner’s view · 1440 · dark",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
+   "file": "MwHouseholdPartnerDark.dc.html",
+   "x": 4956,
+   "y": 5878,
+   "w": 832,
+   "h": 1258,
+   "title": "18f · Household · the partner’s view · 360 · dark",
+   "page": "page-hh",
+   "print": "fixed"
+  },
+  {
    "file": "WebRemoveLight.dc.html",
    "x": 0,
-   "y": 4691,
+   "y": 7326,
    "w": 1512,
-   "h": 767,
+   "h": 785,
    "title": "18d · Household · removing Aisha · 1440 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1256,9 +1376,9 @@
   {
    "file": "MwRemoveLight.dc.html",
    "x": 1652,
-   "y": 4691,
+   "y": 7326,
    "w": 832,
-   "h": 793,
+   "h": 811,
    "title": "18d · Household · removing Aisha · 360 · light",
    "page": "page-hh",
    "print": "fixed"
@@ -1266,9 +1386,9 @@
   {
    "file": "WebRemoveDark.dc.html",
    "x": 3304,
-   "y": 4691,
+   "y": 7326,
    "w": 1512,
-   "h": 767,
+   "h": 785,
    "title": "18d · Household · removing Aisha · 1440 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1276,9 +1396,9 @@
   {
    "file": "MwRemoveDark.dc.html",
    "x": 4956,
-   "y": 4691,
+   "y": 7326,
    "w": 832,
-   "h": 793,
+   "h": 811,
    "title": "18d · Household · removing Aisha · 360 · dark",
    "page": "page-hh",
    "print": "fixed"
@@ -1286,7 +1406,7 @@
   {
    "file": "WebRemoveDoneLight.dc.html",
    "x": 0,
-   "y": 5674,
+   "y": 8327,
    "w": 1512,
    "h": 881,
    "title": "18e · Household · Aisha removed · place new keys · 1440 · light",
@@ -1296,7 +1416,7 @@
   {
    "file": "MwRemoveDoneLight.dc.html",
    "x": 1652,
-   "y": 5674,
+   "y": 8327,
    "w": 832,
    "h": 1193,
    "title": "18e · Household · Aisha removed · place new keys · 360 · light",
@@ -1306,7 +1426,7 @@
   {
    "file": "WebRemoveDoneDark.dc.html",
    "x": 3304,
-   "y": 5674,
+   "y": 8327,
    "w": 1512,
    "h": 881,
    "title": "18e · Household · Aisha removed · place new keys · 1440 · dark",
@@ -1316,7 +1436,7 @@
   {
    "file": "MwRemoveDoneDark.dc.html",
    "x": 4956,
-   "y": 5674,
+   "y": 8327,
    "w": 832,
    "h": 1193,
    "title": "18e · Household · Aisha removed · place new keys · 360 · dark",
