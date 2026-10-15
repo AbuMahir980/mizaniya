@@ -447,7 +447,7 @@ actions — *Get started* and *I have an export to restore* — are the landing 
 buttons, and its three bullets are the landing page's hero and trust lines. Leaving both
 means a visitor reads the same promise twice before being asked anything, which is the
 worst place to put a redundant step. **`/welcome` now opens on step 1.** Raised as a
-question in `docs/open-items.md` §S because it retires a screen the owner confirmed,
+question in `docs/open-items.md` §T because it retires a screen the owner confirmed,
 rather than being deleted on the build side's own authority.
 
 | State | What shows |
