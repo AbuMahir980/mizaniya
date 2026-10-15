@@ -5550,10 +5550,10 @@ produces a ragged rail, because cards sit in a row and the eye reads the row's
 edge before it reads any card. Had the claim not fitted, the answer was for all
 eight to grow — which is what `stretch` already does, and why it cost nothing.
 
-**One part of this is not mine to accept.** ADR-013 said the eight lines go
-verbatim, and that was the owner's instruction, not a drawing decision. What a
-public claim asserts is the owner's call, so it is drawn and the owner
-confirms. Nothing false ships either way.
+**One part of this was not mine to accept, and is now answered.** ADR-013 said the
+eight lines go verbatim, and that was the owner's instruction, not a drawing
+decision. What a public claim asserts is the owner's call, so it was drawn and put
+to him. **Confirmed 15 October: the longer line ships.**
 
 ### T·2 — the welcome screen survives, and it was carrying a dead word
 
