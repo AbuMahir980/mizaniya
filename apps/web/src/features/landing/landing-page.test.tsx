@@ -153,3 +153,33 @@ describe('one page, one measure', () => {
     expect(offenders).toEqual([])
   })
 })
+
+describe('the cascade', () => {
+  /**
+   * *"Hover reveals nothing"* — the pointer-states study's own constraint, and
+   * §5 inherited by §9: the page must read completely with motion off, and a
+   * touch device has no pointer at all.
+   *
+   * So a card behind the hero is never a mystery. This fails if one is ever
+   * built as a blank slab that only identifies itself on hover, which is what
+   * the first version of the deck was.
+   */
+  it('names every card in the stack at rest, with its figure', () => {
+    renderPage()
+    const page = document.body.textContent ?? ''
+
+    for (const label of ['Daily spend', 'Rent fund', 'Where your money is', 'Needs attention']) {
+      expect(page).toContain(label)
+    }
+    expect(page).toContain(figures.cashLeft)
+  })
+
+  it('keeps every card reachable by keyboard, whatever is on top', () => {
+    renderPage()
+    const cards = screen
+      .getAllByRole('article')
+      .filter((el) => el.getAttribute('tabindex') === '0')
+
+    expect(cards.length).toBe(4)
+  })
+})

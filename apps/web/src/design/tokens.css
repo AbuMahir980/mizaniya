@@ -293,3 +293,87 @@
 .rail-scroller::-webkit-scrollbar {
   display: none;
 }
+
+/* The landing cascade — motion.md's pointer-states study, verbatim.
+   
+   "Hover reveals nothing" is the constraint, and it is §5 inherited by §9: the
+   page must read completely with motion off, and a touch device has no pointer
+   at all. So every card already shows its own label and figure at rest, and
+   hovering gives you the rest of a card you could already identify — never the
+   identity of one you could not.
+   
+   transform and box-shadow only. No scaling, because a component that grows on
+   hover is a component shown at a size it is not. No rotation, because the
+   slant is the stack's geometry rather than a reaction. */
+.stack > * {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) {
+  .stack > *:hover {
+    transform: translateY(-14px);
+  }
+
+  .stack > *:hover ~ * {
+    transform: translateY(88px);
+  }
+}
+
+.stack > *:focus-visible {
+  transform: translateY(-14px);
+}
+
+.stack > *:focus-visible ~ * {
+  transform: translateY(88px);
+}
+
+/* §5 read literally: remove movement, keep colour, never remove information. */
+@media (prefers-reduced-motion: reduce) {
+  .stack > * {
+    transition: box-shadow 180ms;
+  }
+
+  .stack > *:hover,
+  .stack > *:focus-visible,
+  .stack > *:hover ~ *,
+  .stack > *:focus-visible ~ * {
+    transform: none;
+  }
+}
+
+/* The comparison reveal — "the rest state is the failure, because that is the
+   state the reader arrives in." What Mizaniya does slides over it from the
+   left with a left-edge shadow, so it reads as arriving on top rather than
+   swapping. The answer is in the body copy underneath as well, because an
+   argument that only completes on hover is an argument a phone never hears. */
+.reveal-over {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0, 0, 1),
+    opacity 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) and (min-width: 1440px) {
+  .reveal-host .reveal-over {
+    transform: translateX(-12px);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .reveal-host:hover .reveal-over,
+  .reveal-host:focus-within .reveal-over {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: -14px 0 24px -14px rgba(23, 26, 23, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-host .reveal-over {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
