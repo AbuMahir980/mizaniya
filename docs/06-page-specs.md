@@ -471,6 +471,12 @@ session.
 *Corrected twice on 15 October: first for claiming `/welcome` already opened on step 1,
 then for proposing to retire a screen that the designer showed was load-bearing.*
 
+*Corrected again on 16 October, from the boards: the app shown is part of the hero rather
+than a section after it; the cascade of cards belongs to §6 and not to the hero; there are
+three cards underneath the figure, not four; and the verse shares a band with the five
+lines rather than following them. This section was written from the boards in the first
+place — see the note above §7.0 — and each of these was a reading error in it.*
+
 | State | What shows |
 |---|---|
 | **Normal** | The page, in the drawn order below |
@@ -492,15 +498,14 @@ changes between them is layout, never content.
 | # | Section | Notes |
 |:-:|---|---|
 | 1 | Header — wordmark, and *I already have a budget* | |
-| 2 | Hero — *Your salary lands on the 25th. By the 12th, you are not sure where it went.* | Both buttons, then *No account. No email, no password, nothing to verify.* |
-| 3 | The app, shown | A board of Home, not a photograph |
+| 2 | Hero — *Your salary lands on the 25th. By the 12th, you are not sure where it went.* | Both buttons, then *No account. No email, no password, nothing to verify.* — and **the app shown beside them**: the Home board itself, with four blank card edges above it. Not a photograph, and not a separate section: at 1440 it is the hero's right-hand half, and on a phone it sits directly beneath the fine print |
 | 4 | **How it works** — *There is nothing to sign up for* | The eight questions, numbered 01–08, as a rail |
 | 5 | *You have tried a budgeting app before* | Three comparisons: calendar month, the rent lump sum, debts one way only |
-| 6 | *Safe to spend, today* | The figure, and the four things underneath it |
+| 6 | *Safe to spend, today* | The figure, and **three** cards underneath it, named in the list beside the pile. The cascade is here, not in the hero |
 | 7 | *Three things, and they are the whole product* | Cycles, debts both ways, the sinking fund |
 | 8 | The debt timeline — *Three paydays from now you do not* | |
-| 9 | *What is free is free because it costs us nothing to run* | Five lines |
-| 10 | *Debts written down, both ways* | With Qur'an 2:282 |
+| 9 | *What is free is free because it costs us nothing to run* | Five lines — and **in the same band**, to their right, the verse. The claim is commercial; the line beside it is the reason the claim is safe to make |
+| 10 | *Debts written down, both ways* | Qur'an 2:282, under a 2px rule |
 | 11 | *The rest of it* | Transactions, debts, the printable record, zakat |
 | 12 | Image slot — *The same household, paid* | **Not sourced.** `docs/design/image-brief.md` holds the shot list |
 | 13 | *How to use it* | Open it · add it to your home screen · set your salary day |

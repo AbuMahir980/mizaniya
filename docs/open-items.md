@@ -5739,3 +5739,64 @@ attempt produced the right words in the wrong design.
 **Meanwhile the build takes the canvas's numbers**, because the canvas is what the page
 is made of, and names them in `tokens.css` beside the app's — marked as landing steps
 read from the board, so they are easy to repoint once this is answered.
+
+---
+
+## §V · What rebuilding the page from the boards found — 2026-10-16 from the build side
+
+Four things the build had wrong, three it has simplified knowingly, and two questions.
+Everything here came from opening the boards and reading `canvas/LandLight.dc.html` as a
+tree, which is `CLAUDE.md` §7 — and every one of the four errors came from not doing
+that the first time.
+
+**The four the build had wrong, now fixed.** No answer needed; they are recorded because
+they say what kind of mistake to look for next time.
+
+1. **The cascade was in the hero.** The hero's right-hand half is the Home board itself
+   with four blank card edges above it. The cascade of cards belongs to *Safe to spend,
+   today*, where the board captions it *"What is safe today · 3 more underneath"*.
+2. **Four cards underneath, not three.** The list beside the pile has exactly three
+   items, and they name the three cards.
+3. **The comparison cards both showed at 1440.** The board's own line under that heading
+   is *"Hover any one: what Mizaniya does slides over it"* — the rest state is the red
+   card alone. The phone keeps both, and its own line: *"Red is the app you tried. Green
+   is what Mizaniya does instead."*
+4. **The verse had a band of its own.** It shares the band with the five *what is free*
+   lines, to their right, under a 2px rule.
+
+**The three simplifications, each visible and each deliberate.** Say if any of them
+matters and it is changed.
+
+- **Band headings on a phone are 25px, not 26px.** The canvas sets the hero at 25/33 and
+  every band heading at 26/33. The build uses one step for both rather than carrying a
+  second that differs by a pixel.
+- **The comparison closing line is 13.5px at both widths**; the phone canvas sets 12.5px.
+- **The *Safe to spend* sub-line is 17px/29px at both widths**; the phone canvas sets
+  15px/24px.
+
+**The four panels in *The rest of it* are not focusable.** The pointer-states study says
+each component is focusable and `:focus-visible` gives the same 8px lift. They open
+nothing — the page has no screens to open — so a tab stop on each would be four stops
+that do nothing, which J reads as noise rather than access. The lift is hover-only. If
+they are meant to become links to something, say what, and they become links.
+
+### V·1 — *Security and privacy* in the footer has no page behind it
+
+The footer's Trust column is one item, *Security and privacy*, and
+`docs/11-landing-page-brief.md` calls it **a real asset, not boilerplate** — the §7
+claims in full, with the bank-data caveat stated plainly. **That page does not exist.**
+
+It is built as plain text rather than a link, because a link that goes nowhere is worse
+than a heading that goes nowhere. Two ways out, and the first is better: **write the
+page** — it is the one asset the page promises and cannot show — or **drop the column**
+until it exists. Say which.
+
+### V·2 — The printed record is the only surface that does not theme
+
+Both boards draw it white: `#FFF` on `#CFCBC0`, in light **and** in dark. The build has
+taken that as deliberate — a document either party can hold does not change colour with
+the reader's system setting — and named five `paper` tokens for it in `tokens.css`.
+
+**Confirm it is deliberate**, because if it is, it is a rule rather than a drawing: the
+real printed-record screen, when it is built, follows it too, and `tokens.md` should
+carry the five values rather than this page carrying them alone.

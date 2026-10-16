@@ -251,6 +251,32 @@
   /* The figure on the safe-to-spend card, the one number the page is about.
      Both boards set it at the same size: the card is 360 at 1440 and 327 on a
      phone, and the figure does not shrink with it, because it is the point. */
+  /* Three steps the landing canvas sets by hand, off the 40px heading: the
+     closing, which is the only thing larger than the hero; "How to use it",
+     which is a step smaller than every other band heading; and the Qur'an line,
+     which is a quotation rather than a heading. `docs/open-items.md` §U·1 asks
+     the designer whether these belong in `tokens.md`. */
+  /* Paper. The printed debt record is the one surface that does not theme:
+     the canvas sets it white on both the light and the dark board, because it
+     is a document either party can hold, and a document does not change colour
+     with the reader's system setting. Named here so no screen writes a hex. */
+  --paper: #ffffff;
+  --paper-ink: #111111;
+  --paper-soft: #555555;
+  --paper-line: #cfcbc0;
+  --paper-hair: #e2ded4;
+  --size-land-close-phone: 30px;
+  --leading-land-close-phone: 37px;
+  --size-land-lead-phone: 16.5px;
+  --leading-land-lead-phone: 28px;
+  --size-land-note: 15px;
+  --leading-land-note: 23px;
+  --size-land-close: 46px;
+  --leading-land-close: 54px;
+  --size-land-section: 34px;
+  --leading-land-section: 41px;
+  --size-land-quote: 27px;
+  --leading-land-quote: 36px;
   --size-land-display: 54px;
   --leading-land-display: 60px;
   --size-land-h2: 40px;
@@ -357,6 +383,28 @@
   .stack > *:focus-visible,
   .stack > *:hover ~ *,
   .stack > *:focus-visible ~ * {
+    transform: none;
+  }
+}
+
+/* The proof panels in *The rest of it*. The study halves the gap and gives
+   each arrangement its own edge, then lifts one by 8px — "smaller than the
+   cascade's, because nothing is being uncovered, only pointed at." */
+.lift-panel {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) {
+  .lift-panel:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--elevation-card);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift-panel:hover {
     transform: none;
   }
 }

@@ -37,6 +37,12 @@ export default {
       sl2: token('sl2'),
       ro2: token('ro2'),
       track: token('track'),
+      /* The printed record, which keeps its colours in either theme. */
+      paper: token('paper'),
+      paperInk: token('paper-ink'),
+      paperSoft: token('paper-soft'),
+      paperLine: token('paper-line'),
+      paperHair: token('paper-hair'),
       onEmerald: token('onEmerald'),
       scrim: token('scrim'),
     },
@@ -101,7 +107,10 @@ export default {
         token('size-lockup'),
         { lineHeight: token('leading-lockup'), letterSpacing: '-0.015em', fontWeight: '600' },
       ],
-      title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
+      title: [
+        token('size-title'),
+        { lineHeight: token('leading-title'), fontWeight: token('weight-voice') },
+      ],
       /**
        * `-wide` is for a surface that **fills the desktop frame** — §3's rule.
        * Almost nothing does: a card, a column or a dialog takes the plain step
@@ -131,16 +140,43 @@ export default {
        * accident: an app screen using `text-land-lead` is a mistake a reviewer
        * can see.
        */
+      'land-close-phone': [
+        token('size-land-close-phone'),
+        { lineHeight: token('leading-land-close-phone'), letterSpacing: '-0.008em' },
+      ],
+      'land-lead-phone': [
+        token('size-land-lead-phone'),
+        { lineHeight: token('leading-land-lead-phone') },
+      ],
+      'land-note': [token('size-land-note'), { lineHeight: token('leading-land-note') }],
+      'land-close': [
+        token('size-land-close'),
+        { lineHeight: token('leading-land-close'), letterSpacing: '-0.008em' },
+      ],
+      'land-section': [
+        token('size-land-section'),
+        { lineHeight: token('leading-land-section'), letterSpacing: '-0.008em' },
+      ],
+      'land-quote': [
+        token('size-land-quote'),
+        { lineHeight: token('leading-land-quote'), letterSpacing: '-0.004em' },
+      ],
       'land-display': [
         token('size-land-display'),
         { lineHeight: token('leading-land-display'), letterSpacing: '-0.02em', fontWeight: '600' },
       ],
-      'land-h2': [token('size-land-h2'), { lineHeight: token('leading-land-h2'), letterSpacing: '-0.008em' }],
+      'land-h2': [
+        token('size-land-h2'),
+        { lineHeight: token('leading-land-h2'), letterSpacing: '-0.008em' },
+      ],
       'land-h2-phone': [
         token('size-land-h2-phone'),
         { lineHeight: token('leading-land-h2-phone'), letterSpacing: '-0.008em' },
       ],
-      'land-h3': [token('size-land-h3'), { lineHeight: token('leading-land-h3'), letterSpacing: '-0.012em', fontWeight: '600' }],
+      'land-h3': [
+        token('size-land-h3'),
+        { lineHeight: token('leading-land-h3'), letterSpacing: '-0.012em', fontWeight: '600' },
+      ],
       'land-lead': [token('size-land-lead'), { lineHeight: token('leading-land-lead') }],
       'land-body': [token('size-land-body'), { lineHeight: token('leading-land-body') }],
       'land-kicker': [

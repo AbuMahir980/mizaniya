@@ -8,6 +8,11 @@
  * importing the domain, and H3 keeps money arithmetic out of components for
  * reasons that apply twice over to a page nobody's budget is behind.
  *
+ * **A caption stays with what it captions.** The comparison cards and the four
+ * panels in *The rest of it* keep their words in their own components: each
+ * line belongs to one drawing, and a list of them here, apart from the
+ * drawings, is how the first build ended up captioning the wrong card.
+ *
  * **The eight answers are ADR-013's, as close to verbatim as the rail allows.**
  * That record was explicit about why: the honesty is in the scope of each claim,
  * not in the detail behind it. `howItWorks[2]` is the one the length pass
@@ -119,47 +124,6 @@ export const howToUseIt = [
   },
 ] as const
 
-/**
- * *You have tried a budgeting app before* — three comparisons, each the same
- * shape. The board shows both sides at once on a phone rather than revealing
- * one, because a phone has no pointer to reveal with.
- */
-export const comparisons = [
-  {
-    claim: 'They budget by calendar month. Your money works in salary cycles.',
-    theirs: {
-      label: 'The app you tried',
-      line: '1st → 30th · pay lands on the 25th',
-    },
-    ours: {
-      label: 'Mizaniya',
-      line: '25th → 24th · the cycle starts when you are paid',
-    },
-  },
-  {
-    claim: 'They cannot hold a rent lump sum.',
-    theirs: {
-      label: 'The app you tried',
-      line: `${figures.rentPerPayday} a month, every month — nowhere to put ${figures.rentTarget} that is due once, in March.`,
-    },
-    ours: {
-      label: 'Mizaniya',
-      line: `${figures.rentSaved}.00 of ${figures.rentTarget}. Due 1 March, and it tells you it is ${figures.rentShortfall} short.`,
-    },
-  },
-  {
-    claim: 'They only track what you owe, not what you are owed.',
-    theirs: {
-      label: 'The app you tried',
-      line: `A. Friend ${figures.friendBalance}.00 · B. Colleague, no way to record it`,
-    },
-    ours: {
-      label: 'Mizaniya',
-      line: `A. Friend, you owe ${figures.friendBalance}.00 · B. Colleague, owed to you ${figures.colleagueBalance}.00`,
-    },
-  },
-] as const
-
 /** What the safe-to-spend figure is sitting on top of. */
 export const whatIsUnderneath = [
   {
@@ -184,22 +148,3 @@ export const debtTimeline = [
   { when: 'Clear', date: '25 Dec', amount: '₦0' },
 ] as const
 
-/** *The rest of it* — four cards, each a screen with one sentence under it. */
-export const theRestOfIt = [
-  {
-    title: 'Every movement, with its kobo',
-    body: 'Grouped by day, filterable by type and category, and the payee reads exactly as your bank sent it.',
-  },
-  {
-    title: 'Debts that run both ways',
-    body: 'What you owe and what you are owed, on one screen, grouped by the sign of the balance rather than a setting.',
-  },
-  {
-    title: 'A record either party can hold',
-    body: 'One debt and every payment against it. Black and white, no app chrome.',
-  },
-  {
-    title: 'Zakat, with its workings shown',
-    body: 'The estimate, every figure that produced it, and a caveat saying plainly what it does not know about your assets.',
-  },
-] as const

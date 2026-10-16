@@ -30,7 +30,10 @@ const DEBTS = [
 export function LandingThreeThings() {
   return (
     <LandingBand tone="raised" labelledBy="three">
-      <h2 id="three" className="mt-12 font-voice text-land-h2-phone text-ink">
+      <h2
+        id="three"
+        className="mt-12 max-w-[700px] font-voice text-land-h2-phone text-ink desktop:mt-16 desktop:text-land-h2"
+      >
         Three things, and they are the whole product.
       </h2>
 
@@ -77,7 +80,9 @@ function BothDirections() {
               <span className="block font-structural text-land-label font-semibold text-ink">
                 {debt.who}
               </span>
-              <span className="mt-2 block font-structural text-land-fine text-soft">{debt.under}</span>
+              <span className="mt-2 block font-structural text-land-fine text-soft">
+                {debt.under}
+              </span>
             </span>
             <span className="font-data text-land-label font-semibold tracking-[-0.012em] text-ink">
               {debt.amount}
@@ -115,9 +120,7 @@ function RentFund() {
 function Thing({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="w-[286px] shrink-0 snap-start">
-      <h3 className="min-h-[46px] font-structural text-land-h3 font-semibold text-ink">
-        {title}
-      </h3>
+      <h3 className="min-h-[46px] font-structural text-land-h3 font-semibold text-ink">{title}</h3>
       {children}
     </div>
   )

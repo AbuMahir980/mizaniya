@@ -65,9 +65,7 @@ export function HowItWorksRail() {
     <LandingBand edge labelledBy="how-it-works">
       <div className="flex items-end justify-between gap-24">
         <div>
-          <p className="mb-14 font-structural text-land-kicker uppercase text-soft">
-            How it works
-          </p>
+          <p className="mb-14 font-structural text-land-kicker uppercase text-soft">How it works</p>
           <h2
             id="how-it-works"
             className="max-w-[620px] font-voice text-land-h2-phone text-ink desktop:text-land-h2"
@@ -93,12 +91,8 @@ export function HowItWorksRail() {
               key={item.n}
               className="rail-card flex w-[258px] shrink-0 snap-start flex-col rounded-lg border border-line bg-card p-18"
             >
-              <p className="font-data text-mlab uppercase tracking-[0.14em] text-faint">
-                {item.n}
-              </p>
-              <h3 className="mt-14 font-structural text-land-label text-soft">
-                {item.q}
-              </h3>
+              <p className="font-data text-mlab uppercase tracking-[0.14em] text-faint">{item.n}</p>
+              <h3 className="mt-14 font-structural text-land-label text-soft">{item.q}</h3>
               <p className="mt-8 font-structural text-land-answer text-ink">
                 <b className="font-semibold">{item.a}</b>
                 {item.detail === '' ? null : ` ${item.detail}`}

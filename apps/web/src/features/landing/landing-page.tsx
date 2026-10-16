@@ -1,10 +1,14 @@
 import { HowItWorksRail } from './how-it-works-rail'
 import { LandingArgument } from './landing-argument'
+import { LandingClose } from './landing-close'
 import { LandingComparisons } from './landing-comparisons'
+import { LandingFooter } from './landing-footer'
+import { LandingFree } from './landing-free'
+import { LandingHero } from './landing-hero'
+import { LandingHowTo } from './landing-how-to'
+import { LandingRest } from './landing-rest'
 import { LandingThreeThings } from './landing-three-things'
 import { LandingTimeline } from './landing-timeline'
-import { LandingClose } from './landing-close'
-import { LandingHero } from './landing-hero'
 
 export interface LandingPageProps {
   /** Start a budget — the page's primary action. Goes to onboarding. */
@@ -21,21 +25,26 @@ export interface LandingPageProps {
  * literal from `docs/seed-data.md`. Offline is identical to online, which a page
  * selling an offline-first app had better manage.
  *
- * It imports no store, no repository and no other feature. The only thing it
- * takes from the app is where its two buttons go.
+ * The order is the board's, and the board's order **is** the argument: the
+ * month they recognise, then what it costs them, then the one figure, then the
+ * three things, then the proof, then the ask. It imports no store, no
+ * repository and no other feature — the only thing it takes from the app is
+ * where its two buttons go.
  */
 export function LandingPage({ onStart, onRestore }: LandingPageProps) {
   return (
     <main className="mx-auto w-full max-w-[1440px]">
       <LandingHero onStart={onStart} onRestore={onRestore} />
-
-
       <HowItWorksRail />
       <LandingComparisons />
       <LandingArgument />
       <LandingThreeThings />
       <LandingTimeline />
+      <LandingFree />
+      <LandingRest />
+      <LandingHowTo />
       <LandingClose onStart={onStart} onRestore={onRestore} />
+      <LandingFooter />
     </main>
   )
 }

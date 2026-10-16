@@ -146,7 +146,8 @@ describe('one page, one measure', () => {
       for (const line of source.split('\n')) {
         // A band's own padding. A bleed (-mx-) is the opposite: it reaches past
         // the gutter rather than inventing one, and is paired with it.
-        if (/\bdesktop:px-150\b/.test(line) && !/-mx-150/.test(line)) offenders.push(`${file}: ${line.trim().slice(0, 60)}`)
+        if (/\bdesktop:px-150\b/.test(line) && !/-mx-150/.test(line))
+          offenders.push(`${file}: ${line.trim().slice(0, 60)}`)
       }
     }
 

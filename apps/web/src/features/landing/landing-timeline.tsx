@@ -17,9 +17,11 @@ import { debtTimeline, figures } from './landing-copy'
 export function LandingTimeline() {
   return (
     <LandingBand labelledBy="timeline">
-      <h2 id="timeline" className="font-voice text-land-h2-phone text-ink">
-        You owe A. Friend <Ngn amount={figures.friendBalance} />. Three paydays from now you do
-        not.
+      <h2
+        id="timeline"
+        className="max-w-[800px] font-voice text-land-h2-phone text-ink desktop:text-land-h2"
+      >
+        You owe A. Friend <Ngn amount={figures.friendBalance} />. Three paydays from now you do not.
       </h2>
       <p className="mt-10 font-structural text-land-detail text-soft">
         No other app can draw this.
