@@ -1,72 +1,76 @@
 import { useEffect, useState } from 'react'
-import homeDark from '@/assets/shots/home-dark.jpg'
-import homeLight from '@/assets/shots/home-light.jpg'
+import { StackCard } from '@/ui/stack-card'
+import { SafeToSpendCard } from './safe-to-spend-card'
 import { figures } from './landing-copy'
 
 /**
- * The cascade: five components, the hero whole in front and four behind it,
- * each showing its own label and figure at rest.
+ * The cascade: the safe-to-spend card whole in front, and the three cards the
+ * board counts underneath it — *"What is safe today · 3 more underneath"*.
  *
  * **"Hover reveals nothing."** That is the constraint from the pointer-states
- * study, and it is §5 inherited by §9 — the page must read completely with
- * motion off, and a touch device has no pointer at all. So a card behind is
- * never a mystery: it already says what it is and what it holds. Hovering gives
- * you the rest of a card you could already identify.
+ * study, and it is `motion.md` §5 inherited by §9: the page must read
+ * completely with motion off, and a touch device has no pointer at all. Here
+ * the promise is kept by the list beside the pile, which names all three cards
+ * underneath in the reader's own words. Nothing is identified only by pointing
+ * at it.
  *
  * The owner asked for it to cycle rather than wait to be pointed at, which §9
- * permits — the landing page is allowed to perform. The cycle obeys the same
- * four stops as the rail, and under reduced motion it does not run at all.
+ * permits — the landing page is allowed to perform. The cycle stops for good
+ * the moment someone lifts a card themselves, and never runs under reduced
+ * motion.
  */
 const BEHIND = [
-  { label: 'Daily spend', figure: figures.safeToSpend, note: 'a day, 20 days left' },
+  { label: 'Where each category stands', figure: '8 categories', note: 'worst first' },
+  { label: 'Needs attention', figure: '2 of 8', note: 'the two that need you' },
   { label: 'Rent fund', figure: figures.rentSaved, note: `of ${figures.rentTarget}` },
-  { label: 'Where your money is', figure: figures.cashLeft, note: 'cash left' },
-  { label: 'Needs attention', figure: '2 of 8', note: 'worst first' },
-]
+] as const
 
-/** The board's insets, at each width: 390 steps by 9, 1440 by 16. */
+/** Each card behind sits 10px lower and 10px narrower than the one in front of
+ *  it — the step both boards draw, rounded to the 2px grid (`tokens.md` §5). */
 const INSET = [
-  'bottom-36 left-36 right-36 desktop:bottom-56 desktop:left-64 desktop:right-64',
-  'bottom-26 left-26 right-26 desktop:bottom-42 desktop:left-48 desktop:right-48',
-  'bottom-18 left-18 right-18 desktop:bottom-28 desktop:left-32 desktop:right-32',
-  'bottom-8 left-8 right-8 desktop:bottom-14 desktop:left-16 desktop:right-16',
+  'inset-x-[10px] top-[10px]',
+  'inset-x-[20px] top-[20px]',
+  'inset-x-[30px] top-[30px]',
 ]
 
 export function LandingDeck() {
-  const order = useCascade(BEHIND.length + 1)
+  const { zOf, bringForward } = useCascade(BEHIND.length + 1)
 
   return (
-    <div className="mt-30 flex justify-center desktop:mt-0">
-      <div className="stack relative h-[250px] w-[326px] shrink-0 desktop:h-[432px] desktop:w-[600px]">
+    <div>
+      {/* The front card is in flow and sets the height; the three behind are
+          `h-full` from a top offset, so each one's own bottom edge is what
+          shows at rest. Nothing here is measured by hand. */}
+      <div className="stack relative w-[327px] desktop:w-[360px]">
         {BEHIND.map((card, index) => (
-          <article
+          <StackCard
             key={card.label}
-            tabIndex={0}
-            style={{ zIndex: order[index + 1] }}
-            className={`absolute h-[214px] rounded-deck border border-line bg-card px-18 py-16 shadow-card desktop:h-[376px] ${INSET[index]}`}
+            label={card.label}
+            zIndex={zOf(index + 1)}
+            onBringForward={() => bringForward(index + 1)}
+            className={`absolute h-full rounded-deck border border-line bg-card px-20 py-20 shadow-card ${INSET[index]}`}
           >
-            <p className="font-data text-mlab uppercase text-soft">{card.label}</p>
-            <p className="mt-8 font-data text-land-h3 font-semibold text-ink">{card.figure}</p>
-            <p className="mt-2 font-structural text-land-fine text-soft">{card.note}</p>
-          </article>
+            <span className="block font-structural text-lab uppercase text-soft">{card.label}</span>
+            <span className="mt-8 block font-data text-land-h3 font-semibold text-ink">
+              {card.figure}
+            </span>
+            <span className="mt-2 block font-structural text-land-fine text-soft">{card.note}</span>
+          </StackCard>
         ))}
 
-        <div
-          style={{ zIndex: order[0] }}
-          className="absolute bottom-0 left-0 w-[326px] desktop:w-[600px]"
+        <StackCard
+          label="Safe to spend today"
+          zIndex={zOf(0)}
+          onBringForward={() => bringForward(0)}
+          className="relative w-full"
         >
-          <div className="h-[214px] w-[326px] overflow-hidden rounded-deck border border-line bg-bg shadow-card desktop:h-[376px] desktop:w-[600px]">
-            <picture>
-              <source srcSet={homeDark} media="(prefers-color-scheme: dark)" />
-              <img
-                src={homeLight}
-                alt="Mizaniya's Home screen: safe to spend today, ₦7,500.00, with the cycle's categories beneath it."
-                className="block h-full w-full object-cover object-top"
-              />
-            </picture>
-          </div>
-        </div>
+          <SafeToSpendCard />
+        </StackCard>
       </div>
+
+      <p className="mt-12 font-structural text-land-detail font-semibold text-ink">
+        What is safe today · {BEHIND.length} more underneath
+      </p>
     </div>
   )
 }
@@ -76,8 +80,9 @@ export function LandingDeck() {
  * reorders without any card moving in the markup — a screen reader reads them
  * in the same order throughout, whatever is on top.
  */
-function useCascade(count: number): number[] {
+function useCascade(count: number) {
   const [front, setFront] = useState(0)
+  const [chosen, setChosen] = useState(false)
   const [still] = useState(
     () =>
       typeof window === 'undefined' ||
@@ -86,12 +91,18 @@ function useCascade(count: number): number[] {
   )
 
   useEffect(() => {
-    if (still) return
+    if (still || chosen) return
     const timer = window.setInterval(() => setFront((n) => (n + 1) % count), 3600)
     return () => window.clearInterval(timer)
-  }, [still, count])
+  }, [still, chosen, count])
 
-  // The card in front gets the top index; the rest keep their drawn order
-  // beneath it, so the stack never reads as shuffled.
-  return Array.from({ length: count }, (_, i) => count - ((i - front + count) % count))
+  return {
+    // The card in front gets the top index; the rest keep their drawn order
+    // beneath it, so the stack never reads as shuffled.
+    zOf: (index: number) => count - ((index - front + count) % count),
+    bringForward: (index: number) => {
+      setChosen(true)
+      setFront(index)
+    },
+  }
 }

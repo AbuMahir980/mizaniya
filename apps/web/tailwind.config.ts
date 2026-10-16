@@ -131,6 +131,10 @@ export default {
        * accident: an app screen using `text-land-lead` is a mistake a reviewer
        * can see.
        */
+      'land-display': [
+        token('size-land-display'),
+        { lineHeight: token('leading-land-display'), letterSpacing: '-0.02em', fontWeight: '600' },
+      ],
       'land-h2': [token('size-land-h2'), { lineHeight: token('leading-land-h2'), letterSpacing: '-0.008em' }],
       'land-h2-phone': [
         token('size-land-h2-phone'),

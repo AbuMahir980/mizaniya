@@ -1,57 +1,62 @@
-import { Card } from '@/ui/card'
+import { Icon } from '@/ui/icon'
 import { LandingBand } from './landing-band'
-import { figures, whatIsUnderneath } from './landing-copy'
+import { LandingDeck } from './landing-deck'
+import { whatIsUnderneath } from './landing-copy'
 
 /**
- * The middle of the page: why the apps they have already tried did not work,
- * what the one figure is, and the three things the product actually is.
+ * *Safe to spend, today.* — the one figure the product is about, and the three
+ * cards underneath it.
  *
- * Every amount here is a literal from `docs/seed-data.md`, carried through
- * `landing-copy.ts`. Nothing on this page computes money (H3) — a marketing
- * surface has no business holding arithmetic, and there is no owner's budget
- * behind any of it.
+ * The pile and the list are **one argument in two halves**: the list is what
+ * lets the pile be read without a pointer, because it names every card
+ * underneath. That is why they sit side by side at 1440 and one above the other
+ * on a phone, rather than the list being an afterthought in a column of its own.
+ *
+ * The closing line differs by width, and both are the boards' own: a pointer
+ * lifts a card, a thumb taps one.
  */
 export function LandingArgument() {
   return (
-    <>
-      <SafeToSpend />
-    </>
+    <LandingBand labelledBy="safe">
+      <h2 id="safe" className="font-voice text-land-h2-phone text-ink desktop:text-land-h2">
+        Safe to spend, today.
+      </h2>
+
+      <p className="mt-10 max-w-[540px] font-structural text-land-body text-soft desktop:mt-12">
+        What you have not already promised, over the days until you are paid again.
+      </p>
+
+      <div className="mt-26 desktop:mt-34 desktop:flex desktop:items-start desktop:gap-48">
+        <LandingDeck />
+
+        <div className="mt-30 desktop:mt-0 desktop:max-w-[666px] desktop:flex-1">
+          <p className="hidden font-structural text-lab uppercase text-soft desktop:block">
+            What is underneath it
+          </p>
+
+          <ul className="desktop:mt-16">
+            {whatIsUnderneath.map((item) => (
+              <li
+                key={item.title}
+                className="flex gap-12 border-b border-hair py-14 first:pt-0 desktop:py-16"
+              >
+                <Icon name="trend" size={17} className="mt-2 text-emerald" />
+                <span className="flex flex-col gap-4">
+                  <span className="font-structural text-land-label font-semibold text-ink">
+                    {item.title}
+                  </span>
+                  <span className="font-structural text-land-label text-soft">{item.body}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-16 font-structural text-land-label text-soft">
+            <span className="desktop:hidden">Tap a card to lift it off the pile.</span>
+            <span className="hidden desktop:inline">Lift a card off the pile to see it whole.</span>
+          </p>
+        </div>
+      </div>
+    </LandingBand>
   )
 }
-
-function SafeToSpend() {
-  return (
-    <>
-      <LandingBand labelledBy="safe" className="flex flex-col gap-16">
-        <h2 id="safe" className="font-voice text-title text-ink">
-          Safe to spend, today.
-        </h2>
-        <p className="font-structural text-body text-soft">
-          What you have not already promised, over the days until you are paid again.
-        </p>
-
-        <Card className="flex flex-col gap-8">
-          <p className="font-structural text-lab uppercase text-soft">Safe to spend today</p>
-          <p className="font-data text-h1 text-ink">
-            {figures.safeToSpend}
-            <span className="text-h2 text-soft">{figures.safeToSpendKobo}</span>
-          </p>
-          <p className="font-structural text-small text-faint">
-            {figures.cashLeft} left · 20 days to 25 Oct
-          </p>
-        </Card>
-
-        <ul className="flex flex-col gap-12">
-          {whatIsUnderneath.map((item) => (
-            <li key={item.title} className="flex flex-col gap-2 border-b border-hair pb-12">
-              <span className="font-structural text-body text-ink">{item.title}</span>
-              <span className="font-structural text-small text-soft">{item.body}</span>
-            </li>
-          ))}
-        </ul>
-      </LandingBand>
-    </>
-  )
-}
-
-

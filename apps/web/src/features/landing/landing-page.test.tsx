@@ -5,7 +5,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import { LandingPage } from './landing-page'
-import { figures } from './landing-copy'
+import { figures, whatIsUnderneath } from './landing-copy'
 
 afterEach(cleanup)
 
@@ -160,26 +160,34 @@ describe('the cascade', () => {
    * §5 inherited by §9: the page must read completely with motion off, and a
    * touch device has no pointer at all.
    *
-   * So a card behind the hero is never a mystery. This fails if one is ever
-   * built as a blank slab that only identifies itself on hover, which is what
-   * the first version of the deck was.
+   * The board draws the three cards underneath as bare edges, so the promise is
+   * kept by the list beside the pile, which names all three. This fails if the
+   * list and the pile ever stop naming the same cards — then a reader with no
+   * pointer is told there are three and never learns what they are.
    */
-  it('names every card in the stack at rest, with its figure', () => {
+  it('names, beside the pile, every card underneath it', () => {
     renderPage()
     const page = document.body.textContent ?? ''
 
-    for (const label of ['Daily spend', 'Rent fund', 'Where your money is', 'Needs attention']) {
-      expect(page).toContain(label)
+    for (const item of whatIsUnderneath) {
+      expect(page).toContain(item.title)
     }
-    expect(page).toContain(figures.cashLeft)
+    expect(page).toContain('3 more underneath')
   })
 
   it('keeps every card reachable by keyboard, whatever is on top', () => {
     renderPage()
-    const cards = screen
-      .getAllByRole('article')
-      .filter((el) => el.getAttribute('tabindex') === '0')
 
-    expect(cards.length).toBe(4)
+    // Four: the card in front and the three underneath. Each is a real control,
+    // because the phone board's instruction is "Tap a card to lift it off the
+    // pile", and focus has to do the same for anyone without a pointer.
+    for (const label of [
+      'Safe to spend today',
+      'Where each category stands',
+      'Needs attention',
+      'Rent fund',
+    ]) {
+      expect(screen.getByRole('button', { name: label })).toBeTruthy()
+    }
   })
 })

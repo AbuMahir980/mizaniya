@@ -11,30 +11,59 @@ import { LandingBand } from './landing-band'
  * second two figures with a progress rail, the third two lists. Flattening them
  * into one generic card is how the first attempt lost the design.
  *
- * Both sides show at once. The board's own note: *a phone has no pointer to
- * reveal one with.*
+ * **The rest state is the failure**, because that is the state the reader
+ * arrives in. At 1440 the board says so in its own words — *"Hover any one:
+ * what Mizaniya does slides over it"* — and only the red card is drawn. A phone
+ * has no pointer, so it gets both cards and the line the phone board gives it.
+ * Either way the claim above the pair carries the argument, since one that only
+ * completes on hover is one a phone never hears.
  */
 export function LandingComparisons() {
   return (
     <LandingBand tone="raised" labelledBy="tried">
-      <h2 id="tried" className="mt-12 font-voice text-land-h2-phone text-ink">
+      <h2
+        id="tried"
+        className="mt-12 font-voice text-land-h2-phone text-ink desktop:mt-0 desktop:text-land-h2"
+      >
         You have tried a budgeting app before.
       </h2>
 
-      <div className="rail-scroller mt-20 overflow-x-auto -mx-24 px-24 desktop:-mx-150 desktop:px-150">
-        <div className="flex w-[940px] items-start gap-14">
-          <Column claim={<>They budget by calendar month.<br />Your money works in salary cycles.</>}>
-            <Side tone="theirs" note="1st → 30th · pay lands on the 25th">
+      <p className="mt-10 hidden font-structural text-land-detail text-soft desktop:block">
+        Hover any one: what Mizaniya does slides over it.
+      </p>
+
+      {/* A rail on a phone, three columns at 1440 — the boards differ, and the
+          1440 one is not a scroller: 3 × 320 with 36 between fits the band. */}
+      <div className="rail-scroller -mx-24 mt-20 overflow-x-auto px-24 desktop:mx-0 desktop:mt-28 desktop:overflow-visible desktop:px-0">
+        <div className="flex w-[940px] items-start gap-14 desktop:w-[1032px] desktop:gap-36">
+          <Column
+            claim={
+              <>
+                They budget by calendar month.
+                <br />
+                Your money works in salary cycles.
+              </>
+            }
+          >
+            <Side tone="theirs">
               <Bars payday={8} />
+              <Caption>1st → 30th · pay lands on the 25th</Caption>
             </Side>
-            <Side tone="ours" note="25th → 24th · the cycle starts when you are paid">
+            <Side tone="ours">
               <Bars payday={0} ours />
+              <Caption>25th → 24th · the cycle starts when you are paid</Caption>
             </Side>
           </Column>
 
           <Column claim="They cannot hold a rent lump sum.">
-            <Side tone="theirs" note={`Nowhere to put ${figures.rentTarget} that is due once, in March.`}>
-              <Figure amount={figures.rentPerPayday.replace('.00', '')} beside="a month, every month" />
+            <Side
+              tone="theirs"
+              note={`Nowhere to put ${figures.rentTarget} that is due once, in March.`}
+            >
+              <Figure
+                amount={figures.rentPerPayday.replace('.00', '')}
+                beside="a month, every month"
+              />
             </Side>
             <Side
               tone="ours"
@@ -47,21 +76,34 @@ export function LandingComparisons() {
             </Side>
           </Column>
 
-          <Column claim={<>They only track what you owe,<br />not what you are owed.</>}>
+          <Column
+            claim={
+              <>
+                They only track what you owe,
+                <br />
+                not what you are owed.
+              </>
+            }
+          >
             <Side tone="theirs">
               <Entry who="A. Friend" amount={`${figures.friendBalance}.00`} />
               <Entry who="B. Colleague" amount="no way to record it" muted />
             </Side>
             <Side tone="ours">
               <Entry who="A. Friend" under="you owe" amount={`${figures.friendBalance}.00`} />
-              <Entry who="B. Colleague" under="owed to you" amount={`${figures.colleagueBalance}.00`} ours />
+              <Entry
+                who="B. Colleague"
+                under="owed to you"
+                amount={`${figures.colleagueBalance}.00`}
+                ours
+              />
             </Side>
           </Column>
         </div>
       </div>
 
-      <p className="mt-16 font-structural text-small text-soft">
-        Both sides are shown at once, because a phone has no pointer to reveal one with.
+      <p className="mt-16 font-structural text-land-detail text-soft desktop:hidden">
+        Red is the app you tried. Green is what Mizaniya does instead.
       </p>
     </LandingBand>
   )
@@ -69,11 +111,11 @@ export function LandingComparisons() {
 
 function Column({ claim, children }: { claim: ReactNode; children: ReactNode }) {
   return (
-    <div className="w-[286px] shrink-0 snap-start">
-      <h3 className="min-h-[70px] font-structural text-land-h3 font-semibold text-ink">
-        {claim}
-      </h3>
-      <div className="mt-12 flex flex-col gap-10">{children}</div>
+    <div className="reveal-host w-[286px] shrink-0 snap-start desktop:w-[320px]">
+      <h3 className="min-h-[70px] font-structural text-land-h3 font-semibold text-ink">{claim}</h3>
+      {/* `reveal-stack` only becomes one cell where the reveal can run; the
+          query that decides is in tokens.css, next to the motion it governs. */}
+      <div className="reveal-stack mt-12 flex flex-col gap-10">{children}</div>
     </div>
   )
 }
@@ -89,7 +131,11 @@ function Side({
 }) {
   const ours = tone === 'ours'
   return (
-    <div className={`w-[262px] rounded-lg border border-line bg-card p-16 ${ours ? 'shadow-lift' : 'shadow-card'}`}>
+    <div
+      className={`w-[262px] rounded-lg border border-line bg-card p-16 desktop:w-full ${
+        ours ? 'reveal-over shadow-lift' : 'shadow-card'
+      }`}
+    >
       <p
         className={`font-data text-land-micro uppercase tracking-[0.12em] ${ours ? 'text-emerald' : 'text-rose'}`}
       >
@@ -100,6 +146,19 @@ function Side({
         <p className="mt-10 font-structural text-land-fine text-soft">{note}</p>
       )}
     </div>
+  )
+}
+
+/**
+ * The strip's own caption, which the board sets in the data face, uppercase and
+ * widely tracked — a reading of the chart above it, not prose like the notes on
+ * the other two cards.
+ */
+function Caption({ children }: { children: ReactNode }) {
+  return (
+    <p className="mt-10 font-data text-land-micro uppercase leading-[15px] tracking-[0.1em] text-soft">
+      {children}
+    </p>
   )
 }
 

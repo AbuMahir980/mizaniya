@@ -1,7 +1,7 @@
 import { LandingButton } from '@/ui/landing-button'
 import { WordmarkArabic } from '@/ui/wordmark-arabic'
 import { GUTTER } from './landing-band'
-import { LandingDeck } from './landing-deck'
+import { HomeShot } from './home-shot'
 
 export interface LandingHeroProps {
   onStart: () => void
@@ -14,7 +14,8 @@ export interface LandingHeroProps {
  * Its numbers are the board's: a 64px nav, the headline at 25px over 33px with
  * the break where the board breaks it, `.lead` beneath, the two buttons 12px
  * apart 22px down, and the fine print at 13.5px — then the deck, centred, 30px
- * below.
+ * below — and the deck it used to end with is gone: the board's hero is the
+ * Home screen itself, which `HomeShot` carries.
  *
  * **The recognition comes before the product.** The brief opens on someone's own
  * month rather than a value proposition, which is why the first thing said is a
@@ -31,8 +32,10 @@ export function LandingHero({ onStart, onRestore }: LandingHeroProps) {
         </LandingButton>
       </header>
 
-      <section className={`border-b border-line pb-34 pt-26 desktop:flex desktop:items-center desktop:gap-24 desktop:py-96 ${GUTTER}`}>
-        <div className="desktop:min-h-[570px] desktop:max-w-[620px] desktop:flex desktop:flex-col desktop:justify-center">
+      <section
+        className={`border-b border-line pb-34 pt-26 desktop:flex desktop:items-center desktop:gap-48 desktop:py-96 ${GUTTER}`}
+      >
+        <div className="desktop:min-h-[570px] desktop:max-w-[496px] desktop:flex desktop:flex-col desktop:justify-center">
           <h1 className="mt-16 font-voice text-land-h2-phone text-ink desktop:mt-22 desktop:text-land-hero desktop:leading-[56px]">
             Your salary lands on the 25th.
             <br />
@@ -55,7 +58,7 @@ export function LandingHero({ onStart, onRestore }: LandingHeroProps) {
           </p>
         </div>
 
-        <LandingDeck />
+        <HomeShot />
       </section>
     </>
   )

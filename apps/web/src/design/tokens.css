@@ -21,14 +21,12 @@
   --onEmerald: #ffffff;
   --scrim: rgba(23, 26, 23, 0.46);
 
-  --elevation-card: 0 1px 2px rgba(23, 26, 23, 0.05),
-    0 12px 30px -16px rgba(23, 26, 23, 0.22);
+  --elevation-card: 0 1px 2px rgba(23, 26, 23, 0.05), 0 12px 30px -16px rgba(23, 26, 23, 0.22);
   --elevation-lift: 0 8px 20px -8px rgba(15, 92, 60, 0.55);
 
   /* Type — three faces, each with one job. Money never uses the voice face. */
   --family-voice: 'EB Garamond', Georgia, 'Times New Roman', serif;
-  --family-structural: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, sans-serif;
+  --family-structural: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --family-data: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /**
@@ -149,8 +147,7 @@
     --onEmerald: #052214;
     --scrim: rgba(4, 6, 8, 0.62);
 
-    --elevation-card: 0 1px 2px rgba(0, 0, 0, 0.5),
-      0 14px 34px -16px rgba(0, 0, 0, 0.7);
+    --elevation-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 14px 34px -16px rgba(0, 0, 0, 0.7);
     --elevation-lift: 0 8px 20px -8px rgba(78, 203, 139, 0.4);
   }
 }
@@ -211,14 +208,30 @@
 }
 
 /* 45ms between cards, so the eighth lands at about 600ms — motion.md §9.1. */
-.rail-card:nth-child(1) { transition-delay: 0ms; }
-.rail-card:nth-child(2) { transition-delay: 45ms; }
-.rail-card:nth-child(3) { transition-delay: 90ms; }
-.rail-card:nth-child(4) { transition-delay: 135ms; }
-.rail-card:nth-child(5) { transition-delay: 180ms; }
-.rail-card:nth-child(6) { transition-delay: 225ms; }
-.rail-card:nth-child(7) { transition-delay: 270ms; }
-.rail-card:nth-child(8) { transition-delay: 315ms; }
+.rail-card:nth-child(1) {
+  transition-delay: 0ms;
+}
+.rail-card:nth-child(2) {
+  transition-delay: 45ms;
+}
+.rail-card:nth-child(3) {
+  transition-delay: 90ms;
+}
+.rail-card:nth-child(4) {
+  transition-delay: 135ms;
+}
+.rail-card:nth-child(5) {
+  transition-delay: 180ms;
+}
+.rail-card:nth-child(6) {
+  transition-delay: 225ms;
+}
+.rail-card:nth-child(7) {
+  transition-delay: 270ms;
+}
+.rail-card:nth-child(8) {
+  transition-delay: 315ms;
+}
 
 @media (prefers-reduced-motion: reduce) {
   [data-rail-enter='pending'] .rail-card {
@@ -235,6 +248,11 @@
    which is how the first attempt produced the right words in the wrong design.
    Repoint them at tokens.md the day it publishes them. */
 :root {
+  /* The figure on the safe-to-spend card, the one number the page is about.
+     Both boards set it at the same size: the card is 360 at 1440 and 327 on a
+     phone, and the figure does not shrink with it, because it is the point. */
+  --size-land-display: 54px;
+  --leading-land-display: 60px;
   --size-land-h2: 40px;
   --leading-land-h2: 46px;
   --size-land-h3: 20px;
@@ -345,35 +363,46 @@
 
 /* The comparison reveal — "the rest state is the failure, because that is the
    state the reader arrives in." What Mizaniya does slides over it from the
-   left with a left-edge shadow, so it reads as arriving on top rather than
-   swapping. The answer is in the body copy underneath as well, because an
-   argument that only completes on hover is an argument a phone never hears. */
+   left, 180ms, with a left-edge shadow so it reads as arriving on top rather
+   than swapping. It comes to rest 10px further left than the card beneath, as
+   the study draws it: the overhang is what makes it read as a separate object
+   laid over, rather than the same card repainted.
+
+   The stacking is inside the query rather than in the markup. Where the reveal
+   cannot run — no pointer, reduced motion, or a narrower frame — the two cards
+   stay in flow and both are simply read, which is the state a phone gets.
+   Grid, not absolute positioning, so the taller card sets the height and no
+   card is measured by hand. */
 .reveal-over {
   transition:
     transform 180ms cubic-bezier(0.2, 0, 0, 1),
-    opacity 180ms cubic-bezier(0.2, 0, 0, 1);
+    opacity 180ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 180ms cubic-bezier(0.2, 0, 0, 1);
 }
 
-@media (hover: hover) and (min-width: 1440px) {
+@media (hover: hover) and (min-width: 1440px) and (prefers-reduced-motion: no-preference) {
+  .reveal-host .reveal-stack {
+    display: grid;
+  }
+
+  .reveal-host .reveal-stack > * {
+    grid-area: 1 / 1;
+    width: 100%;
+  }
+
   .reveal-host .reveal-over {
-    transform: translateX(-12px);
+    transform: translateX(-34px);
     opacity: 0;
     pointer-events: none;
   }
 
   .reveal-host:hover .reveal-over,
   .reveal-host:focus-within .reveal-over {
-    transform: translateX(0);
+    transform: translateX(-10px);
     opacity: 1;
     pointer-events: auto;
-    box-shadow: -14px 0 24px -14px rgba(23, 26, 23, 0.35);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal-host .reveal-over {
-    transform: none;
-    opacity: 1;
-    pointer-events: auto;
+    box-shadow:
+      var(--elevation-card),
+      -14px 0 28px -18px rgba(0, 0, 0, 0.35);
   }
 }
