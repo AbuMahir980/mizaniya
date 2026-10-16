@@ -192,3 +192,102 @@ describe('the cascade', () => {
     }
   })
 })
+
+describe('the accessibility rules, proven rather than asserted (J1–J5)', () => {
+  /**
+   * J2. Every control says what it is without its surroundings. A marketing
+   * page accumulates decorative controls — a card you can lift, a rail you can
+   * push — and each of them is a tab stop that has to make sense read alone.
+   */
+  it('gives every control and every link an accessible name', () => {
+    renderPage()
+
+    for (const control of [...screen.getAllByRole('button'), ...screen.getAllByRole('link')]) {
+      const name = control.getAttribute('aria-label') ?? control.textContent ?? ''
+      expect(name.trim().length, control.outerHTML.slice(0, 90)).toBeGreaterThan(0)
+    }
+  })
+
+  /**
+   * J5. Headings are the page's structure for anyone who navigates by them, so
+   * they are one h1 and then h2s — never a level skipped to get a size. The
+   * sizes come from the landing scale, which is what `text-land-*` is for.
+   */
+  it('has one h1, and no heading level skipped beneath it', () => {
+    renderPage()
+
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
+
+    const levels = screen.getAllByRole('heading').map((heading) => Number(heading.tagName.slice(1)))
+    for (const [index, level] of levels.entries()) {
+      if (index === 0) continue
+      expect(level - (levels[index - 1] ?? 1)).toBeLessThanOrEqual(1)
+    }
+  })
+
+  /**
+   * J1. Every band is a labelled region, so a screen reader's landmark list is
+   * the argument's own outline rather than a row of unnamed sections.
+   */
+  it('labels every band with its own heading', () => {
+    renderPage()
+
+    const sections = document.querySelectorAll('section[aria-labelledby]')
+    expect(sections.length).toBeGreaterThan(5)
+    for (const section of sections) {
+      const id = section.getAttribute('aria-labelledby') ?? ''
+      expect(document.getElementById(id), `no heading with id ${id}`).not.toBeNull()
+    }
+  })
+
+  /**
+   * M1, and the one that would be embarrassing in public: the page shows a
+   * printed debt record, and the record a stranger sees has to be the worked
+   * example like everything else.
+   */
+  it('shows no figure that is not in the worked example', () => {
+    renderPage()
+    const page = document.body.textContent ?? ''
+
+    // Every ₦ figure on the page, with its kobo, as the reader sees it.
+    const shown = new Set(page.match(/₦[\d,]+(?:\.\d{2})?/g) ?? [])
+    // Every figure `docs/seed-data.md` puts on this page, naira part and all.
+    // A figure that is not here is either a typo or an invention, and both are
+    // the same fault: the page is the worked example or it is nothing.
+    const allowed = new Set([
+      '₦0.00',
+      '₦4,800',
+      '₦4,800.00',
+      '₦7,500',
+      '₦7,500.00',
+      '₦14,000',
+      '₦14,000.00',
+      '₦14,666',
+      '₦14,666.67',
+      '₦18,800.00',
+      '₦30,000',
+      '₦30,000.00',
+      '₦40,000',
+      '₦40,000.00',
+      '₦50,000.00',
+      '₦60,000.00',
+      '₦75,000',
+      '₦75,000.00',
+      '₦85,000.00',
+      '₦90,000',
+      '₦90,000.00',
+      '₦150,000.00',
+      '₦220,000.00',
+      '₦475,000',
+      '₦475,000.00',
+      '₦490,000',
+      '₦490,000.00',
+      '₦850,000.00',
+      '₦900,000.00',
+      '₦2,450,000',
+      '₦2,450,000.00',
+    ])
+
+    expect([...shown].filter((figure) => !allowed.has(figure))).toEqual([])
+  })
+})
