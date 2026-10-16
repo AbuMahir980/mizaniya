@@ -1,0 +1,349 @@
+{
+  "version": 1,
+  "skill": "accessibility-review",
+  "workItem": "ITEM-15",
+  "at": "2026-10-16T02:05:00Z",
+  "scope": {
+    "base": "e847a1ccfb83a942bb1f62fa084bb8028ad57179",
+    "head": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/features/landing/*",
+      "apps/web/src/ui/stack-card.tsx",
+      "apps/web/src/ui/landing-button.tsx",
+      "apps/web/src/design/tokens.css",
+      "apps/web/src/index.css"
+    ]
+  },
+  "inputs": [
+    "docs/design/tokens.md",
+    "docs/design/motion.md",
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "docs/06-page-specs.md",
+    "apps/web/src/design/tokens.css",
+    "apps/web/src/index.css"
+  ],
+  "inventory": [
+    {
+      "id": "screen:landing",
+      "kind": "screen",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.tsx",
+        "line": 34
+      }
+    },
+    {
+      "id": "control:header-restore",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-hero.tsx",
+        "line": 30
+      }
+    },
+    {
+      "id": "control:hero-start",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-hero.tsx",
+        "line": 48
+      }
+    },
+    {
+      "id": "control:hero-restore",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-hero.tsx",
+        "line": 49
+      }
+    },
+    {
+      "id": "control:rail-previous",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/how-it-works-rail.tsx",
+        "line": 78
+      }
+    },
+    {
+      "id": "control:rail-next",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/how-it-works-rail.tsx",
+        "line": 81
+      }
+    },
+    {
+      "id": "control:stack-card",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/ui/stack-card.tsx",
+        "line": 27
+      }
+    },
+    {
+      "id": "control:close-start",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-close.tsx",
+        "line": 34
+      }
+    },
+    {
+      "id": "control:close-restore",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-close.tsx",
+        "line": 35
+      }
+    },
+    {
+      "id": "control:read-the-source",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-close.tsx",
+        "line": 42
+      }
+    },
+    {
+      "id": "control:footer-links",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-footer.tsx",
+        "line": 62
+      }
+    },
+    {
+      "id": "control:rail-scroller",
+      "kind": "control",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 262
+      }
+    },
+    {
+      "id": "indicator:debt-direction",
+      "kind": "indicator",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-three-things.tsx",
+        "line": 77
+      }
+    },
+    {
+      "id": "indicator:comparison-side",
+      "kind": "indicator",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 140
+      }
+    },
+    {
+      "id": "motion:cascade",
+      "kind": "motion",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-deck.tsx",
+        "line": 84
+      }
+    },
+    {
+      "id": "motion:rail",
+      "kind": "motion",
+      "location": {
+        "file": "apps/web/src/features/landing/use-carousel.ts",
+        "line": 31
+      }
+    },
+    {
+      "id": "motion:comparison-reveal",
+      "kind": "motion",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 357
+      }
+    },
+    {
+      "id": "motion:panel-lift",
+      "kind": "motion",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 305
+      }
+    },
+    {
+      "id": "token:ink-on-bg",
+      "kind": "token",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 95
+      }
+    },
+    {
+      "id": "token:soft-on-bg",
+      "kind": "token",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 95
+      }
+    },
+    {
+      "id": "token:paper",
+      "kind": "token",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 246
+      }
+    },
+    {
+      "id": "message:image-slot",
+      "kind": "message",
+      "location": {
+        "file": "apps/web/src/features/landing/image-slot.tsx",
+        "line": 23
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "DES-07",
+      "status": "pass",
+      "evidence": "Colour never carries meaning alone: the debt dot (landing-three-things.tsx:77) is aria-hidden and the direction is written beside it as 'you owe' and 'owed to you'; each comparison card names its side in words, 'The app you tried' and 'Mizaniya'; and the ochre 'spending fast' on the safe-to-spend card is a word, not a colour."
+    },
+    {
+      "rule": "DES-08",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "Every control on the rendered page has a name: measured at 1440, the fifteen controls are 'I already have a budget', 'Start with my own figures' x2, 'I already have a budget' x2, 'Previous', 'Next', the four cascade cards by their own labels, 'Read the source', 'Source', 'Open items' and 'Licence'. jsx-a11y and REACT-05 are enforced in CI, and landing-page.test.tsx asserts a non-empty name on every button and link."
+    },
+    {
+      "rule": "DES-09",
+      "status": "not-applicable",
+      "reason": "The page has no form field: it collects nothing."
+    },
+    {
+      "rule": "DES-10",
+      "status": "fail",
+      "finding": "A1"
+    },
+    {
+      "rule": "DES-10",
+      "status": "fail",
+      "finding": "A2",
+      "item": "control:rail-scroller"
+    },
+    {
+      "rule": "DES-11",
+      "status": "pass",
+      "evidence": "index.css:19 gives every focusable element a 2px emerald ring at 2px offset, in both themes, and tokens.css:368 gives a cascade card the same lift on :focus-visible as on hover, so focus is never signalled by movement alone."
+    },
+    {
+      "rule": "DES-12",
+      "status": "pass",
+      "evidence": "Nothing on the page needs dragging: the rails scroll, which a pointer can do with the arrows at 1440 and a touch can do by swiping. That the keyboard cannot reach them below 1440 is A2, under DES-10."
+    },
+    {
+      "rule": "DES-13",
+      "status": "pass",
+      "evidence": "Measured on the rendered page in the dark theme: ink #E9EFF3 on bg #0A0D10 and on card2 #1A2129 are both far past AA; soft #93A3AF on #0A0D10 is 8.19:1 and on #1A2129 is 6.81:1, against 4.5 for body text. The five new paper values were computed by hand because they are new: #555 on #FFF is 7.46:1 and #111 on #FFF is 19:1. tokens.test.ts holds the published pairs as an automatic check (J4)."
+    },
+    {
+      "rule": "DES-14",
+      "status": "fail",
+      "finding": "A5"
+    },
+    {
+      "rule": "DES-15",
+      "status": "fail",
+      "finding": "A3"
+    },
+    {
+      "rule": "DES-15",
+      "status": "fail",
+      "finding": "A4",
+      "item": "control:footer-links"
+    },
+    {
+      "rule": "DES-16",
+      "status": "pass",
+      "evidence": "Nothing moves under prefers-reduced-motion: the cascade never starts (landing-deck.tsx:88), the rail never starts (use-carousel.ts:41), the comparison reveal is inside a 'prefers-reduced-motion: no-preference' query (tokens.css:357), and both lifts drop their transform and keep their shadow (tokens.css:380 and :395). There is no scroll-linked animation anywhere: every motion is triggered or timed."
+    },
+    {
+      "rule": "FE-08",
+      "status": "not-applicable",
+      "reason": "The page has no error message because nothing it does can fail: docs/06-page-specs.md 7.0 records that it has no states. The one thing that is missing - a photograph nobody has bought - is drawn as a reserved slot with its brief, not as a fault (image-slot.tsx:6)."
+    }
+  ],
+  "findings": [
+    {
+      "id": "A1",
+      "rule": "DES-10",
+      "severity": "high",
+      "status": "open",
+      "title": "At 1440 the Mizaniya side of each comparison can be revealed only with a pointer",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 364,
+        "endLine": 370
+      },
+      "evidence": "The reveal is '.reveal-host:hover .reveal-over, .reveal-host:focus-within .reveal-over'. Nothing inside a comparison column is focusable - the claim is an h3 and both cards are plain divs - so :focus-within can never match. Confirmed on the rendered page at 1440: the tab order holds fifteen stops and none of them is inside a comparison column. Someone using a mouse sees what Mizaniya does; someone using a keyboard does not. The card's text is in the DOM, so a screen reader still reads it; this is a sighted keyboard reader's loss.",
+      "fix": "Give each column one focus stop that reveals - the column with role='group', a name and tabIndex 0, or a focusable summary inside it - or drop the hover gate at 1440 and show both cards as the phone does."
+    },
+    {
+      "id": "A2",
+      "rule": "DES-10",
+      "severity": "high",
+      "status": "open",
+      "title": "Below 1440 none of the three horizontal rails can be scrolled by keyboard",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 262
+      },
+      "evidence": "Three scrollers use .rail-scroller: the how-it-works rail (how-it-works-rail.tsx:86), the comparisons (landing-comparisons.tsx:36) and the rest-of-it panels (landing-rest.tsx:52). None has tabindex, and below 1440 none of them contains a focusable element - the how-it-works cards are articles, the comparison cards are divs, and the panels are articles - so there is nothing to tab to that scrolls them. The arrows that would scroll the first are 'hidden ... desktop:flex', measured as 0x0 at 390. Chrome 127 and later make a scroll container focusable when it has no focusable children, which covers this in Chrome only; in Safari the content to the right of the first card cannot be reached without a pointer or a touch.",
+      "fix": "Give .rail-scroller's three call sites tabIndex={0} with role='group' and a name, which is the usual pattern for a scrollable region, and show the arrows at every width rather than at 1440 only."
+    },
+    {
+      "id": "A3",
+      "rule": "DES-15",
+      "severity": "medium",
+      "status": "open",
+      "title": "The rail's arrows are 40px against the project's 44",
+      "location": {
+        "file": "apps/web/src/features/landing/how-it-works-rail.tsx",
+        "line": 78,
+        "endLine": 83
+      },
+      "evidence": "Measured on the rendered page at 1440: Previous and Next are 40 x 40. The project's J1 is 'touch targets >= 44px' with no exemption by width, and --target-min in tokens.css:90 is 44px. WCAG 2.2's own 2.5.8 wants 24, which these pass; it is the project's own number they miss.",
+      "fix": "Give the two IconButtons min-h-target and min-w-target, or raise IconButton's own size, which would carry the fix to every other use of it."
+    },
+    {
+      "id": "A4",
+      "rule": "DES-15",
+      "severity": "medium",
+      "status": "open",
+      "title": "The three footer links are 21px tall at 1440",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-footer.tsx",
+        "line": 62,
+        "endLine": 70
+      },
+      "evidence": "Measured on the rendered page: Source, Open items and Licence are 224 x 21 at 1440 and 342 x 44 at 390, because the class is 'min-h-target ... desktop:min-h-0'. A 1440 window can be a touch device. WCAG 2.2 2.5.8 passes them through its spacing exemption - they sit 12px apart, so 24px circles centred on them do not intersect - and the project's J1 does not carry that exemption.",
+      "fix": "Drop the desktop:min-h-0 and let them keep the 44px target at every width, or record the exemption in the standards so the rule and the build agree."
+    },
+    {
+      "id": "A5",
+      "rule": "DES-14",
+      "severity": "medium",
+      "status": "open",
+      "title": "Nothing on the page follows the browser's text-size setting",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 251
+      },
+      "evidence": "Every type step on the page is a px value - the seven new landing steps among them - and index.css:13 sets the body to 15px, so a reader who has set a larger default text size in their browser sees no change. Browser zoom does scale it, which is what the rule's source, WCAG 1.4.4, asks for, so this is the rule's own wording rather than its criterion. It is also project-wide: tokens.md section 5 makes the scale a 2px grid keyed to the pixel, and this page follows it.",
+      "fix": "This is the design system's decision, not this page's: ask the designer whether the scale should be expressed in rem against a 16px root, which keeps every drawn number and makes the whole app follow the setting. docs/open-items.md is where that question goes."
+    }
+  ],
+  "result": "pass",
+  "summary": "Pass, with 2 high and 3 medium findings open. The highs are both keyboard: at 1440 the Mizaniya side of each comparison is revealed only by a pointer, and below 1440 none of the three horizontal rails can be scrolled without one. The mediums are the project's own 44px target on the rail arrows and the footer links at 1440, and that the page's px type ignores the browser's text-size setting. Contrast, names, focus and reduced motion were measured on the rendered page and hold."
+}

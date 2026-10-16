@@ -5800,3 +5800,48 @@ the reader's system setting — and named five `paper` tokens for it in `tokens.
 **Confirm it is deliberate**, because if it is, it is a rule rather than a drawing: the
 real printed-record screen, when it is built, follows it too, and `tokens.md` should
 carry the five values rather than this page carrying them alone.
+
+### V·3 — J1 says 44px; the boards draw 40px arrows and 21px footer rows
+
+Found by measuring the rendered page, not by reading it, and **the build has changed
+neither**, because `CLAUDE.md` §7 makes the boards authoritative on size and
+`docs/standards/frontend-engineering-standards.md` J1 says *touch targets ≥ 44px* with no
+exemption. They cannot both hold.
+
+| Drawn | Measured | J1 |
+|---|---|---|
+| The how-it-works arrows — `width:40px;height:40px` in `canvas/LandLight.dc.html` | 40 × 40 at 1440 | 44 |
+| The footer's three links | 224 × 21 at 1440; 342 × 44 at 390 | 44 |
+
+**WCAG 2.2 AA passes both.** Its 2.5.8 wants 24, and the footer rows clear its spacing
+exemption at 12px apart. It is only the project's own number they miss.
+
+**Two ways out, and the choice is the owner's**, because it is their standard: raise the
+two to 44, which changes the drawing; or write the exemption into J1 — *pointer-sized
+targets at 1440 where WCAG's spacing exemption is met* — which changes the standard. Until
+one of them happens, **ITEM-15's sixth acceptance criterion cannot hold**, because it says
+J1 to J5 hold, and J1 does not.
+
+### V·4 — The rail's eight answers are the board's words, and ADR-013's are longer
+
+ITEM-15's second acceptance criterion asks that the eight lines *"read verbatim from
+ADR-013, because the scope of each line is where the honesty lives."* They do not. They
+read verbatim from the **boards**, which is what the build is supposed to do — and the
+boards shortened six of them.
+
+| # | ADR-013 | The boards, and the build |
+|:-:|---|---|
+| 01 | No email, no password, **nothing to verify** | No email, no password. |
+| 02 | It works with no signal **at all** | It works with no signal. |
+| 04 | Two of your three keys, **and it is there** | Two of your three keys. |
+| 05 | Any two **of the three** bring it back | Any two bring it back. |
+| 06 | One **on its own** opens nothing | One alone opens nothing. |
+| 08 | They stop seeing anything new **from that moment** | They stop seeing anything new. |
+
+**Five of the six are emphasis. The sixth is scope.** Without *from that moment*, 08 reads
+as though removing a partner hides what they already saw, and it does not — it stops them
+seeing anything new. That is the kind of line the criterion was written to protect.
+
+**Please restore it on the rail**, or say the shorter line is deliberate and the criterion
+should be changed to name the boards as the source, with ADR-013 behind them. Nothing is
+changed meanwhile: the page says what the board says.

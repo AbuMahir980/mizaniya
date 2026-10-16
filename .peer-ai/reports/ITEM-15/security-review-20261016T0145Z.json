@@ -1,0 +1,389 @@
+{
+  "version": 1,
+  "skill": "security-review",
+  "workItem": "ITEM-15",
+  "at": "2026-10-16T01:45:00Z",
+  "scope": {
+    "base": "e847a1ccfb83a942bb1f62fa084bb8028ad57179",
+    "head": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/features/landing/*",
+      "apps/web/src/app/landing-route.tsx",
+      "apps/web/src/app/use-installed.ts",
+      "apps/web/src/ui/stack-card.tsx",
+      "apps/web/src/assets/shots/*",
+      "scripts/build-shots.mjs",
+      "apps/web/vite.config.ts",
+      ".gitignore"
+    ]
+  },
+  "inputs": [
+    "docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/06-page-specs.md",
+    "peer-ai.config.json",
+    ".github/workflows/peer-ai-security.yml",
+    ".github/workflows/pr-checks.yml",
+    "CONTEXT.md"
+  ],
+  "inventory": [
+    {
+      "id": "screen:landing",
+      "kind": "screen",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.tsx",
+        "line": 34
+      }
+    },
+    {
+      "id": "screen:landing-route",
+      "kind": "screen",
+      "location": {
+        "file": "apps/web/src/app/landing-route.tsx",
+        "line": 15
+      }
+    },
+    {
+      "id": "link:read-the-source",
+      "kind": "service",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-close.tsx",
+        "line": 43
+      }
+    },
+    {
+      "id": "link:footer-repo",
+      "kind": "service",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-footer.tsx",
+        "line": 5
+      }
+    },
+    {
+      "id": "store:theme",
+      "kind": "store",
+      "location": {
+        "file": "apps/web/src/app/use-theme.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "config:service-worker",
+      "kind": "config",
+      "location": {
+        "file": "apps/web/vite.config.ts",
+        "line": 1
+      }
+    },
+    {
+      "id": "config:deployed-headers",
+      "kind": "config",
+      "location": {
+        "file": "apps/web/dist/index.html",
+        "line": 1
+      }
+    },
+    {
+      "id": "upload:board-shots",
+      "kind": "upload",
+      "location": {
+        "file": "scripts/build-shots.mjs",
+        "line": 55
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "SEC-01",
+      "status": "not-applicable",
+      "reason": "No records and no permissions: ADR-013 removed accounts, and this page is served to a stranger by design."
+    },
+    {
+      "rule": "SEC-02",
+      "status": "not-applicable",
+      "reason": "No roles and no actions behind a role in scope."
+    },
+    {
+      "rule": "SEC-03",
+      "status": "not-applicable",
+      "reason": "No server in this project; there is nothing for a server to decide."
+    },
+    {
+      "rule": "SEC-04",
+      "status": "not-applicable",
+      "reason": "No session and no token in scope."
+    },
+    {
+      "rule": "SEC-05",
+      "status": "not-applicable",
+      "reason": "No server and no input: the page has no form, no query parameter it reads, and no upload."
+    },
+    {
+      "rule": "SEC-06",
+      "status": "pass",
+      "evidence": "Nothing from outside reaches this change: the landing feature reads only its own literals (landing-copy.ts) and two bundled images. It does not read the URL, localStorage, an import file or a message."
+    },
+    {
+      "rule": "SEC-07",
+      "status": "not-applicable",
+      "reason": "No database in this project."
+    },
+    {
+      "rule": "SEC-08",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "No dangerouslySetInnerHTML anywhere in the change; REACT-04 is enforced by lint and green in CI's verify on this head."
+    },
+    {
+      "rule": "SEC-09",
+      "status": "pass",
+      "evidence": "Nothing internal is rendered: every string on the page is deliberate copy from landing-copy.ts or the component, and there is no error object, stack or version to leak because nothing can fail."
+    },
+    {
+      "rule": "SEC-10",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "Gitleaks runs on every pull request in peer-ai-security.yml and passed on this head (peer-ai / secrets). The only credential-shaped strings added are public github.com URLs."
+    },
+    {
+      "rule": "SEC-11",
+      "status": "pass",
+      "evidence": "Nothing secret is built in: grep finds no import.meta.env and no process.env anywhere in apps/web/src, so the bundle carries no configuration value at all, and .env and .env.* are ignored (.gitignore:69-70)."
+    },
+    {
+      "rule": "SEC-12",
+      "status": "not-applicable",
+      "reason": "There is no sign-in to guess: ADR-013 removed accounts."
+    },
+    {
+      "rule": "SEC-13",
+      "status": "not-applicable",
+      "reason": "No server and no API to rate limit."
+    },
+    {
+      "rule": "SEC-14",
+      "status": "not-applicable",
+      "reason": "No session exists."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "pass",
+      "evidence": "The production deployment answers over HTTPS with strict-transport-security: max-age=63072000; includeSubDomains; preload, and the page makes no request of its own. Its four outbound links are https (landing-close.tsx:43, landing-footer.tsx:5)."
+    },
+    {
+      "rule": "SEC-16",
+      "status": "not-applicable",
+      "reason": "No API, so no list of websites that may call one."
+    },
+    {
+      "rule": "SEC-17",
+      "status": "fail",
+      "finding": "S1"
+    },
+    {
+      "rule": "SEC-18",
+      "status": "not-applicable",
+      "reason": "No file is stored: the two images are build artefacts named by scripts/build-shots.mjs from a fixed list, not by anyone outside."
+    },
+    {
+      "rule": "SEC-19",
+      "status": "not-applicable",
+      "reason": "No upload in this change. The import path, which does take a file, is not touched by this branch."
+    },
+    {
+      "rule": "SEC-20",
+      "status": "not-applicable",
+      "reason": "No private file and no sharing link in scope."
+    },
+    {
+      "rule": "SEC-21",
+      "status": "not-applicable",
+      "reason": "No live events."
+    },
+    {
+      "rule": "SEC-22",
+      "status": "pass",
+      "evidence": "Nothing sensitive is in a URL: the page's only navigations are to /welcome (landing-route.tsx:17), with no parameters, and its outbound links carry no query string."
+    },
+    {
+      "rule": "SEC-23",
+      "status": "not-checked",
+      "reason": "The connection negotiates TLSv1.3 with TLS_AES_128_GCM_SHA256, but whether the platform still accepts TLS 1.0 or 1.1 is Vercel's setting and could not be tested from here: this machine's OpenSSL refuses to offer those protocols at all ('no protocols available'), so the handshake never reaches the server."
+    },
+    {
+      "rule": "SEC-24",
+      "status": "not-applicable",
+      "reason": "There are no security events to log: no sign-in, no permission check and no server."
+    },
+    {
+      "rule": "SEC-25",
+      "status": "fail",
+      "finding": "S2"
+    },
+    {
+      "rule": "SEC-26",
+      "status": "not-applicable",
+      "reason": "The project holds one secret, FORBIDDEN_TERMS, used by the repo-rules check; this change neither adds nor reads a secret."
+    },
+    {
+      "rule": "SEC-27",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "peer-ai-security.yml runs Gitleaks on every pull request and on a daily schedule, pinned by checksum, and it passed on this head."
+    },
+    {
+      "rule": "SEC-28",
+      "status": "not-applicable",
+      "reason": "No service account and no platform credential in scope."
+    },
+    {
+      "rule": "SEC-29",
+      "status": "pass",
+      "evidence": "What is public is meant to be: the production deployment answers 200 to anyone, which is the point of a landing page, and the branch's preview deployment answers 302 to Vercel's SSO, so unreleased work is not readable by a stranger. The repository is public by design and carries no real figures (PRIV-02)."
+    },
+    {
+      "rule": "SEC-30",
+      "status": "pass",
+      "evidence": "Nothing from outside runs: no eval, no new Function, no dynamic import of a computed path, and no child process in the change. scripts/build-shots.mjs runs sips through execFileSync with a fixed argument array and no shell."
+    },
+    {
+      "rule": "PRIV-01",
+      "status": "not-applicable",
+      "reason": "Nothing in the change logs."
+    },
+    {
+      "rule": "PRIV-02",
+      "status": "pass",
+      "evidence": "Every figure on the page is docs/seed-data.md's worked example, and landing-page.test.tsx fails the build on any naira figure outside that set. No name, address or account number appears: the people in the examples are 'A. Friend', 'B. Colleague' and 'Spouse'."
+    },
+    {
+      "rule": "PRIV-03",
+      "status": "pass",
+      "evidence": "Nothing is collected: the page has no analytics, no telemetry and no request of any kind, which is the addendum's M2 read literally."
+    },
+    {
+      "rule": "PRIV-04",
+      "status": "not-applicable",
+      "reason": "No personal data leaves: the page sends nothing anywhere."
+    },
+    {
+      "rule": "PRIV-05",
+      "status": "pass",
+      "evidence": "The two shipped JPEGs carry one small EXIF block each, and it was read byte by byte: an ExifIFD pointer holding ColorSpace, PixelXDimension 652 and PixelYDimension 408. No date, no software, no file path and no GPS."
+    },
+    {
+      "rule": "PRIV-06",
+      "status": "not-applicable",
+      "reason": "The change stores nothing."
+    },
+    {
+      "rule": "MOB-01",
+      "status": "not-applicable",
+      "reason": "No native phone app: v1 is a web app installed as a PWA."
+    },
+    {
+      "rule": "MOB-02",
+      "status": "not-applicable",
+      "reason": "No native phone app."
+    },
+    {
+      "rule": "MOB-03",
+      "status": "not-applicable",
+      "reason": "No in-app browser."
+    },
+    {
+      "rule": "MOB-04",
+      "status": "not-applicable",
+      "reason": "No app link or deep link: the PWA's start path is '/' and this change adds no URL it reads."
+    },
+    {
+      "rule": "MOB-05",
+      "status": "not-applicable",
+      "reason": "The change asks for no device permission."
+    },
+    {
+      "rule": "REL-03",
+      "status": "not-applicable",
+      "reason": "No rate limiting exists, because there is no server."
+    },
+    {
+      "rule": "REL-04",
+      "status": "not-applicable",
+      "reason": "The change reads no configuration; there is none to fail open."
+    },
+    {
+      "rule": "REL-05",
+      "status": "pass",
+      "evidence": "No demo or development shortcut ships: the page has no flag, no mock and no seeded state, and its figures are literals in the source rather than a fixture that could be mistaken for data."
+    },
+    {
+      "rule": "TEST-08",
+      "status": "not-applicable",
+      "reason": "Nothing in the change is security-sensitive: there is no authentication, no permission check and no input to abuse."
+    },
+    {
+      "rule": "DEL-07",
+      "status": "pass",
+      "evidence": "Only what is needed ships: the production build writes no source map, and the design boards stay in docs/. The two 652px shots are derived build inputs at 36 KB and 33 KB, and scripts/build-shots.mjs throws above 90 KB."
+    },
+    {
+      "rule": "AI-01",
+      "status": "not-applicable",
+      "reason": "No AI feature in this project."
+    },
+    {
+      "rule": "AI-03",
+      "status": "not-applicable",
+      "reason": "No AI service receives anything."
+    },
+    {
+      "rule": "AI-04",
+      "status": "not-applicable",
+      "reason": "No model and no prompt in the product."
+    },
+    {
+      "rule": "AI-06",
+      "status": "not-applicable",
+      "reason": "No model instructions in the product."
+    },
+    {
+      "rule": "MONEY-12",
+      "status": "not-applicable",
+      "reason": "No card data anywhere in this project."
+    }
+  ],
+  "findings": [
+    {
+      "id": "S1",
+      "rule": "SEC-17",
+      "severity": "medium",
+      "status": "open",
+      "title": "The deployed site sets HSTS and no other security header",
+      "location": {
+        "file": "apps/web/vite.config.ts",
+        "line": 1
+      },
+      "evidence": "A request to the production deployment returns strict-transport-security: max-age=63072000; includeSubDomains; preload, and no content-security-policy, x-content-type-options, referrer-policy or frame-ancestors. There is no vercel.json in the repository, so nothing configures them. Until this branch the site was a shell nobody was sent to; this branch makes it the page a stranger is given, and it can be framed by any site and will sniff a mistyped content type.",
+      "fix": "Add a vercel.json headers block for the whole site: x-content-type-options: nosniff, referrer-policy: strict-origin-when-cross-origin, and a content-security-policy. The page loads nothing from another origin - its images are bundled and its only links are navigations - so default-src 'self' with frame-ancestors 'none' is close to the whole policy; the one thing to check first is the service worker's registration script."
+    },
+    {
+      "id": "S2",
+      "rule": "SEC-25",
+      "severity": "medium",
+      "status": "open",
+      "title": "The way in changed and there is no threat model to change",
+      "location": {
+        "file": "apps/web/src/app/landing-route.tsx",
+        "line": 15
+      },
+      "evidence": "This branch publishes the first page served to someone with no budget and no account, and adds two images to what the service worker precaches. The project has no threat model: ITEM-8, 'Write the threat model, now that there is no server to model', is open at prepare, and docs/ holds no model for it to change.",
+      "fix": "ITEM-8 is the work. When it is written, the landing page is one of its entry points: a public static page with no input, whose only powers are two navigations into onboarding and the import path."
+    }
+  ],
+  "result": "incomplete",
+  "summary": "Incomplete, with 2 medium findings open and one rule unchecked. The deployed site sets HSTS and no other security header, and there is no vercel.json to set them; and the branch publishes the first public page while the project still has no threat model, which ITEM-8 is open to write. SEC-23 is unchecked: whether the platform still accepts TLS 1.0 is Vercel's setting and this machine cannot offer those protocols to test it."
+}

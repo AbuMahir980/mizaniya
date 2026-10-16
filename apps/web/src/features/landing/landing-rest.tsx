@@ -51,7 +51,12 @@ export function LandingRest() {
           Four more, each a screen you can open.
         </p>
 
-        <div className="rail-scroller -mx-24 mt-20 overflow-x-auto px-24 desktop:mx-0 desktop:mt-38 desktop:overflow-visible desktop:px-0">
+        <div
+          role="group"
+          aria-label="Four more screens"
+          tabIndex={0}
+          className="rail-scroller -mx-24 mt-20 overflow-x-auto px-24 desktop:mx-0 desktop:mt-38 desktop:overflow-visible desktop:px-0"
+        >
           <div className="flex items-start gap-14 desktop:gap-22">
             {PANELS.map((panel) => (
               <Panel key={panel.title} title={panel.title} body={panel.body}>

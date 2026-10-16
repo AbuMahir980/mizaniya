@@ -34,9 +34,15 @@ export function LandingComparisons() {
 
       {/* A rail on a phone, three columns at 1440 — the boards differ, and the
           1440 one is not a scroller: 3 × 320 with 36 between fits the band. */}
-      <div className="rail-scroller -mx-24 mt-20 overflow-x-auto px-24 desktop:mx-0 desktop:mt-28 desktop:overflow-visible desktop:px-0">
+      <div
+        role="group"
+        aria-label="Three comparisons"
+        tabIndex={0}
+        className="rail-scroller -mx-24 mt-20 overflow-x-auto px-24 desktop:mx-0 desktop:mt-28 desktop:overflow-visible desktop:px-0"
+      >
         <div className="flex w-[940px] items-start gap-14 desktop:w-[1032px] desktop:gap-36">
           <Column
+            label="They budget by calendar month. Your money works in salary cycles."
             claim={
               <>
                 They budget by calendar month.
@@ -55,7 +61,10 @@ export function LandingComparisons() {
             </Side>
           </Column>
 
-          <Column claim="They cannot hold a rent lump sum.">
+          <Column
+            label="They cannot hold a rent lump sum."
+            claim="They cannot hold a rent lump sum."
+          >
             <Side
               tone="theirs"
               note={`Nowhere to put ${figures.rentTarget} that is due once, in March.`}
@@ -77,6 +86,7 @@ export function LandingComparisons() {
           </Column>
 
           <Column
+            label="They only track what you owe, not what you are owed."
             claim={
               <>
                 They only track what you owe,
@@ -109,9 +119,26 @@ export function LandingComparisons() {
   )
 }
 
-function Column({ claim, children }: { claim: ReactNode; children: ReactNode }) {
+function Column({
+  claim,
+  label,
+  children,
+}: {
+  claim: ReactNode
+  /** The claim as one line, for the group's name: it is the column's identity. */
+  label: string
+  children: ReactNode
+}) {
   return (
-    <div className="reveal-host w-[286px] shrink-0 snap-start desktop:w-[320px]">
+    // A tab stop, because the reveal is `:hover` **or** `:focus-within`, and
+    // without one nothing inside a column can ever take focus - the cards are
+    // text. A pointer would be the only way to see what Mizaniya does.
+    <div
+      role="group"
+      aria-label={label}
+      tabIndex={0}
+      className="reveal-host w-[286px] shrink-0 snap-start desktop:w-[320px]"
+    >
       <h3 className="min-h-[70px] font-structural text-land-h3 font-semibold text-ink">{claim}</h3>
       {/* `reveal-stack` only becomes one cell where the reveal can run; the
           query that decides is in tokens.css, next to the motion it governs. */}

@@ -80,8 +80,14 @@ export function HowItWorksRail() {
         </div>
       </div>
 
+      {/* A tab stop on the scroller itself: the cards are articles, so below
+          1440 - where the arrows are not drawn - there is otherwise nothing to
+          focus and the rail cannot be moved without a pointer or a thumb. */}
       <div
         ref={scroller}
+        role="group"
+        aria-label="The eight answers"
+        tabIndex={0}
         data-rail-enter={entered}
         className="rail-scroller mt-34 flex snap-x snap-mandatory gap-16 overflow-x-auto pb-8 -mx-24 px-24 desktop:-mx-150 desktop:px-150"
       >

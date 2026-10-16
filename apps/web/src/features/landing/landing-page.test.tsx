@@ -291,3 +291,31 @@ describe('the accessibility rules, proven rather than asserted (J1–J5)', () =>
     expect([...shown].filter((figure) => !allowed.has(figure))).toEqual([])
   })
 })
+
+describe('the keyboard reaches everything a pointer does', () => {
+  /**
+   * Both of these were found by driving the rendered page rather than by
+   * reading it, and both are the same fault: content that only a pointer can
+   * reach. The comparison reveal is `:hover` or `:focus-within`, and the three
+   * rails scroll — neither does anything for a keyboard unless something inside
+   * can take focus.
+   */
+  it('gives every comparison column a focus stop, so the reveal is not pointer-only', () => {
+    renderPage()
+
+    const columns = screen.getAllByRole('group', { name: /They (budget|cannot|only track)/ })
+    expect(columns).toHaveLength(3)
+    for (const column of columns) {
+      expect(column.getAttribute('tabindex')).toBe('0')
+    }
+  })
+
+  it('gives each horizontal rail a named focus stop', () => {
+    renderPage()
+
+    for (const name of ['The eight answers', 'Three comparisons', 'Four more screens']) {
+      const rail = screen.getByRole('group', { name })
+      expect(rail.getAttribute('tabindex'), name).toBe('0')
+    }
+  })
+})

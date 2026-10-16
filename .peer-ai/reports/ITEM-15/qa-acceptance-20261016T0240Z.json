@@ -1,0 +1,312 @@
+{
+  "version": 1,
+  "skill": "qa-acceptance",
+  "workItem": "ITEM-15",
+  "at": "2026-10-16T02:40:00Z",
+  "scope": {
+    "base": "e847a1ccfb83a942bb1f62fa084bb8028ad57179",
+    "head": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/features/landing/*",
+      "apps/web/src/ui/stack-card.tsx",
+      "apps/web/src/app/landing-route.tsx",
+      "apps/web/src/design/tokens.css",
+      "scripts/build-shots.mjs"
+    ]
+  },
+  "inputs": [
+    ".peer-ai/work/ITEM-15.json",
+    "docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md",
+    "docs/06-page-specs.md",
+    "docs/11-landing-page-brief.md",
+    "docs/seed-data.md",
+    "docs/design/11-landing-1440-light.png",
+    "docs/design/11-landing-390-light.png",
+    "docs/design/canvas/LandRailLight.dc.html",
+    "docs/design/canvas/LandLight.dc.html",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "docs/standards/frontend-engineering-standards.md"
+  ],
+  "inventory": [
+    {
+      "id": "criterion:AC-1",
+      "kind": "criterion",
+      "location": {
+        "file": ".peer-ai/work/ITEM-15.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:AC-2",
+      "kind": "criterion",
+      "location": {
+        "file": ".peer-ai/work/ITEM-15.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:AC-3",
+      "kind": "criterion",
+      "location": {
+        "file": ".peer-ai/work/ITEM-15.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:AC-4",
+      "kind": "criterion",
+      "location": {
+        "file": ".peer-ai/work/ITEM-15.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:AC-5",
+      "kind": "criterion",
+      "location": {
+        "file": ".peer-ai/work/ITEM-15.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "criterion:AC-6",
+      "kind": "criterion",
+      "location": {
+        "file": ".peer-ai/work/ITEM-15.json",
+        "line": 1
+      }
+    },
+    {
+      "id": "code:landing-page.tsx:34",
+      "kind": "code",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.tsx",
+        "line": 34
+      }
+    },
+    {
+      "id": "code:landing-copy.ts:49",
+      "kind": "code",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-copy.ts",
+        "line": 49
+      }
+    },
+    {
+      "id": "code:landing-copy.ts:24",
+      "kind": "code",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-copy.ts",
+        "line": 24
+      }
+    },
+    {
+      "id": "code:tokens.css:357",
+      "kind": "code",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 357
+      }
+    },
+    {
+      "id": "code:how-it-works-rail.tsx:78",
+      "kind": "code",
+      "location": {
+        "file": "apps/web/src/features/landing/how-it-works-rail.tsx",
+        "line": 78
+      }
+    },
+    {
+      "id": "test:landing-page.test.tsx:26",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.test.tsx",
+        "line": 26
+      }
+    },
+    {
+      "id": "test:landing-page.test.tsx:69",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.test.tsx",
+        "line": 69
+      }
+    },
+    {
+      "id": "test:landing-page.test.tsx:138",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.test.tsx",
+        "line": 138
+      }
+    },
+    {
+      "id": "test:landing-page.test.tsx:196",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.test.tsx",
+        "line": 196
+      }
+    },
+    {
+      "id": "test:how-it-works-rail.test.tsx:14",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/features/landing/how-it-works-rail.test.tsx",
+        "line": 14
+      }
+    },
+    {
+      "id": "extra:stack-card.tsx:27",
+      "kind": "extra",
+      "location": {
+        "file": "apps/web/src/ui/stack-card.tsx",
+        "line": 27
+      }
+    },
+    {
+      "id": "extra:build-shots.mjs:55",
+      "kind": "extra",
+      "location": {
+        "file": "scripts/build-shots.mjs",
+        "line": 55
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "REQ-02",
+      "status": "pass",
+      "evidence": "ITEM-15 carries six acceptance criteria, written before the build, each in given/when/then form."
+    },
+    {
+      "rule": "REQ-04",
+      "status": "pass",
+      "evidence": "Nothing was built that no criterion or source asks for. The two additions beyond the page itself both serve it: ui/stack-card.tsx exists because the phone board instructs 'Tap a card to lift it off the pile', and scripts/build-shots.mjs exists because CLAUDE.md section 7 rule 4 requires a screen inside a screen to be the board's own PNG."
+    },
+    {
+      "rule": "REQ-05",
+      "status": "pass",
+      "item": "criterion:AC-1",
+      "evidence": "Every section is present in the board's order and with the board's copy: the page renders header, hero with the Home shot, the how-it-works rail, the three comparisons, safe-to-spend with its cascade, three things, the debt timeline, what is free with the verse, the rest of it with four panels, the image slot, how to use it, the closing and the footer (landing-page.tsx:36-47), checked band by band against docs/design/11-landing-1440-light.png and 11-landing-390-light.png rendered side by side. Where the design is silent the page asks rather than invents: docs/open-items.md section V."
+    },
+    {
+      "rule": "REQ-05",
+      "status": "fail",
+      "item": "criterion:AC-2",
+      "finding": "Q1"
+    },
+    {
+      "rule": "REQ-05",
+      "status": "pass",
+      "item": "criterion:AC-3",
+      "evidence": "Every figure is a literal in landing-copy.ts:24-41, each traced in its comment to the row of docs/seed-data.md it comes from, and landing-page.test.tsx:196 collects every naira string the rendered page contains and fails on any outside the worked example's set - which is the criterion checked rather than asserted."
+    },
+    {
+      "rule": "REQ-05",
+      "status": "pass",
+      "item": "criterion:AC-4",
+      "evidence": "The page holds no store, no repository and no money arithmetic: grep for '@/store', '@mizaniya/core' and '@/features' across features/landing returns nothing, every figure is a string, and landing-page.test.tsx:26 fails if a tier, a price or a sign-in ever returns to the copy."
+    },
+    {
+      "rule": "REQ-05",
+      "status": "pass",
+      "item": "criterion:AC-5",
+      "evidence": "Each width matches its own board rather than being derived from the other: the hero is one column on a phone and two at 1440, the comparisons are a rail at 390 and three 320px columns at 1440, how-it-works has arrows only at 1440, the closing is ranged left on a phone and centred at 1440, and the footer is one column then four. Rendered at both widths and compared with 11-landing-390-light.png and 11-landing-1440-light.png; at 390 the document's scrollWidth is 390, so nothing overflows."
+    },
+    {
+      "rule": "REQ-05",
+      "status": "fail",
+      "item": "criterion:AC-6",
+      "finding": "Q2"
+    },
+    {
+      "rule": "TEST-01",
+      "status": "not-applicable",
+      "reason": "ITEM-15 is a feature, not a bug fix. The faults this branch fixed were its own, found before it shipped; that they have no test is Q3's point rather than TEST-01's."
+    },
+    {
+      "rule": "TEST-02",
+      "status": "fail",
+      "finding": "Q3"
+    },
+    {
+      "rule": "TEST-03",
+      "status": "not-applicable",
+      "reason": "The page holds no business rule: every figure is a literal and nothing is computed."
+    },
+    {
+      "rule": "TEST-04",
+      "status": "pass",
+      "evidence": "The tests query by role and accessible name throughout and assert what a reader gets - the words on the page, the figures, the heading order, the named controls - with no test id and no assertion about a class or an internal."
+    },
+    {
+      "rule": "TEST-08",
+      "status": "not-applicable",
+      "reason": "Nothing in the item is security-sensitive: no authentication, no permission check, no input."
+    },
+    {
+      "rule": "TEST-09",
+      "status": "pass",
+      "evidence": "Each new assertion was seen failing before it was trusted: the figure test failed first on thirteen figures the allow-list was missing, and the cascade tests failed against the old deck before being rewritten for the new one."
+    },
+    {
+      "rule": "TEST-12",
+      "status": "pass",
+      "evidence": "Vitest runs the same source the build ships through the same tsconfig paths, and CI runs npm run verify, which runs lint, typecheck, tests and the build in one command; it passed on this head."
+    },
+    {
+      "rule": "CODE-15",
+      "status": "pass",
+      "evidence": "The edges the page has are handled: no photograph (a reserved slot with its brief, image-slot.tsx), no pointer (both comparison cards show, and the cascade cycles), reduced motion (nothing starts), a hidden tab (the rail rests) and a missing matchMedia (use-installed.ts guards it)."
+    }
+  ],
+  "findings": [
+    {
+      "id": "Q1",
+      "rule": "REQ-05",
+      "severity": "high",
+      "status": "open",
+      "title": "AC-2 does not hold: six of the eight answers are shorter than ADR-013's, and one loses a word of scope",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-copy.ts",
+        "line": 49,
+        "endLine": 96
+      },
+      "evidence": "The criterion asks that the eight lines read verbatim from ADR-013 'because the scope of each line is where the honesty lives'. Against ADR-013's table (lines 669-676): 01 drops 'nothing to verify', 02 drops 'at all', 04 drops 'and it is there', 05 drops 'of the three', 06 says 'One alone' for 'One on its own', and 08 drops 'from that moment'. The last one is the one that matters: 'They stop seeing anything new' without 'from that moment' lets a reader think removal hides what a partner already saw. The build is not the cause - the words are the board's, letter for letter (canvas/LandRailLight.dc.html and LandLight.dc.html both read 'They stop seeing anything new.') - so the design and the decision record disagree, and the page follows the design as CLAUDE.md section 7 requires.",
+      "fix": "The owner decides, because it is their claim to a stranger: either the designer restores ADR-013's wording on the rail - at least 'from that moment' on 08 - or the criterion is changed to say the lines are the board's, with the ADR noted as their source. Change neither the copy nor the criterion until then."
+    },
+    {
+      "id": "Q2",
+      "rule": "REQ-05",
+      "severity": "high",
+      "status": "open",
+      "title": "AC-6 does not hold: J1 and J5 both fail on the built page",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 364,
+        "endLine": 370
+      },
+      "evidence": "The criterion asks that J1 to J5 hold, proven rather than asserted. Measured on the rendered page: J1 (targets >= 44px) fails twice - the rail's arrows are 40 x 40 at 1440 and the three footer links are 224 x 21 there. J5 (keyboard-only use works end to end) fails twice - at 1440 the Mizaniya side of each comparison is revealed only by a pointer, because nothing inside a column is focusable for :focus-within to match; and below 1440 none of the three horizontal rails can be scrolled by keyboard, since none has a tab stop and none contains a focusable element. The accessibility review records all four as A1 to A4. J2, J3 and J4 hold and are proven: names are asserted in landing-page.test.tsx, reduced motion is honoured by every moving part, and contrast was measured.",
+      "fix": "Fix the four: give each comparison column a focus stop that reveals, give the three scrollers a tab stop and a name, raise the arrows to 44, and keep the footer links' 44px target at every width. Then this criterion holds and the accessibility review can be run again."
+    },
+    {
+      "id": "Q3",
+      "rule": "TEST-02",
+      "severity": "medium",
+      "status": "open",
+      "title": "No acceptance test runs the page the way a reader meets it",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.test.tsx",
+        "line": 1
+      },
+      "evidence": "Every test on the page is a jsdom unit test, which cannot see layout, type, colour or motion - exactly where this item's first, fifth and sixth criteria live. The comparison that found the six faults this branch fixed was run by hand, through a headless browser, from a script in a scratch directory that is not in the repository. The addendum's K1 journey in Playwright, which is where this belongs, is not built.",
+      "fix": "Keep the headless-browser pass: a small script in scripts/ that loads the built page at 390 and 1440 in both themes and asserts what jsdom cannot - no horizontal overflow, every control at least 44px, the heading order, and the computed font family on the money figure. It is most of what was run by hand here, and it would have caught five of the six."
+    }
+  ],
+  "result": "fail",
+  "summary": "Fail: two of the six criteria do not hold. AC-2, the eight answers verbatim from ADR-013 - six are shorter than the record and 08 loses 'from that moment', though the words are the board's, so the design and the decision disagree and the owner decides. AC-6, J1 to J5 - targets fail twice at 1440 and keyboard-only use fails twice. AC-1, AC-3, AC-4 and AC-5 hold, checked against the boards at both widths. Also open: no acceptance test sees layout, type or motion."
+}
