@@ -1,0 +1,280 @@
+{
+  "version": 1,
+  "skill": "design-review",
+  "workItem": "ITEM-15",
+  "at": "2026-10-16T02:20:00Z",
+  "scope": {
+    "base": "e847a1ccfb83a942bb1f62fa084bb8028ad57179",
+    "head": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/features/landing/*",
+      "apps/web/src/ui/stack-card.tsx",
+      "apps/web/src/ui/landing-button.tsx",
+      "apps/web/src/design/tokens.css",
+      "apps/web/tailwind.config.ts"
+    ]
+  },
+  "inputs": [
+    "docs/design/11-landing-1440-light.png",
+    "docs/design/11-landing-1440-dark.png",
+    "docs/design/11-landing-390-light.png",
+    "docs/design/canvas/LandLight.dc.html",
+    "docs/design/canvas/LandPhoneLight.dc.html",
+    "docs/design/canvas/LandMotionLight.dc.html",
+    "docs/design/tokens.md",
+    "docs/design/motion.md",
+    "docs/11-landing-page-brief.md",
+    "docs/06-page-specs.md",
+    "docs/open-items.md",
+    "peer-ai.config.json"
+  ],
+  "inventory": [
+    {
+      "id": "screen:landing",
+      "kind": "screen",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.tsx",
+        "line": 34
+      }
+    },
+    {
+      "id": "component:LandingBand",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-band.tsx",
+        "line": 33
+      }
+    },
+    {
+      "id": "component:LandingButton",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/ui/landing-button.tsx",
+        "line": 30
+      }
+    },
+    {
+      "id": "component:StackCard",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/ui/stack-card.tsx",
+        "line": 27
+      }
+    },
+    {
+      "id": "component:HomeShot",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/home-shot.tsx",
+        "line": 24
+      }
+    },
+    {
+      "id": "component:SafeToSpendCard",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/safe-to-spend-card.tsx",
+        "line": 13
+      }
+    },
+    {
+      "id": "component:RestCards",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/rest-cards.tsx",
+        "line": 17
+      }
+    },
+    {
+      "id": "component:ImageSlot",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/image-slot.tsx",
+        "line": 23
+      }
+    },
+    {
+      "id": "value:Panel#zoom-0.64",
+      "kind": "value",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-rest.tsx",
+        "line": 87
+      }
+    },
+    {
+      "id": "value:phone-heading-25px",
+      "kind": "value",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 296
+      }
+    },
+    {
+      "id": "value:paper-tokens",
+      "kind": "value",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 246
+      }
+    },
+    {
+      "id": "value:landing-type-scale",
+      "kind": "value",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 251
+      }
+    },
+    {
+      "id": "state:landing-no-states",
+      "kind": "state",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.tsx",
+        "line": 22
+      }
+    },
+    {
+      "id": "indicator:comparison-side",
+      "kind": "indicator",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 140
+      }
+    },
+    {
+      "id": "indicator:debt-direction",
+      "kind": "indicator",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-three-things.tsx",
+        "line": 77
+      }
+    },
+    {
+      "id": "indicator:spending-fast",
+      "kind": "indicator",
+      "location": {
+        "file": "apps/web/src/features/landing/safe-to-spend-card.tsx",
+        "line": 28
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "FE-07",
+      "status": "not-applicable",
+      "reason": "Nothing on this page waits. docs/06-page-specs.md 7.0 states each state and why it does not exist: nothing is fetched, nothing can fail, and the page holds no data of its own."
+    },
+    {
+      "rule": "FE-09",
+      "status": "pass",
+      "evidence": "Offline is identical to online: the page is static markup precached by the service worker, with no request that could fail, which docs/06-page-specs.md 7.0 names as the point - a page selling an offline-first app that could not be read offline would be its own refutation."
+    },
+    {
+      "rule": "DES-01",
+      "status": "fail",
+      "finding": "D2"
+    },
+    {
+      "rule": "DES-02",
+      "status": "fail",
+      "finding": "D3"
+    },
+    {
+      "rule": "DES-03",
+      "status": "pass",
+      "evidence": "Each token added says what it is for rather than what it looks like: size-land-close for the closing line, size-land-section for a section heading, size-land-quote for the quotation, paper-ink and paper-line for the printed record that does not theme."
+    },
+    {
+      "rule": "DES-04",
+      "status": "pass",
+      "evidence": "Every control and surface comes from ui/: LandingButton, Card, Rail, Icon, Mark, WordmarkArabic, IconButton and the new StackCard. The one hand-drawn control is the segmented switch in safe-to-spend-card.tsx:31, which is a drawing of a control inside a drawing of a screen, hidden from assistive technology with its reason beside it; the canvas draws it the same way, as .seg markup rather than a live control."
+    },
+    {
+      "rule": "DES-05",
+      "status": "pass",
+      "evidence": "StackCard, the one shared component this branch adds, ships with its states: rest, hover and focus-visible all give the same 14px lift (tokens.css:330 and :368), and prefers-reduced-motion drops the movement and keeps the shadow (tokens.css:380)."
+    },
+    {
+      "rule": "DES-06",
+      "status": "fail",
+      "finding": "D1"
+    },
+    {
+      "rule": "DES-07",
+      "status": "pass",
+      "evidence": "Nothing means something by colour alone: the debt dot is aria-hidden with 'you owe' and 'owed to you' written beside it (landing-three-things.tsx:77-86), each comparison card names its side in words, and the ochre on the safe-to-spend card is accompanied by 'spending fast'."
+    },
+    {
+      "rule": "DES-13",
+      "status": "pass",
+      "evidence": "Measured on the rendered page in the dark theme: soft on bg is 8.19:1 and soft on card2 is 6.81:1, both past AA for body text, with ink far above. The five new paper values were computed because they are new: #555 on #FFF is 7.46:1, #111 on #FFF is 19:1. The #CFCBC0 rule on white is 1.6:1 and is decoration inside a drawing of a document, not a control."
+    },
+    {
+      "rule": "DES-14",
+      "status": "fail",
+      "finding": "D4"
+    }
+  ],
+  "findings": [
+    {
+      "id": "D1",
+      "rule": "DES-06",
+      "severity": "medium",
+      "status": "open",
+      "title": "The danger colour is on a page the spec says it is nowhere on",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 140,
+        "endLine": 194
+      },
+      "evidence": "rose is used three times - the 'The app you tried' label (landing-comparisons.tsx:140), the N75,000.00 figure in that card (:194) and the dot marking a debt you owe (landing-three-things.tsx:77). docs/design/11-landing-1440-light.png draws all three in red, and docs/standards/standards-addendum-mizaniya.md reserves the danger colour for money going wrong, with docs/06-page-specs.md:492 saying in as many words that it 'appears nowhere on this page'. The build followed the board, which CLAUDE.md section 7 makes authoritative on colour, and nobody recorded the disagreement until this review.",
+      "fix": "Put it to the designer and the spec owner in docs/open-items.md: either the boards' red becomes a non-danger tone on this page, or the addendum gains an exception for a surface where no figure is anyone's money and the spec's sentence goes. Change nothing until one of them answers."
+    },
+    {
+      "id": "D2",
+      "rule": "DES-01",
+      "severity": "medium",
+      "status": "open",
+      "title": "Four values on the page deliberately differ from the canvas",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-rest.tsx",
+        "line": 85,
+        "endLine": 88
+      },
+      "evidence": "The canvas is authoritative and these four do not match it: the four panels in 'The rest of it' scale their replicas at 0.64 where LandLight.dc.html sets zoom .68 (at .68 a 340px card is 231px inside a panel with 224px between its paddings, so the margin the board shows on either side disappears); band headings on a phone are 25px where LandPhoneLight sets 26px for a band and 25px for the hero; the comparison band's closing line is 13.5px where the phone canvas sets 12.5px; and the 'Safe to spend' sub-line is 17/29 where the phone canvas sets 15/24. All four are written down in docs/open-items.md section V for the designer.",
+      "fix": "The designer answers section V. Each is a one-line change once they do; none should be changed before."
+    },
+    {
+      "id": "D3",
+      "rule": "DES-02",
+      "severity": "medium",
+      "status": "open",
+      "title": "The landing page's scale and the paper colours live in the code and not in the published tokens",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 246,
+        "endLine": 300
+      },
+      "evidence": "tokens.css now declares thirteen landing type steps, seven of them added by this branch, plus five paper colours for the printed record, and docs/design/tokens.md publishes none of them. The document calls itself the token contract, so a reader who follows it sees a scale the page does not use. docs/open-items.md section T.4 raised this for the type, and section V.2 raises it for the paper colours; both are unanswered.",
+      "fix": "The designer decides, in section T.4 and V.2: publish them in tokens.md, which makes the document true again, or record that the landing scale is board-local and say so in tokens.md so the contract stops claiming to cover everything."
+    },
+    {
+      "id": "D4",
+      "rule": "DES-14",
+      "severity": "medium",
+      "status": "open",
+      "title": "The page's type does not follow the browser's text-size setting",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 251
+      },
+      "evidence": "Every type step is a px value and index.css:13 sets the body to 15px, so a reader who has raised their browser's default text size sees no change; only zoom scales the page, which is what WCAG 1.4.4 asks for but not what the rule says. tokens.md section 5 makes the scale a 2px grid keyed to the pixel, so this is the design system's decision and the page follows it faithfully.",
+      "fix": "A question for the designer rather than a change to this page: whether the published scale should be expressed in rem against a 16px root, which keeps every drawn number and makes the whole app follow the setting."
+    }
+  ],
+  "result": "pass",
+  "summary": "Pass, 4 medium open. The page was compared band by band with the 1440 and 390 boards in both themes, rendered through a headless browser: order, copy, measures and motion match. Open: the danger colour, which the boards draw and the spec says is nowhere here; four values deliberately off the canvas, recorded in open-items section V; the landing scale and paper colours living in code rather than tokens.md; and px type, which ignores the browser's text-size setting."
+}

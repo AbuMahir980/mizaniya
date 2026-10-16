@@ -7,6 +7,8 @@ import { Icon, type IconName } from '@/ui/icon'
 import { ThemeChoice } from '@/ui/theme-choice'
 import { Spinner } from '@/ui/spinner'
 import { useIsOnline, useSnapshotState } from './store-context'
+import { LandingRoute } from './landing-route'
+import { launchedFromInstalledApp } from './use-installed'
 import { LaunchScreen } from './launch-screen'
 import { QuickAddRoute } from './quick-add-route'
 import { useTheme } from './use-theme'
@@ -91,9 +93,10 @@ function useNavItems(destinations: readonly Destination[]): {
 /**
  * Everything below onboarding.
  *
- * `new-owner` — T7's `undefined` load — redirects to `/welcome`. It is a state
- * the type forces this component to handle rather than a falsy value it could
- * have skipped past.
+ * `new-owner` — T7's `undefined` load — is the landing page, not a redirect
+ * (§7.0, 15 October). A stranger gets the page that was drawn for them, and
+ * `/welcome` is what its primary button leads to. It is a state the type forces
+ * this component to handle rather than a falsy value it could have skipped past.
  */
 export function AppShell() {
   const state = useSnapshotState()
@@ -129,8 +132,18 @@ export function AppShell() {
     return <LaunchScreen />
   }
 
+  /**
+   * Two front doors, and which one depends on how this was opened — §T·2.
+   *
+   * A browser gets the landing page. **The installed app gets board `01`**,
+   * because an installed copy launches with no address bar and nothing to have
+   * scrolled past: serving the acquisition page there serves it to someone who
+   * already converted. And the fork on `01` matters most to the person the
+   * landing page serves worst — whoever lost a phone, reinstalled, and has a
+   * budget somewhere. Dropping them into step 1 hides the only door they need.
+   */
   if (state.status === 'new-owner') {
-    return <Navigate to="/welcome" replace />
+    return launchedFromInstalledApp() ? <Navigate to="/welcome" replace /> : <LandingRoute />
   }
 
   if (state.status === 'error') {

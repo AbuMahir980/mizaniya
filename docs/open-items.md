@@ -5617,3 +5617,231 @@ specifies both slots, the page is being built with them reserved at the right
 dimensions with alt text in place, and sourcing them is a licensing decision.
 The one design note: **nothing may shift when an image arrives** — which
 reserving the box achieves, and which `motion.md` §0 would require anyway.
+**One line of it is stale either way**, and it is live on the deployed build today:
+*"Nothing leaves this device — no account, no server, no sync."* **No account** is truer
+than ever. **No sync** is true only until sync ships, and ADR-013 is the plan to ship it.
+Whatever happens to the screen, that sentence cannot survive as it is.
+
+
+---
+
+## §U · The landing scale, re-asked — 2026-10-15 from the build side
+
+### U·0 — why this is being asked twice
+
+**It was §T·4, and it is gone.** The build side wrote §T with three items on 15
+October; the designer answered by **rewriting §T** into four items of their own, which
+is a better-written section and also means the question that was in the old T·4 no
+longer exists in this file. Nothing was done wrong on purpose and nothing was hidden —
+two sides edited the same section in two worktrees, and the later write won.
+
+**The channel has now lost a round twice in two days.** First both sides wrote a §S;
+then one §T replaced another. Both were caught by reading, which is not a control.
+
+**Proposed rule, and it costs nothing: each side appends its own lettered section and
+never rewrites the other's.** An answer to §T is §U, not a better §T. The letters are
+cheap and the thread stays legible — which is the entire point of a channel whose
+questions sit next to their answers.
+
+### U·1 — the landing page has a type scale of its own, and `tokens.md` does not publish it
+
+| Canvas | Spec | Nearest published token | Same? |
+|---|---|---|:-:|
+| `.lead` | 19px / 32px, soft | — | **no step** |
+| `.kicker` | 11px, .15em, 600 | `lab` 10.5px / .115em | close, not equal |
+| `.h2` *(landing)* | EB Garamond 40 / 46 | app `h2` is Inter 22 / 28 | **same name, different thing** |
+| `.body` *(landing)* | 17 / 29 | app `body` 15 / 22 | **same name, different thing** |
+| `.lbtn` | 52px tall, radius **14px** | steps are 8 · 12 · 16 · 22 · 30 | **not a step** |
+| `.deck` cards | radius **20px** | same steps | **not a step** |
+| `.shot` | radius **30px** | `radius.full` — *"the phone frame only"* | published, reserved elsewhere |
+
+**This is not a complaint about the drawing.** A marketing surface read at arm's length
+on a laptop needs a larger scale than a budgeting screen read on a phone, and the boards
+are consistent about it. The problem is that the scale lives in the board and not in
+`tokens.md`, so a build either reads it out of the HTML — which this one now does — or
+approximates it with app classes, which is exactly how the first attempt produced the
+right words in the wrong design.
+
+**Two questions.**
+
+1. **Are 14px and 20px intended**, or 12/16 drifting? And does `.shot`'s 30px mean the
+   phone-frame step is really *"phone frame and screenshots"*?
+2. **Should these be published in `tokens.md`?** The build needs names either way. If
+   they stay board-local that is a decision worth writing down, because the token
+   contract currently reads as covering everything.
+
+**Meanwhile the build takes the canvas's numbers** and names them in `tokens.css` as
+`--size-land-*` and `--land-*`, marked as read from the board so they are one edit away
+from being repointed.
+
+### U·2 — The page still says "your bank sent it", and bank movement is deferred
+
+*Was T·3 on the build side, which the designer's §T·3 renumbered to something else. It
+ is not the same question: theirs swept for claims that an account exists, and this is a
+ claim that a **bank connection** does.*
+
+Found by a test, not by reading. The *Every movement, with its kobo* card ends:
+
+> *Grouped by day, filterable by type and category, and the payee reads exactly as your
+> bank sent it.*
+
+**Nothing sends anything.** ADR-013 deferred bank movement entirely — no aggregator, no
+statement import, no connection — so there is no bank to have sent a payee name. The
+line was true when it was drawn, in the same way the tier band was: it describes a
+feature the product had on paper and no longer has.
+
+**It is the same family as `tokens.md` §10.1**, which bans one sentence outright because
+it makes a false claim about bank data. This one is weaker — it implies a capability
+rather than asserting a safeguard — but it is on the page a stranger reads before
+deciding whether to trust us with a salary, and *the payee reads exactly as your bank
+sent it* will be read as **we connect to your bank**.
+
+**Proposed:** the clause goes, and the card keeps what is still true — *grouped by day,
+filterable by type and category*. If the payee detail is worth keeping, it belongs as
+something about what the owner typed, not about what a bank sent.
+
+**Built as drawn meanwhile.** It is not a false safeguard, so nothing unsafe ships while
+this is answered.
+
+### T·4 — The landing page has a type scale of its own, and `tokens.md` does not publish it
+
+Found while rebuilding the page from the canvas rather than from its copy, which is
+what should have happened the first time.
+
+**The landing boards define their own vocabulary**, and it is not the app's:
+
+| Canvas | Spec | Nearest published token | Same? |
+|---|---|---|:-:|
+| `.lead` | 19px / 32px, soft | — | **no step** |
+| `.kicker` | 11px, .15em, 600 | `lab` 10.5px / .115em | close, not equal |
+| `.h2` *(landing)* | EB Garamond 40px / 46px | app `h2` is Inter 22px / 28px | **same name, different thing** |
+| `.body` *(landing)* | 17px / 29px | app `body` 15px / 22px | **same name, different thing** |
+| `.lbtn` | 52px tall, radius **14px** | radius steps are 8 · 12 · 16 · 22 · 30 | **14px is not a step** |
+| `.shot` | radius **30px** | `radius.full` 30px — *"the phone frame only"* | published, but reserved for something else |
+
+**None of this is a complaint about the drawing.** A marketing surface reading at arm's
+length on a laptop needs a larger scale than a budgeting screen read at arm's length on
+a phone, and the canvas is consistent about it. The problem is only that the scale lives
+in the board and not in `tokens.md`, so a build either reads it out of the HTML — as
+this one now does — or approximates it with app classes, which is exactly how the first
+attempt produced the right words in the wrong design.
+
+**Two questions, and the second is the one that matters.**
+
+1. **Is `.lbtn`'s 14px radius intended**, or is it 12 or 16 drifting? And does `.shot`'s
+   30px mean the phone-frame step is really "phone frame and screenshots", or is the
+   screenshot frame its own thing?
+2. **Should these become tokens?** The build needs names for them either way. If they
+   are published in `tokens.md` the build reads them from one place, as F3 requires. If
+   they stay board-local, that is a decision worth writing down — and then `tokens.md`
+   should say so, because *"the token contract"* currently reads as covering everything.
+
+**Meanwhile the build takes the canvas's numbers**, because the canvas is what the page
+is made of, and names them in `tokens.css` beside the app's — marked as landing steps
+read from the board, so they are easy to repoint once this is answered.
+
+---
+
+## §V · What rebuilding the page from the boards found — 2026-10-16 from the build side
+
+Four things the build had wrong, three it has simplified knowingly, and two questions.
+Everything here came from opening the boards and reading `canvas/LandLight.dc.html` as a
+tree, which is `CLAUDE.md` §7 — and every one of the four errors came from not doing
+that the first time.
+
+**The four the build had wrong, now fixed.** No answer needed; they are recorded because
+they say what kind of mistake to look for next time.
+
+1. **The cascade was in the hero.** The hero's right-hand half is the Home board itself
+   with four blank card edges above it. The cascade of cards belongs to *Safe to spend,
+   today*, where the board captions it *"What is safe today · 3 more underneath"*.
+2. **Four cards underneath, not three.** The list beside the pile has exactly three
+   items, and they name the three cards.
+3. **The comparison cards both showed at 1440.** The board's own line under that heading
+   is *"Hover any one: what Mizaniya does slides over it"* — the rest state is the red
+   card alone. The phone keeps both, and its own line: *"Red is the app you tried. Green
+   is what Mizaniya does instead."*
+4. **The verse had a band of its own.** It shares the band with the five *what is free*
+   lines, to their right, under a 2px rule.
+
+**The three simplifications, each visible and each deliberate.** Say if any of them
+matters and it is changed.
+
+- **Band headings on a phone are 25px, not 26px.** The canvas sets the hero at 25/33 and
+  every band heading at 26/33. The build uses one step for both rather than carrying a
+  second that differs by a pixel.
+- **The comparison closing line is 13.5px at both widths**; the phone canvas sets 12.5px.
+- **The *Safe to spend* sub-line is 17px/29px at both widths**; the phone canvas sets
+  15px/24px.
+
+**The four panels in *The rest of it* are not focusable.** The pointer-states study says
+each component is focusable and `:focus-visible` gives the same 8px lift. They open
+nothing — the page has no screens to open — so a tab stop on each would be four stops
+that do nothing, which J reads as noise rather than access. The lift is hover-only. If
+they are meant to become links to something, say what, and they become links.
+
+### V·1 — *Security and privacy* in the footer has no page behind it
+
+The footer's Trust column is one item, *Security and privacy*, and
+`docs/11-landing-page-brief.md` calls it **a real asset, not boilerplate** — the §7
+claims in full, with the bank-data caveat stated plainly. **That page does not exist.**
+
+It is built as plain text rather than a link, because a link that goes nowhere is worse
+than a heading that goes nowhere. Two ways out, and the first is better: **write the
+page** — it is the one asset the page promises and cannot show — or **drop the column**
+until it exists. Say which.
+
+### V·2 — The printed record is the only surface that does not theme
+
+Both boards draw it white: `#FFF` on `#CFCBC0`, in light **and** in dark. The build has
+taken that as deliberate — a document either party can hold does not change colour with
+the reader's system setting — and named five `paper` tokens for it in `tokens.css`.
+
+**Confirm it is deliberate**, because if it is, it is a rule rather than a drawing: the
+real printed-record screen, when it is built, follows it too, and `tokens.md` should
+carry the five values rather than this page carrying them alone.
+
+### V·3 — J1 says 44px; the boards draw 40px arrows and 21px footer rows
+
+Found by measuring the rendered page, not by reading it, and **the build has changed
+neither**, because `CLAUDE.md` §7 makes the boards authoritative on size and
+`docs/standards/frontend-engineering-standards.md` J1 says *touch targets ≥ 44px* with no
+exemption. They cannot both hold.
+
+| Drawn | Measured | J1 |
+|---|---|---|
+| The how-it-works arrows — `width:40px;height:40px` in `canvas/LandLight.dc.html` | 40 × 40 at 1440 | 44 |
+| The footer's three links | 224 × 21 at 1440; 342 × 44 at 390 | 44 |
+
+**WCAG 2.2 AA passes both.** Its 2.5.8 wants 24, and the footer rows clear its spacing
+exemption at 12px apart. It is only the project's own number they miss.
+
+**Two ways out, and the choice is the owner's**, because it is their standard: raise the
+two to 44, which changes the drawing; or write the exemption into J1 — *pointer-sized
+targets at 1440 where WCAG's spacing exemption is met* — which changes the standard. Until
+one of them happens, **ITEM-15's sixth acceptance criterion cannot hold**, because it says
+J1 to J5 hold, and J1 does not.
+
+### V·4 — The rail's eight answers are the board's words, and ADR-013's are longer
+
+ITEM-15's second acceptance criterion asks that the eight lines *"read verbatim from
+ADR-013, because the scope of each line is where the honesty lives."* They do not. They
+read verbatim from the **boards**, which is what the build is supposed to do — and the
+boards shortened six of them.
+
+| # | ADR-013 | The boards, and the build |
+|:-:|---|---|
+| 01 | No email, no password, **nothing to verify** | No email, no password. |
+| 02 | It works with no signal **at all** | It works with no signal. |
+| 04 | Two of your three keys, **and it is there** | Two of your three keys. |
+| 05 | Any two **of the three** bring it back | Any two bring it back. |
+| 06 | One **on its own** opens nothing | One alone opens nothing. |
+| 08 | They stop seeing anything new **from that moment** | They stop seeing anything new. |
+
+**Five of the six are emphasis. The sixth is scope.** Without *from that moment*, 08 reads
+as though removing a partner hides what they already saw, and it does not — it stops them
+seeing anything new. That is the kind of line the criterion was written to protect.
+
+**Please restore it on the rail**, or say the shorter line is deliberate and the criterion
+should be changed to name the boards as the source, with ADR-013 behind them. Nothing is
+changed meanwhile: the page says what the board says.

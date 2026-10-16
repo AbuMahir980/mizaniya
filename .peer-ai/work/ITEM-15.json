@@ -1,0 +1,125 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AbuMahir980/peer-ai/main/packages/workflow/schemas/work-item.schema.json",
+  "version": 1,
+  "id": "ITEM-15",
+  "title": "Build the landing page",
+  "kind": "feature",
+  "stage": "verify",
+  "track": "web",
+  "branch": "feature/build-the-landing-page",
+  "base": "e847a1ccfb83a942bb1f62fa084bb8028ad57179",
+  "goal": "The page is drawn at 390 and 1440 in both themes, and after the ADR-013 redraw it is finally true: no sign-in, no tiers, no price, and the eight how-it-works lines in their own rail. Vercel now deploys main on every merge, so this is the first thing anyone following the repository will see, and it is the link that goes on a job application. Nothing blocks it: it is a static marketing page with no store, no repository and no money arithmetic.",
+  "acceptance": [
+    "Given the drawn boards at 390 and 1440 in both themes, when the page is built, then every section is present in the drawn order with the drawn copy, and nothing is invented where the design is silent",
+    "Given the eight how-it-works lines, when they are built, then they read verbatim from ADR-013, because the scope of each line is where the honesty lives",
+    "Given every figure the page shows, when it is built, then each one comes from docs/seed-data.md and no other source",
+    "Given the page is a marketing surface and not the app, when it is built, then it holds no store, no repository and no money arithmetic, and it does not import from features",
+    "Given a reader on a phone at 390 and a reader on a desktop at 1440, when each loads it, then the layout matches its own board rather than one being derived from the other",
+    "Given the accessibility rules J1 to J5, when the page is built, then targets, labels, motion, contrast and keyboard order all hold, proven rather than asserted"
+  ],
+  "sources": [
+    "docs/design/11-landing-390-light.png",
+    "docs/design/canvas/LandPhoneLight.dc.html",
+    "docs/design/canvas/LandLight.dc.html",
+    "docs/11-landing-page-brief.md",
+    "docs/seed-data.md"
+  ],
+  "lastVerify": {
+    "result": "pass",
+    "at": "2026-10-16T00:33:17.815Z",
+    "commit": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+    "ci": {
+      "check": "verify",
+      "url": "https://github.com/AbuMahir980/mizaniya/actions/runs/38829919093/job/116746077206"
+    }
+  },
+  "reviews": [
+    {
+      "skill": "security-review",
+      "result": "incomplete",
+      "open": {
+        "medium": 2
+      },
+      "report": ".peer-ai/reports/ITEM-15/security-review-20261016T0145Z.json",
+      "summary": "Incomplete, with 2 medium findings open and one rule unchecked. The deployed site sets HSTS and no other security header, and there is no vercel.json to set them; and the branch publishes the first public page while the project still has no threat model, which ITEM-8 is open to write. SEC-23 is unchecked: whether the platform still accepts TLS 1.0 is Vercel's setting and this machine cannot offer those protocols to test it.",
+      "at": "2026-10-16T00:43:07.196Z",
+      "commit": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+      "readOnly": 1
+    },
+    {
+      "skill": "code-review",
+      "result": "pass",
+      "open": {
+        "high": 1,
+        "medium": 2,
+        "low": 7
+      },
+      "report": ".peer-ai/reports/ITEM-15/code-review-20261016T0110Z.json",
+      "summary": "Pass, with 1 high, 2 medium and 7 low findings open. The high: at 1440 the Mizaniya side of each comparison is revealed only by a pointer, so a sighted keyboard reader never sees half of it (DES-10). The mediums: the danger colour is used where the spec says it is nowhere, the boards having drawn it; and money is formatted by hand in seven places while ui/ngn.tsx owns that treatment. Nothing was left unchecked.",
+      "at": "2026-10-16T00:45:50.416Z",
+      "commit": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+      "readOnly": 15
+    },
+    {
+      "skill": "accessibility-review",
+      "result": "pass",
+      "open": {
+        "high": 2,
+        "medium": 3
+      },
+      "report": ".peer-ai/reports/ITEM-15/accessibility-review-20261016T0205Z.json",
+      "summary": "Pass, with 2 high and 3 medium findings open. The highs are both keyboard: at 1440 the Mizaniya side of each comparison is revealed only by a pointer, and below 1440 none of the three horizontal rails can be scrolled without one. The mediums are the project's own 44px target on the rail arrows and the footer links at 1440, and that the page's px type ignores the browser's text-size setting. Contrast, names, focus and reduced motion were measured on the rendered page and hold.",
+      "at": "2026-10-16T00:47:44.529Z",
+      "commit": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+      "readOnly": 3
+    },
+    {
+      "skill": "design-review",
+      "result": "pass",
+      "open": {
+        "medium": 4
+      },
+      "report": ".peer-ai/reports/ITEM-15/design-review-20261016T0220Z.json",
+      "summary": "Pass, 4 medium open. The page was compared band by band with the 1440 and 390 boards in both themes, rendered through a headless browser: order, copy, measures and motion match. Open: the danger colour, which the boards draw and the spec says is nowhere here; four values deliberately off the canvas, recorded in open-items section V; the landing scale and paper colours living in code rather than tokens.md; and px type, which ignores the browser's text-size setting.",
+      "at": "2026-10-16T00:49:16.444Z",
+      "commit": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+      "readOnly": 2
+    },
+    {
+      "skill": "qa-acceptance",
+      "result": "fail",
+      "open": {
+        "high": 2,
+        "medium": 1
+      },
+      "report": ".peer-ai/reports/ITEM-15/qa-acceptance-20261016T0240Z.json",
+      "summary": "Fail: two of the six criteria do not hold. AC-2, the eight answers verbatim from ADR-013 - six are shorter than the record and 08 loses 'from that moment', though the words are the board's, so the design and the decision disagree and the owner decides. AC-6, J1 to J5 - targets fail twice at 1440 and keyboard-only use fails twice. AC-1, AC-3, AC-4 and AC-5 hold, checked against the boards at both widths. Also open: no acceptance test sees layout, type or motion.",
+      "at": "2026-10-16T00:51:23.760Z",
+      "commit": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98"
+    }
+  ],
+  "requiredReviews": [
+    {
+      "skill": "code-review",
+      "reason": "it changes code"
+    },
+    {
+      "skill": "security-review",
+      "reason": "it changes code, at the mvp stage"
+    },
+    {
+      "skill": "accessibility-review",
+      "reason": "it changes a screen"
+    },
+    {
+      "skill": "design-review",
+      "reason": "it changes a screen, and the project has a design"
+    },
+    {
+      "skill": "qa-acceptance",
+      "reason": "its work item has acceptance criteria, which must all hold before it ships"
+    }
+  ],
+  "next": "All bands built from the boards; 504 tests green. Next: the owner's visual pass at 390 and 1440 in both themes, then the J1-J5 proof, then open the PR.",
+  "updatedAt": "2026-10-16T00:51:23.760Z"
+}

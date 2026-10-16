@@ -37,8 +37,9 @@ the same thing nine times. It is stated once here instead.
 
 | # | Page | Route | Priority | Reached from |
 |:-:|---|---|:-:|---|
-| 1 | **Onboarding** | `/welcome` | P0 | First run only; redirected here until settings exist |
-| 2 | **Home** | `/` | P0 | Nav, app launch, after any save |
+| 0 | **Landing** | `/` *(no budget on this device)* | P0 | The link anyone is given. **Added 15 Oct — it was drawn and briefed but never specified** |
+| 1 | **Onboarding** | `/welcome` | P0 | The landing page's primary button; and any route until settings exist |
+| 2 | **Home** | `/` *(a budget exists)* | P0 | Nav, app launch, after any save |
 | 3 | **Plan** | `/plan` | P0 | Nav, unallocated banner |
 | 4 | **Transactions** | `/transactions` | P0 | Nav, any Home tile |
 | 4a | **Quick Add** *(sheet)* | overlay, no route | P0 | The persistent action button, from anywhere |
@@ -419,6 +420,103 @@ Screens may use only the primitives in the design's set.
 ---
 
 ## 7 · The pages
+
+### 7.0 · Landing — `/`, when this device holds no budget
+
+**Added 2026-10-15.** The page was drawn in September, rewritten on 14 October after
+[ADR-013](adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md), and briefed in
+`docs/11-landing-page-brief.md` — but **it was never specified**, so nothing said where
+it lived or what it did. This section is that, and it names the two decisions it had to
+make rather than making them quietly.
+
+**Purpose.** It is the only page a stranger sees. It has to do one thing: make someone
+whose salary runs out before the month does recognise themselves, and then let them
+start in one tap.
+
+**Route, and the first decision.** `/` serves **the landing page when this device holds
+no budget**, and **Home when it does**. It is one route with two faces rather than two
+routes, because a budgeting app's address should not change the day you start using it,
+and because the link people share has to be the short one.
+
+**This replaces the first-run redirect.** Until now, `/` with no settings redirected to
+`/welcome`. It no longer does: a stranger gets the landing page, and `/welcome` is
+reached by pressing its primary button.
+
+**The second decision was proposed, and the designer corrected it — §T·2.**
+
+This section first proposed retiring the welcome screen, on the grounds that the landing
+page already says what it says. **That misses the case the screen exists for: the
+installed app opening cold.** v1 is a PWA. An installed copy launches with no address
+bar, no landing page and nothing to have scrolled past, so serving the acquisition page
+there serves it to someone who already converted.
+
+**And the fork matters most to the person the landing page serves worst** — whoever lost
+a phone, reinstalled, and has a budget somewhere. Dropping them into step 1 hides the
+only door they need.
+
+**So there are two front doors, and which one opens depends on how the app was opened:**
+
+| Opened | Serves |
+|---|---|
+| A browser, no budget on this device | **The landing page** |
+| The installed app, no budget on this device | **Board `01`**, the first-launch screen, with its fork |
+| Either, once a budget exists | **Home** |
+
+`apps/web/src/app/use-installed.ts` is the detection. The design condition is *launched
+from the installed app*, not a particular media query — `display-mode: standalone`, with
+`navigator.standalone` for iOS Safari, is what a browser gives us for it. It is read
+once at launch, because a window does not stop being the installed app halfway through a
+session.
+
+*Corrected twice on 15 October: first for claiming `/welcome` already opened on step 1,
+then for proposing to retire a screen that the designer showed was load-bearing.*
+
+*Corrected again on 16 October, from the boards: the app shown is part of the hero rather
+than a section after it; the cascade of cards belongs to §6 and not to the hero; there are
+three cards underneath the figure, not four; and the verse shares a band with the five
+lines rather than following them. This section was written from the boards in the first
+place — see the note above §7.0 — and each of these was a reading error in it.*
+
+| State | What shows |
+|---|---|
+| **Normal** | The page, in the drawn order below |
+| **Loading** | **None.** Nothing is fetched. It is static markup and the figures are literals from `docs/seed-data.md` |
+| **Empty** | **None, and the distinction does not exist here.** The page has no data of its own |
+| **Error** | **None.** There is nothing that can fail |
+| **Offline** | **Identical.** It is precached by the service worker, and a page selling an offline-first app that cannot be read offline would be its own refutation |
+
+**The primary action is *Start with my own figures*** → `/welcome`. The secondary is
+*I already have a budget* → the import path, which is where someone arriving on a new
+device goes.
+
+**The danger colour appears nowhere on this page.** The addendum reserves it for money
+going wrong, and nothing here is anyone's money — every figure is the worked example.
+
+**Sections, in the drawn order.** Each is in both the 390 and the 1440 boards; what
+changes between them is layout, never content.
+
+| # | Section | Notes |
+|:-:|---|---|
+| 1 | Header — wordmark, and *I already have a budget* | |
+| 2 | Hero — *Your salary lands on the 25th. By the 12th, you are not sure where it went.* | Both buttons, then *No account. No email, no password, nothing to verify.* — and **the app shown beside them**: the Home board itself, with four blank card edges above it. Not a photograph, and not a separate section: at 1440 it is the hero's right-hand half, and on a phone it sits directly beneath the fine print |
+| 4 | **How it works** — *There is nothing to sign up for* | The eight questions, numbered 01–08, as a rail |
+| 5 | *You have tried a budgeting app before* | Three comparisons: calendar month, the rent lump sum, debts one way only |
+| 6 | *Safe to spend, today* | The figure, and **three** cards underneath it, named in the list beside the pile. The cascade is here, not in the hero |
+| 7 | *Three things, and they are the whole product* | Cycles, debts both ways, the sinking fund |
+| 8 | The debt timeline — *Three paydays from now you do not* | |
+| 9 | *What is free is free because it costs us nothing to run* | Five lines — and **in the same band**, to their right, the verse. The claim is commercial; the line beside it is the reason the claim is safe to make |
+| 10 | *Debts written down, both ways* | Qur'an 2:282, under a 2px rule |
+| 11 | *The rest of it* | Transactions, debts, the printable record, zakat |
+| 12 | Image slot — *The same household, paid* | **Not sourced.** `docs/design/image-brief.md` holds the shot list |
+| 13 | *How to use it* | Open it · add it to your home screen · set your salary day |
+| 14 | *You do not need an account* | The closing, and both buttons again |
+| 15 | Footer | Trust and source links, and *every figure on this page comes from one worked example* |
+
+**Every figure is a literal from [`docs/seed-data.md`](seed-data.md)** — ₦7,500.00 safe
+to spend, ₦90,000.00 owed to A. Friend, ₦475,000.00 of the ₦900,000.00 rent target, and
+the rest. **No figure on this page is computed**, because computing one would mean the
+marketing page importing the domain, and a marketing page has no business holding money
+arithmetic.
 
 ### 7.1 · Onboarding — `/welcome`
 

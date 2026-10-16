@@ -21,14 +21,12 @@
   --onEmerald: #ffffff;
   --scrim: rgba(23, 26, 23, 0.46);
 
-  --elevation-card: 0 1px 2px rgba(23, 26, 23, 0.05),
-    0 12px 30px -16px rgba(23, 26, 23, 0.22);
+  --elevation-card: 0 1px 2px rgba(23, 26, 23, 0.05), 0 12px 30px -16px rgba(23, 26, 23, 0.22);
   --elevation-lift: 0 8px 20px -8px rgba(15, 92, 60, 0.55);
 
   /* Type — three faces, each with one job. Money never uses the voice face. */
   --family-voice: 'EB Garamond', Georgia, 'Times New Roman', serif;
-  --family-structural: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, sans-serif;
+  --family-structural: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --family-data: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /**
@@ -149,8 +147,7 @@
     --onEmerald: #052214;
     --scrim: rgba(4, 6, 8, 0.62);
 
-    --elevation-card: 0 1px 2px rgba(0, 0, 0, 0.5),
-      0 14px 34px -16px rgba(0, 0, 0, 0.7);
+    --elevation-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 14px 34px -16px rgba(0, 0, 0, 0.7);
     --elevation-lift: 0 8px 20px -8px rgba(78, 203, 139, 0.4);
   }
 }
@@ -192,5 +189,268 @@
   :root {
     --size-lockup: 52px;
     --leading-lockup: 58px;
+  }
+}
+
+/* The how-it-works rail — motion.md §9.1.
+   
+   The resting state is the default, deliberately: with no JavaScript, or with
+   motion off, every card is already where it belongs. The offset is added by
+   the component only when motion is allowed, and removed once the band has been
+   seen. So the eight lines — the product's strongest claim — can never be
+   gated behind an animation that did not run. */
+.rail-card {
+  transition: transform 280ms ease-out;
+}
+
+[data-rail-enter='pending'] .rail-card {
+  transform: translateX(40px);
+}
+
+/* 45ms between cards, so the eighth lands at about 600ms — motion.md §9.1. */
+.rail-card:nth-child(1) {
+  transition-delay: 0ms;
+}
+.rail-card:nth-child(2) {
+  transition-delay: 45ms;
+}
+.rail-card:nth-child(3) {
+  transition-delay: 90ms;
+}
+.rail-card:nth-child(4) {
+  transition-delay: 135ms;
+}
+.rail-card:nth-child(5) {
+  transition-delay: 180ms;
+}
+.rail-card:nth-child(6) {
+  transition-delay: 225ms;
+}
+.rail-card:nth-child(7) {
+  transition-delay: 270ms;
+}
+.rail-card:nth-child(8) {
+  transition-delay: 315ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rail-enter='pending'] .rail-card {
+    transform: none;
+  }
+}
+
+/* The landing page's own scale — read from `docs/design/canvas/LandLight.dc.html`
+   on 15 October, because `tokens.md` does not publish it (open-items §T·4).
+   
+   A marketing surface read at arm's length needs a larger scale than a budgeting
+   screen, and the boards are consistent about it. These are named here so the
+   build reads them from one place (F3) rather than approximating with app steps,
+   which is how the first attempt produced the right words in the wrong design.
+   Repoint them at tokens.md the day it publishes them. */
+:root {
+  /* The figure on the safe-to-spend card, the one number the page is about.
+     Both boards set it at the same size: the card is 360 at 1440 and 327 on a
+     phone, and the figure does not shrink with it, because it is the point. */
+  /* Three steps the landing canvas sets by hand, off the 40px heading: the
+     closing, which is the only thing larger than the hero; "How to use it",
+     which is a step smaller than every other band heading; and the Qur'an line,
+     which is a quotation rather than a heading. `docs/open-items.md` §U·1 asks
+     the designer whether these belong in `tokens.md`. */
+  /* Paper. The printed debt record is the one surface that does not theme:
+     the canvas sets it white on both the light and the dark board, because it
+     is a document either party can hold, and a document does not change colour
+     with the reader's system setting. Named here so no screen writes a hex. */
+  --paper: #ffffff;
+  --paper-ink: #111111;
+  --paper-soft: #555555;
+  --paper-line: #cfcbc0;
+  --paper-hair: #e2ded4;
+  --size-land-close-phone: 30px;
+  --leading-land-close-phone: 37px;
+  --size-land-lead-phone: 16.5px;
+  --leading-land-lead-phone: 28px;
+  --size-land-note: 15px;
+  --leading-land-note: 23px;
+  --size-land-close: 46px;
+  --leading-land-close: 54px;
+  --size-land-section: 34px;
+  --leading-land-section: 41px;
+  --size-land-quote: 27px;
+  --leading-land-quote: 36px;
+  --size-land-display: 54px;
+  --leading-land-display: 60px;
+  --size-land-h2: 40px;
+  --leading-land-h2: 46px;
+  --size-land-h3: 20px;
+  --leading-land-h3: 27px;
+  --size-land-lead: 19px;
+  --leading-land-lead: 32px;
+  --size-land-body: 17px;
+  --leading-land-body: 29px;
+  --size-land-kicker: 11px;
+
+  /* The boards' micro-scale, used inside the landing cards. Read from the
+     canvas's inline styles, which is where it lives until §U answers whether
+     tokens.md should publish it. Named so the page stops inventing a size per
+     section, which is exactly what the owner saw down the right edge. */
+  --size-land-micro: 9px;
+  --size-land-fine: 12px;
+  --size-land-detail: 13.5px;
+  --size-land-label: 14.5px;
+  --size-land-answer: 17.5px;
+  /* The splash lockup. `brand/README.md` owns the size; it was written by hand
+     in launch-screen.tsx until the F3 rule found it on 16 October. */
+  --size-splash-lockup: 31px;
+
+  --size-land-hero: 44px;
+  --leading-land-hero: 56px;
+
+  /* The phone board overrides the serif down for 390. */
+  --size-land-h2-phone: 25px;
+  --leading-land-h2-phone: 33px;
+
+  /* .lbtn: 52px tall, 14px radius, 15.5px/600. The radius is not a published
+     step — see §T·4 — so it is named rather than written into a component. */
+  --land-button-height: 52px;
+  --land-button-radius: 14px;
+  --size-land-button: 15.5px;
+
+  /* The deck's cards. 20px is not a published radius step either — §T·4. */
+  --land-deck-radius: 20px;
+
+  /* .shot: the screenshot frame. 30px matches radius.full, which tokens.md
+     reserves for the phone frame; §T·4 asks whether that is intended. */
+  --land-shot-radius: 30px;
+}
+
+/* A scroller that still scrolls, without the bar.
+   
+   The landing page's rail advances on its own and can be dragged, swiped or
+   stepped with its arrows — a scrollbar under it is chrome for a control the
+   page already offers three better ways to reach. The element keeps
+   `overflow-x: auto`, so touch and trackpad are untouched; only the bar goes. */
+.rail-scroller {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.rail-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+/* The landing cascade — motion.md's pointer-states study, verbatim.
+   
+   "Hover reveals nothing" is the constraint, and it is §5 inherited by §9: the
+   page must read completely with motion off, and a touch device has no pointer
+   at all. So every card already shows its own label and figure at rest, and
+   hovering gives you the rest of a card you could already identify — never the
+   identity of one you could not.
+   
+   transform and box-shadow only. No scaling, because a component that grows on
+   hover is a component shown at a size it is not. No rotation, because the
+   slant is the stack's geometry rather than a reaction. */
+.stack > * {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) {
+  .stack > *:hover {
+    transform: translateY(-14px);
+  }
+
+  .stack > *:hover ~ * {
+    transform: translateY(88px);
+  }
+}
+
+.stack > *:focus-visible {
+  transform: translateY(-14px);
+}
+
+.stack > *:focus-visible ~ * {
+  transform: translateY(88px);
+}
+
+/* §5 read literally: remove movement, keep colour, never remove information. */
+@media (prefers-reduced-motion: reduce) {
+  .stack > * {
+    transition: box-shadow 180ms;
+  }
+
+  .stack > *:hover,
+  .stack > *:focus-visible,
+  .stack > *:hover ~ *,
+  .stack > *:focus-visible ~ * {
+    transform: none;
+  }
+}
+
+/* The proof panels in *The rest of it*. The study halves the gap and gives
+   each arrangement its own edge, then lifts one by 8px — "smaller than the
+   cascade's, because nothing is being uncovered, only pointed at." */
+.lift-panel {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) {
+  .lift-panel:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--elevation-card);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift-panel:hover {
+    transform: none;
+  }
+}
+
+/* The comparison reveal — "the rest state is the failure, because that is the
+   state the reader arrives in." What Mizaniya does slides over it from the
+   left, 180ms, with a left-edge shadow so it reads as arriving on top rather
+   than swapping. It comes to rest 10px further left than the card beneath, as
+   the study draws it: the overhang is what makes it read as a separate object
+   laid over, rather than the same card repainted.
+
+   The stacking is inside the query rather than in the markup. Where the reveal
+   cannot run — no pointer, reduced motion, or a narrower frame — the two cards
+   stay in flow and both are simply read, which is the state a phone gets.
+   Grid, not absolute positioning, so the taller card sets the height and no
+   card is measured by hand. */
+.reveal-over {
+  transition:
+    transform 180ms cubic-bezier(0.2, 0, 0, 1),
+    opacity 180ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 180ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (hover: hover) and (min-width: 1440px) and (prefers-reduced-motion: no-preference) {
+  .reveal-host .reveal-stack {
+    display: grid;
+  }
+
+  .reveal-host .reveal-stack > * {
+    grid-area: 1 / 1;
+    width: 100%;
+  }
+
+  .reveal-host .reveal-over {
+    transform: translateX(-34px);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .reveal-host:hover .reveal-over,
+  .reveal-host:focus-within .reveal-over {
+    transform: translateX(-10px);
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow:
+      var(--elevation-card),
+      -14px 0 28px -18px rgba(0, 0, 0, 0.35);
   }
 }

@@ -1,0 +1,902 @@
+{
+  "version": 1,
+  "skill": "code-review",
+  "workItem": "ITEM-15",
+  "at": "2026-10-16T01:10:00Z",
+  "scope": {
+    "base": "e847a1ccfb83a942bb1f62fa084bb8028ad57179",
+    "head": "88ff6f4d2b33d3a4fb5c972c65ca9882887d3c98",
+    "tracks": [
+      "web"
+    ],
+    "files": [
+      "apps/web/src/features/landing/*",
+      "apps/web/src/ui/stack-card.tsx",
+      "apps/web/src/ui/landing-button.tsx",
+      "apps/web/src/ui/ngn.tsx",
+      "apps/web/src/app/landing-route.tsx",
+      "apps/web/src/app/use-installed.ts",
+      "apps/web/src/app/app-shell.tsx",
+      "apps/web/src/app/launch-screen.tsx",
+      "apps/web/src/features/onboarding/welcome-screen.tsx",
+      "apps/web/src/design/tokens.css",
+      "apps/web/tailwind.config.ts",
+      "eslint.config.js",
+      "scripts/build-shots.mjs"
+    ]
+  },
+  "inputs": [
+    "docs/standards/frontend-engineering-standards.md",
+    "docs/standards/standards-addendum-mizaniya.md",
+    "docs/05-coding-standards.md",
+    "docs/06-page-specs.md",
+    "docs/11-landing-page-brief.md",
+    "docs/seed-data.md",
+    "docs/adr/ADR-013-no-accounts-sync-as-an-encrypted-blob.md",
+    "docs/design/tokens.md",
+    "docs/design/canvas/LandLight.dc.html",
+    "docs/design/canvas/LandPhoneLight.dc.html",
+    "docs/design/11-landing-1440-light.png",
+    "docs/design/11-landing-390-light.png",
+    "CONTEXT.md",
+    "peer-ai.config.json"
+  ],
+  "inventory": [
+    {
+      "id": "component:LandingPage",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.tsx",
+        "line": 34
+      }
+    },
+    {
+      "id": "component:LandingHero",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-hero.tsx",
+        "line": 23
+      }
+    },
+    {
+      "id": "component:HomeShot",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/home-shot.tsx",
+        "line": 24
+      }
+    },
+    {
+      "id": "component:HowItWorksRail",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/how-it-works-rail.tsx",
+        "line": 41
+      }
+    },
+    {
+      "id": "component:LandingComparisons",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 21
+      }
+    },
+    {
+      "id": "component:LandingArgument",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-argument.tsx",
+        "line": 18
+      }
+    },
+    {
+      "id": "component:LandingDeck",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-deck.tsx",
+        "line": 33
+      }
+    },
+    {
+      "id": "component:SafeToSpendCard",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/safe-to-spend-card.tsx",
+        "line": 13
+      }
+    },
+    {
+      "id": "component:LandingThreeThings",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-three-things.tsx",
+        "line": 31
+      }
+    },
+    {
+      "id": "component:LandingTimeline",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-timeline.tsx",
+        "line": 20
+      }
+    },
+    {
+      "id": "component:LandingFree",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-free.tsx",
+        "line": 15
+      }
+    },
+    {
+      "id": "component:LandingRest",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-rest.tsx",
+        "line": 38
+      }
+    },
+    {
+      "id": "component:RestCards",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/rest-cards.tsx",
+        "line": 17
+      }
+    },
+    {
+      "id": "component:ImageSlot",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/image-slot.tsx",
+        "line": 23
+      }
+    },
+    {
+      "id": "component:LandingHowTo",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-how-to.tsx",
+        "line": 12
+      }
+    },
+    {
+      "id": "component:LandingClose",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-close.tsx",
+        "line": 18
+      }
+    },
+    {
+      "id": "component:LandingFooter",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-footer.tsx",
+        "line": 17
+      }
+    },
+    {
+      "id": "component:LandingBand",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-band.tsx",
+        "line": 33
+      }
+    },
+    {
+      "id": "component:StackCard",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/ui/stack-card.tsx",
+        "line": 27
+      }
+    },
+    {
+      "id": "component:LandingRoute",
+      "kind": "component",
+      "location": {
+        "file": "apps/web/src/app/landing-route.tsx",
+        "line": 15
+      }
+    },
+    {
+      "id": "function:useCarousel",
+      "kind": "function",
+      "location": {
+        "file": "apps/web/src/features/landing/use-carousel.ts",
+        "line": 31
+      }
+    },
+    {
+      "id": "function:useCascade",
+      "kind": "function",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-deck.tsx",
+        "line": 84
+      }
+    },
+    {
+      "id": "function:launchedFromInstalledApp",
+      "kind": "function",
+      "location": {
+        "file": "apps/web/src/app/use-installed.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "function:buildShots",
+      "kind": "function",
+      "location": {
+        "file": "scripts/build-shots.mjs",
+        "line": 55
+      }
+    },
+    {
+      "id": "contract:landingCopy",
+      "kind": "contract",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-copy.ts",
+        "line": 24
+      }
+    },
+    {
+      "id": "test:landing-page",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.test.tsx",
+        "line": 19
+      }
+    },
+    {
+      "id": "test:how-it-works-rail",
+      "kind": "test",
+      "location": {
+        "file": "apps/web/src/features/landing/how-it-works-rail.test.tsx",
+        "line": 14
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "rule": "CODE-01",
+      "status": "pass",
+      "evidence": "Names are the product's own words throughout: SafeToSpendCard, whatIsUnderneath, BOTH DIRECTIONS, bringForward, launchedFromInstalledApp. No abbreviations in the change."
+    },
+    {
+      "rule": "CODE-02",
+      "status": "pass",
+      "evidence": "Every boolean reads as a statement: use-carousel.ts:36 taken, :37 resting, :41 reduced, landing-deck.tsx:86 chosen, landing-deck.tsx:88 still, rest-cards.tsx:132 ruled."
+    },
+    {
+      "rule": "CODE-03",
+      "status": "pass",
+      "evidence": "The page's words are the board's and the brief's: 'Safe to spend today', 'What is safe today - 3 more underneath', 'The app you tried'. landing-copy.ts holds them in one place."
+    },
+    {
+      "rule": "CODE-04",
+      "status": "pass",
+      "evidence": "The third duplicate extracts: LandingBand (landing-band.tsx:33) owns every band's gutters and padding, Replica (rest-cards.tsx:112) owns the 340px card, Panel (landing-rest.tsx:83) owns the bordered panel, Side (landing-comparisons.tsx:131) owns the comparison card."
+    },
+    {
+      "rule": "CODE-05",
+      "status": "pass",
+      "evidence": "No rule that must never disagree is written twice: there is no validation and no money maths anywhere in the change. The treatment that is repeated is formatting, which is MONEY-04's rule and is reported there as F3."
+    },
+    {
+      "rule": "CODE-06",
+      "status": "fail",
+      "finding": "F7"
+    },
+    {
+      "rule": "CODE-07",
+      "status": "pass",
+      "evidence": "Each component renders one band or one card; useCarousel returns step, surrender and running and does nothing else; useCascade (landing-deck.tsx:84) only decides the order."
+    },
+    {
+      "rule": "CODE-08",
+      "status": "pass",
+      "evidence": "Comments carry reasons the code cannot: landing-deck.tsx:36 why 42 and not 12, landing-rest.tsx:84 why 0.64 and not the canvas's 0.68, safe-to-spend-card.tsx:6 why the segmented control is hidden from assistive technology. The one comment that overstates what the code does is F7."
+    },
+    {
+      "rule": "CODE-09",
+      "status": "pass",
+      "evidence": "No function in the change nests past two levels; the deepest is the map inside the ternary at landing-comparisons.tsx:170."
+    },
+    {
+      "rule": "CODE-10",
+      "status": "fail",
+      "finding": "F10"
+    },
+    {
+      "rule": "CODE-11",
+      "status": "pass",
+      "evidence": "Nothing in the change catches an error: there is no try, no catch and no promise in the landing feature."
+    },
+    {
+      "rule": "CODE-12",
+      "status": "not-applicable",
+      "reason": "No catch clause in the change."
+    },
+    {
+      "rule": "CODE-13",
+      "status": "fail",
+      "finding": "F6"
+    },
+    {
+      "rule": "CODE-14",
+      "status": "pass",
+      "evidence": "No any and no non-null assertion in the change; tsc --noEmit is green under the project's strict config, and noUncheckedIndexedAccess forced useCascade to return a function rather than an array (landing-deck.tsx:95)."
+    },
+    {
+      "rule": "CODE-15",
+      "status": "pass",
+      "evidence": "The empty cases are handled where they exist: image-slot.tsx reserves a slot for a photograph that does not exist, use-carousel.ts:52 returns when the scroller is not mounted, use-installed.ts guards a missing matchMedia. The page has no data and so no edge cases of its own."
+    },
+    {
+      "rule": "CODE-16",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "The React Compiler's own rules are on in eslint.config.js and green in CI's verify: set-state-in-effect and preserve-manual-memoization both caught earlier drafts of useCascade and were fixed rather than suppressed."
+    },
+    {
+      "rule": "ARC-01",
+      "status": "pass",
+      "evidence": "ADR-013 governs what this page may claim, and the eight how-it-works answers are its wording (landing-copy.ts:49). ADR-009's server, accounts and tiers appear nowhere; a test asserts that (landing-page.test.tsx:26)."
+    },
+    {
+      "rule": "ARC-02",
+      "status": "pass",
+      "evidence": "features/landing owns the page and nothing else owns part of it; app/landing-route.tsx only chooses where its two buttons go."
+    },
+    {
+      "rule": "ARC-03",
+      "status": "pass",
+      "evidence": "No import from another feature: grep for '@/features' inside features/landing returns nothing. It imports only ./, @/ui and @/assets."
+    },
+    {
+      "rule": "ARC-04",
+      "status": "not-applicable",
+      "reason": "The page holds no business rule: every figure is a literal from docs/seed-data.md."
+    },
+    {
+      "rule": "ARC-05",
+      "status": "pass",
+      "evidence": "LandingPage takes onStart and onRestore as props (landing-page.tsx:12-16) and knows nothing about the router; LandingRoute supplies them."
+    },
+    {
+      "rule": "ARC-06",
+      "status": "pass",
+      "evidence": "Dependencies point inward only: the landing feature imports @/ui primitives and its own folder, never a store, a repository or @mizaniya/core."
+    },
+    {
+      "rule": "ARC-07",
+      "status": "not-applicable",
+      "reason": "The page reaches no data: it holds no store and no repository."
+    },
+    {
+      "rule": "ARC-08",
+      "status": "not-applicable",
+      "reason": "No database in this project; the local store is not touched by this change."
+    },
+    {
+      "rule": "FE-01",
+      "status": "not-applicable",
+      "reason": "No server data on this page; docs/06-page-specs.md 7.0 records that it has no states because nothing is fetched."
+    },
+    {
+      "rule": "FE-02",
+      "status": "pass",
+      "evidence": "Nothing derived is stored: useCascade computes each card's z-index from one front index (landing-deck.tsx:95), and useCarousel computes running from four conditions (use-carousel.ts:65) rather than holding it."
+    },
+    {
+      "rule": "FE-03",
+      "status": "pass",
+      "evidence": "All state in the change is local to its own hook: taken, resting and reduced in useCarousel, front, chosen and still in useCascade. Nothing new is global."
+    },
+    {
+      "rule": "FE-04",
+      "status": "pass",
+      "evidence": "onStart and onRestore pass through two components - LandingRoute to LandingPage to LandingHero and LandingClose - which is the project's limit of two, and no other prop passes through a component that does not use it."
+    },
+    {
+      "rule": "FE-05",
+      "status": "pass",
+      "evidence": "No component in the change fetches: there is no fetch, no query and no effect that loads."
+    },
+    {
+      "rule": "FE-06",
+      "status": "pass",
+      "evidence": "Only app/landing-route.tsx knows the route; the page takes callbacks."
+    },
+    {
+      "rule": "FE-07",
+      "status": "not-applicable",
+      "reason": "Nothing on this page waits. docs/06-page-specs.md 7.0 states each state and why it does not exist here: nothing is fetched, nothing can fail, and the page has no data of its own."
+    },
+    {
+      "rule": "FE-08",
+      "status": "not-applicable",
+      "reason": "No error state on this page; nothing can fail."
+    },
+    {
+      "rule": "FE-09",
+      "status": "pass",
+      "evidence": "Offline is identical to online: the page is static markup precached by the service worker, with no request to fail. The dist build lists it in the precache manifest (27 entries)."
+    },
+    {
+      "rule": "BE-01",
+      "status": "not-applicable",
+      "reason": "No server-side code in this project or this change."
+    },
+    {
+      "rule": "BE-02",
+      "status": "not-applicable",
+      "reason": "No server-side code in this project or this change."
+    },
+    {
+      "rule": "SYS-01",
+      "status": "not-applicable",
+      "reason": "No server, no queue and no scheduled work in scope."
+    },
+    {
+      "rule": "SYS-02",
+      "status": "not-applicable",
+      "reason": "No server-side work in scope."
+    },
+    {
+      "rule": "SYS-03",
+      "status": "not-applicable",
+      "reason": "No server-side work in scope."
+    },
+    {
+      "rule": "SYS-04",
+      "status": "not-applicable",
+      "reason": "No server-side work in scope."
+    },
+    {
+      "rule": "SYS-05",
+      "status": "not-applicable",
+      "reason": "No server-side work in scope."
+    },
+    {
+      "rule": "SYS-06",
+      "status": "not-applicable",
+      "reason": "No server-side work in scope."
+    },
+    {
+      "rule": "MONEY-01",
+      "status": "pass",
+      "evidence": "No money value is computed or stored by this change: every figure is a formatted string literal in landing-copy.ts:24-41, traced in its comment to the row of docs/seed-data.md it comes from. Kobo as the minor unit is core's concern and core is untouched."
+    },
+    {
+      "rule": "MONEY-02",
+      "status": "fail",
+      "finding": "F4"
+    },
+    {
+      "rule": "MONEY-03",
+      "status": "not-applicable",
+      "reason": "No money arithmetic in the change."
+    },
+    {
+      "rule": "MONEY-04",
+      "status": "fail",
+      "finding": "F3"
+    },
+    {
+      "rule": "MONEY-05",
+      "status": "pass",
+      "evidence": "No money arithmetic in any component: the page holds literals only, and a test asserts that every naira figure it shows is one of the worked example's (landing-page.test.tsx, 'shows no figure that is not in the worked example')."
+    },
+    {
+      "rule": "MONEY-06",
+      "status": "not-applicable",
+      "reason": "No money movement is created or shown as a signed value; the debt direction is a label ('you owe', 'owed to you'), not a sign."
+    },
+    {
+      "rule": "MONEY-07",
+      "status": "not-applicable",
+      "reason": "No ledger in scope."
+    },
+    {
+      "rule": "MONEY-08",
+      "status": "not-applicable",
+      "reason": "Nothing in the change moves money."
+    },
+    {
+      "rule": "MONEY-09",
+      "status": "not-applicable",
+      "reason": "No payment provider in this project."
+    },
+    {
+      "rule": "MONEY-10",
+      "status": "pass",
+      "evidence": "Every figure the page shows is tested against the seed: landing-page.test.tsx collects every naira string in the rendered page and fails on any that is not in the worked example's set."
+    },
+    {
+      "rule": "MONEY-12",
+      "status": "not-applicable",
+      "reason": "No card data anywhere in this project."
+    },
+    {
+      "rule": "SAFE-01",
+      "status": "not-applicable",
+      "reason": "standards_for_file does not return the safety-critical rules for this project: it does not carry that trait."
+    },
+    {
+      "rule": "SAFE-02",
+      "status": "not-applicable",
+      "reason": "The project does not carry the safety-critical trait."
+    },
+    {
+      "rule": "SAFE-03",
+      "status": "not-applicable",
+      "reason": "The project does not carry the safety-critical trait."
+    },
+    {
+      "rule": "SAFE-04",
+      "status": "not-applicable",
+      "reason": "The project does not carry the safety-critical trait."
+    },
+    {
+      "rule": "SAFE-05",
+      "status": "not-applicable",
+      "reason": "The project does not carry the safety-critical trait."
+    },
+    {
+      "rule": "SAFE-06",
+      "status": "not-applicable",
+      "reason": "The project does not carry the safety-critical trait."
+    },
+    {
+      "rule": "API-02",
+      "status": "not-applicable",
+      "reason": "No API in scope; the landing page calls nothing."
+    },
+    {
+      "rule": "API-06",
+      "status": "not-applicable",
+      "reason": "No API in scope."
+    },
+    {
+      "rule": "DATA-03",
+      "status": "not-applicable",
+      "reason": "No migration and no change to stored data in this change."
+    },
+    {
+      "rule": "PERF-01",
+      "status": "pass",
+      "evidence": "No query anywhere on the page, so no list can run one per row; the eight rail cards and four panels are literals."
+    },
+    {
+      "rule": "PERF-05",
+      "status": "pass",
+      "evidence": "The longest list on the page is the eight how-it-works cards (landing-copy.ts:49), well under any threshold where windowing applies."
+    },
+    {
+      "rule": "PERF-06",
+      "status": "pass",
+      "evidence": "Every listener and timer is stopped: use-carousel.ts:70 clears its interval, :75 removes the visibilitychange listener, :89-94 removes all four pointer and focus listeners, and landing-deck.tsx:101 clears the cascade's interval."
+    },
+    {
+      "rule": "PERF-07",
+      "status": "pass",
+      "evidence": "scripts/build-shots.mjs resizes each board to 652px at quality 60 and throws if the result passes 90 KB; the two shots are 36 KB and 33 KB."
+    },
+    {
+      "rule": "REL-01",
+      "status": "not-applicable",
+      "reason": "The page makes no call to another service."
+    },
+    {
+      "rule": "REL-09",
+      "status": "pass",
+      "evidence": "The service worker is unchanged by this branch; the build regenerates the precache manifest with the two new images in it, so an updated page cannot be served an old asset list."
+    },
+    {
+      "rule": "SEC-01",
+      "status": "not-applicable",
+      "reason": "No records and no permissions on this page: it is served to a stranger with no account, by design (ADR-013)."
+    },
+    {
+      "rule": "SEC-05",
+      "status": "not-applicable",
+      "reason": "No server and no input: the page has no form and accepts nothing."
+    },
+    {
+      "rule": "SEC-07",
+      "status": "not-applicable",
+      "reason": "No database query in this project."
+    },
+    {
+      "rule": "SEC-08",
+      "status": "pass",
+      "evidence": "No dangerouslySetInnerHTML and no HTML from outside anywhere in the change: grep across features/landing and ui/stack-card.tsx returns nothing, and REACT-04 is enforced by lint and green."
+    },
+    {
+      "rule": "SEC-10",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "Gitleaks runs on the branch in peer-ai-security.yml and passed on this head; the only credential-shaped strings added are public GitHub URLs in landing-footer.tsx:5 and landing-close.tsx:43."
+    },
+    {
+      "rule": "SEC-15",
+      "status": "pass",
+      "evidence": "The page makes no request. Its one outbound link is https (landing-close.tsx:43), as are the three footer links."
+    },
+    {
+      "rule": "PRIV-01",
+      "status": "not-applicable",
+      "reason": "Nothing in the change logs."
+    },
+    {
+      "rule": "PRIV-02",
+      "status": "pass",
+      "evidence": "No real personal or financial data: every figure is docs/seed-data.md's worked example, and the test named under MONEY-10 fails the build on any figure that is not."
+    },
+    {
+      "rule": "TEST-01",
+      "status": "fail",
+      "finding": "F9"
+    },
+    {
+      "rule": "TEST-04",
+      "status": "pass",
+      "evidence": "The tests query by role and accessible name throughout - getByRole('button', { name }) in landing-page.test.tsx and how-it-works-rail.test.tsx - with no test id, which is the project's K3."
+    },
+    {
+      "rule": "TEST-07",
+      "status": "pass",
+      "evidence": "afterEach(cleanup) at landing-page.test.tsx:10 and in how-it-works-rail.test.tsx; each test renders its own page and shares no state."
+    },
+    {
+      "rule": "TEST-12",
+      "status": "pass",
+      "evidence": "Vitest runs the same source the build ships, through the same tsconfig paths; CI runs npm run verify, which runs the tests and the build in one command."
+    },
+    {
+      "rule": "AI-01",
+      "status": "not-applicable",
+      "reason": "No AI feature in this project."
+    },
+    {
+      "rule": "DES-01",
+      "status": "fail",
+      "finding": "F8"
+    },
+    {
+      "rule": "DES-02",
+      "status": "pass",
+      "evidence": "Every value added comes from tokens.css: the seven new landing type steps and the five paper colours are declared there and exposed through tailwind.config.ts, and a lint rule refuses a hand-written type size."
+    },
+    {
+      "rule": "DES-03",
+      "status": "pass",
+      "evidence": "The new tokens say what they are for: size-land-close for the closing, size-land-section for a section heading, size-land-quote for the quotation, paper-ink and paper-line for the printed record."
+    },
+    {
+      "rule": "DES-04",
+      "status": "pass",
+      "evidence": "Screens compose ui/ primitives - LandingButton, Card, Rail, Icon, Mark, WordmarkArabic, StackCard. The one hand-drawn control is the segmented switch in safe-to-spend-card.tsx:31, which is a picture of a control inside a picture of a screen and is hidden from assistive technology with the reason written beside it."
+    },
+    {
+      "rule": "DES-05",
+      "status": "pass",
+      "evidence": "StackCard, the one new shared component, has its states: rest, hover and focus-visible are all given the same lift in tokens.css:330-344, and the reduced-motion case drops the movement and keeps the shadow."
+    },
+    {
+      "rule": "DES-06",
+      "status": "fail",
+      "finding": "F1"
+    },
+    {
+      "rule": "DES-07",
+      "status": "pass",
+      "evidence": "Colour never carries information alone: the debt dot at landing-three-things.tsx:77 is aria-hidden and the direction is written beside it ('you owe', 'owed to you'), and each comparison card names its side in words ('The app you tried', 'Mizaniya')."
+    },
+    {
+      "rule": "DES-08",
+      "status": "pass",
+      "checkedBy": "tool",
+      "evidence": "jsx-a11y and REACT-05 are enforced and green, and landing-page.test.tsx asserts a non-empty accessible name on every button and link the page renders."
+    },
+    {
+      "rule": "DES-09",
+      "status": "not-applicable",
+      "reason": "No form field on this page."
+    },
+    {
+      "rule": "DES-10",
+      "status": "fail",
+      "finding": "F2"
+    },
+    {
+      "rule": "DES-11",
+      "status": "pass",
+      "evidence": "index.css:19 gives every focusable element a 2px emerald ring at a 2px offset, in both themes; the new StackCard inherits it, and tokens.css:368 gives it the same lift on focus-visible as on hover."
+    },
+    {
+      "rule": "DES-12",
+      "status": "not-applicable",
+      "reason": "Nothing in the change requires dragging: the rails scroll and also have arrow buttons."
+    },
+    {
+      "rule": "DES-13",
+      "status": "pass",
+      "evidence": "Every pair on the page is a published token pair already used across the app, except the five new paper values, which were computed: #555 on #FFF is 7.46:1 and #111 on #FFF is 19:1, both past AA for text. The #CFCBC0 border on white is 1.6:1 and is decoration inside a picture of a document, not a control."
+    },
+    {
+      "rule": "DES-14",
+      "status": "pass",
+      "evidence": "Every size is in px through the token scale, as the rest of the app is, and no px value is set on the root font size by this change; the page reflows at 390 without a horizontal scroll."
+    },
+    {
+      "rule": "DES-15",
+      "status": "pass",
+      "evidence": "LandingButton is 52px tall and 46px in the header (ui/landing-button.tsx:43); the footer links and 'Read the source' carry min-h-target on a phone (landing-footer.tsx:66, landing-close.tsx:42); the rail's arrows are IconButton; and each StackCard is a whole card."
+    },
+    {
+      "rule": "DES-16",
+      "status": "pass",
+      "evidence": "Nothing moves under prefers-reduced-motion: useCascade never starts (landing-deck.tsx:88), useCarousel never starts (use-carousel.ts:41), the comparison reveal is gated on prefers-reduced-motion: no-preference (tokens.css:357), and the cascade and panel lifts drop their transform and keep their shadow (tokens.css:380, :395)."
+    },
+    {
+      "rule": "REACT-03",
+      "status": "fail",
+      "finding": "F5"
+    },
+    {
+      "rule": "REACT-10",
+      "status": "pass",
+      "evidence": "Each of the four effects in the change returns its cleanup: use-carousel.ts:70, :75, :89 and landing-deck.tsx:101."
+    },
+    {
+      "rule": "TS-08",
+      "status": "pass",
+      "evidence": "The longest file in the change is landing-page.test.tsx at 293 lines, well inside TS-08's 400."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "rule": "DES-06",
+      "severity": "medium",
+      "status": "open",
+      "title": "The danger colour is used on a page whose spec says it appears nowhere on it",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 140,
+        "endLine": 194
+      },
+      "evidence": "rose is used three times: the 'The app you tried' label (landing-comparisons.tsx:140), the N75,000.00 figure in that card (:194), and the dot marking a debt you owe (landing-three-things.tsx:77). The addendum reserves rose for money going wrong, and docs/06-page-specs.md:492 states 'The danger colour appears nowhere on this page.' The 1440 and 390 boards draw all three in red, so the design and the written rule disagree and the build followed the design without the disagreement being recorded.",
+      "fix": "Name the conflict in docs/open-items.md for the designer and the spec owner: either the boards' red becomes a non-danger tone, or the addendum's reservation gains an exception for a marketing surface where no figure is anyone's money and the spec sentence goes. Do not change the colour until one of them is decided."
+    },
+    {
+      "id": "F2",
+      "rule": "DES-10",
+      "severity": "high",
+      "status": "open",
+      "title": "At 1440 the Mizaniya side of each comparison can only be revealed with a pointer",
+      "location": {
+        "file": "apps/web/src/design/tokens.css",
+        "line": 364,
+        "endLine": 370
+      },
+      "evidence": "The reveal is '.reveal-host:hover .reveal-over, .reveal-host:focus-within .reveal-over'. Nothing inside a comparison column is focusable - the claim is an h3 and both cards are plain divs - so :focus-within can never match, and a sighted keyboard-only reader at 1440 never sees half of each comparison. The content is in the DOM and is read by a screen reader, so this is a sighted-keyboard gap rather than a screen-reader one.",
+      "fix": "Give each column one focus stop that reveals (a focusable summary, or the column itself with an accessible name), or drop the hover gate at 1440 as the phone does and show both."
+    },
+    {
+      "id": "F3",
+      "rule": "MONEY-04",
+      "severity": "medium",
+      "status": "open",
+      "title": "Money is formatted by hand in seven places on one page",
+      "location": {
+        "file": "apps/web/src/features/landing/safe-to-spend-card.tsx",
+        "line": 17,
+        "endLine": 20
+      },
+      "evidence": "The kobo treatment - a figure followed by a smaller, lighter span holding '.00' - is written out separately in safe-to-spend-card.tsx:17, landing-deck.tsx:54, landing-comparisons.tsx:194, landing-three-things.tsx:87 and :106, and rest-cards.tsx:41, :124 and :138, each with its own size and opacity. ui/ngn.tsx and ui/money-text.tsx already own this treatment elsewhere in the app, and the landing page uses neither. A change to how kobo is set has eight places to find.",
+      "fix": "Extend Ngn, or add one landing money component beside it, that takes the naira part and the kobo and owns the size, weight and opacity; use it everywhere on the page."
+    },
+    {
+      "id": "F4",
+      "rule": "MONEY-02",
+      "severity": "low",
+      "status": "open",
+      "title": "Two progress bars restate a seed amount as a hand-written decimal",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 200
+      },
+      "evidence": "Rail value={0.53} stands for 475,000 of 900,000, which is 0.5278, and rest-cards.tsx:48 Rail value={0.25} stands for 30,000 repaid of 120,000. Neither decimal names the amounts it comes from, and the first is rounded, so the bar and the figure beside it can drift apart without anything failing.",
+      "fix": "Name the two fractions in landing-copy.ts beside the figures they come from, with the division written in the comment, so the bar and the figure move together."
+    },
+    {
+      "id": "F5",
+      "rule": "REACT-03",
+      "severity": "low",
+      "status": "open",
+      "title": "Three landing component files are over the 150-line limit",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 1,
+        "endLine": 233
+      },
+      "evidence": "landing-comparisons.tsx is 233 lines, rest-cards.tsx 153 and landing-three-things.tsx 151, against REACT-03's 150. The rule is deferred on this project (standards_for_file: enforced false, 'REACT-03 is deferred, so it only reports for now'), with ITEM-2 attached to clear the backlog of them.",
+      "fix": "Split along the design's own structure rather than at a line count, as ITEM-2 records: the three comparison columns are three different bodies, and rest-cards.tsx holds four independent replicas."
+    },
+    {
+      "id": "F6",
+      "rule": "CODE-13",
+      "severity": "low",
+      "status": "open",
+      "title": "The carousel collapses two independent pauses into one flag",
+      "location": {
+        "file": "apps/web/src/features/landing/use-carousel.ts",
+        "line": 38,
+        "endLine": 90
+      },
+      "evidence": "resting is set true by a hidden tab (use-carousel.ts:72) and by a pointer or focus entering the rail (:82-85), and set false by either leaving. Returning to a tab while the pointer is still over the rail sets resting false and the rail advances under the pointer, which is the state the pointer pause exists to prevent.",
+      "fix": "Keep the two reasons apart - two booleans, or a set of reasons to pause - and rest while either holds."
+    },
+    {
+      "id": "F7",
+      "rule": "CODE-06",
+      "severity": "low",
+      "status": "open",
+      "title": "The rail's step assumes a gap that is written in another file",
+      "location": {
+        "file": "apps/web/src/features/landing/use-carousel.ts",
+        "line": 56
+      },
+      "evidence": "The step is the card's measured width plus a literal 16 for the gap, and the comment above it says the width is measured 'so a change to the card width in the design cannot silently desynchronise the step' - which is true of the width and not of the gap. The gap is gap-16 in how-it-works-rail.tsx:86 and :88. A design change to the gap desynchronises the rail silently, which is exactly what the comment claims is prevented.",
+      "fix": "Read the gap from the scroller's computed style, or pass it in from the component that sets the class, and correct the comment."
+    },
+    {
+      "id": "F8",
+      "rule": "DES-01",
+      "severity": "low",
+      "status": "open",
+      "title": "The hero screenshot chooses its theme from the system, not from the app's own theme",
+      "location": {
+        "file": "apps/web/src/features/landing/home-shot.tsx",
+        "line": 35
+      },
+      "evidence": "The picture element switches on media='(prefers-color-scheme: dark)', while every other value on the page follows the app's theme, which is data-theme on the root (app/use-theme.ts, applied over tokens.css:95 and :124). Somebody who chose light on a device whose system is dark gets a light page carrying the dark screenshot, and the reverse.",
+      "fix": "Render one img and swap its source with a CSS rule keyed to the same two selectors the tokens use, or render both and hide one by those selectors, so the screenshot follows the page."
+    },
+    {
+      "id": "F9",
+      "rule": "TEST-01",
+      "severity": "low",
+      "status": "open",
+      "title": "The six faults the browser comparison found ship without a check",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-page.test.tsx",
+        "line": 1
+      },
+      "evidence": "This branch fixed a money face set in JetBrains Mono, a board label printed inside the hero image, a caption drawn across the pile, a clipped replica and a missing word of board copy. None of them has a test, and the comparison that found them was run by hand from a scratch script, so the same class of fault returns silently.",
+      "fix": "The acceptance journey the addendum plans in Playwright (K1) is where a rendered check belongs. Two are assertable now without it: the face on the figure, and the words of the board's copy."
+    },
+    {
+      "id": "F10",
+      "rule": "CODE-10",
+      "severity": "low",
+      "status": "open",
+      "title": "Three functions in the change are past the length that should prompt a question",
+      "location": {
+        "file": "apps/web/src/features/landing/landing-comparisons.tsx",
+        "line": 21,
+        "endLine": 110
+      },
+      "evidence": "LandingComparisons is 90 lines, HowItWorksRail 83 and useCarousel 66, against the project's TS-07 threshold of 60. TS-07 is deferred here (standards_for_file: enforced false, 'TS-07 is deferred, so it only reports for now'), so nothing fails the build. Two of the three are long for the same reason as F5: three comparison columns with three different bodies in one function.",
+      "fix": "Take the three columns out of LandingComparisons as named components, as ITEM-2 plans for the screens; useCarousel is four small effects and reads as its length rather than hiding anything."
+    }
+  ],
+  "result": "pass",
+  "summary": "Pass, with 1 high, 2 medium and 7 low findings open. The high: at 1440 the Mizaniya side of each comparison is revealed only by a pointer, so a sighted keyboard reader never sees half of it (DES-10). The mediums: the danger colour is used where the spec says it is nowhere, the boards having drawn it; and money is formatted by hand in seven places while ui/ngn.tsx owns that treatment. Nothing was left unchecked."
+}

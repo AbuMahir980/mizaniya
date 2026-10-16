@@ -37,6 +37,12 @@ export default {
       sl2: token('sl2'),
       ro2: token('ro2'),
       track: token('track'),
+      /* The printed record, which keeps its colours in either theme. */
+      paper: token('paper'),
+      paperInk: token('paper-ink'),
+      paperSoft: token('paper-soft'),
+      paperLine: token('paper-line'),
+      paperHair: token('paper-hair'),
       onEmerald: token('onEmerald'),
       scrim: token('scrim'),
     },
@@ -62,6 +68,10 @@ export default {
         Array.from({ length: 49 }, (_, i) => i * 2).map((px) => [px, `${px}px`]),
       ),
       target: 'var(--target-min)',
+      /* The landing bands, from the 1440 board: 96px down, 150px in. Not app
+         spacing — see tokens.css and open-items §U. */
+      96: '96px',
+      150: '150px',
     },
     borderRadius: {
       none: '0px',
@@ -70,6 +80,10 @@ export default {
       lg: 'var(--radius-lg)',
       xl: 'var(--radius-xl)',
       full: 'var(--radius-full)',
+      /* Landing only — see tokens.css and §T·4. */
+      land: 'var(--land-button-radius)',
+      shot: 'var(--land-shot-radius)',
+      deck: 'var(--land-deck-radius)',
     },
     boxShadow: {
       none: 'none',
@@ -93,7 +107,10 @@ export default {
         token('size-lockup'),
         { lineHeight: token('leading-lockup'), letterSpacing: '-0.015em', fontWeight: '600' },
       ],
-      title: [token('size-title'), { lineHeight: token('leading-title'), fontWeight: token('weight-voice') }],
+      title: [
+        token('size-title'),
+        { lineHeight: token('leading-title'), fontWeight: token('weight-voice') },
+      ],
       /**
        * `-wide` is for a surface that **fills the desktop frame** — §3's rule.
        * Almost nothing does: a card, a column or a dialog takes the plain step
@@ -116,6 +133,67 @@ export default {
       body: ['15px', { lineHeight: '22px' }],
       small: ['13px', { lineHeight: '19px' }],
       lab: ['10.5px', { lineHeight: '16px', letterSpacing: '0.115em', fontWeight: '600' }],
+      /**
+       * The landing page's steps, read from its boards — `tokens.css` says why,
+       * and `docs/open-items.md` §T·4 asks the designer whether they should be
+       * published as tokens. Named `land-` so nothing reaches for them by
+       * accident: an app screen using `text-land-lead` is a mistake a reviewer
+       * can see.
+       */
+      'land-close-phone': [
+        token('size-land-close-phone'),
+        { lineHeight: token('leading-land-close-phone'), letterSpacing: '-0.008em' },
+      ],
+      'land-lead-phone': [
+        token('size-land-lead-phone'),
+        { lineHeight: token('leading-land-lead-phone') },
+      ],
+      'land-note': [token('size-land-note'), { lineHeight: token('leading-land-note') }],
+      'land-close': [
+        token('size-land-close'),
+        { lineHeight: token('leading-land-close'), letterSpacing: '-0.008em' },
+      ],
+      'land-section': [
+        token('size-land-section'),
+        { lineHeight: token('leading-land-section'), letterSpacing: '-0.008em' },
+      ],
+      'land-quote': [
+        token('size-land-quote'),
+        { lineHeight: token('leading-land-quote'), letterSpacing: '-0.004em' },
+      ],
+      'land-display': [
+        token('size-land-display'),
+        { lineHeight: token('leading-land-display'), letterSpacing: '-0.035em', fontWeight: '600' },
+      ],
+      'land-h2': [
+        token('size-land-h2'),
+        { lineHeight: token('leading-land-h2'), letterSpacing: '-0.008em' },
+      ],
+      'land-h2-phone': [
+        token('size-land-h2-phone'),
+        { lineHeight: token('leading-land-h2-phone'), letterSpacing: '-0.008em' },
+      ],
+      'land-h3': [
+        token('size-land-h3'),
+        { lineHeight: token('leading-land-h3'), letterSpacing: '-0.012em', fontWeight: '600' },
+      ],
+      'land-lead': [token('size-land-lead'), { lineHeight: token('leading-land-lead') }],
+      'land-body': [token('size-land-body'), { lineHeight: token('leading-land-body') }],
+      'land-kicker': [
+        token('size-land-kicker'),
+        { lineHeight: '16px', letterSpacing: '0.15em', fontWeight: '600' },
+      ],
+      'land-button': [token('size-land-button'), { lineHeight: '20px', fontWeight: '600' }],
+      'land-hero': [
+        token('size-land-hero'),
+        { lineHeight: token('leading-land-hero'), letterSpacing: '-0.008em' },
+      ],
+      'splash-lockup': [token('size-splash-lockup'), { lineHeight: '36px', fontWeight: '600' }],
+      'land-micro': [token('size-land-micro'), { lineHeight: '14px' }],
+      'land-fine': [token('size-land-fine'), { lineHeight: '18px' }],
+      'land-detail': [token('size-land-detail'), { lineHeight: '20px' }],
+      'land-label': [token('size-land-label'), { lineHeight: '21px' }],
+      'land-answer': [token('size-land-answer'), { lineHeight: '27px' }],
       mlab: ['10px', { lineHeight: '15px', letterSpacing: '0.12em' }],
     },
     transitionDuration: {

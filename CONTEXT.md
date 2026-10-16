@@ -464,9 +464,11 @@ deferrals carrying the owner's name and ITEM-2 attached (TS-07, REACT-03).
 `npm run ci:watch` reports every open pull request and `npm run ci:premerge <pr>` refuses
 a merge on anything that is not a pass, whatever the base branch.
 
-**The next thing the owner has asked to be built is the landing page**, deployed to
-Vercel, carrying ADR-013's eight how-it-works lines — because something live is worth
-more to a job application than more documents.
+**The landing page is built, and built from the boards** — every band, at 390 and 1440, in
+both themes, compared against the drawings through a headless browser rather than declared
+done. It carries ADR-013's eight how-it-works lines in their rail. What is left on it is
+the owner's own look, the designer's answers to `docs/open-items.md` §V, and the pull
+request. *(16 October. The line this replaced said it was the next thing to be built.)*
 
 **On Peer AI 1.0 since 6 October.** The pause of 28 September held until the new Peer AI
 existed; the migration replaced the vendored `peer-ai/` playbook and
@@ -703,6 +705,66 @@ questions on purpose. Do not invent answers to them.**
 ## What Was Done — By Day
 
 Newest first.
+
+### 2026-10-16 (Thursday) — the landing page rebuilt from the boards, and what reading them properly found
+
+**Every band of the landing page is now built from `docs/design/11-landing-*` and from
+`canvas/LandLight.dc.html` read as a tree.** That is CLAUDE.md §7, and the four things it
+found were all the same mistake twice over: the first build read fragments, and the
+rebuild's own first cut read only the PNG.
+
+- **The cascade was in the hero.** The hero's right-hand half is the Home board itself
+  with four blank card edges above it. The cascade of cards belongs to *Safe to spend,
+  today*, where the board captions it *"What is safe today · 3 more underneath"* and the
+  list beside it names all three — which is how *"hover reveals nothing"* is kept on a
+  page where the cards underneath are drawn as bare edges.
+- **There are three cards underneath, not four.** The list has three items; they are the
+  three cards.
+- **The comparison band reveals at 1440.** The board says so in its own words — *"Hover
+  any one: what Mizaniya does slides over it"* — so the rest state is the red card alone,
+  Mizaniya's arrives over it from the left with the study's left-edge shadow, and a phone
+  gets both cards and its own line.
+- **The verse shares a band with the five *what is free* lines.** It had a band to itself.
+
+**The last five bands are new:** what is free, the rest of it with four drawn replicas and
+the image slot, how to use it, the closing and the footer. The replicas are drawn rather
+than screenshotted because that is how the canvas draws them — §7·4's line is that a whole
+*screen* inside a screen is the board's PNG, while a single card is markup.
+
+**The page was then compared with the boards rather than declared done.** No browser was
+available to the session, so one was made: headless Chrome over the DevTools protocol,
+with `Emulation.setEmulatedMedia` for the colour scheme and `captureBeyondViewport` for
+the full page, which needs no dependency — Node 24 has `WebSocket`. Four shots, 1440 and
+390 in both themes, read against the boards. It found six faults no test would have:
+
+1. **The hero shot carried the board's own label and paper margin** — *07 · HOME · 1440 ·
+   LIGHT* printed inside the landing page's hero. `scripts/build-shots.mjs` now cuts the
+   screen out of the board (75 in, 135 down) and windows it to the 1440 × 900 the landing
+   board draws, rather than scaling the whole 1987px page.
+2. **Money was set in JetBrains Mono.** `tokens.md` §3 puts the money hero in Inter and
+   reserves the data face for the breakdown, table headers and data labels; the canvas
+   agrees. Seven places.
+3. **The `kicker` step was standing in for plain text** — it carries 0.15em of tracking and
+   weight 600, so an 11px note read as a label.
+4. The cascade's caption ran across the pile rather than under it.
+5. The four panels clipped their replicas at the canvas's 0.68.
+6. The timeline had lost a word of the board's copy: *"Scroll."*
+
+**A service worker nearly cost an hour.** Two shots in a row showed no change, because the
+profile persisted and its precached bundle was the previous build's. Every shot now starts
+from a clean profile. Worth remembering for any future browser work here: a PWA caches
+itself, so "my change did nothing" is first a cache question.
+
+**Recorded, not fixed:** `docs/open-items.md` §V — four errors, three declared
+simplifications (a 1px phone heading, two line sizes), and two questions: the footer's
+*Security and privacy* has no page behind it, and the printed record stays white in both
+themes, which the build has taken as a rule and wants confirmed. `docs/06-page-specs.md`
+§7.0 is corrected where it misread the boards.
+
+**508 tests, green.** Four of them are new and are the accessibility and figure proofs
+ITEM-15's acceptance asks for: a name on every control and link, one `h1` with no level
+skipped, a labelled region per band, and every naira figure on the page checked against
+`docs/seed-data.md` rather than asserted to come from it.
 
 ### 2026-10-13 (Monday) — the records catch up with the work, and Peer AI moves to next.16
 

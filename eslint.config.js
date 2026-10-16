@@ -273,6 +273,30 @@ export default tseslint.config(
           selector: 'Literal[value=/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/]',
           message: 'No hard-coded colours outside src/design/ (F2, F3). Use a token.',
         },
+        /**
+         * F3's hole, found 16 October: the theme is **replaced**, so `p-7` and
+         * `text-xl` do not exist — but Tailwind's arbitrary syntax reopens it,
+         * and `text-[17.5px]` is a type step written by hand.
+         *
+         * It was not theoretical. The landing page had **29** of them against
+         * **2** in the whole of the rest of the app, and the result was a page
+         * that invented a size per section. The owner saw it before any check
+         * did, which is the definition of a rule that was missing.
+         *
+         * Only type sizes. A one-off `w-[326px]` is the geometry of a drawing,
+         * not a step somebody else will reuse, and banning those would make the
+         * rule one people turn off.
+         */
+        {
+          selector: "Literal[value=/text-\\[[0-9.]+px\\]/]",
+          message:
+            'A type size written by hand (F3, F4). Add the step to tokens.css and tailwind.config.ts, then use its name.',
+        },
+        {
+          selector: "TemplateElement[value.raw=/text-\\[[0-9.]+px\\]/]",
+          message:
+            'A type size written by hand (F3, F4). Add the step to tokens.css and tailwind.config.ts, then use its name.',
+        },
         {
           selector: "ImportSpecifier[imported.name='formatMoney']",
           message: 'Money is formatted in exactly one place (H2). Render <MoneyText />.',

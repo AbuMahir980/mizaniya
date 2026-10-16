@@ -90,21 +90,37 @@ function renderApp(repository: Repository, path = '/') {
   )
 }
 
-describe('a new owner is sent to onboarding', () => {
-  it('redirects to /welcome when there are no settings yet', async () => {
+describe('a new owner gets the landing page', () => {
+  /**
+   * Changed 15 October with §7.0. It used to redirect to `/welcome`, so the
+   * first thing a stranger saw was the start of onboarding. `/` now serves the
+   * page that was drawn for them, and onboarding is where its primary button
+   * goes. T7's `undefined` load is still the state the shell has to handle.
+   */
+  it('serves the landing page when there are no settings yet', async () => {
     renderApp(repo)
 
-    // T7's `undefined` load is a state the shell has to handle, and this is it.
-    // The welcome screen's own heading is the app's name (T12).
-    expect(await screen.findByRole('button', { name: 'Get started' })).toBeDefined()
+    expect(
+      await screen.findByRole('heading', { name: /Your salary lands on the 25th/ }),
+    ).toBeDefined()
+    expect(screen.getAllByRole('button', { name: 'Start with my own figures' })[0]).toBeDefined()
   })
 
-  it('does not redirect once settings exist', async () => {
+  it('offers the way back for someone arriving on a new device', async () => {
+    renderApp(repo)
+
+    // Two of them, hero and closing: the page asks at both ends by design.
+    expect(
+      (await screen.findAllByRole('button', { name: 'I already have a budget' })).length,
+    ).toBeGreaterThan(0)
+  })
+
+  it('shows Home instead, once settings exist', async () => {
     await repo.import(seeded)
     renderApp(repo)
 
     expect(await screen.findByRole('heading', { name: 'Safe to spend today' })).toBeDefined()
-    expect(screen.queryByRole('button', { name: 'Get started' })).toBeNull()
+    expect(screen.queryByRole('button', { name: 'Start with my own figures' })).toBeNull()
   })
 })
 

@@ -44,17 +44,37 @@ const POINTS: {
   {
     icon: 'shield-check',
     tone: 'warning',
-    title: 'Nothing leaves this device',
-    body: 'No account, no server, no sync.',
-    wide: 'No account, no server, no sync. Export a copy whenever you want one.',
+    title: 'Works with no signal',
+    body: 'Nothing here needs the connection.',
+    wide: 'Nothing here needs the connection. Record as usual; a bad line never costs you a movement.',
   },
 ]
 
-const PROMISE = 'Know what you can spend today.'
+/**
+ * Brought back to board `01` on 15 October, three weeks late.
+ *
+ * The third promise read *"Nothing leaves this device — no account, no server,
+ * no sync."* It came off the board on 24 September, when ADR-009 made every
+ * clause of it false, and the board's note has said so ever since. **No account**
+ * is truer than ever after ADR-013; **no sync** is true only until sync ships,
+ * and ADR-013 is the plan to ship it. The code was behind the board, which the
+ * designer logged as the third instance of that shape — see `tokens.md` §10.1,
+ * which exists to stop exactly this.
+ *
+ * The replacement is the board's own, not a rewrite of the old one.
+ */
+const PROMISE = 'Every naira has a job, and the month ends where you meant it to.'
 const BLURB =
   'Budgeting by salary day, not by calendar month. Debts both ways, savings goals, and a zakat estimate when you want one.'
 const FOOTNOTE = 'Takes about two minutes. Every step after the first is optional.'
-const RESTORE = 'I have an export to restore'
+/**
+ * `I already have a budget` on board `01` since the §T drop. It was *"I already
+ * have an account"* for three weeks after ADR-013 removed accounts, on a board
+ * nobody had listed as affected — **because that button is the fork**, and the
+ * fork is what matters most to whoever lost a phone and has a budget somewhere.
+ * It is the landing page's own words for the same choice.
+ */
+const RESTORE = 'I already have a budget'
 
 export interface WelcomeScreenProps {
   onGetStarted: () => void
@@ -125,7 +145,7 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
 
             <div className="mt-[32px] flex flex-wrap gap-12">
               <Button onClick={onGetStarted} className="min-w-[180px]">
-                Get started
+                Start with my own figures
               </Button>
               {picker}
             </div>
@@ -173,7 +193,7 @@ export function WelcomeScreen({ onGetStarted, onRestore }: WelcomeScreenProps) {
       <div className="flex flex-col gap-12 px-26 pb-36 pt-[34px]">
         {refusal}
         <Button onClick={onGetStarted} fullWidth>
-          Get started
+          Start with my own figures
         </Button>
         {picker}
         <p className="mt-4 text-center font-structural text-small text-faint">{FOOTNOTE}</p>
