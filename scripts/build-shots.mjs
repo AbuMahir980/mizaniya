@@ -22,11 +22,27 @@
  */
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, statSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 const OUT = 'apps/web/src/assets/shots'
 const WIDTH = 652
 const QUALITY = 60
+/**
+ * The app screen inside the board, and the window of it the hero shows.
+ *
+ * A board is not a screenshot: it is the screen laid on paper, with the
+ * generator's margin around it and its name printed above it — *07 · HOME ·
+ * 1440 · LIGHT*. Shipping that puts a label and a paper border inside the
+ * landing page's hero, which is what the first cut did. So the frame is cut out
+ * first: 75px of margin on each side, 135px down to the screen's own top edge,
+ * at the board's 2× scale.
+ *
+ * Then the window: the hero draws 1440 × 900 of the screen, which is what an
+ * app screen looks like when it is open, rather than the whole 1987px page.
+ */
+const FRAME = { left: 75, top: 135, width: 2874 }
+const WINDOW_HEIGHT = 1800
 
 /** Each shot the landing page shows, and the board it comes from. */
 const SHOTS = [
@@ -38,12 +54,32 @@ mkdirSync(OUT, { recursive: true })
 
 for (const shot of SHOTS) {
   const out = join(OUT, shot.name)
+  const cropped = join(tmpdir(), shot.name.replace('.jpg', '-window.png'))
+  // Two passes, because sips crops from the centre unless an offset is given,
+  // and the offset it accepts is 1-based.
   execFileSync('sips', [
-    '-s', 'format', 'jpeg',
-    '-s', 'formatOptions', String(QUALITY),
-    '--resampleWidth', String(WIDTH),
+    '-c',
+    String(WINDOW_HEIGHT),
+    String(FRAME.width),
+    '--cropOffset',
+    String(FRAME.top),
+    String(FRAME.left),
     shot.board,
-    '--out', out,
+    '--out',
+    cropped,
+  ])
+  execFileSync('sips', [
+    '-s',
+    'format',
+    'jpeg',
+    '-s',
+    'formatOptions',
+    String(QUALITY),
+    '--resampleWidth',
+    String(WIDTH),
+    cropped,
+    '--out',
+    out,
   ])
   const { size } = statSync(out)
   const kb = Math.round(size / 1024)

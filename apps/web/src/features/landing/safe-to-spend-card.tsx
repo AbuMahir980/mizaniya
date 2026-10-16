@@ -14,7 +14,7 @@ export function SafeToSpendCard() {
     <div className="rounded-deck border border-line bg-card px-20 py-20 shadow-card desktop:px-24 desktop:py-24">
       <p className="font-structural text-lab uppercase text-soft">Safe to spend today</p>
 
-      <p className="mt-6 font-data text-land-display text-ink">
+      <p className="mt-6 font-structural tabular-nums text-land-display text-ink">
         {figures.safeToSpend}
         <span className="text-[0.47em] font-medium opacity-60">{figures.safeToSpendKobo}</span>
       </p>
@@ -25,7 +25,7 @@ export function SafeToSpendCard() {
 
       <p className="mt-16 flex flex-wrap items-baseline gap-x-10 gap-y-4 border-t border-hair pt-14">
         <span className="flex-1 font-structural text-land-detail text-soft">Against your plan</span>
-        <span className="font-data text-land-label font-semibold text-ochre">
+        <span className="font-structural tabular-nums text-land-label font-semibold text-ochre">
           {figures.aheadOfPlan}
           <span className="text-land-micro font-medium opacity-60">{figures.aheadOfPlanKobo}</span>
         </span>

@@ -191,10 +191,10 @@ function Figure({ amount, beside, ours }: { amount: string; beside: string; ours
   return (
     <p className="flex items-baseline gap-8">
       <span
-        className={`font-data text-land-lead font-semibold ${ours === true ? 'text-emerald' : 'text-rose'}`}
+        className={`font-structural tabular-nums text-land-lead font-semibold ${ours === true ? 'text-emerald' : 'text-rose'}`}
       >
         {amount}
-        <span className="text-land-kicker font-medium opacity-60">.00</span>
+        <span className="text-[0.58em] font-medium opacity-60">.00</span>
       </span>
       <span className="font-structural text-land-fine text-soft">{beside}</span>
     </p>
@@ -220,11 +220,11 @@ function Entry({
       <span className="flex flex-col">
         <span className="font-structural text-land-fine text-ink">{who}</span>
         {under === undefined ? null : (
-          <span className="font-structural text-land-kicker text-soft">{under}</span>
+          <span className="font-structural text-land-micro text-soft">{under}</span>
         )}
       </span>
       <span
-        className={`font-data text-land-fine ${muted === true ? 'text-faint' : ours === true ? 'text-emerald' : 'text-ink'}`}
+        className={`font-structural tabular-nums text-land-fine ${muted === true ? 'text-faint' : ours === true ? 'text-emerald' : 'text-ink'}`}
       >
         {amount}
       </span>

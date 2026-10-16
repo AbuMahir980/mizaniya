@@ -84,7 +84,7 @@ function BothDirections() {
                 {debt.under}
               </span>
             </span>
-            <span className="font-data text-land-label font-semibold tracking-[-0.012em] text-ink">
+            <span className="font-structural tabular-nums text-land-label font-semibold tracking-[-0.012em] text-ink">
               {debt.amount}
               <span className="text-land-micro font-medium opacity-60">.00</span>
             </span>
@@ -103,9 +103,9 @@ function RentFund() {
         <span className="text-ochre">Short</span>
       </p>
       <p className="mt-12 flex items-baseline gap-8">
-        <span className="font-data text-land-lead font-semibold text-ink">
+        <span className="font-structural tabular-nums text-land-lead font-semibold text-ink">
           {figures.rentSaved}
-          <span className="text-land-kicker font-medium opacity-60">.00</span>
+          <span className="text-[0.58em] font-medium opacity-60">.00</span>
         </span>
         <span className="font-structural text-land-fine text-soft">of {figures.rentTarget}</span>
       </p>

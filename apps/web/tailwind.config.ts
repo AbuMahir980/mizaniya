@@ -163,7 +163,7 @@ export default {
       ],
       'land-display': [
         token('size-land-display'),
-        { lineHeight: token('leading-land-display'), letterSpacing: '-0.02em', fontWeight: '600' },
+        { lineHeight: token('leading-land-display'), letterSpacing: '-0.035em', fontWeight: '600' },
       ],
       'land-h2': [
         token('size-land-h2'),

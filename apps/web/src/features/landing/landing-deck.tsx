@@ -51,7 +51,7 @@ export function LandingDeck() {
             className={`absolute h-full rounded-deck border border-line bg-card px-20 py-20 shadow-card ${INSET[index]}`}
           >
             <span className="block font-structural text-lab uppercase text-soft">{card.label}</span>
-            <span className="mt-8 block font-data text-land-h3 font-semibold text-ink">
+            <span className="mt-8 block font-structural tabular-nums text-land-h3 font-semibold text-ink">
               {card.figure}
             </span>
             <span className="mt-2 block font-structural text-land-fine text-soft">{card.note}</span>
@@ -68,7 +68,9 @@ export function LandingDeck() {
         </StackCard>
       </div>
 
-      <p className="mt-12 font-structural text-land-detail font-semibold text-ink">
+      {/* 42, not 12: the card furthest back hangs 30px below the one in front,
+          and the caption goes under the pile rather than across it. */}
+      <p className="mt-42 font-structural text-land-detail font-semibold text-ink">
         What is safe today · {BEHIND.length} more underneath
       </p>
     </div>

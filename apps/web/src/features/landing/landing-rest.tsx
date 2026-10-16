@@ -83,7 +83,10 @@ export function LandingRest() {
 function Panel({ title, body, children }: { title: string; body: string; children: ReactNode }) {
   return (
     <article className="lift-panel w-[268px] shrink-0 rounded-xl border border-line bg-card2 px-22 pb-24 pt-22 desktop:w-auto desktop:flex-1">
-      <div className="overflow-hidden" style={{ zoom: 0.68 }}>
+      {/* 0.64, where the canvas says 0.68: at 0.68 a 340px card is 231px inside
+          a panel with 224px between its paddings, so the board's own margin on
+          either side of the card disappears. `docs/open-items.md` §V. */}
+      <div className="overflow-hidden" style={{ zoom: 0.64 }}>
         {children}
       </div>
       <h3 className="mt-20 font-structural text-land-body font-semibold leading-[24px] text-ink">

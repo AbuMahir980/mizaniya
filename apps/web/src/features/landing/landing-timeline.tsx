@@ -6,7 +6,10 @@ import { debtTimeline, figures } from './landing-copy'
 /**
  * *You owe A. Friend ₦90,000.00. Three paydays from now you do not.*
  *
- * The board's claim under it is **"No other app can draw this"**, and it is the
+ * The board's claim under it is **"No other app can draw this. Scroll."** — the
+ * second word is the board's too, and it points down the page rather than
+ * across this card, which is drawn as a list on a phone and a row at 1440. It
+ * is the
  * section that earns the page: a debt with a date on it, counted down payday by
  * payday from the seed's own figures.
  *
@@ -24,7 +27,7 @@ export function LandingTimeline() {
         You owe A. Friend <Ngn amount={figures.friendBalance} />. Three paydays from now you do not.
       </h2>
       <p className="mt-10 font-structural text-land-detail text-soft">
-        No other app can draw this.
+        No other app can draw this. Scroll.
       </p>
 
       <Card className="mt-22 px-18 py-20">
@@ -78,7 +81,7 @@ function Step({
         </span>
         <span className="flex-1 font-structural text-land-fine text-soft">{step.date}</span>
         <span
-          className={`font-data text-land-h3 font-semibold tracking-[-0.012em] ${
+          className={`font-structural tabular-nums text-land-h3 font-semibold tracking-[-0.012em] ${
             cleared ? 'text-emerald' : first ? 'text-ink' : 'text-soft'
           }`}
         >

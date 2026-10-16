@@ -38,7 +38,7 @@ export function DebtCard() {
           </p>
         </div>
         <div className="text-right">
-          <p className="font-data text-land-answer font-semibold tracking-[-0.012em] text-ink">
+          <p className="font-structural tabular-nums text-land-answer font-semibold tracking-[-0.012em] text-ink">
             ₦90,000<span className="text-land-micro font-medium opacity-60">.00</span>
           </p>
           <p className="mt-4 font-structural text-lab uppercase text-soft">you owe</p>
@@ -80,7 +80,7 @@ export function RecordCard() {
         <span className="font-data text-land-label">₦60,000.00</span>
       </p>
 
-      <p className="mt-14 font-structural text-land-kicker leading-[17px] text-paperSoft">
+      <p className="mt-14 font-structural text-land-fine leading-[17px] text-paperSoft">
         The ₦90,000.00 above was <b>stated by the owner</b>, not witnessed by Mizaniya. Everything
         else was recorded on the date shown.
       </p>
@@ -121,7 +121,7 @@ function Movement({ name, what, amount }: { name: string; what: string; amount: 
         <p className="font-structural text-land-label font-semibold text-ink">{name}</p>
         <p className="mt-2 font-structural text-land-fine text-soft">{what}</p>
       </div>
-      <p className="font-data text-land-label font-semibold tracking-[-0.012em] text-ink">
+      <p className="font-structural tabular-nums text-land-label font-semibold tracking-[-0.012em] text-ink">
         {amount}
         <span className="text-land-micro font-medium opacity-60">.00</span>
       </p>
@@ -135,7 +135,7 @@ function ZakatRow({ label, amount, ruled }: { label: string; amount: string; rul
       className={`flex items-baseline gap-10 ${ruled === true ? 'mt-14 border-t border-hair pt-12' : 'mt-8'}`}
     >
       <span className="flex-1 font-data text-mlab uppercase text-soft">{label}</span>
-      <span className="font-data text-land-answer font-semibold tracking-[-0.012em] text-ink">
+      <span className="font-structural tabular-nums text-land-answer font-semibold tracking-[-0.012em] text-ink">
         {amount}
         <span className="text-land-fine font-medium opacity-60">.00</span>
       </span>
